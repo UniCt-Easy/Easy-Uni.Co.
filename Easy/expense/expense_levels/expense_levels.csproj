@@ -89,9 +89,15 @@
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="meta_expenselast">
+      <HintPath>..\..\expenselast\meta_expenselast\bin\Debug\meta_expenselast.dll</HintPath>
+    </Reference>
     <Reference Include="meta_registry">
       <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_registrypaymethod">
+      <HintPath>..\..\registrypaymethod\meta_registrypaymethod\bin\Debug\meta_registrypaymethod.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -216,12 +222,6 @@
       <HintPath>..\..\mandatekind\meta_mandatekind\bin\Debug\meta_mandatekind.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="meta_expenselast">
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_expenselast</Name>
-      <HintPath>..\..\expenselast\meta_expenselast\bin\Debug\meta_expenselast.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="meta_payment">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_payment</Name>
@@ -300,8 +300,17 @@
       <Name>meta_geo_city</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="meta_expenselastmandatedetail">
+      <HintPath>..\..\expenselastmandatedetail\meta_expenselastmandatedetail\bin\Debug\meta_expenselastmandatedetail.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_expenselastmandatedetail</Name>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="vistaForm.cs">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </Compile>
     <Compile Include="vistaForm.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -350,7 +359,9 @@
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

@@ -1,0 +1,40 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sessione_default_idappellokind">Tipologia di appello</label>
+					<select id="sessione_default_idappellokind" class="custom-select d-block w-100"  data-source-name="appellokinddefaultview" data-value-member="idappellokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="sessione.idappellokind?sessionedefaultview.sessione_idappellokind" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sessione_default_idsessionekind">Tipologia</label>
+					<select id="sessione_default_idsessionekind" class="custom-select d-block w-100"  data-source-name="sessionekinddefaultview" data-value-member="idsessionekind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="sessione.idsessionekind?sessionedefaultview.idsessionekind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#sessione_default_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="sessione_default_start">Data di inizio</label>
+					<input id="sessione_default_start" type="text" class="form-control" data-tag="sessione.start?sessionedefaultview.sessione_start" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#sessione_default_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="sessione_default_stop">Data di fine</label>
+					<input id="sessione_default_stop" type="text" class="form-control" data-tag="sessione.stop?sessionedefaultview.sessione_stop" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

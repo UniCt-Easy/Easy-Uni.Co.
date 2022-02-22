@@ -1,26 +1,32 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Diagnostics;
+using System.Xml.Serialization;
+using System.Collections;
+using System.Xml.Schema;
+using System.ComponentModel;
+using System.Xml;
+using funzioni_configurazione;
 
 namespace BancaSondrioFlusso {
 
@@ -41,7 +47,7 @@ namespace BancaSondrioFlusso {
             }
 
             flusso = null;
-            return "Il file selezionato non esiste o non √® accessibile.";
+            return "Il file selezionato non esiste o non Ë accessibile.";
         }
 
         private string Elabora(string filename) {
@@ -49,10 +55,10 @@ namespace BancaSondrioFlusso {
             using (var reader = File.OpenText(filename)) {
                 while (!reader.EndOfStream) {
                     nriga++;
-                    char []buffer  = new char[121];
+                    char[] buffer = new char[121];
                     reader.Read(buffer, 0, 121); //reader.ReadLine();
                     if (buffer[120] != 0x0A) return $"Lunghezza riga {nriga} non valida ";
-                    var riga = new string(buffer,0,120);
+                    var riga = new string(buffer, 0, 120);
 
                     var tipo = riga.Substring(1, 2);
 
@@ -109,94 +115,94 @@ namespace BancaSondrioFlusso {
 
                     switch (tipo) {
                         case "14":
-                            var dataQuietanza = ElaboraDataCorta(riga, 10, 6);
-                            if (!dataQuietanza.HasValue) {
-                                return "Data quietanza non valida.";
-                            }
-                            disposizione.DataQuietanza = dataQuietanza.Value;
-                            disposizione.DataValuta = ElaboraDataCorta(riga, 16, 6);
-                            var dataPagamento = ElaboraDataCorta(riga, 22, 6);
-                            if (!dataPagamento.HasValue) {
-                                return "Data pagamento non valida.";
-                            }
-                            disposizione.DataPagamento = dataPagamento.Value;
-                            disposizione.Causale = ElaboraAlfanumerico(riga, 28, 5);
-                            var importo = ElaboraValuta(riga, 33, 13);
-                            if (!importo.HasValue) {
-                                return "Importo non valido.";
-                            }
-                            disposizione.Importo = importo.Value;
-                            disposizione.Segno = ElaboraAlfanumerico(riga, 46, 1);
-                            disposizione.BancaEsattrice.CodiceABI = ElaboraAlfanumerico(riga, 47, 5);
-                            disposizione.BancaEsattrice.CodiceCAB = ElaboraAlfanumerico(riga, 52, 5);
-                            disposizione.BancaAssuntrice.CodiceABI = ElaboraAlfanumerico(riga, 69, 5);
-                            disposizione.BancaAssuntrice.CodiceCAB = ElaboraAlfanumerico(riga, 74, 5);
-                            disposizione.Conto = ElaboraAlfanumerico(riga, 79, 12);
-                            disposizione.CodiceAzienda = ElaboraAlfanumerico(riga, 91, 5);
-                            disposizione.TipoCodiceDebitore = ElaboraAlfanumerico(riga, 96, 1);
-                            disposizione.CodiceDebitore = ElaboraAlfanumerico(riga, 97, 16);
-                            var dataAccredito = ElaboraDataCorta(riga, 113, 6);
-                            if (!dataAccredito.HasValue) {
-                                return "Data accredito non valida.";
-                            }
-                            disposizione.DataAccredito = dataAccredito.Value;
-                            disposizione.CodiceDivisa = ElaboraAlfanumerico(riga, 119, 1);
+                        var dataQuietanza = ElaboraDataCorta(riga, 10, 6);
+                        if (!dataQuietanza.HasValue) {
+                            return "Data quietanza non valida.";
+                        }
+                        disposizione.DataQuietanza = dataQuietanza.Value;
+                        disposizione.DataValuta = ElaboraDataCorta(riga, 16, 6);
+                        var dataPagamento = ElaboraDataCorta(riga, 22, 6);
+                        if (!dataPagamento.HasValue) {
+                            return "Data pagamento non valida.";
+                        }
+                        disposizione.DataPagamento = dataPagamento.Value;
+                        disposizione.Causale = ElaboraAlfanumerico(riga, 28, 5);
+                        var importo = ElaboraValuta(riga, 33, 13);
+                        if (!importo.HasValue) {
+                            return "Importo non valido.";
+                        }
+                        disposizione.Importo = importo.Value;
+                        disposizione.Segno = ElaboraAlfanumerico(riga, 46, 1);
+                        disposizione.BancaEsattrice.CodiceABI = ElaboraAlfanumerico(riga, 47, 5);
+                        disposizione.BancaEsattrice.CodiceCAB = ElaboraAlfanumerico(riga, 52, 5);
+                        disposizione.BancaAssuntrice.CodiceABI = ElaboraAlfanumerico(riga, 69, 5);
+                        disposizione.BancaAssuntrice.CodiceCAB = ElaboraAlfanumerico(riga, 74, 5);
+                        disposizione.Conto = ElaboraAlfanumerico(riga, 79, 12);
+                        disposizione.CodiceAzienda = ElaboraAlfanumerico(riga, 91, 5);
+                        disposizione.TipoCodiceDebitore = ElaboraAlfanumerico(riga, 96, 1);
+                        disposizione.CodiceDebitore = ElaboraAlfanumerico(riga, 97, 16);
+                        var dataAccredito = ElaboraDataCorta(riga, 113, 6);
+                        if (!dataAccredito.HasValue) {
+                            return "Data accredito non valida.";
+                        }
+                        disposizione.DataAccredito = dataAccredito.Value;
+                        disposizione.CodiceDivisa = ElaboraAlfanumerico(riga, 119, 1);
 
-                            break;
+                        break;
 
                         case "16":
-                            disposizione.IBAN = ElaboraAlfanumerico(riga, 10, 34);
+                        disposizione.IBAN = ElaboraAlfanumerico(riga, 10, 34);
 
-                            break;
+                        break;
 
                         case "20":
-                            disposizione.EnteCreditore = ElaboraAlfanumerico(riga, 10, 110);
-                            break;
+                        disposizione.EnteCreditore = ElaboraAlfanumerico(riga, 10, 110);
+                        break;
 
                         case "30":
-                            disposizione.Debitore.RagioneSociale = ElaboraAlfanumerico(riga, 10, 60);
-                            disposizione.Debitore.CodiceFiscale = ElaboraAlfanumerico(riga, 70, 16);
+                        disposizione.Debitore.RagioneSociale = ElaboraAlfanumerico(riga, 10, 60);
+                        disposizione.Debitore.CodiceFiscale = ElaboraAlfanumerico(riga, 70, 16);
 
-                            break;
+                        break;
 
                         case "40":
-                            disposizione.Debitore.Indirizzo1 = ElaboraAlfanumerico(riga, 10, 30);
-                            disposizione.Debitore.CAP = ElaboraAlfanumerico(riga, 40, 5);
-                            disposizione.Debitore.Localit√† = ElaboraAlfanumerico(riga, 45, 25);
-                            disposizione.Debitore.Indirizzo2 = ElaboraAlfanumerico(riga, 70, 28);
-                            disposizione.Debitore.Nazione = ElaboraAlfanumerico(riga, 98, 2);
+                        disposizione.Debitore.Indirizzo1 = ElaboraAlfanumerico(riga, 10, 30);
+                        disposizione.Debitore.CAP = ElaboraAlfanumerico(riga, 40, 5);
+                        disposizione.Debitore.Localit‡ = ElaboraAlfanumerico(riga, 45, 25);
+                        disposizione.Debitore.Indirizzo2 = ElaboraAlfanumerico(riga, 70, 28);
+                        disposizione.Debitore.Nazione = ElaboraAlfanumerico(riga, 98, 2);
 
-                            break;
+                        break;
 
                         case "50":
-                            disposizione.RiferimentoDebito = ElaboraAlfanumerico(riga, 10, 80);
+                        disposizione.RiferimentoDebito = ElaboraAlfanumerico(riga, 10, 80);
 
-                            break;
+                        break;
 
                         case "51":
-                            disposizione.NumeroDisposizione = ElaboraAlfanumerico(riga, 10, 10);    //identificativo_disposizione
-                            disposizione.CodiceIdentificativoUnivoco = ElaboraAlfanumerico(riga, 74, 12);
-                            disposizione.IdentificativoTransazione = ElaboraAlfanumerico(riga, 95, 25); //nostro id_transazione
+                        disposizione.NumeroDisposizione = ElaboraAlfanumerico(riga, 10, 10);    //identificativo_disposizione
+                        disposizione.CodiceIdentificativoUnivoco = ElaboraAlfanumerico(riga, 74, 12);
+                        disposizione.IdentificativoTransazione = ElaboraAlfanumerico(riga, 95, 25); //nostro id_transazione
 
-                            break;
+                        break;
 
                         case "59":
-                            var builder = new StringBuilder();
-                            builder.Append(disposizione.RiferimentoDebito);
-                            builder.Append(ElaboraAlfanumerico(riga, 10, 110));
-                            disposizione.RiferimentoDebito = builder.ToString();
+                        var builder = new StringBuilder();
+                        builder.Append(disposizione.RiferimentoDebito);
+                        builder.Append(ElaboraAlfanumerico(riga, 10, 110));
+                        disposizione.RiferimentoDebito = builder.ToString();
 
-                            break;
+                        break;
 
                         case "70":
-                            disposizione.NumeroProvvisorio = ElaboraAlfanumerico(riga, 20, 7);
-                            disposizione.CodiceAvviso = ElaboraAlfanumerico(riga, 30, 18);
-                            disposizione.TipoBollettino = ElaboraAlfanumerico(riga, 93, 1);
-                            disposizione.ChiaviControllo = ElaboraAlfanumerico(riga, 100, 20);
-                            disposizione.DataInizioValidit√† = ElaboraDataLunga(riga, 104, 8);
-                            disposizione.DataFineValidit√† = ElaboraDataLunga(riga, 112, 8);
+                        disposizione.NumeroProvvisorio = ElaboraAlfanumerico(riga, 20, 7);
+                        disposizione.CodiceAvviso = ElaboraAlfanumerico(riga, 30, 18);
+                        disposizione.TipoBollettino = ElaboraAlfanumerico(riga, 93, 1);
+                        disposizione.ChiaviControllo = ElaboraAlfanumerico(riga, 100, 20);
+                        disposizione.DataInizioValidit‡ = ElaboraDataLunga(riga, 104, 8);
+                        disposizione.DataFineValidit‡ = ElaboraDataLunga(riga, 112, 8);
 
-                            break;
+                        break;
                     }
                 }
             }
@@ -267,7 +273,7 @@ namespace BancaSondrioFlusso {
         /// Campo di libera composizione da parte dell'Azienda Mittente
         /// </summary>
         /// <remarks>
-        /// Dev'essere univoco nell'ambito della data di creazione e a parit√† di mittente e ricevente.
+        /// Dev'essere univoco nell'ambito della data di creazione e a parit‡ di mittente e ricevente.
         /// </remarks>
         public string NomeSupporto { get; set; }
 
@@ -322,7 +328,7 @@ namespace BancaSondrioFlusso {
         /// Campo di libera composizione da parte dell'Azienda Mittente
         /// </summary>
         /// <remarks>
-        /// Dev'essere univoco nell'ambito della data di creazione e a parit√† di mittente e ricevente.
+        /// Dev'essere univoco nell'ambito della data di creazione e a parit‡ di mittente e ricevente.
         /// </remarks>
         public string NomeSupporto { get; set; }
 
@@ -370,7 +376,7 @@ namespace BancaSondrioFlusso {
         public string Indirizzo1 { get; set; }
         public string Indirizzo2 { get; set; }
         public string CAP { get; set; }
-        public string Localit√† { get; set; }
+        public string Localit‡ { get; set; }
         public string Nazione { get; set; }
 
     }
@@ -406,8 +412,8 @@ namespace BancaSondrioFlusso {
         public string ChiaviControllo { get; set; }
         public string NumeroProvvisorio { get; set; }
         public string CodiceAvviso { get; set; }
-        public DateTime? DataInizioValidit√† { get; set; }
-        public DateTime? DataFineValidit√† { get; set; }
+        public DateTime? DataInizioValidit‡ { get; set; }
+        public DateTime? DataFineValidit‡ { get; set; }
 
         public string IUV {
             get {
@@ -424,5 +430,273 @@ namespace BancaSondrioFlusso {
 
     }
 
+
+    public class RicevutaTelematica {
+
+        #region public fields
+        public sbyte _versioneOggetto;
+        public RTDominio _dominio;
+        public string _identificativoMessaggioRicevuta;
+        public System.DateTime _dataOraMessaggioRicevuta;
+        public string _riferimentoMessaggioRichiesta;
+        public System.DateTime _riferimentoDataRichiesta;
+        public RTIstitutoAttestante _istitutoAttestante;
+        public RTEnteBeneficiario _enteBeneficiario;
+        public RTSoggettoPagatore _soggettoPagatore;
+        public RTDatiPagamento _datiPagamento;
+        #endregion
+
+        public RicevutaTelematica() {
+        }
+
+
+    public class RTDominio {
+
+        #region public fields
+        public string _identificativoDominio;
+        public string _identificativoStazioneRichiedente;
+        #endregion
+    }
+
+    public class RTIstitutoAttestante {
+
+        #region public fields
+        public RTIstitutoAttestanteIdentificativoUnivocoAttestante _identificativoUnivocoAttestante;
+        public string _denominazioneAttestante;
+        public string _codiceUnitOperAttestante;
+        public string _denomUnitOperAttestante;
+        public string _indirizzoAttestante;
+        public sbyte _civicoAttestante;
+        public string _capAttestante;
+        public string _localitaAttestante;
+        public string _provinciaAttestante;
+        public string _nazioneAttestante;
+        #endregion
+
+    }
+
+    public class RTIstitutoAttestanteIdentificativoUnivocoAttestante {
+
+        #region public fields
+        public string _tipoIdentificativoUnivoco;
+        public string _codiceIdentificativoUnivoco;
+        #endregion
+
+    }
+
+    public class RTEnteBeneficiario {
+
+        #region public fields
+        public RTEnteBeneficiarioIdentificativoUnivocoBeneficiario _identificativoUnivocoBeneficiario;
+        public string _denominazioneBeneficiario;
+        public string _indirizzoBeneficiario;
+        public string _capBeneficiario;
+        public string _localitaBeneficiario;
+        public string _provinciaBeneficiario;
+        public string _nazioneBeneficiario;
+        #endregion
+    }
+
+    public class RTEnteBeneficiarioIdentificativoUnivocoBeneficiario {
+
+        #region public fields
+        public string _tipoIdentificativoUnivoco;
+        public string _codiceIdentificativoUnivoco;
+        #endregion
+    }
+
+    public class RTSoggettoVersante {
+
+        #region public fields
+        public RTSoggettoVersanteIdentificativoUnivocoVersante _identificativoUnivocoVersante;
+        public string _anagraficaVersante;
+        #endregion
+    }
+
+    public class RTSoggettoVersanteIdentificativoUnivocoVersante {
+
+        #region public fields
+        public string _tipoIdentificativoUnivoco;
+        public string _codiceIdentificativoUnivoco;
+        #endregion
+    }
+
+    public class RTSoggettoPagatore {
+
+        #region public fields
+        public RTSoggettoPagatoreIdentificativoUnivocoPagatore _identificativoUnivocoPagatore;
+        public string _anagraficaPagatore;
+        #endregion
+    }
+
+    public class RTSoggettoPagatoreIdentificativoUnivocoPagatore {
+
+        #region public fields
+        public string _tipoIdentificativoUnivoco;
+        public string _codiceIdentificativoUnivoco;
+        #endregion
+    }
+
+    public class RTDatiPagamento {
+        #region public fields
+        public string _codiceEsitoPagamento;
+        public decimal _importoTotalePagato;
+        public string _identificativoUnivocoVersamento;
+        public string _codiceContestoPagamento;
+        public List<RTDatiPagamentoDatiSingoloPagamento> _datiSingoloPagamento = new List<RTDatiPagamentoDatiSingoloPagamento>();
+        #endregion
+    }
+
+    public class RTDatiPagamentoDatiSingoloPagamento {
+        #region public fields
+        public decimal _singoloImportoPagato;
+        public string _esitoSingoloPagamento;
+        public System.DateTime _dataEsitoSingoloPagamento;
+        public string _identificativoUnivocoRiscossione;
+        public string _causaleVersamento;
+        public string _datiSpecificiRiscossione;
+        #endregion
+    }
+    }
+
+    public class import_RicevutaTelematica {
+
+        public static string ImportaFile_RT(string filename, out RicevutaTelematica RT) {
+            RT = new RicevutaTelematica();
+            if (!(File.Exists(filename))) {
+                return "Il file selezionato non esiste o non Ë accessibile.";
+            }
+            XmlDocument X = new XmlDocument();
+            try {
+                X.Load(filename);
+            }
+            catch (Exception e2) {
+                return e2.Message + " " + e2.ToString();
+            }
+            try {
+                RT = ElaboraXml_RT(X);
+            }
+            catch (Exception e) {
+                return e.Message + " " + e.ToString();
+                //QueryCreator.ShowException(null, "Errore!", e);
+            }
+            return null;
+
+        }
+
+
+        static string getXmlText(XmlNode x, string xpath) {
+            try {
+                XmlNode n = x.SelectSingleNode(xpath);
+                if (n != null) {
+                    return n.InnerText;
+                }
+            }
+            catch (Exception e) {
+                string errore = e.Message + " " + e.ToString();
+            }
+            return null;
+        }
+
+        static string getXmlText(XmlNode x, string xpath, XmlNamespaceManager ns) {
+            if (ns == null) {
+                try {
+                    XmlNode n = x.SelectSingleNode(xpath);
+                    if (n != null) {
+                        return n.InnerText;
+                    }
+                }
+                catch {
+                }
+
+                return null;
+            }
+
+            try {
+                XmlNode n = x.SelectSingleNode(xpath, ns);
+                if (n != null) {
+                    return n.InnerText;
+                }
+            }
+            catch {
+            }
+
+            return null;
+        }
+        public static object LeggiDecimale(string sImportoTotale) {
+            object importoTotale;
+            if (sImportoTotale != "" && sImportoTotale != null) {
+                importoTotale =
+                    XmlConvert.ToDecimal(
+                        sImportoTotale);
+            }
+            else {
+                importoTotale = DBNull.Value;
+            }
+            return importoTotale;
+        }
+
+        public static RicevutaTelematica ElaboraXml_RT(XmlDocument Xdoc) {
+            RicevutaTelematica M = new RicevutaTelematica();
+            string PreRoot = "";
+            XmlNode nodoRT = Xdoc.GetElementsByTagName("RT")[0];
+            if (nodoRT == null) {
+                nodoRT = Xdoc.GetElementsByTagName("pay_i:RT")[0];
+                PreRoot = "pay_i:";
+            }
+
+            M._identificativoMessaggioRicevuta = nodoRT[PreRoot + "identificativoMessaggioRicevuta"].InnerText;
+            M._riferimentoMessaggioRichiesta = nodoRT[PreRoot + "riferimentoMessaggioRichiesta"].InnerText;
+
+            //Scorre l'elenco dei flussi 
+            foreach (XmlNode CurrNode in nodoRT.ChildNodes) {
+                //XmlNodeList listOfsoggettoPagatore = singleRT.ChildNodes;// ["soggettoPagatore"];
+                if (CurrNode.Name== PreRoot+"soggettoPagatore") {
+                    RicevutaTelematica.RTSoggettoPagatore SP = new RicevutaTelematica.RTSoggettoPagatore();
+                    SP._anagraficaPagatore = CurrNode[PreRoot+"anagraficaPagatore"].InnerText;
+                    foreach (XmlNode XidentificativoUnivocoPagatore in CurrNode.ChildNodes) {
+                        if (XidentificativoUnivocoPagatore.Name == PreRoot + "identificativoUnivocoPagatore") {
+                            RicevutaTelematica.RTSoggettoPagatoreIdentificativoUnivocoPagatore IUP = new RicevutaTelematica.RTSoggettoPagatoreIdentificativoUnivocoPagatore();
+                            IUP._tipoIdentificativoUnivoco = XidentificativoUnivocoPagatore[PreRoot + "tipoIdentificativoUnivoco"].InnerText;
+                            IUP._codiceIdentificativoUnivoco = XidentificativoUnivocoPagatore[PreRoot + "codiceIdentificativoUnivoco"].InnerText;
+                            SP._identificativoUnivocoPagatore = IUP;
+                        }
+                    }
+                    M._soggettoPagatore = SP;
+                }
+                if (CurrNode.Name == PreRoot + "datiPagamento") {
+                    List<RicevutaTelematica.RTDatiPagamentoDatiSingoloPagamento> Pagamenti = new List<RicevutaTelematica.RTDatiPagamentoDatiSingoloPagamento>();
+                    //0 Pagamento eseguito, 1 Pagamento non eseguito, 2 Pagamento parzialmente eseguito, 3 Decorrenza termini, 4 Decorrenza termini parziale 
+                    RicevutaTelematica.RTDatiPagamento DP = new RicevutaTelematica.RTDatiPagamento();
+                    DP._codiceEsitoPagamento = CurrNode[PreRoot + "codiceEsitoPagamento"].InnerText;
+                    DP._importoTotalePagato = XmlHelper.AsDecimal(CurrNode, PreRoot + "importoTotalePagato");// CfgFn.GetNoNullDecimal(CurrNode["importoTotalePagato"].InnerText);
+                    DP._identificativoUnivocoVersamento = CurrNode[PreRoot + "identificativoUnivocoVersamento"].InnerText;
+                    DP._codiceContestoPagamento = CurrNode[PreRoot + "CodiceContestoPagamento"].InnerText;
+                    DateTime empyDate = new DateTime(1900, 1, 1);
+                    DateTime MAXdataEsitoSingoloPagamento = empyDate;
+                    foreach (XmlNode Xinfo_datiSingoloPagamento in CurrNode.ChildNodes) {
+                        if (Xinfo_datiSingoloPagamento.Name == PreRoot + "datiSingoloPagamento") {
+                            //Prendiamo la max date laddove vi fossero pi˘ pagamenti
+                            DateTime dataEsitoSingoloPagamento = XmlHelper.AsDate(Xinfo_datiSingoloPagamento, PreRoot + "dataEsitoSingoloPagamento");
+                            if (MAXdataEsitoSingoloPagamento < dataEsitoSingoloPagamento) {
+                                MAXdataEsitoSingoloPagamento = dataEsitoSingoloPagamento;
+                            }
+                        }
+                    }//Fine scansione datiSingoloPagamento
+                    var PP = new RicevutaTelematica.RTDatiPagamentoDatiSingoloPagamento();
+                    PP._dataEsitoSingoloPagamento = MAXdataEsitoSingoloPagamento;
+                    Pagamenti.Add(PP);
+
+                    DP._datiSingoloPagamento = Pagamenti;
+                    M._datiPagamento = DP;
+                }
+            }
+            
+            return M;
+        }
+
+
+
+
+    }
 }
-

@@ -1,0 +1,66 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabperfrequestobbunatantum_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabperfrequestobbunatantum_default_0"><i class="fa fa-bullseye mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabperfrequestobbunatantum_default_1" class="nav-link" data-toggle="pill" data-target="#tabperfrequestobbunatantum_default_1"><i class="fa fa-angle-double-up mr-1"></i>Soglie</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabperfrequestobbunatantum_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfrequestobbunatantum_default_title">Titolo obiettivo</label>
+					<input id="perfrequestobbunatantum_default_title" type="text" class="form-control" data-tag="perfrequestobbunatantum.title?perfrequestobbunatantumdefaultview.title" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfrequestobbunatantum_default_year">Anno solare</label>
+					<select id="perfrequestobbunatantum_default_year" class="custom-select d-block w-100"  data-source-name="year" data-value-member="year" data-display-member="year" data-custom-control="combo" data-tag="perfrequestobbunatantum.year?perfrequestobbunatantumdefaultview.perfrequestobbunatantum_year" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="perfrequestobbunatantum_default_description">Descrizione</label>
+					<textarea class="textarea form-control" id="perfrequestobbunatantum_default_description" type="text"  rows="4" data-tag="perfrequestobbunatantum.description?perfrequestobbunatantumdefaultview.perfrequestobbunatantum_description" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfrequestobbunatantum_default_idstruttura">Unità organizzativa</label>
+					<div>
+						<input id="perfrequestobbunatantum_default_idstruttura" name="perfrequestobbunatantum_default_idstruttura" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="strutturadefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfrequestobbunatantum_default_peso">Peso</label>
+					<input id="perfrequestobbunatantum_default_peso" type="text" class="form-control" data-tag="perfrequestobbunatantum.peso.fixed.2?perfrequestobbunatantumdefaultview.perfrequestobbunatantum_peso" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfrequestobbunatantum_default_inserito">Inserito</label>
+					<div class="custom-control custom-radio">
+						<input id="perfrequestobbunatantum_default_inseritoS" type="radio" name="perfrequestobbunatantum_default_inserito" class="custom-control-input" data-tag="perfrequestobbunatantum.inserito:S?perfrequestobbunatantumdefaultview.perfrequestobbunatantum_inserito:Si" data-subentity  ><label for="perfrequestobbunatantum_default_inseritoS"> Si</label>
+						<input id="perfrequestobbunatantum_default_inseritoN" type="radio" name="perfrequestobbunatantum_default_inserito" class="custom-control-input" data-tag="perfrequestobbunatantum.inserito:N?perfrequestobbunatantumdefaultview.perfrequestobbunatantum_inserito:No" data-subentity  ><label for="perfrequestobbunatantum_default_inseritoN"> No</label>
+					</div>
+				</div>
+			</div>
+ <button id="SendMail" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-envelope mr-1" ></i>Invia mail
+    </button>
+ <button id="InsertRequest" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fas fa-upload mr-1" ></i>Inserisci Obiettivo
+    </button>
+	</div>
+	<div class="tab-pane fade" id="tabperfrequestobbunatantum_default_1" role="tabpanel">
+				<div class="gridx" id="grid_perfrequestobbunatantumsoglia_default" data-tag="perfrequestobbunatantumsoglia.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Data;
 using System.Windows.Forms;
 using metaeasylibrary;
@@ -34,31 +33,40 @@ namespace meta_stip_corsolaureaview {
             return new [] { "idstipcorsolaurea" };
         }
 
+        public override string GetSorting(string ListingType) {
+            string sorting;
+            if (ListingType == "default") {
+                sorting = "codicecorsolaurea asc";
+                return sorting;
+			}
+
+            return base.GetSorting (ListingType);
+		}
+
         public override void DescribeColumns(DataTable T, string ListingType) {
             base.DescribeColumns(T, ListingType);
             if (ListingType == "default") {
                 foreach (DataColumn C in T.Columns)
                     DescribeAColumn(T, C.ColumnName, "", -1);
-                int nPos = 1;
+                int nPos = 1;                
                 DescribeAColumn(T, ".idstipcorsolaurea", "# Corso", nPos++);
-                DescribeAColumn(T, "codicecorsolaurea", "Codice corso di laurea", nPos++);
-                DescribeAColumn(T, "descrizione", "Descrizione", nPos++);
-                DescribeAColumn(T, "anno", "Anno", nPos++);
-                DescribeAColumn(T, "dipartimento", "Dipartimento", nPos++);
-                DescribeAColumn(T, "percorso", "Percorso", nPos++);
-                DescribeAColumn(T, "sede", "Sede", nPos++);
+                DescribeAColumn(T, "codicecorsolaurea", "Codice corso di laurea", nPos++); 
                 DescribeAColumn(T, "codicedipartimento", "Cod. Dipartimento", nPos++);
                 DescribeAColumn(T, "codicepercorso", "Cod. Percorso", nPos++);
                 DescribeAColumn(T, "codicesede", "Cod. Sede", nPos++);
-                DescribeAColumn(T, "descrizionecorsolaurea", "Descrizione Corso Laurea", nPos++);
-				DescribeAColumn(T, "codicetassa", "Codice tassa", nPos++);
-				DescribeAColumn(T, "tassa", "Tassa", nPos++);
-				DescribeAColumn(T, "codicevoce", "Codice voce", nPos++);
+                DescribeAColumn(T, "codicetassa", "Codice tassa", nPos++);
+                DescribeAColumn(T, "codicevoce", "Codice voce", nPos++);
+                DescribeAColumn(T, "anno", "Anno", nPos++);
+                DescribeAColumn(T, "descrizione", "Descrizione", nPos++);                               
+                DescribeAColumn(T, "descrizionecorsolaurea", "Descrizione Corso Laurea", nPos++);                 
+                DescribeAColumn(T, "dipartimento", "Dipartimento", nPos++);                
+                DescribeAColumn(T, "percorso", "Percorso", nPos++);                
+                DescribeAColumn(T, "sede", "Sede", nPos++);				
+				DescribeAColumn(T, "tassa", "Tassa", nPos++);				
 				DescribeAColumn(T, "voce", "Voce", nPos++);
 				DescribeAColumn(T, "codeupb", "Codice UPB", nPos++);
                 DescribeAColumn(T, "upb", "UPB", nPos++);
-            }
+            }            
         }
     }
 }
-

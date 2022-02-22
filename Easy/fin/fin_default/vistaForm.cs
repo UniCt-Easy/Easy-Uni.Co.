@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,7 +26,7 @@ using System.Runtime.Serialization;
 namespace fin_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -122,6 +121,9 @@ public class vistaForm: DataSet {
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable account 		=> Tables["account"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable accmotiveapplied 		=> Tables["accmotiveapplied"];
 
 	#endregion
 
@@ -309,6 +311,7 @@ private void initClass() {
 	tfinlast.Columns.Add(C);
 	tfinlast.Columns.Add( new DataColumn("cupcode", typeof(string)));
 	tfinlast.Columns.Add( new DataColumn("idacc", typeof(string)));
+	tfinlast.Columns.Add( new DataColumn("idaccmotive", typeof(string)));
 	Tables.Add(tfinlast);
 	tfinlast.PrimaryKey =  new DataColumn[]{tfinlast.Columns["idfin"]};
 
@@ -904,6 +907,7 @@ private void initClass() {
 	C= new DataColumn("variationdescription", typeof(string));
 	C.AllowDBNull=false;
 	tfinvardetailview.Columns.Add(C);
+	tfinvardetailview.Columns.Add( new DataColumn("idenactment", typeof(int)));
 	tfinvardetailview.Columns.Add( new DataColumn("enactment", typeof(string)));
 	tfinvardetailview.Columns.Add( new DataColumn("nenactment", typeof(string)));
 	tfinvardetailview.Columns.Add( new DataColumn("enactmentdate", typeof(DateTime)));
@@ -1090,6 +1094,43 @@ private void initClass() {
 	taccount.PrimaryKey =  new DataColumn[]{taccount.Columns["idacc"]};
 
 
+	//////////////////// ACCMOTIVEAPPLIED /////////////////////////////////
+	var taccmotiveapplied= new DataTable("accmotiveapplied");
+	C= new DataColumn("idaccmotive", typeof(string));
+	C.AllowDBNull=false;
+	taccmotiveapplied.Columns.Add(C);
+	taccmotiveapplied.Columns.Add( new DataColumn("paridaccmotive", typeof(string)));
+	C= new DataColumn("codemotive", typeof(string));
+	C.AllowDBNull=false;
+	taccmotiveapplied.Columns.Add(C);
+	C= new DataColumn("motive", typeof(string));
+	C.AllowDBNull=false;
+	taccmotiveapplied.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	taccmotiveapplied.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	taccmotiveapplied.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	taccmotiveapplied.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	taccmotiveapplied.Columns.Add(C);
+	taccmotiveapplied.Columns.Add( new DataColumn("active", typeof(string)));
+	taccmotiveapplied.Columns.Add( new DataColumn("idepoperation", typeof(string)));
+	taccmotiveapplied.Columns.Add( new DataColumn("epoperation", typeof(string)));
+	C= new DataColumn("in_use", typeof(string));
+	C.AllowDBNull=false;
+	taccmotiveapplied.Columns.Add(C);
+	taccmotiveapplied.Columns.Add( new DataColumn("flagamm", typeof(string)));
+	taccmotiveapplied.Columns.Add( new DataColumn("flagdep", typeof(string)));
+	taccmotiveapplied.Columns.Add( new DataColumn("expensekind", typeof(string)));
+	Tables.Add(taccmotiveapplied);
+	taccmotiveapplied.PrimaryKey =  new DataColumn[]{taccmotiveapplied.Columns["idaccmotive"]};
+
+
 	#endregion
 
 
@@ -1182,9 +1223,12 @@ private void initClass() {
 	cChild = new []{finsorting.Columns["idfin"]};
 	Relations.Add(new DataRelation("finfinsorting",cPar,cChild,false));
 
+	cPar = new []{accmotiveapplied.Columns["idaccmotive"]};
+	cChild = new []{finlast.Columns["idaccmotive"]};
+	Relations.Add(new DataRelation("accmotiveapplied_finlast",cPar,cChild,false));
+
 	#endregion
 
 }
 }
 }
-

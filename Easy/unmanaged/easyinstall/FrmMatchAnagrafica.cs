@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -53,7 +52,7 @@ namespace EasyInstall {
             int totclass = Conta[0] + Conta[1] + Conta[2] + Conta[3];
             int totdb = Source.RUN_SELECT_COUNT("registry", null, false);
             if (totdb != totclass) {
-                MessageBox.Show("Nel db di origine ci sono anagrafiche con tipologie non standard. Impossibile proseguire.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nel db di origine ci sono anagrafiche con tipologie non standard. Impossibile proseguire.");
                 return;
             }
             pBar.Minimum = 0;
@@ -78,11 +77,11 @@ namespace EasyInstall {
 
         }
         private void btnStop_Click(object sender, EventArgs e) {
-            if (MessageBox.Show(this, "Si intende annullare la migrazione?", "Conferma", MessageBoxButtons.OKCancel)
+            if (MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si intende annullare la migrazione?", "Conferma", MessageBoxButtons.OKCancel)
                 == DialogResult.OK) {
                 //err = true;
                 Close();
             }
         }
     }
-}
+}

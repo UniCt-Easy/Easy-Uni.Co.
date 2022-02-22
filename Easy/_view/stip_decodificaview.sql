@@ -1,9 +1,27 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
  -- CREAZIONE VISTA stip_decodificaview
 IF EXISTS(select * from sysobjects where id = object_id(N'[stip_decodificaview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [stip_decodificaview]
 GO
 
 --setuser'amm'
+--select * from stip_decodificaview
 CREATE  VIEW [stip_decodificaview]
 (
 	idstipdecodifica,
@@ -31,6 +49,8 @@ CREATE  VIEW [stip_decodificaview]
 	idaccmotiveundotaxpost,
 	codemotiveundotaxpost,
 	accmotiveundotaxpost,
+	idestimkind,
+	estimatekind,
 	ct,
 	cu,
 	lt,
@@ -62,6 +82,8 @@ AS  SELECT
 	stip_decodifica.idaccmotiveundotaxpost,
 	accmotiveundotaxpost.codemotive,
 	accmotiveundotaxpost.title,
+	stip_decodifica.idestimkind,
+	estimatekind.description,
 	stip_decodifica.ct,
 	stip_decodifica.cu,
 	stip_decodifica.lt,
@@ -75,7 +97,7 @@ FROM stip_decodifica
 	LEFT OUTER JOIN accmotive accmotivecredit ON accmotivecredit.idaccmotive  = stip_decodifica.idaccmotivecredit
 	LEFT OUTER JOIN accmotive accmotiveundotax ON accmotiveundotax.idaccmotive  = stip_decodifica.idaccmotiveundotax
 	LEFT OUTER JOIN accmotive accmotiveundotaxpost ON accmotiveundotaxpost.idaccmotive  = stip_decodifica.idaccmotiveundotaxpost
-
+	LEFT OUTER JOIN estimatekind  ON estimatekind.idestimkind  = stip_decodifica.idestimkind
 
 GO
 

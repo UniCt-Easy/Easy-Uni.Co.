@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_invoicescadenza]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_invoicescadenza]
 GO
@@ -6,8 +23,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+--setuser 'amm'
  
--- exp_invoicescadenza '2015', {ts '2015-12-31 00:00:00'}, {ts '2015-12-31 00:00:00'}, {ts '2015-12-31 00:00:00'}, {ts '2015-12-31 00:00:00'}, 'N','N', NULL, NULL, NULL, NULL, NULL
+-- exp_invoicescadenza '2020', {ts '2020-12-31 00:00:00'}, {ts '2020-12-31 00:00:00'}, {ts '2020-12-31 00:00:00'}, {ts '2020-12-31 00:00:00'}, 'N','N', NULL, NULL, NULL, NULL, NULL
 CREATE  PROCEDURE [exp_invoicescadenza](
 	@year 			int,  --,
 	@data_pagamento	datetime, -- Per le fatture pagate con fondo economale è la data di registrazione dell'operazione
@@ -157,7 +175,7 @@ SELECT distinct
 				,0)
 			)
 	)
-	END  [Tot. Da contabilizzare],
+	END  [Tot. Da trasmettere],
 
 	CASE 
 		WHEN (profservice.idinvkind is null) THEN	totinvoiceview.taxabletotal 
@@ -265,7 +283,7 @@ SELECT distinct
 				,0)
 	) 
 	
-	END [Tot. Contabilizzato],
+	END [Tot. Trasmesso],
 
 
 	CONVERT(decimal(23,5),

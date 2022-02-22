@@ -1,0 +1,42 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="afferenza_docente_idstruttura">Struttura</label>
+					<select id="afferenza_docente_idstruttura" class="custom-select d-block w-100"  data-source-name="strutturadefaultview" data-value-member="idstruttura" data-display-member="dropdown_title" data-custom-control="combo" data-tag="afferenza.idstruttura"   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#afferenza_docente_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="afferenza_docente_start">Dal</label>
+					<input id="afferenza_docente_start" type="text" class="form-control" data-tag="afferenza.start"  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#afferenza_docente_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="afferenza_docente_stop">Al</label>
+					<input id="afferenza_docente_stop" type="text" class="form-control" data-tag="afferenza.stop"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="afferenza_docente_idmansionekind">Mansione</label>
+					<select id="afferenza_docente_idmansionekind" class="custom-select d-block w-100"  data-source-name="mansionekind" data-value-member="idmansionekind" data-display-member="title" data-custom-control="combo" data-tag="afferenza.idmansionekind"   > </select>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

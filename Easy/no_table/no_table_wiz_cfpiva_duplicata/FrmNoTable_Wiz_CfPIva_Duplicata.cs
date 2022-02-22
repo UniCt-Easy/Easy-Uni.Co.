@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -26,7 +25,7 @@ using System.Windows.Forms;
 using metadatalibrary;
 
 namespace no_table_wiz_cfpiva_duplicata {
-    public partial class FrmNoTable_Wiz_CfPIva_Duplicata : Form {
+    public partial class FrmNoTable_Wiz_CfPIva_Duplicata : MetaDataForm {
         CQueryHelper QHC;
         QueryHelper QHS;
         //MetaData Meta;
@@ -112,7 +111,7 @@ namespace no_table_wiz_cfpiva_duplicata {
             if (cm == null) return;
             DataView view = cm.List as DataView;
             if (view == null) {
-                MessageBox.Show(this, "Selezionare una anagrafica");
+                show(this, "Selezionare una anagrafica");
                 return;
             }
 
@@ -127,7 +126,7 @@ namespace no_table_wiz_cfpiva_duplicata {
             }
 
             if (!(numRigheSel == 1)) {
-                MessageBox.Show(this, "Selezionare un'anagrafica");
+                show(this, "Selezionare un'anagrafica");
                 return;
             }
 
@@ -136,7 +135,7 @@ namespace no_table_wiz_cfpiva_duplicata {
                 string filter = QHC.CmpEq("idreg", idreg);
                 DataRow[] Registry = DS.registrymainview.Select(filter);
                 if (Registry.Length == 0) {
-                    MessageBox.Show(this, "Errore, griglia e tabella dati disallineate! Contattare il settore assistenza");
+                    show(this, "Errore, griglia e tabella dati disallineate! Contattare il settore assistenza");
                     return;
                 }
 
@@ -146,7 +145,7 @@ namespace no_table_wiz_cfpiva_duplicata {
             }
 
             if (saveData()) {
-                MessageBox.Show(this, "Anagrafiche aggiornate");
+                show(this, "Anagrafiche aggiornate");
                 //TempTable.Rows.RemoveAt(0);//questo codice sarà eseguito in btnSuccessivo_Click()
                 //TempTable.AcceptChanges();
 
@@ -167,7 +166,7 @@ namespace no_table_wiz_cfpiva_duplicata {
             }
 
             if (saveData()) {
-                MessageBox.Show(this, "Anagrafiche aggiornate");
+                show(this, "Anagrafiche aggiornate");
                 //TempTable.Rows.RemoveAt(0);//questo codice sarà eseguito in btnSuccessivo_Click()
                 //TempTable.AcceptChanges();
 
@@ -272,6 +271,7 @@ namespace no_table_wiz_cfpiva_duplicata {
 
 
             if (MyQuery != "") {
+                QueryCreator.MarkEvent(MyQuery);
                 TempTable = conn.SQLRunner(MyQuery);
             }
             else {
@@ -287,7 +287,7 @@ namespace no_table_wiz_cfpiva_duplicata {
         /// </summary>
         private void CollegaRigheADocumento(bool quiet) {
             if (TempTable==null || TempTable.Rows.Count == 0) {
-                if (!quiet) MessageBox.Show("Non ci sono anagrafiche da processare");
+                if (!quiet) show("Non ci sono anagrafiche da processare");
                 btnSuccessivo.Enabled = false;
                 grpConferma.Enabled = false;
                 return;
@@ -417,7 +417,7 @@ namespace no_table_wiz_cfpiva_duplicata {
             if (cm == null) return;
             DataView view = cm.List as DataView;
             if (view == null) {
-                MessageBox.Show(this, "Selezionare una anagrafica");
+                show(this, "Selezionare una anagrafica");
                 return;
             }
             int numRigheSel;
@@ -436,7 +436,7 @@ namespace no_table_wiz_cfpiva_duplicata {
             }
 
             if (!(numRigheSel == 1)) {
-                MessageBox.Show(this, "Selezionare un'anagrafica");
+                show(this, "Selezionare un'anagrafica");
                 return;
             }
 
@@ -449,7 +449,7 @@ namespace no_table_wiz_cfpiva_duplicata {
                 string filter = QHC.CmpEq("idreg", idreg);
                 DataRow[] Registry = DS.registrymainview.Select(filter);
                 if (Registry.Length == 0) {
-                    MessageBox.Show(this, "Errore, griglia e tabella dati disallineate! Contattare il settore assistenza");
+                    show(this, "Errore, griglia e tabella dati disallineate! Contattare il settore assistenza");
                     return;
                 }
                 DataRow r = Registry[0];
@@ -461,7 +461,7 @@ namespace no_table_wiz_cfpiva_duplicata {
             }
 
             if (saveData()) {
-                MessageBox.Show(this, "Anagrafiche aggiornate");
+                show(this, "Anagrafiche aggiornate");
                 btnSuccessivo.Enabled = true;
                 if (stepForward) btnSuccessivo_Click(null, null);
             }
@@ -486,7 +486,7 @@ namespace no_table_wiz_cfpiva_duplicata {
             if (cm == null) return;
             DataView view = cm.List as DataView;
             if (view == null) {
-                MessageBox.Show(this, "Selezionare una anagrafica");
+                show(this, "Selezionare una anagrafica");
                 return;
             }
             DataRow RowSelected = null;
@@ -503,7 +503,7 @@ namespace no_table_wiz_cfpiva_duplicata {
             }
 
             if (!(numRigheSel == 1)) {
-                MessageBox.Show(this, "Selezionare un'anagrafica");
+                show(this, "Selezionare un'anagrafica");
                 return;
             }
 
@@ -512,6 +512,7 @@ namespace no_table_wiz_cfpiva_duplicata {
             }
             frmUnisciInformazioni F = new frmUnisciInformazioni(Convert.ToInt32(idregSelected),
                             idregs, conn as DataAccess, this.getInstance<IMetaDataDispatcher>() as MetaDataDispatcher);
+            createForm(F, null);
             DialogResult Res= F.ShowDialog();
             if (Res == DialogResult.OK) {
                 unifica(false);
@@ -523,4 +524,4 @@ namespace no_table_wiz_cfpiva_duplicata {
         }
 
     }
-}
+}

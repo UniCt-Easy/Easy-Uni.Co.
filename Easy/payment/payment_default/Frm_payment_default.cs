@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -33,7 +32,7 @@ namespace payment_default{//documentopagamento//
 	/// revised by Nino on 7/2/2003 (era sbagliata la ricerca: usava numdocpagamento invece di nummovimento)
 	/// revised by Nino 21/2/2003
 	/// </summary>
-	public class Frm_payment_default : System.Windows.Forms.Form {
+	public class Frm_payment_default : MetaDataForm {
         QueryHelper QHS;
         CQueryHelper QHC;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -940,4 +939,3 @@ namespace payment_default{//documentopagamento//
 	}
 }
 
-

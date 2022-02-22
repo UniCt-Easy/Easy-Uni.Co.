@@ -48,6 +48,7 @@
               <xs:element name="sdi_defrifamm" type="xs:string" minOccurs="0" />
               <xs:element name="pec_fe" type="xs:string" minOccurs="0" />
               <xs:element name="email_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_perlapa" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -230,6 +231,7 @@
               <xs:element name="ccdedicato_doc" type="xs:base64Binary" minOccurs="0" />
               <xs:element name="ccdedicato_cf" type="xs:base64Binary" minOccurs="0" />
               <xs:element name="requested_doc" type="xs:int" minOccurs="0" />
+              <xs:element name="ccdedicato_stop" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -458,6 +460,7 @@
               <xs:element name="sdi_defrifamm" type="xs:string" minOccurs="0" />
               <xs:element name="email_fe" type="xs:string" minOccurs="0" />
               <xs:element name="pec_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_perlapa" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -696,6 +699,96 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="registrycasellariogiudiziale" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idregistrycasellariogiudiziale" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="casellariocertification" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrycasellarioamministrativo" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idregistrycasellarioamministrativo" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="casellariocertification" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registryottemperanzalegge68_99" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idregistryottemperanzalegge" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="ottemperanzacertification" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registryregolaritafiscale" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idregistryregolaritafiscale" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="regolaritacertification" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registryverificaanac" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idregistryverificaanac" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="verificaanaccertification" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registryattachment" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -851,6 +944,36 @@
       <xs:field xpath="mstns:idregistryvisura" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
+    <xs:unique name="registrycasellariogiudiziale_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrycasellariogiudiziale" />
+      <xs:field xpath="mstns:idregistrycasellariogiudiziale" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="registrycasellarioamministrativo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrycasellarioamministrativo" />
+      <xs:field xpath="mstns:idregistrycasellarioamministrativo" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="registryottemperanzalegge68_99_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registryottemperanzalegge68_99" />
+      <xs:field xpath="mstns:idregistryottemperanzalegge" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="registryregolaritafiscale_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registryregolaritafiscale" />
+      <xs:field xpath="mstns:idregistryregolaritafiscale" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="registryverificaanac_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registryverificaanac" />
+      <xs:field xpath="mstns:idregistryverificaanac" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="registryattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registryattachment" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idattachment" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -886,6 +1009,12 @@
       <msdata:Relationship name="FK_accmotiveapplied_debit_registry" msdata:parent="accmotiveapplied_debit" msdata:child="registry" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotivedebit" />
       <msdata:Relationship name="FK_accmotiveapplied_credit_registry" msdata:parent="accmotiveapplied_credit" msdata:child="registry" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotivecredit" />
       <msdata:Relationship name="registry_registryvisura" msdata:parent="registry" msdata:child="registryvisura" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_registry_registrycasellariogiudiziale" msdata:parent="registry" msdata:child="registrycasellariogiudiziale" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="registry_registrycasellarioamministrativo" msdata:parent="registry" msdata:child="registrycasellarioamministrativo" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="registry_registryottemperanzalegge68_99" msdata:parent="registry" msdata:child="registryottemperanzalegge68_99" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="registry_registryregolaritafiscale" msdata:parent="registry" msdata:child="registryregolaritafiscale" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="registry_registryverificaanac" msdata:parent="registry" msdata:child="registryverificaanac" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="registry_registryattachment" msdata:parent="registry" msdata:child="registryattachment" msdata:parentkey="idreg" msdata:childkey="idreg" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

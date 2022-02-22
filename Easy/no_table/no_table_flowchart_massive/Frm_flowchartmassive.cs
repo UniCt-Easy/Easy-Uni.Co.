@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit√† degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -30,18 +29,21 @@ using notable_importazione;
 using System.Collections;
 
 namespace no_table_flowchart_massive {
-    public partial class Frm_flowchartmassive : Form {
+    public partial class Frm_flowchartmassive : MetaDataForm {
+
         MetaData Meta;
         Easy_DataAccess Conn;
         CQueryHelper QHC;
         QueryHelper QHS;
+        public IOpenFileDialog myOpenFile;
+
         string department;
         
         
 
         public Frm_flowchartmassive() {
             InitializeComponent();
-            
+            myOpenFile = createOpenFileDialog(_myOpenFile);
         }
 
 
@@ -73,7 +75,7 @@ namespace no_table_flowchart_massive {
 
 
 
-            //esce se la login Ë gi‡ presente 
+            //esce se la login √® gi√† presente 
             if (T1 != null) {
                 foreach (DataRow R1 in T1.Rows) {
                     if (R1["loginname"].ToString().ToUpper() == login.ToUpper()) return true;
@@ -89,7 +91,7 @@ namespace no_table_flowchart_massive {
                         "CHECK_POLICY = OFF"                
                 ,out err);
             if (err != null) {
-                MessageBox.Show("Errore creando la login "+login+": " + err);
+                show("Errore creando la login "+login+": " + err);
                 return false;
             }
             return true;
@@ -99,7 +101,7 @@ namespace no_table_flowchart_massive {
             DataTable Utenti = Conn.RUN_SELECT("dbaccess", "*", null, 
                             QHS.AppAnd(QHS.CmpEq("iddbdepartment",iddbdepartment),
                                         QHS.CmpEq("login",login)),null, false);
-            if (Utenti != null && Utenti.Rows.Count > 0) return true; //gi‡ presente
+            if (Utenti != null && Utenti.Rows.Count > 0) return true; //gi√† presente
 
             Conn.SQLRunner("exec sp_grantdbaccess " +
                     QueryCreator.quotedstrvalue(login, false) + ", " +
@@ -113,7 +115,7 @@ namespace no_table_flowchart_massive {
             Conn.linkUserToDepartment(login,out err);
 
             if (err != null && err != "") {
-                MessageBox.Show("Errore associando l'utente " + login + ":" + err + "\r\n");
+                show("Errore associando l'utente " + login + ":" + err + "\r\n");
                 return false;
             }
 
@@ -122,13 +124,13 @@ namespace no_table_flowchart_massive {
 
 
         /// <summary>
-        /// Aggiunge un utente al db e lo collega al dipartimento selezionato, sempre che non vi faccia gi‡ parte
-        ///  idcustomuser Ë posta uguale alla login
+        /// Aggiunge un utente al db e lo collega al dipartimento selezionato, sempre che non vi faccia gi√† parte
+        ///  idcustomuser √® posta uguale alla login
         /// </summary>
         /// <param name="login"></param>
         /// <returns></returns>
         bool AggiungiUtente(string login) {
-            bool res = AggiungiLogin(login, "PASSWORD");
+            bool res = AggiungiLogin(login, "**********");
             if (res) res = CollegaUtenteADipartimento(login, department);
             return res;
         }
@@ -181,7 +183,7 @@ namespace no_table_flowchart_massive {
             Easy_PostData pd = new Easy_PostData();
             pd.InitClass(dsPost, Meta.Conn);
             if (!pd.DO_POST()) {
-                MessageBox.Show(this, "Errore nel salvataggio dei dati in AggiungiUtenteAGruppoOrganigramma", "Errore");
+                show(this, "Errore nel salvataggio dei dati in AggiungiUtenteAGruppoOrganigramma", "Errore");
                 return false;
             }
             else {
@@ -298,8 +300,8 @@ namespace no_table_flowchart_massive {
                         QHS.CmpEq("ayear",Conn.GetSys("esercizio")))
                         ,"idflowchart");
             if (idflowchart == null || idflowchart == DBNull.Value) {
-                MessageBox.Show(this,
-                    "Il codice " + FlowChartUserToAdd.flowchartcode + " non Ë presente nella tabella organigramma dell'anno "+
+                show(this,
+                    "Il codice " + FlowChartUserToAdd.flowchartcode + " non √® presente nella tabella organigramma dell'anno "+
                         Conn.GetSys("esercizio").ToString()+".",
                     "Errore");
                 return false;
@@ -307,7 +309,7 @@ namespace no_table_flowchart_massive {
 
             string f = QHS.AppAnd(QHS.CmpEq("idcustomuser", idcustomuser), QHS.CmpEq("idflowchart", idflowchart),
                                 QHS.CmpEq("title", FlowChartUserToAdd.title));
-            if (Conn.RUN_SELECT_COUNT("flowchartuser", f, false) > 0) return true; //gi‡ presente 
+            if (Conn.RUN_SELECT_COUNT("flowchartuser", f, false) > 0) return true; //gi√† presente 
 
             DataTable TFlowchartUser = Conn.CreateTableByName("flowchartuser", "*");
             DataSet D = new DataSet();
@@ -346,7 +348,7 @@ namespace no_table_flowchart_massive {
             Easy_PostData pd = new Easy_PostData();
             pd.InitClass(D, Conn);
             if (!pd.DO_POST()) {
-                MessageBox.Show(this, "Errore nel salvataggio dei dati in AggiungiUtenteAdOrganigramma", "Errore");
+                show(this, "Errore nel salvataggio dei dati in AggiungiUtenteAdOrganigramma", "Errore");
                 return false;
             }
             else {
@@ -368,7 +370,7 @@ namespace no_table_flowchart_massive {
 
         public bool AddVirtualUser(DataAccess WebConn, WebUser WU) {
             if (!CustomUserExists(WU.idcustomuser)) {
-                MessageBox.Show(this, "L'utente " + WU.idcustomuser.ToString() +
+                show(this, "L'utente " + WU.idcustomuser.ToString() +
                     " non esiste nel dipartimento, impossibile associarlo al profilo web " + WU.login + ".", "Errore");
                 return false;
             }
@@ -400,7 +402,7 @@ namespace no_table_flowchart_massive {
             WebConn.SQLRunner(sql);
             int newnumberofrecs = WebConn.RUN_SELECT_COUNT("virtualuser", filter, false);
             if (newnumberofrecs == 1) return true;
-            MessageBox.Show(this, "Problemi nell'aggiornare virtualuser (" + WU.idcustomuser + ")", "Errore");
+            show(this, "Problemi nell'aggiornare virtualuser (" + WU.idcustomuser + ")", "Errore");
             return false;
 
         }
@@ -410,11 +412,11 @@ namespace no_table_flowchart_massive {
 
             DataTable Man = Conn.RUN_SELECT("manager", "*", null, QHS.CmpEq("email", WU.email), null, false);
             if (Man == null || Man.Rows.Count == 0) {
-                MessageBox.Show(this,"L'utente " + WU.login + " Ë associato ad una mail responsabile inesistente (" + WU.email + ")", "Errore");
+                show(this,"L'utente " + WU.login + " √® associato ad una mail responsabile inesistente (" + WU.email + ")", "Errore");
                 return false;
             }
             if (Man.Rows.Count > 1) {
-                MessageBox.Show(this, "L'utente " + WU.login + " Ë associato ad una mail responsabile presente in pi˘ responsabili (" + WU.email + ")", "Errore");
+                show(this, "L'utente " + WU.login + " √® associato ad una mail responsabile presente in pi√π responsabili (" + WU.email + ")", "Errore");
                 return false;
             }
             string sql = "UPDATE manager set userweb=" + QHS.quote(WU.login) +
@@ -427,7 +429,7 @@ namespace no_table_flowchart_massive {
 
         public bool CollegaUtenteNormale(DataAccess WebConn, WebUser WU, FlowChartUser FCU) {
             if (WU.login.ToString() == "") {
-                MessageBox.Show(this, "Impossibile aggiungere un utente senza login", "Errore");
+                show(this, "Impossibile aggiungere un utente senza login", "Errore");
                 return false;
             }
             //Aggiunge l'utente al dipartimento e 
@@ -437,18 +439,18 @@ namespace no_table_flowchart_massive {
                 if (!AggiungiUtenteAdOrganigramma(FCU)) return false;
                 return AddVirtualUser(WebConn, WU);
             }
-            return true; //se non c'Ë una voce di organigramma lo aggiunge come utente normale punto e basta                      
+            return true; //se non c'√® una voce di organigramma lo aggiunge come utente normale punto e basta                      
         }
 
         public bool CollegaUtenteLDAP(DataAccess WebConn, WebUser WU, FlowChartUser FCU) {
 
-            if (!CollegaUtenteNormale(WebConn, WU, FCU)) return false;
-            //se Ë ANCHE un responsabile lo segna comunque tra i responsabili impostando la userweb di quel resp.
+            //if (!CollegaUtenteNormale(WebConn, WU, FCU)) return false;
+            //se √® ANCHE un responsabile lo segna comunque tra i responsabili impostando la userweb di quel resp.
 
             DataTable Man = Conn.RUN_SELECT("manager", "*", null, QHS.CmpEq("email", WU.email), null, false);
             
             if (Man.Rows.Count > 1) {
-                MessageBox.Show(this, "L'utente " + WU.login + " Ë associato ad una mail responsabile presente in pi˘ responsabili (" + WU.email + ")", "Errore");
+                show(this, "L'utente " + WU.login + " √® associato ad una mail responsabile presente in pi√π responsabili (" + WU.email + ")", "Errore");
                 return false;
             }
             if (Man.Rows.Count == 1) {
@@ -481,9 +483,10 @@ namespace no_table_flowchart_massive {
                 case 1: return CollegaResponsabile(WebConn, WU, FCU);
                 case 3: return CollegaUtenteNormale(WebConn, WU, FCU);
                 case 4: return CollegaUtenteLDAP(WebConn, WU, FCU);
+                case 5: return CollegaUtenteLDAP(WebConn, WU, FCU);
                 default:
-                    MessageBox.Show(this,
-                        "Il tipo utente " + WU.tipoutente.ToString() + " non Ë contemplato (login " + WU.login + ")", "Errore");
+                    show(this,
+                        "Il tipo utente " + WU.tipoutente.ToString() + " non √® contemplato (login " + WU.login + ")", "Errore");
                     return false;
             }
             
@@ -504,11 +507,11 @@ namespace no_table_flowchart_massive {
             Test.Close();
             if (res) {
                 if (!quiet) {
-                    MessageBox.Show(this, "Connessione al db di sistema web effettuata con successo", "Avviso");
+                    show(this, "Connessione al db di sistema web effettuata con successo", "Avviso");
                 }
             }
             else {
-                MessageBox.Show(this, "Errore nella connessione al db di sistema web:\r\n" +
+                show(this, "Errore nella connessione al db di sistema web:\r\n" +
                             Test.LastError, "Errore");
             }
 
@@ -516,7 +519,7 @@ namespace no_table_flowchart_massive {
         }
         string[] tracciato_importautenti = new string[]{
             //campi per WebUser
-            "tipoutente;Tipo utente (1 resp. 3 utente normale 4 utente ldap);Codificato;1;1|3|4",
+            "tipoutente;Tipo utente (1 resp. 3 utente normale 4 utente ldap 5 utente SSO);Codificato;1;1|3|4|5",
             "nome;Nome;Stringa;50",
             "cognome;Cognome;Stringa;50",
             "cf;Codice fiscale;Stringa;16",
@@ -549,7 +552,7 @@ namespace no_table_flowchart_massive {
         private void btnTestServerWeb_Click(object sender, EventArgs e) {
             DataAccess Test = GetWebConnection();
             if (Test == null) {
-                MessageBox.Show(this, "Errore nella connessione al db di sistema web.", "Errore");
+                show(this, "Errore nella connessione al db di sistema web.", "Errore");
                 return ;
             }
             CheckConnection(GetWebConnection(),false);
@@ -559,7 +562,7 @@ namespace no_table_flowchart_massive {
         private void btnImportaUtenti_Click(object sender, EventArgs e) {
             DataAccess WebConn = GetWebConnection();
             if (WebConn == null) {
-                MessageBox.Show(this, "Errore nella connessione al db di sistema web.", "Errore");
+                show(this, "Errore nella connessione al db di sistema web.", "Errore");
                 return ;
             }
             if (!CheckConnection(WebConn, true)) return;
@@ -611,7 +614,7 @@ namespace no_table_flowchart_massive {
 
             WebConn.Close();
             WebConn.Destroy();
-            MessageBox.Show(this, "Operazione completata. Dal file sono state lette:" + nrighe_lette+ " righe.", "Avviso");
+            show(this, "Operazione completata. Dal file sono state lette:" + nrighe_lette+ " righe.", "Avviso");
         }
 
         public bool GetDataFromReader(FrmNotable_Importazione.LeggiFile Reader, out WebUser WU, out FlowChartUser FCU) {
@@ -685,11 +688,11 @@ namespace no_table_flowchart_massive {
             if (id == null) id = DBNull.Value;
 
             if (id == DBNull.Value) {
-                MessageBox.Show("Il codice " + code.ToString() + " per l'attributo " + num.ToString() + " non esiste.", "Errore");
+                show("Il codice " + code.ToString() + " per l'attributo " + num.ToString() + " non esiste.", "Errore");
             }
             return id;
 
         }
 
     }
-}
+}

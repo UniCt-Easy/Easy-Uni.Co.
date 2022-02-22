@@ -270,6 +270,8 @@
               <xs:element name="_x0021_registry" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_totaleriga" type="xs:decimal" minOccurs="0" />
               <xs:element name="idepacc_pre" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_estimkind" type="xs:string" minOccurs="0" />
+              <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -354,6 +356,7 @@
               <xs:element name="header" type="xs:string" minOccurs="0" />
               <xs:element name="idivakind_forced" type="xs:int" minOccurs="0" />
               <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="riferimento_amministrazione" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -395,7 +398,9 @@
               <xs:element name="idsor04" type="xs:int" minOccurs="0" />
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="external_reference" type="xs:string" minOccurs="0" />
-              <xs:element name="cigcode" type="xs:string" minOccurs="0" />
+              <xs:element name="cigcode" type="xs:int" minOccurs="0" />
+              <xs:element name="idnso_vendita" type="xs:int" minOccurs="0" />
+              <xs:element name="idnocigmotive" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -728,6 +733,12 @@
               <xs:element name="annotations" type="xs:string" minOccurs="0" />
               <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
               <xs:element name="iuv" type="xs:string" minOccurs="0" />
+              <xs:element name="expirationdate" type="xs:string" minOccurs="0" />
+              <xs:element name="barcodevalue" type="xs:string" minOccurs="0" />
+              <xs:element name="barcodeimage" type="xs:string" minOccurs="0" />
+              <xs:element name="qrcodevalue" type="xs:string" minOccurs="0" />
+              <xs:element name="qrcodeimage" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -902,6 +913,7 @@
               <xs:element name="codicetipo" type="xs:string" minOccurs="0" />
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
               <xs:element name="idepexp_pre" type="xs:int" minOccurs="0" />
+              <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1210,6 +1222,22 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="incomelastestimatedetail" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinc" type="xs:int" />
+              <xs:element name="idestimkind" type="xs:string" />
+              <xs:element name="yestim" type="xs:short" />
+              <xs:element name="nestim" type="xs:int" />
+              <xs:element name="rownum" type="xs:int" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -1393,6 +1421,14 @@
       <xs:selector xpath=".//mstns:ivakind" />
       <xs:field xpath="mstns:idivakind" />
     </xs:unique>
+    <xs:unique name="incomelastestimatedetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:incomelastestimatedetail" />
+      <xs:field xpath="mstns:idinc" />
+      <xs:field xpath="mstns:idestimkind" />
+      <xs:field xpath="mstns:yestim" />
+      <xs:field xpath="mstns:nestim" />
+      <xs:field xpath="mstns:rownum" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -1427,6 +1463,8 @@
       <msdata:Relationship name="income_estimatedetail" msdata:parent="income" msdata:child="estimatedetail" msdata:parentkey="idinc" msdata:childkey="idinc_taxable" />
       <msdata:Relationship name="income_estimatedetail1" msdata:parent="income" msdata:child="estimatedetail" msdata:parentkey="idinc" msdata:childkey="idinc_iva" />
       <msdata:Relationship name="income_incomevar" msdata:parent="income" msdata:child="incomevar" msdata:parentkey="idinc" msdata:childkey="idinc" />
+      <msdata:Relationship name="income_incomelastestimatedetail" msdata:parent="income" msdata:child="incomelastestimatedetail" msdata:parentkey="idinc" msdata:childkey="idinc" />
+      <msdata:Relationship name="estimatedetail_incomelastestimatedetail" msdata:parent="estimatedetail" msdata:child="incomelastestimatedetail" msdata:parentkey="idestimkind yestim nestim rownum" msdata:childkey="idestimkind yestim nestim rownum" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

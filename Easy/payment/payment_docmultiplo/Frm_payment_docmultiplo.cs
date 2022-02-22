@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -40,7 +39,7 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
 	/// Revised By Nino 21/2/2003
 	/// revised By Nino on 8/3/2003
 	/// </summary>
-	public class Frm_payment_docmultiplo : System.Windows.Forms.Form {
+	public class Frm_payment_docmultiplo : MetaDataForm {
         QueryHelper QHS;
         CQueryHelper QHC;
         public dsmeta DS;
@@ -1580,6 +1579,7 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
             txtImportoNetto.Text = "";
 			gestisciBottoniEsito(false);
             DS.expensesorted.Clear();
+            DS.expenselastmandatedetail.Clear();
             txtImportoDisposizione.Text = "";
             txtNumeroDocumento.ReadOnly = false;
             btnIstitutoCassiere.Enabled = true;
@@ -1703,7 +1703,7 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
               " join expense E on E.idexp = II.idpayment " +
               " where (II.idpayment in (" + list + ")) " +
                 //task 5739: filtro l'anag. solo per autokind 4, come la stampa
-              " and ((II.autokind = 4 and II.idreg=E.idreg) OR II.autokind = 6 OR II.autokind = 14 OR  II.autokind in (20,21,30,31))  ";
+              " and ((II.autokind = 4 and II.idreg=E.idreg) OR II.autokind in (6,7,14,20,21,30,31))  ";
               //" and II.idreg = E.idreg  ";
 
             // sottrai contributi c/ente  (temporaneamente sospeso, si deve considerare la coerenza con la stampa)
@@ -1811,7 +1811,7 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
             if (UsoSiope) {
                 Dictionary<int, DataRow> admitted;
                 string res = pp.Meta_payment.SimulaGenerazioneOrdinativo(Conn, DS.expenselastview, out admitted);
-                if (res!=null)MessageBox.Show(res, "Informazione");
+                if (res!=null)MetaFactory.factory.getSingleton<IMessageShower>().Show(res, "Informazione");
             }
         }
 
@@ -1839,7 +1839,7 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
             if (UsoSiope) {
                 Dictionary<int, DataRow> admitted;
                 string res = pp.Meta_payment.SimulaGenerazioneOrdinativo(Conn, DS.expenselastview, out admitted);
-                if (res!=null)MessageBox.Show(res, "Informazione");
+                if (res!=null)MetaFactory.factory.getSingleton<IMessageShower>().Show(res, "Informazione");
             }
         }
 		
@@ -1854,7 +1854,7 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
             if (UsoSiope) {
                 Dictionary<int, DataRow> admitted;
                 string res = pp.Meta_payment.SimulaGenerazioneOrdinativo(Conn, DS.expenselastview, out admitted);
-                if (res!=null)MessageBox.Show(res, "Informazione");
+                if (res!=null)MetaFactory.factory.getSingleton<IMessageShower>().Show(res, "Informazione");
             }
         }
 
@@ -1901,54 +1901,63 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
 			}
 
 		}
-		void AggiungiVariazioniDiAnnullo(DateTime DataAnnullo){
-			if (DS.config.Rows.Count==0) return;
-			
-			if (DS.expenselastview.Rows.Count==0) return;
+
+		void AggiungiVariazioniDiAnnullo(DateTime DataAnnullo) {
+			if (DS.config.Rows.Count == 0) return;
+
+			if (DS.expenselastview.Rows.Count == 0) return;
 			DataAccess Conn = Meta.Conn;
-			string filter = QHS.AppAnd(QHS.AppAnd(QHS.CmpEq("autokind",11), QHS.CmpEq("yvar",Meta.GetSys("esercizio"))),
-                QHS.FieldIn("idexp",DS.expenselastview.Select(),"idexp"));
-			MetaData MetaVar = MetaData.GetMetaData(this,"expensevar");
+			string filter = QHS.AppAnd(
+				QHS.AppAnd(QHS.CmpEq("autokind", 11), QHS.CmpEq("yvar", Meta.GetSys("esercizio"))),
+				QHS.FieldIn("idexp", DS.expenselastview.Select(), "idexp"));
+			MetaData MetaVar = MetaData.GetMetaData(this, "expensevar");
 			MetaVar.SetDefaults(DS.expensevar);
-			MetaData.SetDefault(DS.expensevar,"adate", DataAnnullo);
+			MetaData.SetDefault(DS.expensevar, "adate", DataAnnullo);
 
-            DS.expensesorted.Clear();
+			DS.expensesorted.Clear();
+			DS.expenselastmandatedetail.Clear();
 
-			MetaData.SetDefault(DS.expensevar,"autokind", 11);
-			DataAccess.RUN_SELECT_INTO_TABLE(Conn,DS.expensevar, null, filter, null, true);
+			MetaData.SetDefault(DS.expensevar, "autokind", 11);
+			DataAccess.RUN_SELECT_INTO_TABLE(Conn, DS.expensevar, null, filter, null, true);
 			DataRow Curr = DS.payment.Rows[0];
-			string descrvar = "Annullamento del mandato "+Curr["ypay"]+"/"+Curr["npay"];
+			string descrvar = "Annullamento del mandato " + Curr["ypay"] + "/" + Curr["npay"];
 			foreach (DataRow SpesaToAdd in DS.expenselastview.Select()) {
-				string filteridspesa = QHC.AppAnd(QHC.CmpEq("idexp",SpesaToAdd["idexp"]), QHC.CmpEq("autokind",11));
-                string filterclass = QHC.CmpEq("idexp",SpesaToAdd["idexp"]);
-				DataRow []VarAnnullo = DS.expensevar.Select(filteridspesa,	null);
-				if (VarAnnullo.Length==0){
-					MetaData.SetDefault(DS.expensevar,"idexp", SpesaToAdd["idexp"]);
-					DataRow NewVarAnnullo= MetaVar.Get_New_Row(null, DS.expensevar);
-					decimal impcorr = CfgFn.GetNoNullDecimal( SpesaToAdd["curramount"] );
-					NewVarAnnullo["amount"]= -impcorr;
-					NewVarAnnullo["description"]= descrvar;
-				
+				string filteridspesa = QHC.AppAnd(QHC.CmpEq("idexp", SpesaToAdd["idexp"]), QHC.CmpEq("autokind", 11));
+				string filterclass = QHC.CmpEq("idexp", SpesaToAdd["idexp"]);
+				DataRow[] VarAnnullo = DS.expensevar.Select(filteridspesa, null);
+				if (VarAnnullo.Length == 0) {
+					MetaData.SetDefault(DS.expensevar, "idexp", SpesaToAdd["idexp"]);
+					DataRow NewVarAnnullo = MetaVar.Get_New_Row(null, DS.expensevar);
+					decimal impcorr = CfgFn.GetNoNullDecimal(SpesaToAdd["curramount"]);
+					NewVarAnnullo["amount"] = -impcorr;
+					NewVarAnnullo["description"] = descrvar;
+
 				}
 				else {
 					DataRow ExistVarAnnullo = VarAnnullo[0];
-					decimal currvar = CfgFn.GetNoNullDecimal( ExistVarAnnullo["amount"]);
-					decimal impcorr = CfgFn.GetNoNullDecimal( SpesaToAdd["curramount"] );
-					if (impcorr!=0) {
-						ExistVarAnnullo["amount"]= currvar - impcorr;
-						ExistVarAnnullo["adate"]= DataAnnullo;
+					decimal currvar = CfgFn.GetNoNullDecimal(ExistVarAnnullo["amount"]);
+					decimal impcorr = CfgFn.GetNoNullDecimal(SpesaToAdd["curramount"]);
+					if (impcorr != 0) {
+						ExistVarAnnullo["amount"] = currvar - impcorr;
+						ExistVarAnnullo["adate"] = DataAnnullo;
 						//ExistVarAnnullo["descrizione"]= descrvar;
 					}
-    			   }
-               DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.expensesorted, null, filterclass, null, true);
-              
+				}
+
+				DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.expensesorted, null, filterclass, null, true);
+				DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.expenselastmandatedetail, null, filterclass, null, true);
+
 			}
 
-            DataRow[] Rexpensesorted = DS.expensesorted.Select();
-            foreach (DataRow R in Rexpensesorted)
-            {
-                R["amount"] = 0;
-            }
+			
+			foreach (DataRow R in DS.expensesorted.Select()) {
+				R["amount"] = 0;
+			}
+
+			foreach (DataRow R in DS.expenselastmandatedetail.Select()) {
+                R["originalamount"] = R["amount"];
+				R["amount"] = 0;
+			}
 
 		}
 
@@ -1985,6 +1994,7 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
 			fillPaymentBank();
 			DS.payment_bankview.Clear();
             DS.expensesorted.Clear();
+            DS.expenselastmandatedetail.Clear();
 			DataRow Curr = DS.payment.Rows[0];
 			string filter = QHS.CmpKey(Curr);
 			DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.payment_bankview, "idpay", filter, null, true);
@@ -2021,7 +2031,8 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
 	            }
 	        }
 	        if (currblockLen>0) sb.AppendLine(";");
-	        sb.AppendLine($"exec  trasmele_expense_opisiopeplus_ins {Conn.GetEsercizio()},null,@lista");
+
+            sb.AppendLine($"exec  trasmele_expense_opisiopeplus_ins {Conn.GetEsercizio()},null,'N', @lista");
 	        return Conn.SQLRunner(sb.ToString());
 	    }
 
@@ -2102,7 +2113,7 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
             Dictionary<int, DataRow> admitted;
             string res = pp.Meta_payment.SimulaGenerazioneOrdinativo(Conn, DS.expenselastview, out admitted);
             if (res == null) res = "L'ordinativo ha già una dimensione accettabile.";
-            if (res!=null)MessageBox.Show(res, "Informazione");
+            if (res!=null)MetaFactory.factory.getSingleton<IMessageShower>().Show(res, "Informazione");
             int n = 0;
             Dictionary<int,DataRow> rowPerIdExp = new Dictionary<int, DataRow>();
             foreach (DataRow r in DS.expenselastview.Rows) {
@@ -2121,9 +2132,8 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
                 }
             }
 
-            MessageBox.Show("Sono stati rimossi " + n + " pagamenti dal mandato.", "Avviso");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("Sono stati rimossi " + n + " pagamenti dal mandato.", "Avviso");
 
         }
     }
 }
-

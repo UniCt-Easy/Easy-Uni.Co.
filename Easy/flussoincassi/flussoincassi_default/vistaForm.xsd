@@ -43,6 +43,9 @@
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="p_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="identificativounivocoriscossione" type="xs:string" minOccurs="0" />
+              <xs:element name="codicepsp" type="xs:string" minOccurs="0" />
+              <xs:element name="dataesitopagamento" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -152,6 +155,34 @@
               <xs:element name="p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="annotations" type="xs:string" minOccurs="0" />
               <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="codicetassonomia" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="flussoincassiview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idflusso" type="xs:int" />
+              <xs:element name="codiceflusso" type="xs:string" minOccurs="0" />
+              <xs:element name="nbill" type="xs:int" minOccurs="0" />
+              <xs:element name="trn" type="xs:string" minOccurs="0" />
+              <xs:element name="dataincasso" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ayear" type="xs:short" minOccurs="0" />
+              <xs:element name="causale" type="xs:string" minOccurs="0" />
+              <xs:element name="importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="elaborato" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="to_complete" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="total" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -182,6 +213,10 @@
       <xs:selector xpath=".//mstns:flussocreditidetail" />
       <xs:field xpath="mstns:idflusso" />
       <xs:field xpath="mstns:iddetail" />
+    </xs:unique>
+    <xs:unique name="flussoincassiview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:flussoincassiview" />
+      <xs:field xpath="mstns:idflusso" />
     </xs:unique>
   </xs:element>
   <xs:annotation>

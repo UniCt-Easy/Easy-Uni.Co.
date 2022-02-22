@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -33,54 +32,30 @@ using metadatalibrary;
 namespace epacc_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable registry 		=> (registryTable)Tables["registry"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account 		=> (accountTable)Tables["account"];
 
-	///<summary>
-	///Accertamento di Budget
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable epacc 		=> (MetaTable)Tables["epacc"];
 
-	///<summary>
-	///Imputazione annuale accertamento di budget
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable epaccyear 		=> (MetaTable)Tables["epaccyear"];
 
-	///<summary>
-	///Variazione movimento Accertamento di Budget
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable epaccvar 		=> (MetaTable)Tables["epaccvar"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public upbTable upb 		=> (upbTable)Tables["upb"];
 
-	///<summary>
-	///Responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public managerTable manager 		=> (managerTable)Tables["manager"];
 
-	///<summary>
-	///Classificazione Accertamento di Budget
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable epaccsorting 		=> (MetaTable)Tables["epaccsorting"];
 
@@ -90,17 +65,14 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable epaccsortingview 		=> (MetaTable)Tables["epaccsortingview"];
 
-	///<summary>
-	///Totalizzatore su accertamento di budget
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable epacctotal 		=> (MetaTable)Tables["epacctotal"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accmotiveTable accmotive 		=> (accmotiveTable)Tables["accmotive"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable epaccview 		=> (MetaTable)Tables["epaccview"];
 
 	#endregion
 
@@ -293,6 +265,92 @@ private void initClass() {
 	Tables.Add(taccmotive);
 	taccmotive.defineKey("idaccmotive");
 
+	//////////////////// EPACCVIEW /////////////////////////////////
+	var tepaccview= new MetaTable("epaccview");
+	tepaccview.defineColumn("idepacc", typeof(int),false);
+	tepaccview.defineColumn("yepacc", typeof(short),false);
+	tepaccview.defineColumn("nepacc", typeof(int),false);
+	tepaccview.defineColumn("nphase", typeof(short),false);
+	tepaccview.defineColumn("phase", typeof(string),true,true);
+	tepaccview.defineColumn("flagvariation", typeof(string));
+	tepaccview.defineColumn("description", typeof(string),false);
+	tepaccview.defineColumn("amount", typeof(decimal),false);
+	tepaccview.defineColumn("amount2", typeof(decimal));
+	tepaccview.defineColumn("amount3", typeof(decimal));
+	tepaccview.defineColumn("amount4", typeof(decimal));
+	tepaccview.defineColumn("amount5", typeof(decimal));
+	tepaccview.defineColumn("amountwithsign", typeof(decimal),true,true);
+	tepaccview.defineColumn("amountwithsign2", typeof(decimal),true,true);
+	tepaccview.defineColumn("amountwithsign3", typeof(decimal),true,true);
+	tepaccview.defineColumn("amountwithsign4", typeof(decimal),true,true);
+	tepaccview.defineColumn("amountwithsign5", typeof(decimal),true,true);
+	tepaccview.defineColumn("totamount", typeof(decimal),true,true);
+	tepaccview.defineColumn("curramount", typeof(decimal));
+	tepaccview.defineColumn("curramount2", typeof(decimal));
+	tepaccview.defineColumn("curramount3", typeof(decimal));
+	tepaccview.defineColumn("curramount4", typeof(decimal));
+	tepaccview.defineColumn("curramount5", typeof(decimal));
+	tepaccview.defineColumn("totcurramount", typeof(decimal),true,true);
+	tepaccview.defineColumn("available", typeof(decimal),true,true);
+	tepaccview.defineColumn("available2", typeof(decimal),true,true);
+	tepaccview.defineColumn("available3", typeof(decimal),true,true);
+	tepaccview.defineColumn("available4", typeof(decimal),true,true);
+	tepaccview.defineColumn("available5", typeof(decimal),true,true);
+	tepaccview.defineColumn("totavailable", typeof(decimal),true,true);
+	tepaccview.defineColumn("totalrevenue", typeof(decimal),true,true);
+	tepaccview.defineColumn("revenueavailable", typeof(decimal),true,true);
+	tepaccview.defineColumn("totalcredit", typeof(decimal),true,true);
+	tepaccview.defineColumn("ayear", typeof(short),false);
+	tepaccview.defineColumn("idacc", typeof(string),false);
+	tepaccview.defineColumn("codeacc", typeof(string),false);
+	tepaccview.defineColumn("account", typeof(string),false);
+	tepaccview.defineColumn("idupb", typeof(string),false);
+	tepaccview.defineColumn("codeupb", typeof(string),false);
+	tepaccview.defineColumn("upb", typeof(string),false);
+	tepaccview.defineColumn("paridepacc", typeof(int));
+	tepaccview.defineColumn("parentyepacc", typeof(short));
+	tepaccview.defineColumn("parentnepacc", typeof(int));
+	tepaccview.defineColumn("yliv1", typeof(short),true,true);
+	tepaccview.defineColumn("nliv1", typeof(int),true,true);
+	tepaccview.defineColumn("start", typeof(DateTime));
+	tepaccview.defineColumn("stop", typeof(DateTime));
+	tepaccview.defineColumn("adate", typeof(DateTime),false);
+	tepaccview.defineColumn("idreg", typeof(int));
+	tepaccview.defineColumn("registry", typeof(string));
+	tepaccview.defineColumn("doc", typeof(string));
+	tepaccview.defineColumn("docdate", typeof(DateTime));
+	tepaccview.defineColumn("idman", typeof(int));
+	tepaccview.defineColumn("manager", typeof(string));
+	tepaccview.defineColumn("idrelated", typeof(string));
+	tepaccview.defineColumn("flagaccountusage", typeof(int));
+	tepaccview.defineColumn("rateiattivi", typeof(string),true,true);
+	tepaccview.defineColumn("rateipassivi", typeof(string),true,true);
+	tepaccview.defineColumn("riscontiattivi", typeof(string),true,true);
+	tepaccview.defineColumn("riscontipassivi", typeof(string),true,true);
+	tepaccview.defineColumn("debit", typeof(string),true,true);
+	tepaccview.defineColumn("credit", typeof(string),true,true);
+	tepaccview.defineColumn("cost", typeof(string),true,true);
+	tepaccview.defineColumn("revenue", typeof(string),true,true);
+	tepaccview.defineColumn("fixedassets", typeof(string),true,true);
+	tepaccview.defineColumn("freeusesurplus", typeof(string),true,true);
+	tepaccview.defineColumn("captiveusesurplus", typeof(string),true,true);
+	tepaccview.defineColumn("reserve", typeof(string),true,true);
+	tepaccview.defineColumn("provision", typeof(string),true,true);
+	tepaccview.defineColumn("idaccmotive", typeof(string));
+	tepaccview.defineColumn("codemotive", typeof(string));
+	tepaccview.defineColumn("lt", typeof(DateTime),false);
+	tepaccview.defineColumn("lu", typeof(string),false);
+	tepaccview.defineColumn("ct", typeof(DateTime),false);
+	tepaccview.defineColumn("cu", typeof(string),false);
+	tepaccview.defineColumn("idsor01", typeof(int));
+	tepaccview.defineColumn("idsor02", typeof(int));
+	tepaccview.defineColumn("idsor03", typeof(int));
+	tepaccview.defineColumn("idsor04", typeof(int));
+	tepaccview.defineColumn("idsor05", typeof(int));
+	tepaccview.defineColumn("cf", typeof(string));
+	tepaccview.defineColumn("p_iva", typeof(string));
+	Tables.Add(tepaccview);
+
 	#endregion
 
 
@@ -310,9 +368,9 @@ private void initClass() {
 
 	this.defineRelation("registry_epacc","registry","epacc","idreg");
 	this.defineRelation("manager_epacc","manager","epacc","idman");
+	this.defineRelation("epacc_epaccview","epacc","epaccview","idepacc");
 	#endregion
 
 }
 }
 }
-

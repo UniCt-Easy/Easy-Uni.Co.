@@ -378,6 +378,7 @@
               <xs:element name="intcode" type="xs:string" minOccurs="0" />
               <xs:element name="list" type="xs:string" minOccurs="0" />
               <xs:element name="historicalvalue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="inventorykind" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

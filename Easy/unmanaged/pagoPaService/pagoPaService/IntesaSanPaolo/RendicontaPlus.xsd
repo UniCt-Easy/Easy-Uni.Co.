@@ -1,0 +1,402 @@
+﻿<xsd:schema
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:as="http://www.oasis-open.org/committees/cam"
+ xmlns:camed="http://jcam.org.uk/editor"
+ xmlns:dblook="http://jcam.org.uk/DbLookupLists"
+ xmlns:look="http://jcam.org.uk/LookupLists"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema" version="0.1" elementFormDefault="qualified">
+  <xsd:element name="RendicontaPlus" id="d2e50">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="identificativoDominio" minOccurs="1" maxOccurs="1" type="identificativoDominioDefinition" id="d2e57" />
+        <xsd:element name="identificativoUB" minOccurs="1" maxOccurs="1" type="identificativoUBDefinition" id="d2e65" />
+        <xsd:element name="denominazioneUB" minOccurs="1" maxOccurs="1" type="denominazioneUBDefinition" id="d2e73" />
+        <xsd:element name="ricevutaTelematica" minOccurs="1" maxOccurs="unbounded" id="d2e81">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="identificativoUnivocoVersamento" minOccurs="1" maxOccurs="1" type="identificativoUnivocoVersamentoDefinition" id="d2e87" />
+              <xsd:element name="idTenant" minOccurs="0" maxOccurs="1" type="idTenantDefinition" id="d2e95" />
+              <xsd:element name="dataEsecuzionePagamento" minOccurs="1" maxOccurs="1" type="dataEsecuzionePagamentoDefinition" id="d2e102" />
+              <xsd:element name="dataInvioRt" minOccurs="1" maxOccurs="1" type="dataInvioRtDefinition" id="d2e110" />
+              <xsd:element name="firmaRicevuta" minOccurs="0" maxOccurs="1" type="firmaRicevutaDefinition" id="d2e118" />
+              <xsd:element name="codiceContestoPagamento" minOccurs="1" maxOccurs="1" type="codiceContestoPagamentoDefinition" id="d2e126" />
+              <xsd:element name="codiceEsitoPagamento" minOccurs="1" maxOccurs="1" id="d2e134">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:decimal">
+                    <xsd:totalDigits value="8" />
+                    <xsd:fractionDigits value="2" />
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="tipoIdentificativoUnivocoAttestante" minOccurs="1" maxOccurs="1" type="tipoIdentificativoUnivocoAttestanteDefinition" id="d2e141" />
+              <xsd:element name="codiceIdentificativoUnivocoAttestante" minOccurs="1" maxOccurs="1" type="codiceIdentificativoUnivocoAttestanteDefinition" id="d2e149" />
+              <xsd:element name="denominazioneAttestante" minOccurs="1" maxOccurs="1" type="denominazioneAttestanteDefinition" id="d2e157" />
+              <xsd:element name="tipoIdentificativoUnivocoPagatore" minOccurs="1" maxOccurs="1" type="tipoIdentificativoUnivocoPagatoreDefinition" id="d2e165" />
+              <xsd:element name="codiceIdentificativoUnivocoPagatore" minOccurs="1" maxOccurs="1" type="codiceIdentificativoUnivocoPagatoreDefinition" id="d2e174" />
+              <xsd:element name="anagraficaPagatore" minOccurs="0" maxOccurs="1" type="anagraficaPagatoreDefinition" id="d2e182" />
+              <xsd:element name="capPagatore" minOccurs="0" maxOccurs="1" type="capPagatoreDefinition" id="d2e189" />
+              <xsd:element name="civicoPagatore" minOccurs="0" maxOccurs="1" type="civicoPagatoreDefinition" id="d2e196" />
+              <xsd:element name="emailPagatore" minOccurs="0" maxOccurs="1" type="emailPagatoreDefinition" id="d2e203" />
+              <xsd:element name="indirizzoPagatore" minOccurs="0" maxOccurs="1" type="indirizzoPagatoreDefinition" id="d2e210" />
+              <xsd:element name="localitaPagatore" minOccurs="0" maxOccurs="1" type="localitaPagatoreDefinition" id="d2e218" />
+              <xsd:element name="nazionePagatore" minOccurs="0" maxOccurs="1" type="nazionePagatoreDefinition" id="d2e225" />
+              <xsd:element name="provinciaPagatore" minOccurs="0" maxOccurs="1" type="provinciaPagatoreDefinition" id="d2e232" />
+              <xsd:element name="codiceIdentificativoUnivocoBeneficiario" minOccurs="1" maxOccurs="1" type="codiceIdentificativoUnivocoBeneficiarioDefinition" id="d2e239" />
+              <xsd:element name="tipoIdentificativoUnivocoBeneficiario" minOccurs="1" maxOccurs="1" type="tipoIdentificativoUnivocoBeneficiarioDefinition" id="d2e247" />
+              <xsd:element name="denominazioneBeneficiario" minOccurs="1" maxOccurs="1" type="denominazioneBeneficiarioDefinition" id="d2e255" />
+              <xsd:element name="importoTotaleDaVersare" minOccurs="1" maxOccurs="1" id="d2e264">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:decimal">
+                    <xsd:totalDigits value="8" />
+                    <xsd:fractionDigits value="2" />
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="dataMulta" minOccurs="0" maxOccurs="1" type="dataMultaDefinition" id="d2e271" />
+              <xsd:element name="oraMulta" minOccurs="0" maxOccurs="1" type="oraMultaDefinition" id="d2e278" />
+              <xsd:element name="targa" minOccurs="0" maxOccurs="1" type="targaDefinition" id="d2e285" />
+              <xsd:element name="codiceViolazione" minOccurs="0" maxOccurs="1" type="codiceViolazioneDefinition" id="d2e292" />
+              <xsd:element name="tipoVerbale" minOccurs="0" maxOccurs="1" type="tipoVerbaleDefinition" id="d2e299" />
+              <xsd:element name="numeroVerbale" minOccurs="0" maxOccurs="1" type="numeroVerbaleDefinition" id="d2e307" />
+              <xsd:element name="datiSingoloPagamento" minOccurs="1" maxOccurs="unbounded" id="d2e314">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="importoSingoloVersamento" minOccurs="1" maxOccurs="1" id="d2e320">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:decimal">
+                          <xsd:totalDigits value="8" />
+                          <xsd:fractionDigits value="2" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="causaleVersamento" minOccurs="1" maxOccurs="1" type="causaleVersamentoDefinition" id="d2e327" />
+                    <xsd:element name="tipoDatiSpecificiRiscossione" minOccurs="0" maxOccurs="1" type="tipoDatiSpecificiRiscossioneDefinition" id="d2e335" />
+                    <xsd:element name="datiSpecificiRiscossione" minOccurs="0" maxOccurs="1" type="datiSpecificiRiscossioneDefinition" id="d2e342" />
+                    <xsd:element name="identUnivocoRiscossione" minOccurs="0" maxOccurs="1" type="identUnivocoRiscossioneDefinition" id="d2e349" />
+                    <xsd:element name="ordinePagamento" minOccurs="0" maxOccurs="1" id="d2e357">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:int">
+                          <xsd:totalDigits value="7" />
+                          <xsd:fractionDigits value="0" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="idFlusso" minOccurs="0" maxOccurs="1" type="idFlussoDefinition" id="d2e366" />
+                    <xsd:element name="identificativoUnivocoRegolamento" minOccurs="0" maxOccurs="1" type="identificativoUnivocoRegolamentoDefinition" id="d2e373" />
+                    <xsd:element name="dataRegolamento" minOccurs="0" maxOccurs="1" type="dataRegolamentoDefinition" id="d2e380" />
+                    <xsd:element name="capitoloDiBilancio" minOccurs="0" maxOccurs="1" type="capitoloDiBilancioDefinition" id="d2e387" />
+                    <xsd:element name="provvisorioEntrata" minOccurs="0" maxOccurs="1" type="provvisorioEntrataDefinition" id="d2e394" />
+                    <xsd:element name="ibanAccredito" minOccurs="1" maxOccurs="1" type="ibanAccreditoDefinition" id="d2e402" />
+                    <xsd:element name="tipoVersamento" minOccurs="1" maxOccurs="1" type="tipoVersamentoDefinition" id="d2e410" />
+                    <xsd:element name="codiceTributo" minOccurs="1" maxOccurs="1" type="codiceTributoDefinition" id="d2e418" />
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <!-- Parent complexTypes 
+ 
+-->
+  <!-- Local simpleTypes (default namespace) 
+ 
+-->
+  <xsd:simpleType name="identificativoDominioDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for identificativoDominio.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="identificativoUBDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for identificativoUB.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="denominazioneUBDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for denominazioneUB.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="identificativoUnivocoVersamentoDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for identificativoUnivocoVersamento.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="idTenantDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for idTenant.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="dataEsecuzionePagamentoDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for dataEsecuzionePagamento.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="dataInvioRtDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for dataInvioRt.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="firmaRicevutaDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for firmaRicevuta.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="codiceContestoPagamentoDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for codiceContestoPagamento.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="codiceEsitoPagamentoDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for codiceEsitoPagamento.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:decimal">
+      <xsd:totalDigits value="8" />
+      <xsd:fractionDigits value="2" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="tipoIdentificativoUnivocoAttestanteDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for tipoIdentificativoUnivocoAttestante.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="codiceIdentificativoUnivocoAttestanteDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for codiceIdentificativoUnivocoAttestante.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="denominazioneAttestanteDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for denominazioneAttestante.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="tipoIdentificativoUnivocoPagatoreDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for tipoIdentificativoUnivocoPagatore.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="codiceIdentificativoUnivocoPagatoreDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for codiceIdentificativoUnivocoPagatore.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="anagraficaPagatoreDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for anagraficaPagatore.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="capPagatoreDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for capPagatore.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="civicoPagatoreDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for civicoPagatore.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="emailPagatoreDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for emailPagatore.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="indirizzoPagatoreDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for indirizzoPagatore.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="localitaPagatoreDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for localitaPagatore.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="nazionePagatoreDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for nazionePagatore.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="provinciaPagatoreDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for provinciaPagatore.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="codiceIdentificativoUnivocoBeneficiarioDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for codiceIdentificativoUnivocoBeneficiario.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="tipoIdentificativoUnivocoBeneficiarioDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for tipoIdentificativoUnivocoBeneficiario.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="denominazioneBeneficiarioDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for denominazioneBeneficiario.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="importoTotaleDaVersareDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for importoTotaleDaVersare.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:decimal">
+      <xsd:totalDigits value="8" />
+      <xsd:fractionDigits value="2" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="dataMultaDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for dataMulta.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="oraMultaDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for oraMulta.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="targaDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for targa.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="codiceViolazioneDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for codiceViolazione.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="tipoVerbaleDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for tipoVerbale.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="numeroVerbaleDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for numeroVerbale.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="importoSingoloVersamentoDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for importoSingoloVersamento.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:decimal">
+      <xsd:totalDigits value="8" />
+      <xsd:fractionDigits value="2" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="causaleVersamentoDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for causaleVersamento.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="tipoDatiSpecificiRiscossioneDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for tipoDatiSpecificiRiscossione.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="datiSpecificiRiscossioneDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for datiSpecificiRiscossione.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="identUnivocoRiscossioneDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for identUnivocoRiscossione.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="ordinePagamentoDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for ordinePagamento.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:int">
+      <xsd:totalDigits value="7" />
+      <xsd:fractionDigits value="0" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="idFlussoDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for idFlusso.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="identificativoUnivocoRegolamentoDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for identificativoUnivocoRegolamento.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="dataRegolamentoDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for dataRegolamento.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="capitoloDiBilancioDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for capitoloDiBilancio.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="provvisorioEntrataDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for provvisorioEntrata.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="ibanAccreditoDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for ibanAccredito.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="tipoVersamentoDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for tipoVersamento.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="codiceTributoDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for codiceTributo.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+</xsd:schema>
+

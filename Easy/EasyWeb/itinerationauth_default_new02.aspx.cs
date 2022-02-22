@@ -1,23 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-Ôªøusing System;
+using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -148,37 +146,51 @@ public partial class itinerationauth_default_new02 : MetaPage {
     }
 
     bool DoApprove( DataRow rItinerationauthview) {
-        string errormsg = "";
-        bool ChangeGlobalItinerationStatus = false;
+ 
+		PostData.RemoveFalseUpdates(DS);
+		
+		if (DS.HasChanges())
+		{
+			ShowClientMessage("Ci sono modifiche da salvare prima di procedere con l'approvazione", "Errore");
+			return false;
+		}
+		string errormsg = "";
+        bool ChangeGlobalItinerationStatus = false; //se true Ë necessario cambiare lo stato della missione (itineration)
         int iditineration = CfgFn.GetNoNullInt32(rItinerationauthview["iditineration"]);
         string filter = "";
         filter = QHS.AppAnd(QHS.CmpEq("iditineration", iditineration), QHS.CmpNe("idauthagency", idauthagency),
                QHS.DoPar(QHS.AppOr(QHS.CmpEq("flagstatus", "D"), QHS.CmpEq("flagstatus", "N"))));
 
         int pendingauthcount = Conn.RUN_SELECT_COUNT("itinerationauthagency", filter, false);
-        if ( pendingauthcount == 0)
-            ChangeGlobalItinerationStatus = true;
+        if (pendingauthcount == 0) {//Non ci sono altre autorizzazioni pendenti
+	        ChangeGlobalItinerationStatus = true;//Bisogna cambiare lo stato complessivo della missione
+        }
 
         filter = "";
 
         filter = QHS.AppAnd(QHS.CmpEq("iditineration", iditineration), QHS.CmpEq("idauthagency", idauthagency));
+
+        DataSet DSNew = new DataSet();
+
+        //Imposta i campi di itinerationauthagency e aggiunge la tabella 
         DataTable DTItinerationAuthAgency = Conn.RUN_SELECT("itinerationauthagency", "*", null, filter, null, false);
-        if (DTItinerationAuthAgency == null || DTItinerationAuthAgency.Rows.Count == 0)
-            return true;
-        DTItinerationAuthAgency.Rows[0]["flagstatus"] = "S";
         DTItinerationAuthAgency.setSkipSecurity();
 
-        if (txtAnnotazioniRifiutoApprovazione.Text != "")
-            DTItinerationAuthAgency.Rows[0]["annotationsrejectapproval"] = txtAnnotazioniRifiutoApprovazione.Text;
-        
-        DataSet DSNew = new DataSet();
+        if (DTItinerationAuthAgency == null || DTItinerationAuthAgency.Rows.Count == 0) return true;
+        DTItinerationAuthAgency.Rows[0]["flagstatus"] = "S";
+
+        if (txtAnnotazioniRifiutoApprovazione.Text != "") {
+	        DTItinerationAuthAgency.Rows[0]["annotationsrejectapproval"] = txtAnnotazioniRifiutoApprovazione.Text;
+        }
+
         DSNew.Tables.Add(DTItinerationAuthAgency);
+
 
         DataTable DTItineration = Conn.CreateTableByName("itineration", "*");
         DTItineration.setSkipSecurity();
         filter = QHS.CmpEq("iditineration", iditineration);
-        Conn.RUN_SELECT_INTO_TABLE(DTItineration,null,filter, null, false);
-        if (DTItineration.Rows.Count==0) {
+        Conn.RUN_SELECT_INTO_TABLE(DTItineration, null, filter, null, false);
+        if (DTItineration.Rows.Count == 0) {
             ShowClientMessage($"Non si dispone delle autorizzazioni sufficienti (filtro applicato:{filter})", "Errore");
             return false;
         }
@@ -186,8 +198,9 @@ public partial class itinerationauth_default_new02 : MetaPage {
             DTItineration.Rows[0]["iditinerationstatus"] = 6;
             DTItineration.Rows[0]["authorizationdate"] = DateTime.Now;
         }
-        //DataRow rItinerationauthview = DS.itinerationauthview.Rows[0];
-        bool upbaggiornato = false;
+		//DataRow rItinerationauthview = DS.itinerationauthview.Rows[0];
+		//ShowClientMessage(rItinerationauthview["idupb"].ToString(), "Errore");
+		bool upbaggiornato = false;
         if (rItinerationauthview["idupb"] != DBNull.Value) {
             DTItineration.Rows[0]["idupb"] = rItinerationauthview["idupb"];//Valorizza l'UPB
             upbaggiornato = true;
@@ -200,22 +213,26 @@ public partial class itinerationauth_default_new02 : MetaPage {
         Easy_PostData PD = new Easy_PostData();
         PD.initClass(DSNew, Conn);
         ProcedureMessageCollection PMC = PD.DO_POST_SERVICE();
+
         if (!PMC.CanIgnore) {
             string longMessage = "";
             foreach (ProcedureMessage pm in PMC) {
-                longMessage += pm.GetKey() + " " + pm.LongMess + ( pm.CanIgnore ? " warning " : " error")+"\n\r";
+                longMessage += pm.GetKey() + " " + /*pm.LongMess +*/ (pm.CanIgnore ? ". Warning. " : ". Error. ");// + "\n\r";
             }
-            ShowClientMessage("Regole di sicurezza hanno impedito l'aggiornamento del DataBase", "Errore",longMessage);
+            
+            ShowClientMessage("Regole non ignorabili hanno impedito il salvataggio. Espandere il messaggio per leggere il dettaglio.", "Errore",longMessage);
             return false;
         }
-        if (PMC.CanIgnore) {
-            PD.DO_POST_SERVICE();
-            errormsg = MissFun.WebSendMails(Conn as DataAccess, DTItineration.Rows[0]);
-            if (errormsg != "") {
-                ShowClientMessage(errormsg, "Errore");
-                return false;
-            }
+
+        if (PMC.Count > 0) {
+	        PD.DO_POST_SERVICE();
         }
+        errormsg = MissFun.WebSendMails(Conn as DataAccess, DTItineration.Rows[0]);
+        if (errormsg != "") {
+              ShowClientMessage(errormsg, "Errore");
+              return false;
+        }
+        
         return true;
     }
 
@@ -224,7 +241,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         string errormsg = "";
         // Determinare anche se sono l'ultimo ad approvare. Se si, 
         // Tutta la missione passa nello stato di approvato
-        // Cio√® se questa select count d√† come risultato 0
+        // CioË se questa select count d‡ come risultato 0
         //select count(*) from itinerationauthagency where iditineration=159 
         // and idauthagency<>9 and (flagstatus='D' or flagstatus='N')
         // Modificare inoltre la data di autorizzazione oltre a quello globale
@@ -233,7 +250,9 @@ public partial class itinerationauth_default_new02 : MetaPage {
         //GetImpersonatedAuthAgency();
         DataRow Curr = DS.itinerationauthview.Rows[0];
         int iditineration = CfgFn.GetNoNullInt32(Curr["iditineration"]);
-        DoApprove(Curr);
+        bool res = DoApprove(Curr);
+        if (!res)
+            return;
 
         CommFun.DoMainCommand("mainsetsearch");
         CommFun.DoMainCommand("maindosearch");
@@ -245,7 +264,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         foreach (DataRow R in T.Rows) {
             bool res = DoApprove(R);
             if (!res)
-                break;
+                return;
         }
 
         CommFun.DoMainCommand("mainsetsearch");
@@ -265,7 +284,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         int idman = 0;
         idman = CfgFn.GetNoNullInt32(Session["CodiceResponsabile"]);
         string filteresercizio = QHS.CmpEq("ayear", Conn.GetSys("esercizio"));
-        GetData.SetStaticFilter(DS.upbitinerationavailable, filteresercizio);
+        GetData.SetStaticFilter(DS.upbitinerationavailable, QHS.AppAnd(filteresercizio, QHS.CmpEq("active", "S")));
         Meta.DefaultListType = "default";
         SearchTable = "itinerationauthview";
         QHC = new CQueryHelper();
@@ -287,7 +306,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         else {
             filter = QHS.AppAnd(filter, QHS.CmpEq("ismanager", "N"));
         }
-        //filter = "( iditineration = 62 ) "; // SOLO PER TEST
+
         mainfilter = filter;
         
         GetData.SetStaticFilter(DS.itinerationauthview, filter);
@@ -347,6 +366,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         txtLocation.ReadOnly = true;
         txtapplierannotation.ReadOnly = true;
         txtMotivazione.ReadOnly = true;
+        txtInfoVeicolo.ReadOnly = true;
         txtadditionalannotation.ReadOnly = true;
         //lblauthagency.Visible = true;
         ImpostaTageFiltriUPB(DBNull.Value);
@@ -366,7 +386,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         }
 
         if (flagownfunds == "N") {
-            //Fondi di altri √® l'agente che deve indicare l'UPB
+            //Fondi di altri Ë l'agente che deve indicare l'UPB
             PanelUpb.Enabled = true;
         }
         else {
@@ -393,6 +413,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         txtLocation.ReadOnly = false;
         txtapplierannotation.ReadOnly = false;
         txtMotivazione.ReadOnly = false;
+        txtInfoVeicolo.ReadOnly = false;
         panelAutorizzazioni.Visible = false;
         //lblauthagency.Visible = false;
         ImpostaTageFiltriUPB(DBNull.Value);
@@ -404,7 +425,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         DataRow r = DS.itinerationauthview.Rows[0];
         string filter_upb = "";
         object idman = r["idman"];
-        if (idman != null && idman != DBNull.Value) {
+        if (idman != DBNull.Value) {
             filter_upb = QHS.AppAnd(filter_upb, QHS.NullOrEq("idman", idman));
         }
         return filter_upb;
@@ -418,12 +439,17 @@ public partial class itinerationauth_default_new02 : MetaPage {
         object importoPresuntoObj = null;
         decimal importoPresunto = 0;
 
+        
         DataRow Curr = DS.itinerationauthview.Rows[0];
         int iditineration = CfgFn.GetNoNullInt32(Curr["iditineration"]);
+        
         DataTable tItineration = Conn.CreateTableByName("itineration", "*");
         tItineration.setSkipSecurity();
         Conn.RUN_SELECT_INTO_TABLE(tItineration, null, QHS.CmpEq("iditineration", iditineration), null, true);
-
+        if (tItineration.Rows.Count == 0) {
+            ShowClientMessage($"Non si dispone delle autorizzazioni sufficienti", "Errore");
+            return;
+        }
         DataRow R = tItineration.Rows[0];
         string advanceapplied = R["advanceapplied"].ToString();
         //Importo presunto (Anticipo No)
@@ -517,7 +543,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         DT.Columns["giorni"].Caption = "Giorni";
         DT.Columns["ore"].Caption = "Ore";
         DT.Columns["description"].Caption = "Descrizione";
-        DT.Columns["foreigncountrydes"].Caption = "Localit√† Estera";
+        DT.Columns["foreigncountrydes"].Caption = "Localit‡ Estera";
         ShowFormattedResults(DT, "Tappe Missione");
         return;
 
@@ -528,13 +554,29 @@ public partial class itinerationauth_default_new02 : MetaPage {
 
         DataRow Curr = DS.itinerationauthview.Rows[0];
         int iditineration = CfgFn.GetNoNullInt32(Curr["iditineration"]);
-
+        
         string Query = " select itinerationrefundkind.description as refunddes, itinerationrefund.amount as amount";
         Query += " from itinerationrefund join itinerationrefundkind on itinerationrefund.iditinerationrefundkind=itinerationrefundkind.iditinerationrefundkind ";
         Query += " where iditineration='" + iditineration.ToString() + "' and flagadvancebalance='A'";
 
         DataTable DT = Conn.SQLRunner(Query);
 
+
+        DataTable Titineration = Conn.CreateTableByName("itineration", "*");
+        Titineration.setSkipSecurity();
+        Conn.RUN_SELECT_INTO_TABLE(Titineration, null, QHS.CmpEq("iditineration", iditineration), null, false);
+        if (Titineration.Rows.Count == 0) {
+            ShowClientMessage($"Non si dispone delle autorizzazioni sufficienti", "Errore");
+            return;
+        }
+
+        DataRow Ritineration = Titineration.Rows[0];
+        if ((DT.Rows.Count == 1) && CfgFn.GetNoNullDecimal(Ritineration["supposedamount"])>0){
+            Query = " select 'Importo presunto della missione' as refunddes, supposedamount as amount";
+            Query += " from itineration ";
+            Query += " where iditineration='" + iditineration.ToString()+"'";
+            DT = Conn.SQLRunner(Query);
+        }
         DT.Columns["amount"].Caption = "Importo (EURO)";
         DT.Columns["refunddes"].Caption = "Classificazione";
         ShowFormattedResults(DT, "Spese Previste");
@@ -543,16 +585,18 @@ public partial class itinerationauth_default_new02 : MetaPage {
 
     public void ShowEmptyMessage(string TableName) {
         string OutHTML = "";
-        
+        OutHTML += "<div class=\"row\">";
+        OutHTML += "<div class=\"col-md-12\">";
         OutHTML += "<fieldset style=\"background-color: #eeeeee; font-size: 14px; \">";
         OutHTML += "<legend style=\"text-align :center\">" + TableName + "</legend>";
+        
 
         OutHTML += "<div class=\"row\">";
-        OutHTML += "<div class=\"col-md-4\"></div>";
-        OutHTML += "<div class=\"col-md-4\">";
+        OutHTML += "<div class=\"col-md-1\"></div>";
+        OutHTML += "<div class=\"col-md-10\">";
         OutHTML += "<label>Nessuna Riga Presente.</label>";
         OutHTML += "</div>";
-        OutHTML += "<div class=\"col-md-4\"></div>";
+        OutHTML += "<div class=\"col-md-1\"></div>";
         OutHTML += "</div>";//chiude la rows
 
         OutHTML += "<div class=\"row\">";//apre la rows del btnOK
@@ -564,12 +608,18 @@ public partial class itinerationauth_default_new02 : MetaPage {
         OutHTML += "</div>";//chiude rows del btnOK
 
         OutHTML += "</fieldset>";
-
+        OutHTML += "</div>";
+        OutHTML += "</div>";
         plcitems.InnerHtml = OutHTML;
         plcitems.Style.Remove("display");
         plcitems.Style.Add("display", "block");
         plcitems.Style.Remove("z-index");
         plcitems.Style.Add("z-index", "11000");
+        plcitems.Style.Remove("overflow");
+        plcitems.Style.Remove("max-height");
+        plcitems.Style.Add("max-height", "auto");
+        plcitems.Style.Remove("width");
+        plcitems.Style.Add("width", "auto");
 
 
         return;
@@ -587,6 +637,9 @@ public partial class itinerationauth_default_new02 : MetaPage {
 
 
         OutHTML = "";
+        OutHTML += "<div class=\"row\">";// row
+        OutHTML += "<div class=\"col-md-12\">"; // col
+
         OutHTML += "<fieldset style=\"background-color: #eeeeee; font-size: 14px; \">";
         OutHTML += "<legend style=\"text-align :center\">" + TableName + "</legend>";
 
@@ -632,6 +685,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         
         OutHTML += "</div>";// chiude class col-md-12
         OutHTML += "</div>";//chiude la rows
+
         OutHTML += "<div class=\"row\">";//apre la rows del btnOK
             OutHTML += "<div class=\"col-md-5\"></div>";
             OutHTML += "<div class=\"col-md-2\">";
@@ -640,11 +694,18 @@ public partial class itinerationauth_default_new02 : MetaPage {
             OutHTML += "<div class=\"col-md-5\"></div>";
             OutHTML += "</div>";//chiude rows del btnOK
             OutHTML += "</fieldset>";
+        OutHTML += "</div>";//chiude la colonna - new
+        OutHTML += "</div>";//chiude la riga - new
         plcitems.InnerHtml = OutHTML;
         plcitems.Style.Remove("display");
         plcitems.Style.Add("display", "block");
         plcitems.Style.Remove("z-index");
         plcitems.Style.Add("z-index", "11000");
+        plcitems.Style.Remove("overflow");
+        plcitems.Style.Remove("max-height");
+        plcitems.Style.Add("max-height","auto");
+        plcitems.Style.Remove("width");
+        plcitems.Style.Add("width", "auto");
 
     }
 
@@ -700,4 +761,3 @@ public partial class itinerationauth_default_new02 : MetaPage {
     
 
 }
-

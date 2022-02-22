@@ -149,15 +149,13 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="assetunloadkindview">
+        <xs:element name="assetunloadkind">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idassetunloadkind" type="xs:int" />
               <xs:element name="description" type="xs:string" />
               <xs:element name="idinventory" type="xs:int" minOccurs="0" />
-              <xs:element name="inventory" type="xs:string" />
               <xs:element name="startnumber" type="xs:int" minOccurs="0" />
-              <xs:element name="flaglinear" type="xs:string" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
@@ -167,6 +165,9 @@
               <xs:element name="idsor03" type="xs:int" minOccurs="0" />
               <xs:element name="idsor04" type="xs:int" minOccurs="0" />
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="flag" type="xs:byte" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="codeassetunloadkind" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -361,6 +362,9 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="_x0021_pieceorasset" type="xs:string" minOccurs="0" />
               <xs:element name="historicalvalue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="intcode" type="xs:string" minOccurs="0" />
+              <xs:element name="list" type="xs:string" minOccurs="0" />
+              <xs:element name="inventorykind" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -391,8 +395,8 @@
       <xs:selector xpath=".//mstns:incomeview" />
       <xs:field xpath="mstns:idinc" />
     </xs:unique>
-    <xs:unique name="assetunloadkindview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:assetunloadkindview" />
+    <xs:unique name="assetunloadkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetunloadkind" />
       <xs:field xpath="mstns:idassetunloadkind" />
     </xs:unique>
     <xs:unique name="config_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -403,6 +407,11 @@
       <xs:selector xpath=".//mstns:assetamortizationunloadview" />
       <xs:field xpath="mstns:namortization" />
     </xs:unique>
+    <xs:unique name="assetpieceview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetpieceview" />
+      <xs:field xpath="mstns:idasset" />
+      <xs:field xpath="mstns:idpiece" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -410,7 +419,7 @@
       <msdata:Relationship name="FK_assetunload_assetamortizationunloadview" msdata:parent="assetunload" msdata:child="assetamortizationunloadview" msdata:parentkey="idassetunload" msdata:childkey="idassetunload" />
       <msdata:Relationship name="assetunloadassetunloadincome" msdata:parent="assetunload" msdata:child="assetunloadincome" msdata:parentkey="idassetunload" msdata:childkey="idassetunload" />
       <msdata:Relationship name="incomeview_assetunloadincome" msdata:parent="incomeview" msdata:child="assetunloadincome" msdata:parentkey="idinc" msdata:childkey="idinc" />
-      <msdata:Relationship name="assetunloadkindviewassetunload" msdata:parent="assetunloadkindview" msdata:child="assetunload" msdata:parentkey="idassetunloadkind" msdata:childkey="idassetunloadkind" />
+      <msdata:Relationship name="assetunloadkindviewassetunload" msdata:parent="assetunloadkind" msdata:child="assetunload" msdata:parentkey="idassetunloadkind" msdata:childkey="idassetunloadkind" />
       <msdata:Relationship name="registryassetunload" msdata:parent="registry" msdata:child="assetunload" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="assetunloadmotiveassetunload" msdata:parent="assetunloadmotive" msdata:child="assetunload" msdata:parentkey="idmot" msdata:childkey="idmot" />
     </xs:appinfo>

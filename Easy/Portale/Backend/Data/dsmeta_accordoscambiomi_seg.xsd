@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_accordoscambiomi_seg" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_accordoscambiomi_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="cefrlanglevel_alias1" msprop:TableForReading="cefrlanglevel" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idaccordoscambiomi" type="xs:int" />
+              <xs:element name="idaccordoscambiomidett" type="xs:int" />
+              <xs:element name="idaccordoscambiomidettaz" type="xs:int" minOccurs="0" />
+              <xs:element name="idaccordoscambiomidettlangkind" type="xs:int" />
+              <xs:element name="idcefr_compasc" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefr_complett" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefr_parlinter" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefr_parlprod" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefr_scritto" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefrlanglevel" type="xs:int" />
+              <xs:element name="idiscrizionebmi" type="xs:int" minOccurs="0" />
+              <xs:element name="idlearningagrstud" type="xs:int" minOccurs="0" />
+              <xs:element name="idlearningagrtrainer" type="xs:int" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accordoscambiomiporzanno" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idaccordoscambiomi" type="xs:int" />
+              <xs:element name="idaccordoscambiomidett" type="xs:int" />
+              <xs:element name="idaccordoscambiomiporzanno" type="xs:int" />
+              <xs:element name="iddidprogporzannokind" type="xs:int" />
+              <xs:element name="indice" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="torkind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idtorkind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry_alias1" msprop:TableForReading="registry" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="annotation" type="xs:string" minOccurs="0" />
+              <xs:element name="authorization_free" type="xs:string" minOccurs="0" />
+              <xs:element name="badgecode" type="xs:string" minOccurs="0" />
+              <xs:element name="birthdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ccp" type="xs:string" minOccurs="0" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="email_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="extension" type="xs:string" minOccurs="0" />
+              <xs:element name="extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_pa" type="xs:string" minOccurs="0" />
+              <xs:element name="flagbankitaliaproceeds" type="xs:string" minOccurs="0" />
+              <xs:element name="foreigncf" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="gender" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcentralizedcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idexternal" type="xs:int" minOccurs="0" />
+              <xs:element name="idmaritalstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
+              <xs:element name="idregistrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_perlapa" type="xs:string" minOccurs="0" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="maritalsurname" type="xs:string" minOccurs="0" />
+              <xs:element name="multi_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="p_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="pec_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="residence" type="xs:int" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="sdi_defrifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="sdi_norifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="toredirect" type="xs:int" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry_istitutiesteri" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="city" type="xs:string" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idnace" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="institutionalcode" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="name" type="xs:string" />
+              <xs:element name="referencenumber" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="isced2013" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="detailedfield" type="xs:string" minOccurs="0" />
+              <xs:element name="idisced2013" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accordoscambiomidett" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idaccordoscambiomi" type="xs:int" />
+              <xs:element name="idaccordoscambiomidett" type="xs:int" />
+              <xs:element name="idisced2013" type="xs:int" />
+              <xs:element name="idreg_istitutiesteri" type="xs:int" />
+              <xs:element name="idtorkind" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="numdocincoming" type="xs:int" minOccurs="0" />
+              <xs:element name="numdocoutgoing" type="xs:int" minOccurs="0" />
+              <xs:element name="numpersincoming" type="xs:int" minOccurs="0" />
+              <xs:element name="numpersoutgoing" type="xs:int" minOccurs="0" />
+              <xs:element name="numstulearincoming" type="xs:int" minOccurs="0" />
+              <xs:element name="numstulearoutgoing" type="xs:int" minOccurs="0" />
+              <xs:element name="numstutraincoming" type="xs:int" minOccurs="0" />
+              <xs:element name="numstutraoutgoing" type="xs:int" minOccurs="0" />
+              <xs:element name="stipula" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idisced2013_isced2013_detailedfield" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_istitutiesteri_registry_istitutiesteri_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idtorkind_torkind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idtorkind_torkind_description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cefrlanglevel" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idaccordoscambiomi" type="xs:int" minOccurs="0" />
+              <xs:element name="idaccordoscambiomidett" type="xs:int" minOccurs="0" />
+              <xs:element name="idaccordoscambiomidettaz" type="xs:int" minOccurs="0" />
+              <xs:element name="idaccordoscambiomidettlangkind" type="xs:int" />
+              <xs:element name="idcefr_compasc" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefr_complett" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefr_parlinter" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefr_parlprod" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefr_scritto" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefrlanglevel" type="xs:int" />
+              <xs:element name="idiscrizionebmi" type="xs:int" minOccurs="0" />
+              <xs:element name="idlearningagrstud" type="xs:int" minOccurs="0" />
+              <xs:element name="idlearningagrtrainer" type="xs:int" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="annotation" type="xs:string" minOccurs="0" />
+              <xs:element name="authorization_free" type="xs:string" minOccurs="0" />
+              <xs:element name="badgecode" type="xs:string" minOccurs="0" />
+              <xs:element name="birthdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ccp" type="xs:string" minOccurs="0" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="email_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="extension" type="xs:string" minOccurs="0" />
+              <xs:element name="extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_pa" type="xs:string" minOccurs="0" />
+              <xs:element name="flagbankitaliaproceeds" type="xs:string" minOccurs="0" />
+              <xs:element name="foreigncf" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="gender" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcentralizedcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idexternal" type="xs:int" minOccurs="0" />
+              <xs:element name="idmaritalstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
+              <xs:element name="idregistrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_perlapa" type="xs:string" minOccurs="0" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="maritalsurname" type="xs:string" minOccurs="0" />
+              <xs:element name="multi_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="p_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="pec_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="residence" type="xs:int" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="sdi_defrifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="sdi_norifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="toredirect" type="xs:int" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry_aziende" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idateco" type="xs:int" minOccurs="0" />
+              <xs:element name="idnace" type="xs:string" minOccurs="0" />
+              <xs:element name="idnaturagiur" type="xs:int" minOccurs="0" />
+              <xs:element name="idnumerodip" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="pic" type="xs:string" minOccurs="0" />
+              <xs:element name="title_en" type="xs:string" minOccurs="0" />
+              <xs:element name="txt_en" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accordoscambiomidettaz" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idaccordoscambiomi" type="xs:int" />
+              <xs:element name="idaccordoscambiomidettaz" type="xs:int" />
+              <xs:element name="idreg_aziende" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="numstud" type="xs:int" minOccurs="0" />
+              <xs:element name="stipula" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idreg_aziende_registry_aziende_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="programmami" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="acronimo" type="xs:string" minOccurs="0" />
+              <xs:element name="idprogrammami" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="annoaccademico_alias1" msprop:TableForReading="annoaccademico" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="annoaccademico" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accordoscambiomi" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa_start" type="xs:string" />
+              <xs:element name="aa_stop" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccordoscambiomi" type="xs:int" />
+              <xs:element name="idprogrammami" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:cefrlanglevel_alias1" />
+      <xs:field xpath="mstns:idaccordoscambiomi" />
+      <xs:field xpath="mstns:idaccordoscambiomidett" />
+      <xs:field xpath="mstns:idcefrlanglevel" />
+    </xs:unique>
+    <xs:unique name="accordoscambiomiporzanno_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accordoscambiomiporzanno" />
+      <xs:field xpath="mstns:idaccordoscambiomi" />
+      <xs:field xpath="mstns:idaccordoscambiomidett" />
+      <xs:field xpath="mstns:idaccordoscambiomiporzanno" />
+      <xs:field xpath="mstns:iddidprogporzannokind" />
+    </xs:unique>
+    <xs:unique name="torkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:torkind" />
+      <xs:field xpath="mstns:idtorkind" />
+    </xs:unique>
+    <xs:unique name="registry_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry_alias1" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="registry_istitutiesteri_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry_istitutiesteri" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="isced2013_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:isced2013" />
+      <xs:field xpath="mstns:idisced2013" />
+    </xs:unique>
+    <xs:unique name="accordoscambiomidett_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accordoscambiomidett" />
+      <xs:field xpath="mstns:idaccordoscambiomi" />
+      <xs:field xpath="mstns:idaccordoscambiomidett" />
+      <xs:field xpath="mstns:idreg_istitutiesteri" />
+    </xs:unique>
+    <xs:unique name="cefrlanglevel_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:cefrlanglevel" />
+      <xs:field xpath="mstns:idcefrlanglevel" />
+    </xs:unique>
+    <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="registry_aziende_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry_aziende" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="accordoscambiomidettaz_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accordoscambiomidettaz" />
+      <xs:field xpath="mstns:idaccordoscambiomi" />
+      <xs:field xpath="mstns:idaccordoscambiomidettaz" />
+      <xs:field xpath="mstns:idreg_aziende" />
+    </xs:unique>
+    <xs:unique name="programmami_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:programmami" />
+      <xs:field xpath="mstns:idprogrammami" />
+    </xs:unique>
+    <xs:unique name="annoaccademico_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:annoaccademico_alias1" />
+      <xs:field xpath="mstns:aa" />
+    </xs:unique>
+    <xs:unique name="annoaccademico_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:annoaccademico" />
+      <xs:field xpath="mstns:aa" />
+    </xs:unique>
+    <xs:unique name="accordoscambiomi_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accordoscambiomi" />
+      <xs:field xpath="mstns:idaccordoscambiomi" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_accordoscambiomidett_accordoscambiomi_idaccordoscambiomi" msdata:parent="accordoscambiomi" msdata:child="accordoscambiomidett" msdata:parentkey="idaccordoscambiomi" msdata:childkey="idaccordoscambiomi" />
+      <msdata:Relationship name="FK_cefrlanglevel_alias1_accordoscambiomidett_idaccordoscambiomi-idaccordoscambiomidett" msdata:parent="accordoscambiomidett" msdata:child="cefrlanglevel_alias1" msdata:parentkey="idaccordoscambiomi idaccordoscambiomidett" msdata:childkey="idaccordoscambiomi idaccordoscambiomidett" />
+      <msdata:Relationship name="FK_accordoscambiomiporzanno_accordoscambiomidett_idaccordoscambiomi-idaccordoscambiomidett" msdata:parent="accordoscambiomidett" msdata:child="accordoscambiomiporzanno" msdata:parentkey="idaccordoscambiomi idaccordoscambiomidett" msdata:childkey="idaccordoscambiomi idaccordoscambiomidett" />
+      <msdata:Relationship name="FK_accordoscambiomidett_torkind_idtorkind" msdata:parent="torkind" msdata:child="accordoscambiomidett" msdata:parentkey="idtorkind" msdata:childkey="idtorkind" />
+      <msdata:Relationship name="FK_accordoscambiomidett_registry_alias1_idreg_istitutiesteri" msdata:parent="registry_alias1" msdata:child="accordoscambiomidett" msdata:parentkey="idreg" msdata:childkey="idreg_istitutiesteri" />
+      <msdata:Relationship name="FK_registry_istitutiesteri_registry_alias1_idreg" msdata:parent="registry_alias1" msdata:child="registry_istitutiesteri" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_accordoscambiomidett_isced2013_idisced2013" msdata:parent="isced2013" msdata:child="accordoscambiomidett" msdata:parentkey="idisced2013" msdata:childkey="idisced2013" />
+      <msdata:Relationship name="FK_accordoscambiomidettaz_accordoscambiomi_idaccordoscambiomi" msdata:parent="accordoscambiomi" msdata:child="accordoscambiomidettaz" msdata:parentkey="idaccordoscambiomi" msdata:childkey="idaccordoscambiomi" />
+      <msdata:Relationship name="FK_cefrlanglevel_accordoscambiomidettaz_idaccordoscambiomi-idaccordoscambiomidettaz" msdata:parent="accordoscambiomidettaz" msdata:child="cefrlanglevel" msdata:parentkey="idaccordoscambiomi idaccordoscambiomidettaz" msdata:childkey="idaccordoscambiomi idaccordoscambiomidettaz" />
+      <msdata:Relationship name="FK_accordoscambiomidettaz_registry_idreg_aziende" msdata:parent="registry" msdata:child="accordoscambiomidettaz" msdata:parentkey="idreg" msdata:childkey="idreg_aziende" />
+      <msdata:Relationship name="FK_registry_aziende_registry_idreg" msdata:parent="registry" msdata:child="registry_aziende" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_accordoscambiomi_programmami_idprogrammami" msdata:parent="programmami" msdata:child="accordoscambiomi" msdata:parentkey="idprogrammami" msdata:childkey="idprogrammami" />
+      <msdata:Relationship name="FK_accordoscambiomi_annoaccademico_alias1_aa_stop" msdata:parent="annoaccademico_alias1" msdata:child="accordoscambiomi" msdata:parentkey="aa" msdata:childkey="aa_stop" />
+      <msdata:Relationship name="FK_accordoscambiomi_annoaccademico_aa_start" msdata:parent="annoaccademico" msdata:child="accordoscambiomi" msdata:parentkey="aa" msdata:childkey="aa_start" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

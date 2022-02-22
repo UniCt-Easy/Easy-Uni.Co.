@@ -1,0 +1,133 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tablezione_rendicont_0" class="nav-link active show" data-toggle="pill" data-target="#tablezione_rendicont_0"><i class="fa fa-chalkboard-teacher mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tablezione_rendicont_1" class="nav-link" data-toggle="pill" data-target="#tablezione_rendicont_1"><i class="fa fa-user-graduate mr-1"></i>Studenti</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tablezione_rendicont_0" role="tabpanel">
+					<input hidden id="lezione_rendicont_title" type="text" class="form-control" data-tag="lezione.!title" />
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_rendicont_idcorsostudio">Corso di studi</label>
+					<div>
+						<input id="lezione_rendicont_idcorsostudio" name="lezione_rendicont_idcorsostudio" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="corsostudiodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_rendicont_iddidprog">Didattica programmata</label>
+					<div>
+						<input id="lezione_rendicont_iddidprog" name="lezione_rendicont_iddidprog" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_rendicont_iddidprogcurr">Curriculum</label>
+					<div>
+						<input id="lezione_rendicont_iddidprogcurr" name="lezione_rendicont_iddidprogcurr" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogcurr.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_rendicont_iddidprogori">Orientamento</label>
+					<div>
+						<input id="lezione_rendicont_iddidprogori" name="lezione_rendicont_iddidprogori" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogoridefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_rendicont_iddidproganno">Anno di corso</label>
+					<div>
+						<input id="lezione_rendicont_iddidproganno" name="lezione_rendicont_iddidproganno" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogannodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_rendicont_iddidprogporzanno">Porzione d'anno</label>
+					<div>
+						<input id="lezione_rendicont_iddidprogporzanno" name="lezione_rendicont_iddidprogporzanno" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogporzannodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_rendicont_idattivform">attività formativa</label>
+					<div>
+						<input id="lezione_rendicont_idattivform" name="lezione_rendicont_idattivform" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="attivformdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_rendicont_idcanale">Canale</label>
+					<div>
+						<input id="lezione_rendicont_idcanale" name="lezione_rendicont_idcanale" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="canale.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="lezione_rendicont_idaffidamento">Affidamento</label>
+					<div>
+						<input id="lezione_rendicont_idaffidamento" name="lezione_rendicont_idaffidamento" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="affidamentosegview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#lezione_rendicont_start").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="lezione_rendicont_start">Data e ora inizio</label>
+					<input id="lezione_rendicont_start" type="text" class="form-control" data-tag="lezione.start.g"  data-mandatory />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#lezione_rendicont_stop").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="lezione_rendicont_stop">Data e ora fine</label>
+					<input id="lezione_rendicont_stop" type="text" class="form-control" data-tag="lezione.stop.g"  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_rendicont_stage">Stage</label>
+					<div class="custom-control custom-radio">
+						<input id="lezione_rendicont_stageSi" type="radio" name="lezione_rendicont_stage" class="custom-control-input" data-tag="lezione.stage:S"  ><label for="lezione_rendicont_stageSi"> Si</label>
+						<input id="lezione_rendicont_stageNo" type="radio" name="lezione_rendicont_stage" class="custom-control-input" data-tag="lezione.stage:N"  ><label for="lezione_rendicont_stageNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_rendicont_nonsvolta">Non svolta</label>
+					<div class="custom-control custom-radio">
+						<input id="lezione_rendicont_nonsvoltaSi" type="radio" name="lezione_rendicont_nonsvolta" class="custom-control-input" data-tag="lezione.nonsvolta:S"  ><label for="lezione_rendicont_nonsvoltaSi"> Si</label>
+						<input id="lezione_rendicont_nonsvoltaNo" type="radio" name="lezione_rendicont_nonsvolta" class="custom-control-input" data-tag="lezione.nonsvolta:N"  ><label for="lezione_rendicont_nonsvoltaNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_rendicont_visita">Visita</label>
+					<div class="custom-control custom-radio">
+						<input id="lezione_rendicont_visitaSi" type="radio" name="lezione_rendicont_visita" class="custom-control-input" data-tag="lezione.visita:S"  ><label for="lezione_rendicont_visitaSi"> Si</label>
+						<input id="lezione_rendicont_visitaNo" type="radio" name="lezione_rendicont_visita" class="custom-control-input" data-tag="lezione.visita:N"  ><label for="lezione_rendicont_visitaNo"> No</label>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tablezione_rendicont_1" role="tabpanel">
+				<div class="gridx" id="grid_rendicontlezionestud_default" data-tag="rendicontlezionestud.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="assente,S,Si;assente,N,No;" ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

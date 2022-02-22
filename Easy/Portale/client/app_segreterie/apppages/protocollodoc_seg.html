@@ -1,0 +1,43 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabprotocollodoc_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabprotocollodoc_seg_0"><i class="fa fa-file-alt mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprotocollodoc_seg_1" class="nav-link" data-toggle="pill" data-target="#tabprotocollodoc_seg_1"><i class="fa fa-project-diagram mr-1"></i>Elemento del documento</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabprotocollodoc_seg_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="protocollodoc_seg_idprotocollorifkind">Tipo del documento di riferimento</label>
+					<select id="protocollodoc_seg_idprotocollorifkind" class="custom-select d-block w-100"  data-source-name="protocollorifkind" data-value-member="idprotocollorifkind" data-display-member="title" data-custom-control="combo" data-tag="protocollodoc.idprotocollorifkind"  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="protocollodoc_seg_filename">Nome del file</label>
+					<input id="protocollodoc_seg_filename" type="text" class="form-control" data-tag="protocollodoc.filename"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="protocollodoc_seg_idmimetype">MIME type</label>
+					<input id="protocollodoc_seg_idmimetype" type="text" class="form-control" data-tag="protocollodoc.idmimetype" />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="protocollodoc_seg_idattach">Allegato</label>
+					<div id="protocollodoc_seg_idattach" data-tag="protocollodoc.idattach"  data-custom-control="upload" ></div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabprotocollodoc_seg_1" role="tabpanel">
+				<div class="gridx" id="grid_protocollodocelement_seg" data-tag="protocollodocelement.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

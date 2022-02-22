@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -36,7 +35,7 @@ namespace parasubcontract_generazionecedolini {//contratto_generazionecedolini//
 	/// <summary>
 	/// Summary description for FrmGenerazioneCedolini.
 	/// </summary>
-	public class FrmGenerazioneCedolini : System.Windows.Forms.Form {
+	public class FrmGenerazioneCedolini : MetaDataForm {
 		//		private IntervalloDiDate dtpInizio, dtpFine;
 		private DataSet DS;
 		private DataTable tGrid;
@@ -86,6 +85,7 @@ namespace parasubcontract_generazionecedolini {//contratto_generazionecedolini//
 		private System.Windows.Forms.TextBox txtCompensoAnnuale;
 		private System.Windows.Forms.TextBox txtTotaleCedolini;
 		private System.Windows.Forms.Button btnCedoliniStandard;
+		private object idupb;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -108,11 +108,13 @@ namespace parasubcontract_generazionecedolini {//contratto_generazionecedolini//
 			DataSet ds, bool partiConAttualiCompensi,
 			decimal compensoLordo,
 			DateTime dataInizioContratto, DateTime dataFineContratto, 
+			object idupb,
 			DataRow [] rCedoliniErogati
 			) {
 			Meta = meta;
 			DS = ds;
 			this.rCedoliniErogati = rCedoliniErogati;
+			this.idupb = idupb;
 			esercizio = (int)Meta.GetSys("esercizio");
 			metaCedolino = MetaCedolino;
             QHC = new CQueryHelper();
@@ -625,6 +627,7 @@ namespace parasubcontract_generazionecedolini {//contratto_generazionecedolini//
 			DateTime dataInizioContratto = (DateTime)DS.Tables["parasubcontract"].Rows[0]["start"];
 			DateTime dataFineContratto = (DateTime)DS.Tables["parasubcontract"].Rows[0]["stop"];
 			decimal compensoContratto = (decimal)DS.Tables["parasubcontract"].Rows[0]["grossamount"];
+			object idupb = this.idupb;
 			decimal sommaRateDiQuestAnno;
 			decimal sommaRateRimanentiContratto;
 			
@@ -743,6 +746,7 @@ namespace parasubcontract_generazionecedolini {//contratto_generazionecedolini//
 					rCedolino["stop"] = cedolino.dataFine;
 					rCedolino["enabletaxrelief"] = "S";
 					rCedolino["netfee"] = DBNull.Value;
+					rCedolino["idupb"] = idupb;
 				}
 			}
 			decimal compensoAnnuale = 0;
@@ -768,8 +772,9 @@ namespace parasubcontract_generazionecedolini {//contratto_generazionecedolini//
 		        rCedCong["stop"] = cedolini[numeroCedolini - 1].dataFine;
 		        rCedCong["enabletaxrelief"] = "S";
 		        rCedCong["netfee"] = DBNull.Value;
-		    
-			
+				rCedCong["idupb"] = idupb;
+
+
 
 			for (int i=0; i<rCedolini.Length; i++) {
 				if (rCedolini[i]["disbursementdate"] == DBNull.Value) {
@@ -804,7 +809,7 @@ namespace parasubcontract_generazionecedolini {//contratto_generazionecedolini//
 				decimal d = (decimal) rGrid[i]["compenso"];
 				nuoviCedolini[i].compenso = d;
 				if (i<primoCedolinoDaErogare) {
-                    if (primoCedolinoErogatoAnnoFiscale >= 0) {
+                    if (primoCedolinoErogatoAnnoFiscale >= 0 && (i + primoCedolinoErogatoAnnoFiscale < rCedoliniErogati.Length) ) {
                         //task 10549: al cedolino di conguaglio veniva attribuito lo stesso numero del cedolino di conguaglio
                         nuoviCedolini[i].annoRiferimento = (int)rCedoliniErogati[i + primoCedolinoErogatoAnnoFiscale]["fiscalyear"];
                         nuoviCedolini[i].meseRiferimento = (int)rCedoliniErogati[i + primoCedolinoErogatoAnnoFiscale]["npayroll"];
@@ -830,7 +835,7 @@ namespace parasubcontract_generazionecedolini {//contratto_generazionecedolini//
 				DateTime fineContratto = (DateTime) DS.Tables["parasubcontract"].Rows[0]["stop"];
 				DateTime fineCompetenza = (DateTime) rGrid[rGrid.Length-1]["datafine"];
 				if ((fineCompetenza == fineContratto) && (sommaCompensi != compensoRimanente)) {
-					MessageBox.Show(this, "La somma dei compensi ("
+					show(this, "La somma dei compensi ("
 						+ sommaCompensi.ToString("C")
 						+ ") è diversa dal compenso ancora da erogare ("
 						+ txtRimanenteContratto.Text
@@ -839,7 +844,7 @@ namespace parasubcontract_generazionecedolini {//contratto_generazionecedolini//
 					return null;
 				}
 				if (sommaCompensi > compensoRimanente) {
-					MessageBox.Show(this, "La somma dei compensi ("
+					show(this, "La somma dei compensi ("
 						+ sommaCompensi.ToString("C")
 						+ ") non deve superare il compenso ancora da erogare ("
 						+ txtRimanenteContratto.Text
@@ -856,7 +861,7 @@ namespace parasubcontract_generazionecedolini {//contratto_generazionecedolini//
 					messaggio += " compenso ancora da erogare (" + compensoPrevistoQuestAnno.ToString("C") 
 						+ ") previsto dal contratto.\nSi desidera procedere ugualmente?";
 
-					DialogResult dr = MessageBox.Show(this, messaggio, "Avviso", MessageBoxButtons.YesNoCancel);
+					DialogResult dr = show(this, messaggio, "Avviso", MessageBoxButtons.YesNoCancel);
 					if (dr != DialogResult.Yes) {
 						this.DialogResult = DialogResult.None;
 						return null;
@@ -1057,7 +1062,7 @@ namespace parasubcontract_generazionecedolini {//contratto_generazionecedolini//
 					? "E' stato inserito un valore non valido per il compenso."
 					: "Il compenso è un dato obbligatorio e non è possibile cancellarlo.";
 				string vecchioValore = ((decimal)rGrid[riga]["compenso"]).ToString("c");
-				MessageBox.Show(this, messaggio
+				show(this, messaggio
 					+ "\nVerrà ripristinato il valore precedente."
 					+ "\n\nValore inserito: " + txtCompenso.Text
 					+ "\nValore precedente: " + vecchioValore, "Compenso non valido");
@@ -1540,7 +1545,7 @@ namespace parasubcontract_generazionecedolini {//contratto_generazionecedolini//
 
 			if (o == null) {
 				string valorePrecedente = HelpForm.StringValue(vecchiaData, "x.y");
-				MessageBox.Show(this, messaggio						
+				show(this, messaggio						
 					+ "\nVerrà ripristinato il valore precedente."
 					+ "\n\nData inserita: "+txt.Text
 					+ "\nValore precedente: " + valorePrecedente, "Data di "+nome+" non valida");
@@ -1574,4 +1579,4 @@ namespace parasubcontract_generazionecedolini {//contratto_generazionecedolini//
 			}
 		}
 	}
-}
+}

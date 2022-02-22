@@ -7,8 +7,8 @@
                 
     <div class="row">
         <div class="col-md-12">
-            <cc1:hwButton ID="B1" runat="server" Text="Ordina per stato" Tag="do_command.OrdinaPerStato" />
-            <cc1:hwButton ID="B2" runat="server" Text="Storico Variazioni Approvate" Tag="do_command.StoricoVariazioni"/>
+            <cc1:hwButton ID="B1" runat="server" Text="Ordina per stato" class="btn btn-primary" Tag="do_command.OrdinaPerStato" />
+            <cc1:hwButton ID="B2" runat="server" Text="Storico Variazioni Approvate" class="btn btn-primary" Tag="do_command.StoricoVariazioni"/>
         </div>
     </div>                
 
@@ -66,7 +66,7 @@
     <div class="row">
         <div class="col-md-4">
             <cc1:hwPanel GroupingText="" CssClass="gbox scheduler-border form-group" ID="grpResponsabile" runat="server" Tag="AutoChoose.txtResponsabile.lista.(financeactive='S')">
-                <cc1:hwButton ID="btnResponsabile" runat="server" Text="Responsabile" class="btn btn-block" Tag="choose.manager.lista" />
+                <cc1:hwButton ID="btnResponsabile" runat="server" Text="Responsabile" class="btn btn-primary" Tag="choose.manager.lista" />
                 <cc1:hwTextBox TabIndex="20" ID="txtResponsabile" CssClass="form-control input-md" Tag="manager.title?x" runat="server"></cc1:hwTextBox>
             </cc1:hwPanel>
         </div>
@@ -131,7 +131,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <label for="btnStatus"></label>
-                    <cc1:hwButton ID="btnStatus" runat="server" Tag="approvati" Visible="False" />
+                    <cc1:hwButton ID="btnStatus" runat="server" Tag="approvati" class="btn btn-primary" Visible="False" />
                 </div>
             </div>
         </div>
@@ -208,9 +208,9 @@
                 <asp:Panel ID="Panel1" runat="server">
                     <div class="row">
                         <div class="col-md-2">
-                            <cc1:hwButton ID="btnInsert" runat="server" Tag="insert.default" Text="Inserisci" TabIndex="210"></cc1:hwButton>
-                            <cc1:hwButton ID="btnEdit" runat="server" Tag="edit.default" Text="Modifica" TabIndex="220"></cc1:hwButton>
-                            <cc1:hwButton ID="btnDelete" runat="server" Tag="delete" Text="Elimina" TabIndex="230"></cc1:hwButton>
+                            <cc1:hwButton ID="btnInsert" runat="server" Tag="insert.default" Text="Inserisci" class="btn btn-primary" TabIndex="210"></cc1:hwButton>
+                            <cc1:hwButton ID="btnEdit" runat="server" Tag="edit.default" Text="Modifica" class="btn btn-info" TabIndex="220"></cc1:hwButton>
+                            <cc1:hwButton ID="btnDelete" runat="server" Tag="delete" Text="Elimina" class="btn btn-danger" TabIndex="230"></cc1:hwButton>
                         </div>
                         <div class="col-md-10">
                             <cc1:hwDataGridWeb ID="DtlDataGrid" runat="server" Tag="viterbo_finvardetail.listaweb.single" TabIndex="240" />
@@ -229,9 +229,9 @@
                 <asp:Panel ID="Panel2" runat="server">
                     <div class="row">
                         <div class="col-md-2">
-                            <cc1:hwButton ID="btnInsAllegato" runat="server" Tag="insert.defaultnew02" Text="Inserisci" TabIndex="210"></cc1:hwButton>
-                            <cc1:hwButton ID="HwEditAllegato" runat="server" Tag="edit.defaultnew02" Text="Modifica" TabIndex="220"></cc1:hwButton>
-                            <cc1:hwButton ID="HwCancAllegato" runat="server" Tag="delete" Text="Elimina" TabIndex="230"></cc1:hwButton>
+                            <cc1:hwButton ID="btnInsAllegato" runat="server" Tag="insert.defaultnew02" Text="Inserisci" class="btn btn-primary" TabIndex="210"></cc1:hwButton>
+                            <cc1:hwButton ID="HwEditAllegato" runat="server" Tag="edit.defaultnew02" Text="Modifica" class="btn btn-info" TabIndex="220"></cc1:hwButton>
+                            <cc1:hwButton ID="HwCancAllegato" runat="server" Tag="delete" Text="Elimina" class="btn btn-danger" TabIndex="230"></cc1:hwButton>
                         </div>
                         <div class="col-md-10">
                             <cc1:hwDataGridWeb ID="HwDataGridAllegati" runat="server" Tag="finvarattachment.default.default" TabIndex="240" />

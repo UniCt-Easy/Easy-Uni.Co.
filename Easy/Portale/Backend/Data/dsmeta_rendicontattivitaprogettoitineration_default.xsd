@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_rendicontattivitaprogettoitineration_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_rendicontattivitaprogettoitineration_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="itinerationsegview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="iditineration" type="xs:int" />
+              <xs:element name="itineration_active" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_adate" type="xs:dateTime" />
+              <xs:element name="itineration_additionalannotations" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_admincarkm" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_admincarkmcost" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_advanceapplied" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_advancepercentage" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_applierannotations" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_authdoc" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_authdocdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="itineration_authneeded" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_authorizationdate" type="xs:dateTime" />
+              <xs:element name="itineration_cancelreason" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_clause_accepted" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_completed" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_ct" type="xs:dateTime" />
+              <xs:element name="itineration_cu" type="xs:string" />
+              <xs:element name="itineration_datecompleted" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="itineration_flagmove" type="xs:int" minOccurs="0" />
+              <xs:element name="itineration_flagoutside" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_flagownfunds" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_flagweb" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_footkm" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_footkmcost" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_grossfactor" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_idaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_idaccmotivedebit_crg" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_idaccmotivedebit_datacrg" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="itineration_idauthmodel" type="xs:int" minOccurs="0" />
+              <xs:element name="itineration_iddalia_dipartimento" type="xs:int" minOccurs="0" />
+              <xs:element name="itineration_iddalia_funzionale" type="xs:int" minOccurs="0" />
+              <xs:element name="itineration_iddaliaposition" type="xs:int" minOccurs="0" />
+              <xs:element name="itineration_iddaliarecruitmentmotive" type="xs:int" minOccurs="0" />
+              <xs:element name="itineration_idforeigncountry" type="xs:int" minOccurs="0" />
+              <xs:element name="itineration_iditineration_ref" type="xs:int" minOccurs="0" />
+              <xs:element name="itineration_iditinerationstatus" type="xs:int" minOccurs="0" />
+              <xs:element name="itineration_idreg" type="xs:int" />
+              <xs:element name="itineration_idregistrylegalstatus" type="xs:int" minOccurs="0" />
+              <xs:element name="itineration_idregistrypaymethod" type="xs:int" minOccurs="0" />
+              <xs:element name="itineration_idser" type="xs:int" />
+              <xs:element name="itineration_idsor_siope" type="xs:int" minOccurs="0" />
+              <xs:element name="itineration_idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="itineration_idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="itineration_idsor3" type="xs:int" minOccurs="0" />
+              <xs:element name="itineration_idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_location" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_lt" type="xs:dateTime" />
+              <xs:element name="itineration_lu" type="xs:string" />
+              <xs:element name="itineration_netfee" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_nfood" type="xs:int" minOccurs="0" />
+              <xs:element name="itineration_nitineration" type="xs:int" />
+              <xs:element name="itineration_noauthreason" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_owncarkm" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_owncarkmcost" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="itineration_start" type="xs:dateTime" />
+              <xs:element name="itineration_starttime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="itineration_stop" type="xs:dateTime" />
+              <xs:element name="itineration_stoptime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="itineration_supposedamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_supposedfood" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_supposedliving" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_supposedtravel" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_totadvance" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_total" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_totalgross" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_txt" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_vehicle_info" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_vehicle_motive" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_webwarn" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_yitineration" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="rendicontattivitaprogettoitineration" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iditineration" type="xs:int" />
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idrendicontattivitaprogetto" type="xs:int" />
+              <xs:element name="idworkpackage" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationsegview" />
+      <xs:field xpath="mstns:iditineration" />
+    </xs:unique>
+    <xs:unique name="rendicontattivitaprogettoitineration_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:rendicontattivitaprogettoitineration" />
+      <xs:field xpath="mstns:iditineration" />
+      <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idrendicontattivitaprogetto" />
+      <xs:field xpath="mstns:idworkpackage" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_rendicontattivitaprogettoitineration_itinerationsegview_iditineration" msdata:parent="itinerationsegview" msdata:child="rendicontattivitaprogettoitineration" msdata:parentkey="iditineration" msdata:childkey="iditineration" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

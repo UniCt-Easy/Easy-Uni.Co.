@@ -1,0 +1,90 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivform_gruppo_idinsegn">Insegnamento</label>
+					<div>
+						<input id="attivform_gruppo_idinsegn" name="attivform_gruppo_idinsegn" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="insegndefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+					<input hidden id="attivform_gruppo_title" type="text" class="form-control" data-tag="attivform.title" />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivform_gruppo_idinsegninteg">Integrando</label>
+					<div>
+						<input id="attivform_gruppo_idinsegninteg" name="attivform_gruppo_idinsegninteg" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="insegnintegdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="attivform_gruppo_obbform">Obiettivi formativi</label>
+					<textarea class="textarea form-control" id="attivform_gruppo_obbform" type="text"  rows="4" data-tag="attivform.obbform?attivformgruppoview.attivform_obbform" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="attivform_gruppo_obbform_en">Obiettivi formativi (ENG)</label>
+					<textarea class="textarea form-control" id="attivform_gruppo_obbform_en" type="text"  rows="4" data-tag="attivform.obbform_en?attivformgruppoview.attivform_obbform_en" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivform_gruppo_tipovalutaz">Profitto o Idoneità</label>
+					<div class="custom-control custom-radio">
+						<input id="attivform_gruppo_tipovalutazP" type="radio" name="attivform_gruppo_tipovalutaz" class="custom-control-input" data-tag="attivform.tipovalutaz:P?attivformgruppoview.attivform_tipovalutaz:Profitto" data-subentity  ><label for="attivform_gruppo_tipovalutazP"> Profitto</label>
+						<input id="attivform_gruppo_tipovalutazI" type="radio" name="attivform_gruppo_tipovalutaz" class="custom-control-input" data-tag="attivform.tipovalutaz:I?attivformgruppoview.attivform_tipovalutaz:Idoneità" data-subentity  ><label for="attivform_gruppo_tipovalutazI"> Idoneità</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivform_gruppo_sortcode">Ordine</label>
+					<input id="attivform_gruppo_sortcode" type="text" class="form-control" data-tag="attivform.sortcode?attivformgruppoview.attivform_sortcode" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#attivform_gruppo_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="attivform_gruppo_start">Dal</label>
+					<input id="attivform_gruppo_start" type="text" class="form-control" data-tag="attivform.start?attivformgruppoview.attivform_start" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#attivform_gruppo_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="attivform_gruppo_stop">Al</label>
+					<input id="attivform_gruppo_stop" type="text" class="form-control" data-tag="attivform.stop?attivformgruppoview.attivform_stop" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivform_gruppo_iddidprogcurr">Curriculum</label>
+					<select id="attivform_gruppo_iddidprogcurr" class="custom-select d-block w-100"  data-source-name="didprogcurr" data-value-member="iddidprogcurr" data-display-member="title" data-custom-control="combo" data-tag="attivform.iddidprogcurr?attivformgruppoview.iddidprogcurr" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivform_gruppo_iddidprogori">Orientamento</label>
+					<select id="attivform_gruppo_iddidprogori" class="custom-select d-block w-100"  data-source-name="didprogoridefaultview" data-value-member="iddidprogori" data-display-member="dropdown_title" data-custom-control="combo" data-tag="attivform.iddidprogori?attivformgruppoview.iddidprogori" data-subentity  data-mandatory  data-master="didprogcurr"> </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivform_gruppo_iddidproganno">Anno di corso</label>
+					<select id="attivform_gruppo_iddidproganno" class="custom-select d-block w-100"  data-source-name="didprogannodefaultview" data-value-member="iddidproganno" data-display-member="dropdown_title" data-custom-control="combo" data-tag="attivform.iddidproganno?attivformgruppoview.iddidproganno" data-subentity  data-mandatory  data-master="didprogoridefaultview"> </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivform_gruppo_iddidprogporzanno">Porzione d'anno</label>
+					<select id="attivform_gruppo_iddidprogporzanno" class="custom-select d-block w-100"  data-source-name="didprogporzannodefaultview" data-value-member="iddidprogporzanno" data-display-member="dropdown_title" data-custom-control="combo" data-tag="attivform.iddidprogporzanno?attivformgruppoview.iddidprogporzanno" data-subentity  data-mandatory  data-master="didprogannodefaultview"> </select>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

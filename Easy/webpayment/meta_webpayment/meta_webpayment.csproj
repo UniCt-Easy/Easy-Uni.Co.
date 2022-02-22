@@ -32,7 +32,7 @@
   <ItemGroup>
     <Reference Include="funzioni_configurazione">
       <HintPath>..\..\unmanaged\funzioni_configurazione\bin\Debug\funzioni_configurazione.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="metadatalibrary">
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>

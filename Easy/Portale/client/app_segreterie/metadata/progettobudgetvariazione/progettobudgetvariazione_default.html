@@ -1,0 +1,35 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettobudgetvariazione_default_idupb">Unità previsionale di base (UPB)</label>
+					<select id="progettobudgetvariazione_default_idupb" class="custom-select d-block w-100"  data-source-name="upbdefaultview" data-value-member="idupb" data-display-member="dropdown_title" data-custom-control="combo" data-tag="progettobudgetvariazione.idupb"   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettobudgetvariazione_default_idaccmotive">Causale economico patrimoniale</label>
+					<select id="progettobudgetvariazione_default_idaccmotive" class="custom-select d-block w-100"  data-source-name="accmotivedefaultview" data-value-member="idaccmotive" data-display-member="dropdown_title" data-custom-control="combo" data-tag="progettobudgetvariazione.idaccmotive"   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettobudgetvariazione_default_newamount">Nuovo budget</label>
+					<input id="progettobudgetvariazione_default_newamount" type="text" class="form-control" data-tag="progettobudgetvariazione.newamount.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#progettobudgetvariazione_default_data").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="progettobudgetvariazione_default_data">Data variazione</label>
+					<input id="progettobudgetvariazione_default_data" type="text" class="form-control" data-tag="progettobudgetvariazione.data"  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

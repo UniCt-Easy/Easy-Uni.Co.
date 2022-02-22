@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -29,7 +28,7 @@ namespace income_wizardcontabilizza {//entratawizardcontabilizza//
 	/// <summary>
 	/// Summary description for FrmEntrataWizardContabilizza.
 	/// </summary>
-	public class Frm_income_wizardcontabilizza : System.Windows.Forms.Form {
+	public class Frm_income_wizardcontabilizza : MetaDataForm {
 		private Crownwood.Magic.Controls.TabControl tabController;
 		private Crownwood.Magic.Controls.TabPage tabIntro;
 		private System.Windows.Forms.Label label4;
@@ -1098,11 +1097,11 @@ namespace income_wizardcontabilizza {//entratawizardcontabilizza//
 
 		bool GetMovimentoSelezionato() {
 			if (txtNumeroMovimento.Text.Trim()==""){
-				MessageBox.Show("Selezionare un movimento per procedere");
+				show("Selezionare un movimento per procedere");
 				return false;
 			}
 			if (currcont!= tipocont.cont_none){
-				MessageBox.Show("Al movimento selezionato è già associata una contabilizzazione.");
+				show("Al movimento selezionato è già associata una contabilizzazione.");
 				return false;
 			}
 			string filter= GetFasePrecFilter(true);
@@ -1406,11 +1405,11 @@ namespace income_wizardcontabilizza {//entratawizardcontabilizza//
 		bool GetDocumentoSelezionato(){
 			tipocont TC = DeduciTipoContabilizzazione();
 			if (TC==tipocont.cont_none) {
-				MessageBox.Show("Non è stato selezionato alcun documento da contabilizzare.");
+				show("Non è stato selezionato alcun documento da contabilizzare.");
 				return false;
 			}
 			if (cmbCausale.SelectedValue==null){
-				MessageBox.Show("Non è stata selezionata la causale del documento.");
+				show("Non è stata selezionata la causale del documento.");
 				return false;
 			}
 			switch (TC){
@@ -1428,12 +1427,12 @@ namespace income_wizardcontabilizza {//entratawizardcontabilizza//
 				
 			DataRow Curr= DS.income.Rows[0];
 
-			if (MessageBox.Show(this,"Aggiorno i campi documento e data documento del movimento di entrata "+
+			if (show(this,"Aggiorno i campi documento e data documento del movimento di entrata "+
 				"in base al documento selezionato?","Conferma",MessageBoxButtons.OKCancel)==DialogResult.OK) {
 				Curr["doc"]= NuovoDocumento;
 				Curr["docdate"]= NuovoDataDocumento;
 			}
-			if (MessageBox.Show(this,"Aggiorno il campo description del movimento di entrata "+
+			if (show(this,"Aggiorno il campo description del movimento di entrata "+
 				"in base al doc selezionato?","Conferma",MessageBoxButtons.OKCancel)==DialogResult.OK){
 				Curr["description"]= NuovoDescrizione;
 			}
@@ -1441,7 +1440,7 @@ namespace income_wizardcontabilizza {//entratawizardcontabilizza//
 			PostData Post = Meta.Get_PostData();
 			Post.InitClass(DS,Conn);
 			bool res= Post.DO_POST();
-			if (res)MessageBox.Show("Aggiunta della contabilizzazione eseguita con successo.");
+			if (res)show("Aggiunta della contabilizzazione eseguita con successo.");
 			if (!res) Curr.RejectChanges();
 			return res;
 		}
@@ -2233,7 +2232,7 @@ namespace income_wizardcontabilizza {//entratawizardcontabilizza//
 				found=true;
 			}
 			if (!found){
-				MessageBox.Show("Il movimento selezionato ha un importo superiore al residuo del documento."+
+				show("Il movimento selezionato ha un importo superiore al residuo del documento."+
 					" La contabilizzazione è impossibile.");
 			}
 			DS.incomeinvoice.Rows[0]["movkind"]=	 cmbCausale.SelectedValue;
@@ -2264,7 +2263,7 @@ namespace income_wizardcontabilizza {//entratawizardcontabilizza//
 			if (importo<0) importo=0; //dovrebbe essere superfluo
 	
 			if (importo> currimp) {
-				MessageBox.Show("Sarà effettuata una contabilizzazione parziale del documento poiché la "+
+				show("Sarà effettuata una contabilizzazione parziale del documento poiché la "+
 					"disponibilità del movimento selezionato è inferiore a "+importo.ToString());
 			}
 
@@ -2367,7 +2366,7 @@ namespace income_wizardcontabilizza {//entratawizardcontabilizza//
                 found = true;
             }
             if (!found) {
-                MessageBox.Show("Il movimento selezionato ha un importo superiore al residuo del documento." +
+                show("Il movimento selezionato ha un importo superiore al residuo del documento." +
                     " La contabilizzazione è impossibile.");
             }
             DS.incomeestimate.Rows[0]["movkind"] = cmbCausale.SelectedValue;
@@ -2398,7 +2397,7 @@ namespace income_wizardcontabilizza {//entratawizardcontabilizza//
             if (importo < 0) importo = 0; //dovrebbe essere superfluo
 
             if (importo > currimp) {
-                MessageBox.Show("Sarà effettuata una contabilizzazione parziale del documento poiché la " +
+                show("Sarà effettuata una contabilizzazione parziale del documento poiché la " +
                     "disponibilità del movimento selezionato è inferiore a " + importo.ToString());
             }
 
@@ -2440,4 +2439,4 @@ namespace income_wizardcontabilizza {//entratawizardcontabilizza//
 
         }
 	}
-}
+}

@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_perfvalutazioneuoindicatori_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_perfvalutazioneuoindicatori_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="year" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfsogliakind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idperfsogliakind" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfvalutazioneuoindicatorisoglia" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idperfsogliakind" type="xs:string" />
+              <xs:element name="idperfvalutazioneuoindicatori" type="xs:int" />
+              <xs:element name="idperfvalutazioneuoindicatorisoglia" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="valore" type="xs:decimal" />
+              <xs:element name="valorenumerico" type="xs:decimal" minOccurs="0" />
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfindicatoredefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idperfindicatore" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfvalutazioneuoindicatori" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="completamento" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idperfindicatore" type="xs:int" />
+              <xs:element name="idperfstruttura" type="xs:int" />
+              <xs:element name="idperfvalutazioneuo" type="xs:int" />
+              <xs:element name="idperfvalutazioneuoindicatori" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="peso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="valorenumerico" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:year" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="perfsogliakind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfsogliakind" />
+      <xs:field xpath="mstns:idperfsogliakind" />
+    </xs:unique>
+    <xs:unique name="perfvalutazioneuoindicatorisoglia_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazioneuoindicatorisoglia" />
+      <xs:field xpath="mstns:idperfvalutazioneuoindicatori" />
+      <xs:field xpath="mstns:idperfvalutazioneuoindicatorisoglia" />
+    </xs:unique>
+    <xs:unique name="perfindicatoredefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfindicatoredefaultview" />
+      <xs:field xpath="mstns:idperfindicatore" />
+    </xs:unique>
+    <xs:unique name="perfvalutazioneuoindicatori_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazioneuoindicatori" />
+      <xs:field xpath="mstns:idperfindicatore" />
+      <xs:field xpath="mstns:idperfstruttura" />
+      <xs:field xpath="mstns:idperfvalutazioneuo" />
+      <xs:field xpath="mstns:idperfvalutazioneuoindicatori" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_perfvalutazioneuoindicatorisoglia_perfvalutazioneuoindicatori_idperfvalutazioneuoindicatori" msdata:parent="perfvalutazioneuoindicatori" msdata:child="perfvalutazioneuoindicatorisoglia" msdata:parentkey="idperfvalutazioneuoindicatori" msdata:childkey="idperfvalutazioneuoindicatori" />
+      <msdata:Relationship name="FK_perfvalutazioneuoindicatorisoglia_year_year" msdata:parent="year" msdata:child="perfvalutazioneuoindicatorisoglia" msdata:parentkey="year" msdata:childkey="year" />
+      <msdata:Relationship name="FK_perfvalutazioneuoindicatorisoglia_perfsogliakind_idperfsogliakind" msdata:parent="perfsogliakind" msdata:child="perfvalutazioneuoindicatorisoglia" msdata:parentkey="idperfsogliakind" msdata:childkey="idperfsogliakind" />
+      <msdata:Relationship name="FK_perfvalutazioneuoindicatori_perfindicatoredefaultview_idperfindicatore" msdata:parent="perfindicatoredefaultview" msdata:child="perfvalutazioneuoindicatori" msdata:parentkey="idperfindicatore" msdata:childkey="idperfindicatore" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

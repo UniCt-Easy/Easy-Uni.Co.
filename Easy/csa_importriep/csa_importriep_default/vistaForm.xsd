@@ -1311,6 +1311,10 @@
       <xs:field xpath="mstns:ndetail" />
       <xs:field xpath="mstns:idinc" />
     </xs:unique>
+    <xs:unique name="expenseview4_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:expenseview4" />
+      <xs:field xpath="mstns:idexp" />
+    </xs:unique>
     <xs:unique name="incomeview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:incomeview" />
       <xs:field xpath="mstns:idinc" />

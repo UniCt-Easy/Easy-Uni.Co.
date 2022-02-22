@@ -13,7 +13,7 @@
                     <div class="col-md-7">
                         <div class="row">
                             <div class="col-md-12">
-                                <cc1:hwButton ID="btnUpb" runat="server" Text="UPB" class="btn btn-block" Tag="manage.upb.tree" />
+                                <cc1:hwButton ID="btnUpb" runat="server" Text="UPB" class="btn btn-primary" Tag="manage.upb.tree" />
                             </div>
                         </div>
                         <div class="row">
@@ -40,7 +40,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <cc1:hwButton runat="server" TabIndex="85" Text="Bilancio" ID="btnBilancio" Tag="do_command.scegliBilancio" />
+                                <cc1:hwButton runat="server" TabIndex="85" Text="Bilancio" ID="btnBilancio" class="btn btn-primary" Tag="do_command.scegliBilancio" />
                             </div>
                         </div>
                         <div class="row">
@@ -93,12 +93,12 @@
                     <div class="col-md-2">
                         <div class="row">
                             <div class="col-md-12">
-                                <cc1:hwButton ID="btnFinanziamento" runat="server" Text="Scegli finanziamento" Tag="choose.underwriting.default" />
+                                <cc1:hwButton ID="btnFinanziamento" runat="server" Text="Scegli finanziamento" class="btn btn-primary" Tag="choose.underwriting.default" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <cc1:hwButton ID="HwButton3" runat="server" Text="Nuovo finanziamento" Tag="manage.underwriting.createnew02" />
+                                <cc1:hwButton ID="HwButton3" runat="server" Text="Nuovo finanziamento" class="btn btn-primary" Tag="manage.underwriting.createnew02" />
                             </div>
                         </div>
                     </div>

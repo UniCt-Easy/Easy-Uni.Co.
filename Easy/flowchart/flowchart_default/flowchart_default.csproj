@@ -57,7 +57,7 @@
     <Compile Include="FrmFlowChart_Default.Designer.cs">
       <DependentUpon>FrmFlowChart_Default.cs</DependentUpon>
     </Compile>
-    <Compile Include="vistaForm.Designer.cs">
+    <Compile Include="vistaForm.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>vistaForm.xsd</DependentUpon>
@@ -71,7 +71,7 @@
     <None Include="vistaForm.xsd">
       <SubType>Designer</SubType>
       <Generator>HDSGene</Generator>
-      <LastGenOutput>vistaForm.Designer.cs</LastGenOutput>
+      <LastGenOutput>vistaForm.cs</LastGenOutput>
     </None>
     <None Include="vistaForm.xss">
       <DependentUpon>vistaForm.xsd</DependentUpon>

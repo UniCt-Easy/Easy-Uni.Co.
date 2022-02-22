@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-12 col-md-6">
+        <label class="spaceLabel">Data Inizio</label>
+        <input type="text" class="form-control" id="txtStartDate" />
+    </div>
+    <div class="col-12 col-md-6">
+        <label class="spaceLabel">Ore Totali da assegnare</label>
+        <input type="number"  min="1" class="form-control" id="txtTotalHours" />
+    </div>
+</div>
+<div class="row" id="selectAulaGroupId" style="display: none">
+    <div class="col-12 col-md-6">
+        <label for="selectAula">Seleziona Aula</label>
+        <select id="selectAula" name="aula">
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-md-6">
+        <label for="selectDays">Seleziona giorni</label>
+        <select id="selectDays" name="days" multiple="multiple">
+            <option value="1">Lunedì</option>
+            <option value="2">Martedì</option>
+            <option value="3">Mercoledì</option>
+            <option value="4">Giovedì</option>
+            <option value="5">Venerdì</option>
+            <option value="6">Sabato</option>
+        </select>
+    </div>
+    <div class="col-12 col-md-6">
+        <label for="selectHours">Ore Al giorno</label>
+        <select id="selectHours" name="hours">
+        </select>
+    </div>
+</div>
+<button id="btnScheduleOk" type="button" class="btn btn-primary p-2 mt-2" >
+    <i class="far fa-calendar mr-1" ></i>Crea scheduler
+</button>

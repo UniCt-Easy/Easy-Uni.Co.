@@ -1,3 +1,21 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+
 SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
@@ -30,11 +48,11 @@ AS BEGIN
 		@nphase = E.nphase, 
 		@newidacc = INS.idacc, 
 		@newidupb = INS.idupb,
-		@newamount = INS.amount,
-		@newamount2 = INS.amount2,
-		@newamount3 = INS.amount3,
-		@newamount4 = INS.amount4,
-		@newamount5 = INS.amount5
+		@newamount = isnull(INS.amount,0),
+		@newamount2 = isnull(INS.amount2,0),
+		@newamount3 = isnull(INS.amount3,0),
+		@newamount4 = isnull(INS.amount4,0),
+		@newamount5 = isnull(INS.amount5,0)
 	FROM inserted INS
 	JOIN epacc E
 		ON E.idepacc = INS.idepacc
@@ -52,11 +70,11 @@ AS BEGIN
 
 	SELECT @oldidacc = idacc, 
 		@oldidupb = idupb,
-		@oldamount = -amount,
-		@oldamount2 = -amount2,
-		@oldamount3 = -amount3,
-		@oldamount4 = -amount4,
-		@oldamount5 = -amount5
+		@oldamount = -isnull(amount,0),
+		@oldamount2 = -isnull(amount2,0),
+		@oldamount3 = -isnull(amount3,0),
+		@oldamount4 = -isnull(amount4,0),
+		@oldamount5 = -isnull(amount5,0)
 	FROM deleted
 
 	DECLARE @variationsamount decimal(19,2)

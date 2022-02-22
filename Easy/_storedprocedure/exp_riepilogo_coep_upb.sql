@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_riepilogo_coep_upb]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_riepilogo_coep_upb]
 GO
@@ -8,7 +25,7 @@ GO
 SET ANSI_NULLS ON 
 GO
 --setuser 'amm'
---exp_riepilogo_coep_upb  2017, {ts '2017-01-01 00:00:00'},{ts '2017-12-31 00:00:00'},'%','S','N'
+--exp_riepilogo_coep_upb  2017, {ts '2017-01-01 00:00:00'},{ts '2017-12-31 00:00:00'},'%','S','N',null
 
 CREATE  PROCEDURE [exp_riepilogo_coep_upb]
 (
@@ -66,6 +83,8 @@ CREATE TABLE #data
 	dare_altre_voci_attivo decimal (19,2), avere_altre_voci_attivo decimal (19,2),
 	dare_fondo_ammortamento decimal (19,2), avere_fondo_ammortamento decimal (19,2),	
 	dare_altre_voci_passivo decimal (19,2), avere_altre_voci_passivo decimal (19,2),
+	dare_ammortamento decimal (19,2), avere_ammortamento decimal (19,2),
+	dare_ex_riserve_cofi decimal (19,2), avere_ex_riserve_cofi decimal (19,2),
 	tosuppress char(1)
 )
 
@@ -89,7 +108,9 @@ INSERT INTO #data
 	dare_disponibilita_liquide, avere_disponibilita_liquide ,
 	dare_altre_voci_attivo , avere_altre_voci_attivo ,
 	dare_fondo_ammortamento , avere_fondo_ammortamento ,	
-	dare_altre_voci_passivo , avere_altre_voci_passivo 
+	dare_altre_voci_passivo , avere_altre_voci_passivo,
+	dare_ammortamento, avere_ammortamento,
+	dare_ex_riserve_cofi, avere_ex_riserve_cofi
 )
 select entrydetail.idupb, 	
 		sum(case when(( account.flagaccountusage & 1)<> 0 and amount<0) then -amount else 0 end), -- 'Dare(Ratei Attivi)'
@@ -141,8 +162,14 @@ select entrydetail.idupb,
 		sum(case when(( account.flagaccountusage & 32768)<> 0 and amount>0) then amount else 0 end), -- 'Avere( Fondo ammortamento)'
 
 		sum(case when(( account.flagaccountusage & 65536)<> 0 and amount<0) then -amount else 0 end), -- 'Dare(Altre voci del passivo)'
-		sum(case when(( account.flagaccountusage & 65536)<> 0 and amount>0) then amount else 0 end) -- 'Avere(Altre voci del passivo)'
+		sum(case when(( account.flagaccountusage & 65536)<> 0 and amount>0) then amount else 0 end), -- 'Avere(Altre voci del passivo)'
 		
+		sum(case when(( account.flagaccountusage & 131072)<> 0 and amount<0) then -amount else 0 end), -- 'Dare(Ammortamento)'
+		sum(case when(( account.flagaccountusage & 131072)<> 0 and amount>0) then amount else 0 end), -- 'Avere(Ammortamento)'
+
+		sum(case when(( account.flagaccountusage & 262144)<> 0 and amount<0) then -amount else 0 end), -- 'Dare(Ex Riserve COFI)'
+		sum(case when(( account.flagaccountusage & 262144)<> 0 and amount>0) then amount else 0 end) -- 'Avere(Ex Riserve COFI)'
+ 
 from entrydetail
  join entry on entry.yentry =  entrydetail.yentry and  entry.nentry =  entrydetail.nentry
   join account  on entrydetail.idacc = account.idacc 
@@ -178,16 +205,31 @@ end
 SELECT   
 	upb.codeupb as 'Cod. Upb',
 	upb.title as 'Upb',
+	epupbkind.title as 'Tipo upb',
+	case when epupbkindyear.adjustmentkind='C' then 'Commessa completata'
+		 when epupbkindyear.adjustmentkind='P' then 'Perc. completamento'
+		 else null
+	end as 'Tipo assestamento',
+	upb.stop as 'Data Fine',
+
+	capofila.codeupb as 'Cod.Upb capogruppo',
+	KindCapofila.title as 'Tipo upb Capogruppo',
+	case when KindyearCapofila.adjustmentkind='C' then 'Commessa completata'
+		 when KindyearCapofila.adjustmentkind='P' then 'Perc. completamento'
+		 else null
+	end as 'Tipo assestamento Capogruppo',
+	capofila.stop as 'Data Fine Capogruppo',
+
 	treasurer.description as 'Cassiere',
 	case 
 		when upb.flagactivity = 1 then 'Istituzionale'
 		when upb.flagactivity = 2 then 'Commerciale'
 		when  upb.flagactivity = 4 then 'Qualsiasi\Non specificata'
 		else null
-		end as 'Tipo Attivit‡',
-	upb.start as 'Data Inizio',
-	upb.stop as 'Data Fine',
-	(isnull(sum(avere_ricavi),0)-isnull(sum(dare_ricavi),0))-(isnull(sum(dare_costi),0)-isnull(sum(avere_costi),0)) as 'Utile',
+		end as 'Tipo Attivit√†',
+	upb.start as 'Data Inizio Upb',
+	
+	(isnull(sum(avere_ricavi),0)-isnull(sum(dare_ricavi),0))-(isnull(sum(dare_costi),0)-isnull(sum(avere_costi),0)) - isnull(sum(dare_ammortamento),0) 	+ isnull(sum(avere_ammortamento),0) 	as 'Utile',
 	isnull(sum(dare_costi),0) as 'Dare(Costi)',
 	isnull(sum(avere_costi),0) as 'Avere(Costi)',
 	isnull(sum(dare_ricavi),0) as 'Dare(Ricavi)',
@@ -214,31 +256,37 @@ SELECT
 	isnull(sum(avere_riserva),0) as 'Avere(Riserva)',
 	isnull(sum(dare_fondo_accantonamento),0) as 'Dare(Fondo accantonamento)',
 	isnull(sum(avere_fondo_accantonamento),0) as 'Avere(Fondo accantonamento)',
-	isnull(sum(dare_disponibilita_liquide),0) as 'Dare(Disponibilit‡ liquide)',
-	isnull(sum(avere_disponibilita_liquide),0) as 'Avere(Disponibilit‡ liquide)',
+	isnull(sum(dare_disponibilita_liquide),0) as 'Dare(Disponibilit√† liquide)',
+	isnull(sum(avere_disponibilita_liquide),0) as 'Avere(Disponibilit√† liquide)',
 	isnull(sum(dare_altre_voci_attivo),0) as 'Dare(Altre voci dell''attivo)',
 	isnull(sum(avere_altre_voci_attivo),0) as 'Avere(Altre voci dell''attivo)',
 	isnull(sum(dare_fondo_ammortamento),0) as 'Dare(Fondo ammortamento)',
 	isnull(sum(avere_fondo_ammortamento),0) as 'Avere(Fondo ammortamento)',
 	isnull(sum(dare_altre_voci_passivo),0) as 'Dare(Altre voci del passivo)',
 	isnull(sum(avere_altre_voci_passivo),0) as 'Avere(Altre voci del passivo)',
+	isnull(sum(dare_ammortamento),0) as 'Dare(Ammortamento)', 
+	isnull(sum(avere_ammortamento),0) as 'Avere(Ammortamento)', 
+	isnull(sum(dare_ex_riserve_cofi), 0) as 'Dare(Ex Riserve COFI)', 
+	isnull(sum(avere_ex_riserve_cofi),0) as 'Avere(Ex Riserve COFI)', 
 	manager.title as 'Respons.',
 	upb.printingorder as 'Ord. Stampa',
-	#data.idupb as '#idupb',
-	epupbkind.title as 'Tipo upb',
-	case when epupbkindyear.adjustmentkind='C' then 'Commessa completata'
-		 when epupbkindyear.adjustmentkind='P' then 'Perc. completamento'
-		 else null
-	end as 'tipo assestamento'
+	#data.idupb as '#idupb'
 FROM #data
 left outer JOIN upb on #data.idupb = upb.idupb 
+left outer JOIN upb capofila on isnull(upb.idupb_capofila,upb.idupb) = capofila.idupb
 left outer JOIN treasurer  on upb.idtreasurer = treasurer.idtreasurer
 LEFT OUTER JOIN manager 	 ON manager.idman = upb.idman 
 LEFT OUTER JOIN epupbkind ON epupbkind.idepupbkind = upb.idepupbkind
 LEFT OUTER JOIN epupbkindyear ON epupbkindyear.idepupbkind = upb.idepupbkind and epupbkindyear.ayear=@ayear
+
+LEFT OUTER JOIN epupbkind KindCapofila ON KindCapofila.idepupbkind = capofila.idepupbkind
+LEFT OUTER JOIN epupbkindyear KindyearCapofila ON KindyearCapofila.idepupbkind = capofila.idepupbkind and KindyearCapofila.ayear=@ayear
+
 GROUP BY #data.idupb,	upb.codeupb,	upb.title,upb.start,upb.stop,
 	upb.printingorder ,treasurer.description,
-	manager.title,epupbkind.title, upb.flagactivity,epupbkindyear.adjustmentkind
+	manager.title,epupbkind.title, upb.flagactivity,epupbkindyear.adjustmentkind,
+	capofila.codeupb,	KindCapofila.title,	KindyearCapofila.adjustmentkind,	capofila.stop
+	
 ORDER BY upb.printingorder 
  
 

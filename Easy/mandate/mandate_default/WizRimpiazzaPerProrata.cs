@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -27,7 +26,7 @@ using metadatalibrary;
 using funzioni_configurazione;
 
 namespace mandate_default {
-    public partial class WizRimpiazzaPerProrata : Form {
+    public partial class WizRimpiazzaPerProrata : MetaDataForm {
         DataRow rContratto;
         MetaData MetaDettaglio;
         MetaData Meta;
@@ -107,19 +106,19 @@ namespace mandate_default {
 
         private void btnOK_Click(object sender, EventArgs e) {
             if (txtStop.Text == "") {
-                MessageBox.Show(this, "Inserire la data di annullamento del dettaglio");
+                show(this, "Inserire la data di annullamento del dettaglio");
                 this.DialogResult = DialogResult.None;
                 return;
             }
 
             if (txtStart.Text == "") {
-                MessageBox.Show(this, "Inserire la data di inizio validità del dettaglio");
+                show(this, "Inserire la data di inizio validità del dettaglio");
                 this.DialogResult = DialogResult.None;
                 return;
             }
 
              if (CfgFn.GetNoNullInt32(cmbNewTipoIva.SelectedValue) == 0){
-                MessageBox.Show(this, "Inserire il tipo IVA del nuovo dettaglio");
+                show(this, "Inserire il tipo IVA del nuovo dettaglio");
                 this.DialogResult = DialogResult.None;
                 return;
             }
@@ -127,14 +126,14 @@ namespace mandate_default {
             double quantitaconfezioni = CfgFn.GetNoNullDouble(
                 HelpForm.GetObjectFromString(typeof(double), txtNewQuantitaConfezioni.Text, "x.y"));
             if (quantitaconfezioni <= 0){
-                MessageBox.Show(this, "Inserire una quantità maggiore di 0 per il nuovo dettaglio");
+                show(this, "Inserire una quantità maggiore di 0 per il nuovo dettaglio");
                 this.DialogResult = DialogResult.None;
                 return;
             }
             double imponibile = CfgFn.GetNoNullDouble(
               HelpForm.GetObjectFromString(typeof(double), txtNewImportoUnitario.Text, "x.y"));
             if (imponibile <= 0) {
-                MessageBox.Show(this, "Inserire un imponibile unitario maggiore di 0 per il  nuovo dettaglio");
+                show(this, "Inserire un imponibile unitario maggiore di 0 per il  nuovo dettaglio");
                 this.DialogResult = DialogResult.None;
                 return;
             }
@@ -142,13 +141,13 @@ namespace mandate_default {
             double sconto = CfgFn.GetNoNullDouble(
               HelpForm.GetObjectFromString(typeof(double), txtNewSconto.Text, "x.y.fixed.4..%.100"));
             if (sconto < 0) {
-                MessageBox.Show(this, "Inserire una percentuale di sconto valida per il nuovo dettaglio");
+                show(this, "Inserire una percentuale di sconto valida per il nuovo dettaglio");
                 this.DialogResult = DialogResult.None;
                 return;
             }
 
             if (txtNewDescrizione.Text.Trim()== "") {
-                MessageBox.Show(this, "Inserire la descrizione del nuovo dettaglio");
+                show(this, "Inserire la descrizione del nuovo dettaglio");
                 this.DialogResult = DialogResult.None;
                 return;
             }
@@ -175,13 +174,13 @@ namespace mandate_default {
             filter = QHS.AppAnd(filter, filterNoInvoice);
             int count = Conn.RUN_SELECT_COUNT("mandatedetailgroupview", filter, true);
             if (count == 0) {
-                MessageBox.Show(this, "Nel contratto selezionato non esistono dettagli da annullare", "Avviso",
+                show(this, "Nel contratto selezionato non esistono dettagli da annullare, potrebbero essere stati parzialmente fatturati", "Avviso",
                  MessageBoxButtons.OK);
                 return;
             }
             DataRow rDett = MetaDettaglio.SelectOne("dettaglio", filter, null, null);
             if (rDett == null) {
-                MessageBox.Show(this, "Non è stata selezionata alcuna riga", "Avviso",
+                show(this, "Non è stata selezionata alcuna riga", "Avviso",
                     MessageBoxButtons.OK);
                 return;
             }
@@ -369,7 +368,7 @@ namespace mandate_default {
             ricalcolaImporti();
         }
 
-        private void txtNewIvaValuta_TextChanged(object sender, EventArgs e) {
+        private void txtNewIvaValuta_Leave(object sender, EventArgs e) {
             if (inChiusura) return;
             RicalcolaIvaIndeducibile();
             CalcolaImportiEUR();
@@ -642,4 +641,4 @@ namespace mandate_default {
             MetaData.UnregisterAllEvents(this);
         }
     }
-}
+}

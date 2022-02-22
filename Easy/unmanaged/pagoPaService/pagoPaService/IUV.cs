@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using PdfSharp.Drawing;
+
+using PdfSharp.Drawing;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -104,14 +103,14 @@ namespace pagoPaService.Utils {
         /// La stringa di input text viene formattata secondo le specifiche derivate dal documento 
         /// http://www.agid.gov.it/sites/default/files/regole_tecniche/guidatecnica_avvisoanalogico_1_0_1_0.pdf
         /// 
-        /// Per la rappresentazione del bar-code legato a questa tipologia di pagamenti si potrÃ  fare
+        /// Per la rappresentazione del bar-code legato a questa tipologia di pagamenti si potrà fare
         /// riferimento alla codifica C del Codice 128 che presuppone la presenza di soli dati numerici.
         /// 
         /// Gli AI richiesti dal documento sono:
-        /// 415     - Identifica il GS1 Global Location Number (GLN) dellâ€™amministrazione. [Formato n3+n13]
+        /// 415     - Identifica il GS1 Global Location Number (GLN) dell’amministrazione. [Formato n3+n13]
         /// 8002    - Numero dell'avviso di pagamento. [Formato n4+n18]
-        /// 3902    - Identifica lâ€™importo da pagare, espresso nella valuta di riferimento, riportato
-        ///           sullâ€™avviso di pagamento emesso dallâ€™amministrazione.
+        /// 3902    - Identifica l’importo da pagare, espresso nella valuta di riferimento, riportato
+        ///           sull’avviso di pagamento emesso dall’amministrazione.
         ///           L'ultima cifra dell'AI (2) esprime il numero di cifre decimali. [Formato n4+n10]
         /// </summary>
         /// <param name="width">Larghezza del barcode</param>
@@ -292,7 +291,7 @@ namespace pagoPaService.Utils {
         }
     }
     /// <summary>
-    /// UtilitÃ  per la gestione degli IUV.
+    /// Utilità per la gestione degli IUV.
     /// </summary>
     public static class IUV {
 
@@ -377,7 +376,7 @@ namespace pagoPaService.Utils {
         /// Effettua il controllo di un IUV secondo le specifiche ISO 11649/2009
         /// </summary>
         /// <param name="iuv">IUV da controllare</param>
-        /// <returns>Vero se lo IUV Ã¨ formalmente valido</returns>
+        /// <returns>Vero se lo IUV è formalmente valido</returns>
         public static bool Convalida(string iuv) {
             Regex re = new Regex(PatternIso11649);
 
@@ -458,13 +457,13 @@ namespace pagoPaService.Utils {
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="gln">identifica il GS1 Global Location Number (GLN) dellâ€™amministrazione. Il GLN ha
-        ///    lunghezza fissa di 13 caratteri numerici ed Ã¨ assegnato da Indicod-ECR.Il tredicesimo numero Ã¨ un
+        /// <param name="gln">identifica il GS1 Global Location Number (GLN) dell’amministrazione. Il GLN ha
+        ///    lunghezza fissa di 13 caratteri numerici ed è assegnato da Indicod-ECR.Il tredicesimo numero è un
         ///    Check-digit.
         /// </param>
         /// <param name="iuvwithchecks">massimo 18 cifre numeriche Contiene il Numero Avviso composto dalla -- DEVE essere lungo 18
         ///     concatenazione dei dati: aux,digit, application
-        ///             code, codice IUV(vedi Â§ 7.4.1 delle SANP).</param>
+        ///             code, codice IUV(vedi § 7.4.1 delle SANP).</param>
         /// <param name="amount">importo da pagare</param>
         /// <returns></returns>
         public static string getCodiceBarre(string gln,string iuvwithchecks, decimal amount) {
@@ -480,4 +479,3 @@ namespace pagoPaService.Utils {
     }
 
 }
-

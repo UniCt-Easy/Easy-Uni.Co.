@@ -1,0 +1,35 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tassaistanzaconf_default_aa">Anno accademico</label>
+					<select id="tassaistanzaconf_default_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="tassaistanzaconf.aa?tassaistanzaconfdefaultview.aa" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tassaistanzaconf_default_idcostoscontodef">Costo</label>
+					<div>
+						<input id="tassaistanzaconf_default_idcostoscontodef" name="tassaistanzaconf_default_idcostoscontodef" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="costoscontodef.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tassaistanzaconf_default_idistanzakind">Tipo di istanza</label>
+					<select id="tassaistanzaconf_default_idistanzakind" class="custom-select d-block w-100"  data-source-name="istanzakinddefaultview" data-value-member="idistanzakind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="tassaistanzaconf.idistanzakind?tassaistanzaconfdefaultview.idistanzakind" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tassaistanzaconf_default_nullaosta">Nullaosta</label>
+					<div class="custom-control custom-radio">
+						<input id="tassaistanzaconf_default_nullaostaSi" type="radio" name="tassaistanzaconf_default_nullaosta" class="custom-control-input" data-tag="tassaistanzaconf.nullaosta:S?tassaistanzaconfdefaultview.tassaistanzaconf_nullaosta:Si" data-subentity  ><label for="tassaistanzaconf_default_nullaostaSi"> Si</label>
+						<input id="tassaistanzaconf_default_nullaostaNo" type="radio" name="tassaistanzaconf_default_nullaosta" class="custom-control-input" data-tag="tassaistanzaconf.nullaosta:N?tassaistanzaconfdefaultview.tassaistanzaconf_nullaosta:No" data-subentity  ><label for="tassaistanzaconf_default_nullaostaNo"> No</label>
+					</div>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

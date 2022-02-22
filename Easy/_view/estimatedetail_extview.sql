@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA estimatedetail_extview
 IF EXISTS(select * from sysobjects where id = object_id(N'[estimatedetail_extview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [estimatedetail_extview]
@@ -6,9 +23,9 @@ GO
 
 
 
---setuser 'amministrazione'
+--setuser 'amm'inistrazione'
 --clear_table_info 'estimatedetail_extview'
---select * from estimatedetail_extview
+--select * from estimatedetail_extview where yestim = 2021
 CREATE  VIEW [estimatedetail_extview]
 (
 	idestimkind,
@@ -35,9 +52,8 @@ CREATE  VIEW [estimatedetail_extview]
 	taxable_euro,
 	iva_euro,
 	rowtotal,
-	idupb,
-	codeupb,
-	upb,
+	idupb,	codeupb,	upb,
+	idupb_iva,	codeupb_iva,	upb_iva,
 		idman,	manager,
 	cu,
 	ct,
@@ -60,6 +76,8 @@ CREATE  VIEW [estimatedetail_extview]
 	description,
 	linkedtoinvoice,
 	notlinkedtoinvoice,
+	cashed,
+	tocash,
 	epkind,
 	idsor01,
 	idsor02,
@@ -73,13 +91,17 @@ CREATE  VIEW [estimatedetail_extview]
 	nepacc,
 	idfinmotive,
 	codefinmotive,
+	idfinmotive_iva,
+	codefinmotive_iva,
 	iduniqueformcode,
 	nform,
 	yincimpo,
 	nincimpo,
 	yinciva,
 	ninciva,
-	idsor_siope
+	idsor_siope,
+	intcode,idlist,list,
+	cupcode
 )
 	AS SELECT
 	estimatedetail.idestimkind,
@@ -114,6 +136,7 @@ CREATE  VIEW [estimatedetail_extview]
 		)+
 	ROUND(estimatedetail.tax ,2),
 	estimatedetail.idupb,	upb.codeupb,	upb.title,
+	estimatedetail.idupb_iva, upb_iva.codeupb,	upb_iva.title,
 	estimate.idman,	manager.title,
 	estimatedetail.cu,
 	estimatedetail.ct,
@@ -157,6 +180,34 @@ CREATE  VIEW [estimatedetail_extview]
 		AND estimatedetail.nestim = iv.nestim
 		AND estimatedetail.rownum = iv.estimrownum)
 	,0),
+		--cashed,
+	case 
+		when ((select count(*) from incomephase) = 1) and (isnull(estimatekind.linktoinvoice,'N')='N') and (estimatedetail.idinc_taxable IS NOT NULL )
+		then    ROUND(estimatedetail.taxable * estimatedetail.number * 
+		     	     CONVERT(decimal(19,6),estimate.exchangerate) * 
+		     	     (1 - CONVERT(decimal(19,6),ISNULL(estimatedetail.discount, 0.0))),2)
+		else
+		isnull((select sum(amount) from incomelastestimatedetail eld where 
+				eld.idestimkind=	estimatedetail.idestimkind and
+				eld.yestim	=	estimatedetail.yestim and
+				eld.nestim	=	estimatedetail.nestim and
+				eld.rownum	=	estimatedetail.rownum ),0)
+		end ,
+	--tocash,
+	case when ((select count(*) from incomephase) = 1) and (isnull(estimatekind.linktoinvoice,'N')='N')  and (estimatedetail.idinc_taxable IS NULL )
+	then     ROUND(estimatedetail.taxable * estimatedetail.number * 
+		     	     CONVERT(decimal(19,6),estimate.exchangerate) * 
+		     	     (1 - CONVERT(decimal(19,6),ISNULL(estimatedetail.discount, 0.0))),2)
+	ELSE
+	ROUND(estimatedetail.taxable * estimatedetail.number * 
+		  CONVERT(DECIMAL(19,6),estimate.exchangerate) *
+		  (1 - CONVERT(DECIMAL(19,6),ISNULL(estimatedetail.discount, 0.0))),2
+		)-isnull((select sum(amount) from incomelastestimatedetail eld where 
+			eld.idestimkind=	estimatedetail.idestimkind and
+			eld.yestim	=	estimatedetail.yestim and
+			eld.nestim	=	estimatedetail.nestim and
+			eld.rownum	=	estimatedetail.rownum ),0)
+		end	,
 	estimatedetail.epkind,
 	estimate.idsor01,
 	estimate.idsor02,
@@ -170,13 +221,19 @@ CREATE  VIEW [estimatedetail_extview]
 	epacc.nepacc,
 	estimatedetail.idfinmotive,
 	finmotive.codemotive,
+	estimatedetail.idfinmotive_iva,
+	finmotive_IVA.codemotive,
 	estimatedetail.iduniqueformcode,
 	estimatedetail.nform,
 	iimpo.ymov,
 	iimpo.nmov,
 	iiva.ymov,
 	iiva.nmov,
-	estimatedetail.idsor_siope
+	estimatedetail.idsor_siope,
+	list.intcode,
+	list.idlist,
+	list.description,
+	estimatedetail.cupcode
 FROM estimatedetail
 JOIN estimatekind WITH (NOLOCK)				ON estimatekind.idestimkind = estimatedetail.idestimkind
 JOIN estimate WITH (NOLOCK)					ON estimate.yestim = estimatedetail.yestim
@@ -186,15 +243,18 @@ left outer JOIN ivakind WITH (NOLOCK)					ON ivakind.idivakind = estimatedetail.
 LEFT OUTER JOIN manager with (nolock)		ON manager.idman = estimate.idman
 LEFT OUTER JOIN registry WITH (NOLOCK)		ON registry.idreg = estimatedetail.idreg
 LEFT OUTER JOIN upb WITH (NOLOCK)			ON upb.idupb = estimatedetail.idupb
+LEFT OUTER JOIN upb upb_iva WITH (NOLOCK)			ON upb_iva.idupb = estimatedetail.idupb_iva
 LEFT OUTER JOIN accmotive WITH (NOLOCK)		ON accmotive.idaccmotive = estimatedetail.idaccmotive
 LEFT OUTER JOIN accmotive accmotiveannulment WITH (NOLOCK)	ON accmotiveannulment.idaccmotive = estimatedetail.idaccmotiveannulment
 LEFT OUTER JOIN sorting sorting1 WITH (NOLOCK)				ON sorting1.idsor = estimatedetail.idsor1
 LEFT OUTER JOIN sorting sorting2 WITH (NOLOCK)				ON sorting2.idsor = estimatedetail.idsor2
 LEFT OUTER JOIN sorting sorting3 WITH (NOLOCK)				ON sorting3.idsor = estimatedetail.idsor3
 LEFT OUTER JOIN  epacc	WITH (NOLOCK)						ON estimatedetail.idepacc= epacc.idepacc
-LEFT OUTER JOIN  finmotive	WITH (NOLOCK)						ON estimatedetail.idfinmotive= finmotive.idfinmotive
-LEFT OUTER JOIN  income iimpo					ON estimatedetail.idinc_taxable = iimpo.idinc
-LEFT OUTER JOIN  income iiva					ON estimatedetail.idinc_iva = iiva.idinc
+LEFT OUTER JOIN  finmotive	WITH (NOLOCK)					ON estimatedetail.idfinmotive= finmotive.idfinmotive
+LEFT OUTER JOIN  finmotive	finmotive_IVA WITH (NOLOCK)		ON estimatedetail.idfinmotive_iva= finmotive_IVA.idfinmotive
+LEFT OUTER JOIN  income iimpo	WITH (NOLOCK)				ON estimatedetail.idinc_taxable = iimpo.idinc
+LEFT OUTER JOIN  income iiva	WITH (NOLOCK)				ON estimatedetail.idinc_iva = iiva.idinc
+LEFT OUTER JOIN  list		WITH (NOLOCK)					ON list.idlist = estimatedetail.idlist
 
 
 

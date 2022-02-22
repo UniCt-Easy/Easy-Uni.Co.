@@ -1,0 +1,64 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabprogettostatuskind_default_1" class="nav-link active show" data-toggle="pill" data-target="#tabprogettostatuskind_default_1"><i class="fa fa-bezier-curve mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogettostatuskind_default_0" class="nav-link" data-toggle="pill" data-target="#tabprogettostatuskind_default_0"><i class="fa fa-toggle-off mr-1"></i>Abilitazione campi</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabprogettostatuskind_default_1" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettostatuskind_default_title">Stato</label>
+					<input id="progettostatuskind_default_title" type="text" class="form-control" data-tag="progettostatuskind.title?progettostatuskinddefaultview.title" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettostatuskind_default_sortcode">Ordinamento</label>
+					<input id="progettostatuskind_default_sortcode" type="text" class="form-control" data-tag="progettostatuskind.sortcode?progettostatuskinddefaultview.progettostatuskind_sortcode" data-subentity  data-mandatory />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabprogettostatuskind_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettostatuskind_default_contributo">Abilita il cofinanziamento ottenuto dall'ateneo</label>
+					<div class="custom-control custom-radio">
+						<input id="progettostatuskind_default_contributoSi" type="radio" name="progettostatuskind_default_contributo" class="custom-control-input" data-tag="progettostatuskind.contributo:S?progettostatuskinddefaultview.progettostatuskind_contributo:Si" data-subentity  ><label for="progettostatuskind_default_contributoSi"> Si</label>
+						<input id="progettostatuskind_default_contributoNo" type="radio" name="progettostatuskind_default_contributo" class="custom-control-input" data-tag="progettostatuskind.contributo:N?progettostatuskinddefaultview.progettostatuskind_contributo:No" data-subentity  ><label for="progettostatuskind_default_contributoNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettostatuskind_default_contributoente">Abilita il contributo totale ottenuto per l'ateneo dall’ente finanziatore</label>
+					<div class="custom-control custom-radio">
+						<input id="progettostatuskind_default_contributoenteSi" type="radio" name="progettostatuskind_default_contributoente" class="custom-control-input" data-tag="progettostatuskind.contributoente:S?progettostatuskinddefaultview.progettostatuskind_contributoente:Si" data-subentity  ><label for="progettostatuskind_default_contributoenteSi"> Si</label>
+						<input id="progettostatuskind_default_contributoenteNo" type="radio" name="progettostatuskind_default_contributoente" class="custom-control-input" data-tag="progettostatuskind.contributoente:N?progettostatuskinddefaultview.progettostatuskind_contributoente:No" data-subentity  ><label for="progettostatuskind_default_contributoenteNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettostatuskind_default_contributoenterichiesto">Abilita il contributo totale richiesto dall'ateneo all’ente finanziatore</label>
+					<div class="custom-control custom-radio">
+						<input id="progettostatuskind_default_contributoenterichiestoSi" type="radio" name="progettostatuskind_default_contributoenterichiesto" class="custom-control-input" data-tag="progettostatuskind.contributoenterichiesto:S?progettostatuskinddefaultview.progettostatuskind_contributoenterichiesto:Si" data-subentity  ><label for="progettostatuskind_default_contributoenterichiestoSi"> Si</label>
+						<input id="progettostatuskind_default_contributoenterichiestoNo" type="radio" name="progettostatuskind_default_contributoenterichiesto" class="custom-control-input" data-tag="progettostatuskind.contributoenterichiesto:N?progettostatuskinddefaultview.progettostatuskind_contributoenterichiesto:No" data-subentity  ><label for="progettostatuskind_default_contributoenterichiestoNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettostatuskind_default_contributorichiesto">Abilita il cofinanziamento richiesto all'ateneo</label>
+					<div class="custom-control custom-radio">
+						<input id="progettostatuskind_default_contributorichiestoSi" type="radio" name="progettostatuskind_default_contributorichiesto" class="custom-control-input" data-tag="progettostatuskind.contributorichiesto:S?progettostatuskinddefaultview.progettostatuskind_contributorichiesto:Si" data-subentity  ><label for="progettostatuskind_default_contributorichiestoSi"> Si</label>
+						<input id="progettostatuskind_default_contributorichiestoNo" type="radio" name="progettostatuskind_default_contributorichiesto" class="custom-control-input" data-tag="progettostatuskind.contributorichiesto:N?progettostatuskinddefaultview.progettostatuskind_contributorichiesto:No" data-subentity  ><label for="progettostatuskind_default_contributorichiestoNo"> No</label>
+					</div>
+				</div>
+			</div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

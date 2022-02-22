@@ -1,10 +1,27 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA mandateresidual
 IF EXISTS(select * from sysobjects where id = object_id(N'[mandateresidual]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [mandateresidual]
 GO
 
 
---setuser 'amm'
+-- setuser 'amministrazione'
 -- clear_table_info 'mandateresidual'
 --select * from mandateresidual
 CREATE     VIEW [mandateresidual]
@@ -36,7 +53,9 @@ CREATE     VIEW [mandateresidual]
 	idsor01,idsor02,idsor03,idsor04,idsor05,
 	subappropriation,
 	finsubappropriation,
-	adatesubappropriation
+	adatesubappropriation,
+	linktoinvoice,
+	flagbit
 	)
 AS SELECT
 	mandatedetail.idmankind,
@@ -64,29 +83,28 @@ AS SELECT
 	CONVERT(DECIMAL(19,2),
 		ISNULL(SUM(
 		    CASE 
-			WHEN  (mandatedetail.idexp_taxable IS  NULL) AND (mandate.flagintracom<>'N')
+			WHEN (mandatedetail.idexp_taxable IS  NULL) AND (mandatedetail.idexp_iva IS  NOT NULL)		AND (mandate.flagintracom='N' or  (mandate.flagintracom<>'N' and (mandate.flagbit & 1<>0)) )
 			THEN
 			     ROUND(mandatedetail.taxable * ISNULL(mandatedetail.npackage,mandatedetail.number) * 
 		     	     CONVERT(decimal(19,6),mandate.exchangerate) * 
 		     	     (1 - CONVERT(decimal(19,6),ISNULL(mandatedetail.discount, 0.0))),2)
 
-			WHEN (mandatedetail.idexp_taxable IS  NULL) AND (mandatedetail.idexp_iva IS  NOT NULL)   AND (mandate.flagintracom='N')
-			THEN
-			     ROUND(mandatedetail.taxable * ISNULL(mandatedetail.npackage,mandatedetail.number) * 
-		     	     CONVERT(decimal(19,6),mandate.exchangerate) * 
-		     	     (1 - CONVERT(decimal(19,6),ISNULL(mandatedetail.discount, 0.0))),2)
-
-			WHEN ( mandatedetail.idexp_iva IS NULL) AND (mandatedetail.idexp_taxable IS  NOT NULL) AND (mandate.flagintracom='N')
+			WHEN ( mandatedetail.idexp_iva IS NULL) AND (mandatedetail.idexp_taxable IS  NOT NULL) 	AND (mandate.flagintracom='N' or  (mandate.flagintracom<>'N' and (mandate.flagbit & 1<>0)) )
 			THEN
 			    ROUND(mandatedetail.tax,2)
 
-			WHEN ( mandatedetail.idexp_iva IS  NULL) AND (mandatedetail.idexp_taxable IS  NULL) AND (mandate.flagintracom='N')
+			WHEN ( mandatedetail.idexp_iva IS  NULL) AND (mandatedetail.idexp_taxable IS  NULL) 	AND (mandate.flagintracom='N' or  (mandate.flagintracom<>'N' and (mandate.flagbit & 1<>0)) )
 			THEN
 			     ROUND(mandatedetail.taxable * ISNULL(mandatedetail.npackage,mandatedetail.number) * 
 		     	     CONVERT(decimal(19,6),mandate.exchangerate) * 
 		     	     (1 - CONVERT(decimal(19,6),ISNULL(mandatedetail.discount, 0.0))),2) 
 			     +
 			     ROUND(mandatedetail.tax,2)
+			WHEN  (mandatedetail.idexp_taxable IS  NULL) AND (mandate.flagintracom<>'N' and (mandate.flagbit & 1=0))
+			THEN
+			     ROUND(mandatedetail.taxable * ISNULL(mandatedetail.npackage,mandatedetail.number) * 
+		     	     CONVERT(decimal(19,6),mandate.exchangerate) * 
+		     	     (1 - CONVERT(decimal(19,6),ISNULL(mandatedetail.discount, 0.0))),2)
 			ELSE   0
 
 		    END
@@ -152,7 +170,9 @@ AS SELECT
 	mandate.idsor05,
 	mandate.subappropriation,
 	mandate.finsubappropriation,
-	mandate.adatesubappropriation
+	mandate.adatesubappropriation,
+	mandatekind.linktoinvoice,
+	mandate.flagbit
 FROM mandatedetail (NOLOCK)
 JOIN mandate (NOLOCK)
   	ON mandatedetail.idmankind = mandate.idmankind
@@ -175,6 +195,7 @@ GROUP BY mandatedetail.idmankind, mandatedetail.yman, mandatedetail.nman,
 	mandate.idsor03,
 	mandate.idsor04,
 	mandate.idsor05,
-	mandate.subappropriation, mandate.finsubappropriation,mandate.adatesubappropriation,registry.title
+	mandate.subappropriation, mandate.finsubappropriation,mandate.adatesubappropriation,registry.title,
+	mandatekind.linktoinvoice,mandate.flagbit
 
 GO

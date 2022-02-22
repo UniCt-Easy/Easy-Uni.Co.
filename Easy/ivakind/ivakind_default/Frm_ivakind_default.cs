@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -29,7 +28,7 @@ namespace ivakind_default//tipoiva//
 	/// <summary>
 	/// Summary description for frmtipoiva.
 	/// </summary>
-	public class Frm_ivakind_default : System.Windows.Forms.Form
+	public class Frm_ivakind_default : MetaDataForm
 	{
 		public vistaForm DS;
 		private System.Windows.Forms.ImageList images;
@@ -68,6 +67,7 @@ namespace ivakind_default//tipoiva//
         private Button btnElimina;
         private Button btnModifica;
         private Button btnInserisci;
+        private CheckBox checkBox10;
         MetaData Meta;
 
 		public Frm_ivakind_default()
@@ -99,7 +99,7 @@ namespace ivakind_default//tipoiva//
 
         public void MetaData_AfterLink() {
             Meta = MetaData.GetMetaData(this);
-
+            
             bool IsAdmin = false;
 
             if (Meta.GetUsr("consolidamento") != null)
@@ -107,7 +107,9 @@ namespace ivakind_default//tipoiva//
             if (Meta.GetSys("IsSystemAdmin") != null)
               IsAdmin = IsAdmin || (bool)Meta.GetSys("IsSystemAdmin");
             HelpForm.SetDenyNull(DS.ivakind.Columns["codeivakind"],true);
-
+            
+            //QueryCreator.SetInsertFilter(DS.fenature, qhs.NullOrLe("stop", getSys("datacontabile")));
+            QueryCreator.SetInsertFilter(DS.fenature, qhs.IsNull("stop"));
             if (!IsAdmin) btnCopyAll.Visible = false;
         }
 
@@ -165,6 +167,7 @@ namespace ivakind_default//tipoiva//
             this.btnElimina = new System.Windows.Forms.Button();
             this.btnModifica = new System.Windows.Forms.Button();
             this.btnInserisci = new System.Windows.Forms.Button();
+            this.checkBox10 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.MetaDataDetail.SuspendLayout();
             this.tabPrincipale.SuspendLayout();
@@ -217,6 +220,7 @@ namespace ivakind_default//tipoiva//
             // tabPrincipale
             // 
             this.tabPrincipale.BackColor = System.Drawing.Color.Transparent;
+            this.tabPrincipale.Controls.Add(this.checkBox10);
             this.tabPrincipale.Controls.Add(this.groupBox5);
             this.tabPrincipale.Controls.Add(this.groupBox4);
             this.tabPrincipale.Controls.Add(this.groupBox3);
@@ -292,7 +296,7 @@ namespace ivakind_default//tipoiva//
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.cmbNatura);
-            this.groupBox4.Location = new System.Drawing.Point(351, 195);
+            this.groupBox4.Location = new System.Drawing.Point(351, 165);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(422, 48);
             this.groupBox4.TabIndex = 39;
@@ -578,6 +582,17 @@ namespace ivakind_default//tipoiva//
             this.btnInserisci.Tag = "insert.single";
             this.btnInserisci.Text = "Inserisci";
             // 
+            // checkBox10
+            // 
+            this.checkBox10.AutoSize = true;
+            this.checkBox10.Location = new System.Drawing.Point(450, 226);
+            this.checkBox10.Name = "checkBox10";
+            this.checkBox10.Size = new System.Drawing.Size(214, 17);
+            this.checkBox10.TabIndex = 41;
+            this.checkBox10.Tag = "ivakind.flag:9";
+            this.checkBox10.Text = "Aliquota iva art74 iva assolta dall\'editore (fatturazione attiva)";
+            this.checkBox10.UseVisualStyleBackColor = true;
+            // 
             // Frm_ivakind_default
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -611,7 +626,7 @@ namespace ivakind_default//tipoiva//
             if (DS.HasChanges()) return;
             DataRow R= HelpForm.GetLastSelected(DS.ivakind);
 
-            if (MessageBox.Show("Copiare tutte le informazioni dell'aliquota di codice " +
+            if (show("Copiare tutte le informazioni dell'aliquota di codice " +
                     R["codeivakind"].ToString() + " su tutti i dipartimenti?", "Attenzione", MessageBoxButtons.YesNo) !=
                     DialogResult.Yes) return;
 
@@ -620,4 +635,3 @@ namespace ivakind_default//tipoiva//
         }
 	}
 }
-

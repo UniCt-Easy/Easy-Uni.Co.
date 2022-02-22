@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -22,6 +21,8 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using metadatalibrary;
 #pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_list {
 public class listRow: MetaRow  {
 	public listRow(DataRowBuilder rb) : base(rb) {} 
@@ -30,44 +31,44 @@ public class listRow: MetaRow  {
 	///<summary>
 	///chiave listino (tabella list)
 	///</summary>
-	public Int32? idlist{ 
-		get {if (this["idlist"]==DBNull.Value)return null; return  (Int32?)this["idlist"];}
-		set {if (value==null) this["idlist"]= DBNull.Value; else this["idlist"]= value;}
+	public Int32 idlist{ 
+		get {return  (Int32)this["idlist"];}
+		set {this["idlist"]= value;}
 	}
 	public object idlistValue { 
 		get{ return this["idlist"];}
-		set {if (value==null|| value==DBNull.Value) this["idlist"]= DBNull.Value; else this["idlist"]= value;}
+		set {this["idlist"]= value;}
 	}
-	public Int32? idlistOriginal { 
-		get {if (this["idlist",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idlist",DataRowVersion.Original];}
+	public Int32 idlistOriginal { 
+		get {return  (Int32)this["idlist",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Descrizione
 	///</summary>
 	public String description{ 
-		get {if (this["description"]==DBNull.Value)return null; return  (String)this["description"];}
-		set {if (value==null) this["description"]= DBNull.Value; else this["description"]= value;}
+		get {return  (String)this["description"];}
+		set {this["description"]= value;}
 	}
 	public object descriptionValue { 
 		get{ return this["description"];}
-		set {if (value==null|| value==DBNull.Value) this["description"]= DBNull.Value; else this["description"]= value;}
+		set {this["description"]= value;}
 	}
 	public String descriptionOriginal { 
-		get {if (this["description",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["description",DataRowVersion.Original];}
+		get {return  (String)this["description",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Codice
 	///</summary>
 	public String intcode{ 
-		get {if (this["intcode"]==DBNull.Value)return null; return  (String)this["intcode"];}
-		set {if (value==null) this["intcode"]= DBNull.Value; else this["intcode"]= value;}
+		get {return  (String)this["intcode"];}
+		set {this["intcode"]= value;}
 	}
 	public object intcodeValue { 
 		get{ return this["intcode"];}
-		set {if (value==null|| value==DBNull.Value) this["intcode"]= DBNull.Value; else this["intcode"]= value;}
+		set {this["intcode"]= value;}
 	}
 	public String intcodeOriginal { 
-		get {if (this["intcode",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["intcode",DataRowVersion.Original];}
+		get {return  (String)this["intcode",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Codice a barre per uso interno
@@ -129,15 +130,15 @@ public class listRow: MetaRow  {
 	///attivo
 	///</summary>
 	public String active{ 
-		get {if (this["active"]==DBNull.Value)return null; return  (String)this["active"];}
-		set {if (value==null) this["active"]= DBNull.Value; else this["active"]= value;}
+		get {return  (String)this["active"];}
+		set {this["active"]= value;}
 	}
 	public object activeValue { 
 		get{ return this["active"];}
-		set {if (value==null|| value==DBNull.Value) this["active"]= DBNull.Value; else this["active"]= value;}
+		set {this["active"]= value;}
 	}
 	public String activeOriginal { 
-		get {if (this["active",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["active",DataRowVersion.Original];}
+		get {return  (String)this["active",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Id confezione (tabella package)
@@ -185,85 +186,85 @@ public class listRow: MetaRow  {
 	///Ha data scadenza
 	///</summary>
 	public String has_expiry{ 
-		get {if (this["has_expiry"]==DBNull.Value)return null; return  (String)this["has_expiry"];}
-		set {if (value==null) this["has_expiry"]= DBNull.Value; else this["has_expiry"]= value;}
+		get {return  (String)this["has_expiry"];}
+		set {this["has_expiry"]= value;}
 	}
 	public object has_expiryValue { 
 		get{ return this["has_expiry"];}
-		set {if (value==null|| value==DBNull.Value) this["has_expiry"]= DBNull.Value; else this["has_expiry"]= value;}
+		set {this["has_expiry"]= value;}
 	}
 	public String has_expiryOriginal { 
-		get {if (this["has_expiry",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["has_expiry",DataRowVersion.Original];}
+		get {return  (String)this["has_expiry",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome utente creazione
 	///</summary>
 	public String cu{ 
-		get {if (this["cu"]==DBNull.Value)return null; return  (String)this["cu"];}
-		set {if (value==null) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		get {return  (String)this["cu"];}
+		set {this["cu"]= value;}
 	}
 	public object cuValue { 
 		get{ return this["cu"];}
-		set {if (value==null|| value==DBNull.Value) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		set {this["cu"]= value;}
 	}
 	public String cuOriginal { 
-		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
+		get {return  (String)this["cu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///data creazione
 	///</summary>
-	public DateTime? ct{ 
-		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
-		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
+	public DateTime ct{ 
+		get {return  (DateTime)this["ct"];}
+		set {this["ct"]= value;}
 	}
 	public object ctValue { 
 		get{ return this["ct"];}
-		set {if (value==null|| value==DBNull.Value) this["ct"]= DBNull.Value; else this["ct"]= value;}
+		set {this["ct"]= value;}
 	}
-	public DateTime? ctOriginal { 
-		get {if (this["ct",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["ct",DataRowVersion.Original];}
+	public DateTime ctOriginal { 
+		get {return  (DateTime)this["ct",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome ultimo utente modifica
 	///</summary>
 	public String lu{ 
-		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
-		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		get {return  (String)this["lu"];}
+		set {this["lu"]= value;}
 	}
 	public object luValue { 
 		get{ return this["lu"];}
-		set {if (value==null|| value==DBNull.Value) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		set {this["lu"]= value;}
 	}
 	public String luOriginal { 
-		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
+		get {return  (String)this["lu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///data ultima modifica
 	///</summary>
-	public DateTime? lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
-		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
+	public DateTime lt{ 
+		get {return  (DateTime)this["lt"];}
+		set {this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
-		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
+		set {this["lt"]= value;}
 	}
-	public DateTime? ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
+	public DateTime ltOriginal { 
+		get {return  (DateTime)this["lt",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Id class. merceologica (tabella listclass)
 	///</summary>
 	public String idlistclass{ 
-		get {if (this["idlistclass"]==DBNull.Value)return null; return  (String)this["idlistclass"];}
-		set {if (value==null) this["idlistclass"]= DBNull.Value; else this["idlistclass"]= value;}
+		get {return  (String)this["idlistclass"];}
+		set {this["idlistclass"]= value;}
 	}
 	public object idlistclassValue { 
 		get{ return this["idlistclass"];}
-		set {if (value==null|| value==DBNull.Value) this["idlistclass"]= DBNull.Value; else this["idlistclass"]= value;}
+		set {this["idlistclass"]= value;}
 	}
 	public String idlistclassOriginal { 
-		get {if (this["idlistclass",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idlistclass",DataRowVersion.Original];}
+		get {return  (String)this["idlistclass",DataRowVersion.Original];}
 	}
 	///<summary>
 	///immagine
@@ -399,6 +400,17 @@ public class listRow: MetaRow  {
 	public String descrforuserOriginal { 
 		get {if (this["descrforuser",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["descrforuser",DataRowVersion.Original];}
 	}
+	public Int32? idtassonomia{ 
+		get {if (this["idtassonomia"]==DBNull.Value)return null; return  (Int32?)this["idtassonomia"];}
+		set {if (value==null) this["idtassonomia"]= DBNull.Value; else this["idtassonomia"]= value;}
+	}
+	public object idtassonomiaValue { 
+		get{ return this["idtassonomia"];}
+		set {if (value==null|| value==DBNull.Value) this["idtassonomia"]= DBNull.Value; else this["idtassonomia"]= value;}
+	}
+	public Int32? idtassonomiaOriginal { 
+		get {if (this["idtassonomia",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idtassonomia",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -408,35 +420,35 @@ public class listRow: MetaRow  {
 public class listTable : MetaTableBase<listRow> {
 	public listTable() : base("list"){
 		baseColumns = new Dictionary<string, DataColumn>(){
-			{"idlist",createColumn("idlist",typeof(Int32),false,false)},
-			{"description",createColumn("description",typeof(String),false,false)},
-			{"intcode",createColumn("intcode",typeof(String),false,false)},
-			{"intbarcode",createColumn("intbarcode",typeof(String),true,false)},
-			{"extcode",createColumn("extcode",typeof(String),true,false)},
-			{"extbarcode",createColumn("extbarcode",typeof(String),true,false)},
+			{"idlist",createColumn("idlist",typeof(int),false,false)},
+			{"description",createColumn("description",typeof(string),false,false)},
+			{"intcode",createColumn("intcode",typeof(string),false,false)},
+			{"intbarcode",createColumn("intbarcode",typeof(string),true,false)},
+			{"extcode",createColumn("extcode",typeof(string),true,false)},
+			{"extbarcode",createColumn("extbarcode",typeof(string),true,false)},
 			{"validitystop",createColumn("validitystop",typeof(DateTime),true,false)},
-			{"active",createColumn("active",typeof(String),false,false)},
-			{"idpackage",createColumn("idpackage",typeof(Int32),true,false)},
-			{"idunit",createColumn("idunit",typeof(Int32),true,false)},
-			{"unitsforpackage",createColumn("unitsforpackage",typeof(Int32),true,false)},
-			{"has_expiry",createColumn("has_expiry",typeof(String),false,false)},
-			{"cu",createColumn("cu",typeof(String),false,false)},
+			{"active",createColumn("active",typeof(string),false,false)},
+			{"idpackage",createColumn("idpackage",typeof(int),true,false)},
+			{"idunit",createColumn("idunit",typeof(int),true,false)},
+			{"unitsforpackage",createColumn("unitsforpackage",typeof(int),true,false)},
+			{"has_expiry",createColumn("has_expiry",typeof(string),false,false)},
+			{"cu",createColumn("cu",typeof(string),false,false)},
 			{"ct",createColumn("ct",typeof(DateTime),false,false)},
-			{"lu",createColumn("lu",typeof(String),false,false)},
+			{"lu",createColumn("lu",typeof(string),false,false)},
 			{"lt",createColumn("lt",typeof(DateTime),false,false)},
-			{"idlistclass",createColumn("idlistclass",typeof(String),false,false)},
+			{"idlistclass",createColumn("idlistclass",typeof(string),false,false)},
 			{"pic",createColumn("pic",typeof(Byte[]),true,false)},
-			{"picext",createColumn("picext",typeof(String),true,false)},
-			{"nmin",createColumn("nmin",typeof(Decimal),true,false)},
-			{"ntoreorder",createColumn("ntoreorder",typeof(Decimal),true,false)},
-			{"tounload",createColumn("tounload",typeof(String),true,false)},
-			{"timesupply",createColumn("timesupply",typeof(Int32),true,false)},
-			{"nmaxorder",createColumn("nmaxorder",typeof(Decimal),true,false)},
-			{"price",createColumn("price",typeof(Decimal),true,false)},
-			{"insinfo",createColumn("insinfo",typeof(String),true,false)},
-			{"descrforuser",createColumn("descrforuser",typeof(String),true,false)},
+			{"picext",createColumn("picext",typeof(string),true,false)},
+			{"nmin",createColumn("nmin",typeof(decimal),true,false)},
+			{"ntoreorder",createColumn("ntoreorder",typeof(decimal),true,false)},
+			{"tounload",createColumn("tounload",typeof(string),true,false)},
+			{"timesupply",createColumn("timesupply",typeof(int),true,false)},
+			{"nmaxorder",createColumn("nmaxorder",typeof(decimal),true,false)},
+			{"price",createColumn("price",typeof(decimal),true,false)},
+			{"insinfo",createColumn("insinfo",typeof(string),true,false)},
+			{"descrforuser",createColumn("descrforuser",typeof(string),true,false)},
+			{"idtassonomia",createColumn("idtassonomia",typeof(int),true,false)},
 		};
 	}
 }
 }
-

@@ -1,0 +1,105 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="getdocentiperssd_seg_cognome">Cognome</label>
+					<input id="getdocentiperssd_seg_cognome" type="text" class="form-control" data-tag="getdocentiperssd.cognome?getdocentiperssdsegview.cognome" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="getdocentiperssd_seg_nome">Nome</label>
+					<input id="getdocentiperssd_seg_nome" type="text" class="form-control" data-tag="getdocentiperssd.nome?getdocentiperssdsegview.getdocentiperssd_nome" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="getdocentiperssd_seg_contratto">Contratto</label>
+					<input id="getdocentiperssd_seg_contratto" type="text" class="form-control" data-tag="getdocentiperssd.contratto?getdocentiperssdsegview.getdocentiperssd_contratto" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="getdocentiperssd_seg_costoorario">Costo orario</label>
+					<input id="getdocentiperssd_seg_costoorario" type="text" class="form-control" data-tag="getdocentiperssd.costoorario.fixed.2?getdocentiperssdsegview.getdocentiperssd_costoorario" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="getdocentiperssd_seg_idsasd">Idsasd</label>
+					<div>
+						<input id="getdocentiperssd_seg_idsasd" name="getdocentiperssd_seg_idsasd" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sasddefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#getdocentiperssd_seg_iniziocontratto").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="getdocentiperssd_seg_iniziocontratto">Data di inizio del contratto</label>
+					<input id="getdocentiperssd_seg_iniziocontratto" type="text" class="form-control" data-tag="getdocentiperssd.iniziocontratto?getdocentiperssdsegview.getdocentiperssd_iniziocontratto" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="getdocentiperssd_seg_matricola">Matricola</label>
+					<input id="getdocentiperssd_seg_matricola" type="text" class="form-control" data-tag="getdocentiperssd.matricola?getdocentiperssdsegview.getdocentiperssd_matricola" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="getdocentiperssd_seg_oremaxdida">Ore massime di didattica</label>
+					<input id="getdocentiperssd_seg_oremaxdida" type="text" class="form-control" data-tag="getdocentiperssd.oremaxdida?getdocentiperssdsegview.getdocentiperssd_oremaxdida" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="getdocentiperssd_seg_oremindida">Ore minime di didattica</label>
+					<input id="getdocentiperssd_seg_oremindida" type="text" class="form-control" data-tag="getdocentiperssd.oremindida?getdocentiperssdsegview.getdocentiperssd_oremindida" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="getdocentiperssd_seg_parttime">Part-time</label>
+					<input id="getdocentiperssd_seg_parttime" type="text" class="form-control" data-tag="getdocentiperssd.parttime.fixed.2?getdocentiperssdsegview.getdocentiperssd_parttime" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="getdocentiperssd_seg_ssd">Ssd</label>
+					<input id="getdocentiperssd_seg_ssd" type="text" class="form-control" data-tag="getdocentiperssd.ssd?getdocentiperssdsegview.getdocentiperssd_ssd" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="getdocentiperssd_seg_struttura">Struttura</label>
+					<input id="getdocentiperssd_seg_struttura" type="text" class="form-control" data-tag="getdocentiperssd.struttura?getdocentiperssdsegview.getdocentiperssd_struttura" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="getdocentiperssd_seg_tempodefinito">Tempo definito</label>
+					<div class="custom-control custom-radio">
+						<input id="getdocentiperssd_seg_tempodefinitoSi" type="radio" name="getdocentiperssd_seg_tempodefinito" class="custom-control-input" data-tag="getdocentiperssd.tempodefinito:S?getdocentiperssdsegview.getdocentiperssd_tempodefinito:Si" data-subentity  data-mandatory ><label for="getdocentiperssd_seg_tempodefinitoSi"> Si</label>
+						<input id="getdocentiperssd_seg_tempodefinitoNo" type="radio" name="getdocentiperssd_seg_tempodefinito" class="custom-control-input" data-tag="getdocentiperssd.tempodefinito:N?getdocentiperssdsegview.getdocentiperssd_tempodefinito:No" data-subentity  data-mandatory ><label for="getdocentiperssd_seg_tempodefinitoNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#getdocentiperssd_seg_terminecontratto").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="getdocentiperssd_seg_terminecontratto">Data di fine del contratto</label>
+					<input id="getdocentiperssd_seg_terminecontratto" type="text" class="form-control" data-tag="getdocentiperssd.terminecontratto?getdocentiperssdsegview.getdocentiperssd_terminecontratto" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="getdocentiperssd_seg_oreperaaaffidamento">Ore già impegnate nell'AA per affidamenti</label>
+					<input id="getdocentiperssd_seg_oreperaaaffidamento" type="text" class="form-control" data-tag="getdocentiperssd.oreperaaaffidamento?getdocentiperssdsegview.getdocentiperssd_oreperaaaffidamento" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="getdocentiperssd_seg_oreperaacontratto">Ore già impegnate nell'AA per contratto</label>
+					<input id="getdocentiperssd_seg_oreperaacontratto" type="text" class="form-control" data-tag="getdocentiperssd.oreperaacontratto?getdocentiperssdsegview.getdocentiperssd_oreperaacontratto" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

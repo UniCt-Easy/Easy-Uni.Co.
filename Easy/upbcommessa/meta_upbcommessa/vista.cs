@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -22,6 +21,8 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using metadatalibrary;
 #pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_upbcommessa {
 public class upbcommessaRow: MetaRow  {
 	public upbcommessaRow(DataRowBuilder rb) : base(rb) {} 
@@ -31,57 +32,57 @@ public class upbcommessaRow: MetaRow  {
 	///id voce upb (tabella upb)
 	///</summary>
 	public String idupb{ 
-		get {if (this["idupb"]==DBNull.Value)return null; return  (String)this["idupb"];}
-		set {if (value==null) this["idupb"]= DBNull.Value; else this["idupb"]= value;}
+		get {return  (String)this["idupb"];}
+		set {this["idupb"]= value;}
 	}
 	public object idupbValue { 
 		get{ return this["idupb"];}
-		set {if (value==null|| value==DBNull.Value) this["idupb"]= DBNull.Value; else this["idupb"]= value;}
+		set {this["idupb"]= value;}
 	}
 	public String idupbOriginal { 
-		get {if (this["idupb",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idupb",DataRowVersion.Original];}
+		get {return  (String)this["idupb",DataRowVersion.Original];}
 	}
 	///<summary>
 	///esercizio
 	///</summary>
-	public Int16? ayear{ 
-		get {if (this["ayear"]==DBNull.Value)return null; return  (Int16?)this["ayear"];}
-		set {if (value==null) this["ayear"]= DBNull.Value; else this["ayear"]= value;}
+	public Int16 ayear{ 
+		get {return  (Int16)this["ayear"];}
+		set {this["ayear"]= value;}
 	}
 	public object ayearValue { 
 		get{ return this["ayear"];}
-		set {if (value==null|| value==DBNull.Value) this["ayear"]= DBNull.Value; else this["ayear"]= value;}
+		set {this["ayear"]= value;}
 	}
-	public Int16? ayearOriginal { 
-		get {if (this["ayear",DataRowVersion.Original]==DBNull.Value)return null; return  (Int16?)this["ayear",DataRowVersion.Original];}
+	public Int16 ayearOriginal { 
+		get {return  (Int16)this["ayear",DataRowVersion.Original];}
 	}
 	///<summary>
 	///codice upb
 	///</summary>
 	public String codeupb{ 
-		get {if (this["codeupb"]==DBNull.Value)return null; return  (String)this["codeupb"];}
-		set {if (value==null) this["codeupb"]= DBNull.Value; else this["codeupb"]= value;}
+		get {return  (String)this["codeupb"];}
+		set {this["codeupb"]= value;}
 	}
 	public object codeupbValue { 
 		get{ return this["codeupb"];}
-		set {if (value==null|| value==DBNull.Value) this["codeupb"]= DBNull.Value; else this["codeupb"]= value;}
+		set {this["codeupb"]= value;}
 	}
 	public String codeupbOriginal { 
-		get {if (this["codeupb",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codeupb",DataRowVersion.Original];}
+		get {return  (String)this["codeupb",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Denominazione
 	///</summary>
 	public String title{ 
-		get {if (this["title"]==DBNull.Value)return null; return  (String)this["title"];}
-		set {if (value==null) this["title"]= DBNull.Value; else this["title"]= value;}
+		get {return  (String)this["title"];}
+		set {this["title"]= value;}
 	}
 	public object titleValue { 
 		get{ return this["title"];}
-		set {if (value==null|| value==DBNull.Value) this["title"]= DBNull.Value; else this["title"]= value;}
+		set {this["title"]= value;}
 	}
 	public String titleOriginal { 
-		get {if (this["title",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["title",DataRowVersion.Original];}
+		get {return  (String)this["title",DataRowVersion.Original];}
 	}
 	///<summary>
 	///anno data inizio 
@@ -349,37 +350,51 @@ public class upbcommessaRow: MetaRow  {
 	public String luOriginal { 
 		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
 	}
+	public Decimal? assetamortization{ 
+		get {if (this["assetamortization"]==DBNull.Value)return null; return  (Decimal?)this["assetamortization"];}
+		set {if (value==null) this["assetamortization"]= DBNull.Value; else this["assetamortization"]= value;}
+	}
+	public object assetamortizationValue { 
+		get{ return this["assetamortization"];}
+		set {if (value==null|| value==DBNull.Value) this["assetamortization"]= DBNull.Value; else this["assetamortization"]= value;}
+	}
+	public Decimal? assetamortizationOriginal { 
+		get {if (this["assetamortization",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["assetamortization",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
+///<summary>
+///Dati su commessa completata
+///</summary>
 public class upbcommessaTable : MetaTableBase<upbcommessaRow> {
 	public upbcommessaTable() : base("upbcommessa"){
 		baseColumns = new Dictionary<string, DataColumn>(){
-			{"idupb",createColumn("idupb",typeof(String),false,false)},
-			{"ayear",createColumn("ayear",typeof(Int16),false,false)},
-			{"codeupb",createColumn("codeupb",typeof(String),false,false)},
-			{"title",createColumn("title",typeof(String),false,false)},
-			{"yearstart",createColumn("yearstart",typeof(Int16),true,false)},
-			{"yearstop",createColumn("yearstop",typeof(Int16),true,false)},
-			{"idepupbkind",createColumn("idepupbkind",typeof(Int32),true,false)},
-			{"idaccmotive_cost",createColumn("idaccmotive_cost",typeof(String),true,false)},
-			{"idaccmotive_revenue",createColumn("idaccmotive_revenue",typeof(String),true,false)},
-			{"idaccmotive_deferredcost",createColumn("idaccmotive_deferredcost",typeof(String),true,false)},
-			{"idaccmotive_accruals",createColumn("idaccmotive_accruals",typeof(String),true,false)},
-			{"idacc_cost",createColumn("idacc_cost",typeof(String),true,false)},
-			{"idacc_revenue",createColumn("idacc_revenue",typeof(String),true,false)},
-			{"idacc_deferredcost",createColumn("idacc_deferredcost",typeof(String),true,false)},
-			{"idacc_accruals",createColumn("idacc_accruals",typeof(String),true,false)},
-			{"cost",createColumn("cost",typeof(Decimal),true,false)},
-			{"reserve",createColumn("reserve",typeof(Decimal),true,false)},
-			{"revenue",createColumn("revenue",typeof(Decimal),true,false)},
-			{"accruals",createColumn("accruals",typeof(Decimal),true,false)},
+			{"idupb",createColumn("idupb",typeof(string),false,false)},
+			{"ayear",createColumn("ayear",typeof(short),false,false)},
+			{"codeupb",createColumn("codeupb",typeof(string),false,false)},
+			{"title",createColumn("title",typeof(string),false,false)},
+			{"yearstart",createColumn("yearstart",typeof(short),true,false)},
+			{"yearstop",createColumn("yearstop",typeof(short),true,false)},
+			{"idepupbkind",createColumn("idepupbkind",typeof(int),true,false)},
+			{"idaccmotive_cost",createColumn("idaccmotive_cost",typeof(string),true,false)},
+			{"idaccmotive_revenue",createColumn("idaccmotive_revenue",typeof(string),true,false)},
+			{"idaccmotive_deferredcost",createColumn("idaccmotive_deferredcost",typeof(string),true,false)},
+			{"idaccmotive_accruals",createColumn("idaccmotive_accruals",typeof(string),true,false)},
+			{"idacc_cost",createColumn("idacc_cost",typeof(string),true,false)},
+			{"idacc_revenue",createColumn("idacc_revenue",typeof(string),true,false)},
+			{"idacc_deferredcost",createColumn("idacc_deferredcost",typeof(string),true,false)},
+			{"idacc_accruals",createColumn("idacc_accruals",typeof(string),true,false)},
+			{"cost",createColumn("cost",typeof(decimal),true,false)},
+			{"reserve",createColumn("reserve",typeof(decimal),true,false)},
+			{"revenue",createColumn("revenue",typeof(decimal),true,false)},
+			{"accruals",createColumn("accruals",typeof(decimal),true,false)},
 			{"ct",createColumn("ct",typeof(DateTime),true,false)},
-			{"cu",createColumn("cu",typeof(String),true,false)},
+			{"cu",createColumn("cu",typeof(string),true,false)},
 			{"lt",createColumn("lt",typeof(DateTime),true,false)},
-			{"lu",createColumn("lu",typeof(String),true,false)},
+			{"lu",createColumn("lu",typeof(string),true,false)},
+			{"assetamortization",createColumn("assetamortization",typeof(decimal),true,false)},
 		};
 	}
 }
 }
-

@@ -1,0 +1,40 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="strutturaresponsabile_default_idperfruolo">Ruolo </label>
+					<select id="strutturaresponsabile_default_idperfruolo" class="custom-select d-block w-100"  data-source-name="perfruolo" data-value-member="idperfruolo" data-display-member="idperfruolo" data-custom-control="combo" data-tag="strutturaresponsabile.idperfruolo"   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="strutturaresponsabile_default_idreg">Membro del personale</label>
+					<select id="strutturaresponsabile_default_idreg" class="custom-select d-block w-100"  data-source-name="registrydefaultview" data-value-member="idreg" data-display-member="dropdown_title" data-custom-control="combo" data-tag="strutturaresponsabile.idreg"   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#strutturaresponsabile_default_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="strutturaresponsabile_default_start">Data inizio validità</label>
+					<input id="strutturaresponsabile_default_start" type="text" class="form-control" data-tag="strutturaresponsabile.start"  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#strutturaresponsabile_default_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="strutturaresponsabile_default_stop">Data fine validità</label>
+					<input id="strutturaresponsabile_default_stop" type="text" class="form-control" data-tag="strutturaresponsabile.stop"  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

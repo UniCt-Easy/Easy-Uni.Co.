@@ -1,0 +1,50 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="geo_region_segchild_title">Denominazione</label>
+					<input id="geo_region_segchild_title" type="text" class="form-control" data-tag="geo_region.title"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="geo_region_segchild_newregion">regione successiva</label>
+					<div>
+						<input id="geo_region_segchild_newregion" name="geo_region_segchild_newregion" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_region_alias1.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="geo_region_segchild_oldregion">regione precedente</label>
+					<div>
+						<input id="geo_region_segchild_oldregion" name="geo_region_segchild_oldregion" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_region_alias2.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#geo_region_segchild_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="geo_region_segchild_start">data inizio</label>
+					<input id="geo_region_segchild_start" type="text" class="form-control" data-tag="geo_region.start"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#geo_region_segchild_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="geo_region_segchild_stop">data fine</label>
+					<input id="geo_region_segchild_stop" type="text" class="form-control" data-tag="geo_region.stop"  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

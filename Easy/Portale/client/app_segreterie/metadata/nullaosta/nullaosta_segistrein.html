@@ -1,0 +1,34 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#nullaosta_segistrein_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="nullaosta_segistrein_data">Data</label>
+					<input id="nullaosta_segistrein_data" type="text" class="form-control" data-tag="nullaosta.data.g"  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="nullaosta_segistrein_protnumero">Numero di protocollo</label>
+					<input id="nullaosta_segistrein_protnumero" type="text" class="form-control" data-tag="nullaosta.protnumero"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="nullaosta_segistrein_protanno">Anno di protocollo</label>
+					<input id="nullaosta_segistrein_protanno" type="text" class="form-control" data-tag="nullaosta.protanno"  />
+				</div>
+			</div>
+ <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-stamp mr-1" ></i>Protocolla
+    </button>
+</form>
+
+</div>
+<!--footer-->

@@ -221,6 +221,7 @@
               <xs:element name="cu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
+              <xs:element name="nmov" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -405,6 +406,7 @@
               <xs:element name="idsor04" type="xs:int" minOccurs="0" />
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="idchargehandling" type="xs:int" minOccurs="0" />
+              <xs:element name="pagopanoticenum" type="xs:string" minOccurs="0" />
               <xs:element name="net" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -778,6 +780,23 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="expenselastmandatedetail" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idexp" type="xs:int" />
+              <xs:element name="idmankind" type="xs:string" />
+              <xs:element name="yman" type="xs:short" />
+              <xs:element name="nman" type="xs:int" />
+              <xs:element name="rownum" type="xs:int" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="originalamount" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -878,6 +897,14 @@
     <xs:unique name="sorting05_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:sorting05" />
       <xs:field xpath="mstns:idsor" />
+    </xs:unique>
+    <xs:unique name="expenselastmandatedetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:expenselastmandatedetail" />
+      <xs:field xpath="mstns:idexp" />
+      <xs:field xpath="mstns:idmankind" />
+      <xs:field xpath="mstns:yman" />
+      <xs:field xpath="mstns:nman" />
+      <xs:field xpath="mstns:rownum" />
     </xs:unique>
   </xs:element>
   <xs:annotation>

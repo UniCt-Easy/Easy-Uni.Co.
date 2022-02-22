@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <metadata name="dsFinancial.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
+    <value>168, 17</value>
   </metadata>
   <data name="label4.Text" xml:space="preserve">
     <value>Questo wizard serve ad effettuare i pagamenti e gli incassi posticipati dei versamenti annuali delle voci CSA che sono escluse dai versamenti mensili (come ad esempio la ritenuta INAIL). Per contrassegnare queste voci, è necessario inserire una spunta "Versamenti Annuali",  in corrispondenza del relativo Ente di Versamento CSA.</value>
@@ -130,9 +130,12 @@
     <value>IMPORTANTE: Prima di eseguire la presente procedura di versamento annuale, è obbligatorio verificare che per tutte le importazioni effettuate nell'anno precedente, non siano segnalati errori nella configurazione finanziaria, visibili eseguendo il tasto "Verifica" su ciascuna importazione. In presenza di errori bloccanti, devono essere risolte tutte le situazioni segnalate, prima di procedere.</value>
   </data>
   <metadata name="DS.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>128, 17</value>
+    <value>279, 17</value>
   </metadata>
-  <metadata name="openInputFileDlg.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>313, 22</value>
+  <metadata name="_openInputFileDlg.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="CMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>346, 17</value>
   </metadata>
 </root>

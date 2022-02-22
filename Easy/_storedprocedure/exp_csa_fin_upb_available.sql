@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
  if exists (select * from dbo.sysobjects where id = object_id(N'[exp_csa_fin_upb_available]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)if exists (select * from dbo.sysobjects where id = object_id(N'[exp_csa_expense_available]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 
 drop procedure [exp_csa_fin_upb_available]
@@ -15,8 +32,8 @@ GO
 
  --setuser 'amm'
  --setuser 'amministrazione'
--- exec [exp_csa_fin_upb_available] 2018, 28
-
+-- exec [exp_csa_fin_upb_available] 2020, 2606
+--select * from csa_import where yimport=2020 and nimport=24		--2606
 CREATE PROCEDURE  [exp_csa_fin_upb_available]
 	(
 		@ayear int,
@@ -133,40 +150,67 @@ create table #output_versamenti
 		---amount decimal(19,2)
 ) 
 
- 
+create table #output_versamenti_diff
+(
+		kind varchar(20), movkind int , parentidinc int , parentidexp int ,idfin int, idupb varchar(36),	
+			totcompetenza decimal(19,2), totcassa decimal(19,2)
+		---amount decimal(19,2)
+) 
+
+--select * from  #output_versamenti
+--select * from  #output_versamenti_diff
+
 IF (@kind = 'T')
 BEGIN
 	insert into #output_lordi (kind,idfin,idupb,totcompetenza,totcassa)			
-	select LORDI.kind,LORDI.idfin,LORDI.idupb,
-		sum( case when lordi.parentidexp is null then amount else 0 end), sum(amount)
+	select LORDI.kind,LORDI.idfin,LORDI.idupb, 	sum( amount), sum(amount)
 	 from f_compute_csa_lordi_partition (@ayear, @idcsa_import) LORDI
+		where lordi.parentidexp is null
 		group by LORDI.kind,LORDI.idfin,LORDI.idupb
 
 	insert into #output_versamenti (kind,idfin,idupb,totcompetenza,totcassa)		
-	select VERSAMENTI.kind,VERSAMENTI.idfin,VERSAMENTI.idupb,
-		sum( case when VERSAMENTI.parentidexp is null then amount else 0 end), sum(amount)
+	select VERSAMENTI.kind,VERSAMENTI.idfin,VERSAMENTI.idupb,		sum( amount), sum(amount)
 	 from f_compute_csa_versamenti_partition (@ayear, @idcsa_import,@lista_idcsa_import,@lista_idreg_agency) VERSAMENTI
+		where VERSAMENTI.parentidexp is null
 		group by VERSAMENTI.kind,VERSAMENTI.idfin,VERSAMENTI.idupb
 
+	insert into @lista_idcsa_import (n) values (@idcsa_import)
+	insert into @lista_idreg_agency (n) select distinct idreg from csa_agency where flag & 1 <> 0
+	insert into #output_versamenti_diff (kind,idfin,idupb,totcompetenza,totcassa)		
+	select VERSAMENTI.kind,VERSAMENTI.idfin,VERSAMENTI.idupb,		sum( amount), sum(amount)
+	 from f_compute_csa_versamenti_partition (@ayear, null,@lista_idcsa_import,@lista_idreg_agency) VERSAMENTI
+		where VERSAMENTI.parentidexp is null and VERSAMENTI.idcsa_agency in (select idcsa_agency from csa_agency where flag & 1 <> 0) --- solo posticipati
+		group by VERSAMENTI.kind,VERSAMENTI.idfin,VERSAMENTI.idupb
 END 
 IF (@kind = 'V')
 BEGIN
 	insert into #output_versamenti (kind,idfin,idupb,totcompetenza,totcassa)		
-	select VERSAMENTI.kind,VERSAMENTI.idfin,VERSAMENTI.idupb,
-		sum( case when VERSAMENTI.parentidexp is null then amount else 0 end), sum(amount)
+	select VERSAMENTI.kind,VERSAMENTI.idfin,VERSAMENTI.idupb, sum( amount), sum(amount)
 	 from f_compute_csa_versamenti_partition (@ayear, @idcsa_import,@lista_idcsa_import,@lista_idreg_agency) VERSAMENTI
+		where VERSAMENTI.parentidexp is null 
 	 group by VERSAMENTI.kind,VERSAMENTI.idfin,VERSAMENTI.idupb
+
+	insert into @lista_idcsa_import (n) values (@idcsa_import)
+	insert into @lista_idreg_agency (n) select distinct idreg from csa_agency where flag & 1 <> 0
+	insert into #output_versamenti_diff (kind,idfin,idupb,totcompetenza,totcassa)		
+	select VERSAMENTI.kind,VERSAMENTI.idfin,VERSAMENTI.idupb,		sum( amount), sum(amount)
+	 from f_compute_csa_versamenti_partition (@ayear, null,@lista_idcsa_import,@lista_idreg_agency) VERSAMENTI
+		where VERSAMENTI.parentidexp is null and VERSAMENTI.idcsa_agency in (select idcsa_agency from csa_agency where flag & 1 <> 0) --- solo posticipati
+		group by VERSAMENTI.kind,VERSAMENTI.idfin,VERSAMENTI.idupb
 END
 
 IF (@kind = 'L')
 BEGIN
 	insert into #output_lordi (kind,idfin,idupb,totcompetenza,totcassa)			
-	select LORDI.kind,LORDI.idfin,LORDI.idupb,
-		sum( case when lordi.parentidexp is null then amount else 0 end), sum(amount)
+	select LORDI.kind,LORDI.idfin,LORDI.idupb,	sum( amount), sum(amount)
 	 from f_compute_csa_lordi_partition (@ayear, @idcsa_import) LORDI
+		where lordi.parentidexp is null
 		group by LORDI.kind,LORDI.idfin,LORDI.idupb
 
 END
+
+--select * from  #output_versamenti
+--select * from  #output_versamenti_diff
 
 
 CREATE TABLE  #FIN_UPB 
@@ -176,6 +220,8 @@ INSERT INTO #FIN_UPB  (idfin,idupb,kind)
 select distinct idfin,idupb,kind  from #output_lordi  
 union 
 select distinct idfin,idupb,kind  from #output_versamenti  
+union 
+select distinct idfin,idupb,kind  from #output_versamenti_diff 
 
 
 --SELECT '#PREVISIONE_PRINCIPALE_INIZIALE',* FROM #PREVISIONE_PRINCIPALE_INIZIALE
@@ -222,6 +268,13 @@ upb.title as 'UPB',
   END 
    as 'Previsione Disponibile di competenza dopo elaborazione  Versamenti',
 
+    CASE WHEN  (@kind = 'V' or @kind='T')
+	 THEN  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
+		- isnull(VERSAMENTI.totcompetenza,0) - isnull(VERSAMENTI_DIFF.totcompetenza,0)		
+	 ELSE  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)			
+  END 
+   as 'Previsione Disponibile di competenza dopo elaborazione  Versamenti e V.Posticipati',
+
  CASE 
 	WHEN @kind = 'T'  THEN isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
 				- isnull(LORDI.totcompetenza,0)		- isnull(VERSAMENTI.totcompetenza,0)	
@@ -232,6 +285,18 @@ upb.title as 'UPB',
 	ELSE  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)			
  END
 	 as 'Previsione Disponibile di competenza dopo elaborazione Lordi e Versamenti',
+
+CASE 
+	WHEN @kind = 'T'  THEN isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
+				- isnull(LORDI.totcompetenza,0)		- isnull(VERSAMENTI.totcompetenza,0)  - isnull(VERSAMENTI_DIFF.totcompetenza,0)			 
+	WHEN @kind = 'L' 	THEN isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
+				- isnull(LORDI.totcompetenza,0)	 
+	WHEN @kind = 'V' THEN isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
+						- isnull(VERSAMENTI.totcompetenza,0) - isnull(VERSAMENTI_DIFF.totcompetenza,0)				
+	ELSE  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)			
+ END
+	 as 'Previsione Disponibile di competenza dopo elaborazione Lordi e Versamenti e V.Posticipati',
+
 
 
  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
@@ -251,6 +316,13 @@ upb.title as 'UPB',
 	 END 
 	as 'Previsione Disponibile di cassa dopo elaborazione  Versamenti',
 
+	CASE WHEN  (@kind = 'V' or @kind='T')
+	 THEN  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+			- isnull(VERSAMENTI.totcassa,0)	 - isnull(VERSAMENTI_DIFF.totcassa,0)	 
+		ELSE isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+	 END 
+	as 'Previsione Disponibile di cassa dopo elaborazione  Versamenti e V.Posticipati',
+
 
 	CASE WHEN @kind = 'T'  THEN	  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 								- isnull(LORDI.totcassa,0)	- isnull(VERSAMENTI.totcassa,0)	 	
@@ -260,9 +332,17 @@ upb.title as 'UPB',
 									- isnull(VERSAMENTI.totcassa,0)	 		 
 		ELSE  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 				
 	 END
-	 as 'Previsione Disponibile di cassa dopo elaborazione Lordi e Versamenti'
+	 as 'Previsione Disponibile di cassa dopo elaborazione Lordi e Versamenti',
  
-	 
+	 CASE WHEN @kind = 'T'  THEN	  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+								- isnull(LORDI.totcassa,0)	- isnull(VERSAMENTI.totcassa,0)	  	- isnull(VERSAMENTI_DIFF.totcassa,0) 	
+		WHEN @kind = 'L'   THEN	 isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+									- isnull(LORDI.totcassa,0)	  
+		WHEN @kind = 'V'   THEN	 isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+									- isnull(VERSAMENTI.totcassa,0)	- isnull(VERSAMENTI_DIFF.totcassa,0) 		 
+		ELSE  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 				
+	 END
+	 as 'Previsione Disponibile di cassa dopo elaborazione Lordi e Versamenti e V.Posticipati'
 from #FIN_UPB   UWT
 	join fin on UWT.idfin = fin.idfin 
 	join upb on UWT.idupb = upb.idupb
@@ -270,7 +350,8 @@ from #FIN_UPB   UWT
 	left outer join upbincometotal UITC on UITC.idfin=UWT.idfin and UITC.idupb=UWT.idupb  and uitc.nphase = 1
 	left outer join upbincometotal UITS on UITS.idfin=UWT.idfin and UITS.idupb=UWT.idupb and uits.nphase = @maxphaseincome
 	left outer join #output_lordi LORDI on LORDI.idfin=UWT.idfin and LORDI.idupb=UWT.idupb
-	left outer join #output_versamenti VERSAMENTI on VERSAMENTI.idfin=UWT.idfin and VERSAMENTI.idupb=UWT.idupb
+	left outer join #output_versamenti VERSAMENTI on VERSAMENTI.idfin=UWT.idfin and VERSAMENTI.idupb=UWT.idupb 
+	left outer join #output_versamenti_diff VERSAMENTI_DIFF on VERSAMENTI_DIFF.idfin=UWT.idfin and VERSAMENTI_DIFF.idupb=UWT.idupb 
 	
    
 WHERE UWT.kind = 'Entrata' 
@@ -280,14 +361,14 @@ AND
 	--- PREVISIONE DISPONIBILE DI COMPETENZA NEGATIVA
 		isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITc.totalcompetency,0)
 				- isnull(LORDI.totcompetenza,0)  
-				- isnull(VERSAMENTI.totcompetenza,0)
+				- isnull(VERSAMENTI.totcompetenza,0) - isnull(VERSAMENTI_DIFF.totcompetenza,0)
 	)	 < 0
 OR
 	--- PREVISIONE DISPONIBILE DI CASSA NEGATIVA
 	(
 		isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 				- isnull(LORDI.totcassa,0) 
-				- isnull(VERSAMENTI.totcassa,0)  
+				- isnull(VERSAMENTI.totcassa,0) - isnull(VERSAMENTI_DIFF.totcassa,0) 
 	)	 <0
 
 ) 
@@ -317,16 +398,35 @@ as 'Previsione Disponibile di competenza attuale' ,
 	 END 
 	  as 'Previsione Disponibile di competenza dopo elaborazione  Versamenti',
 
-	CASE WHEN @kind = 'T'  
+	  
+	 CASE WHEN  (@kind = 'V' or @kind='T')
+		THEN isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITc.totalcompetency,0)
+					- isnull(LORDI.totcompetenza,0)		- isnull(VERSAMENTI.totcompetenza,0)	- isnull(VERSAMENTI_DIFF.totcompetenza,0)
+		WHEN @kind = 'L' THEN isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITc.totalcompetency,0)
+					- isnull(LORDI.totcompetenza,0)	 		
+		ELSE  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITc.totalcompetency,0)									
+	 END
+	   as 'Previsione Disponibile di competenza dopo elaborazione  Versamenti e V.Posticipati',
+
+
+	CASE WHEN (@kind = 'V' or @kind='T')
 		THEN isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITc.totalcompetency,0)
 					- isnull(LORDI.totcompetenza,0)		- isnull(VERSAMENTI.totcompetenza,0)	
 		WHEN @kind = 'L' THEN isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITc.totalcompetency,0)
 					- isnull(LORDI.totcompetenza,0)	 	
-		WHEN @kind = 'V' THEN isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITc.totalcompetency,0)
-					- isnull(VERSAMENTI.totcompetenza,0)	
 		ELSE  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITc.totalcompetency,0)									
 	 END
 	 as 'Previsione Disponibile di competenza dopo elaborazione Lordi e Versamenti',
+
+	 CASE WHEN (@kind = 'V' or @kind='T')
+		THEN isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITc.totalcompetency,0)
+					- isnull(LORDI.totcompetenza,0)		- isnull(VERSAMENTI.totcompetenza,0) - isnull(VERSAMENTI_DIFF.totcompetenza,0)			
+		WHEN @kind = 'L' THEN isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITc.totalcompetency,0)
+					- isnull(LORDI.totcompetenza,0)	 	
+		ELSE  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITc.totalcompetency,0)									
+	 END
+	  as 'Previsione Disponibile di competenza dopo elaborazione Lordi e Versamenti e V.Posticipati',
+
 
 	isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0)  
 		as 'Previsione Disponibile di cassa attuale' ,
@@ -340,10 +440,17 @@ as 'Previsione Disponibile di competenza attuale' ,
  
 	CASE WHEN  (@kind = 'V' or @kind='T')
 	 THEN  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
-			- isnull(VERSAMENTI.totcassa,0)	 
+			- isnull(VERSAMENTI.totcassa,0)	  - isnull(VERSAMENTI_DIFF.totcassa,0)	
 			ELSE isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 	 END 
 	as 'Previsione Disponibile di cassa dopo elaborazione  Versamenti',
+
+	CASE WHEN  (@kind = 'V' or @kind='T')
+	 THEN  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+			- isnull(VERSAMENTI.totcassa,0)	 
+			ELSE isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+	 END 
+	as 'Previsione Disponibile di cassa dopo elaborazione  Versamenti e V.Posticipati',
 
 	CASE WHEN @kind = 'T'  THEN	  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 								- isnull(LORDI.totcassa,0)	- isnull(VERSAMENTI.totcassa,0)	
@@ -353,7 +460,17 @@ as 'Previsione Disponibile di competenza attuale' ,
 									- isnull(VERSAMENTI.totcassa,0)	 		 
 		ELSE  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 				
 	 END
-	 as 'Previsione Disponibile di cassa dopo elaborazione Lordi e Versamenti'
+	 as 'Previsione Disponibile di cassa dopo elaborazione Lordi e Versamenti',
+
+	 CASE WHEN @kind = 'T'  THEN	  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+								- isnull(LORDI.totcassa,0)	- isnull(VERSAMENTI.totcassa,0)	- isnull(VERSAMENTI_DIFF.totcassa,0) 	
+		WHEN @kind = 'L'   THEN	 isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+									- isnull(LORDI.totcassa,0)	 	 
+		WHEN @kind = 'V'   THEN	 isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+									- isnull(VERSAMENTI.totcassa,0)	 - isnull(VERSAMENTI_DIFF.totcassa,0) 			 
+		ELSE  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 				
+	 END
+	  as 'Previsione Disponibile di cassa dopo elaborazione Lordi e Versamenti e V.Posticipati'
 	 
 from #FIN_UPB   UWT
 	join fin on UWT.idfin = fin.idfin 
@@ -363,20 +480,20 @@ from #FIN_UPB   UWT
 	left outer join upbexpensetotal UITS on UITs.idfin=UWT.idfin and UITs.idupb=UWT.idupb and UITS.nphase = @maxphaseexpense
 	left outer join #output_lordi LORDI on LORDI.idfin=UWT.idfin and LORDI.idupb=UWT.idupb
 	left outer join #output_versamenti VERSAMENTI on VERSAMENTI.idfin=UWT.idfin and VERSAMENTI.idupb=UWT.idupb
-	
+	left outer join #output_versamenti_diff VERSAMENTI_DIFF on VERSAMENTI_DIFF.idfin=UWT.idfin and VERSAMENTI_DIFF.idupb=UWT.idupb
 
 WHERE UWT.kind = 'Spesa'
 AND
 (
 	(	isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITc.totalcompetency,0)
 				- isnull(LORDI.totcompetenza,0)
-				- isnull(VERSAMENTI.totcompetenza,0) 
+				- isnull(VERSAMENTI.totcompetenza,0)  - isnull(VERSAMENTI_DIFF.totcompetenza,0) 
 				)<0
 	 
 OR
 	(	isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 				- isnull(LORDI.totcassa,0) 
-				- isnull(VERSAMENTI.totcassa,0)  
+				- isnull(VERSAMENTI.totcassa,0)  - isnull(VERSAMENTI_DIFF.totcassa,0)  
 	 )<0
 )
 order by fin.codefin, upb.codeupb
@@ -386,8 +503,8 @@ END
 IF (@fin_kind = 1) 
 BEGIN
 	SELECT 
-fin.idfin ,
-upb.idupb,
+fin.idfin as '# Bilancio',
+upb.idupb as '# UPB',
 UWT.kind  as 'Parte Bilancio',
 fin.codefin as 'Cod. Bilancio',
 fin.title as 'Bilancio',
@@ -409,6 +526,13 @@ upb.title as 'UPB',
   END 
    as 'Previsione Disponibile di competenza dopo elaborazione  Versamenti',
 
+    CASE WHEN  (@kind = 'V' or @kind='T')
+	 THEN  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
+		- isnull(VERSAMENTI.totcompetenza,0)	- isnull(VERSAMENTI_DIFF.totcompetenza,0)		
+	 ELSE  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)			
+  END 
+    as 'Previsione Disponibile di competenza dopo elaborazione  Versamenti e V.diff',
+
  CASE WHEN @kind = 'T'  
 	THEN isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
 				- isnull(LORDI.totcompetenza,0)		- isnull(VERSAMENTI.totcompetenza,0)	
@@ -418,9 +542,18 @@ upb.title as 'UPB',
 						- isnull(LORDI.totcompetenza,0)
 	ELSE isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)				
 	 END
-	 as 'Previsione Disponibile di competenza dopo elaborazione Lordi e Versamenti'
+	 as 'Previsione Disponibile di competenza dopo elaborazione Lordi e Versamenti',
 
-	 
+CASE WHEN @kind = 'T'  
+	THEN isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
+				- isnull(LORDI.totcompetenza,0)		- isnull(VERSAMENTI.totcompetenza,0)- isnull(VERSAMENTI_DIFF.totcompetenza,0)		
+	WHEN @kind = 'V' THEN isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
+						- isnull(VERSAMENTI.totcompetenza,0)	- isnull(VERSAMENTI_DIFF.totcompetenza,0)	
+	WHEN @kind = 'L' THEN isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
+						- isnull(LORDI.totcompetenza,0)
+	ELSE isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)				
+	 END
+	 as 'Previsione Disponibile di competenza dopo elaborazione Lordi e Versamenti e V.diff.'
 from #FIN_UPB   UWT
 	join fin on UWT.idfin = fin.idfin 
 	join upb on UWT.idupb = upb.idupb
@@ -428,7 +561,7 @@ from #FIN_UPB   UWT
 	left outer join upbincometotal UITC on UITC.idfin=UWT.idfin and UITC.idupb=UWT.idupb  and uitc.nphase = 1	
 	left outer join #output_lordi LORDI on LORDI.idfin=UWT.idfin and LORDI.idupb=UWT.idupb
 	left outer join #output_versamenti VERSAMENTI on VERSAMENTI.idfin=UWT.idfin and VERSAMENTI.idupb=UWT.idupb
-	
+	left outer join #output_versamenti_diff VERSAMENTI_DIFF on VERSAMENTI_DIFF.idfin=UWT.idfin and VERSAMENTI_DIFF.idupb=UWT.idupb
    
 WHERE UWT.kind = 'Entrata' 
 AND
@@ -438,6 +571,7 @@ AND
 		isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
 				- isnull(LORDI.totcompetenza,0)  
 				- isnull(VERSAMENTI.totcompetenza,0)	 
+				- isnull(VERSAMENTI_DIFF.totcompetenza,0)
 	)	 < 0
 
 
@@ -451,8 +585,7 @@ fin.codefin as 'Cod. Bilancio',
 fin.title as 'Bilancio',
 upb.codeupb as 'Cod. UPB',
 upb.title as 'UPB',
-isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
-as 'Previsione Disponibile di competenza attuale' ,
+isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0) as 'Previsione Disponibile di competenza attuale' ,
 
  CASE WHEN (@kind = 'L' or @kind = 'T')  
 	 THEN isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
@@ -467,16 +600,35 @@ as 'Previsione Disponibile di competenza attuale' ,
 	 ELSE  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)	
 	 END 
 	  as 'Previsione Disponibile di competenza dopo elaborazione  Versamenti',
+
+	 CASE WHEN (@kind = 'V' or @kind='T')
+	 THEN  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
+		- isnull(VERSAMENTI.totcompetenza,0)	- isnull(VERSAMENTI_DIFF.totcompetenza,0)	
+	 ELSE  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)	
+	 END 
+	  as 'Previsione Disponibile di competenza dopo elaborazione  Versamenti e V.diff',
+
 	CASE WHEN @kind = 'T'  
 		THEN isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
 					- isnull(LORDI.totcompetenza,0)		- isnull(VERSAMENTI.totcompetenza,0)	
 		WHEN @kind = 'V' THEN  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
-					- isnull(VERSAMENTI.totcompetenza,0)	
+					- isnull(VERSAMENTI.totcompetenza,0)  
 		WHEN @kind = 'L' THEN   isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
 					- isnull(LORDI.totcompetenza,0)
 		ELSE isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)			
 	 END
-	 as 'Previsione Disponibile di competenza dopo elaborazione Lordi e Versamenti'
+	 as 'Previsione Disponibile di competenza dopo elaborazione Lordi e Versamenti',
+
+	 CASE WHEN @kind = 'T'  
+		THEN isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
+					- isnull(LORDI.totcompetenza,0)		- isnull(VERSAMENTI.totcompetenza,0)	 - isnull(VERSAMENTI_DIFF.totcompetenza,0)	
+		WHEN @kind = 'V' THEN  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
+					- isnull(VERSAMENTI.totcompetenza,0) - isnull(VERSAMENTI_DIFF.totcompetenza,0)		 
+		WHEN @kind = 'L' THEN   isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
+					- isnull(LORDI.totcompetenza,0)
+		ELSE isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)			
+	 END
+	 as 'Previsione Disponibile di competenza dopo elaborazione Lordi e Versamenti e V.diff.'
  	 
 from #FIN_UPB   UWT
 	join fin on UWT.idfin = fin.idfin 
@@ -485,14 +637,14 @@ from #FIN_UPB   UWT
 	left outer join upbexpensetotal UITc on UITc.idfin=UWT.idfin and UITc.idupb=UWT.idupb and UITC.nphase=1
 	left outer join #output_lordi LORDI on LORDI.idfin=UWT.idfin and LORDI.idupb=UWT.idupb
 	left outer join #output_versamenti VERSAMENTI on VERSAMENTI.idfin=UWT.idfin and VERSAMENTI.idupb=UWT.idupb
-	
+	left outer join #output_versamenti_diff VERSAMENTI_DIFF on VERSAMENTI_DIFF.idfin=UWT.idfin and VERSAMENTI_DIFF.idupb=UWT.idupb
 
 WHERE UWT.kind = 'Spesa'
 AND
 (
 	(	isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
 				- isnull(LORDI.totcompetenza,0)  
-				- isnull(VERSAMENTI.totcompetenza,0)	 
+				- isnull(VERSAMENTI.totcompetenza,0) - isnull(VERSAMENTI_DIFF.totcompetenza,0)	 	 
 	)<0	 
 )
 order by fin.codefin, upb.codeupb
@@ -526,17 +678,35 @@ upb.title as 'UPB',
 	 END 
 	as 'Previsione Disponibile di cassa dopo elaborazione  Versamenti',
 
+	CASE WHEN  (@kind = 'V' or @kind='T')
+	 THEN  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+			- isnull(VERSAMENTI.totcassa,0)	- isnull(VERSAMENTI_DIFF.totcassa,0)	  
+		ELSE isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+	 END 
+	as 'Previsione Disponibile di cassa dopo elaborazione  Versamenti e V.differiti',
+
+
 
 	CASE WHEN @kind = 'T'  THEN	  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 								- isnull(LORDI.totcassa,0)	- isnull(VERSAMENTI.totcassa,0)	 	
 		WHEN @kind = 'L'   THEN	 isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 									- isnull(LORDI.totcassa,0) 
 		WHEN @kind = 'V'   THEN	 isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
-									- isnull(VERSAMENTI.totcassa,0)	 		 
+									- isnull(VERSAMENTI.totcassa,0)	 			 
 		ELSE  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 				
 	 END
-	 as 'Previsione Disponibile di cassa dopo elaborazione Lordi e Versamenti'
+	 as 'Previsione Disponibile di cassa dopo elaborazione Lordi e Versamenti',
  	 
+	 CASE WHEN @kind = 'T'  THEN	  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+								- isnull(LORDI.totcassa,0)	- isnull(VERSAMENTI.totcassa,0)	 - isnull(VERSAMENTI_DIFF.totcassa,0)		
+		WHEN @kind = 'L'   THEN	 isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+									- isnull(LORDI.totcassa,0) 
+		WHEN @kind = 'V'   THEN	 isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+									- isnull(VERSAMENTI.totcassa,0)	- isnull(VERSAMENTI_DIFF.totcassa,0)	 	 		 
+		ELSE  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 				
+	 END
+	 as 'Previsione Disponibile di cassa dopo elaborazione Lordi e Versamenti V.differiti'
+
 from #FIN_UPB   UWT
 	join fin on UWT.idfin = fin.idfin 
 	join upb on UWT.idupb = upb.idupb
@@ -544,6 +714,7 @@ from #FIN_UPB   UWT
 	left outer join upbincometotal UITS on UITS.idfin=UWT.idfin and UITS.idupb=UWT.idupb and uits.nphase = @maxphaseincome
 	left outer join #output_lordi LORDI on LORDI.idfin=LORDI.idfin and LORDI.idupb=UWT.idupb
 	left outer join #output_versamenti VERSAMENTI on VERSAMENTI.idfin=UWT.idfin and VERSAMENTI.idupb=UWT.idupb
+	left outer join #output_versamenti_diff VERSAMENTI_DIFF on VERSAMENTI_DIFF.idfin=UWT.idfin and VERSAMENTI_DIFF.idupb=UWT.idupb
 	
    
 WHERE UWT.kind = 'Entrata' 
@@ -553,7 +724,7 @@ AND
 	(
 		isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 				- isnull(LORDI.totcassa,0) 
-				- isnull(VERSAMENTI.totcassa,0)  
+				- isnull(VERSAMENTI.totcassa,0)  - isnull(VERSAMENTI_DIFF.totcassa,0)  
 	)	 <0
 
 ) 
@@ -584,15 +755,32 @@ upb.title as 'UPB',
 	 END 
 	as 'Previsione Disponibile di cassa dopo elaborazione  Versamenti',
 
+	CASE WHEN  (@kind = 'V' or @kind='T')
+	 THEN  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+			- isnull(VERSAMENTI.totcassa,0)	 - isnull(VERSAMENTI_DIFF.totcassa,0)
+			ELSE  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+	 END 
+	as 'Previsione Disponibile di cassa dopo elaborazione  Versamenti e V.differiti',
+
 	CASE WHEN @kind = 'T'  THEN	  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
-								  - isnull(LORDI.totcassa,0)	- isnull(VERSAMENTI.totcassa,0)	 	 
+								  - isnull(LORDI.totcassa,0)	- isnull(VERSAMENTI.totcassa,0)	 	  
 		WHEN  @kind = 'V'  THEN	  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 								  - isnull(VERSAMENTI.totcassa,0)	 	
 		WHEN  @kind = 'L'  THEN	 isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 								 - isnull(LORDI.totcassa,0)	 							 
 		ELSE  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 				
 	 END
-	 as 'Previsione Disponibile di cassa dopo elaborazione Lordi e Versamenti'
+	 as 'Previsione Disponibile di cassa dopo elaborazione Lordi e Versamenti',
+
+	 CASE WHEN @kind = 'T'  THEN	  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+								  - isnull(LORDI.totcassa,0)	- isnull(VERSAMENTI.totcassa,0)	 	- isnull(VERSAMENTI_DIFF.totcassa,0)	 	 
+		WHEN  @kind = 'V'  THEN	  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+								  - isnull(VERSAMENTI.totcassa,0)	 	- isnull(VERSAMENTI_DIFF.totcassa,0)	
+		WHEN  @kind = 'L'  THEN	 isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+								 - isnull(LORDI.totcassa,0)	 							 
+		ELSE  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 				
+	 END
+	 as 'Previsione Disponibile di cassa dopo elaborazione Lordi e Versamenti V.differiti'
 	 
 from #FIN_UPB   UWT
 	join fin on UWT.idfin = fin.idfin 
@@ -600,7 +788,8 @@ from #FIN_UPB   UWT
 	left outer join upbtotal UT on UT.idfin=UWT.idfin and UT.idupb=UWT.idupb
 	left outer join upbexpensetotal UITS on UITs.idfin=UWT.idfin and UITs.idupb=UWT.idupb and UITS.nphase = @maxphaseexpense
 	left outer join #output_lordi LORDI on LORDI.idfin=LORDI.idfin and LORDI.idupb=UWT.idupb
-	left outer join #output_versamenti VERSAMENTI on VERSAMENTI.idfin=UWT.idfin and VERSAMENTI.idupb=UWT.idupb
+	left outer join #output_versamenti VERSAMENTI on VERSAMENTI.idfin=UWT.idfin and VERSAMENTI.idupb=UWT.idupb 
+	left outer join #output_versamenti_diff VERSAMENTI_DIFF on VERSAMENTI_DIFF.idfin=UWT.idfin and VERSAMENTI_DIFF.idupb=UWT.idupb 
 	
 
 WHERE UWT.kind = 'Spesa'
@@ -609,6 +798,7 @@ AND
 	(	isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 				- isnull(LORDI.totcassa,0) 
 				- isnull(VERSAMENTI.totcassa,0) 
+				- isnull(VERSAMENTI_DIFF.totcassa,0) 
 	 )<0
 )
 order by fin.codefin, upb.codeupb

@@ -9,7 +9,7 @@
               <xs:element name="idavcptransmission" type="xs:int" />
               <xs:element name="abstract" type="xs:string" minOccurs="0" />
               <xs:element name="titolo" type="xs:string" minOccurs="0" />
-              <xs:element name="dataPubbicazioneDataset" type="xs:dateTime" />
+              <xs:element name="datapubblicazionedataset" type="xs:dateTime" />
               <xs:element name="entePubblicatore" type="xs:string" />
               <xs:element name="dataUltimoAggiornamentoDataset" type="xs:dateTime" minOccurs="0" />
               <xs:element name="annoRiferimento" type="xs:short" />

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -25,9 +24,10 @@ using System.Text;
 using System.Windows.Forms;
 using metadatalibrary;
 using funzioni_configurazione;
+using q = metadatalibrary.MetaExpression;
 
 namespace mandatedetail_default {
-    public partial class FrmMandateDetail_Default : Form {
+    public partial class FrmMandateDetail_Default : MetaDataForm {
         MetaData Meta;
         DataAccess Conn;
         CQueryHelper QHC;
@@ -169,7 +169,7 @@ namespace mandatedetail_default {
             }
         }
         public void MetaData_AfterFill() {
-            
+            if (Meta.FirstFillForThisRow) calcolaPagato();
             enableControls(false);
             SetLabel();
             CalcolaImponibileValuta();
@@ -187,7 +187,13 @@ namespace mandatedetail_default {
                 txtCausale.Text = DS.pccdebitmotive.Select(QHC.CmpEq("idpccdebitmotive", Curr["idpccdebitmotive"]))[0]["description"].ToString();
             }
         }
-
+        void calcolaPagato() {
+            if (Meta.InsertMode) return;
+            if (!gboxPagato.Visible) return;
+            decimal pagato = CfgFn.GetNoNullDecimal(Conn.readValue("mandatedetail_extview",
+                q.keyCmp(DS.mandatedetail.Rows[0]), "cashed"));
+            txtPagato.Text = pagato.ToString("c");
+            }
         decimal NInvoiced;
         bool NInvoicedEvalued = false;
         void CalcolaResiduo(bool LeggiDati) {
@@ -350,7 +356,7 @@ namespace mandatedetail_default {
             DataRow rMandate = Curr.GetParentRow("mandate_mandatedetail");
             double tassocambio = 0;
             if (rMandate == null) {
-                MessageBox.Show("L'utente non ha i diritti di accesso al contratto passivo", "Errore");
+                show("L'utente non ha i diritti di accesso al contratto passivo", "Errore");
                 tassocambio = CfgFn.GetNoNullDouble(Conn.DO_READ_VALUE("mandate",
                     QHS.MCmp(Curr, new string[] { "yman", "nman" }), "exchangerate"));
 
@@ -469,7 +475,7 @@ namespace mandatedetail_default {
             txtListino.Text = (listRow != null) ? listRow["intcode"].ToString() : "";
             txtDescrizioneListino.Text = (listRow != null) ? listRow["description"].ToString() : "";
             txtCoeffConversione.Text = (listRow != null) ? listRow["unitsforpackage"].ToString() : "";
-
+            txtPrezzounitarioListino.Text = (listRow != null) ? listRow["price"].ToString() : "";
             HelpForm.SetComboBoxValue(cmbUnitaMisuraCS, listRow["idunit"]);
             HelpForm.SetComboBoxValue(cmbUnitaMisuraAcquisto, listRow["idpackage"]);
         }
@@ -478,7 +484,7 @@ namespace mandatedetail_default {
         private void svuotaOggetti () {
             txtDescrizioneListino.Text = "";
             txtCoeffConversione.Text = "";
-
+            txtPrezzounitarioListino.Text = "";
             if (cmbUnitaMisuraCS.SelectedIndex > 0) {
                 cmbUnitaMisuraCS.SelectedIndex = -1;
             }
@@ -625,7 +631,5 @@ namespace mandatedetail_default {
             txtCodiceCasualePcc.Text = Choosen["idpccdebitmotive"].ToString();
             txtCausale.Text = Choosen["description"].ToString();
         }
-
-        
-    }
-}
+	}
+}

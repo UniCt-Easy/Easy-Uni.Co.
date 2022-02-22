@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -22,21 +21,23 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using metadatalibrary;
 #pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_webpayment {
 public class webpaymentRow: MetaRow  {
 	public webpaymentRow(DataRowBuilder rb) : base(rb) {} 
 
 	#region Field Definition
-	public Int32? idwebpayment{ 
-		get {if (this["idwebpayment"]==DBNull.Value)return null; return  (Int32?)this["idwebpayment"];}
-		set {if (value==null) this["idwebpayment"]= DBNull.Value; else this["idwebpayment"]= value;}
+	public Int32 idwebpayment{ 
+		get {return  (Int32)this["idwebpayment"];}
+		set {this["idwebpayment"]= value;}
 	}
 	public object idwebpaymentValue { 
 		get{ return this["idwebpayment"];}
-		set {if (value==null|| value==DBNull.Value) this["idwebpayment"]= DBNull.Value; else this["idwebpayment"]= value;}
+		set {this["idwebpayment"]= value;}
 	}
-	public Int32? idwebpaymentOriginal { 
-		get {if (this["idwebpayment",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idwebpayment",DataRowVersion.Original];}
+	public Int32 idwebpaymentOriginal { 
+		get {return  (Int32)this["idwebpayment",DataRowVersion.Original];}
 	}
 	public String cf{ 
 		get {if (this["cf"]==DBNull.Value)return null; return  (String)this["cf"];}
@@ -170,16 +171,16 @@ public class webpaymentRow: MetaRow  {
 	public String surnameOriginal { 
 		get {if (this["surname",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["surname",DataRowVersion.Original];}
 	}
-	public Int16? ywebpayment{ 
-		get {if (this["ywebpayment"]==DBNull.Value)return null; return  (Int16?)this["ywebpayment"];}
-		set {if (value==null) this["ywebpayment"]= DBNull.Value; else this["ywebpayment"]= value;}
+	public Int16 ywebpayment{ 
+		get {return  (Int16)this["ywebpayment"];}
+		set {this["ywebpayment"]= value;}
 	}
 	public object ywebpaymentValue { 
 		get{ return this["ywebpayment"];}
-		set {if (value==null|| value==DBNull.Value) this["ywebpayment"]= DBNull.Value; else this["ywebpayment"]= value;}
+		set {this["ywebpayment"]= value;}
 	}
-	public Int16? ywebpaymentOriginal { 
-		get {if (this["ywebpayment",DataRowVersion.Original]==DBNull.Value)return null; return  (Int16?)this["ywebpayment",DataRowVersion.Original];}
+	public Int16 ywebpaymentOriginal { 
+		get {return  (Int16)this["ywebpayment",DataRowVersion.Original];}
 	}
 	public Int16? idwebpaymentstatus{ 
 		get {if (this["idwebpaymentstatus"]==DBNull.Value)return null; return  (Int16?)this["idwebpaymentstatus"];}
@@ -253,28 +254,27 @@ public class webpaymentRow: MetaRow  {
 public class webpaymentTable : MetaTableBase<webpaymentRow> {
 	public webpaymentTable() : base("webpayment"){
 		baseColumns = new Dictionary<string, DataColumn>(){
-			{"idwebpayment",createColumn("idwebpayment",typeof(Int32),false,false)},
-			{"cf",createColumn("cf",typeof(String),true,false)},
+			{"idwebpayment",createColumn("idwebpayment",typeof(int),false,false)},
+			{"cf",createColumn("cf",typeof(string),true,false)},
 			{"ct",createColumn("ct",typeof(DateTime),true,false)},
-			{"cu",createColumn("cu",typeof(String),true,false)},
-			{"email",createColumn("email",typeof(String),true,false)},
-			{"forename",createColumn("forename",typeof(String),true,false)},
-			{"idcustomuser",createColumn("idcustomuser",typeof(String),true,false)},
-			{"idlcard",createColumn("idlcard",typeof(Int32),true,false)},
-			{"idman",createColumn("idman",typeof(Int32),true,false)},
+			{"cu",createColumn("cu",typeof(string),true,false)},
+			{"email",createColumn("email",typeof(string),true,false)},
+			{"forename",createColumn("forename",typeof(string),true,false)},
+			{"idcustomuser",createColumn("idcustomuser",typeof(string),true,false)},
+			{"idlcard",createColumn("idlcard",typeof(int),true,false)},
+			{"idman",createColumn("idman",typeof(int),true,false)},
 			{"lt",createColumn("lt",typeof(DateTime),true,false)},
-			{"lu",createColumn("lu",typeof(String),true,false)},
-			{"nwebpayment",createColumn("nwebpayment",typeof(Int32),true,false)},
-			{"surname",createColumn("surname",typeof(String),true,false)},
-			{"ywebpayment",createColumn("ywebpayment",typeof(Int16),false,false)},
-			{"idwebpaymentstatus",createColumn("idwebpaymentstatus",typeof(Int16),true,false)},
-			{"idreg",createColumn("idreg",typeof(Int32),true,false)},
-			{"iuv",createColumn("iuv",typeof(String),true,false)},
-			{"qrcode",createColumn("qrcode",typeof(String),true,false)},
-			{"idflussocrediti",createColumn("idflussocrediti",typeof(Int32),true,false)},
+			{"lu",createColumn("lu",typeof(string),true,false)},
+			{"nwebpayment",createColumn("nwebpayment",typeof(int),true,false)},
+			{"surname",createColumn("surname",typeof(string),true,false)},
+			{"ywebpayment",createColumn("ywebpayment",typeof(short),false,false)},
+			{"idwebpaymentstatus",createColumn("idwebpaymentstatus",typeof(short),true,false)},
+			{"idreg",createColumn("idreg",typeof(int),true,false)},
+			{"iuv",createColumn("iuv",typeof(string),true,false)},
+			{"qrcode",createColumn("qrcode",typeof(string),true,false)},
+			{"idflussocrediti",createColumn("idflussocrediti",typeof(int),true,false)},
 			{"adate",createColumn("adate",typeof(DateTime),true,false)},
 		};
 	}
 }
 }
-

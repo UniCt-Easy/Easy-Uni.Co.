@@ -1,265 +1,281 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace payrollview_calcolomultiplo {
-[System.CodeDom.Compiler.GeneratedCodeAttribute("HDSGene", "2.0")]
-[DesignerCategoryAttribute("code")]
-public partial class vistaForm: System.Data.DataSet {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public class vistaForm: DataSet {
 
 	#region Table members declaration
-	[DebuggerNonUserCodeAttribute()][Browsable(false)]
-	public DataTable payroll		{get { return Tables["payroll"];}}
-	[DebuggerNonUserCodeAttribute()][Browsable(false)]
-	public DataTable parasubcontract		{get { return Tables["parasubcontract"];}}
-	[DebuggerNonUserCodeAttribute()][Browsable(false)]
-	public DataTable payrollview		{get { return Tables["payrollview"];}}
+	///<summary>
+	///Cedolino
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable payroll 		=> Tables["payroll"];
+
+	///<summary>
+	///Contratto
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable parasubcontract 		=> Tables["parasubcontract"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable payrollview 		=> Tables["payrollview"];
+
 	#endregion
 
 
-[DebuggerNonUserCodeAttribute()]
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaForm(){
 	BeginInit();
-	InitClass();
+	initClass();
 	EndInit();
 }
-[DebuggerNonUserCodeAttribute()]
-private void InitClass() {
+[DebuggerNonUserCode]
+protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
 	DataSetName = "vistaForm";
 	Prefix = "";
 	Namespace = "http://tempuri.org/vistaForm.xsd";
-	EnforceConstraints = false;
 
 	#region create DataTables
-	DataTable T;
 	DataColumn C;
-	//////////////////// payroll /////////////////////////////////
-	T= new DataTable("payroll");
-	C= new DataColumn("idcon", typeof(System.String));
+	//////////////////// PAYROLL /////////////////////////////////
+	var tpayroll= new DataTable("payroll");
+	C= new DataColumn("idcon", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("idpayroll", typeof(System.Int32));
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("idpayroll", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("npayroll", typeof(System.Int32));
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("npayroll", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("flagbalance", typeof(System.String)));
-	T.Columns.Add( new DataColumn("disbursementdate", typeof(System.DateTime)));
-	T.Columns.Add( new DataColumn("idresidence", typeof(System.Int32)));
-	C= new DataColumn("workingdays", typeof(System.Int16));
+	tpayroll.Columns.Add(C);
+	tpayroll.Columns.Add( new DataColumn("flagbalance", typeof(string)));
+	tpayroll.Columns.Add( new DataColumn("disbursementdate", typeof(DateTime)));
+	tpayroll.Columns.Add( new DataColumn("idresidence", typeof(int)));
+	C= new DataColumn("workingdays", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("feegross", typeof(System.Decimal));
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("feegross", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("netfee", typeof(System.Decimal)));
-	C= new DataColumn("flagcomputed", typeof(System.String));
+	tpayroll.Columns.Add(C);
+	tpayroll.Columns.Add( new DataColumn("netfee", typeof(decimal)));
+	C= new DataColumn("flagcomputed", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("currentrounding", typeof(System.Decimal));
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("currentrounding", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("lu", typeof(System.String)));
-	T.Columns.Add( new DataColumn("lt", typeof(System.DateTime)));
-	T.Columns.Add( new DataColumn("cu", typeof(System.String)));
-	T.Columns.Add( new DataColumn("ct", typeof(System.DateTime)));
-	C= new DataColumn("enabletaxrelief", typeof(System.String));
+	tpayroll.Columns.Add(C);
+	tpayroll.Columns.Add( new DataColumn("lu", typeof(string)));
+	tpayroll.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tpayroll.Columns.Add( new DataColumn("cu", typeof(string)));
+	tpayroll.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	C= new DataColumn("enabletaxrelief", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("fiscalyear", typeof(System.Int32));
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("fiscalyear", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("start", typeof(System.DateTime));
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("start", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("stop", typeof(System.DateTime));
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("stop", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("!eserccontratto", typeof(System.Int32)));
-	T.Columns.Add( new DataColumn("!numcontratto", typeof(System.String)));
-	Tables.Add(T);
-	T.PrimaryKey =  new DataColumn[]{T.Columns["idpayroll"]};
+	tpayroll.Columns.Add(C);
+	tpayroll.Columns.Add( new DataColumn("!eserccontratto", typeof(int)));
+	tpayroll.Columns.Add( new DataColumn("!numcontratto", typeof(string)));
+	tpayroll.Columns.Add( new DataColumn("idupb", typeof(string)));
+	Tables.Add(tpayroll);
+	tpayroll.PrimaryKey =  new DataColumn[]{tpayroll.Columns["idpayroll"]};
 
 
-	//////////////////// parasubcontract /////////////////////////////////
-	T= new DataTable("parasubcontract");
-	C= new DataColumn("idcon", typeof(System.String));
+	//////////////////// PARASUBCONTRACT /////////////////////////////////
+	var tparasubcontract= new DataTable("parasubcontract");
+	C= new DataColumn("idcon", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("ycon", typeof(System.Int32));
+	tparasubcontract.Columns.Add(C);
+	C= new DataColumn("ycon", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("ncon", typeof(System.String));
+	tparasubcontract.Columns.Add(C);
+	C= new DataColumn("ncon", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("idreg", typeof(System.Int32));
+	tparasubcontract.Columns.Add(C);
+	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("duty", typeof(System.String)));
-	T.Columns.Add( new DataColumn("idpayrollkind", typeof(System.String)));
-	C= new DataColumn("idser", typeof(System.Int32));
+	tparasubcontract.Columns.Add(C);
+	tparasubcontract.Columns.Add( new DataColumn("duty", typeof(string)));
+	tparasubcontract.Columns.Add( new DataColumn("idpayrollkind", typeof(string)));
+	C= new DataColumn("idser", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("employed", typeof(System.String));
+	tparasubcontract.Columns.Add(C);
+	C= new DataColumn("employed", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("payrollccinfo", typeof(System.String));
+	tparasubcontract.Columns.Add(C);
+	C= new DataColumn("payrollccinfo", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("start", typeof(System.DateTime));
+	tparasubcontract.Columns.Add(C);
+	C= new DataColumn("start", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("stop", typeof(System.DateTime));
+	tparasubcontract.Columns.Add(C);
+	C= new DataColumn("stop", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("monthlen", typeof(System.Int32));
+	tparasubcontract.Columns.Add(C);
+	C= new DataColumn("monthlen", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("grossamount", typeof(System.Decimal));
+	tparasubcontract.Columns.Add(C);
+	C= new DataColumn("grossamount", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("idpat", typeof(System.Int32)));
-	T.Columns.Add( new DataColumn("matricula", typeof(System.Int32)));
-	T.Columns.Add( new DataColumn("idmatriculabook", typeof(System.String)));
-	T.Columns.Add( new DataColumn("cu", typeof(System.String)));
-	T.Columns.Add( new DataColumn("ct", typeof(System.DateTime)));
-	T.Columns.Add( new DataColumn("lu", typeof(System.String)));
-	T.Columns.Add( new DataColumn("lt", typeof(System.DateTime)));
-	T.Columns.Add( new DataColumn("idaccmotive", typeof(System.String)));
-	T.Columns.Add( new DataColumn("idupb", typeof(System.String)));
-	T.Columns.Add( new DataColumn("idsor1", typeof(System.Int32)));
-	T.Columns.Add( new DataColumn("idsor2", typeof(System.Int32)));
-	T.Columns.Add( new DataColumn("idsor3", typeof(System.Int32)));
-	T.Columns.Add( new DataColumn("idaccmotivedebit", typeof(System.String)));
-	T.Columns.Add( new DataColumn("idaccmotivedebit_crg", typeof(System.String)));
-	T.Columns.Add( new DataColumn("idaccmotivedebit_datacrg", typeof(System.DateTime)));
-	Tables.Add(T);
-	T.PrimaryKey =  new DataColumn[]{T.Columns["idcon"]};
+	tparasubcontract.Columns.Add(C);
+	tparasubcontract.Columns.Add( new DataColumn("idpat", typeof(int)));
+	tparasubcontract.Columns.Add( new DataColumn("matricula", typeof(int)));
+	tparasubcontract.Columns.Add( new DataColumn("idmatriculabook", typeof(string)));
+	tparasubcontract.Columns.Add( new DataColumn("cu", typeof(string)));
+	tparasubcontract.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tparasubcontract.Columns.Add( new DataColumn("lu", typeof(string)));
+	tparasubcontract.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tparasubcontract.Columns.Add( new DataColumn("idaccmotive", typeof(string)));
+	tparasubcontract.Columns.Add( new DataColumn("idupb", typeof(string)));
+	tparasubcontract.Columns.Add( new DataColumn("idsor1", typeof(int)));
+	tparasubcontract.Columns.Add( new DataColumn("idsor2", typeof(int)));
+	tparasubcontract.Columns.Add( new DataColumn("idsor3", typeof(int)));
+	tparasubcontract.Columns.Add( new DataColumn("idaccmotivedebit", typeof(string)));
+	tparasubcontract.Columns.Add( new DataColumn("idaccmotivedebit_crg", typeof(string)));
+	tparasubcontract.Columns.Add( new DataColumn("idaccmotivedebit_datacrg", typeof(DateTime)));
+	Tables.Add(tparasubcontract);
+	tparasubcontract.PrimaryKey =  new DataColumn[]{tparasubcontract.Columns["idcon"]};
 
 
-	//////////////////// payrollview /////////////////////////////////
-	T= new DataTable("payrollview");
-	C= new DataColumn("idpayroll", typeof(System.Int32));
+	//////////////////// PAYROLLVIEW /////////////////////////////////
+	var tpayrollview= new DataTable("payrollview");
+	C= new DataColumn("idpayroll", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("fiscalyear", typeof(System.Int32));
+	tpayrollview.Columns.Add(C);
+	C= new DataColumn("fiscalyear", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("enabletaxrelief", typeof(System.String));
+	tpayrollview.Columns.Add(C);
+	C= new DataColumn("enabletaxrelief", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("currentrounding", typeof(System.Decimal));
+	tpayrollview.Columns.Add(C);
+	C= new DataColumn("currentrounding", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("feegross", typeof(System.Decimal));
+	tpayrollview.Columns.Add(C);
+	C= new DataColumn("feegross", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("netfee", typeof(System.Decimal)));
-	T.Columns.Add( new DataColumn("ct", typeof(System.DateTime)));
-	T.Columns.Add( new DataColumn("cu", typeof(System.String)));
-	T.Columns.Add( new DataColumn("disbursementdate", typeof(System.DateTime)));
-	C= new DataColumn("stop", typeof(System.DateTime));
+	tpayrollview.Columns.Add(C);
+	tpayrollview.Columns.Add( new DataColumn("netfee", typeof(decimal)));
+	tpayrollview.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tpayrollview.Columns.Add( new DataColumn("cu", typeof(string)));
+	tpayrollview.Columns.Add( new DataColumn("disbursementdate", typeof(DateTime)));
+	C= new DataColumn("stop", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("start", typeof(System.DateTime));
+	tpayrollview.Columns.Add(C);
+	C= new DataColumn("start", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("flagcomputed", typeof(System.String));
+	tpayrollview.Columns.Add(C);
+	C= new DataColumn("flagcomputed", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("flagbalance", typeof(System.String)));
-	T.Columns.Add( new DataColumn("flagsummarybalance", typeof(System.String)));
-	C= new DataColumn("workingdays", typeof(System.Int16));
+	tpayrollview.Columns.Add(C);
+	tpayrollview.Columns.Add( new DataColumn("flagbalance", typeof(string)));
+	tpayrollview.Columns.Add( new DataColumn("flagsummarybalance", typeof(string)));
+	C= new DataColumn("workingdays", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("idresidence", typeof(System.Int32)));
-	C= new DataColumn("idcon", typeof(System.String));
+	tpayrollview.Columns.Add(C);
+	tpayrollview.Columns.Add( new DataColumn("idresidence", typeof(int)));
+	C= new DataColumn("idcon", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("lt", typeof(System.DateTime)));
-	T.Columns.Add( new DataColumn("lu", typeof(System.String)));
-	C= new DataColumn("npayroll", typeof(System.Int32));
+	tpayrollview.Columns.Add(C);
+	tpayrollview.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tpayrollview.Columns.Add( new DataColumn("lu", typeof(string)));
+	C= new DataColumn("npayroll", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("ycon", typeof(System.Int32));
+	tpayrollview.Columns.Add(C);
+	C= new DataColumn("ycon", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("ncon", typeof(System.String));
+	tpayrollview.Columns.Add(C);
+	C= new DataColumn("ncon", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("registry", typeof(System.String));
+	tpayrollview.Columns.Add(C);
+	C= new DataColumn("registry", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("idreg", typeof(System.Int32));
+	tpayrollview.Columns.Add(C);
+	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("matricula", typeof(System.Int32)));
-	C= new DataColumn("idser", typeof(System.Int32));
+	tpayrollview.Columns.Add(C);
+	tpayrollview.Columns.Add( new DataColumn("matricula", typeof(int)));
+	C= new DataColumn("idser", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("service", typeof(System.String));
+	tpayrollview.Columns.Add(C);
+	C= new DataColumn("service", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("codeser", typeof(System.String));
+	tpayrollview.Columns.Add(C);
+	C= new DataColumn("codeser", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("residencecity", typeof(System.String)));
-	C= new DataColumn("idsor01", typeof(System.Int32));
+	tpayrollview.Columns.Add(C);
+	tpayrollview.Columns.Add( new DataColumn("residencecity", typeof(string)));
+	C= new DataColumn("idsor01", typeof(int));
 	C.ReadOnly=true;
-	T.Columns.Add(C);
-	C= new DataColumn("idsor02", typeof(System.Int32));
+	tpayrollview.Columns.Add(C);
+	C= new DataColumn("idsor02", typeof(int));
 	C.ReadOnly=true;
-	T.Columns.Add(C);
-	C= new DataColumn("idsor03", typeof(System.Int32));
+	tpayrollview.Columns.Add(C);
+	C= new DataColumn("idsor03", typeof(int));
 	C.ReadOnly=true;
-	T.Columns.Add(C);
-	C= new DataColumn("idsor04", typeof(System.Int32));
+	tpayrollview.Columns.Add(C);
+	C= new DataColumn("idsor04", typeof(int));
 	C.ReadOnly=true;
-	T.Columns.Add(C);
-	C= new DataColumn("idsor05", typeof(System.Int32));
+	tpayrollview.Columns.Add(C);
+	C= new DataColumn("idsor05", typeof(int));
 	C.ReadOnly=true;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("ymov_lastphase", typeof(System.Int16)));
-	T.Columns.Add( new DataColumn("nmov_lastphase", typeof(System.Int32)));
-	T.Columns.Add( new DataColumn("ypay", typeof(System.Int16)));
-	T.Columns.Add( new DataColumn("npay", typeof(System.Int32)));
-	Tables.Add(T);
-	T.PrimaryKey =  new DataColumn[]{T.Columns["idpayroll"]};
+	tpayrollview.Columns.Add(C);
+	tpayrollview.Columns.Add( new DataColumn("ymov_lastphase", typeof(short)));
+	tpayrollview.Columns.Add( new DataColumn("nmov_lastphase", typeof(int)));
+	tpayrollview.Columns.Add( new DataColumn("ypay", typeof(short)));
+	tpayrollview.Columns.Add( new DataColumn("npay", typeof(int)));
+	Tables.Add(tpayrollview);
+	tpayrollview.PrimaryKey =  new DataColumn[]{tpayrollview.Columns["idpayroll"]};
 
 
 	#endregion
 
 
 	#region DataRelation creation
-	DataColumn []CPar;
-	DataColumn []CChild;
-	CPar = new DataColumn[1]{parasubcontract.Columns["idcon"]};
-	CChild = new DataColumn[1]{payroll.Columns["idcon"]};
-	Relations.Add(new DataRelation("parasubcontractpayroll",CPar,CChild));
+	var cPar = new []{parasubcontract.Columns["idcon"]};
+	var cChild = new []{payroll.Columns["idcon"]};
+	Relations.Add(new DataRelation("parasubcontractpayroll",cPar,cChild,false));
 
 	#endregion
 
 }
 }
 }
-

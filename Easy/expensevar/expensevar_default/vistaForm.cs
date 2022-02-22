@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -632,6 +631,7 @@ private void initClass() {
 	tinvoicedetail_iva.Columns.Add( new DataColumn("ycon", typeof(int)));
 	tinvoicedetail_iva.Columns.Add( new DataColumn("ncon", typeof(int)));
 	tinvoicedetail_iva.Columns.Add( new DataColumn("intrastatoperationkind", typeof(string)));
+	tinvoicedetail_iva.Columns.Add( new DataColumn("idsor_siope", typeof(int)));
 	Tables.Add(tinvoicedetail_iva);
 	tinvoicedetail_iva.PrimaryKey =  new DataColumn[]{tinvoicedetail_iva.Columns["idinvkind"], tinvoicedetail_iva.Columns["yinv"], tinvoicedetail_iva.Columns["ninv"], tinvoicedetail_iva.Columns["rownum"]};
 
@@ -743,6 +743,7 @@ private void initClass() {
 	tinvoicedetail_taxable.Columns.Add( new DataColumn("ycon", typeof(int)));
 	tinvoicedetail_taxable.Columns.Add( new DataColumn("ncon", typeof(int)));
 	tinvoicedetail_taxable.Columns.Add( new DataColumn("intrastatoperationkind", typeof(string)));
+	tinvoicedetail_taxable.Columns.Add( new DataColumn("idsor_siope", typeof(int)));
 	Tables.Add(tinvoicedetail_taxable);
 	tinvoicedetail_taxable.PrimaryKey =  new DataColumn[]{tinvoicedetail_taxable.Columns["idinvkind"], tinvoicedetail_taxable.Columns["yinv"], tinvoicedetail_taxable.Columns["ninv"], tinvoicedetail_taxable.Columns["rownum"]};
 
@@ -1138,4 +1139,3 @@ private void initClass() {
 }
 }
 }
-

@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_electronicinvoice]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_electronicinvoice]
 GO
@@ -7,13 +24,13 @@ GO
 SET ANSI_NULLS ON 
 GO
 --setuser 'amministrazione'
-
+--setuser 'amm'
 CREATE procedure exp_electronicinvoice(@yelectronicinvoice smallint, @nelectronicinvoice int) as
 begin
 declare @idreg int
 select @idreg = idreg from electronicinvoice where yelectronicinvoice = @yelectronicinvoice and nelectronicinvoice = @nelectronicinvoice
--- exec exp_electronicinvoice 2019, 291
---  exec exp_electronicinvoicedetail 2019, 291
+-- exec exp_electronicinvoice 2019, 127
+
 declare @cf varchar(11)
 declare @p_iva varchar(11)
 select @cf = case when upper(substring(cf,1,2)) ='IT' then substring(cf,3,(len(cf)-2))
@@ -92,6 +109,7 @@ CREATE TABLE #StabileOrganizzazione
 	province varchar(2),
 	nation varchar(2)
 )
+--select  * from geo_nation
 
 INSERT INTO #StabileOrganizzazione(idaddresskind, idreg, address,	location, cap, province, nation)
 SELECT 
@@ -99,14 +117,12 @@ SELECT
 	idreg, 
 	substring(address,1,60),
 	SUBSTRING(isnull(geo_city.title, registryaddress.location), 1, 60),
-	registryaddress.cap,
+	case when geo_city.idcity is null then '00000' else registryaddress.cap end,
 	geo_country.province,
 	ISNULL(geo_nation_agency.value,'IT')
 FROM registryaddress
-LEFT OUTER JOIN geo_city
-	ON geo_city.idcity = registryaddress.idcity
-LEFT OUTER JOIN geo_country
-	ON geo_city.idcountry = geo_country.idcountry
+LEFT OUTER JOIN geo_city 	ON geo_city.idcity = registryaddress.idcity
+LEFT OUTER JOIN geo_country	ON geo_city.idcountry = geo_country.idcountry
 LEFT OUTER JOIN geo_nation_agency
 	 ON geo_nation_agency.idnation = registryaddress.idnation 
 	 AND geo_nation_agency.idagency = 6 -- ente ISO   
@@ -129,14 +145,12 @@ SELECT
 	idreg, 
 	substring(address,1,60),
 	SUBSTRING(isnull(geo_city.title, registryaddress.location), 1, 60),
-	registryaddress.cap,
+	case when geo_city.idcity is null then '00000' else registryaddress.cap end,
 	case when geo_nation_agency.value is null then geo_country.province else 'EE' end,
 	ISNULL(geo_nation_agency.value,'IT')
 FROM registryaddress
-LEFT OUTER JOIN geo_city
-	ON geo_city.idcity = registryaddress.idcity
-LEFT OUTER JOIN geo_country
-	ON geo_city.idcountry = geo_country.idcountry
+LEFT OUTER JOIN geo_city			ON geo_city.idcity = registryaddress.idcity
+LEFT OUTER JOIN geo_country			ON geo_city.idcountry = geo_country.idcountry
 --LEFT OUTER JOIN geo_nation
 --	ON geo_nation.idnation = registryaddress.idnation
 LEFT OUTER JOIN geo_nation_agency
@@ -233,10 +247,12 @@ ROW_NUMBER() OVER(PARTITION BY  I.ipa_ven_cliente, I.rifamm_ven_cliente,  I.emai
 
 --<CESSIONARIO COMMITTENTE>  è il cliente inserito in fattura		-- FARE UN CHECK PER CONTROLLARE CHE questa select dia l'info del paese
 	case when RR.coderesidence = 'I' then 'IT' 
-		 when RR.coderesidence = 'J' and ASCII(SUBSTRING(R.p_iva,1,1)) BETWEEN 48 AND 57 /* 0..9 */ then #SedeCliente.nation
-		 when RR.coderesidence = 'J' then substring(R.p_iva,1,2)
-		 when RR.coderesidence = 'X' and ASCII(SUBSTRING(R.foreigncf,1,1)) BETWEEN 48 AND 57 /* 0..9*/then #SedeCliente.nation
-		 when RR.coderesidence = 'X' then substring(R.foreigncf,1,2)
+		 when RR.coderesidence = 'J' then #SedeCliente.nation
+--		 when RR.coderesidence = 'J' and ASCII(SUBSTRING(R.p_iva,1,1)) BETWEEN 48 AND 57 /* 0..9 */ then #SedeCliente.nation
+--		 when RR.coderesidence = 'J' then substring(R.p_iva,1,2)
+		 when RR.coderesidence = 'X' then #SedeCliente.nation
+--		 when RR.coderesidence = 'X' and ASCII(SUBSTRING(R.foreigncf,1,1)) BETWEEN 48 AND 57 /* 0..9*/then #SedeCliente.nation
+--		 when RR.coderesidence = 'X' then substring(R.foreigncf,1,2)
 		 else null
 		 end
 	as 'IdFiscaleIvaPaeseCliente'	,

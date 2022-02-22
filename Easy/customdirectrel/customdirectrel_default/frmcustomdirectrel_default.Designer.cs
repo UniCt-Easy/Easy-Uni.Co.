@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -341,7 +340,7 @@ namespace customdirectrel_default {
             this.ckbnav.Size = new System.Drawing.Size(331, 24);
             this.ckbnav.TabIndex = 27;
             this.ckbnav.Tag = "customdirectrel.flag:0";
-            this.ckbnav.Text = "PuÃ² navigare dalla tabella di partenza alla tabella destinazione";
+            this.ckbnav.Text = "Può navigare dalla tabella di partenza alla tabella destinazione";
             // 
             // ckbins
             // 
@@ -350,7 +349,7 @@ namespace customdirectrel_default {
             this.ckbins.Size = new System.Drawing.Size(331, 24);
             this.ckbins.TabIndex = 29;
             this.ckbins.Tag = "customdirectrel.flag:1";
-            this.ckbins.Text = "PuÃ² inserire dalla tabella di partenza alla tabella destinazione";
+            this.ckbins.Text = "Può inserire dalla tabella di partenza alla tabella destinazione";
             this.ckbins.CheckedChanged += new System.EventHandler(this.ckbins_CheckedChanged);
             // 
             // DS
@@ -492,4 +491,3 @@ namespace customdirectrel_default {
     }
 }
 
-

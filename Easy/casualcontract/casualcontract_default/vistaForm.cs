@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,111 +26,60 @@ using System.Runtime.Serialization;
 namespace casualcontract_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Pagamento Prestazione Occasionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable casualcontract 		=> Tables["casualcontract"];
 
-	///<summary>
-	///Ritenute
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable casualcontracttax 		=> Tables["casualcontracttax"];
 
-	///<summary>
-	///Scaglione ritenute su occasionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable casualcontracttaxbracket 		=> Tables["casualcontracttaxbracket"];
 
-	///<summary>
-	///Spese Documentate
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable casualcontractrefund 		=> Tables["casualcontractrefund"];
 
-	///<summary>
-	///Tipi di ritenuta
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable tax 		=> Tables["tax"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
-	///<summary>
-	///Tipo Prestazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable service 		=> Tables["service"];
 
-	///<summary>
-	///Altra Forma Assicurativa (per l'E-Mens)
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable otherinsurance 		=> Tables["otherinsurance"];
 
-	///<summary>
-	///Attivit√† Previdenziale INPS (per l'E-Mens)
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable inpsactivity 		=> Tables["inpsactivity"];
 
-	///<summary>
-	///Informazioni annual sul contratto occasionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable casualcontractyear 		=> Tables["casualcontractyear"];
 
-	///<summary>
-	///Tipo Spesa occasionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable casualrefund 		=> Tables["casualrefund"];
 
-	///<summary>
-	///Quota Esente Prestazione Occasionale per Imponibile Previdenziale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable casualcontractexemption 		=> Tables["casualcontractexemption"];
 
-	///<summary>
-	///Tipo Rapporto (per l'E-Mens)
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable emenscontractkind 		=> Tables["emenscontractkind"];
 
-	///<summary>
-	///Deduzione su contr.occasionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable casualcontractdeduction 		=> Tables["casualcontractdeduction"];
 
-	///<summary>
-	///Detrazione su compenso occasionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable casualdeduction 		=> Tables["casualdeduction"];
 
-	///<summary>
-	///Classificazione contratto occasionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable casualcontractsorting 		=> Tables["casualcontractsorting"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accmotiveapplied_cost 		=> Tables["accmotiveapplied_cost"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
@@ -144,15 +92,9 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting3 		=> Tables["sorting3"];
 
-	///<summary>
-	///Scaglioni Imposta
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable taxratebracket 		=> Tables["taxratebracket"];
 
-	///<summary>
-	///Abbinamento prestazione con la causale del modello 770
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable motive770service 		=> Tables["motive770service"];
 
@@ -162,9 +104,6 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accmotiveapplied_crg 		=> Tables["accmotiveapplied_crg"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable config 		=> Tables["config"];
 
@@ -186,36 +125,21 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting05 		=> Tables["sorting05"];
 
-	///<summary>
-	///Registro unico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable uniqueregister 		=> Tables["uniqueregister"];
 
-	///<summary>
-	///Codice IPA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable ipa 		=> Tables["ipa"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable pccview 		=> Tables["pccview"];
 
-	///<summary>
-	///trattasi di valori codificati dalla PCC
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable pccdebitmotive 		=> Tables["pccdebitmotive"];
 
-	///<summary>
-	///trattasi di valori codificati dalla PCC
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable pccdebitstatus 		=> Tables["pccdebitstatus"];
 
-	///<summary>
-	///Posizione Dalia
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable dalia_position 		=> Tables["dalia_position"];
 
@@ -227,6 +151,18 @@ public class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable dalia_recruitmentmotive 		=> Tables["dalia_recruitmentmotive"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable dalia_funzionale 		=> Tables["dalia_funzionale"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable dalia_dipartimento 		=> Tables["dalia_dipartimento"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable casualcontractattachment 		=> Tables["casualcontractattachment"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable serviceattachmentkind 		=> Tables["serviceattachmentkind"];
 
 	#endregion
 
@@ -323,6 +259,9 @@ private void initClass() {
 	tcasualcontract.Columns.Add( new DataColumn("idsor_siope", typeof(int)));
 	tcasualcontract.Columns.Add( new DataColumn("requested_doc", typeof(int)));
 	tcasualcontract.Columns.Add( new DataColumn("iddaliarecruitmentmotive", typeof(int)));
+	tcasualcontract.Columns.Add( new DataColumn("iddalia_funzionale", typeof(int)));
+	tcasualcontract.Columns.Add( new DataColumn("iddalia_dipartimento", typeof(int)));
+	tcasualcontract.Columns.Add( new DataColumn("flagexcludefromcertificate", typeof(string)));
 	Tables.Add(tcasualcontract);
 	tcasualcontract.PrimaryKey =  new DataColumn[]{tcasualcontract.Columns["ycon"], tcasualcontract.Columns["ncon"]};
 
@@ -1900,6 +1839,101 @@ private void initClass() {
 	tdalia_recruitmentmotive.PrimaryKey =  new DataColumn[]{tdalia_recruitmentmotive.Columns["iddaliarecruitmentmotive"]};
 
 
+	//////////////////// DALIA_FUNZIONALE /////////////////////////////////
+	var tdalia_funzionale= new DataTable("dalia_funzionale");
+	C= new DataColumn("iddalia_funzionale", typeof(int));
+	C.AllowDBNull=false;
+	tdalia_funzionale.Columns.Add(C);
+	C= new DataColumn("codefunz", typeof(string));
+	C.AllowDBNull=false;
+	tdalia_funzionale.Columns.Add(C);
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	tdalia_funzionale.Columns.Add(C);
+	tdalia_funzionale.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tdalia_funzionale.Columns.Add( new DataColumn("cu", typeof(string)));
+	tdalia_funzionale.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tdalia_funzionale.Columns.Add( new DataColumn("lu", typeof(string)));
+	Tables.Add(tdalia_funzionale);
+	tdalia_funzionale.PrimaryKey =  new DataColumn[]{tdalia_funzionale.Columns["iddalia_funzionale"]};
+
+
+	//////////////////// DALIA_DIPARTIMENTO /////////////////////////////////
+	var tdalia_dipartimento= new DataTable("dalia_dipartimento");
+	C= new DataColumn("iddalia_dipartimento", typeof(int));
+	C.AllowDBNull=false;
+	tdalia_dipartimento.Columns.Add(C);
+	C= new DataColumn("codedip", typeof(string));
+	C.AllowDBNull=false;
+	tdalia_dipartimento.Columns.Add(C);
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	tdalia_dipartimento.Columns.Add(C);
+	tdalia_dipartimento.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tdalia_dipartimento.Columns.Add( new DataColumn("cu", typeof(string)));
+	tdalia_dipartimento.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tdalia_dipartimento.Columns.Add( new DataColumn("lu", typeof(string)));
+	Tables.Add(tdalia_dipartimento);
+	tdalia_dipartimento.PrimaryKey =  new DataColumn[]{tdalia_dipartimento.Columns["iddalia_dipartimento"]};
+
+
+	//////////////////// CASUALCONTRACTATTACHMENT /////////////////////////////////
+	var tcasualcontractattachment= new DataTable("casualcontractattachment");
+	C= new DataColumn("ycon", typeof(int));
+	C.AllowDBNull=false;
+	tcasualcontractattachment.Columns.Add(C);
+	C= new DataColumn("ncon", typeof(int));
+	C.AllowDBNull=false;
+	tcasualcontractattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tcasualcontractattachment.Columns.Add(C);
+	tcasualcontractattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	tcasualcontractattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tcasualcontractattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tcasualcontractattachment.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tcasualcontractattachment.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tcasualcontractattachment.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tcasualcontractattachment.Columns.Add(C);
+	tcasualcontractattachment.Columns.Add( new DataColumn("!serviceattachmentkind", typeof(string)));
+	Tables.Add(tcasualcontractattachment);
+	tcasualcontractattachment.PrimaryKey =  new DataColumn[]{tcasualcontractattachment.Columns["ycon"], tcasualcontractattachment.Columns["ncon"], tcasualcontractattachment.Columns["idattachment"]};
+
+
+	//////////////////// SERVICEATTACHMENTKIND /////////////////////////////////
+	var tserviceattachmentkind= new DataTable("serviceattachmentkind");
+	C= new DataColumn("idattachmentkind", typeof(int));
+	C.AllowDBNull=false;
+	tserviceattachmentkind.Columns.Add(C);
+	tserviceattachmentkind.Columns.Add( new DataColumn("title", typeof(string)));
+	tserviceattachmentkind.Columns.Add( new DataColumn("active", typeof(string)));
+	tserviceattachmentkind.Columns.Add( new DataColumn("idser", typeof(int)));
+	tserviceattachmentkind.Columns.Add( new DataColumn("flag", typeof(int)));
+	tserviceattachmentkind.Columns.Add( new DataColumn("flagforced", typeof(string)));
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tserviceattachmentkind.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tserviceattachmentkind.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tserviceattachmentkind.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tserviceattachmentkind.Columns.Add(C);
+	Tables.Add(tserviceattachmentkind);
+	tserviceattachmentkind.PrimaryKey =  new DataColumn[]{tserviceattachmentkind.Columns["idattachmentkind"]};
+
+
 	#endregion
 
 
@@ -2052,9 +2086,24 @@ private void initClass() {
 	cChild = new []{casualcontract.Columns["iddaliarecruitmentmotive"]};
 	Relations.Add(new DataRelation("dalia_recruitmentmotive_casualcontract",cPar,cChild,false));
 
+	cPar = new []{dalia_funzionale.Columns["iddalia_funzionale"]};
+	cChild = new []{casualcontract.Columns["iddalia_funzionale"]};
+	Relations.Add(new DataRelation("dalia_funzionale_casualcontract",cPar,cChild,false));
+
+	cPar = new []{dalia_dipartimento.Columns["iddalia_dipartimento"]};
+	cChild = new []{casualcontract.Columns["iddalia_dipartimento"]};
+	Relations.Add(new DataRelation("dalia_dipartimento_casualcontract",cPar,cChild,false));
+
+	cPar = new []{serviceattachmentkind.Columns["idattachmentkind"]};
+	cChild = new []{casualcontractattachment.Columns["idattachmentkind"]};
+	Relations.Add(new DataRelation("serviceattachmentkind_casualcontractattachment",cPar,cChild,false));
+
+	cPar = new []{casualcontract.Columns["ycon"], casualcontract.Columns["ncon"]};
+	cChild = new []{casualcontractattachment.Columns["ycon"], casualcontractattachment.Columns["ncon"]};
+	Relations.Add(new DataRelation("casualcontract_casualcontractattachment",cPar,cChild,false));
+
 	#endregion
 
 }
 }
 }
-

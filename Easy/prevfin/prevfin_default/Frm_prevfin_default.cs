@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -33,7 +32,7 @@ namespace prevfin_default{//bilancioprevisione//
 	/// <summary>
 	/// Summary description for FrmBilancioPrevisione.
 	/// </summary>
-	public class Frm_prevfin_default : System.Windows.Forms.Form {
+	public class Frm_prevfin_default : MetaDataForm {
 		private System.Windows.Forms.TextBox textBox3;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox textBox2;
@@ -1753,7 +1752,7 @@ namespace prevfin_default{//bilancioprevisione//
                 ((CfgFn.GetNoNullInt32(E["flag"]) & 0x0F) < 2) ||
                 ((CfgFn.GetNoNullInt32(E["flag"]) & 0x0F) > 5)
                 ){
-				MessageBox.Show("In questa fase non è possibile eseguire questo form.");
+				show("In questa fase non è possibile eseguire questo form.");
 				Meta.CanSave=false;
 				Meta.CanInsert=false;
 				Meta.CanInsertCopy=false;
@@ -2727,7 +2726,7 @@ namespace prevfin_default{//bilancioprevisione//
 			System.Data.DataRow Curr=DS.prevfin.Rows[0];
 			object DataPrev= Curr["previsiondate"];
 			if (DataPrev == DBNull.Value){
-				MessageBox.Show("E' necessario specificare la data di previsione");
+				show("E' necessario specificare la data di previsione");
 				return;
 			}
 
@@ -2814,7 +2813,7 @@ namespace prevfin_default{//bilancioprevisione//
 					foreach (Xceed.Grid.Column CC in gridControl1.Columns){
 						order3+=" "+CC.Title+" "+CC.VisibleIndex;
 					}
-					//MessageBox.Show(order1+"\n"+order2+"\n"+order3);
+					//show(order1+"\n"+order2+"\n"+order3);
 				}
 																					
 			}
@@ -2837,13 +2836,13 @@ namespace prevfin_default{//bilancioprevisione//
             if (DS.prevfin.Rows.Count == 0) return;
             System.Data.DataRow Curr = DS.prevfin.Rows[0];
             if (Curr["previsiondate"] == DBNull.Value) {
-                MessageBox.Show(this, "Non è stata specificata la data di previsione", "Errore");
+                show(this, "Non è stata specificata la data di previsione", "Errore");
                 return;
             }
             int newesercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) + 1;
             object levelusable = Meta.Conn.DO_READ_VALUE("finlevel", QHS.CmpEq("ayear", newesercizio), "MAX(nlevel)");
             if ((levelusable == null) || (levelusable == DBNull.Value)) {
-                MessageBox.Show(this, "Non esistono livelli di bilancio!", "Errore");
+                show(this, "Non esistono livelli di bilancio!", "Errore");
                 return;
             }
 
@@ -2902,7 +2901,7 @@ namespace prevfin_default{//bilancioprevisione//
 			Meta.SaveFormData();
 			PostData.RemoveFalseUpdates(DS);
 			if (DS.HasChanges()){
-				MessageBox.Show("E' necessario salvare i dati prima di utilizzare questa funzione. Operazione annullata.");
+				show("E' necessario salvare i dati prima di utilizzare questa funzione. Operazione annullata.");
 				return;
 			}
 
@@ -2924,7 +2923,7 @@ namespace prevfin_default{//bilancioprevisione//
                     {
                         field += "/Es. corrente";
                     };
-                    if (MessageBox.Show("Copio il campo 'Residui passivi presunti' in " +
+                    if (show("Copio il campo 'Residui passivi presunti' in " +
                         QueryCreator.quotedstrvalue(field, false) + "?", "Informazioni aggiuntive", MessageBoxButtons.OKCancel)
                         == DialogResult.OK)
                     {
@@ -3025,7 +3024,7 @@ namespace prevfin_default{//bilancioprevisione//
                                     QHC.CmpEq("idupb", idupb)));
 				}
 				if (Dests.Length==0){
-					MessageBox.Show("Errore nella creazione delle righe del bil. di previsione. Contattare l'assistenza.");
+					show("Errore nella creazione delle righe del bil. di previsione. Contattare l'assistenza.");
 					return;
 				}
 
@@ -3189,7 +3188,7 @@ namespace prevfin_default{//bilancioprevisione//
             if (!SolaCassa) {
                 if (res)
                 {
-                    if (MessageBox.Show("Creo la ripartizione dell'avanzo di amministrazione presunto (nella dotazione crediti) per l'anno successivo?", "Conferma",
+                    if (show("Creo la ripartizione dell'avanzo di amministrazione presunto (nella dotazione crediti) per l'anno successivo?", "Conferma",
                         MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
                         res = CreaDotazioneCrediti();
@@ -3197,7 +3196,7 @@ namespace prevfin_default{//bilancioprevisione//
                 }
             }
 			if (res) {
-				if (MessageBox.Show("Creo la ripartizione dell'avanzo di cassa presunto (nella dotazione cassa) per l'anno successivo?","Conferma",
+				if (show("Creo la ripartizione dell'avanzo di cassa presunto (nella dotazione cassa) per l'anno successivo?","Conferma",
 					MessageBoxButtons.OKCancel)==DialogResult.OK){
 					res= CreaDotazioneCassa();
 				}
@@ -3286,7 +3285,7 @@ namespace prevfin_default{//bilancioprevisione//
 			int eserciziosucc=esercizio+1;
 			if (Conn.RUN_SELECT_COUNT("finvar",QHS.AppAnd(QHS.CmpEq("yvar",eserciziosucc),
                             QHS.CmpEq("variationkind",2),QHS.CmpEq("flagcredit","S")),false)>0){
-				if (MessageBox.Show("Esiste già la ripartizione dell'avanzo di amministrazione presunto. Procedo comunque?",
+				if (show("Esiste già la ripartizione dell'avanzo di amministrazione presunto. Procedo comunque?",
 					"Conferma",MessageBoxButtons.OKCancel)!=DialogResult.OK) return true;
 			}
             string filter = QHS.AppAnd(QHS.CmpEq("ayear", eserciziosucc), QHS.BitSet("flag", 0));
@@ -3348,7 +3347,7 @@ namespace prevfin_default{//bilancioprevisione//
 
 				System.Data.DataRow []DestsBil= NewBilancio.Select(QHC.CmpEq("idfin",newidbilancio));
 				if (DestsBil.Length==0){
-					MessageBox.Show("Errore: l'idbilancio "+newidbilancio+
+					show("Errore: l'idbilancio "+newidbilancio+
 						" non è stato trovato nell'esercizio successivo.");
 					return false;
 				}
@@ -3386,7 +3385,7 @@ namespace prevfin_default{//bilancioprevisione//
 
 			if (Conn.RUN_SELECT_COUNT("finvar",QHS.AppAnd(QHC.CmpEq("yvar",eserciziosucc),
                     QHS.CmpEq("variationkind",2),QHS.CmpEq("flagproceeds","S")),false)>0){
-				if (MessageBox.Show("Esiste già la ripartizione dell'avanzo di cassa presunto. Procedo comunque?",
+				if (show("Esiste già la ripartizione dell'avanzo di cassa presunto. Procedo comunque?",
 					"Conferma",MessageBoxButtons.OKCancel)!=DialogResult.OK) return true;
 			}
 
@@ -3447,7 +3446,7 @@ namespace prevfin_default{//bilancioprevisione//
 
 				System.Data.DataRow []DestsBil= NewBilancio.Select(QHC.CmpEq("idfin",newidbilancio));
 				if (DestsBil.Length==0){
-					MessageBox.Show("Errore: l'idbilancio "+newidbilancio+
+					show("Errore: l'idbilancio "+newidbilancio+
 						" non è stato trovato nell'esercizio successivo.");
 					return false;
 				}
@@ -3581,7 +3580,7 @@ namespace prevfin_default{//bilancioprevisione//
 					foreach (Xceed.Grid.Column CC in gridControl2.Columns){
 						order3+=" "+CC.Title+" "+CC.VisibleIndex;
 					}
-					//MessageBox.Show(order1+"\n"+order2+"\n"+order3);
+					//show(order1+"\n"+order2+"\n"+order3);
 				}
 																					
 			}
@@ -3645,4 +3644,3 @@ namespace prevfin_default{//bilancioprevisione//
 
 
 }
-

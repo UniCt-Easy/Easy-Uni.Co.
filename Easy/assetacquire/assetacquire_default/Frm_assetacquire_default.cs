@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -32,7 +31,7 @@ namespace assetacquire_default { //caricobeneinventario//
     /// <summary>
     /// Summary description for frmcaricobeneinventario.
     /// </summary>
-    public class Frm_assetacquire_default : System.Windows.Forms.Form {
+    public class Frm_assetacquire_default : MetaDataForm {
         private System.Windows.Forms.TabControl tabCaricoBeni;
         private System.Windows.Forms.TabPage tabPageOperazioni;
         private System.Windows.Forms.TabPage tabPageInventario;
@@ -1890,7 +1889,7 @@ namespace assetacquire_default { //caricobeneinventario//
                 if (R["idmankind"]!=DBNull.Value) MDAvailable=   Meta.Conn.RUN_SELECT("mandatedetailavailable", "*", null, filtro_cp, null, false);
                 residuo = 0;
                 if (MDAvailable.Rows.Count == 0) {
-                    MessageBox.Show(@"Non ci sono dettagli dell'ordine specificato attivi. " +
+                    show(@"Non ci sono dettagli dell'ordine specificato attivi. " +
                                     @"Presumibilmente i dettagli associati sono stati cancellati o annullati. " +
                                     @"E' necessario correggere i dati del contratto passivo correlato.");
                     //Meta.LogError("AssetAcquireDefault - MetaData_BeforeFill -  condizione di errore 1322- filtro:" + filtro_cp + " carico chiave:" +
@@ -1944,7 +1943,7 @@ namespace assetacquire_default { //caricobeneinventario//
 
                     DataTable FatturaGroup = new DataTable();
                     if (R["idinvkind"]!=DBNull.Value)FatturaGroup= Conn.RUN_SELECT("invoicedetailgroupview", "*", null, filtro_Fattura, null, false);
-                    if (FatturaGroup.Rows.Count > 0) {
+                    if ((FatturaGroup.Rows.Count > 0) && (IDAvailable!=null) && (IDAvailable.Rows.Count>0)){
                         impostacaricata = CfgFn.GetNoNullDecimal(Meta.Conn.DO_READ_VALUE("assetacquire",filtro_FatturaPerCespite, "SUM(tax)"));
                         detraibilecaricato = CfgFn.GetNoNullDecimal(Meta.Conn.DO_READ_VALUE("assetacquire", filtro_FatturaPerCespite, "SUM(abatable)"));
                         DataRow rFatturaGroup = FatturaGroup.Rows[0];
@@ -2549,20 +2548,27 @@ namespace assetacquire_default { //caricobeneinventario//
                 DS.asset.Clear();
                 return; //Insert/Cancel sequence
             }
-            DataRow R = DS.assetacquire.Rows[0];
+            var R = DS.assetacquire.Rows[0];
             if (R.RowState == DataRowState.Deleted) {
-                foreach (DataRow A in DS.assetlocation.Select())
-                    if (A.RowState != DataRowState.Deleted)
-                        A.Delete();
-                foreach (DataRow A in DS.assetmanager.Select())
-                    if (A.RowState != DataRowState.Deleted)
-                        A.Delete();
-                foreach (DataRow A in DS.assetsubmanager.Select())
-                    if (A.RowState != DataRowState.Deleted)
-                        A.Delete();
-                foreach (DataRow A in DS.asset.Select())
-                    if (A.RowState != DataRowState.Deleted)
-                        A.Delete();
+	            foreach (var A in DS.assetlocation.Select()) {
+		            if (A.RowState != DataRowState.Deleted)
+			            A.Delete();
+	            }
+
+	            foreach (var A in DS.assetmanager.Select()) {
+		            if (A.RowState != DataRowState.Deleted)
+			            A.Delete();
+	            }
+
+	            foreach (var A in DS.assetsubmanager.Select()) {
+		            if (A.RowState != DataRowState.Deleted)
+			            A.Delete();
+	            }
+
+	            foreach (var A in DS.asset.Select()) {
+		            if (A.RowState != DataRowState.Deleted)
+			            A.Delete();
+	            }
             }
 
             // Gestisce cambi di responsabile o subconsegnatario 
@@ -2574,143 +2580,146 @@ namespace assetacquire_default { //caricobeneinventario//
             PredisponiInvioMailResponsabili();
             PredisponiInvioMailSubconsegnatari();
         }
-
-        public void ScriviEInviaMail() {
-            if (DS.assetacquire.Rows.Count == 0) return;
-            //Invia la mail al nuovo responsabile
-            foreach (infoMailNew info in newRespInfo) {
+        public void Mail_a_Responsabile(int newidman) {
+            var T = Conn.RUN_SELECT("manager", "title, email,wantswarn ", null, QHS.AppAnd(QHS.CmpEq("idman", newidman), QHS.IsNotNull("email"), QHS.CmpEq("wantswarn", "S")), null, false);
+            if (T == null || T.Rows.Count == 0) 
+                return;
+            string mailto = T.Rows[0]["email"].ToString();
+            string MsgBody = "Si comunica che i seguenti cespiti:"+ "\r\n";
+            foreach (var info in newRespInfo) {
+                if (info.NewManager != newidman) continue;
                 int idasset = CfgFn.GetNoNullInt32(info.RAssetManager["idasset"]);
-                object newidman = info.NewManager;
-                DataTable T = Conn.RUN_SELECT("manager", "*", null, QHS.CmpEq("idman", newidman), null, false);
-                if (T == null || T.Rows.Count == 0) continue;
-                string mailto = T.Rows[0]["email"].ToString();
-                if (mailto == "") continue;
-                string MsgBody = "Si comunica che il cespite N. " + idasset + ", \r\n";
-                DataTable Tassetview = Meta.Conn.RUN_SELECT("assetview", "*", null,
+
+                string MsgBody_asset = "cespite N. " + idasset + ", \r\n";
+                var Tassetview = Meta.Conn.RUN_SELECT("assetview", "*", null,
                     QHS.AppAnd(QHS.CmpEq("idasset", idasset), QHS.CmpEq("idpiece", 1)), null, true);
                 if (Tassetview.Rows.Count > 0) {
                     DataRow Rassetview = Tassetview.Rows[0];
                     string nInventory = Rassetview["ninventory"].ToString();
-                    MsgBody = "Si comunica che il cespite di inventario N. " + nInventory + " (n. cespite " + idasset + "), \r\n";
-                    MsgBody = MsgBody + "Inventario " + Rassetview["inventory"] + ", \r\n"
+                    MsgBody_asset = "cespite di inventario N. " + nInventory + " (n. cespite " + idasset + "), \r\n";
+                    MsgBody_asset = MsgBody_asset + "Inventario " + Rassetview["inventory"] + ", \r\n"
                               + "Ente inventariale " + Rassetview["inventoryagency"] + ", \r\n"
                               + "Class. inventariale " + Rassetview["inventorytree"] + ", \r\n"
                               + "Descrizione: " + Rassetview["description"] + ", \r\n";
                 }
-                MsgBody = MsgBody + "è stato assegnato al Responsabile " + T.Rows[0]["title"] + ".\r\n\r\n";
-                MsgBody = MsgBody + "Cordiali saluti.\r\n";
-
-                SendMail SM = new SendMail();
-                SM.UseSMTPLoginAsFromField = true;
-                SM.To = mailto;
-                SM.Subject = "Notifica assegnazione Cespite";
-                SM.MessageBody = MsgBody;
-                SM.Conn = Conn;
-                if (!SM.Send()) {
-                    if (SM.ErrorMessage.Trim() != "")
-                        MessageBox.Show(SM.ErrorMessage, "Errore");
-                }
-
+                MsgBody = MsgBody + MsgBody_asset;
+                MsgBody = MsgBody + "\r\n";
             }
-
-            //Invia la mail al nuovo Subconsegnatario
+            MsgBody = MsgBody + "sono stati assegnati al Responsabile " + T.Rows[0]["title"] + ".\r\n\r\n";
+            MsgBody = MsgBody + "Cordiali saluti.\r\n\r\n\r\n\r\n";
+            MsgBody = MsgBody + "La presente e-mail è stata generata automaticamente da un indirizzo di posta elettronica di solo invio; si chiede pertanto di non rispondere al messaggio.";
+            SendMail SM = new SendMail();
+            SM.UseSMTPLoginAsFromField = true;
+            SM.To = mailto;
+            SM.Subject = "Notifica assegnazione Cespite";
+            SM.MessageBody = MsgBody;
+            SM.Conn = Conn;
+            if (!SM.Send()) {
+                if (SM.ErrorMessage.Trim() != "")
+                    show(SM.ErrorMessage, "Errore");
+            }
+        }
+        public void Mail_a_Subconsegnatario(int newidman) {
+            var T = Conn.RUN_SELECT("manager", "title, email,wantswarn ", null, QHS.AppAnd(QHS.CmpEq("idman", newidman), QHS.IsNotNull("email"), QHS.CmpEq("wantswarn", "S")), null, false);
+            if (T == null || T.Rows.Count == 0)
+                return;
+            string mailto = T.Rows[0]["email"].ToString();
+            string MsgBody = "Si comunica che i seguenti cespiti:" + "\r\n";
             foreach (infoMailNew info in newSubRespInfo) {
+                if (info.NewManager != newidman) continue;
                 int idasset = CfgFn.GetNoNullInt32(info.RAssetManager["idasset"]);
-                object newidman = info.NewManager;
-                DataTable T = Conn.RUN_SELECT("manager", "*", null, QHS.CmpEq("idman", newidman), null, false);
-                if (T == null || T.Rows.Count == 0) continue;
-                string mailto = T.Rows[0]["email"].ToString();
-                if (mailto == "") continue;
-                string MsgBody = "Si comunica che il cespite N. " + idasset + ", \r\n";
-                DataTable Tassetview = Meta.Conn.RUN_SELECT("assetview", "*", null,
+
+                string MsgBody_asset ="cespite N. " + idasset + ", \r\n";
+                var Tassetview = Meta.Conn.RUN_SELECT("assetview", "*", null,
                     QHS.AppAnd(QHS.CmpEq("idasset", idasset), QHS.CmpEq("idpiece", 1)), null, true);
                 if (Tassetview.Rows.Count > 0) {
                     DataRow Rassetview = Tassetview.Rows[0];
                     string nInventory = Rassetview["ninventory"].ToString();
-                    MsgBody = "Si comunica che il cespite di inventario N. " + nInventory + " (n. cespite " + idasset +
+                    MsgBody_asset = "cespite di inventario N. " + nInventory + " (n. cespite " + idasset +
                               "), \r\n";
-                    MsgBody = MsgBody + "Inventario: " + Rassetview["inventory"] + ", \r\n"
+                    MsgBody_asset = MsgBody_asset + "Inventario: " + Rassetview["inventory"] + ", \r\n"
                               + "Ente inventariale: " + Rassetview["inventoryagency"] + ", \r\n"
                               + "Class. inventariale " + Rassetview["inventorytree"] + ", \r\n"
                               + "Descrizione: " + Rassetview["description"] + ", \r\n";
                 }
-                MsgBody = MsgBody + "è stato assegnato al Subconsegnatario :" + T.Rows[0]["title"] + ".\r\n\r\n";
-                MsgBody = MsgBody + "Cordiali saluti.\r\n";
-                SendMail SM = new SendMail();
-                SM.UseSMTPLoginAsFromField = true;
-                SM.To = mailto;
-                SM.Subject = "Notifica assegnazione Cespite";
-                SM.MessageBody = MsgBody;
-                SM.Conn = Conn;
-                if (!SM.Send()) {
-                    if (SM.ErrorMessage.Trim() != "")
-                        MessageBox.Show(SM.ErrorMessage, "Errore");
-                }
-
+                MsgBody = MsgBody + MsgBody_asset;
+                MsgBody = MsgBody + "\r\n";
             }
-
-            //Invia la mail al vecchio e nuovo responsabile
+            MsgBody = MsgBody + "sono stati assegnati al Subconsegnatario :" + T.Rows[0]["title"] + ".\r\n\r\n";
+            MsgBody = MsgBody + "Cordiali saluti.\r\n\r\n\r\n\r\n";
+            MsgBody = MsgBody + "La presente e-mail è stata generata automaticamente da un indirizzo di posta elettronica di solo invio; si chiede pertanto di non rispondere al messaggio.";
+            var SM = new SendMail();
+            SM.UseSMTPLoginAsFromField = true;
+            SM.To = mailto;
+            SM.Subject = "Notifica assegnazione Cespite";
+            SM.MessageBody = MsgBody;
+            SM.Conn = Conn;
+            if (!SM.Send()) {
+                if (SM.ErrorMessage.Trim() != "")
+                    show(SM.ErrorMessage, "Errore");
+            }
+        }
+        public void Mail_a_VecchioResponsabile(int oldidman) {
+            DataTable Told = Conn.RUN_SELECT("manager", "title, email,wantswarn ", null, QHS.AppAnd(QHS.CmpEq("idman", oldidman), QHS.IsNotNull("email"), QHS.CmpEq("wantswarn", "S")), null, false);
+            if (Told == null || Told.Rows.Count == 0) 
+                return;
+            string mailto = Told.Rows[0]["email"].ToString();
+            string MsgBody = "Si comunica che:" + "\r\n";
             foreach (infoMailOld info in oldRespInfo) {
+                if (info.OldManager != oldidman) continue;
                 int idasset = CfgFn.GetNoNullInt32(info.RAssetManager["idasset"]);
-                int oldidman = info.OldManager;
                 int newidman = info.NewManager;
                 // Trovare l'indirizzo e-mail del responsabile mediante idman
-                DataTable Told = Conn.RUN_SELECT("manager", "*", null, QHS.CmpEq("idman", oldidman), null, false);
-                if (Told == null || Told.Rows.Count == 0) continue;
-                string mailto = Told.Rows[0]["email"].ToString();
-                if (mailto == "") continue;
-
                 string newResponsabile;
-                DataTable Tnew = Conn.RUN_SELECT("manager", "*", null, QHS.CmpEq("idman", newidman), null, false);                
+                DataTable Tnew = Conn.RUN_SELECT("manager", "*", null, QHS.CmpEq("idman", newidman), null, false);
                 if (Tnew == null || Tnew.Rows.Count == 0) {
                     newResponsabile = "non ha più un responsabile collegato.\r\n\r\n";
                 }
                 else {
                     newResponsabile = "è stato assegnato al Responsabile: " + Tnew.Rows[0]["title"] + ".\r\n\r\n";
                 }
-                string MsgBody = "Si comunica che il cespite N. " + idasset + ", \r\n";
+                string MsgBody_asset = "cespite N. " + idasset + ", \r\n";
                 DataTable Tassetview = Meta.Conn.RUN_SELECT("assetview", "*", null,
                     QHS.AppAnd(QHS.CmpEq("idasset", idasset), QHS.CmpEq("idpiece", 1)), null, true);
                 if (Tassetview.Rows.Count > 0) {
                     DataRow Rassetview = Tassetview.Rows[0];
                     string nInventory = Rassetview["ninventory"].ToString();
-                    MsgBody = "Si comunica che il cespite di inventario N. " + nInventory + " (n. cespite " + idasset +
+                    MsgBody_asset = "cespite di inventario N. " + nInventory + " (n. cespite " + idasset +
                               "), \r\n";
-                    MsgBody = MsgBody + "Inventario: " + Rassetview["inventory"] + ", \r\n"
+                    MsgBody_asset = MsgBody_asset + "Inventario: " + Rassetview["inventory"] + ", \r\n"
                               + "Ente inventariale: " + Rassetview["inventoryagency"] + ", \r\n"
                               + "Descrizione: " + Rassetview["description"] + ", \r\n";
                 }
-                MsgBody = MsgBody + newResponsabile;
-                MsgBody = MsgBody + "Cordiali saluti.\r\n";
-
-                SendMail SM = new SendMail();
-                SM.UseSMTPLoginAsFromField = true;
-                SM.To = mailto;
-                SM.Subject = "Notifica assegnazione Cespite";
-                SM.MessageBody = MsgBody;
-                SM.Conn = Conn;
-                if (!SM.Send()) {
-                    if (SM.ErrorMessage.Trim() != "")
-                        MessageBox.Show(SM.ErrorMessage, "Errore");
-                }
-
+                MsgBody = MsgBody + MsgBody_asset + newResponsabile;
+                MsgBody = MsgBody + "\r\n";
             }
-
-
-            //Invia la mail al vecchio e nuovo Subconsegnatario
+            MsgBody = MsgBody + "Cordiali saluti.\r\n\r\n\r\n\r\n";
+            MsgBody = MsgBody + "La presente e-mail è stata generata automaticamente da un indirizzo di posta elettronica di solo invio; si chiede pertanto di non rispondere al messaggio.";
+            SendMail SM = new SendMail();
+            SM.UseSMTPLoginAsFromField = true;
+            SM.To = mailto;
+            SM.Subject = "Notifica assegnazione Cespite";
+            SM.MessageBody = MsgBody;
+            SM.Conn = Conn;
+            if (!SM.Send()) {
+                if (SM.ErrorMessage.Trim() != "")
+                    show(SM.ErrorMessage, "Errore");
+            }
+          
+        }
+        public void Mail_a_VecchioSubconsegnatario(int oldidman) {
+            DataTable Told = Conn.RUN_SELECT("manager", "title, email,wantswarn ", null, QHS.AppAnd(QHS.CmpEq("idman", oldidman), QHS.IsNotNull("email"), QHS.CmpEq("wantswarn", "S")), null, false);
+            if (Told == null || Told.Rows.Count == 0)
+                return;
+            // Trovare l'indirizzo e-mail del Subconsegnatario mediante idman
+            string mailto = Told.Rows[0]["email"].ToString();
+            string MsgBody = "Si comunica che:" + "\r\n";
             foreach (infoMailOld info in oldSubRespInfo) {
+                if (info.OldManager != oldidman) continue;
                 int idasset = CfgFn.GetNoNullInt32(info.RAssetManager["idasset"]);
-                int oldidman = info.OldManager;
                 int newidman = info.NewManager;
-                // Trovare l'indirizzo e-mail del Subconsegnatario mediante idman
-                DataTable Told = Conn.RUN_SELECT("manager", "*", null, QHS.CmpEq("idman", oldidman), null, false);
-                if (Told == null || Told.Rows.Count == 0) continue;
-                string mailto = Told.Rows[0]["email"].ToString();
-                if (mailto == "") continue;
                 DataTable Tnew = null;
-
                 Tnew = Conn.RUN_SELECT("manager", "*", null, QHS.CmpEq("idman", newidman), null, false);
-                
                 string newResponsabile;
                 if (Tnew == null || Tnew.Rows.Count == 0) {
                     newResponsabile = "non ha più un Subconsegnatario collegato.\r\n\r\n";
@@ -2718,38 +2727,91 @@ namespace assetacquire_default { //caricobeneinventario//
                 else {
                     newResponsabile = "è stato assegnato al Subconsegnatario: " + Tnew.Rows[0]["title"] + ".\r\n\r\n";
                 }
-
-                string MsgBody = "Si comunica che il cespite N. " + idasset + ", \r\n";
+                string MsgBody_asset = "cespite N. " + idasset + ", \r\n";
                 DataTable Tassetview = Meta.Conn.RUN_SELECT("assetview", "*", null,
                     QHS.AppAnd(QHS.CmpEq("idasset", idasset), QHS.CmpEq("idpiece", 1)), null, true);
                 if (Tassetview.Rows.Count > 0) {
                     DataRow Rassetview = Tassetview.Rows[0];
                     string nInventory = Rassetview["ninventory"].ToString();
-                    MsgBody = "Si comunica che il cespite di inventario N. " + nInventory + " (n. cespite " + idasset +
+                    MsgBody_asset = "cespite di inventario N. " + nInventory + " (n. cespite " + idasset +
                               "), \r\n";
-                    MsgBody = MsgBody + "Inventario: " + Rassetview["inventory"] + ", \r\n"
+                    MsgBody_asset = MsgBody_asset + "Inventario: " + Rassetview["inventory"] + ", \r\n"
                               + "Ente inventariale: " + Rassetview["inventoryagency"] + ", \r\n"
                               + "Descrizione: " + Rassetview["description"] + ", \r\n";
                 }
-                MsgBody = MsgBody + newResponsabile;
-                MsgBody = MsgBody + "Cordiali saluti.\r\n";
-
-                SendMail SM = new SendMail();
-                SM.UseSMTPLoginAsFromField = true;
-                SM.To = mailto;
-                SM.Subject = "Notifica assegnazione Cespite";
-                SM.MessageBody = MsgBody;
-                SM.Conn = Conn;
-                if (!SM.Send()) {
-                    if (SM.ErrorMessage.Trim() != "")
-                        MessageBox.Show(SM.ErrorMessage, "Errore");
-                }
-
+                MsgBody = MsgBody + MsgBody_asset+newResponsabile;
+                MsgBody = MsgBody + "\r\n";
             }
+            MsgBody = MsgBody + "Cordiali saluti.\r\n\r\n\r\n\r\n";
+            MsgBody = MsgBody + "La presente e-mail è stata generata automaticamente da un indirizzo di posta elettronica di solo invio; si chiede pertanto di non rispondere al messaggio.";
+            SendMail SM = new SendMail();
+            SM.UseSMTPLoginAsFromField = true;
+            SM.To = mailto;
+            SM.Subject = "Notifica assegnazione Cespite";
+            SM.MessageBody = MsgBody;
+            SM.Conn = Conn;
+            if (!SM.Send()) {
+                if (SM.ErrorMessage.Trim() != "")
+                    show(SM.ErrorMessage, "Errore");
+            }
+        }
+            public void ScriviEInviaMail() {
+            if (DS.assetacquire.Rows.Count == 0) return;
+
+            List<int> listidman = new List<int>();
+            foreach (var info in newRespInfo) {
+                int newidman = info.NewManager;
+                if (listidman.Contains(newidman)) continue; 
+                listidman.Add(newidman);
+            }
+            //Invia la mail al nuovo responsabile
+            foreach(int M in listidman) {
+                Mail_a_Responsabile(M);
+            }
+
+            List<int> listidsubman = new List<int>();
+            foreach (var info in newSubRespInfo) {
+                int newidman = info.NewManager;
+                if (listidsubman.Contains(newidman)) continue;
+                listidsubman.Add(newidman);
+            }
+            //Invia la mail al nuovo Subconsegnatario
+            foreach (int M in listidsubman) {
+                Mail_a_Subconsegnatario(M);
+            }
+
+            List<int> listOldidman = new List<int>();
+            foreach (var info in oldRespInfo) {
+                int oldidman = info.OldManager;
+                if (listOldidman.Contains(oldidman)) continue;
+                listOldidman.Add(oldidman);
+            }
+
+            //Invia la mail al vecchio e nuovo responsabile
+            foreach (int M in listOldidman) {
+                Mail_a_VecchioResponsabile(M);
+            }
+
+
+            List<int> listOldidsubman = new List<int>();
+            foreach (var info in oldSubRespInfo) {
+                int oldidman = info.OldManager;
+                if (listOldidsubman.Contains(oldidman)) continue;
+                listOldidsubman.Add(oldidman);
+            }
+            //Invia la mail al vecchio e nuovo Subconsegnatario
+            foreach (int M in listOldidsubman) {
+                Mail_a_VecchioSubconsegnatario(M);
+            }
+
             newSubRespInfo.Clear();
             oldSubRespInfo.Clear();
             newRespInfo.Clear();
             oldRespInfo.Clear();
+            listidman.Clear();
+            listidsubman.Clear();
+            listOldidman.Clear();
+            listOldidsubman.Clear();
         }
 
         public void MetaData_AfterPost() {
@@ -2815,7 +2877,7 @@ namespace assetacquire_default { //caricobeneinventario//
             int quantita = 0;
             quantita = CfgFn.GetNoNullInt32(HelpForm.GetObjectFromString(quantita.GetType(), txtQuantita.Text, null));
             if (quantita <= 0) {
-                MessageBox.Show("Inserire una quantità maggiore o uguale a zero", "Attenzione",
+                show("Inserire una quantità maggiore o uguale a zero", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 HelpForm.FocusControl(txtQuantita);
                 //txtQuantita.Focus();
@@ -2972,7 +3034,7 @@ namespace assetacquire_default { //caricobeneinventario//
                 if (Meta.EditMode) {
                     string msg = "La diminuizione della quantità di aumenti di valore " +
                                  "produrrà la cancellazione di aumenti di valore dall'inventario. Continuare?";
-                    DialogResult res = MessageBox.Show(msg, "Conferma",
+                    DialogResult res = show(msg, "Conferma",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (res != DialogResult.Yes) {
                         //rimetto a quantità il vecchio valore
@@ -3111,7 +3173,7 @@ namespace assetacquire_default { //caricobeneinventario//
                 if (!Meta.InsertMode) {
                     string msg = "La diminuizione della quantità di beni caricati " +
                                  "produrrà la cancellazione di cespiti dall'inventario. Continuare?";
-                    DialogResult res = MessageBox.Show(msg, "Conferma",
+                    DialogResult res = show(msg, "Conferma",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (res != DialogResult.Yes) {
                         //rimetto a quantità il vecchio valore
@@ -3375,7 +3437,7 @@ namespace assetacquire_default { //caricobeneinventario//
             string msg = "Questa operazione copia le informazioni specifiche del cespite " +
                          "evidenziato su tutti gli altri cespiti del carico sovrapponendo le " +
                          "informazioni eventualmente inserite precedentemente. Confermi?";
-            DialogResult res = MessageBox.Show(msg, "Conferma",
+            DialogResult res = show(msg, "Conferma",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (res == DialogResult.Yes) {
 
@@ -3539,7 +3601,7 @@ namespace assetacquire_default { //caricobeneinventario//
             else { 
             string msg = "Si desidera aggiornare le ubicazioni specifiche del cespite in base a quelle del dettaglio del contratto passivo." +                         
                          "Confermi?";
-            DialogResult res = MessageBox.Show(msg, "Conferma",
+            DialogResult res = show(msg, "Conferma",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (res == DialogResult.Yes){                
                 foreach (DataRow Curr in DS.assetlocation.Select()){
@@ -3572,7 +3634,7 @@ namespace assetacquire_default { //caricobeneinventario//
             }
 
             if (numiniziale < 0 || sNumIniziale == "" || NumInizIsLetter) {
-                //				MessageBox.Show("Inserire un numero iniziale maggiore o uguale a zero.","Attenzione",
+                //				show("Inserire un numero iniziale maggiore o uguale a zero.","Attenzione",
                 //					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 numiniziale = 0;
             }
@@ -3613,7 +3675,7 @@ namespace assetacquire_default { //caricobeneinventario//
                              "eventualmente assegnata precedentemente. Confermi?";
                 DialogResult res = DialogResult.Yes;
                 if (WarningDaVisualizzare)
-                    res = MessageBox.Show(msg, "Conferma",
+                    res = show(msg, "Conferma",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (res == DialogResult.Yes) {
                     ScollegaBeniInv();
@@ -3630,7 +3692,7 @@ namespace assetacquire_default { //caricobeneinventario//
 
                 int oldnuminiziale = CfgFn.GetNoNullInt32(DS.Tables["assetacquire"].Rows[0]["startnumber"]);
                 if ((numiniziale == 0) && (oldnuminiziale > 0)) {
-                    MessageBox.Show("Il n. iniziale non può essere 0.");
+                    show("Il n. iniziale non può essere 0.");
                     txtNumIniz.Text = oldnuminiziale.ToString();
                     HelpForm.FocusControl(txtNumIniz);//.Focus();
                     return;
@@ -3649,7 +3711,7 @@ namespace assetacquire_default { //caricobeneinventario//
                              "progressivo a tutti i cespiti del carico. Confermi?";
                 DialogResult res = DialogResult.Yes;
                 if (WarningDaVisualizzare && (oldnuminiziale > 0))
-                    res = MessageBox.Show(msg, "Conferma",
+                    res = show(msg, "Conferma",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (res == DialogResult.Yes) {
                     //aggiorno num. inventario
@@ -3681,7 +3743,7 @@ namespace assetacquire_default { //caricobeneinventario//
             if (!CheckInventario(codiceinventario, numiniziale, quantita)) {
                 string msg = "L'insieme di numeri di inventario indicato è in tutto o in parte " +
                              "inesistente oppure uno o più cespiti appartenenti all'insieme sono stati scaricati";
-                MessageBox.Show(msg, "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                show(msg, "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
             return true;
@@ -3884,7 +3946,7 @@ namespace assetacquire_default { //caricobeneinventario//
                 if (qnew == qold) {
                     PostData.RemoveFalseUpdates(DS);
                     if (DS.HasChanges()) {
-                        MessageBox.Show("Poiché è stata riselezionata la riga dell'ordine originariamente collegata " +
+                        show("Poiché è stata riselezionata la riga dell'ordine originariamente collegata " +
                                         "a questo carico, le altre modifiche effettute sono state annullate.", "Avviso");
                         DS.RejectChanges();
                     }
@@ -3909,7 +3971,7 @@ namespace assetacquire_default { //caricobeneinventario//
                 DataTable ordineGroup = Conn.RUN_SELECT("mandatedetailgroupview", "*", null, filtroGroup, null, false);
                 var rOrdineGroup = ordineGroup.First();
                 if (rOrdineGroup == null) {
-                    MessageBox.Show(@"Il dettaglio ordine non è stato trovato", @"Errore");
+                    show(@"Il dettaglio ordine non è stato trovato", @"Errore");
                     return;
                 }
                 DataTable ordUpb = Conn.SQLRunner("select * from mandatedetail where " + filtroGroup, true);
@@ -3917,7 +3979,7 @@ namespace assetacquire_default { //caricobeneinventario//
 
                 if (ordUpb != null && ordUpb.Rows.Count == 1) {
                     if (inseritoInBuonoCarico && Curr["idupb"].ToString() != ordUpb.Rows[0]["idupb"].ToString()) {
-                        MessageBox.Show(@"La riga selezionata ha un upb diverso da quello precedente", @"Errore");
+                        show(@"La riga selezionata ha un upb diverso da quello precedente", @"Errore");
                         DS.RejectChanges();
                         Meta.FreshForm(true);
                         return;
@@ -4440,7 +4502,7 @@ namespace assetacquire_default { //caricobeneinventario//
             DataRow Curr = DS.assetacquire.Rows[0];
             if (txtDescrizione.Text != "") {
                 if (CfgFn.GetNoNullInt32(Curr["idlist"]) != CfgFn.GetNoNullInt32(Choosen["idlist"])) {
-                    if (MessageBox.Show("Aggiorno il campo descrizione in base al listino selezionato?",
+                    if (show("Aggiorno il campo descrizione in base al listino selezionato?",
                         "Conferma", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                         txtDescrizione.Text = Choosen["description"].ToString();
                         Curr["description"] = Choosen["description"].ToString();
@@ -4606,4 +4668,3 @@ namespace assetacquire_default { //caricobeneinventario//
         }
     }
 }
-

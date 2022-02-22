@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -28,7 +27,7 @@ using funzioni_configurazione;
 using System.IO;
 
 namespace no_table_expbank {
-    public partial class FrmExpBank : Form {
+    public partial class FrmExpBank : MetaDataForm {
         CQueryHelper QHC;
         QueryHelper QHS;
         MetaData Meta;
@@ -85,7 +84,7 @@ namespace no_table_expbank {
             DataRow rTesoriere = HelpForm.GetLastSelected(DS.treasurer);
             if (rTesoriere == null) {
                 HelpForm.FocusControl(cmbIstitutoCassiere);
-                MessageBox.Show(this, "Scegliere l'istituto cassiere");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Scegliere l'istituto cassiere");
                 return;
             }
             string idbank = rTesoriere["idbank"].ToString();
@@ -94,7 +93,7 @@ namespace no_table_expbank {
                 if (s == idbank) res = true;
             }
             if (!res) {
-				if (MessageBox.Show(
+				if (MetaFactory.factory.getSingleton<IMessageShower>().Show(
                     "Questa maschera non dovrebbe essere usata con il cassiere selezionato. Usare, invece, la maschera alla voce di menu Cassiere - Trasmissione e Importazione Distinte XML. " +
 					" Si desidera proseguire comunque l''elaborazione?", "Errore",
 					  MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
@@ -103,7 +102,7 @@ namespace no_table_expbank {
 
             string sp_export = Mandati ? rTesoriere["spexportexp"].ToString() : rTesoriere["spexportinc"].ToString();
             if (sp_export == "") {
-                MessageBox.Show(this,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                     "Nella configurazione del tesoriere non è impostata la sp da chiamare per generare il file");
                 return;
             }
@@ -113,19 +112,19 @@ namespace no_table_expbank {
             if (flagMultiExp == "S") {
                 if (da == 0) {
                     HelpForm.FocusControl(txtDa);
-                    MessageBox.Show(this, "Specificare il numero della prima distinta che si vuole trasmettere");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Specificare il numero della prima distinta che si vuole trasmettere");
                     return;
                 }
                 if (a == 0) {
                     HelpForm.FocusControl(txtA);
-                    MessageBox.Show(this, "Specificare il numero dell'ultima distinta che si vuole trasmettere");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Specificare il numero dell'ultima distinta che si vuole trasmettere");
                     return;
                 }
             }
             else {
                 if (da == 0) {
                     HelpForm.FocusControl(txtDa);
-                    MessageBox.Show(this, "Specificare il numero della distinta che si vuole trasmettere");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Specificare il numero della distinta che si vuole trasmettere");
                     return;
                 }
             }
@@ -138,12 +137,12 @@ namespace no_table_expbank {
                             QHS.CmpEq("npaymenttransmission", i));
                         object idtreasurer = Meta.Conn.DO_READ_VALUE("paymenttransmission", Filter, "idtreasurer");
                         if (idtreasurer == null) {
-                            MessageBox.Show(this,
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                "La distinta n." + i.ToString() + " non è presente su db","Errore");
                             return;
                         }
                         if (idtreasurer.ToString() != rTesoriere["idtreasurer"].ToString()) {
-                            MessageBox.Show(this,
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                 "La distinta n." + i.ToString() + " ha un Cassiere diverso da quello selezionato!");
                             return;
                         }
@@ -156,7 +155,7 @@ namespace no_table_expbank {
                         if (cfgflagenabletransmission != DBNull.Value) {
                             string cfg_flag = cfgflagenabletransmission.ToString().ToUpper();
                             if ((cfg_flag == "S") && (flagtransmissionenabled.ToString().ToUpper() != "S")) {
-                                MessageBox.Show(this, "La trasmissione della distinta non è stata autorizzata");
+                                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La trasmissione della distinta non è stata autorizzata");
                                 return;
                             }
                         }
@@ -168,12 +167,12 @@ namespace no_table_expbank {
                         QHS.CmpEq("npaymenttransmission", da));
                     object idtreasurer = Meta.Conn.DO_READ_VALUE("paymenttransmission", Filter, "idtreasurer");
                     if (idtreasurer == null) {
-                        MessageBox.Show(this,
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                            "La distinta n." + da.ToString() + " non è presente su db", "Errore");
                         return;
                     }
                     if (idtreasurer.ToString() != rTesoriere["idtreasurer"].ToString()) {
-                        MessageBox.Show(this,
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                             "La distinta n." + da.ToString() + " ha un Cassiere diverso da quello selezionato!");
                         return;
                     }
@@ -185,7 +184,7 @@ namespace no_table_expbank {
                     if (cfgflagenabletransmission != DBNull.Value) {
                         string cfg_flag = cfgflagenabletransmission.ToString().ToUpper();
                         if ((cfg_flag == "S") && (flagtransmissionenabled.ToString().ToUpper() != "S")) {
-                            MessageBox.Show(this, "La trasmissione della distinta non è stata autorizzata");
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La trasmissione della distinta non è stata autorizzata");
                             return;
                         }
                     }
@@ -198,12 +197,12 @@ namespace no_table_expbank {
                             QHS.CmpEq("nproceedstransmission", i));
                         object idtreasurer = Meta.Conn.DO_READ_VALUE("proceedstransmission", Filter, "idtreasurer");
                         if (idtreasurer == null) {
-                            MessageBox.Show(this,
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                "La distinta n." + i.ToString() + " non è presente su db", "Errore");
                             return;
                         }
                         if (idtreasurer.ToString() != rTesoriere["idtreasurer"].ToString()) {
-                            MessageBox.Show(this,
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                 "La distinta n." + i.ToString() + " ha un Cassiere diverso da quello selezionato!");
                             return;
                         }
@@ -216,7 +215,7 @@ namespace no_table_expbank {
                         if (cfgflagenabletransmission != DBNull.Value) {
                             string cfg_flag = cfgflagenabletransmission.ToString().ToUpper();
                             if ((cfg_flag == "S") && (flagtransmissionenabled.ToString().ToUpper() != "S")) {
-                                MessageBox.Show(this, "La trasmissione della distinta non è stata autorizzata");
+                                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La trasmissione della distinta non è stata autorizzata");
                                 return;
                             }
                         }
@@ -227,12 +226,12 @@ namespace no_table_expbank {
                         QHS.CmpEq("nproceedstransmission", da));
                     object idtreasurer = Meta.Conn.DO_READ_VALUE("proceedstransmission", Filter, "idtreasurer");
                     if (idtreasurer == null) {
-                        MessageBox.Show(this,
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                            "La distinta n." + da.ToString() + " non è presente su db", "Errore");
                         return;
                     }
                     if (idtreasurer.ToString() != rTesoriere["idtreasurer"].ToString()) {
-                        MessageBox.Show(this,
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                             "La distinta n." + da.ToString() + " ha un Cassiere diverso da quello selezionato!");
                         return;
                     }
@@ -244,7 +243,7 @@ namespace no_table_expbank {
                     if (cfgflagenabletransmission != DBNull.Value) {
                         string cfg_flag = cfgflagenabletransmission.ToString().ToUpper();
                         if ((cfg_flag == "S") && (flagtransmissionenabled.ToString().ToUpper() != "S")) {
-                            MessageBox.Show(this, "La trasmissione della distinta non è stata autorizzata");
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La trasmissione della distinta non è stata autorizzata");
                             return;
                         }
                     }
@@ -256,7 +255,7 @@ namespace no_table_expbank {
                 : new object[] {Meta.GetSys("esercizio"), da};
             DataSet result = Meta.Conn.CallSP(sp_export, parametri, false, 300);
             if ((result == null) || (result.Tables.Count == 0)) {
-                MessageBox.Show(this, "La sp non ha restituito risultati");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La sp non ha restituito risultati");
                 return;
             }
             DataTable t = result.Tables[0];
@@ -267,7 +266,7 @@ namespace no_table_expbank {
                 HelpForm.SetDataGrid(dataGrid1, t);
                 formatgrids FF = new formatgrids(dataGrid1);
                 FF.AutosizeColumnWidth();
-                MessageBox.Show(this, "Ci sono degli errori, pertanto non è stato generato il file!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Ci sono degli errori, pertanto non è stato generato il file!");
                 return;
             }
             if (txtCartella.Text == "") {
@@ -278,7 +277,7 @@ namespace no_table_expbank {
                 else {
                     folderBrowserDialog1.SelectedPath = txtCartella.Text;
                     HelpForm.FocusControl(txtCartella);
-                    MessageBox.Show(this, "Specificare il percorso del file");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Specificare il percorso del file");
                     return;
                 }
             }
@@ -331,7 +330,7 @@ namespace no_table_expbank {
             else
                 AggiornaStreamDate("PROCEEDSTRANSMISSION", year, da);
 
-            MessageBox.Show(this, "File della trasmissione salvato in " + txtFile.Text);
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "File della trasmissione salvato in " + txtFile.Text);
         }
 
         private void AggiornaStreamDate(string tablename, int y, int n) {
@@ -368,12 +367,12 @@ namespace no_table_expbank {
             DataRow rTesoriere = HelpForm.GetLastSelected(DS.treasurer);
             if (rTesoriere == null) {
                 HelpForm.FocusControl(cmbIstitutoCassiere);
-                MessageBox.Show(this, "Scegliere l'istituto cassiere");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Scegliere l'istituto cassiere");
                 return;
             }
             string sp_export = Mandati ? rTesoriere["spexportexp"].ToString() : rTesoriere["spexportinc"].ToString();
             if (sp_export == "") {
-                MessageBox.Show(this,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                     "Nella configurazione del tesoriere non è impostata la sp da chiamare per generare il file");
                 return;
             }
@@ -395,14 +394,14 @@ namespace no_table_expbank {
                         "MAX(nproceedstransmission)"));
             }
             if (nDoc == 0) {
-                MessageBox.Show(this, "Non vi sono distinte.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non vi sono distinte.");
                 return;
             }
 
             object[] parametri = new object[] {Meta.GetSys("esercizio"), nDoc};
             DataSet result = Meta.Conn.CallSP(sp_export, parametri, false, 300);
             if ((result == null) || (result.Tables.Count == 0)) {
-                MessageBox.Show(this, "La sp non ha restituito risultati");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La sp non ha restituito risultati");
                 return;
             }
             DataTable t = result.Tables[0];
@@ -413,7 +412,7 @@ namespace no_table_expbank {
                 HelpForm.SetDataGrid(dataGrid1, t);
                 formatgrids FF = new formatgrids(dataGrid1);
                 FF.AutosizeColumnWidth();
-                MessageBox.Show(this, "Ci sono degli errori, pertanto non è stato generato il file!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Ci sono degli errori, pertanto non è stato generato il file!");
                 return;
             }
             if (txtCartella.Text == "") {
@@ -424,7 +423,7 @@ namespace no_table_expbank {
                 else {
                     folderBrowserDialog1.SelectedPath = txtCartella.Text;
                     HelpForm.FocusControl(txtCartella);
-                    MessageBox.Show(this, "Specificare il percorso del file");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Specificare il percorso del file");
                     return;
                 }
             }
@@ -447,7 +446,7 @@ namespace no_table_expbank {
                 QueryCreator.ShowException("Errore nel salvataggio del file " + txtFile.Text, e1);
                 return;
             }
-            MessageBox.Show(this, "File della trasmissione salvato in " + txtFile.Text);
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "File della trasmissione salvato in " + txtFile.Text);
         }
     }
-}
+}

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -41,105 +40,60 @@ using metadatalibrary;
 namespace payment_docmultiplo {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Documento di pagamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public paymentTable payment 		=> (paymentTable)Tables["payment"];
 
-	///<summary>
-	///Trattamento del bollo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable stamphandling 		=> (MetaTable)Tables["stamphandling"];
 
-	///<summary>
-	///Tesoriere
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public treasurerTable treasurer 		=> (treasurerTable)Tables["treasurer"];
 
-	///<summary>
-	///Responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public managerTable manager 		=> (managerTable)Tables["manager"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable registry 		=> (registryTable)Tables["registry"];
 
-	///<summary>
-	///Fasi di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expensephase 		=> (MetaTable)Tables["expensephase"];
 
-	///<summary>
-	///Distinta di trasmissione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public paymenttransmissionTable paymenttransmission 		=> (paymenttransmissionTable)Tables["paymenttransmission"];
 
-	///<summary>
-	///Variazione movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public expensevarTable expensevar 		=> (expensevarTable)Tables["expensevar"];
 
-	///<summary>
-	///Movimento bancario
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public banktransactionTable banktransaction 		=> (banktransactionTable)Tables["banktransaction"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable payment_bankview 		=> (MetaTable)Tables["payment_bankview"];
 
-	///<summary>
-	///Tipo di Rilevanza analitica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingkindTable sortingkind 		=> (sortingkindTable)Tables["sortingkind"];
 
-	///<summary>
-	///Classificazione Movimenti di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public expensesortedTable expensesorted 		=> (expensesortedTable)Tables["expensesorted"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expenselastview 		=> (MetaTable)Tables["expenselastview"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public configTable config 		=> (configTable)Tables["config"];
 
-	///<summary>
-	///Bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public finTable fin 		=> (finTable)Tables["fin"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expense1 		=> (MetaTable)Tables["expense1"];
 
-	///<summary>
-	///Disposizione di Pagamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public paydispositionTable paydisposition 		=> (paydispositionTable)Tables["paydisposition"];
 
-	///<summary>
-	///Disposizione di Pagamento - Dettaglio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public paydispositiondetailTable paydispositiondetail 		=> (paydispositiondetailTable)Tables["paydispositiondetail"];
 
@@ -157,6 +111,9 @@ public class dsmeta: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sorting05 		=> (MetaTable)Tables["sorting05"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable expenselastmandatedetail 		=> (MetaTable)Tables["expenselastmandatedetail"];
 
 	#endregion
 
@@ -264,6 +221,7 @@ private void initClass() {
 	tpayment_bankview.defineColumn("cu", typeof(string),false);
 	tpayment_bankview.defineColumn("lt", typeof(DateTime),false);
 	tpayment_bankview.defineColumn("lu", typeof(string),false);
+	tpayment_bankview.defineColumn("nmov", typeof(int));
 	Tables.Add(tpayment_bankview);
 	tpayment_bankview.defineKey("kpay", "idpay");
 
@@ -355,6 +313,7 @@ private void initClass() {
 	texpenselastview.defineColumn("idsor04", typeof(int));
 	texpenselastview.defineColumn("idsor05", typeof(int));
 	texpenselastview.defineColumn("idchargehandling", typeof(int));
+	texpenselastview.defineColumn("pagopanoticenum", typeof(string));
 	texpenselastview.defineColumn("net", typeof(decimal));
 	Tables.Add(texpenselastview);
 	texpenselastview.defineKey("idexp");
@@ -596,6 +555,22 @@ private void initClass() {
 	Tables.Add(tsorting05);
 	tsorting05.defineKey("idsor");
 
+	//////////////////// EXPENSELASTMANDATEDETAIL /////////////////////////////////
+	var texpenselastmandatedetail= new MetaTable("expenselastmandatedetail");
+	texpenselastmandatedetail.defineColumn("idexp", typeof(int),false);
+	texpenselastmandatedetail.defineColumn("idmankind", typeof(string),false);
+	texpenselastmandatedetail.defineColumn("yman", typeof(short),false);
+	texpenselastmandatedetail.defineColumn("nman", typeof(int),false);
+	texpenselastmandatedetail.defineColumn("rownum", typeof(int),false);
+	texpenselastmandatedetail.defineColumn("amount", typeof(decimal),false);
+	texpenselastmandatedetail.defineColumn("lt", typeof(DateTime),false);
+	texpenselastmandatedetail.defineColumn("lu", typeof(string),false);
+	texpenselastmandatedetail.defineColumn("ct", typeof(DateTime),false);
+	texpenselastmandatedetail.defineColumn("cu", typeof(string),false);
+	texpenselastmandatedetail.defineColumn("originalamount", typeof(decimal));
+	Tables.Add(texpenselastmandatedetail);
+	texpenselastmandatedetail.defineKey("idexp", "idmankind", "yman", "nman", "rownum");
+
 	#endregion
 
 
@@ -639,4 +614,3 @@ private void initClass() {
 }
 }
 }
-

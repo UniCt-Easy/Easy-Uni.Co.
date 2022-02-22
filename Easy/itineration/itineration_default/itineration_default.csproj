@@ -90,6 +90,12 @@
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
       <Private>True</Private>
     </Reference>
+	<Reference Include="meta_dalia_dipartimento">
+      <HintPath>..\..\dalia_funzionale\meta_dalia_funzionale\bin\Debug\meta_dalia_funzionale.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_dalia_dipartimento">
+      <HintPath>..\..\dalia_dipartimento\meta_dalia_dipartimento\bin\Debug\meta_dalia_dipartimento.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>

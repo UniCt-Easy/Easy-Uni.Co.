@@ -56,7 +56,7 @@
         </div>
         <div class="row">
             <div class="col-md-2">
-                <cc1:hwButton runat="server" ID="btnLocalita" Tag="choose.foreigncountry.default" TabIndex="-1" Text="Località Estera:" />
+                <cc1:hwButton runat="server" ID="btnLocalita" Tag="choose.foreigncountry.default" TabIndex="-1" class="btn btn-primary" Text="Località Estera:" />
             </div>
             <div class="col-md-6">
                 <cc1:hwDropDownList runat="server" AutoPostBack="true" ID="cmbLocalita" Tag="itinerationlap.idforeigncountry" CssClass="input-md form-control"  TabIndex="5"></cc1:hwDropDownList>

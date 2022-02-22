@@ -1,0 +1,29 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="requisito_seg_title">Titolo</label>
+					<textarea class="textarea form-control" id="requisito_seg_title" type="text"  rows="4" data-tag="requisito.title?requisitosegview.title" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="requisito_seg_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="requisito_seg_activeSi" type="radio" name="requisito_seg_active" class="custom-control-input" data-tag="requisito.active:S?requisitosegview.requisito_active:Si" data-subentity  data-mandatory ><label for="requisito_seg_activeSi"> Si</label>
+						<input id="requisito_seg_activeNo" type="radio" name="requisito_seg_active" class="custom-control-input" data-tag="requisito.active:N?requisitosegview.requisito_active:No" data-subentity  data-mandatory ><label for="requisito_seg_activeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="requisito_seg_sortcode">Codice identificativo</label>
+					<input id="requisito_seg_sortcode" type="text" class="form-control" data-tag="requisito.sortcode?requisitosegview.requisito_sortcode" data-subentity  data-mandatory />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

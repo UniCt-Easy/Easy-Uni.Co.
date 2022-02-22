@@ -24,7 +24,7 @@
     <tr>
         <td style="width: 95%">
             <center>
-            <HelpWeb:hwButton style="width: 150px;text-align:center;height: 35px" runat="server" ID="HwButton0" Text="Esporta" Tag="esporta" />
+            <HelpWeb:hwButton style="width: 150px;text-align:center;height: 35px" runat="server" ID="HwButton0" Text="Esporta" class="btn btn-primary" Tag="esporta" />
             <br />
             <br />
             </center>

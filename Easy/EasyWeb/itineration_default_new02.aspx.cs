@@ -1,23 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-Ôªøusing System;
+using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -34,6 +32,9 @@ using metaeasylibrary;
 using AllDataSet;
 using EasyWebReport;
 using itinerationFunctions;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+using System.IO;
 
 public partial class itineration_default_new02 : MetaPage {
     vistaForm_itineration DS;
@@ -185,6 +186,7 @@ public partial class itineration_default_new02 : MetaPage {
         }
         dgrSpeseSaldo.Visible = true;
         GetData.CacheTable(DS.authmodel);
+        btnStampaMissione.Enabled = false;
     }
 
     public override void BeforePost() {
@@ -192,6 +194,13 @@ public partial class itineration_default_new02 : MetaPage {
             return;
 
         DataRow CurrRow = DS.itineration.Rows[0];
+        if (CurrRow.RowState == DataRowState.Deleted){
+            foreach (var A in DS.itinerationattachment.Select()){
+                if (A.RowState != DataRowState.Deleted)
+                    A.Delete();
+            }
+        }
+
         if (CurrRow.RowState != DataRowState.Deleted) {
             int CurrentStatus = CfgFn.GetNoNullInt32(CurrRow["iditinerationstatus"]);
             int OriginalStatus;
@@ -250,7 +259,7 @@ public partial class itineration_default_new02 : MetaPage {
         */
         EnableDisableControls(btnitinerationhistory, true);
         switch (status) {
-            case 1: //bozza. Da bozza pu√≤ diventare una richiesta (attesa di autorizzazione se direct_auth)
+            case 1: //bozza. Da bozza puÚ diventare una richiesta (attesa di autorizzazione se direct_auth)
                 Meta.CanSave = true;
                 if (!PState.InsertMode) {
                     if (DirectAuth) {
@@ -285,22 +294,24 @@ public partial class itineration_default_new02 : MetaPage {
                     EnableDisableControls(chkWeb, true);
                     EnableDisableControls(btnitinerationhistory, true);
                     Meta.CanCancel = true;
+                    btnStampaMissione.Visible = true;
                 }
 
                 break;
-            case 2: //richiesta, pu√≤ essere riportata a bozza 
+            case 2: //richiesta, puÚ essere riportata a bozza 
                 btnStatus.Text = "Modifica";
                 LockUnLockControls(true);
-                btnStatus.Visible = true;
+                btnStampaMissione.Visible = true;
+                btnStatus.Enabled = true;
                 EnableDisableControls(btnEditAtt, false);
                 //EnableDisableControls(btnitinerationhistory, false);
-
+                btnStampaMissione.Enabled = true;
                 btnStatus.Enabled = true;
                 Meta.CanSave = false;// In fase di RICHIESTA non devo poter modificare nulla da Web
                 Meta.CanCancel = true;
 
                 break;
-            case 3://da correggere, pu√≤ passare a richiesta o Autorizzazione
+            case 3://da correggere, puÚ passare a richiesta o Autorizzazione
                 btnStatus.Visible = true;
                 if (DirectAuth) {
                     btnStatus.Text = "Ufficializza";
@@ -308,8 +319,9 @@ public partial class itineration_default_new02 : MetaPage {
                 else {
                     btnStatus.Text = "Invia Richiesta";
                 }
-
                 LockUnLockControls(false);
+                btnStampaMissione.Visible = true;
+                btnStampaMissione.Enabled = true;
                 EnableDisableControls(txtEsercmissione, true);
                 EnableDisableControls(txtNummissione, true);
                 EnableDisableControls(txtCompartoCSA, true);
@@ -338,9 +350,11 @@ public partial class itineration_default_new02 : MetaPage {
                 Meta.CanSave = true;
                 Meta.CanCancel = true;
                 break;
-            case 5: //Da autorizzazione pu√≤ passare a bozza solo se DirectAuth
+            case 5: //Da autorizzazione puÚ passare a bozza solo se DirectAuth
             case 8:
                 LockUnLockControls(true);
+                btnStampaMissione.Visible = true;
+                btnStampaMissione.Enabled = true;
                 EnableDisableControls(btnStatus, false);
                 EnableDisableControls(btnEditAtt, false);
                 EnableDisableControls(txtadditionalannotation, true); //task 9451
@@ -360,10 +374,12 @@ public partial class itineration_default_new02 : MetaPage {
 
                 break;
 
-            case 4: //Inserita , √® tutto bloccato 
+            case 4: //Inserita , Ë tutto bloccato 
                 // Blocca tutto
                 btnStatus.Visible = false;
                 LockUnLockControls(true);
+                btnStampaMissione.Visible = true;
+                btnStampaMissione.Enabled = true;
                 //btnStatus.Enabled = true;
                 EnableDisableControls(btnStatus, false);
                 EnableDisableControls(btnInsertTappa, true);
@@ -388,6 +404,8 @@ public partial class itineration_default_new02 : MetaPage {
                 // Attenzione! In questo caso, oltre ad essere tutto bloccato
                 btnStatus.Visible = false;
                 LockUnLockControls(true);
+                btnStampaMissione.Visible = true;
+                btnStampaMissione.Enabled = true;
                 //btnStatus.Enabled = true;
                 EnableDisableControls(btnStatus, false);
                 EnableDisableControls(btnEditAtt, false);
@@ -408,6 +426,8 @@ public partial class itineration_default_new02 : MetaPage {
                 // Blocca tutto
                 btnStatus.Visible = false;
                 LockUnLockControls(true);
+                btnStampaMissione.Visible = true;
+                btnStampaMissione.Enabled = true;
                 //btnStatus.Enabled = true;
                 EnableDisableControls(btnStatus, false);
                 EnableDisableControls(btnEditAtt, false);
@@ -702,7 +722,7 @@ public partial class itineration_default_new02 : MetaPage {
         bool faseanticipo = getFaseAnticipoMissione();
         bool dativalidi = DataMissioneValida() && cmbAuthModel.SelectedIndex > 0;
 
-        //in bozza ed in "da rivedere" √® possibile inserire le spese (rendiconto o anticipo a seconda dello stato)
+        //in bozza ed in "da rivedere" Ë possibile inserire le spese (rendiconto o anticipo a seconda dello stato)
         if (currentstatus == 1 || currentstatus == 3) {
             btnInsertSpesa.Visible = faseanticipo && dativalidi;
             btnEditSpesa.Visible = dativalidi;
@@ -942,7 +962,7 @@ public partial class itineration_default_new02 : MetaPage {
         HelpForm.SetDenyNull(DS.itineration.Columns["clause_accepted"], true);
 
         GetData.MarkSkipSecurity(DS.manager);
-
+        btnStampaMissione.Enabled = false;
         btnStatus.Tag = "do_command.chstatus";
     }
 
@@ -952,8 +972,147 @@ public partial class itineration_default_new02 : MetaPage {
         if (command == "history") {
             btnitinerationhistory_Click(null, null);
         }
+        if (command == "stampamissione"){
+            HwButtonStampaMissione_Click();
+        }
+    }
+    private string ReportName = "missione_prospetto_calcolo";
+
+    protected void HwButtonStampaMissione_Click(){
+        DataRow curr = DS.itineration.First();
+        if (curr == null){
+            return;
+        }
+        int yitineration = CfgFn.GetNoNullInt32(curr["yitineration"]);
+        int numberbegin = CfgFn.GetNoNullInt32(curr["nitineration"]);
+        int numberend = CfgFn.GetNoNullInt32(curr["nitineration"]);
+        string pdfFileName, errmess;
+        bool res = stampaMissione(yitineration, numberbegin, numberend, out pdfFileName, out errmess);
+        if (!res){
+            ShowClientMessage(errmess, "Attenzione", System.Windows.Forms.MessageBoxButtons.OK);
+            return;
+        }
+
+        var f = "window.open('" + pdfFileName + "');";
+        if (!Page.ClientScript.IsClientScriptBlockRegistered(typeof(Page), "openwin"))
+            Page.ClientScript.RegisterClientScriptBlock(
+                typeof(Page), "openwin", f, true);
     }
 
+    private bool stampaMissione(int yitineration, int numberbegin, int numberend, out string pdfFileName, out string errmess){
+        errmess = "";
+        pdfFileName = "";
+
+        DataTable myPrymaryTable = createStampaMissioneTable();
+        myPrymaryTable.Rows[0]["reportname"] = ReportName;
+        myPrymaryTable.Rows[0]["ayear"] = Conn.GetSys("esercizio");
+        myPrymaryTable.Rows[0]["yitineration"] = yitineration;
+        myPrymaryTable.Rows[0]["numberbegin"] = numberbegin;
+        myPrymaryTable.Rows[0]["numberend"] = numberend;
+        myPrymaryTable.Rows[0]["idsor01"] = DBNull.Value;
+        myPrymaryTable.Rows[0]["idsor02"] = DBNull.Value;
+        myPrymaryTable.Rows[0]["idsor03"] = DBNull.Value;
+        myPrymaryTable.Rows[0]["idsor04"] = DBNull.Value;
+        myPrymaryTable.Rows[0]["idsor05"] = DBNull.Value;
+
+        string filter = QHS.CmpEq("reportname", ReportName);
+
+        DataTable Report = Conn.RUN_SELECT("report", "*", null, filter, null, false);
+
+        if (Report == null)
+        {
+            errmess = "Report: '" + ReportName + "' non trovato.";
+            return false;
+        }
+
+        var rep = Report._First();
+        var par = myPrymaryTable.Rows[0];
+
+        ReportDocument myRptDoc = Easy_DataAccess.GetReport(Conn as Easy_DataAccess, rep, par, out errmess);
+        if (myRptDoc == null)
+        {
+            if (errmess == null || errmess == "") errmess = "Impossibile trovare il report";
+            return false;
+        }
+
+        string FilePath = MapPath("ReportPDF");
+        if (!FilePath.EndsWith("\\")) FilePath += "\\";
+
+        var tempfilename = "missione-" + Guid.NewGuid() + ".pdf";
+        pdfFileName = @"ReportPDF/" + tempfilename;
+        string error;
+        bool retExp = exportToPdf(myRptDoc, tempfilename, FilePath, out error);
+        if (!retExp) errmess = "Impossibile esportare in pdf: " + tempfilename + " in " + FilePath + " (" + error + ")";
+        return retExp;
+    }
+
+    private bool exportToPdf(ReportDocument rd, string fileName, string relativePath, out string error){
+        error = "";
+        var tempfilename = relativePath + fileName;
+
+        rd.ExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
+        rd.ExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
+
+        DiskFileDestinationOptions diskOpts = new DiskFileDestinationOptions { DiskFileName = tempfilename };
+        rd.ExportOptions.DestinationOptions = diskOpts;
+
+        // Export the report
+        try{
+            rd.Export();
+            bool existfile = File.Exists(tempfilename);
+            if (!existfile) error = "export fallito";
+            return existfile;
+        }
+        catch (Exception e){
+            if (!e.ToString().Contains("0x8000030E")){
+                error =
+                    "E' necessario disinstallare l'aggiornamento di windows KB3102429 per poter effettuare la stampa. - " +
+                    e.Message;
+                return false;
+            }
+            error = e.Message;
+            return false;
+        }
+    }
+
+    DataTable createStampaMissioneTable() {
+        var myPrimaryTable = new DataTable("export_itineration");
+        //Create a dummy primary key
+        var dcpk = new DataColumn("DummyPrimaryKeyField", typeof(int)) { DefaultValue = 1 };
+        myPrimaryTable.Columns.Add(dcpk);
+        myPrimaryTable.PrimaryKey = new[] { dcpk };
+
+        DataColumn column;
+        myPrimaryTable.Columns.Add(new DataColumn("reportname", typeof(string)));
+        myPrimaryTable.Columns.Add(new DataColumn("ayear", typeof(int)));
+        myPrimaryTable.Columns.Add(new DataColumn("yitineration", typeof(int)));
+        myPrimaryTable.Columns.Add(new DataColumn("numberbegin", typeof(int)));
+        myPrimaryTable.Columns.Add(new DataColumn("numberend", typeof(int)));
+
+        column = new DataColumn("idsor01", typeof(int));
+        column.AllowDBNull = true;
+        myPrimaryTable.Columns.Add(column);
+
+        column = new DataColumn("idsor02", typeof(int));
+        column.AllowDBNull = true;
+        myPrimaryTable.Columns.Add(column);
+
+        column = new DataColumn("idsor03", typeof(int));
+        column.AllowDBNull = true;
+        myPrimaryTable.Columns.Add(column);
+
+        column = new DataColumn("idsor04", typeof(int));
+        column.AllowDBNull = true;
+        myPrimaryTable.Columns.Add(column);
+
+        column = new DataColumn("idsor05", typeof(int));
+        column.AllowDBNull = true;
+        myPrimaryTable.Columns.Add(column);
+
+        var r = myPrimaryTable.NewRow();
+        myPrimaryTable.Rows.Add(r);
+        return myPrimaryTable;
+    }
     void HideCsa() {
         string script = "$(function(){\r\n" +
           "$(\".csahid\").each(function(index){\r\n" +
@@ -1399,6 +1558,12 @@ public partial class itineration_default_new02 : MetaPage {
 
         cmbStatus.Enabled = false;
         chkWeb.Enabled = false;
+        if ((!PState.IsEmpty) && (PState.EditMode)) {
+            btnStampaMissione.Enabled = true;
+        }
+        else {
+            btnStampaMissione.Enabled = false;
+        }
         if (PState.EditMode) {
             ManageStatus();
         }
@@ -1461,7 +1626,7 @@ public partial class itineration_default_new02 : MetaPage {
             DataTable DT = Conn.RUN_SELECT("service", "*", null, filter, null, false);
             if (DT != null && DT.Rows.Count != 0)
                 Curr["idser"] = DT.Rows[0]["idser"];
-
+            btnStampaMissione.Visible = false;
         }
         if (PState.EditMode && PState.IsFirstFillForThisRow) {
             AggiornaSoloInformazioni();
@@ -1504,14 +1669,14 @@ public partial class itineration_default_new02 : MetaPage {
         if (Meta.edit_type== "myteamnew02"){
             grpResponsabile.Enabled = false; 
         }
+        Meta.metaModel.MarkTableAsNotEntityChild(DS.itineration, DS.itinerationrefundattachment);
     }
 
     void CalcolaTotAnticipo() {
         DataRow Curr = DS.itineration.Rows[0];
         if (DS.HasChanges()) {
-            decimal nuovototanticipo = CfgFn.GetNoNullDecimal(Curr["totadvance"]);
             if (!AnticipoIsReadOnly) {
-                nuovototanticipo = CfgFn.RoundValuta(MissFun.GetTotAnticipoMissione(DS.itinerationlap,
+                decimal nuovototanticipo = CfgFn.RoundValuta(MissFun.GetTotAnticipoMissione(DS.itinerationlap,
                         DS.itinerationrefund_advance));
                 Curr["totadvance"] = nuovototanticipo;
             }
@@ -1570,8 +1735,7 @@ public partial class itineration_default_new02 : MetaPage {
 
     bool DataValida(string date) {
         try {
-            DateTime TT = (DateTime)HelpForm.GetObjectFromString(typeof(DateTime),
-                date, "x.y");
+            DateTime TT = (DateTime)HelpForm.GetObjectFromString(typeof(DateTime),date, "x.y");
             return true;
         }
         catch {
@@ -1579,31 +1743,28 @@ public partial class itineration_default_new02 : MetaPage {
         }
     }
     bool DataMissioneValida() {
-        if (PState.IsEmpty)
-            return false;
-        if (txtDataInizio.ToString().Trim() == "")
-            return false;
+        if (PState.IsEmpty) return false;
+        if (txtDataInizio.ToString().Trim() == "") return false;
         return DataValida(txtDataInizio.Text.ToString());
 
     }
 
     bool getFaseAnticipoMissione() {
-        if (PState.IsEmpty)
-            return false;
+        if (PState.IsEmpty) return false;
         bool phase = false;
 
-        // non pi√π data contabile ma data di sistema
+        // non pi˘ data contabile ma data di sistema
         //DateTime datacontabile = (DateTime)Meta.GetSys("datacontabile");
 
         object datainizio;
         if (DataValida(txtDataInizio.Text.ToString())) {
             datainizio = HelpForm.GetObjectFromString(typeof(DateTime), txtDataInizio.Text, txtDataInizio.Tag.ToString());
         }
-        else
+        else {
             return false;
+        }
 
-        if (dataoggi < (DateTime)datainizio)
-            phase = true;
+        if (dataoggi < (DateTime)datainizio) phase = true;
         return phase;
     }
 
@@ -1619,11 +1780,9 @@ public partial class itineration_default_new02 : MetaPage {
             int N = Conn.RUN_SELECT_COUNT("expenseitineration", filter, false);
             filter = QHS.CmpMulti(Curr, "iditineration");
             N += Conn.RUN_SELECT_COUNT("pettycashoperationitineration", filter, false);
-            if (N > 0)
-                AnticipoIsReadOnly = true;
+            if (N > 0) AnticipoIsReadOnly = true;
         }
-        if (!getFaseAnticipoMissione())
-            AnticipoIsReadOnly = true;
+        if (!getFaseAnticipoMissione()) AnticipoIsReadOnly = true;
     }
 
     void AggiornaTotaliErogati() {
@@ -1776,7 +1935,7 @@ public partial class itineration_default_new02 : MetaPage {
             "start, italianexemption,foreignexemption",
             sorting, filter, "1", false);
         if (Generalita.Rows.Count == 0) {
-            //MessageBox.Show("In Generalit√† Missioni non √® stata trovata alcuna informazione", "Avviso");
+            //MessageBox.Show("In Generalit‡ Missioni non Ë stata trovata alcuna informazione", "Avviso");
             MyCfg.italianexemption = 0;
             MyCfg.foreignexemption = 0;
             MyCfg.foreignhours = 0;
@@ -1857,7 +2016,7 @@ public partial class itineration_default_new02 : MetaPage {
             "start, italianexemption,foreignexemption",
             sorting, filter, "1", false);
         if (Generalita.Rows.Count == 0) {
-            //MessageBox.Show("In Generalit√† Missioni non √® stata trovata alcuna informazione", "Avviso");
+            //MessageBox.Show("In Generalit‡ Missioni non Ë stata trovata alcuna informazione", "Avviso");
             return;
         }
         DataRow RowGen = Generalita.Rows[0];
@@ -1945,7 +2104,7 @@ public partial class itineration_default_new02 : MetaPage {
             int status = CfgFn.GetNoNullInt32(CurrentRow["iditinerationstatus"]);
 
             switch (status) {
-                case 1://se √® in bozza o da correggere passa in richiesta o stato di autorizzazione a seconda del tipo di gestione
+                case 1://se Ë in bozza o da correggere passa in richiesta o stato di autorizzazione a seconda del tipo di gestione
                 case 3:
                     if (DirectAuth) {
                         PoniInAutorizzazione();
@@ -1958,14 +2117,14 @@ public partial class itineration_default_new02 : MetaPage {
                         CommFun.DoMainCommand("mainsave");
                     }
                     break;
-                case 2:// se √® in richiesta passa in bozza
+                case 2:// se Ë in richiesta passa in bozza
                     CurrentRow["iditinerationstatus"] = 1;
                     managingstatus = true;
                     CommFun.FreshPage(false, false);
                     managingstatus = false;
                     CommFun.DoMainCommand("mainsave");
                     break;
-                case 6:// se √® approvata passa in bozza
+                case 6:// se Ë approvata passa in bozza
                     CurrentRow["iditinerationstatus"] = 1;
                     managingstatus = true;
                     CommFun.FreshPage(false, false);
@@ -2268,7 +2427,7 @@ public partial class itineration_default_new02 : MetaPage {
             GeneraAutorizzazioni();
 
         if ((DS.itinerationauthagency.Select().Length == 0) ||  //non ci sono agenti autorizzativi
-            (DS.itinerationauthagency.Select(QHC.CmpNe("flagstatus", "S")).Length == 0)) { // missione gi√† approvata devo inserire il saldo
+            (DS.itinerationauthagency.Select(QHC.CmpNe("flagstatus", "S")).Length == 0)) { // missione gi‡ approvata devo inserire il saldo
             curr["iditinerationstatus"] = 6;
             if (getFaseAnticipoMissione() == false)
                 curr["completed"] = "S";
@@ -2410,4 +2569,3 @@ public partial class itineration_default_new02 : MetaPage {
 
     }
 }
-

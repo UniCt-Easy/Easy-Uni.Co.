@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_statopatrimoniale_cdo_coordanal]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_statopatrimoniale_cdo_coordanal]
 GO
@@ -8,7 +25,7 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-
+--setuser'amministrazione'
 CREATE  PROCEDURE [rpt_statopatrimoniale_cdo_coordanal]
 (
 	@ayear int,
@@ -23,7 +40,7 @@ CREATE  PROCEDURE [rpt_statopatrimoniale_cdo_coordanal]
 )
 AS BEGIN
 
---exec rpt_statopatrimoniale_cdo_coordanal 2018, {ts '2018-01-01 00:00:00'}, {ts '2018-12-31 00:00:00'}, '%','N','N','S',2033,'N'
+--exec rpt_statopatrimoniale_cdo_coordanal 2018, {ts '2018-01-01 00:00:00'}, {ts '2018-12-31 00:00:00'}, '%','N','N','S',NULL,'N'
 --exec rpt_statopatrimoniale_cdo_coordanal 2017, {ts '2017-01-01 00:00:00'}, {ts '2017-12-31 00:00:00'}, '%','N','N','N',NULL,'N'
 -- Stato Patrimoniale Anno Precedente
 DECLARE @firstdayPY datetime
@@ -55,6 +72,12 @@ SELECT	@codeupb = codeupb,
 FROM	upb 
 WHERE	idupb = @idupboriginal
 
+
+DECLARE @Mostracoordianataanalitica1 char(1)
+SELECT @Mostracoordianataanalitica1= isnull(paramvalue,'N') 
+FROM reportadditionalparam WHERE paramname = 'Mostracoordianataanalitica1'
+and reportname = 'statopatrimonialedm2014_new'
+
 create table #ANALITICA1(_idsor1 int)
 if ((@idsor1 is not null) and  @showidsor1child = 'N')
 Begin
@@ -74,14 +97,24 @@ Begin
 	where entry.adate BETWEEN @start AND @stop
 		AND (entrydetail.idupb like @idupb  OR @idupb = '%')
 		AND entry.identrykind not in (6,11,12) -- DEVO ESCLUDERE LE SCRITTURE DI EPILOGO
-		and  SLK1.idparent = @idsor1
+		and  (SLK1.idparent = @idsor1)
 End	
-
-if(@idsor1 is null)
+print @Mostracoordianataanalitica1
+if(@idsor1 is null AND @Mostracoordianataanalitica1 = 'S')
 Begin
-		insert into #ANALITICA1 
-		select null
+	insert into #ANALITICA1 (_idsor1)
+	select distinct entrydetail.idsor1 
+	from entrydetail 
+	join entry 
+		ON entry.yentry = entrydetail.yentry AND entry.nentry = entrydetail.nentry
+	join sortinglink SLK1
+		on SLK1.idchild = entrydetail.idsor1 
+	where entry.adate BETWEEN @start AND @stop
+		AND (entrydetail.idupb like @idupb  OR @idupb = '%')
+		AND entry.identrykind not in (6,11,12) -- DEVO ESCLUDERE LE SCRITTURE DI EPILOGO
+	 
 end
+
 
 
 CREATE TABLE #conti_d_ordine
@@ -150,8 +183,9 @@ Begin
 					 JOIN entry on
 					 entry.nentry = entrydetail.nentry and
 					 entry.yentry = entrydetail.yentry 
+					 join accountlookup ON #conti_d_ordine.idacc = accountlookup.newidacc
 					 WHERE  amount < 0 
-					 AND entrydetail.idacc =  @sk_prec + SUBSTRING(#conti_d_ordine.idacc, 3,LEN(#conti_d_ordine.idacc) -2) 
+					 AND  entrydetail.idacc = accountlookup.oldidacc
 					 AND  (entrydetail.idupb like @idupb  OR @idupb is null)
 					 AND entry.identrykind  not in (6,11,12) -- DEVO ESCLUDERE LE SCRITTURE DI EPILOGO
 					 AND entry.adate between @firstdayPY and @lastdayPY
@@ -164,8 +198,9 @@ Begin
 					 JOIN entry on
 					 entry.nentry = entrydetail.nentry and
 					 entry.yentry = entrydetail.yentry 
+					 join accountlookup ON #conti_d_ordine.idacc = accountlookup.newidacc
 					 WHERE  amount > 0 
-					 AND entrydetail.idacc =  @sk_prec + SUBSTRING(#conti_d_ordine.idacc, 3,LEN(#conti_d_ordine.idacc) -2) 
+					 AND  entrydetail.idacc = accountlookup.oldidacc
 					 AND  (entrydetail.idupb like @idupb  OR @idupb is null)
 					 AND entry.identrykind  not in (6,11,12) -- DEVO ESCLUDERE LE SCRITTURE DI EPILOGO
 					 AND entry.adate between  @firstdayPY and @lastdayPY
@@ -248,9 +283,9 @@ Begin
 		on entrydetail.idacc = account.idacc
 	join #ANALITICA1
 		on #ANALITICA1._idsor1 = entrydetail.idsor1
+	 join accountlookup ON entrydetail.idacc = accountlookup.oldidacc AND accountlookup.newidacc= account.idacc
 	WHERE  amount < 0 
 		and entrydetail.idsor1 = #ANALITICA1._idsor1 
-		AND entrydetail.idacc =  @sk_prec + SUBSTRING(account.idacc, 3,LEN(account.idacc) -2) 
 		AND  (entrydetail.idupb like @idupb  OR @idupb is null)
 		AND entry.identrykind  not in (6,11,12) -- DEVO ESCLUDERE LE SCRITTURE DI EPILOGO
 		AND entry.adate between @firstdayPY and @lastdayPY
@@ -275,9 +310,9 @@ Begin
 		on entrydetail.idacc = account.idacc
 	join #ANALITICA1
 		on #ANALITICA1._idsor1 = entrydetail.idsor1
+	join accountlookup ON entrydetail.idacc = accountlookup.oldidacc AND accountlookup.newidacc= account.idacc
 	WHERE  amount > 0 
 		and entrydetail.idsor1 = #ANALITICA1._idsor1 
-		AND entrydetail.idacc =  @sk_prec + SUBSTRING(account.idacc, 3,LEN(account.idacc) -2) 
 		AND  (entrydetail.idupb like @idupb  OR @idupb is null)
 		AND entry.identrykind  not in (6,11,12) -- DEVO ESCLUDERE LE SCRITTURE DI EPILOGO
 		AND entry.adate between @firstdayPY and @lastdayPY

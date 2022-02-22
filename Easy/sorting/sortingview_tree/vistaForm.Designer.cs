@@ -1,169 +1,160 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace sortingview_tree {
+
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable sortinglevel{get { return this.Tables["sortinglevel"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable sortingview{get { return this.Tables["sortingview"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace sortingview_tree {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public class vistaForm: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	///<summary>
+	///Livello Classificazione Movimenti
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable sortinglevel 		=> Tables["sortinglevel"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable sortingview 		=> Tables["sortingview"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaForm(){
-this.BeginInit();
-this.InitClass();
-this.EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-this.DataSetName = "vistaForm";
-this.Prefix = "";
-this.Namespace = "http://tempuri.org/vistaForm.xsd";
-this.EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaForm";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaForm.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("sortinglevel");
-	C= new DataColumn("nlevel", typeof(System.Byte), "");
+	//////////////////// SORTINGLEVEL /////////////////////////////////
+	var tsortinglevel= new DataTable("sortinglevel");
+	C= new DataColumn("nlevel", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idsorkind", typeof(System.Int32), "");
+	tsortinglevel.Columns.Add(C);
+	C= new DataColumn("idsorkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tsortinglevel.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("flag", typeof(System.Int16), "");
+	tsortinglevel.Columns.Add(C);
+	C= new DataColumn("flag", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tsortinglevel.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tsortinglevel.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tsortinglevel.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tsortinglevel.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tsortinglevel.Columns.Add(C);
+	Tables.Add(tsortinglevel);
+	tsortinglevel.PrimaryKey =  new DataColumn[]{tsortinglevel.Columns["nlevel"], tsortinglevel.Columns["idsorkind"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["nlevel"], 	T.Columns["idsorkind"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("sortingview");
-	C= new DataColumn("idsorkind", typeof(System.Int32), "");
+	//////////////////// SORTINGVIEW /////////////////////////////////
+	var tsortingview= new DataTable("sortingview");
+	C= new DataColumn("idsorkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idsor", typeof(System.Int32), "");
+	tsortingview.Columns.Add(C);
+	C= new DataColumn("idsor", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("sortcode", typeof(System.String), "");
+	tsortingview.Columns.Add(C);
+	C= new DataColumn("sortcode", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nlevel", typeof(System.Byte), "");
+	tsortingview.Columns.Add(C);
+	C= new DataColumn("nlevel", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("leveldescr", typeof(System.String), "");
+	tsortingview.Columns.Add(C);
+	C= new DataColumn("leveldescr", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("paridsor", typeof(System.Int32), ""));
-	C= new DataColumn("description", typeof(System.String), "");
+	tsortingview.Columns.Add(C);
+	tsortingview.Columns.Add( new DataColumn("paridsor", typeof(int)));
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("ayear", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("incomeprevision", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("expenseprevision", typeof(System.Decimal), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tsortingview.Columns.Add(C);
+	tsortingview.Columns.Add( new DataColumn("ayear", typeof(short)));
+	tsortingview.Columns.Add( new DataColumn("incomeprevision", typeof(decimal)));
+	tsortingview.Columns.Add( new DataColumn("expenseprevision", typeof(decimal)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tsortingview.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tsortingview.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tsortingview.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tsortingview.Columns.Add(C);
+	tsortingview.Columns.Add( new DataColumn("start", typeof(short)));
+	tsortingview.Columns.Add( new DataColumn("stop", typeof(short)));
+	tsortingview.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsortingview.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsortingview.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsortingview.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsortingview.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	Tables.Add(tsortingview);
+	tsortingview.PrimaryKey =  new DataColumn[]{tsortingview.Columns["idsorkind"], tsortingview.Columns["idsor"]};
 
-	T.Columns.Add(new DataColumn("start", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("stop", typeof(System.Int16), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["idsorkind"], 	T.Columns["idsor"]};
-	T.PrimaryKey = key;
+
+	#endregion
 
 
-//Relations
-DataTable TPar;
-DataTable TChild;
-DataColumn []CPar;
-DataColumn []CChild;
-TPar= Tables["sortingview"];
-TChild= Tables["sortingview"];
-CPar = new DataColumn[2]{TPar.Columns["idsorkind"], TPar.Columns["idsor"]};
-CChild = new DataColumn[2]{TChild.Columns["idsorkind"], TChild.Columns["paridsor"]};
-Relations.Add(new DataRelation("sortingviewsortingview",CPar,CChild));
+	#region DataRelation creation
+	var cPar = new []{sortinglevel.Columns["nlevel"], sortinglevel.Columns["idsorkind"]};
+	var cChild = new []{sortingview.Columns["nlevel"], sortingview.Columns["idsorkind"]};
+	Relations.Add(new DataRelation("sortinglevelsortingview",cPar,cChild,false));
 
-TPar= Tables["sortinglevel"];
-TChild= Tables["sortingview"];
-CPar = new DataColumn[2]{TPar.Columns["nlevel"], TPar.Columns["idsorkind"]};
-CChild = new DataColumn[2]{TChild.Columns["nlevel"], TChild.Columns["idsorkind"]};
-Relations.Add(new DataRelation("sortinglevelsortingview",CPar,CChild));
+	cPar = new []{sortingview.Columns["idsorkind"], sortingview.Columns["idsor"]};
+	cChild = new []{sortingview.Columns["idsorkind"], sortingview.Columns["paridsor"]};
+	Relations.Add(new DataRelation("sortingviewsortingview",cPar,cChild,false));
+
+	#endregion
 
 }
 }
 }
-

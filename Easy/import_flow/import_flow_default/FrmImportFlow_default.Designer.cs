@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿namespace import_flow_default {
+
+namespace import_flow_default {
     partial class FrmImportFlow_default {
         /// <summary>
         /// Required designer variable.
@@ -75,7 +74,7 @@
             this.labFinalMsg = new System.Windows.Forms.Label();
             this.btnNext = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
-            this.openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
+            this._openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
             this.DS = new import_flow_default.vistaForm();
             this.tabPage9 = new Crownwood.Magic.Controls.TabPage();
             this.gridstorni = new System.Windows.Forms.DataGrid();
@@ -570,7 +569,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label labFinalMsg;
         private System.Windows.Forms.Button btnImport;
-        private System.Windows.Forms.OpenFileDialog openInputFileDlg;
+        private System.Windows.Forms.OpenFileDialog _openInputFileDlg;
         private System.Windows.Forms.CheckBox chkRaggruppa;
         private Crownwood.Magic.Controls.TabPage tabPage8;
         private System.Windows.Forms.Label label8;
@@ -582,4 +581,4 @@
         private System.Windows.Forms.DataGrid gridstorni;
         private System.Windows.Forms.Label label10;
     }
-}
+}

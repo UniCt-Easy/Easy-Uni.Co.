@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -24,14 +23,19 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using metadatalibrary;
+using q=metadatalibrary.MetaExpression;
 using funzioni_configurazione;
 
 namespace estimatedetail_default {
-    public partial class FrmEstimateDetail_Default : Form {
+    public partial class FrmEstimateDetail_Default : MetaDataForm {
         MetaData Meta;
         DataAccess Conn;
         public FrmEstimateDetail_Default() {
             InitializeComponent();
+            cmbTassonomia.DataSource = DS.tassonomia_pagopa;
+            cmbTassonomia.ValueMember = "idtassonomia";
+            cmbTassonomia.DisplayMember = "title";
+
         }
         
         CQueryHelper QHC;
@@ -50,6 +54,7 @@ namespace estimatedetail_default {
             Meta.CanCancel = false;
             Meta.CanSave = false;
             DataAccess.SetTableForReading(DS.finmotive_income, "finmotive");
+            DataAccess.SetTableForReading(DS.finmotive_iva_income, "finmotive");
             DataAccess.SetTableForReading(DS.sorting1, "sorting");
             DataAccess.SetTableForReading(DS.sorting2, "sorting");
             DataAccess.SetTableForReading(DS.sorting3, "sorting");
@@ -96,9 +101,18 @@ namespace estimatedetail_default {
             SiopeObj = new siope_helper(this, txtCodSiope, txtDescSiope, btnSiope, grpBoxSiopeEP, false, DS.sorting_siope);
         }
 
+        void calcolaIncassato() {
+	        if (Meta.InsertMode) return;
+	        if (!gboxIncassato.Visible) return;
+	        decimal incassato = CfgFn.GetNoNullDecimal(Conn.readValue("estimatedetail_extview",
+		        q.keyCmp(DS.estimatedetail.Rows[0]), "cashed"));
+	        txtIncassato.Text = incassato.ToString("c");
+        }
+
         siope_helper SiopeObj;
 
         public void MetaData_AfterFill() {
+	        if (Meta.FirstFillForThisRow) calcolaIncassato();
             enableControls(false);
             CalcolaImponibileValuta();
             CalcolaImportiEUR();
@@ -113,10 +127,14 @@ namespace estimatedetail_default {
             //txtTaxRate.Text = "";
             txtImponibileEUR.Text = "";
             txtIvaEUR.Text = "";
+            txtIncassato.Text = "";
         }
 
         private void enableControls(bool abilita) {
             bool readOnly = !abilita;
+
+            btnTassonomia.Enabled = abilita;
+            cmbTassonomia.Enabled = abilita;
 
             gBoxIvaKind.Enabled = abilita;
             gBoxValuta.Enabled = abilita;
@@ -270,6 +288,7 @@ namespace estimatedetail_default {
         private void riempiOggetti(DataRow listRow) {
             txtListino.Text = (listRow != null) ? listRow["intcode"].ToString() : "";
             txtDescrizioneListino.Text = (listRow != null) ? listRow["description"].ToString() : "";
+
         }
 
         private void svuotaOggetti() {
@@ -354,4 +373,4 @@ namespace estimatedetail_default {
 
 
     }
-}
+}

@@ -1,0 +1,103 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabaccordoscambiomidett_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabaccordoscambiomidett_seg_0"><i class="fa fa-handshake mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabaccordoscambiomidett_seg_1" class="nav-link" data-toggle="pill" data-target="#tabaccordoscambiomidett_seg_1"><i class="fa fa-calendar-alt mr-1"></i>Porzioni d’anno interessate</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabaccordoscambiomidett_seg_2" class="nav-link" data-toggle="pill" data-target="#tabaccordoscambiomidett_seg_2"><i class="fa fa-language mr-1"></i>Elenco Lingue e livello richiesto per gli studenti espressi con livelli EUROPASS</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabaccordoscambiomidett_seg_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="accordoscambiomidett_seg_idisced2013">Classificazione ISCED 2013</label>
+					<div>
+						<input id="accordoscambiomidett_seg_idisced2013" name="accordoscambiomidett_seg_idisced2013" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="isced2013.detailedfield" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="accordoscambiomidett_seg_idreg_istitutiesteri">Istituto estero</label>
+					<div>
+						<input id="accordoscambiomidett_seg_idreg_istitutiesteri" name="accordoscambiomidett_seg_idreg_istitutiesteri" type="text" data-listtype="istitutiesteri"  class="form-control" data-minchar="2" data-tag="registryistitutiesteriview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="accordoscambiomidett_seg_idtorkind">Modalità di invio del trascript of record</label>
+					<select id="accordoscambiomidett_seg_idtorkind" class="custom-select d-block w-100"  data-source-name="torkind" data-value-member="idtorkind" data-display-member="title" data-custom-control="combo" data-tag="accordoscambiomidett.idtorkind?accordoscambiomidettsegview.accordoscambiomidett_idtorkind" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="accordoscambiomidett_seg_numdocoutgoing">Numero di docenti outgoing</label>
+					<input id="accordoscambiomidett_seg_numdocoutgoing" type="text" class="form-control" data-tag="accordoscambiomidett.numdocoutgoing?accordoscambiomidettsegview.accordoscambiomidett_numdocoutgoing" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="accordoscambiomidett_seg_numpersincoming">Numero di personale incoming</label>
+					<input id="accordoscambiomidett_seg_numpersincoming" type="text" class="form-control" data-tag="accordoscambiomidett.numpersincoming?accordoscambiomidettsegview.accordoscambiomidett_numpersincoming" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="accordoscambiomidett_seg_numpersoutgoing">Numero di personale outgoing</label>
+					<input id="accordoscambiomidett_seg_numpersoutgoing" type="text" class="form-control" data-tag="accordoscambiomidett.numpersoutgoing?accordoscambiomidettsegview.accordoscambiomidett_numpersoutgoing" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="accordoscambiomidett_seg_numstulearincoming">Numero di studenti incoming for learning</label>
+					<input id="accordoscambiomidett_seg_numstulearincoming" type="text" class="form-control" data-tag="accordoscambiomidett.numstulearincoming?accordoscambiomidettsegview.accordoscambiomidett_numstulearincoming" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="accordoscambiomidett_seg_numstulearoutgoing">Numero di studenti outgoing for learning</label>
+					<input id="accordoscambiomidett_seg_numstulearoutgoing" type="text" class="form-control" data-tag="accordoscambiomidett.numstulearoutgoing?accordoscambiomidettsegview.accordoscambiomidett_numstulearoutgoing" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="accordoscambiomidett_seg_numstutraincoming">Numero di studenti incoming for traineeship</label>
+					<input id="accordoscambiomidett_seg_numstutraincoming" type="text" class="form-control" data-tag="accordoscambiomidett.numstutraincoming?accordoscambiomidettsegview.accordoscambiomidett_numstutraincoming" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="accordoscambiomidett_seg_numstutraoutgoing">Numero di studenti outgoing for traineeship</label>
+					<input id="accordoscambiomidett_seg_numstutraoutgoing" type="text" class="form-control" data-tag="accordoscambiomidett.numstutraoutgoing?accordoscambiomidettsegview.accordoscambiomidett_numstutraoutgoing" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#accordoscambiomidett_seg_stipula").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="accordoscambiomidett_seg_stipula">Data di stipula</label>
+					<input id="accordoscambiomidett_seg_stipula" type="text" class="form-control" data-tag="accordoscambiomidett.stipula?accordoscambiomidettsegview.accordoscambiomidett_stipula" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#accordoscambiomidett_seg_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="accordoscambiomidett_seg_stop">Data di termine dell'accordo</label>
+					<input id="accordoscambiomidett_seg_stop" type="text" class="form-control" data-tag="accordoscambiomidett.stop?accordoscambiomidettsegview.accordoscambiomidett_stop" data-subentity  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabaccordoscambiomidett_seg_1" role="tabpanel">
+				<div class="gridx" id="grid_accordoscambiomiporzanno_seg" data-tag="accordoscambiomiporzanno.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabaccordoscambiomidett_seg_2" role="tabpanel">
+				<div class="gridx" id="grid_cefrlanglevel_accordoscambiomidettlang" data-tag="cefrlanglevel.accordoscambiomidettlang.accordoscambiomidettlang" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

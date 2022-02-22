@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,7 +29,7 @@ using System.Xml;
 
 namespace webuser_default
 {
-    public partial class Frm_webuser_default : Form
+    public partial class Frm_webuser_default : MetaDataForm
     {
         public MetaData meta;
         DataAccess conn ;
@@ -114,16 +113,16 @@ namespace webuser_default
             DataRow r = DS.webuser.Rows[0];
 
             if (r["nome"].ToString() == "") {
-                MessageBox.Show("E' necessario indicare il nome", "Errore");
+                show("E' necessario indicare il nome", "Errore");
                 return false;
             }
 
             if (r["cognome"].ToString() == "") {
-                MessageBox.Show("E' necessario indicare il cognome", "Errore");
+                show("E' necessario indicare il cognome", "Errore");
                 return false;
             }
             if (r["email"].ToString() == "") {
-                MessageBox.Show("E' necessario indicare l'email", "Errore");
+                show("E' necessario indicare l'email", "Errore");
                 return false;
             }
             //Ottiene l'idcliente dal w.s.
@@ -173,7 +172,7 @@ namespace webuser_default
 
                 }
                 else {
-                    MessageBox.Show("Nessun cassiere trovato attivo", "Errore");
+                    show("Nessun cassiere trovato attivo", "Errore");
                     return false;
                 }
                 
@@ -195,15 +194,15 @@ namespace webuser_default
         object ottieniIdEnte() {            
             object p_iva = conn.DO_READ_VALUE("generalreportparameter", q.CmpEq("idparam", "License_P_Iva"), "paramvalue");
             if (p_iva==null || p_iva.ToString() == "") {
-                MessageBox.Show("Inserire la partita iva nei parametri di tutte le stampe", "Errore");
+                show("Inserire la partita iva nei parametri di tutte le stampe", "Errore");
             }
             object denominazioneEnte = conn.DO_READ_VALUE("generalreportparameter", q.CmpEq("idparam", "DenominazioneUniversita"), "paramvalue");
             if (denominazioneEnte == null || denominazioneEnte.ToString() == "") {
-                MessageBox.Show("Inserire la denominazione universit√† nei parametri di tutte le stampe", "Errore");
+                show("Inserire la denominazione universit‡ nei parametri di tutte le stampe", "Errore");
             }
             string iDEnte = hds.registerEnte(denominazioneEnte.ToString(), p_iva.ToString());
             if (iDEnte.StartsWith("Errori")) {
-                MessageBox.Show(iDEnte, "Errore");
+                show(iDEnte, "Errore");
                 return DBNull.Value;
             }
             return iDEnte;
@@ -219,19 +218,19 @@ namespace webuser_default
                 q.CmpEq("active", "S")), null, false);
             }
             if (treasurer.Rows.Count == 0) {
-                MessageBox.Show("Non ho trovato un tesoriere attivo", "Errore");
+                show("Non ho trovato un tesoriere attivo", "Errore");
                 return DBNull.Value;
             }
             DataRow first = treasurer.Rows[0];
             string header = first["header"].ToString();
             if (header == "") {
-                MessageBox.Show("Il cassiere "+first["description"].ToString()+"  ha il campo Intestazione Stampe vuoto.", "Errore");
+                show("Il cassiere "+first["description"].ToString()+"  ha il campo Intestazione Stampe vuoto.", "Errore");
                 return DBNull.Value;
             }
 
             string iDStruttura = hds.registerStruttura(header, idEnte);
             if (iDStruttura.StartsWith("Errori")) {
-                MessageBox.Show(iDStruttura, "Errore");
+                show(iDStruttura, "Errore");
                 return DBNull.Value;
             }
             return iDStruttura;
@@ -250,7 +249,7 @@ namespace webuser_default
                 r["titolo"].ToString(),
                 r["username"].ToString());
             if (idCliente.StartsWith("Errori")) {
-                MessageBox.Show(idCliente, "Errore");
+                show(idCliente, "Errore");
                 return DBNull.Value;
             }
             return idCliente;
@@ -270,7 +269,7 @@ namespace webuser_default
                 r["titolo"].ToString(),
                 r["username"].ToString());
             if (res.StartsWith("Errori")) {
-                MessageBox.Show(res, "Errore");
+                show(res, "Errore");
                 return false;
             }
             return true;
@@ -278,4 +277,3 @@ namespace webuser_default
     }
 }
 
-

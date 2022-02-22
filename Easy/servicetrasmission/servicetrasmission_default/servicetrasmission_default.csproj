@@ -109,6 +109,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ANP2018.designer.cs" />
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -121,15 +122,17 @@
     <Compile Include="Frm_servicetrasmission_default.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Service References\ServicePerla\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\service\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="ServizioPerla.cs" />
-    <Compile Include="vistaForm.cs">
-      <DependentUpon>vistaForm.xsd</DependentUpon>
-    </Compile>
     <Compile Include="vistaForm.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -142,9 +145,34 @@
       <DependentUpon>Frm_servicetrasmission_default.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="ANP2018.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicePerla\anp2018.wsdl" />
+    <None Include="Service References\ServicePerla\servicetrasmission_default.ServicePerla.cancellazioneIncaricoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServicePerla\servicetrasmission_default.ServicePerla.inserimentoIncarico_ConsulenteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServicePerla\servicetrasmission_default.ServicePerla.inserimentoIncarico_DipendenteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServicePerla\servicetrasmission_default.ServicePerla.variazioneIncarico_ConsulenteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServicePerla\servicetrasmission_default.ServicePerla.variazioneIncarico_DipendenteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\service\configuration91.svcinfo" />
     <None Include="Service References\service\configuration.svcinfo" />
     <None Include="Service References\service\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServicePerla\configuration91.svcinfo" />
+    <None Include="Service References\ServicePerla\configuration.svcinfo" />
+    <None Include="Service References\ServicePerla\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -158,6 +186,7 @@
     <None Include="Service References\service\servicetrasmission_default.service.InserimentoIncarichiResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="System.Xml.XmlNode.datasource" />
     <None Include="vistaForm.xsc">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>
@@ -179,7 +208,11 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ServicePerla\" />
     <WCFMetadataStorage Include="Service References\service\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

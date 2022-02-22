@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Windows.Forms;
@@ -61,7 +60,7 @@ namespace EasyInstall
 				case "bilancio": tipoCodice = "class"; codiceTipoClass = "_CLBIL"; break;
 				case "murst": tipoCodice = "murst";	codiceTipoClass = "_CLMURST"; break;
 				case "consolidamento": tipoCodice = "consolid";	codiceTipoClass = "_CLCONS"; break;
-				default: MessageBox.Show(form, "Errore interno: non esiste la tabella class"+classificazione); break;
+				default: MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore interno: non esiste la tabella class"+classificazione); break;
 			}
 		}
 		/// <summary>
@@ -96,7 +95,7 @@ namespace EasyInstall
 			foreach(DataRow rFinSorting in tFinSorting.Select()) {
 				if (rFinSorting["idsor"] == DBNull.Value) continue;
 				if (ht[rFinSorting["idsor"]]==null) {
-					MessageBox.Show("La classificazione ("+classificazione+")"+
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("La classificazione ("+classificazione+")"+
 										rFinSorting["idsor"].ToString()+" non è stata trovata nella tabella "+
 										classificazione);
 					ht[rFinSorting["idsor"]]=DBNull.Value;
@@ -110,7 +109,7 @@ namespace EasyInstall
 			tFinSorting.AcceptChanges(); //Elimina le righe da saltare
 
 //			if (tFinSorting.Rows.Count > 0) {
-//				DialogResult dr = MessageBox.Show(form, "Procedo alla migrazione dei codici di classificazione "
+//				DialogResult dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Procedo alla migrazione dei codici di classificazione "
 //					+ classificazione + "presenti nella tabella bilancio?", "Conferma", MessageBoxButtons.YesNoCancel);
 //				if (dr == DialogResult.No) {
 //					return;
@@ -134,7 +133,7 @@ namespace EasyInstall
 			Hashtable htCorrispondiCodici;
 			bool esecuzioneCorretta = true;
 
-			DialogResult dr = MessageBox.Show(form, "Procedo alla migrazione dei codici di classificazione "
+			DialogResult dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Procedo alla migrazione dei codici di classificazione "
 			+ "CLASSBILANCIO presenti nella tabella bilancio?", "Conferma", MessageBoxButtons.YesNoCancel);
 			if (dr == DialogResult.Yes) {
 				StringBuilder SB1 = Download.LeggiTestoScript("class_bil.sql");
@@ -147,7 +146,7 @@ namespace EasyInstall
 				if (!esecuzioneCorretta) return false;
 			}
 
-			dr = MessageBox.Show(form, "Procedo alla migrazione dei codici di classificazione "
+			dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Procedo alla migrazione dei codici di classificazione "
 				+ "CLASSMURST presenti nella tabella bilancio?", "Conferma", MessageBoxButtons.YesNoCancel);
 			if (dr == DialogResult.Yes) {
 				StringBuilder SB2 = Download.LeggiTestoScript("class_murst.sql");
@@ -161,7 +160,7 @@ namespace EasyInstall
 				if (!esecuzioneCorretta) return false;
 			}
 
-			dr = MessageBox.Show(form, "Procedo alla migrazione dei codici di classificazione "
+			dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Procedo alla migrazione dei codici di classificazione "
 				+ "CLASSCONSOLIDAMENTO presenti nella tabella bilancio?", "Conferma", MessageBoxButtons.YesNoCancel);
 			if (dr == DialogResult.Yes) {
 				StringBuilder SB3 = Download.LeggiTestoScript("class_cons.sql");
@@ -229,4 +228,4 @@ namespace EasyInstall
 			return true;
 		}
 	}
-}
+}

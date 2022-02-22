@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using metadatalibrary;
@@ -35,7 +34,7 @@ namespace bankdispositionsetup_importnew {
         }
 
         public static DatiImportati GetDataFrom(int esercizio,DataTable flusso,bool SimulaEsitiBollette) {
-            DatiImportati I=new DatiImportati();
+            DatiImportati I=new DatiImportati(esercizio);
             foreach (DataRow r in flusso.Rows) {
 
                 int ndoc = CfgFn.GetNoNullInt32(r["NUMDOC"]);
@@ -45,7 +44,7 @@ namespace bankdispositionsetup_importnew {
                 string indreg = r["INDREG"].ToString().ToUpper();
 
                 string segno = r["SEGNO"].ToString(); //+ o -
-                decimal amount = CfgFn.GetNoNullDecimal(r["IMPDOC"]); //l'importo ha giÃ  il segno presente in "SEGNO"
+                decimal amount = CfgFn.GetNoNullDecimal(r["IMPDOC"]); //l'importo ha già il segno presente in "SEGNO"
                 //if (segno == "-") amount = -amount;
                 int nprog = CfgFn.GetNoNullInt32(r["PRODOC"]);
                 object datavaluta = r["DVAL"];
@@ -60,9 +59,9 @@ namespace bankdispositionsetup_importnew {
                     I.Mandati.Add(new RigaMandato(ydoc, ndoc, amount, datatrans, datavaluta,
                         beneficiario, causale, nbolletta, nprog));
 
-                    //Se deve simulare l'esito delle bollette aggiunge l'esito della bolletta ove il movimento sia a copertura e c'Ã¨ una bolletta
+                    //Se deve simulare l'esito delle bollette aggiunge l'esito della bolletta ove il movimento sia a copertura e c'è una bolletta
                     if (SimulaEsitiBollette && nbolletta > 0 && indreg == "R") {
-                        //anche qui importo con segno perchÃ© devono andare di pari passo
+                        //anche qui importo con segno perché devono andare di pari passo
                         I.EsitiBolletteSpesa.Add(new EsitoProvvisorio(ydoc, nbolletta, amount, datatrans));
                     }
                 }
@@ -71,9 +70,9 @@ namespace bankdispositionsetup_importnew {
                     I.Reversali.Add(new RigaReversale(ydoc, ndoc, amount, datatrans, datavaluta,
                         beneficiario, causale, nbolletta, nprog));
 
-                    //Se deve simulare l'esito delle bollette aggiunge l'esito della bolletta ove il movimento sia a copertura e c'Ã¨ una bolletta
+                    //Se deve simulare l'esito delle bollette aggiunge l'esito della bolletta ove il movimento sia a copertura e c'è una bolletta
                     if (SimulaEsitiBollette && nbolletta > 0 && indreg == "R") {
-                        //anche qui importo con segno perchÃ© devono andare di pari passo
+                        //anche qui importo con segno perché devono andare di pari passo
                         I.EsitiBolletteEntrata.Add(new EsitoProvvisorio(ydoc, nbolletta, amount, datatrans));
                     }
                 }
@@ -102,4 +101,3 @@ namespace bankdispositionsetup_importnew {
         }
     }
 }
-

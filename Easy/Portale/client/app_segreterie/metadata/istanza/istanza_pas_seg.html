@@ -1,0 +1,96 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_pas_seg_aa">Anno accademico</label>
+					<select id="istanza_pas_seg_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="istanza.aa?istanzapas_segview.aa" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#istanza_pas_seg_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="istanza_pas_seg_data">Data</label>
+					<input id="istanza_pas_seg_data" type="text" class="form-control" data-tag="istanza.data.g?istanzapas_segview.istanza_data.g" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_pas_seg_idcorsostudio">Corso di studi</label>
+					<div>
+						<input id="istanza_pas_seg_idcorsostudio" name="istanza_pas_seg_idcorsostudio" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="corsostudiodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_pas_seg_iddidprog">Didattica programmata</label>
+					<div>
+						<input id="istanza_pas_seg_iddidprog" name="istanza_pas_seg_iddidprog" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_pas_seg_idiscrizione">Iscrizione</label>
+					<div>
+						<input id="istanza_pas_seg_idiscrizione" name="istanza_pas_seg_idiscrizione" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="iscrizionedefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_pas_seg_idstatuskind">Status</label>
+					<select id="istanza_pas_seg_idstatuskind" class="custom-select d-block w-100"  data-source-name="statuskind" data-value-member="idstatuskind" data-display-member="title" data-custom-control="combo" data-tag="istanza.idstatuskind?istanzapas_segview.istanza_idstatuskind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_pas_seg_paridistanza">Istanza collegata</label>
+					<div>
+						<input id="istanza_pas_seg_paridistanza" name="istanza_pas_seg_paridistanza" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="istanza_alias1.idistanzakind" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_pas_seg_protnumero">Numero di protocollo</label>
+					<input id="istanza_pas_seg_protnumero" type="text" class="form-control" data-tag="istanza.protnumero?istanzapas_segview.istanza_protnumero" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_pas_seg_protanno">Anno di protocollo</label>
+					<input id="istanza_pas_seg_protanno" type="text" class="form-control" data-tag="istanza.protanno?istanzapas_segview.istanza_protanno" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_pas_seg_idiscrizione_from">Iscrizione di partenza</label>
+					<div>
+						<input id="istanza_pas_seg_idiscrizione_from" name="istanza_pas_seg_idiscrizione_from" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="iscrizionedefaultview_alias1.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelistanza_segistpass_XXpratica" >Pratica di convalida/riconoscimento/dispensa collegata</div>
+				<div class="gridx" id="grid_pratica_segistpass" data-tag="pratica.segistpass.segistpass" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelistanza_segpratica_XXdiniego" >Diniego</div>
+				<div class="gridx" id="grid_diniego_alias3_segpratica" data-tag="diniego_alias3.segpratica.segpratica" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelistanza_segpratica_XXnullaosta" >Nullaosta</div>
+				<div class="gridx" id="grid_nullaosta_alias4_segpratica" data-tag="nullaosta_alias4.segpratica.segpratica" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				</div>
+			</div>
+ <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-stamp mr-1" ></i>Protocolla
+    </button>
+</form>
+
+</div>
+<!--footer-->

@@ -1,0 +1,164 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabcorsostudio_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabcorsostudio_default_0"><i class="fa fa-graduation-cap mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabcorsostudio_default_3" class="nav-link" data-toggle="pill" data-target="#tabcorsostudio_default_3"><i class="fa fa-layer-group mr-1"></i>Caratteristiche del corso di studio</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabcorsostudio_default_1" class="nav-link" data-toggle="pill" data-target="#tabcorsostudio_default_1"><i class="fa fa-bullseye mr-1"></i>Obiettivi formativi</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabcorsostudio_default_4" class="nav-link" data-toggle="pill" data-target="#tabcorsostudio_default_4"><i class="fa fa-sitemap mr-1"></i>Scuole o classi di laurea del corso</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabcorsostudio_default_2" class="nav-link" data-toggle="pill" data-target="#tabcorsostudio_default_2"><i class="fa fa-user-tie mr-1"></i>Sbocchi occupazionali</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabcorsostudio_default_5" class="nav-link" data-toggle="pill" data-target="#tabcorsostudio_default_5"><i class="fa fa-warehouse mr-1"></i>Strutture del corso</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabcorsostudio_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_default_title">Denominazione</label>
+					<input id="corsostudio_default_title" type="text" class="form-control" data-tag="corsostudio.title?corsostudiodefaultview.title" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_default_title_en">Denominazione (EN)</label>
+					<input id="corsostudio_default_title_en" type="text" class="form-control" data-tag="corsostudio.title_en?corsostudiodefaultview.corsostudio_title_en" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_default_annoistituz">Anno accademico di istituzione</label>
+					<input id="corsostudio_default_annoistituz" type="text" class="form-control" data-tag="corsostudio.annoistituz?corsostudiodefaultview.corsostudio_annoistituz" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_default_codice">Codice</label>
+					<input id="corsostudio_default_codice" type="text" class="form-control" data-tag="corsostudio.codice?corsostudiodefaultview.corsostudio_codice" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_default_codicemiur">Codice MIUR</label>
+					<input id="corsostudio_default_codicemiur" type="text" class="form-control" data-tag="corsostudio.codicemiur?corsostudiodefaultview.corsostudio_codicemiur" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_default_codicemiurlungo">Codice MIUR lungo</label>
+					<input id="corsostudio_default_codicemiurlungo" type="text" class="form-control" data-tag="corsostudio.codicemiurlungo?corsostudiodefaultview.corsostudio_codicemiurlungo" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_default_idcorsostudiokind">Tipologia</label>
+					<select id="corsostudio_default_idcorsostudiokind" class="custom-select d-block w-100"  data-source-name="corsostudiokinddefaultview" data-value-member="idcorsostudiokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="corsostudio.idcorsostudiokind?corsostudiodefaultview.corsostudio_idcorsostudiokind" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_default_idcorsostudionorma">Normativa di riferimento</label>
+					<div>
+						<input id="corsostudio_default_idcorsostudionorma" name="corsostudio_default_idcorsostudionorma" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="corsostudionormadefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_default_idstruttura">Struttura di riferimento</label>
+					<div>
+						<input id="corsostudio_default_idstruttura" name="corsostudio_default_idstruttura" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="strutturadefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_default_idcorsostudiolivello">Livello</label>
+					<div>
+						<input id="corsostudio_default_idcorsostudiolivello" name="corsostudio_default_idcorsostudiolivello" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="corsostudiolivellodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_default_idduratakind">Tipologia della durata</label>
+					<select id="corsostudio_default_idduratakind" class="custom-select d-block w-100"  data-source-name="duratakinddefaultview" data-value-member="idduratakind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="corsostudio.idduratakind?corsostudiodefaultview.corsostudio_idduratakind" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_default_durata">Durata</label>
+					<input id="corsostudio_default_durata" type="text" class="form-control" data-tag="corsostudio.durata?corsostudiodefaultview.corsostudio_durata" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_default_crediti">Crediti</label>
+					<input id="corsostudio_default_crediti" type="text" class="form-control" data-tag="corsostudio.crediti?corsostudiodefaultview.corsostudio_crediti" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_default_basevoto">Base del voto di conseguimento</label>
+					<input id="corsostudio_default_basevoto" type="text" class="form-control" data-tag="corsostudio.basevoto?corsostudiodefaultview.corsostudio_basevoto" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_default_almalaureasurvey">Questionario Almalaurea</label>
+					<div class="custom-control custom-radio">
+						<input id="corsostudio_default_almalaureasurveySi" type="radio" name="corsostudio_default_almalaureasurvey" class="custom-control-input" data-tag="corsostudio.almalaureasurvey:S?corsostudiodefaultview.corsostudio_almalaureasurvey:Si" data-subentity  ><label for="corsostudio_default_almalaureasurveySi"> Si</label>
+						<input id="corsostudio_default_almalaureasurveyNo" type="radio" name="corsostudio_default_almalaureasurvey" class="custom-control-input" data-tag="corsostudio.almalaureasurvey:N?corsostudiodefaultview.corsostudio_almalaureasurvey:No" data-subentity  ><label for="corsostudio_default_almalaureasurveyNo"> No</label>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabcorsostudio_default_3" role="tabpanel">
+				<div class="gridx" id="grid_corsostudiocaratteristica_default" data-tag="corsostudiocaratteristica.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="obblig,S,Si;obblig,N,No;profess,S,Si;profess,N,No;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabcorsostudio_default_1" role="tabpanel">
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="corsostudio_default_obbform">Obiettivi formativi</label>
+					<textarea class="textarea form-control" id="corsostudio_default_obbform" type="text"  rows="20" data-tag="corsostudio.obbform?corsostudiodefaultview.corsostudio_obbform" data-subentity  ></textarea>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabcorsostudio_default_4" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_corsostudioclassescuola_idclassescuola" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_corsostudioclassescuola_idclassescuola" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Scuole o classi di laurea del corso
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_corsostudioclassescuola_default" data-tag="corsostudioclassescuola.default.default" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+	</div>
+	<div class="tab-pane fade" id="tabcorsostudio_default_2" role="tabpanel">
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="corsostudio_default_sboccocc">Sbocchi occupazionali</label>
+					<textarea class="textarea form-control" id="corsostudio_default_sboccocc" type="text"  rows="20" data-tag="corsostudio.sboccocc?corsostudiodefaultview.corsostudio_sboccocc" data-subentity  ></textarea>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabcorsostudio_default_5" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_corsostudiostruttura_idstruttura" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_corsostudiostruttura_idstruttura" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Strutture del corso
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_corsostudiostruttura_default" data-tag="corsostudiostruttura.default.default" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

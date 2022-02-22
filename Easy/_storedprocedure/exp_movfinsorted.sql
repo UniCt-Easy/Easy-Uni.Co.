@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_movfinsorted]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure exp_movfinsorted
 GO
@@ -44,6 +61,8 @@ begin
 	sorting.description as 'Class',
 	incomesorted.amount as 'Importo classificato', 
 	proceeds.npro as 'Num. Reversale',
+	proceedstransmission.nproceedstransmission as 'Num. Distinta Trasm.',
+	proceedstransmission.transmissiondate as 'Data Distinta Trasm.',
 	treasurer.description as 'Cassiere'
 	from incomesorted
 		join sorting on sorting.idsor=incomesorted.idsor
@@ -57,6 +76,7 @@ begin
 		join fin on fin.idfin=incomeyear.idfin
 	join upb on incomeyear.idupb = upb.idupb
 	left outer join proceeds on  proceeds.kpro = incomelast.kpro
+	left outer join proceedstransmission on  proceeds.kproceedstransmission = proceedstransmission.kproceedstransmission
 	left outer join treasurer on treasurer.idtreasurer = proceeds.idtreasurer
 	left outer join sorting  as attr01 on attr01.idsor = upb.idsor01
 	WHERE sorting.idsorkind = @idsorkind
@@ -88,6 +108,8 @@ begin
 	sorting.description as 'Class',
 	expensesorted.amount as 'Importo classificato', 
 	payment.npay as 'Num. Mandato',
+	paymenttransmission.npaymenttransmission as 'Num. Distinta Trasm.',
+	paymenttransmission.transmissiondate as 'Data Distinta Trasm.',
 	treasurer.description as 'Cassiere'
 	from expensesorted
 	join sorting on sorting.idsor=expensesorted.idsor
@@ -102,6 +124,7 @@ begin
 
 	join upb on expenseyear.idupb  = upb.idupb 
 	left outer join payment on payment.ypay = @ayear and payment.kpay = expenselast.kpay
+	left outer join paymenttransmission on  payment.kpaymenttransmission = paymenttransmission.kpaymenttransmission
 	left outer join treasurer on treasurer.idtreasurer = payment.idtreasurer
 	left outer join sorting  as attr01 on attr01.idsor = upb.idsor01
 	WHERE sorting.idsorkind = @idsorkind

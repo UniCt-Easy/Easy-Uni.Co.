@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 --setuser'amministrazione'
 if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_expense_bccflumeri_var]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trasmele_expense_bccflumeri_var]
@@ -837,11 +854,7 @@ SELECT t.ypaymenttransmission, t.npaymenttransmission,d.kpay, d.ypay, d.npay, s.
 	CASE
 		WHEN
 		(
-		   ((el.paymethod_flag & 64) <> 0) OR
-		   ((el.paymethod_flag & 256) <> 0) OR
-		   ((el.paymethod_flag & 512) <> 0)  OR 
-		   ((el.paymethod_flag & 1024) <> 0) OR 
-		   ((el.paymethod_flag & 2048) <> 0) 
+		   m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP') 
 		   )   THEN 'S'
 		ELSE 'N'
 	END,
@@ -1287,7 +1300,10 @@ SELECT
 	address,
 	ISNULL(geo_city.title,'') + ' ' + ISNULL(registryaddress.location,'') ,
 	registryaddress.cap,
-	geo_country.province,
+	CASE 
+		WHEN flagforeign = 'N' THEN geo_country.province
+		ELSE 'EE'
+	END,
 	CASE 
 		WHEN flagforeign = 'N' THEN 1
 		ELSE geo_nation.idnation
@@ -2344,9 +2360,9 @@ SELECT
   				   END,
   				   null,
 				   -- Riferimento Documento Esterno  
-				   RTRIM(refexternaldoc),
+				  SUBSTRING(isnull(expenselast_paymentdescr,''), 1, 400),
 				   -- Informazioni Tesoriere
-				   isnull(expenselast_paymentdescr,'') + ' '+ isnull(#payment.txt,''),
+				   null,
 				   null 
 FROM #payment
 LEFT JOIN #deputy

@@ -38,6 +38,7 @@
   <ItemGroup>
     <Reference Include="metadatalibrary">
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="metaeasylibrary">
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
@@ -57,12 +58,6 @@
       <HintPath>..\..\upb\meta_upb\bin\Debug\meta_upb.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_upb</Name>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="meta_upbcommessa">
-      <HintPath>..\meta_upbcommessa\bin\Debug\meta_upbcommessa.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_upbcommessa</Name>
       <Private>False</Private>
     </Reference>
     <Reference Include="meta_accmotive">
@@ -129,6 +124,10 @@
     <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
       <Project>{c0dacf4d-2f3e-44d6-a718-7c9821a1bdcd}</Project>
       <Name>funzioni_configurazione</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\meta_upbcommessa\meta_upbcommessa.csproj">
+      <Project>{21ea0168-d72f-4c01-8940-56773c1ccbb6}</Project>
+      <Name>meta_upbcommessa</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

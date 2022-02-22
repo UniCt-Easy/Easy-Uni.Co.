@@ -83,12 +83,12 @@
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="metaeasylibrary">
       <Name>metaeasylibrary</Name>
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -106,7 +106,7 @@
     <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
       <Name>funzioni_configurazione</Name>
       <Project>{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}</Project>
-      <Private>False</Private>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
@@ -29,7 +28,7 @@ using funzioni_configurazione;
 using System.Text;
 
 namespace invoice_default {
-    public partial class FrmCreaDaParcellaFE : Form {
+    public partial class FrmCreaDaParcellaFE : MetaDataForm {
         DataAccess Conn;
         MetaData Meta;
         DataSet DS;
@@ -98,7 +97,7 @@ namespace invoice_default {
             Tassociazioni.Columns["nman"].Caption = ".";
             //Tassociazioni.Columns.Add("manrownum", typeof(int));    Tassociazioni.Columns["manrownum"].Caption = ".";
             Tassociazioni.Columns.Add("rownum", typeof(int));
-            Tassociazioni.Columns["rownum"].Caption = ".";//√® quello della riga ordine
+            Tassociazioni.Columns["rownum"].Caption = ".";//Ë quello della riga ordine
 
             Tassociazioni.Columns.Add("idgroup", typeof(int));
             Tassociazioni.Columns["idgroup"].Caption = ".";
@@ -142,7 +141,7 @@ namespace invoice_default {
             dettagli_fe.Columns.Add("Descrizione", typeof(string));
             dettagli_fe.Columns["Descrizione"].Caption = "Descrizione";
             dettagli_fe.Columns.Add("Quantita", typeof(decimal));
-            dettagli_fe.Columns["Quantita"].Caption = "Q.t√†";
+            dettagli_fe.Columns["Quantita"].Caption = "Q.t‡";
             dettagli_fe.Columns.Add("PrezzoUnitario", typeof(decimal));
             dettagli_fe.Columns["PrezzoUnitario"].Caption = "PrezzoUnitario";
             dettagli_fe.Columns.Add("PrezzoTotale", typeof(decimal));
@@ -182,8 +181,8 @@ namespace invoice_default {
             DataRow Curr = SDI_acquisto.Rows[0];
             if (Curr["xml"] == DBNull.Value) {
                 string messaggio;
-                messaggio = "Non vi √® alcun file da importare\nErrore";
-                MessageBox.Show(this, messaggio);
+                messaggio = "Non vi Ë alcun file da importare\nErrore";
+                show(this, messaggio);
                 return;
             }
             XmlDocument document = new XmlDocument();
@@ -231,8 +230,8 @@ namespace invoice_default {
             DataRow Curr = SDI_acquisto.Rows[0];
             if (Curr["xml"] == DBNull.Value) {
                 string messaggio;
-                messaggio = "Non vi √® alcun file da importare\nErrore";
-                MessageBox.Show(this, messaggio);
+                messaggio = "Non vi Ë alcun file da importare\nErrore";
+                show(this, messaggio);
                 return;
             }
             XmlDocument document = new XmlDocument();
@@ -260,7 +259,7 @@ namespace invoice_default {
                     Quantita = XmlConvert.ToDecimal(Dettaglio["Quantita"].InnerText);
                     Quantita = Decimal.Round(Quantita, 2);
                     if ((Quantita == 0) && (PrezzoTotale != 0)) {
-                        Quantita = 1;//se totale <> 0 e quantit√† = 0=>  Correggiamo la q.t√† con 1 e importiamo il dettaglio. Task 7113.
+                        Quantita = 1;//se totale <> 0 e quantit‡ = 0=>  Correggiamo la q.t‡ con 1 e importiamo il dettaglio. Task 7113.
                     }
                 }
                 else {
@@ -268,7 +267,7 @@ namespace invoice_default {
                         Quantita = Decimal.Round(PrezzoTotale / PrezzoUnitario, 2);
                         if (!messageShown) {
                             messageShown = true;
-                            MessageBox.Show("Per almeno un dettaglio √® stato calcolata la quantit√† con la formula inversa PrezzoTotale/PrezzoUnitario", "Avviso");
+                            show("Per almeno un dettaglio Ë stato calcolata la quantit‡ con la formula inversa PrezzoTotale/PrezzoUnitario", "Avviso");
                         }
                     }
                 }
@@ -431,7 +430,7 @@ namespace invoice_default {
             if (CfgFn.GetNoNullDouble(AliquotaIVA) > 0) {
                 DataTable Tivakind = Conn.RUN_SELECT("ivakind", "*", "unabatabilitypercentage ASC", QHS.AppAnd(QHS.CmpEq("rate", AliquotaIVA), QHS.CmpEq("active", "S"), filterAttivita), null, true);
                 if ((Tivakind == null) || (Tivakind.Rows.Count == 0)) {
-                    MessageBox.Show("Non √® stata trovata un'aliquota per l'iva al " +
+                    show("Non Ë stata trovata un'aliquota per l'iva al " +
                                     AliquotaIVA.ToString("n") + "%");
                     return null;
                 }
@@ -445,8 +444,8 @@ namespace invoice_default {
                     MIvakind.FilterLocked = true;
                     MIvakind.DS = DS;
                     double AliquotaIVA_Perc = CfgFn.GetNoNullDouble(AliquotaIVA) * 100;
-                    MessageBox.Show("Sono stati trovati diversi tipi IVA con aliquota al " +
-                                    AliquotaIVA_Perc.ToString("n") + "%. Selezionare quello pi√π appropriato.");
+                    show("Sono stati trovati diversi tipi IVA con aliquota al " +
+                                    AliquotaIVA_Perc.ToString("n") + "%. Selezionare quello pi˘ appropriato.");
                     DataRow MyDR = null;
                     while (MyDR == null) {
                         MyDR = MIvakind.SelectOne("default", QHS.AppAnd(QHS.CmpEq("rate", AliquotaIVA), QHS.CmpEq("active", "S"), filterAttivita), null, null);
@@ -457,11 +456,11 @@ namespace invoice_default {
                 }
             }
             else {
-                // Se l'aliquota √® 0, in base alla Natura, fa scegliere la corretta Aliquota 0.00 %
+                // Se l'aliquota Ë 0, in base alla Natura, fa scegliere la corretta Aliquota 0.00 %
                 string Natura = FE_Selected["Natura"].ToString();
                 DataTable Tivakind = Conn.RUN_SELECT("ivakind", "*", "unabatabilitypercentage ASC", QHS.AppAnd(QHS.CmpEq("rate", 0), QHS.CmpEq("idfenature", Natura), QHS.CmpEq("active", "S"), filterAttivita), null, true);
                 if ((Tivakind == null) || (Tivakind.Rows.Count == 0)) {
-                    MessageBox.Show("Non √® stata trovata alcuna aliquota 0.00 % avente Natura di spesa" + Natura);
+                    show("Non Ë stata trovata alcuna aliquota 0.00 % avente Natura di spesa" + Natura);
                 }
                 if (Tivakind.Rows.Count == 1) {
                     DataRow Rivakind = Tivakind.Rows[0];
@@ -489,12 +488,13 @@ namespace invoice_default {
             SelezionaTuttoDgrFE();
             FE_SelectedRows = GetGridSelectedRows(dgrDettagliFE);
             if ((FE_SelectedRows == null) || (FE_SelectedRows.Length == 0)) {
-                MessageBox.Show("Non √® stato selezionato alcun dettaglio della Fattura Elettronica.");
+                show("Non Ë stato selezionato alcun dettaglio della Fattura Elettronica.");
                 return;
             }
             //Scrive le associazioni in Tassociazioni
             DataRow R = null;
             foreach (DataRow rFE in FE_SelectedRows) {
+	            if (rFE.RowState == DataRowState.Detached || rFE.RowState == DataRowState.Deleted) continue;
                 R = Tassociazioni.NewRow();
 
                 R["NumeroLinea"] = rFE["NumeroLinea"];
@@ -525,8 +525,9 @@ namespace invoice_default {
             }
             Tassociazioni.AcceptChanges();
 
-            // Cancella le righe gi√† selezionate dai datagrid
+            // Cancella le righe gi‡ selezionate dai datagrid
             foreach (DataRow RR in FE_SelectedRows) {
+	            if (RR.RowState == DataRowState.Detached || RR.RowState == DataRowState.Deleted) continue;
                 string filterDettFE = QHC.CmpEq("NumeroLinea", RR["NumeroLinea"]);
                 foreach (DataRow rFE in dettagli_fe.Select(filterDettFE)) {
                     rFE.Delete();
@@ -576,7 +577,7 @@ namespace invoice_default {
         private void btnEseguiAssociazione_Click(object sender, EventArgs e) {
             PA_SelectedRows = GetGridSelectedRows(dgrParcella);
             if ((PA_SelectedRows == null) || (PA_SelectedRows.Length == 0)) {
-                MessageBox.Show("Non √® stato selezionato alcun Contratto Professionale.");
+                show("Non Ë stato selezionato alcun Contratto Professionale.");
                 return;
             }
 
@@ -596,4 +597,3 @@ namespace invoice_default {
 
     }
 }
-

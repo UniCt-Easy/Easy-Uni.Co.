@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Windows.Forms;
@@ -228,7 +227,7 @@ namespace meta_registrypaymethod {//meta_modpagamentocreddebi//
 
             //Controllo su unicità mod. pagamento predefinita
 			if (edit_type=="default" || edit_type=="anagrafica") {
-				if (!IsSubEntity) {
+				if (!isSubentity) {
 					errmess="Non è possibile modificare l'entità registrypaymethod senza un form padre";
 					errfield=null;
 					return false;
@@ -314,8 +313,7 @@ namespace meta_registrypaymethod {//meta_modpagamentocreddebi//
                         R["idbank"].ToString().Trim() != "" &&
                         R["cc"].ToString() != "" &&
                         R["cc"].ToString().Length != 12) {
-                        DialogResult RES = MessageBox.Show("Il CC risulta ERRATO in quanto dovrebbe essere completato con degli zeri iniziali. Procedo comunque?", "Dati incoerenti", MessageBoxButtons.OKCancel);
-                        if (RES == DialogResult.Cancel) {
+	                    if (!showClientMsg("Il CC risulta ERRATO in quanto dovrebbe essere completato con degli zeri iniziali. Procedo comunque?", "Dati incoerenti", MessageBoxButtons.OKCancel)) {
                             errfield = "cc";
                             return false;
                         }
@@ -326,8 +324,7 @@ namespace meta_registrypaymethod {//meta_modpagamentocreddebi//
                         R["idbank"].ToString().Trim() != "" 
                          // ||R["cc"].ToString() != ""   omesso poiché per i cc postali si mette il cc ma non il cin
                         ) {
-                        DialogResult RES = MessageBox.Show("Non è stato inserito il CIN. E' normalmente necessario inserire ABI,CAB,CC,CIN per non incorrere in sanzioni bancarie. Procedo comunque?", "Dati incoerenti", MessageBoxButtons.OKCancel);
-                        if (RES == DialogResult.Cancel) {
+                        if (!showClientMsg("Non è stato inserito il CIN. E' normalmente necessario inserire ABI,CAB,CC,CIN per non incorrere in sanzioni bancarie. Procedo comunque?", "Dati incoerenti", MessageBoxButtons.OKCancel)) {
                             errfield = "cin";
                             return false;
                         }
@@ -337,4 +334,4 @@ namespace meta_registrypaymethod {//meta_modpagamentocreddebi//
 			return true;
 		}
 	}
-}
+}

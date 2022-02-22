@@ -1,108 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistatransactionrulelog.xsd" xmlns:mstns="http://tempuri.org/vistatransactionrulelog.xsd" xmlns="http://tempuri.org/vistatransactionrulelog.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
-  <xs:annotation>
-    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-        <Connections>
-          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="DATABASEConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="DATABASEConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.journal_default.Properties.Settings.GlobalReference.Default.DATABASEConnectionString" Provider="System.Data.SqlClient" />
-        </Connections>
-        <Tables />
-        <Sources />
-      </DataSource>
-    </xs:appinfo>
-  </xs:annotation>
-  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msprop:Generator_DataSetName="vistaForm" msprop:Generator_UserDSName="vistaForm">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistatransactionrulelog.xsd" xmlns:mstns="http://tempuri.org/vistatransactionrulelog.xsd" xmlns="http://tempuri.org/vistatransactionrulelog.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="journal" msprop:Generator_TableClassName="journalDataTable" msprop:Generator_TableVarName="tablejournal" msprop:Generator_TablePropName="journal" msprop:Generator_RowDeletingName="journalRowDeleting" msprop:Generator_RowChangingName="journalRowChanging" msprop:Generator_RowEvHandlerName="journalRowChangeEventHandler" msprop:Generator_RowDeletedName="journalRowDeleted" msprop:Generator_UserTableName="journal" msprop:Generator_RowChangedName="journalRowChanged" msprop:Generator_RowEvArgName="journalRowChangeEvent" msprop:Generator_RowClassName="journalRow">
+        <xs:element name="journal">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="fieldname" msprop:Generator_ColumnVarNameInTable="columnfieldname" msprop:Generator_ColumnPropNameInRow="fieldname" msprop:Generator_ColumnPropNameInTable="fieldnameColumn" msprop:Generator_UserColumnName="fieldname">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="operationdatetime" msprop:Generator_ColumnVarNameInTable="columnoperationdatetime" msprop:Generator_ColumnPropNameInRow="operationdatetime" msprop:Generator_ColumnPropNameInTable="operationdatetimeColumn" msprop:Generator_UserColumnName="operationdatetime" type="xs:dateTime" />
-              <xs:element name="opkind" msprop:Generator_ColumnVarNameInTable="columnopkind" msprop:Generator_ColumnPropNameInRow="opkind" msprop:Generator_ColumnPropNameInTable="opkindColumn" msprop:Generator_UserColumnName="opkind">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="1" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="primarykey" msprop:Generator_ColumnVarNameInTable="columnprimarykey" msprop:Generator_ColumnPropNameInRow="primarykey" msprop:Generator_ColumnPropNameInTable="primarykeyColumn" msprop:Generator_UserColumnName="primarykey">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="tablename" msprop:Generator_ColumnVarNameInTable="columntablename" msprop:Generator_ColumnPropNameInRow="tablename" msprop:Generator_ColumnPropNameInTable="tablenameColumn" msprop:Generator_UserColumnName="tablename">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="150" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="computername" msprop:Generator_ColumnVarNameInTable="columncomputername" msprop:Generator_ColumnPropNameInRow="computername" msprop:Generator_ColumnPropNameInTable="computernameColumn" msprop:Generator_UserColumnName="computername" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="128" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="computeruser" msprop:Generator_ColumnVarNameInTable="columncomputeruser" msprop:Generator_ColumnPropNameInRow="computeruser" msprop:Generator_ColumnPropNameInTable="computeruserColumn" msprop:Generator_UserColumnName="computeruser" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="128" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="dbuser" msprop:Generator_ColumnVarNameInTable="columndbuser" msprop:Generator_ColumnPropNameInRow="dbuser" msprop:Generator_ColumnPropNameInTable="dbuserColumn" msprop:Generator_UserColumnName="dbuser" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="notes" msprop:Generator_ColumnVarNameInTable="columnnotes" msprop:Generator_ColumnPropNameInRow="notes" msprop:Generator_ColumnPropNameInTable="notesColumn" msprop:Generator_UserColumnName="notes" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="2147483647" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="oldvalue" msprop:Generator_ColumnVarNameInTable="columnoldvalue" msprop:Generator_ColumnPropNameInRow="oldvalue" msprop:Generator_ColumnPropNameInTable="oldvalueColumn" msprop:Generator_UserColumnName="oldvalue" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="olenotes" msprop:Generator_ColumnVarNameInTable="columnolenotes" msprop:Generator_ColumnPropNameInRow="olenotes" msprop:Generator_ColumnPropNameInTable="olenotesColumn" msprop:Generator_UserColumnName="olenotes" type="xs:base64Binary" minOccurs="0" />
-              <xs:element name="value" msprop:Generator_ColumnVarNameInTable="columnvalue" msprop:Generator_ColumnPropNameInRow="value" msprop:Generator_ColumnPropNameInTable="valueColumn" msprop:Generator_UserColumnName="value" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="iddbdepartment" msprop:Generator_ColumnVarNameInTable="columniddbdepartment" msprop:Generator_ColumnPropNameInRow="iddbdepartment" msprop:Generator_ColumnPropNameInTable="iddbdepartmentColumn" msprop:Generator_UserColumnName="iddbdepartment">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="idflowchart" msprop:Generator_ColumnVarNameInTable="columnidflowchart" msprop:Generator_ColumnPropNameInRow="idflowchart" msprop:Generator_ColumnPropNameInTable="idflowchartColumn" msprop:Generator_UserColumnName="idflowchart" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="34" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
+              <xs:element name="fieldname" type="xs:string" />
+              <xs:element name="operationdatetime" type="xs:dateTime" />
+              <xs:element name="opkind" type="xs:string" />
+              <xs:element name="primarykey" type="xs:string" />
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="computername" type="xs:string" minOccurs="0" />
+              <xs:element name="computeruser" type="xs:string" minOccurs="0" />
+              <xs:element name="dbuser" type="xs:string" minOccurs="0" />
+              <xs:element name="notes" type="xs:string" minOccurs="0" />
+              <xs:element name="oldvalue" type="xs:string" minOccurs="0" />
+              <xs:element name="olenotes" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="value" type="xs:string" minOccurs="0" />
+              <xs:element name="iddbdepartment" type="xs:string" />
+              <xs:element name="idflowchart" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

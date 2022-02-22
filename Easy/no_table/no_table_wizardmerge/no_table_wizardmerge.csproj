@@ -87,7 +87,7 @@
     </None>
     <None Include="vistaForm.xsd">
       <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
+      <Generator>HDSGene</Generator>
       <LastGenOutput>vistaForm.Designer.cs</LastGenOutput>
     </None>
     <None Include="vistaForm.xss">

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -223,7 +222,7 @@ namespace EasyInstall//Install//
 
 		private void btnOk_Click(object sender, System.EventArgs e) {
 			if (txtNome.Text.Trim()==""){
-				MessageBox.Show("E' necessario specificare un nome per la login da creare");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario specificare un nome per la login da creare");
 				DialogResult= DialogResult.None;
 				txtNome.Focus();
 				return;
@@ -238,7 +237,7 @@ namespace EasyInstall//Install//
 			if (T1!=null){
 				foreach(DataRow R1 in T1.Rows){
 					if (R1["loginname"].ToString().ToUpper()==username.ToUpper()){
-						MessageBox.Show("La login "+R1["loginname"].ToString()+
+						MetaFactory.factory.getSingleton<IMessageShower>().Show("La login "+R1["loginname"].ToString()+
 							" è già presente nel server.");
 						DialogResult=DialogResult.None;
 						txtNome.Focus();
@@ -259,18 +258,18 @@ namespace EasyInstall//Install//
 					return;
 				}
 			}
-			MessageBox.Show("Account creato con successo.");
+			MetaFactory.factory.getSingleton<IMessageShower>().Show("Account creato con successo.");
 		}
 
 
 		bool CreateSQLAccount(){
 			if (txtPWD1.Text==""){
-				MessageBox.Show("Specificare la password.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Specificare la password.");
 				txtPWD1.Focus();
 				return false;
 			}
 			if (txtPWD2.Text!=txtPWD1.Text){
-				MessageBox.Show("Le due password inserite sono diverse.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Le due password inserite sono diverse.");
 				txtPWD1.Focus();
 				return false;
 			}
@@ -280,7 +279,7 @@ namespace EasyInstall//Install//
 			Conn.DO_SYS_CMD("EXEC sp_addlogin "+QueryCreator.quotedstrvalue(username,false)+
 											","+QueryCreator.quotedstrvalue(txtPWD1.Text,false), out err);
 			if (err!=null){
-				MessageBox.Show("Errore: "+err);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore: "+err);
 				return false;
 			}		
 			return true;
@@ -292,7 +291,7 @@ namespace EasyInstall//Install//
 			string err;
 			Conn.DO_SYS_CMD("EXEC sp_grantlogin "+QueryCreator.quotedstrvalue(username,false), out err);
 			if (err!=null){
-				MessageBox.Show("Errore: "+err);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore: "+err);
 				return false;
 			}		
 
@@ -302,4 +301,3 @@ namespace EasyInstall//Install//
 		}
 	}
 }
-

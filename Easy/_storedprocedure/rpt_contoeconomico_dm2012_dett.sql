@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_contoeconomico_dm2012_dett]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_contoeconomico_dm2012_dett]
 GO
@@ -6,15 +23,15 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
---setuser 'amministrazione'
---exec rpt_contoeconomico_dm2012_dett 2017, {d '2017-01-01'}, {d '2017-12-31'},4,null,null,null,null,null,'%','N',2
+--setuser 'amm'
+--exec rpt_contoeconomico_dm2012_dett 2017, {d '2017-01-01'}, {d '2017-12-31'}, null,null,null,null,null,'%','N',2
 
 CREATE  PROCEDURE [rpt_contoeconomico_dm2012_dett]
 
 	@ayear			int,
 	@start			datetime,
 	@stop			datetime,
-	@nlevel 		varchar(1),
+	--@nlevel 		varchar(1),
 	@filterplaccount 		varchar(50),
 	@idsor1 int,
 	@idsor2 int,
@@ -31,9 +48,14 @@ CREATE  PROCEDURE [rpt_contoeconomico_dm2012_dett]
 	AS
 
 	BEGIN
+	declare @nlevel 		varchar(1)
+	set @nlevel = (select MAX(nlevel) FROM placcountlevel  WHERE ayear = @ayear )
 
 	DECLARE @idupboriginal varchar(36)
 	SET @idupboriginal= @idupb
+	
+	if (@idupb is null) set @idupb='%'
+
 	IF (@showchildupb = 'S')  AND ISNULL(@idupb,'') <> '%'
 	BEGIN
 		SET @idupb=@idupb+'%' 
@@ -258,6 +280,7 @@ FROM	upb
 WHERE	idupb = @idupboriginal
 
 	SELECT  
+	@nlevel as 'nlevel',
 	null as patpart,
 	@idupboriginal	as   idupb          ,
 	@codeupb	    as	 codeupb	    ,

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -26,7 +25,7 @@ using System.Windows.Forms;
 using metadatalibrary;
 
 namespace no_table_wiz_assetgrantdetail {
-    public partial class FrmNoTable_Wiz_AssetGrantDetail : Form {
+    public partial class FrmNoTable_Wiz_AssetGrantDetail : MetaDataForm {
         public FrmNoTable_Wiz_AssetGrantDetail() {
             InitializeComponent();
             tabController.HideTabsMode = Crownwood.Magic.Controls.TabControl.HideTabsModes.HideAlways;
@@ -64,7 +63,7 @@ namespace no_table_wiz_assetgrantdetail {
             if ((newTab < 0) || (newTab > tabController.TabPages.Count)) return;
             if (!CustomChangeTab(oldTab, newTab)) return;
             if (newTab == tabController.TabPages.Count) {
-                //if (MessageBox.Show(this, "Si desidera eseguire ancora la procedura",
+                //if (show(this, "Si desidera eseguire ancora la procedura",
                 //    "Conferma", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                 //    newTab = 1;
                 //    ResetWizard();
@@ -97,7 +96,7 @@ namespace no_table_wiz_assetgrantdetail {
                   );
 
                     if (Out == null || Out.Tables.Count == 0) {
-                        MessageBox.Show(this, "Procedura terminata con errore", "Errore");
+                        show(this, "Procedura terminata con errore", "Errore");
                         return false;
                     }
                     Out.Tables[0].TableName = "Cespiti ammortizzati";
@@ -112,7 +111,7 @@ namespace no_table_wiz_assetgrantdetail {
                     }
                 }
                 catch (Exception E) {
-                    MessageBox.Show(E.Message);
+                    show(E.Message);
                     return false;
                 }
              
@@ -169,14 +168,14 @@ namespace no_table_wiz_assetgrantdetail {
                           }
             );
             if (Out == null || Out.Tables.Count == 0)
-                MessageBox.Show(this, "Procedura terminata con errore", "Errore");
+                show(this, "Procedura terminata con errore", "Errore");
             else
-                MessageBox.Show(this, "Procedura eseguita", "");
+                show(this, "Procedura eseguita", "");
             }
             catch (Exception E) {
-                MessageBox.Show(E.Message);
+                show(E.Message);
             }
         }
 
     }
-}
+}

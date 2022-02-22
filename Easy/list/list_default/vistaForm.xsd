@@ -32,6 +32,7 @@
               <xs:element name="price" type="xs:decimal" minOccurs="0" />
               <xs:element name="insinfo" type="xs:string" minOccurs="0" />
               <xs:element name="descrforuser" type="xs:string" minOccurs="0" />
+              <xs:element name="idtassonomia" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -134,6 +135,24 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="tassonomia_pagopa">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idtassonomia" type="xs:int" />
+              <xs:element name="versione" type="xs:int" />
+              <xs:element name="causale" type="xs:string" />
+              <xs:element name="descrizione" type="xs:string" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="motivoriscossione" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -161,6 +180,10 @@
       <xs:selector xpath=".//mstns:sorting" />
       <xs:field xpath="mstns:idsor" />
     </xs:unique>
+    <xs:unique name="tassonomia_pagopa_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tassonomia_pagopa" />
+      <xs:field xpath="mstns:idtassonomia" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -169,6 +192,7 @@
       <msdata:Relationship name="FK_listclass_list" msdata:parent="listclass" msdata:child="list" msdata:parentkey="idlistclass" msdata:childkey="idlistclass" />
       <msdata:Relationship name="FK_package_list" msdata:parent="package" msdata:child="list" msdata:parentkey="idpackage" msdata:childkey="idpackage" />
       <msdata:Relationship name="FK_unit_list" msdata:parent="unit" msdata:child="list" msdata:parentkey="idunit" msdata:childkey="idunit" />
+      <msdata:Relationship name="tassonomia_pagopa_list" msdata:parent="tassonomia_pagopa" msdata:child="list" msdata:parentkey="idtassonomia" msdata:childkey="idtassonomia" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

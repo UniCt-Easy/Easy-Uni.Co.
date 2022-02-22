@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -30,7 +29,7 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 	/// <summary>
 	/// Summary description for FrmSpesaContabilizza.
 	/// </summary>
-	public class Frm_expense_wizardcontabilizza : System.Windows.Forms.Form
+	public class Frm_expense_wizardcontabilizza : MetaDataForm
 	{
 		#region System declarations
 		private System.Windows.Forms.Button btnCancel;
@@ -869,7 +868,7 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 13;
             this.btnCancel.Tag = "maincancel";
-            this.btnCancel.Text = "Cancel";
+            this.btnCancel.Text = "Annulla";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnNext
@@ -1044,7 +1043,7 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 			if (newTab== tabController.TabPages.Count-1)
 				btnNext.Text="Associa.";
 			else
-				btnNext.Text="Next >";
+				btnNext.Text="Avanti >";
 			Text = CustomTitle+ " (Pagina "+(newTab+1)+" di "+tabController.TabPages.Count+")";
 		}
 		void StandardChangeTab(int step){
@@ -3003,7 +3002,10 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 				+",registry";
 			DataTable Temp = Meta.Conn.RUN_SELECT("itinerationview",columnlist,null,selectmis,null,null,true);
 			
-			//if (Temp.Rows.Count==0) return;
+			if (Temp.Rows.Count == 0) {
+				MessageBox.Show("La missione non esiste nell'anno corrente", "Errore");
+				return;
+			}
 
 			DataRow MyDR = Temp.Rows[0];
 
@@ -3343,7 +3345,10 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 				+",registry";
 			DataTable Temp = Meta.Conn.RUN_SELECT("payrollview",columnlist,null,selectced,null,null,true);
 			
-			//if (Temp.Rows.Count==0) return;
+			if (Temp.Rows.Count == 0) {
+				MessageBox.Show("Il cedolino non esiste nell'anno corrente", "Errore");
+				return;
+			}
 
 			DataRow MyDR = Temp.Rows[0];
 
@@ -3637,9 +3642,12 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 				+",registry";
 
 			DataTable Temp = Meta.Conn.RUN_SELECT("casualcontractview",columnlist,null,selectocc,null,null,true);
-			
-		
-			//if (Temp.Rows.Count==0) return;
+
+
+			if (Temp.Rows.Count == 0) {
+				MessageBox.Show("Il contratto non esiste nell'anno corrente", "Errore");
+				return;
+			}
 
 			DataRow MyDR = Temp.Rows[0];
 
@@ -3929,7 +3937,10 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 			DataTable Temp = Meta.Conn.RUN_SELECT("wageadditionview",columnlist,null,selectdip,null,null,true);
 			
 		
-			//if (Temp.Rows.Count==0) return;
+			if (Temp.Rows.Count == 0) {
+				MessageBox.Show("Il compenso non esiste nell'anno corrente", "Errore");
+				return;
+			}
 
 			DataRow MyDR = Temp.Rows[0];
 
@@ -4185,6 +4196,8 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 			else
 				MyProfessionaleFilter = GetFilterProfessionale(false);
 
+			
+			if (DS.expense.Rows.Count==0) return;
 
 			DataRow Curr = DS.expense.Rows[0];
 			bool condfasecred = chkCredDeb.Checked;
@@ -4221,7 +4234,10 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 			DataTable Temp = Meta.Conn.RUN_SELECT("profserviceview",columnlist,null,selectprof,null,null,true);
 			
 		
-			//if (Temp.Rows.Count==0) return;
+			if (Temp.Rows.Count == 0) {
+				MessageBox.Show("La parcella non esiste nell'anno corrente", "Errore");
+				return;
+			}
 
 			DataRow MyDR = Temp.Rows[0];
 
@@ -4517,4 +4533,3 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 		}
 	}
 }
-

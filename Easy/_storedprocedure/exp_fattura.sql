@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_fattura]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_fattura]
 GO
@@ -382,10 +399,10 @@ INSERT INTO @FATTURE(adate ,
 		profserviceresidual.linkedtotal as 'Pagato/Incassato',
 		profserviceresidual.residual as 'da Pagare/da Incassare',
 		-- 1 tot, 2 --impos, 3-impon
-		CASE WHEN expenseprofservice.movkind in (1,3) then P1.ypay else null end as 'Eserc.Mandato/Reversale Imponibile',
-		CASE WHEN expenseprofservice.movkind in (1,3) then P1.npay else null end as 'Num.Mandato/Reversale Imponibile',
-		CASE WHEN expenseprofservice.movkind in (1,2) then P1.ypay else null end as 'Eserc.Mandato/Reversale Iva',
-		CASE WHEN expenseprofservice.movkind in (1,2) then P1.npay else null end as 'Num.Mandato/Reversale Iva',
+		CASE WHEN expenseinvoice.movkind in (1,3) then P1.ypay else null end as 'Eserc.Mandato/Reversale Imponibile',
+		CASE WHEN expenseinvoice.movkind in (1,3) then P1.npay else null end as 'Num.Mandato/Reversale Imponibile',
+		CASE WHEN expenseinvoice.movkind in (1,2) then P1.ypay else null end as 'Eserc.Mandato/Reversale Iva',
+		CASE WHEN expenseinvoice.movkind in (1,2) then P1.npay else null end as 'Num.Mandato/Reversale Iva',
 		profservice.ycon as 'Es.Contr.Professionale',
 		profservice.ncon as 'N.Contr.Professionale'
 		FROM invoice
@@ -406,14 +423,16 @@ INSERT INTO @FATTURE(adate ,
 			AND profservice.ncon = profserviceresidual.ncon
 		LEFT OUTER JOIN registry
 			ON invoice.idreg = registry.idreg
-		LEFT OUTER JOIN	expenseprofservice 
-			ON expenseprofservice.ycon = profservice.ycon
-			and expenseprofservice.ncon = profservice.ncon
-		
-		LEFT OUTER JOIN expenselink
-			ON expenselink.idparent= expenseprofservice.idexp
+		--LEFT OUTER JOIN	expenseprofservice 
+		--	ON expenseprofservice.ycon = profservice.ycon
+		--	and expenseprofservice.ncon = profservice.ncon
+		--LEFT OUTER JOIN expenselink
+		--	ON expenselink.idparent= expenseprofservice.idexp
+		left outer join expenseinvoice
+			on profservice.idinvkind = expenseinvoice.idinvkind and profservice.yinv = expenseinvoice.yinv and profservice.ninv = expenseinvoice.ninv
 		LEFT OUTER JOIN expenselast EL1
-			ON expenselink.idchild = EL1.idexp
+			--ON expenselink.idchild = EL1.idexp
+			on expenseinvoice.idexp = EL1.idexp
 		LEFT OUTER JOIN payment P1
 			ON P1.kpay = EL1.kpay
 
@@ -478,10 +497,10 @@ INSERT INTO @FATTURE(adate ,
 		profserviceresidual.linkedtotal as 'Pagato/Incassato',
 		profserviceresidual.residual as 'da Pagare/da Incassare',
 		-- 1 tot, 2 --impos, 3-impon
-		CASE WHEN expenseprofservice.movkind in (1,3) then P1.ypay else null end as 'Eserc.Mandato/Reversale Imponibile',
-		CASE WHEN expenseprofservice.movkind in (1,3) then P1.npay else null end as 'Num.Mandato/Reversale Imponibile',
-		CASE WHEN expenseprofservice.movkind in (1,2) then P1.ypay else null end as 'Eserc.Mandato/Reversale Iva',
-		CASE WHEN expenseprofservice.movkind in (1,2) then P1.npay else null end as 'Num.Mandato/Reversale Iva',
+		CASE WHEN expenseinvoice.movkind in (1,3) then P1.ypay else null end as 'Eserc.Mandato/Reversale Imponibile',
+		CASE WHEN expenseinvoice.movkind in (1,3) then P1.npay else null end as 'Num.Mandato/Reversale Imponibile',
+		CASE WHEN expenseinvoice.movkind in (1,2) then P1.ypay else null end as 'Eserc.Mandato/Reversale Iva',
+		CASE WHEN expenseinvoice.movkind in (1,2) then P1.npay else null end as 'Num.Mandato/Reversale Iva',
 		profservice.ycon as 'Es.Contr.Professionale',
 		profservice.ncon as 'N.Contr.Professionale'
 		FROM invoice
@@ -501,14 +520,15 @@ INSERT INTO @FATTURE(adate ,
 			AND profservice.ncon = profserviceresidual.ncon
 		LEFT OUTER JOIN registry
 			ON invoice.idreg = registry.idreg
-		LEFT OUTER JOIN	expenseprofservice 
-			ON expenseprofservice.ycon = profservice.ycon
-			and expenseprofservice.ncon = profservice.ncon
-		
-		LEFT OUTER JOIN expenselink
-			ON expenselink.idparent= expenseprofservice.idexp
+		--LEFT OUTER JOIN	expenseprofservice 
+		--	ON expenseprofservice.ycon = profservice.ycon
+		--	and expenseprofservice.ncon = profservice.ncon
+		--LEFT OUTER JOIN expenselink
+		--	ON expenselink.idparent= expenseprofservice.idexp
+		left outer join expenseinvoice
+			on profservice.idinvkind = expenseinvoice.idinvkind and profservice.yinv = expenseinvoice.yinv and profservice.ninv = expenseinvoice.ninv
 		LEFT OUTER JOIN expenselast EL1
-			ON expenselink.idchild = EL1.idexp
+			on expenseinvoice.idexp = EL1.idexp --ON expenselink.idchild = EL1.idexp
 		LEFT OUTER JOIN payment P1
 			ON P1.kpay = EL1.kpay
 

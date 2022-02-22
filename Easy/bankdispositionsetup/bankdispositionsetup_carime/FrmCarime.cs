@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -32,7 +31,7 @@ namespace bankdispositionsetup_carime {
 	/// <summary>
 	/// Summary description for FrmCarime.
 	/// </summary>
-	public class FrmCarime : System.Windows.Forms.Form {
+	public class FrmCarime : MetaDataForm {
 		ImportazioneEsitiBancariCarime import;
 		char[] buffer = new char[802];//globale per ottimizzazione lettura dal file
 		MetaData Meta;
@@ -51,7 +50,7 @@ namespace bankdispositionsetup_carime {
 		private System.Windows.Forms.Button btnEsita;
 		private System.Windows.Forms.DataGrid dataGrid1;
 		public bankdispositionsetup_carime.vistaForm DS;
-		private System.Windows.Forms.OpenFileDialog openFileDialog1;
+		private System.Windows.Forms.OpenFileDialog _openFileDialog1;
         CQueryHelper QHC;
         QueryHelper QHS;
 		/// <summary>
@@ -59,8 +58,11 @@ namespace bankdispositionsetup_carime {
 		/// </summary>
 		private System.ComponentModel.Container components = null;
 
+        public IOpenFileDialog openFileDialog;
+
 		public FrmCarime() {
 			InitializeComponent();
+            openFileDialog = createOpenFileDialog(_openFileDialog1);
 		}
 
 		/// <summary>
@@ -96,7 +98,7 @@ namespace bankdispositionsetup_carime {
             this.btnEsita = new System.Windows.Forms.Button();
             this.dataGrid1 = new System.Windows.Forms.DataGrid();
             this.DS = new bankdispositionsetup_carime.vistaForm();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
@@ -395,7 +397,7 @@ namespace bankdispositionsetup_carime {
                     }
                     messaggio += " e " + altriEsercizi[altriEsercizi.Count - 1];
                 }
-                MessageBox.Show(this, messaggio);
+                show(this, messaggio);
             }
             return true;
 		}
@@ -750,7 +752,7 @@ namespace bankdispositionsetup_carime {
 		}
 
 		private void btnApriCarime_Click(object sender, System.EventArgs e) {
-			StreamReader sr = import.getStreamReader(802, openFileDialog1, txtFile);
+            StreamReader sr = import.getStreamReader(802, _openFileDialog1, txtFile);
 			if (sr == null) {
 				return;
 			}
@@ -837,4 +839,3 @@ namespace bankdispositionsetup_carime {
         }
     }
 }
-

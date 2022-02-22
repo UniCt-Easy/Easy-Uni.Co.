@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,42 +26,24 @@ using System.Runtime.Serialization;
 namespace accountvardetail_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable account 		=> Tables["account"];
 
-	///<summary>
-	///Dettaglio variazione di Budget
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accountvardetail 		=> Tables["accountvardetail"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
-	///<summary>
-	///variazione di budget
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accountvar 		=> Tables["accountvar"];
 
-	///<summary>
-	///Tabella che descrive i possibili stati di una var. di budget
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accountvarstatus 		=> Tables["accountvarstatus"];
 
-	///<summary>
-	///Responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable manager 		=> Tables["manager"];
 
@@ -75,9 +56,6 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting2 		=> Tables["sorting2"];
 
-	///<summary>
-	///Ripartizione dei costi
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable costpartition 		=> Tables["costpartition"];
 
@@ -87,11 +65,11 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable tipomovimento 		=> Tables["tipomovimento"];
 
-	///<summary>
-	///Atto su variazione di budget
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accountenactment 		=> Tables["accountenactment"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable inventorytreeview 		=> Tables["inventorytreeview"];
 
 	#endregion
 
@@ -205,6 +183,7 @@ private void initClass() {
 	taccountvardetail.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
 	taccountvardetail.Columns.Add( new DataColumn("underwritingkind", typeof(string)));
 	taccountvardetail.Columns.Add( new DataColumn("prevcassa", typeof(decimal)));
+	taccountvardetail.Columns.Add( new DataColumn("idinv", typeof(int)));
 	Tables.Add(taccountvardetail);
 	taccountvardetail.PrimaryKey =  new DataColumn[]{taccountvardetail.Columns["nvar"], taccountvardetail.Columns["yvar"], taccountvardetail.Columns["rownum"]};
 
@@ -650,6 +629,40 @@ private void initClass() {
 	taccountenactment.PrimaryKey =  new DataColumn[]{taccountenactment.Columns["idenactment"]};
 
 
+	//////////////////// INVENTORYTREEVIEW /////////////////////////////////
+	var tinventorytreeview= new DataTable("inventorytreeview");
+	C= new DataColumn("idinv", typeof(int));
+	C.AllowDBNull=false;
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("codeinv", typeof(string));
+	C.AllowDBNull=false;
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("nlevel", typeof(byte));
+	C.AllowDBNull=false;
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("leveldescr", typeof(string));
+	C.AllowDBNull=false;
+	tinventorytreeview.Columns.Add(C);
+	tinventorytreeview.Columns.Add( new DataColumn("paridinv", typeof(int)));
+	C= new DataColumn("description", typeof(string));
+	C.AllowDBNull=false;
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tinventorytreeview.Columns.Add(C);
+	Tables.Add(tinventorytreeview);
+	tinventorytreeview.PrimaryKey =  new DataColumn[]{tinventorytreeview.Columns["idinv"]};
+
+
 	#endregion
 
 
@@ -686,10 +699,6 @@ private void initClass() {
 	cChild = new []{accountvardetail.Columns["idsor1"]};
 	Relations.Add(new DataRelation("FK_sorting1_accountvardetail",cPar,cChild,false));
 
-	cPar = new []{accountvar.Columns["nvar"], accountvar.Columns["yvar"]};
-	cChild = new []{accountvardetail.Columns["nvar"], accountvardetail.Columns["yvar"]};
-	Relations.Add(new DataRelation("accountvar_accountvardetail",cPar,cChild,false));
-
 	cPar = new []{upb.Columns["idupb"]};
 	cChild = new []{accountvardetail.Columns["idupb"]};
 	Relations.Add(new DataRelation("upb_accountvardetail",cPar,cChild,false));
@@ -702,9 +711,16 @@ private void initClass() {
 	cChild = new []{accountvardetail.Columns["idacc"]};
 	Relations.Add(new DataRelation("account_accountvardetail",cPar,cChild,false));
 
+	cPar = new []{inventorytreeview.Columns["idinv"]};
+	cChild = new []{accountvardetail.Columns["idinv"]};
+	Relations.Add(new DataRelation("inventorytreeview_accountvardetail",cPar,cChild,false));
+
+	cPar = new []{accountvardetail.Columns["nvar"], accountvardetail.Columns["yvar"]};
+	cChild = new []{accountvar.Columns["nvar"], accountvar.Columns["yvar"]};
+	Relations.Add(new DataRelation("accountvardetail_accountvar",cPar,cChild,false));
+
 	#endregion
 
 }
 }
 }
-

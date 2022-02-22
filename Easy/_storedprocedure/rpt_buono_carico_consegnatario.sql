@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_buono_carico_consegnatario]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_buono_carico_consegnatario]
 GO
@@ -69,7 +86,9 @@ CREATE TABLE #assetload
 	idlocation int,
 	idman int,
 	annotation text,
-	libri char(1)
+	libri char(1),
+	rfid varchar(30),
+	idsubmanager int
 )
 	
 INSERT INTO #assetload
@@ -107,7 +126,9 @@ INSERT INTO #assetload
 	idlocation,
 	idman,
 	prezzocopertina,
-	libri
+	libri,
+	rfid ,
+	idsubmanager
 	)
 	
 SELECT
@@ -150,7 +171,12 @@ SELECT
 			,2)),
 	case	when  inventorykind.flag & 4 <>0 then 'S'
 			else 'N'
-	end -- 'libri'
+	end ,-- 'libri'
+	asset.rfid,
+	(SELECT TOP 1 idmanager
+				FROM assetsubmanager
+				WHERE assetsubmanager.idasset = asset.idasset
+				ORDER BY start desc) 
 FROM assetacquire
 JOIN assetload
 	ON assetload.idassetload = assetacquire.idassetload
@@ -215,7 +241,9 @@ INSERT INTO #assetload
 	idlocation,
 	idman,
 	prezzocopertina,
-	libri
+	libri,
+	rfid ,
+	idsubmanager
 )
 SELECT
 	assetacquire.taxrate,	
@@ -257,7 +285,12 @@ SELECT
 		,2)),
 	case	when  inventorykind.flag & 4 <>0 then 'S'
 		else 'N'
-	end -- 'libri'
+	end ,-- 'libri'
+	asset.rfid ,
+	(SELECT TOP 1 idmanager
+				FROM assetsubmanager
+				WHERE assetsubmanager.idasset = asset.idasset
+				ORDER BY start desc)
 FROM assetacquire
 JOIN assetload
 	ON assetload.idassetload = assetacquire.idassetload
@@ -329,7 +362,9 @@ INSERT INTO #assetload
 	assetdescription,
 	unitaryvalue,
 	idlocation,
-	idman
+	idman,
+	rfid ,
+	idsubmanager
 )
 SELECT 
 	null,	
@@ -363,7 +398,12 @@ SELECT
 	inventoryamortization.description + ' n. '+ convert(varchar(4),namortization) + char(13) + assetamortization.description,
 	ROUND(ISNULL(assetamortization.assetvalue,0) * ISNULL(assetamortization.amortizationquota,0),2),
 	(SELECT idlocation FROM assetlocation l WHERE l.idasset = asset.idasset AND l.start IS NULL),
-	(SELECT idman FROM assetmanager m WHERE m.idasset = asset.idasset AND m.start IS NULL)
+	(SELECT idman FROM assetmanager m WHERE m.idasset = asset.idasset AND m.start IS NULL),
+	asset.rfid,
+	(SELECT TOP 1 idmanager
+				FROM assetsubmanager
+				WHERE assetsubmanager.idasset = asset.idasset
+				ORDER BY start desc)
 FROM assetload
 JOIN assetloadkind
 	ON assetload.idassetloadkind = assetloadkind.idassetloadkind
@@ -430,7 +470,9 @@ INSERT INTO #assetload
 	assetdescription,
 	unitaryvalue,
 	idlocation,
-	idman
+	idman,
+	rfid ,
+	idsubmanager
 )
 SELECT 
 	null,	
@@ -464,7 +506,12 @@ SELECT
 	inventoryamortization.description + ' n. '+ convert(varchar(4),namortization) + char(13) + assetamortization.description,
 	ROUND(ISNULL(assetamortization.assetvalue,0) * ISNULL(assetamortization.amortizationquota,0),2),
 	(SELECT idlocation FROM assetlocation l WHERE l.idasset = asset.idasset AND l.start IS NULL),
-	(SELECT idman FROM assetmanager m WHERE m.idasset = asset.idasset AND m.start IS NULL)
+	(SELECT idman FROM assetmanager m WHERE m.idasset = asset.idasset AND m.start IS NULL),
+	asset.rfid,
+	(SELECT TOP 1 idmanager
+				FROM assetsubmanager
+				WHERE assetsubmanager.idasset = asset.idasset
+				ORDER BY start desc) 
 FROM assetload
 JOIN assetloadkind
 	ON assetload.idassetloadkind = assetloadkind.idassetloadkind
@@ -562,7 +609,7 @@ SELECT
 	assetdescription,
 	unitaryvalue ,
 	#assetload.idlocation,
-	location.description as location,
+	location.locationcode + '-' +location.description as location,
 	#assetload.idman,
 	manager.title as manager,
 	inventoryagency.title_l,   -- sezione firme
@@ -572,7 +619,9 @@ SELECT
 	inventoryagency.title_r,
 	inventoryagency.name_r,
 	isnull(#assetload.prezzocopertina,0)  as prezzocopertina,
-	isnull(libri,'N') as libri
+	isnull(libri,'N') as libri,
+	#assetload.rfid,
+	Submanager.title as submanager
 FROM #assetload
 join inventoryagency
 	on inventoryagency.idinventoryagency = #assetload.idinventoryagency
@@ -604,6 +653,8 @@ LEFT OUTER JOIN location
 	ON location.idlocation = #assetload.idlocation
 LEFT OUTER JOIN manager
 	ON manager.idman = #assetload.idman
+LEFT OUTER JOIN  manager as Submanager
+	ON Submanager.idman = #assetload.idsubmanager
 LEFT OUTER JOIN assetconsignee CONSEGNATARIO
 	ON CONSEGNATARIO.idinventoryagency = #assetload.idinventoryagency
 	AND CONSEGNATARIO.start = #assetload.startconsignee
@@ -618,6 +669,6 @@ SET ANSI_NULLS ON
 GO
 
 -- Attenzione questa SP funziona solo se viene creata la tabella assetconsignee
--- exec [rpt_buono_carico_consegnatario] 2013, 'I', 2, 1, 1, {d '2014-05-31'},'N'
+ --exec [rpt_buono_carico_consegnatario] 2014, 'I', 4, 1, 1, {d '2014-05-31'},'N'
 
  

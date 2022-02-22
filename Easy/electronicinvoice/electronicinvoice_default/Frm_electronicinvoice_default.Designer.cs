@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿namespace electronicinvoice_default {
+
+namespace electronicinvoice_default {
     partial class Frm_electronicinvoice_default {
         /// <summary>
         /// Required designer variable.
@@ -45,7 +44,7 @@
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPrincipale = new System.Windows.Forms.TabPage();
 			this.btnVisualizza = new System.Windows.Forms.Button();
-			this.label5 = new System.Windows.Forms.Label();
+			this.lbltxtNomeFileXML = new System.Windows.Forms.Label();
 			this.txtNomeFile = new System.Windows.Forms.TextBox();
 			this.txtPercorso = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
@@ -152,7 +151,7 @@
 			// tabPrincipale
 			// 
 			this.tabPrincipale.Controls.Add(this.btnVisualizza);
-			this.tabPrincipale.Controls.Add(this.label5);
+			this.tabPrincipale.Controls.Add(this.lbltxtNomeFileXML);
 			this.tabPrincipale.Controls.Add(this.txtNomeFile);
 			this.tabPrincipale.Controls.Add(this.txtPercorso);
 			this.tabPrincipale.Controls.Add(this.label4);
@@ -185,14 +184,14 @@
 			this.btnVisualizza.UseVisualStyleBackColor = true;
 			this.btnVisualizza.Click += new System.EventHandler(this.btnVisualizza_Click);
 			// 
-			// label5
+			// lbltxtNomeFileXML
 			// 
-			this.label5.Location = new System.Drawing.Point(42, 125);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(70, 17);
-			this.label5.TabIndex = 48;
-			this.label5.Text = "Nome File:";
-			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.lbltxtNomeFileXML.Location = new System.Drawing.Point(42, 125);
+			this.lbltxtNomeFileXML.Name = "lbltxtNomeFileXML";
+			this.lbltxtNomeFileXML.Size = new System.Drawing.Size(70, 17);
+			this.lbltxtNomeFileXML.TabIndex = 48;
+			this.lbltxtNomeFileXML.Text = "Nome File:";
+			this.lbltxtNomeFileXML.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// txtNomeFile
 			// 
@@ -976,11 +975,11 @@
         private System.Windows.Forms.TextBox txtIpa_ven_cliente;
         private System.Windows.Forms.Button btnGenera;
         private System.Windows.Forms.TextBox txtPercorso;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lbltxtNomeFileXML;
         private System.Windows.Forms.TextBox txtNomeFile;
 		private System.Windows.Forms.TextBox txtPec_ven_cliente;
 		private System.Windows.Forms.Label label23;
 		private System.Windows.Forms.TextBox txtEmail_ven_cliente;
 		private System.Windows.Forms.Label label24;
 	}
-}
+}

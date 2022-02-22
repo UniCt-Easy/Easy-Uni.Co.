@@ -4,7 +4,7 @@
     <ProjectType>Local</ProjectType>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{657CFEE6-FA3E-4729-ABC5-F2B8FF8CC0D2}</ProjectGuid>
+    <ProjectGuid>{DFA4C5F3-4866-4E7A-ACD6-1904BB7D2626}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
@@ -130,6 +130,12 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FrmAnnullaDettaglio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAnnullaDettaglio.Designer.cs">
+      <DependentUpon>FrmAnnullaDettaglio.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAskInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,6 +153,9 @@
     <Compile Include="WizSostituisciDettaglio.Designer.cs">
       <DependentUpon>WizSostituisciDettaglio.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="FrmAnnullaDettaglio.resx">
+      <DependentUpon>FrmAnnullaDettaglio.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAskInfo.resx">
       <DependentUpon>frmAskInfo.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -164,6 +173,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>vistaForm.cs</LastGenOutput>
     </Content>
+    <None Include="app.config" />
     <None Include="vistaForm.xsc">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>

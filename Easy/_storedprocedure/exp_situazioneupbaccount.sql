@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_situazioneupbaccount]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_situazioneupbaccount]
 GO
@@ -10,8 +27,9 @@ GO
 --setuser 'amministrazione'
 -- exp_situazioneupbaccount 2017, {ts '2017-12-31 00:00:00'}, 'C','%','N','N', '%','S'
 -- exp_situazioneupbaccount 2017, {ts '2017-12-31 00:00:00'}, 'R','%','17000400010001000200010001','N', '%','S','N'
--- exp_situazioneupbaccount 2019, {ts '2019-05-27 00:00:00'}, 'C','%','190002000100010018','N', '%','N','S' -- @multiannual, @showonlyavailable
 
+-- exp_situazioneupbaccount 2019, {ts '2019-05-27 00:00:00'}, 'C','%','S','N', '%','N','N' -- @multiannual, @showonlyavailable
+-- exp_situazioneupbaccount 2019, {ts '2019-05-27 00:00:00'}, 'C','%','S','N', '%','S','N' -- @multiannual, @showonlyavailable
 CREATE  PROCEDURE  [exp_situazioneupbaccount]
 (
 	@ayear int,
@@ -807,6 +825,7 @@ Begin
 								' upb.codeupb as ''Codice UPB'','+
 								' upb.title as ''UPB'','+
 								' epupbkind.title as ''Tipo UPB'','+
+								' case when epupbkind.flag&1<>0 then''S'' else ''N'' end as ''Considera preimpegni di budget per assestamento'','+
 								' upb.start as  ''Data inizio UPB'','+
 								' upb.stop as  ''Data fine UPB'','+
 								' upb.expiration as ''Data scadenza UPB'','+
@@ -894,6 +913,7 @@ Begin
 								' upb.start as  ''Data inizio UPB'','+
 								' upb.stop as  ''Data fine UPB'','+
 								' upb.expiration as ''Data scadenza UPB'','+
+								' case when epupbkind.flag&1<>0 then''S'' else ''N'' end as ''Considera preimpegni di budget per assestamento'','+
 								'	case '+
 								'	when upb.flagactivity =''1'' then ''Istituzionale''	'+
 								'	when upb.flagactivity =''2'' then ''Commerciale''	'+
@@ -1026,7 +1046,7 @@ IF (@showupb ='S')
 		' GROUP BY	account.ayear, ' +
 					' account.idacc,	account.codeacc, account.title, ' +
 					' upb.idupb, upb.codeupb, upb.title, SE.sortcode, SE.description, SI.sortcode, SI.description, '+
-					' epupbkind.title, upb.start, upb.stop , upb.expiration,upb.flagactivity '
+					' epupbkind.title, upb.start, upb.stop , upb.expiration,upb.flagactivity, epupbkind.flag '
 	END
 		PRINT   @StringSelect
 		PRINT   @StringFrom

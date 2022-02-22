@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistaclasstreebilancio.xsd" xmlns:mstns="http://tempuri.org/Vistaclasstreebilancio.xsd" xmlns="http://tempuri.org/Vistaclasstreebilancio.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistaclasstreebilancio.xsd" xmlns:mstns="http://tempuri.org/Vistaclasstreebilancio.xsd" xmlns="http://tempuri.org/Vistaclasstreebilancio.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -48,6 +48,11 @@
               <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -89,9 +94,10 @@
       <xs:selector xpath=".//mstns:sortingapplicabilityview" />
       <xs:field xpath="mstns:idsorkind" />
     </xs:unique>
-    <xs:keyref name="sortingfinsorting" refer="sorting_Constraint1">
-      <xs:selector xpath=".//mstns:finsorting" />
-      <xs:field xpath="mstns:idsor" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="sortingfinsorting" msdata:parent="sorting" msdata:child="finsorting" msdata:parentkey="idsor" msdata:childkey="idsor" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

@@ -1,19 +1,17 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
@@ -32,6 +30,7 @@ using metadatalibrary;
 using metaeasylibrary;
 using HelpWeb;
 using funzioni_configurazione;
+using System.Web.Configuration;
 
 namespace EasyWebReport {
     //menu - menulink - sub e le foglie: topline (primo figlio) , niente le altre
@@ -264,9 +263,6 @@ namespace EasyWebReport {
             ////////////////
             MyMenuClass.RegisterScript(this, HwMenuButton);
 
-            MetaMasterBootstrap master = Page.Master as MetaMasterBootstrap;
-            master?.setUniversita(Session["system_config_nome_universita"] as string);
-
             bool IsManager = (Session["CodiceResponsabile"] != null ? true : false);
 
             if (!IsManager) {
@@ -322,6 +318,25 @@ namespace EasyWebReport {
             DataAccess UsrConn = GetVars.GetUserConn(this);
             if (((UsrConn == null) || (UsrConn.Open() == false))) return;
             string tipoutente = Session["TipoUtente"] as string;
+
+            DataTable Tlicense = UsrConn.RUN_SELECT("license", "cf, p_iva", null,null, null, false);
+            if (Tlicense != null && Tlicense.Columns.Count > 0) {
+                DataRow R = Tlicense.Rows[0];
+                //Per Catania valorizza ad S la var. di Sessione
+                if ((R["cf"]!=DBNull.Value) && (R["cf"].ToString()== "02772010878")) {
+                    Session["system_config_catania_missioni"] = "S";
+                }
+                if ((R["p_iva"] != DBNull.Value) && (R["p_iva"].ToString() == "02772010878")) {
+                    Session["system_config_catania_missioni"] = "S";
+                }
+            }
+
+            object catCfg =Session["system_config_catania_missioni"];
+            
+            CataniaMissioni = false;
+            if (catCfg != null && catCfg.ToString().ToUpper()=="S") {
+	            CataniaMissioni = true;
+            }
 
             //if (tipoutente != "utente" && tipoutente != "Utente LDAP") {
             if (UsrConn.GetUsr("HasVirtualUser") == null && tipoutente != "utente") {
@@ -540,9 +555,18 @@ namespace EasyWebReport {
             CQueryHelper QHC = new CQueryHelper();
             QueryHelper QHS = UsrConn.GetQueryHelper();
 
-            string fitermenu = QHS.FieldInList("metadata",
-                QHS.List("upb", "underwriting", "mandate", "finvar", "accountvar", "enactment", "accountenactment", "itineration"));
-            DataTable DT = UsrConn.RUN_SELECT("menu", "*", "ordernumber,paridmenu", fitermenu, null, false);
+            DataTable DT;
+            var sec = UsrConn.SelectCondition("menu",true);
+            var usrMenu = UsrConn.GetUsr("menu")?.ToString();
+            if (!string.IsNullOrEmpty(sec) && string.IsNullOrEmpty(usrMenu)) {
+	            DT = UsrConn.CreateTableByName("menu", "*");
+            }
+            else {
+	            string fitermenu = QHS.FieldInList("metadata",
+		            QHS.List("upb", "underwriting", "mandate", "finvar", "accountvar", "enactment", "accountenactment", "itineration"));
+	            DT = UsrConn.RUN_SELECT("menu", "*", "ordernumber,paridmenu", fitermenu, null, false);
+            }
+
 
 
             UsrConn.Security.DeleteAllUnselectable(DT);
@@ -551,7 +575,7 @@ namespace EasyWebReport {
             DataRow rwebconf = webconfig.Rows[0];
             bool menuitinerationlist = (rwebconf["menuitinerationlist"].ToString().ToUpper() == "S");
             bool menuitinerationinsert = (rwebconf["menuitinerationinsert"].ToString().ToUpper() == "S");
-
+            bool _ShowMenuItineration = ShowMenuItineration(UsrConn, rwebconf["showitinerationnotman"].ToString().ToUpper());
             // UPB
             filter = QHC.CmpEq("metadata", "upb");
             var DR = DT.Select(filter);
@@ -652,14 +676,20 @@ namespace EasyWebReport {
 
             }
 
-            MyMenuClass fin = null;
-            //if (BuonoOrdine || VarPrev || Atto || RicaricaCard || GestisciCard || VarIniziale) {
-            if (BuonoOrdine || VarPrev || ViterboVarPrev  || Atto || RicaricaCard || GestisciCard || VarIniziale) {
-                fin = new MyMenuClass("Finanziario", null, null);
+            MyMenuClass acq = null;
+            //if (BuonoOrdine) {
+            if (BuonoOrdine) {
+                acq = new MyMenuClass("Acquisti", null, null);
                 if (BuonoOrdine) {
                     MyMenuClass m = new MyMenuClass("Richiesta buono d'ordine", "f", "mandate.defaultnew02");
-                    fin.AddChild(m);
+                    acq.AddChild(m);
                 }
+            }
+
+            MyMenuClass fin = null;
+            //if (VarPrev || Atto || RicaricaCard || GestisciCard || VarIniziale) {
+            if (VarPrev || ViterboVarPrev || Atto || RicaricaCard || GestisciCard || VarIniziale) {
+                fin = new MyMenuClass("Finanziario", null, null);
                 if (VarIniziale) {
                     MyMenuClass m = new MyMenuClass("Previsioni iniziali", "f", "finvar.inizialenew02");
                     fin.AddChild(m);
@@ -671,7 +701,7 @@ namespace EasyWebReport {
                 }
 
                 // Inserita per Viterbo
-                if (ViterboVarPrev  && Session["system_config_previsioni_viterbo"] as string =="S") {
+                if (ViterboVarPrev && Session["system_config_previsioni_viterbo"] as string == "S") {
                     MyMenuClass m = new MyMenuClass("Viterbo - Variazione previsioni", "f", "viterbo_finvar.default");
 
                     // MyMenuClass m = new MyMenuClass("Viterbo - Variazione previsioni", "f", "viterbo_finvar_default");
@@ -762,7 +792,7 @@ namespace EasyWebReport {
             if (MissioniMyTeam || MissioniAuth ||  Missioni  || CataniaMissioni) {
                 mis = new MyMenuClass("Missioni");
                 if (Missioni) {
-                    if (true || menuitinerationinsert) {
+                    if (_ShowMenuItineration) {
                         MyMenuClass m1 = new MyMenuClass("Richiesta Missione", "f", "itineration.autoinsertnew02");
                         mis.AddChild(m1);
                     }
@@ -775,7 +805,7 @@ namespace EasyWebReport {
                     mis.AddChild(m);
                 }
 
-                if (MissioniMyTeam) {
+                if (MissioniMyTeam && _ShowMenuItineration) {
                     MyMenuClass m = new MyMenuClass("Missioni sui miei fondi", "f", "itineration.myteamnew02");
                     mis.AddChild(m);
                 }
@@ -784,16 +814,20 @@ namespace EasyWebReport {
                     mis.AddChild(m);
                 }
                 if (CataniaMissioni) {
-                    MyMenuClass m = new MyMenuClass("Missioni(Catania)", "f", "itineration.ct_default");
+                    MyMenuClass m = new MyMenuClass("Richiesta Missione(Catania)", "f", "itineration.ct_default");
                     mis.AddChild(m);
+
+                    MyMenuClass m3 = new MyMenuClass("Elenco Missioni(Catania)", "f", "itineration.ct_autolist");
+                    mis.AddChild(m3);
                 }
             }
 
-            if (bil != null || fin != null || ep != null || mag != null || mis != null) {
+            if (bil != null || acq != null || fin != null || ep != null || mag != null || mis != null) {
                 MyMenuClass funz = new MyMenuClass("Funzioni");
                 myMenu.AddChild(funz);
 
                 if (bil != null) funz.AddChild(bil);
+                if (acq != null) funz.AddChild(acq);
                 if (fin != null) funz.AddChild(fin);
                 if (mag != null) funz.AddChild(mag);
                 if (mis != null) funz.AddChild(mis);
@@ -804,6 +838,31 @@ namespace EasyWebReport {
             return;
         }
 
+        /// <summary>
+        /// Se si tratta di un 'non responsabile' (Direttore, Preside, etc ) cioè un ruolo per cui authagency.ismanager = N,
+        /// legge il valore di "showitinerationNOTman", e in base a questo mostra o nasconde le voci di menu: 
+        ///   > Richiesta Missioni
+        ///   > Missioni sui miei fondi
+        /// </summary>
+        /// <param name="Conn"></param>
+        /// <param name="showitinerationnotman"></param>
+        /// showitinerationnotman : mostra le voci di menu anche per i Non Responsabili
+        public bool ShowMenuItineration(DataAccess Conn, string showitinerationnotman) {
+            int Curr_idauthagency = GetImpersonatedAuthAgency(Conn);
+
+            //Non ha trovato niente, mostra le voci di menu, non deve omettere
+            if (Curr_idauthagency == 0) return true;
+
+            QueryHelper QHS= Conn.GetQueryHelper();
+            string filter= QHS.CmpEq("idauthagency", Curr_idauthagency);
+            DataTable DT = Conn.RUN_SELECT("authagency", "*", null, filter, null, false);
+            bool isManager = DT.Rows[0]["ismanager"].ToString().ToUpper()=="S"? true : false;
+            bool _showitinerationnotman = showitinerationnotman == "S" ? true : false;
+            //Se sono direttore (not manager) e NON voglio vedere certe voci, le deve nascondere.
+            if (!isManager && !_showitinerationnotman) return false;
+
+            return true;
+        }
 
         public int GetImpersonatedAuthAgency(DataAccess Conn) {
             QueryHelper QHS;
@@ -877,4 +936,3 @@ namespace EasyWebReport {
         }
     }
 }
-

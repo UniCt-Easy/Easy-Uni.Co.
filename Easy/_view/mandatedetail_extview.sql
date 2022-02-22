@@ -1,13 +1,31 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA mandatedetail_extview
 IF EXISTS(select * from sysobjects where id = object_id(N'[mandatedetail_extview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [mandatedetail_extview]
 GO
 
-
---setuser 'amm'
+--setuser 'amministrazione'
 --clear_table_info'mandatedetail_extview'
---select * from mandatedetail_extview
- 
+/*
+	select * from mandatedetail_extview where yman = 2021
+ */
+
 CREATE VIEW [mandatedetail_extview]
 (
 	idmankind,
@@ -71,6 +89,8 @@ CREATE VIEW [mandatedetail_extview]
 	notlinkedtoasset,
 	linkedtoinvoice,
 	notlinkedtoinvoice,
+	cashed,
+	tocash,
 	flagactivity,
 	ivanotes,
 	idlist,
@@ -82,6 +102,7 @@ CREATE VIEW [mandatedetail_extview]
 	idstore,
 	store,
 	flagto_unload,
+	cupcode,
 	cigcode,
 	idsor01,idsor02,idsor03,idsor04,idsor05	,
 	epkind,
@@ -96,7 +117,8 @@ CREATE VIEW [mandatedetail_extview]
 	locationcode,
 	location,
 	idsor_siope,
-	idman
+	idman,
+	list
 )
 	AS SELECT
 	mandatedetail.idmankind,
@@ -169,7 +191,7 @@ CREATE VIEW [mandatedetail_extview]
 		WHERE AC.idmankind = mandatedetail.idmankind
 			AND AC.yman = mandatedetail.yman
 			AND AC.nman = mandatedetail.nman
-			AND AC.rownum = mandatedetail.rownum)
+			AND AC.rownum = mandatedetail.idgroup)
 	,0),
 	-- notlinkedtoasset
 	ISNULL(mandatedetail.npackage,mandatedetail.number) -
@@ -178,7 +200,7 @@ CREATE VIEW [mandatedetail_extview]
 		WHERE AC.idmankind = mandatedetail.idmankind
 			AND AC.yman = mandatedetail.yman
 			AND AC.nman = mandatedetail.nman
-			AND AC.rownum = mandatedetail.rownum)
+			AND AC.rownum = mandatedetail.idgroup)
 	,0),
 	-- linkedtoinvoice
 	ISNULL(
@@ -207,6 +229,34 @@ CREATE VIEW [mandatedetail_extview]
 		AS iv
 	)
 	,0),
+	--cashed,
+	case 
+		when ((select count(*) from expensephase) = 1) and (isnull(mandatekind.linktoinvoice,'N')='N') and (mandatedetail.idexp_taxable IS NOT NULL )
+		then   ROUND(mandatedetail.taxable * ISNULL(mandatedetail.npackage,mandatedetail.number) * 
+		     	     CONVERT(decimal(19,6),mandate.exchangerate) * 
+		     	     (1 - CONVERT(decimal(19,6),ISNULL(mandatedetail.discount, 0.0))),2)
+		else
+		isnull((select sum(amount) from expenselastmandatedetail eld where 
+			eld.idmankind=	mandatedetail.idmankind and
+			eld.yman	=	mandatedetail.yman and
+			eld.nman	=	mandatedetail.nman and
+			eld.rownum	=	mandatedetail.rownum ),0)
+	end	,
+	--tocash,
+	case when ((select count(*) from expensephase) = 1) and (isnull(mandatekind.linktoinvoice,'N')='N') and (mandatedetail.idexp_taxable IS NULL )
+	then  ROUND(mandatedetail.taxable * ISNULL(mandatedetail.npackage,mandatedetail.number) * 
+		     	     CONVERT(decimal(19,6),mandate.exchangerate) * 
+		     	     (1 - CONVERT(decimal(19,6),ISNULL(mandatedetail.discount, 0.0))),2)
+	ELSE
+		ROUND(mandatedetail.taxable * mandatedetail.number * 
+		  CONVERT(DECIMAL(19,6),mandate.exchangerate) *
+		  (1 - CONVERT(DECIMAL(19,6),ISNULL(mandatedetail.discount, 0.0))),2
+		)-isnull((select sum(amount) from expenselastmandatedetail eld where 
+			eld.idmankind=	mandatedetail.idmankind and
+			eld.yman	=	mandatedetail.yman and
+			eld.nman	=	mandatedetail.nman and
+			eld.rownum	=	mandatedetail.rownum ),0)
+		END	,
 	mandatedetail.flagactivity,
 	mandatedetail.ivanotes,
 	mandatedetail.idlist,
@@ -218,6 +268,7 @@ CREATE VIEW [mandatedetail_extview]
 	mandate.idstore,
 	store.description,	
 	mandatedetail.flagto_unload,
+	mandatedetail.cupcode,
 	isnull(mandatedetail.cigcode, mandate.cigcode),
 	mandate.idsor01,
 	mandate.idsor02,
@@ -236,7 +287,8 @@ CREATE VIEW [mandatedetail_extview]
 	location.locationcode,
 	location.description,
 	mandatedetail.idsor_siope,
-	mandate.idman
+	mandate.idman,
+	list.description
 FROM mandatedetail with (nolock)
 JOIN mandatekind  with (nolock)		ON mandatekind.idmankind = mandatedetail.idmankind
 JOIN ivakind with (nolock)			ON ivakind.idivakind = mandatedetail.idivakind

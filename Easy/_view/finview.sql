@@ -1,11 +1,28 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA finview
 IF EXISTS(select * from sysobjects where id = object_id(N'[finview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [finview]
 GO
 
 
-
-
+--setuser 'amm'
+--select * from finview
 
 
 CREATE  VIEW [finview]
@@ -36,6 +53,7 @@ CREATE  VIEW [finview]
 	prevision4,
 	prevision5,
 	expiration,
+	idacc,idaccmotive,
 	limit,
 	flag,
 	flagusable,
@@ -48,10 +66,8 @@ CREATE  VIEW [finview]
 	idsor04,
 	idsor05,	
 	cupcode,
-	cu, 
-	ct, 
-	lu, 
-	lt
+	cu, 	ct, 	lu, 	lt,
+	codeacc,account,codemotive,accmotive
 )
 AS 
 SELECT fin.idfin, fin.ayear, 
@@ -117,6 +133,7 @@ SELECT fin.idfin, fin.ayear,
 	finyear.prevision4,
 	finyear.prevision5,
 	finlast.expiration, 
+	finlast.idacc,finlast.idaccmotive,
 	finyear.limit,
 	fin.flag,
    	CASE
@@ -134,7 +151,9 @@ SELECT fin.idfin, fin.ayear,
 	finlast.cupcode,
 	fin.cu, 
 	fin.ct, fin.lu, 
-	fin.lt
+	fin.lt,
+	account.codeacc,account.title,
+	accmotive.codemotive,accmotive.title
 	FROM fin 
 	CROSS JOIN upb
 	CROSS JOIN uniconfig		(NOLOCK) 
@@ -144,8 +163,10 @@ SELECT fin.idfin, fin.ayear,
 	LEFT OUTER JOIN	upbexpensetotal (NOLOCK)	ON fin.idfin = upbexpensetotal.idfin	AND upb.idupb = upbexpensetotal.idupb	AND upbexpensetotal.nphase = uniconfig.expensefinphase
 	LEFT OUTER JOIN finlast (NOLOCK)		ON fin.idfin = finlast.idfin
 	LEFT OUTER JOIN manager (NOLOCK)		ON manager.idman = upb.idman
-	LEFT OUTER JOIN manager managerfin		ON managerfin.idman = finlast.idman
-	LEFT OUTER JOIN finyear		ON fin.idfin = finyear.idfin		AND upb.idupb = finyear.idupb
+	LEFT OUTER JOIN manager managerfin	 (NOLOCK)	ON managerfin.idman = finlast.idman
+	LEFT OUTER JOIN finyear	(NOLOCK)	ON fin.idfin = finyear.idfin		AND upb.idupb = finyear.idupb
+	LEFT OUTER JOIN account	(NOLOCK)	ON finlast.idacc= account.idacc
+	LEFT OUTER JOIN accmotive	(NOLOCK)	ON accmotive.idaccmotive= finlast.idaccmotive
 
 
 

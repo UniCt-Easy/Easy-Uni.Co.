@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[compute_rilevazioni_anac]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_rilevazioni_anac]
 GO
@@ -171,7 +188,7 @@ select sum(taxable_euro), MD.idexp_taxable, MD.idmankind, MD.yman ,MD.nman ,MD.c
 from mandatedetailview MD 
 join #CIG G
 	on MD.idmankind=G.idmankind and MD.yman = G.yman and MD.nman = G.nman and MD.cigcode = G.cigcode
-where MD.idexp_taxable is not null
+where MD.idexp_taxable is not null  and MD.stop is null
 group by MD.idexp_taxable, MD.idmankind, MD.yman ,MD.nman ,MD.cigcode
 
 update #impegni set importoimpegnato = (select expenseview.curramount 

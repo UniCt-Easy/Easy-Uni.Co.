@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,7 +29,7 @@ using metaeasylibrary;
 using funzioni_configurazione;
 
 namespace customindirectrel_default {
-    public partial class frmcustomindirectrel_default :Form {
+    public partial class frmcustomindirectrel_default : MetaDataForm {
         MetaData Meta;
         DataAccess Conn;
         CQueryHelper QHC = new CQueryHelper();
@@ -60,8 +59,6 @@ namespace customindirectrel_default {
             cmbedit.ValueMember = "edit";
             //bool isAdmin = (bool)Meta.GetSys("IsSystemAdmin");
         }
-
-
 
         void riempiComboList(object table) {
             if (table==null || table.ToString() == "") return;
@@ -120,11 +117,6 @@ namespace customindirectrel_default {
 
         }
 
-
-
-
-
-
         //public void MetaData_AfterActivation() { }
         public void MetaData_AfterClear() {
             DS.edittype.Clear();
@@ -141,7 +133,6 @@ namespace customindirectrel_default {
            
 
         }
-
 
         public void MetaData_AfterRowSelect(DataTable T, DataRow R) {
             if (!Meta.DrawStateIsDone) return;
@@ -166,14 +157,9 @@ namespace customindirectrel_default {
                     curr.listtype = null;
                 }
                 riempiComboList(R["objectname"].ToString());
-            }
-
-           
-
+            }            
         }
         //public void MetaData_BeforePost() { }
         //public void MetaData_AfterPost() { }
-
     }
 }
-

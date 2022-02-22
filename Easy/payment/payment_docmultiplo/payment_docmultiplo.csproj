@@ -80,6 +80,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\meta_payment\meta_payment.csproj">
+      <Project>{1783cbfd-d698-42b5-a1dd-0b74c219bc30}</Project>
+      <Name>meta_payment</Name>
+    </ProjectReference>
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
@@ -89,9 +93,6 @@
       <Name>metaeasylibrary</Name>
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="siopeplus_functions">
-      <HintPath>..\..\siopeplus_functions\bin\Debug\siopeplus_functions.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -109,10 +110,14 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
+    <ProjectReference Include="..\..\siopeplus_functions\siopeplus_functions.csproj">
+      <Project>{7d85344b-860d-48e2-b073-a8cfef78bf07}</Project>
+      <Name>siopeplus_functions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\treasurer\meta_treasurer\meta_treasurer.csproj">
       <Project>{0d5b8503-0a34-4002-b8f0-70e30127aeef}</Project>
       <Name>meta_treasurer</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
       <Name>funzioni_configurazione</Name>
@@ -128,31 +133,25 @@
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_expensevar</Name>
       <HintPath>..\..\expensevar\meta_expensevar\bin\Debug\meta_expensevar.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_fin">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_fin</Name>
       <HintPath>..\..\fin\meta_fin\bin\Debug\meta_fin.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="meta_payment">
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_payment</Name>
-      <HintPath>..\meta_payment\bin\Debug\meta_payment.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="meta_manager">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_manager</Name>
       <HintPath>..\..\manager\meta_manager\bin\Debug\meta_manager.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_registry">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_registry</Name>
       <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_paymenttransmission">
       <SpecificVersion>False</SpecificVersion>
@@ -170,13 +169,13 @@
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_sortingkind</Name>
       <HintPath>..\..\sortingkind\meta_sortingkind\bin\Debug\meta_sortingkind.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_expensesorted">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_expensesorted</Name>
       <HintPath>..\..\expensesorted\meta_expensesorted\bin\Debug\meta_expensesorted.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_config">
       <SpecificVersion>False</SpecificVersion>

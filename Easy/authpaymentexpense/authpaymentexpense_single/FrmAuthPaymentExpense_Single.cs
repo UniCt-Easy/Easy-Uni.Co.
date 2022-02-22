@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -27,7 +26,7 @@ using metadatalibrary;
 using funzioni_configurazione;
 
 namespace authpaymentexpense_single {
-    public partial class FrmAuthPaymentExpense_Single : Form {
+    public partial class FrmAuthPaymentExpense_Single : MetaDataForm {
         public FrmAuthPaymentExpense_Single() {
             InitializeComponent();
         }
@@ -96,15 +95,14 @@ namespace authpaymentexpense_single {
         }
 
         string GetFasePrecFilter(bool FiltraNumMovimento) {
-            string ffase = "";
+            string ffase = QHS.CmpEq("nphase", Meta.GetSys("maxexpensephase"));
             string MyFilter = QHS.AppAnd(ffase, QHS.CmpEq("ayear", Meta.GetSys("esercizio")));
             if (txtEsercizioMovimento.Text.Trim() != "")
                 MyFilter = QHS.AppAnd(MyFilter, QHS.CmpEq("ymov", txtEsercizioMovimento.Text.Trim()));
             if ((FiltraNumMovimento) && (txtNumeroMovimento.Text.Trim() != ""))
                 MyFilter = QHS.AppAnd(MyFilter, QHS.CmpEq("nmov", txtNumeroMovimento.Text.Trim()));
 
-            MyFilter = QHS.AppAnd(MyFilter, "(NOT EXISTS(SELECT * FROM authpaymentexpense " +
-                " WHERE authpaymentexpense.idexp = expenseview.idexp))");
+            MyFilter = QHS.AppAnd(MyFilter, "(NOT EXISTS(SELECT * FROM authpaymentexpense  WHERE authpaymentexpense.idexp = expenseview.idexp))");
 
             return MyFilter;
         }
@@ -154,4 +152,4 @@ namespace authpaymentexpense_single {
             txtImportoDisponibile.Text = CfgFn.GetNoNullDecimal(MyDR["available"]).ToString("c");
         }
     }
-}
+}

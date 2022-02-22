@@ -1,21 +1,37 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilconsuntivosorting_esiope]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_bilconsuntivosorting_esiope]
 GO
-
  
 SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
 --69
---setuser 'amm'
+--setuser 'amministrazione'
 -- update generalreportparameter set paramvalue='S' WHERE idparam = 'MostraTutteVoci'
--- exec rpt_bilconsuntivosorting_esiope 2018,{ts '2018-12-31 00:00:00'},4,69,'%','N','N','S', null, null, null, null, null
+-- exec rpt_bilconsuntivosorting_esiope 2019,{ts '2019-12-31 00:00:00'},4,29,'%','N','N','S', null, null, null, null, null
 
 CREATE       PROCEDURE [rpt_bilconsuntivosorting_esiope]
 (
 	@ayear int,
-	@date datetime,
+	@date datetime,  --- deve essere sempre pari alla data corrente, per un problema di mancata storicizzazione delle classificazioni sui movimenti finanziari
 	@levelusable tinyint=3,
 	@idsorkind_siope int,
 	@idupb varchar(36)='%',
@@ -186,8 +202,7 @@ BEGIN
 	END
 	SELECT @maxphase = MAX(nphase) FROM expensephase
 END
-DECLARE @cashvaliditykind int
-SELECT  @cashvaliditykind = cashvaliditykind FROM config WHERE ayear = @ayear
+ 
 
 
 		insert into #data (
@@ -280,7 +295,8 @@ SELECT  @cashvaliditykind = cashvaliditykind FROM config WHERE ayear = @ayear
 		SELECT
 			isnull(SLK.idparent, SortSiope.idsor),
 			isnull(@fixedidupb,HPV.idupb),
-			ISNULL(SUM(HPV.amount*ISNULL( SorInc.amount/HPV.amount ,0)),0)
+		    sum(SorInc.amount)   --- importo classificato alla data corrente, non è possibile storicizzare i passaggi di classificazione
+					 
 		FROM historyproceedsview HPV
 		JOIN upb U						ON HPV.idupb = U.idupb
 		JOIN fin F						ON HPV.idfin = F.idfin		
@@ -291,7 +307,7 @@ SELECT  @cashvaliditykind = cashvaliditykind FROM config WHERE ayear = @ayear
 		JOIN sorting SortSiope				ON SortSiope.idsor = SorInc.idsor				
 		JOIN sortinglevel sl			ON SortSiope.nlevel = sl.nlevel 
 		LEFT OUTER JOIN sortinglink SLK on SLK.idchild = SortSiope.idsor and SLK.nlevel = @levelusable_original
-		WHERE HPV.competencydate <= @date
+		WHERE HPV.competencydate <= @date AND HPV.amount<> 0
 			AND HPV.ymov = @ayear
 			AND (HPV.idupb LIKE @idupb)
 			AND (@infoadvance = 'N' OR @infoadvance = 'B' OR (F.flag & 16 =0) )
@@ -310,54 +326,7 @@ SELECT  @cashvaliditykind = cashvaliditykind FROM config WHERE ayear = @ayear
 			AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		GROUP BY isnull(@fixedidupb,HPV.idupb), isnull(SLK.idparent, SortSiope.idsor) 
 
-	IF (@cashvaliditykind <> 4)
-	BEGIN
-		INSERT INTO #data
-		(
-			idsor,
-			idupb,
-			incassi--var_maxphase_C
-		)
-		SELECT 
-			isnull(SLK.idparent, SortSiope.idsor),
-			isnull(@fixedidupb,IY.idupb),
-			ISNULL(SUM(IV.amount * ISNULL( SorInc.amount/IV.amount ,0)),0)
-		FROM incomevar IV
-		JOIN incomeyear IY				ON IY.idinc = IV.idinc
-		JOIN historyproceedsview HPV	ON HPV.idinc = IV.idinc
-		JOIN upb U						ON HPV.idupb = U.idupb
-		JOIN fin F						ON HPV.idfin = F.idfin
-		JOIN incomelast ILAST
-			on ILAST.idinc = HPV.idinc
-		JOIN incomesorted SorInc
-				ON SorInc.idinc = ILAST.idinc
-		JOIN sorting SortSiope				ON SortSiope.idsor = SorInc.idsor				
-		JOIN sortinglevel sl			ON SortSiope.nlevel = sl.nlevel 
-		LEFT OUTER JOIN sortinglink SLK on SLK.idchild = SortSiope.idsor and SLK.nlevel = @levelusable_original
-		WHERE IV.yvar = @ayear
-			AND IV.adate <= @date
-			AND IY.ayear = @ayear
-			AND (HPV.competencydate <= @date AND HPV.ymov = @ayear)
-			AND (@infoadvance = 'N' OR @infoadvance = 'B' OR (F.flag & 16 =0) )
-			AND (IY.idupb LIKE @idupb)	
-			AND sl.idsorkind = @idsorkind_siope
-			AND SortSiope.idsorkind = @idsorkind_siope
-			AND (SortSiope.nlevel = @levelusable
-			OR (SortSiope.nlevel < @levelusable
-				and (select count(*) from sorting S where S.idsorkind = @idsorkind_siope and S.paridsor = SortSiope.idsor)=0
-				AND (sl.flag&2)<>0
-			   )
-			)
-			AND IV.amount >0
-			AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)
-			AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)
-			AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)
-			AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)
-			AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)	
-		GROUP BY isnull(@fixedidupb,IY.idupb),isnull(SLK.idparent, SortSiope.idsor)
-
-	END
-
+ 
 
 UPDATE #data SET flagadvance = 'N'
 

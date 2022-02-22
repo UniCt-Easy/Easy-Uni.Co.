@@ -1,0 +1,186 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabappello_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabappello_default_0"><i class="fa fa-volume-up mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabappello_default_1" class="nav-link" data-toggle="pill" data-target="#tabappello_default_1"><i class="fa fa-user-check mr-1"></i>Prove</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabappello_default_2" class="nav-link" data-toggle="pill" data-target="#tabappello_default_2"><i class="fa fa-circle mr-1"></i>Attività formative</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabappello_default_3" class="nav-link" data-toggle="pill" data-target="#tabappello_default_3"><i class="fa fa-circle mr-1"></i>Prenotazioni</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabappello_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="appello_default_description">Descrizione</label>
+					<input id="appello_default_description" type="text" class="form-control" data-tag="appello.description?appellodefaultview.description" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="appello_default_aa">Anno accademico</label>
+					<select id="appello_default_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="appello.aa?appellodefaultview.aa" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="appello_default_idappellokind">Tipologia</label>
+					<select id="appello_default_idappellokind" class="custom-select d-block w-100"  data-source-name="appellokinddefaultview" data-value-member="idappellokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="appello.idappellokind?appellodefaultview.appello_idappellokind" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="appello_default_basevoto">Votazione di base</label>
+					<input id="appello_default_basevoto" type="text" class="form-control" data-tag="appello.basevoto?appellodefaultview.appello_basevoto" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="appello_default_idappelloazionekind">Ordinario/Correttivo/Integrativo</label>
+					<select id="appello_default_idappelloazionekind" class="custom-select d-block w-100"  data-source-name="appelloazionekinddefaultview" data-value-member="idappelloazionekind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="appello.idappelloazionekind?appellodefaultview.appello_idappelloazionekind" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="appello_default_idsessione">Sessione</label>
+					<div>
+						<input id="appello_default_idsessione" name="appello_default_idsessione" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sessionedefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="appello_default_prointermedia">Prova intermedia</label>
+					<div class="custom-control custom-radio">
+						<input id="appello_default_prointermediaSi" type="radio" name="appello_default_prointermedia" class="custom-control-input" data-tag="appello.prointermedia:S?appellodefaultview.appello_prointermedia:Si" data-subentity  ><label for="appello_default_prointermediaSi"> Si</label>
+						<input id="appello_default_prointermediaNo" type="radio" name="appello_default_prointermedia" class="custom-control-input" data-tag="appello.prointermedia:N?appellodefaultview.appello_prointermedia:No" data-subentity  ><label for="appello_default_prointermediaNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="appello_default_minvoto">Voto minimo</label>
+					<input id="appello_default_minvoto" type="text" class="form-control" data-tag="appello.minvoto?appellodefaultview.appello_minvoto" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="appello_default_posti">Numero massimo di posti</label>
+					<input id="appello_default_posti" type="text" class="form-control" data-tag="appello.posti?appellodefaultview.appello_posti" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#appello_default_prenotstart").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="appello_default_prenotstart">Data di inizio prenotazioni</label>
+					<input id="appello_default_prenotstart" type="text" class="form-control" data-tag="appello.prenotstart.g?appellodefaultview.appello_prenotstart.g" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#appello_default_penotend").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="appello_default_penotend">Data fine delle prenotazioni</label>
+					<input id="appello_default_penotend" type="text" class="form-control" data-tag="appello.penotend.g?appellodefaultview.appello_penotend.g" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="appello_default_publicato">Publicato</label>
+					<div class="custom-control custom-radio">
+						<input id="appello_default_publicatoSi" type="radio" name="appello_default_publicato" class="custom-control-input" data-tag="appello.publicato:S?appellodefaultview.appello_publicato:Si" data-subentity  ><label for="appello_default_publicatoSi"> Si</label>
+						<input id="appello_default_publicatoNo" type="radio" name="appello_default_publicato" class="custom-control-input" data-tag="appello.publicato:N?appellodefaultview.appello_publicato:No" data-subentity  ><label for="appello_default_publicatoNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="appello_default_surnamestart">Iniziali cognome inizio</label>
+					<input id="appello_default_surnamestart" type="text" class="form-control" data-tag="appello.surnamestart?appellodefaultview.appello_surnamestart" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="appello_default_surmanestop">Iniziali cognome fine</label>
+					<input id="appello_default_surmanestop" type="text" class="form-control" data-tag="appello.surmanestop?appellodefaultview.appello_surmanestop" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="appello_default_cftoend">Numero di crediti mancanti alla conclusione della carriera</label>
+					<input id="appello_default_cftoend" type="text" class="form-control" data-tag="appello.cftoend.fixed.2?appellodefaultview.appello_cftoend" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#appello_default_esterostart").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="appello_default_esterostart">Data inizio di permanenza dello studente all'estero </label>
+					<input id="appello_default_esterostart" type="text" class="form-control" data-tag="appello.esterostart?appellodefaultview.appello_esterostart" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#appello_default_esteroend").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="appello_default_esteroend">Data fine di permanenza dello studente all'estero </label>
+					<input id="appello_default_esteroend" type="text" class="form-control" data-tag="appello.esteroend?appellodefaultview.appello_esteroend" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="appello_default_idstudprenotkind">Tipologia di studenti per la prenotazione</label>
+					<select id="appello_default_idstudprenotkind" class="custom-select d-block w-100"  data-source-name="studprenotkinddefaultview" data-value-member="idstudprenotkind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="appello.idstudprenotkind?appellodefaultview.appello_idstudprenotkind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="appello_default_lavoratori">Studenti lavoratori</label>
+					<div class="custom-control custom-radio">
+						<input id="appello_default_lavoratoriSi" type="radio" name="appello_default_lavoratori" class="custom-control-input" data-tag="appello.lavoratori:S?appellodefaultview.appello_lavoratori:Si" data-subentity  ><label for="appello_default_lavoratoriSi"> Si</label>
+						<input id="appello_default_lavoratoriNo" type="radio" name="appello_default_lavoratori" class="custom-control-input" data-tag="appello.lavoratori:N?appellodefaultview.appello_lavoratori:No" data-subentity  ><label for="appello_default_lavoratoriNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="appello_default_minanniiscr">Numero minimo di anni di iscrizione</label>
+					<input id="appello_default_minanniiscr" type="text" class="form-control" data-tag="appello.minanniiscr?appellodefaultview.appello_minanniiscr" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="appello_default_passaggio">Studenti che hanno eseguito un passaggio di corso</label>
+					<div class="custom-control custom-radio">
+						<input id="appello_default_passaggioSi" type="radio" name="appello_default_passaggio" class="custom-control-input" data-tag="appello.passaggio:S?appellodefaultview.appello_passaggio:Si" data-subentity  ><label for="appello_default_passaggioSi"> Si</label>
+						<input id="appello_default_passaggioNo" type="radio" name="appello_default_passaggio" class="custom-control-input" data-tag="appello.passaggio:N?appellodefaultview.appello_passaggio:No" data-subentity  ><label for="appello_default_passaggioNo"> No</label>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabappello_default_1" role="tabpanel">
+				<div class="gridx" id="grid_prova_default" data-tag="prova.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabappello_default_2" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_appelloattivform_idattivform" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_appelloattivform_idattivform" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Attività formative
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_appelloattivform_appello" data-tag="appelloattivform.appello.appello" data-custom-control="gridx" data-mdlbuttondelete data-mdlconditionallookup="!aa_attivform_tipovalutaz,S,Si;!aa_attivform_tipovalutaz,N,No;"  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabappello_default_3" role="tabpanel">
+				<div class="gridx" id="grid_prenotappello_appello" data-tag="prenotappello.appello.appello" data-custom-control="gridx" data-mdlbuttonedit  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

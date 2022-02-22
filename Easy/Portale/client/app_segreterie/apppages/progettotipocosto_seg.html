@@ -1,0 +1,131 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabprogettotipocosto_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabprogettotipocosto_seg_0"><i class="fa fa-hand-holding-usd mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogettotipocosto_seg_1" class="nav-link" data-toggle="pill" data-target="#tabprogettotipocosto_seg_1"><i class="fa fa-hand-holding-usd mr-1"></i>Causali economico patrimoniali di costo associate</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogettotipocosto_seg_5" class="nav-link" data-toggle="pill" data-target="#tabprogettotipocosto_seg_5"><i class="fa fa-hand-holding-usd mr-1"></i>Causali economico patrimoniali di ricavo associate</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogettotipocosto_seg_2" class="nav-link" data-toggle="pill" data-target="#tabprogettotipocosto_seg_2"><i class="fa fa-file-signature mr-1"></i>Tipi di contratto associati come costo</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogettotipocosto_seg_6" class="nav-link" data-toggle="pill" data-target="#tabprogettotipocosto_seg_6"><i class="fa fa-file-signature mr-1"></i>Tipi di contratto associati come ricavo</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogettotipocosto_seg_3" class="nav-link" data-toggle="pill" data-target="#tabprogettotipocosto_seg_3"><i class="fa fa-list-ol mr-1"></i>Classificazione inventariale associata</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogettotipocosto_seg_4" class="nav-link" data-toggle="pill" data-target="#tabprogettotipocosto_seg_4"><i class="fa fa-money-check-alt mr-1"></i>Contributi c/ente associati</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabprogettotipocosto_seg_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettotipocosto_seg_title">Voce</label>
+					<input id="progettotipocosto_seg_title" type="text" class="form-control" data-tag="progettotipocosto.title"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettotipocosto_seg_ammissibilita">Ammissibilità (%)</label>
+					<input id="progettotipocosto_seg_ammissibilita" type="text" class="form-control" data-tag="progettotipocosto.ammissibilita.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettotipocosto_seg_sortcode">Ordinamento</label>
+					<input id="progettotipocosto_seg_sortcode" type="text" class="form-control" data-tag="progettotipocosto.sortcode"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="progettotipocosto_seg_idprogettotipocostokind">Voce di costo</label>
+					<select id="progettotipocosto_seg_idprogettotipocostokind" class="custom-select d-block w-100"  data-source-name="progettotipocostokind" data-value-member="idprogettotipocostokind" data-display-member="title" data-custom-control="combo" data-tag="progettotipocosto.idprogettotipocostokind"   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogettotipocosto_seg_budgetrichiesto" >Budget richiesto in fase di sottomissione del progetto</div>
+					<label class="col-form-label col-md-12" for="progettotipocosto_seg_budgetrichiesto">Budget richiesto</label>
+					<input id="progettotipocosto_seg_budgetrichiesto" type="text" class="form-control" data-tag="progettotipocosto.budgetrichiesto.fixed.2"  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabprogettotipocosto_seg_1" role="tabpanel">
+	<div class="custom_lng_div" data-langkey="tablabelprogettotipocosto_seg_1" >Inserire le causali contabili (modulo COEP di Easy) associate alla voce di costo. Tutte le spese associate alle causali contabili elencate saranno rendicontate per questa voce di costo.</div>
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_progettotipocostoaccmotive_idaccmotive" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_progettotipocostoaccmotive_idaccmotive" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Causali economico patrimoniali di costo associate
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_progettotipocostoaccmotive_seg" data-tag="progettotipocostoaccmotive.seg.seg" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+	</div>
+	<div class="tab-pane fade" id="tabprogettotipocosto_seg_5" role="tabpanel">
+	<div class="custom_lng_div" data-langkey="tablabelprogettotipocosto_seg_5" >Inserire le causali contabili (modulo COEP di Easy) associate alla voce di ricavo. Tutti i ricavi associati alle causali contabili elencate saranno rendicontati per questa voce di ricavo.</div>
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_progettotiporicavoaccmotive_idaccmotive" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_progettotiporicavoaccmotive_idaccmotive" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Causali economico patrimoniali di ricavo associate
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_progettotiporicavoaccmotive_seg" data-tag="progettotiporicavoaccmotive.seg.seg" data-custom-control="gridx" data-mdlbuttondelete data-mdlbuttonedit   ></div>
+	</div>
+	<div class="tab-pane fade" id="tabprogettotipocosto_seg_2" role="tabpanel">
+	<div class="custom_lng_div" data-langkey="tablabelprogettotipocosto_seg_2" >Selezionare le qualifiche contrattuali del personale le cui ore inserite nel timesheet saranno rendicontate per questa voce di costo.</div>
+		<div id="grid_progettotipocostocontrattokind_seg" data-tag="contrattokind.default.default" data-custom-control="checklist" data-mdlconditionallookup="!idcontrattokind_contrattokind_active,S,Si;!idcontrattokind_contrattokind_active,N,No;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabprogettotipocosto_seg_6" role="tabpanel">
+		<div id="grid_progettotiporicavocontrattokind_default" data-tag="contrattokind_alias1.default.default" data-custom-control="checklist" data-mdlconditionallookup="!idcontrattokind_contrattokind_active,S,Si;!idcontrattokind_contrattokind_active,N,No;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabprogettotipocosto_seg_3" role="tabpanel">
+	<div class="custom_lng_div" data-langkey="tablabelprogettotipocosto_seg_3" >Inserire le classificazioni inventariali (modulo Cespiti di Easy) associate alla voce di costo. L'ammortamento su base mensile delle spese di acquisto dei cespiti per questo progetto, di cui sono stati compilati i diari d'uso, classificati con una delle seguenti classificazioni, saranno rendicontate per questa voce di costo.</div>
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_progettotipocostoinventorytree_idinv" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_progettotipocostoinventorytree_idinv" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Classificazione inventariale associata
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_progettotipocostoinventorytree_seg" data-tag="progettotipocostoinventorytree.seg.seg" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+	</div>
+	<div class="tab-pane fade" id="tabprogettotipocosto_seg_4" role="tabpanel">
+	<div class="custom_lng_div" data-langkey="tablabelprogettotipocosto_seg_4" >Inserire i contributi a carico dell'ente associate alla voce di costo. Tutti i contributi pagati relativi alle tipologie elencate saranno rendicontate per questa voce di costo.</div>
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_progettotipocostotax_taxcode" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_progettotipocostotax_taxcode" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Contributi c/ente associati
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_progettotipocostotax_seg" data-tag="progettotipocostotax.seg.seg" data-custom-control="gridx" data-mdlbuttondelete data-mdlconditionallookup="!taxcode_tax_active,S,Si;!taxcode_tax_active,N,No;"  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

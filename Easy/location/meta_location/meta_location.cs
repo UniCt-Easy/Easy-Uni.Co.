@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -43,6 +42,16 @@ namespace meta_location
 			ListingTypes.Add("aula_seg_child");
 			EditTypes.Add("edifici");
 			ListingTypes.Add("edifici");
+			EditTypes.Add("struttura");
+			ListingTypes.Add("struttura");
+			EditTypes.Add("edifici_seg_child");
+			ListingTypes.Add("edifici_seg_child");
+			EditTypes.Add("sede");
+			ListingTypes.Add("sede");
+			EditTypes.Add("sede_seg_child");
+			ListingTypes.Add("sede_seg_child");
+			EditTypes.Add("struttura_seg_child");
+			ListingTypes.Add("struttura_seg_child");
 			//$EditTypes$
 		}
 
@@ -59,7 +68,16 @@ namespace meta_location
 		}
 
 		override public DataRow Get_New_Row(DataRow ParentRow, DataTable T) {
-			DataTable Levels = T.DataSet.Tables["locationlevel"];
+            DataTable Levels;
+            // modifica portale. in cui il DataTablenon ha la propriet� associata DataSet, quindi leggla tabella a dB
+            if (T.DataSet == null) {
+                Levels = dbConn.RUN_SELECT("locationlevel", "*", null, null, null, false);
+            } else if (T.DataSet.Tables["locationlevel"] == null) {
+                Levels = dbConn.RUN_SELECT("locationlevel", "*", null, null, null, false);
+            } else { 
+                Levels = T.DataSet.Tables["locationlevel"];
+            }
+			
 			if (Levels == null) return null;
 			bool linear=false;
 			int level;
@@ -71,11 +89,7 @@ namespace meta_location
 				level = 1;
 				codprefix = "";
 			}
-			int levelmax = CfgFn.GetNoNullInt32(Levels.Compute("max(nlevel)",null));
-			if (level > levelmax) {
-				MessageBox.Show("Non è possibile inserire un livello inferiore a quello selezionato");
-				return null;
-			}
+
 			int len=6;
 			//string kind = "A";
 			DataRow [] levrow = Levels.Select("(nlevel="+QueryCreator.quotedstrvalue(level, false)+")");
@@ -98,8 +112,9 @@ namespace meta_location
 			SetDefault(T, "nlevel", level);
 
 			RowChange.MarkAsAutoincrement(T.Columns["idlocation"], null, null, 10);
+           
 
-			if (alfanumerico) {
+            if (alfanumerico) {
 				SetDefault(T, "locationcode", codprefix);
 				RowChange.ClearAutoIncrement(T.Columns["locationcode"]);
 			} else {
@@ -114,6 +129,42 @@ namespace meta_location
 				return base.SelectOne(ListingType, filter, "locationview", ToMerge);
 
 			return base.SelectOne(ListingType, filter, searchtable, ToMerge);
+		}
+
+		public override bool IsValid(DataRow R, out string errmess, out string errfield) {
+			if (!base.IsValid(R, out errmess, out errfield))
+				return false;
+			if (R.RowState != DataRowState.Added) return true;
+			object codelen = Conn.DO_READ_VALUE("locationlevel", QHS.CmpEq("nlevel", R["nlevel"]), "codelen");
+			int len = CfgFn.GetNoNullInt32(codelen);
+			if (len == 0) return true;
+
+            // sulla getNewRow popola ExtendedProperties["length"] della tabella.quindi su portale, serializzo propriet� lenght sulla colonna
+            // e qui sulla isValid() la rileggo.
+            int lunghezza =(int)R.Table.Columns["locationcode"].ExtendedProperties["length"];
+            if (R["locationcode"].ToString().Length != lunghezza) {
+				errmess = "Attenzione! Il campo 'Codice' deve avere lunghezza " + lunghezza + ".";
+				errfield = "locationcode";
+				return false;
+			}
+
+            // Il seguento check stava sulla getNewRow(). Lo abbiamo  passato sulla isValid() per compatibilit� con portale web
+            DataTable Levels = dbConn.RUN_SELECT("locationlevel", "*", null, null, null, false);
+            if (Levels == null) {
+                errmess = "La tabella locationlevel non ha nessun livello";
+                errfield = "nlevel";
+                return false;
+            }
+            int level = Convert.ToInt32(R["nlevel"]);
+            int levelmax = CfgFn.GetNoNullInt32(Levels.Compute("max(nlevel)", null));
+            if (level > levelmax){
+                errmess = "Non � possibile inserire un livello inferiore a quello selezionato";
+                errfield = "nlevel";
+                return false;
+            }
+			// fine modifica, porting del check da getNewRow() su isValid()
+
+			return true;
 		}
 
 		//modifiche luigi 8179
@@ -162,487 +213,6 @@ namespace meta_location
 
 		}
 
-		//		public override void DescribeColumns(DataTable T, string ListingType){
-		//			base.DescribeColumns(T, ListingType);
-		//			if (ListingType=="default"){
-		//				foreach (DataColumn C in T.Columns) 
-		//					DescribeAColumn(T,C.ColumnName,"");
-		//
-		//				DescribeAColumn(T,"locationcode","Codice");
-		//				DescribeAColumn(T,"description","Descrizione");
-		//			}
-		//		}
-		public override bool IsValid(DataRow R, out string errmess, out string errfield) {
-			if (!base.IsValid(R, out errmess, out errfield)) return false;
-
-			switch (edit_type) {
-				case "default": {
-						if (R.Table.Columns.Contains("address") && R["address"].ToString().Trim().Length > 100) {
-							errmess = "Attenzione! Il campo 'Address' può essere al massimo di 100 caratteri";
-							errfield = "address";
-							return false;
-						}
-						if (R.Table.Columns.Contains("annotations") && R["annotations"].ToString().Trim().Length > 400) {
-							errmess = "Attenzione! Il campo 'Annotations' può essere al massimo di 400 caratteri";
-							errfield = "annotations";
-							return false;
-						}
-						if (R.Table.Columns.Contains("cap") && R["cap"].ToString().Trim().Length > 20) {
-							errmess = "Attenzione! Il campo 'Cap' può essere al massimo di 20 caratteri";
-							errfield = "cap";
-							return false;
-						}
-						if (R.Table.Columns.Contains("location") && R["location"].ToString().Trim().Length > 20) {
-							errmess = "Attenzione! Il campo 'Location' può essere al massimo di 20 caratteri";
-							errfield = "location";
-							return false;
-						}
-
-						if (R["description"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'Descrizione' è obbligatorio";
-							errfield = "description";
-							return false;
-						}
-						if (R["description"].ToString().Trim().Length > 150) {
-							errmess = "Attenzione! Il campo 'Descrizione' può essere al massimo di 150 caratteri";
-							errfield = "description";
-							return false;
-						}
-						if (R["idlocation"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'id ubicazione (tabella location)' è obbligatorio";
-							errfield = "idlocation";
-							return false;
-						}
-						if (R["locationcode"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'Codice' è obbligatorio";
-							errfield = "locationcode";
-							return false;
-						}
-						if (R["locationcode"].ToString().Trim().Length > 50) {
-							errmess = "Attenzione! Il campo 'Codice' può essere al massimo di 50 caratteri";
-							errfield = "locationcode";
-							return false;
-						}
-
-						if (R["newlocationcode"].ToString().Trim().Length > 50) {
-							errmess = "Attenzione! Il campo 'nuovo codice ubicazione (usato per migrazioni)' può essere al massimo di 50 caratteri";
-							errfield = "newlocationcode";
-							return false;
-						}
-						if (R["nlevel"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'N. livello' è obbligatorio";
-							errfield = "nlevel";
-							return false;
-						}
-						if (R["rtf"].ToString().Trim().Length > 2147483647) {
-							errmess = "Attenzione! Il campo 'allegati' può essere al massimo di 2147483647 caratteri";
-							errfield = "rtf";
-							return false;
-						}
-						if (R["txt"].ToString().Trim().Length > 2147483647) {
-							errmess = "Attenzione! Il campo 'note testuali' può essere al massimo di 2147483647 caratteri";
-							errfield = "txt";
-							return false;
-						}
-						break;
-					}
-				case "seg_child": {
-						if (R["address"].ToString().Trim().Length > 100) {
-							errmess = "Attenzione! Il campo 'Indirizzo' può essere al massimo di 100 caratteri";
-							errfield = "address";
-							return false;
-						}
-						if (R["annotations"].ToString().Trim().Length > 400) {
-							errmess = "Attenzione! Il campo 'Note' può essere al massimo di 400 caratteri";
-							errfield = "annotations";
-							return false;
-						}
-						if (R["cap"].ToString().Trim().Length > 20) {
-							errmess = "Attenzione! Il campo 'CAP' può essere al massimo di 20 caratteri";
-							errfield = "cap";
-							return false;
-						}
-						if (R["location"].ToString().Trim().Length > 20) {
-							errmess = "Attenzione! Il campo 'Località' può essere al massimo di 20 caratteri";
-							errfield = "location";
-							return false;
-						}
-						if (R["ct"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'data creazione' è obbligatorio";
-							errfield = "ct";
-							return false;
-						}
-						if (R["cu"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'nome utente creazione' è obbligatorio";
-							errfield = "cu";
-							return false;
-						}
-						if (R["cu"].ToString().Trim().Length > 64) {
-							errmess = "Attenzione! Il campo 'nome utente creazione' può essere al massimo di 64 caratteri";
-							errfield = "cu";
-							return false;
-						}
-						if (R["description"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'Denominazione' è obbligatorio";
-							errfield = "description";
-							return false;
-						}
-						if (R["description"].ToString().Trim().Length > 150) {
-							errmess = "Attenzione! Il campo 'Denominazione' può essere al massimo di 150 caratteri";
-							errfield = "description";
-							return false;
-						}
-						if (R["idlocation"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'id ubicazione (tabella location)' è obbligatorio";
-							errfield = "idlocation";
-							return false;
-						}
-						if (R["locationcode"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'Codice' è obbligatorio";
-							errfield = "locationcode";
-							return false;
-						}
-						if (R["locationcode"].ToString().Trim().Length > 50) {
-							errmess = "Attenzione! Il campo 'Codice' può essere al massimo di 50 caratteri";
-							errfield = "locationcode";
-							return false;
-						}
-						if (R["lt"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'data ultima modifica' è obbligatorio";
-							errfield = "lt";
-							return false;
-						}
-						if (R["lu"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'nome ultimo utente modifica' è obbligatorio";
-							errfield = "lu";
-							return false;
-						}
-						if (R["lu"].ToString().Trim().Length > 64) {
-							errmess = "Attenzione! Il campo 'nome ultimo utente modifica' può essere al massimo di 64 caratteri";
-							errfield = "lu";
-							return false;
-						}
-						if (R["newlocationcode"].ToString().Trim().Length > 50) {
-							errmess = "Attenzione! Il campo 'nuovo codice ubicazione (usato per migrazioni)' può essere al massimo di 50 caratteri";
-							errfield = "newlocationcode";
-							return false;
-						}
-						if (R["nlevel"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'N. livello' è obbligatorio";
-							errfield = "nlevel";
-							return false;
-						}
-						if (R["rtf"].ToString().Trim().Length > 2147483647) {
-							errmess = "Attenzione! Il campo 'allegati' può essere al massimo di 2147483647 caratteri";
-							errfield = "rtf";
-							return false;
-						}
-						if (R["txt"].ToString().Trim().Length > 2147483647) {
-							errmess = "Attenzione! Il campo 'note testuali' può essere al massimo di 2147483647 caratteri";
-							errfield = "txt";
-							return false;
-						}
-						break;
-					}
-				case "aula": {
-						if (R["address"].ToString().Trim().Length > 100) {
-							errmess = "Attenzione! Il campo 'Indirizzo' può essere al massimo di 100 caratteri";
-							errfield = "address";
-							return false;
-						}
-						if (R["annotations"].ToString().Trim().Length > 400) {
-							errmess = "Attenzione! Il campo 'Note' può essere al massimo di 400 caratteri";
-							errfield = "annotations";
-							return false;
-						}
-						if (R["cap"].ToString().Trim().Length > 20) {
-							errmess = "Attenzione! Il campo 'CAP' può essere al massimo di 20 caratteri";
-							errfield = "cap";
-							return false;
-						}
-						if (R["location"].ToString().Trim().Length > 20) {
-							errmess = "Attenzione! Il campo 'Località' può essere al massimo di 20 caratteri";
-							errfield = "location";
-							return false;
-						}
-						if (R["ct"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'data creazione' è obbligatorio";
-							errfield = "ct";
-							return false;
-						}
-						if (R["cu"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'nome utente creazione' è obbligatorio";
-							errfield = "cu";
-							return false;
-						}
-						if (R["cu"].ToString().Trim().Length > 64) {
-							errmess = "Attenzione! Il campo 'nome utente creazione' può essere al massimo di 64 caratteri";
-							errfield = "cu";
-							return false;
-						}
-						if (R["description"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'Denominazione' è obbligatorio";
-							errfield = "description";
-							return false;
-						}
-						if (R["description"].ToString().Trim().Length > 150) {
-							errmess = "Attenzione! Il campo 'Denominazione' può essere al massimo di 150 caratteri";
-							errfield = "description";
-							return false;
-						}
-						if (R["idlocation"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'id ubicazione (tabella location)' è obbligatorio";
-							errfield = "idlocation";
-							return false;
-						}
-						if (R["locationcode"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'Codice' è obbligatorio";
-							errfield = "locationcode";
-							return false;
-						}
-						if (R["locationcode"].ToString().Trim().Length > 50) {
-							errmess = "Attenzione! Il campo 'Codice' può essere al massimo di 50 caratteri";
-							errfield = "locationcode";
-							return false;
-						}
-						if (R["lt"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'data ultima modifica' è obbligatorio";
-							errfield = "lt";
-							return false;
-						}
-						if (R["lu"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'nome ultimo utente modifica' è obbligatorio";
-							errfield = "lu";
-							return false;
-						}
-						if (R["lu"].ToString().Trim().Length > 64) {
-							errmess = "Attenzione! Il campo 'nome ultimo utente modifica' può essere al massimo di 64 caratteri";
-							errfield = "lu";
-							return false;
-						}
-						if (R["newlocationcode"].ToString().Trim().Length > 50) {
-							errmess = "Attenzione! Il campo 'nuovo codice ubicazione (usato per migrazioni)' può essere al massimo di 50 caratteri";
-							errfield = "newlocationcode";
-							return false;
-						}
-						if (R["nlevel"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'N. livello' è obbligatorio";
-							errfield = "nlevel";
-							return false;
-						}
-						if (R["rtf"].ToString().Trim().Length > 2147483647) {
-							errmess = "Attenzione! Il campo 'allegati' può essere al massimo di 2147483647 caratteri";
-							errfield = "rtf";
-							return false;
-						}
-						if (R["txt"].ToString().Trim().Length > 2147483647) {
-							errmess = "Attenzione! Il campo 'note testuali' può essere al massimo di 2147483647 caratteri";
-							errfield = "txt";
-							return false;
-						}
-						break;
-					}
-				case "aula_seg_child": {
-						if (R["address"].ToString().Trim().Length > 100) {
-							errmess = "Attenzione! Il campo 'Address' può essere al massimo di 100 caratteri";
-							errfield = "address";
-							return false;
-						}
-						if (R["annotations"].ToString().Trim().Length > 400) {
-							errmess = "Attenzione! Il campo 'Annotations' può essere al massimo di 400 caratteri";
-							errfield = "annotations";
-							return false;
-						}
-						if (R["cap"].ToString().Trim().Length > 20) {
-							errmess = "Attenzione! Il campo 'Cap' può essere al massimo di 20 caratteri";
-							errfield = "cap";
-							return false;
-						}
-						if (R["location"].ToString().Trim().Length > 20) {
-							errmess = "Attenzione! Il campo 'Location' può essere al massimo di 20 caratteri";
-							errfield = "location";
-							return false;
-						}
-						if (R["ct"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'data creazione' è obbligatorio";
-							errfield = "ct";
-							return false;
-						}
-						if (R["cu"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'nome utente creazione' è obbligatorio";
-							errfield = "cu";
-							return false;
-						}
-						if (R["cu"].ToString().Trim().Length > 64) {
-							errmess = "Attenzione! Il campo 'nome utente creazione' può essere al massimo di 64 caratteri";
-							errfield = "cu";
-							return false;
-						}
-						if (R["description"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'Descrizione' è obbligatorio";
-							errfield = "description";
-							return false;
-						}
-						if (R["description"].ToString().Trim().Length > 150) {
-							errmess = "Attenzione! Il campo 'Descrizione' può essere al massimo di 150 caratteri";
-							errfield = "description";
-							return false;
-						}
-						if (R["idlocation"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'id ubicazione (tabella location)' è obbligatorio";
-							errfield = "idlocation";
-							return false;
-						}
-						if (R["locationcode"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'Codice' è obbligatorio";
-							errfield = "locationcode";
-							return false;
-						}
-						if (R["locationcode"].ToString().Trim().Length > 50) {
-							errmess = "Attenzione! Il campo 'Codice' può essere al massimo di 50 caratteri";
-							errfield = "locationcode";
-							return false;
-						}
-						if (R["lt"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'data ultima modifica' è obbligatorio";
-							errfield = "lt";
-							return false;
-						}
-						if (R["lu"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'nome ultimo utente modifica' è obbligatorio";
-							errfield = "lu";
-							return false;
-						}
-						if (R["lu"].ToString().Trim().Length > 64) {
-							errmess = "Attenzione! Il campo 'nome ultimo utente modifica' può essere al massimo di 64 caratteri";
-							errfield = "lu";
-							return false;
-						}
-						if (R["newlocationcode"].ToString().Trim().Length > 50) {
-							errmess = "Attenzione! Il campo 'nuovo codice ubicazione (usato per migrazioni)' può essere al massimo di 50 caratteri";
-							errfield = "newlocationcode";
-							return false;
-						}
-						if (R["nlevel"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'N. livello' è obbligatorio";
-							errfield = "nlevel";
-							return false;
-						}
-						if (R["rtf"].ToString().Trim().Length > 2147483647) {
-							errmess = "Attenzione! Il campo 'allegati' può essere al massimo di 2147483647 caratteri";
-							errfield = "rtf";
-							return false;
-						}
-						if (R["txt"].ToString().Trim().Length > 2147483647) {
-							errmess = "Attenzione! Il campo 'note testuali' può essere al massimo di 2147483647 caratteri";
-							errfield = "txt";
-							return false;
-						}
-						break;
-					}
-				case "edifici": {
-						if (R["address"].ToString().Trim().Length > 100) {
-							errmess = "Attenzione! Il campo 'Indirizzo' può essere al massimo di 100 caratteri";
-							errfield = "address";
-							return false;
-						}
-						if (R["annotations"].ToString().Trim().Length > 400) {
-							errmess = "Attenzione! Il campo 'Note' può essere al massimo di 400 caratteri";
-							errfield = "annotations";
-							return false;
-						}
-						if (R["cap"].ToString().Trim().Length > 20) {
-							errmess = "Attenzione! Il campo 'CAP' può essere al massimo di 20 caratteri";
-							errfield = "cap";
-							return false;
-						}
-						if (R["location"].ToString().Trim().Length > 20) {
-							errmess = "Attenzione! Il campo 'Località' può essere al massimo di 20 caratteri";
-							errfield = "location";
-							return false;
-						}
-						if (R["ct"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'data creazione' è obbligatorio";
-							errfield = "ct";
-							return false;
-						}
-						if (R["cu"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'nome utente creazione' è obbligatorio";
-							errfield = "cu";
-							return false;
-						}
-						if (R["cu"].ToString().Trim().Length > 64) {
-							errmess = "Attenzione! Il campo 'nome utente creazione' può essere al massimo di 64 caratteri";
-							errfield = "cu";
-							return false;
-						}
-						if (R["description"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'Denominazione' è obbligatorio";
-							errfield = "description";
-							return false;
-						}
-						if (R["description"].ToString().Trim().Length > 150) {
-							errmess = "Attenzione! Il campo 'Denominazione' può essere al massimo di 150 caratteri";
-							errfield = "description";
-							return false;
-						}
-						if (R["idlocation"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'id ubicazione (tabella location)' è obbligatorio";
-							errfield = "idlocation";
-							return false;
-						}
-						if (R["locationcode"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'Codice' è obbligatorio";
-							errfield = "locationcode";
-							return false;
-						}
-						if (R["locationcode"].ToString().Trim().Length > 50) {
-							errmess = "Attenzione! Il campo 'Codice' può essere al massimo di 50 caratteri";
-							errfield = "locationcode";
-							return false;
-						}
-						if (R["lt"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'data ultima modifica' è obbligatorio";
-							errfield = "lt";
-							return false;
-						}
-						if (R["lu"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'nome ultimo utente modifica' è obbligatorio";
-							errfield = "lu";
-							return false;
-						}
-						if (R["lu"].ToString().Trim().Length > 64) {
-							errmess = "Attenzione! Il campo 'nome ultimo utente modifica' può essere al massimo di 64 caratteri";
-							errfield = "lu";
-							return false;
-						}
-						if (R["newlocationcode"].ToString().Trim().Length > 50) {
-							errmess = "Attenzione! Il campo 'nuovo codice ubicazione (usato per migrazioni)' può essere al massimo di 50 caratteri";
-							errfield = "newlocationcode";
-							return false;
-						}
-						if (R["nlevel"].ToString().Trim() == "") {
-							errmess = "Attenzione! Il campo 'N. livello' è obbligatorio";
-							errfield = "nlevel";
-							return false;
-						}
-						if (R["rtf"].ToString().Trim().Length > 2147483647) {
-							errmess = "Attenzione! Il campo 'allegati' può essere al massimo di 2147483647 caratteri";
-							errfield = "rtf";
-							return false;
-						}
-						if (R["txt"].ToString().Trim().Length > 2147483647) {
-							errmess = "Attenzione! Il campo 'note testuali' può essere al massimo di 2147483647 caratteri";
-							errfield = "txt";
-							return false;
-						}
-						break;
-					}
-					//$IsValid$
-			}
-
-			return true;
-		}
 
 		public override void DescribeColumns(DataTable T, string ListingType) {
 			base.DescribeColumns(T, ListingType);
@@ -653,23 +223,69 @@ namespace meta_location
 			int nPos = 1;
 
 			switch (ListingType) {
-				case "default": {
-						DescribeAColumn(T, "idlocation", "id ubicazione (tabella location)", nPos++);
-						DescribeAColumn(T, "!paridlocation_location_description", "chiave parent Piano delle Ubicazioni (tabella location) ", nPos++);
-						DescribeAColumn(T, "description", "Descrizione", nPos++);
-						DescribeAColumn(T, "address", "Address", nPos++);
-						DescribeAColumn(T, "active", "attivo", nPos++);
-						DescribeAColumn(T, "annotations", "Annotations", nPos++);
+				case "seg_child": {
 						DescribeAColumn(T, "locationcode", "Codice", nPos++);
-						DescribeAColumn(T, "cap", "Cap", nPos++);
-						DescribeAColumn(T, "!idcity_geo_city_title", "Idcity", nPos++);
-						DescribeAColumn(T, "!idnation_geo_nation_title", "Idnation", nPos++);
-						DescribeAColumn(T, "latitude", "Latitude", nPos++);
-						DescribeAColumn(T, "location", "Location", nPos++);
-						DescribeAColumn(T, "longitude", "Longitude", nPos++);
+						DescribeAColumn(T, "description", "Denominazione", nPos++);
+						DescribeAColumn(T, "address", "Indirizzo", nPos++);
+						DescribeAColumn(T, "!idcity_geo_city_title", "Comune", nPos++);
+						DescribeAColumn(T, "active", "Attivo", nPos++);
 						break;
 					}
-				case "seg_child": {
+				case "default": {
+						DescribeAColumn(T, "address", "Indirizzo", nPos++);
+						DescribeAColumn(T, "idlocation", "id ubicazione (tabella location)", nPos++);
+						DescribeAColumn(T, "annotations", "Note", nPos++);
+						DescribeAColumn(T, "!paridlocation_location_description", "chiave parent Piano delle Ubicazioni (tabella location) ", nPos++);
+						DescribeAColumn(T, "cap", "CAP", nPos++);
+						DescribeAColumn(T, "description", "Descrizione", nPos++);
+						DescribeAColumn(T, "active", "attivo", nPos++);
+						DescribeAColumn(T, "locationcode", "Codice", nPos++);
+						DescribeAColumn(T, "!idcity_geo_city_title", "Comune", nPos++);
+						DescribeAColumn(T, "!idnation_geo_nation_title", "Nazione", nPos++);
+						DescribeAColumn(T, "latitude", "Latitudine", nPos++);
+						DescribeAColumn(T, "location", "Localit�", nPos++);
+						DescribeAColumn(T, "longitude", "Longitudine", nPos++);
+						break;
+					}
+				case "aula": {
+						DescribeAColumn(T, "!paridlocation_location_description", "Edificio", nPos++);
+						DescribeAColumn(T, "locationcode", "Codice", nPos++);
+						DescribeAColumn(T, "description", "Denominazione", nPos++);
+						DescribeAColumn(T, "active", "Attivo", nPos++);
+						break;
+					}
+				case "aula_seg_child": {
+						DescribeAColumn(T, "locationcode", "Codice", nPos++);
+						DescribeAColumn(T, "description", "Denominazione", nPos++);
+						DescribeAColumn(T, "active", "Attivo", nPos++);
+						break;
+					}
+				case "edifici": {
+						DescribeAColumn(T, "!paridlocation_location_description", "Sede", nPos++);
+						DescribeAColumn(T, "locationcode", "Codice", nPos++);
+						DescribeAColumn(T, "description", "Denominazione", nPos++);
+						DescribeAColumn(T, "address", "Indirizzo", nPos++);
+						DescribeAColumn(T, "!idcity_geo_city_title", "Comune", nPos++);
+						DescribeAColumn(T, "active", "Attivo", nPos++);
+						break;
+					}
+				case "edifici_seg_child": {
+						DescribeAColumn(T, "locationcode", "Codice", nPos++);
+						DescribeAColumn(T, "description", "Denominazione", nPos++);
+						DescribeAColumn(T, "address", "Indirizzo", nPos++);
+						DescribeAColumn(T, "!idcity_geo_city_title", "Comune", nPos++);
+						DescribeAColumn(T, "active", "Attivo", nPos++);
+						break;
+					}
+				case "sede": {
+						DescribeAColumn(T, "locationcode", "Codice", nPos++);
+						DescribeAColumn(T, "description", "Denominazione", nPos++);
+						DescribeAColumn(T, "address", "Indirizzo", nPos++);
+						DescribeAColumn(T, "!idcity_geo_city_title", "Comune", nPos++);
+						DescribeAColumn(T, "active", "Attivo", nPos++);
+						break;
+					}
+				case "sede_seg_child": {
 						DescribeAColumn(T, "locationcode", "Codice", nPos++);
 						DescribeAColumn(T, "description", "Denominazione", nPos++);
 						DescribeAColumn(T, "address", "Indirizzo", nPos++);
@@ -690,7 +306,7 @@ namespace meta_location
 				case "seg_child": {
 						return "location, description desc, paridlocation";
 					}
-					//$GetSorting$
+				//$GetSorting$
 			}
 			return base.GetSorting(ListingType);
 		}
@@ -836,4 +452,3 @@ namespace meta_location
 
 }
 
-

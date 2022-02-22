@@ -15,7 +15,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <cc1:hwButton runat="server" ID="btnVisualizza" Tag="" TabIndex="5" Text="Scarica" OnClick="btnVisualizza_Click" />
+                <cc1:hwButton runat="server" ID="btnVisualizza" Tag="" TabIndex="5" Text="Scarica" class="btn btn-primary" OnClick="btnVisualizza_Click" />
             </div>
         </div>
         <asp:FileUpload ID="btnFileUpload" runat="server" />

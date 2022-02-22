@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -56,26 +55,31 @@ namespace meta_accmotiveapplied {
         public override string[] primaryKey() {
             return mykey;
         }
-        string removefilterEP(string filter){
-            string mask = "(codemotive";
-            int i = filter.IndexOf(mask);
-            if (i < 0) return filter;
-            return filter.Substring(i);
-            //int j = filter.IndexOf(")", i + mask.Length) + 1;
-            //if (j + 1 < filter.Length) j += 3;
-            //return filter.Substring(0, i) + filter.Substring(j + 1);
-		}
+  //      string removefilterEP(string filter){
+  //          string mask = "(codemotive";
+  //          int i = filter.IndexOf(mask);
+  //          if (i < 0) return filter;
+  //          return filter.Substring(i);
+  //          //int j = filter.IndexOf(")", i + mask.Length) + 1;
+  //          //if (j + 1 < filter.Length) j += 3;
+  //          //return filter.Substring(0, i) + filter.Substring(j + 1);
+		//}
 
         public override DataRow SelectByCondition(string filter, string searchtable) {
-            string filternoEP = removefilterEP(filter);
+            //string filternoEP = removefilterEP(filter);
 
-            int ResultCount = Conn.RUN_SELECT_COUNT("accmotiveusable", filternoEP, true);
-            if (ResultCount != 1) return null;
+            //int ResultCount = Conn.RUN_SELECT_COUNT("accmotiveusable", filternoEP, true);
+            //if (ResultCount != 1) return null;
 
             DataTable T2 = Conn.RUN_SELECT("accmotiveapplied", null, null, filter, null, true);
             if (T2 == null) return null;
             if (T2.Rows.Count == 0) return null;
-            return CheckSelectRow(T2.Rows[0]);
+            var res = T2.Rows[0];
+            
+            int ResultCount = Conn.RUN_SELECT_COUNT("accmotiveusable", QHS.CmpEq("idaccmotive",res["idaccmotive"]), false);
+            if (ResultCount != 1) return null;
+
+            return CheckSelectRow(res);
         }
 
 		protected override Form GetForm(string FormName){
@@ -97,7 +101,12 @@ namespace meta_accmotiveapplied {
 				DescribeAColumn(T, "codemotive", "Cod. Causale",1);
 				DescribeAColumn(T, "motive", "Causale",2);
 			}
-		}
+			if (ListingType == "default") {
+				foreach (DataColumn C in T.Columns) DescribeAColumn(T, C.ColumnName, "", -1);
+				DescribeAColumn(T, "codemotive", "Cod. Causale", 1);
+				DescribeAColumn(T, "motive", "Causale", 2);
+				}
+			}
 
         public override void WebDescribeTree(hwTreeView tree, DataTable T, string ListingType)
         {
@@ -349,4 +358,4 @@ namespace meta_accmotiveapplied {
 			AutoEventsEnabled=true;
 		}	
 	}
-}
+}

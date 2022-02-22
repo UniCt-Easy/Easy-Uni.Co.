@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[check_csa_individuazione]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [check_csa_individuazione]
 GO
@@ -909,6 +926,8 @@ end
 						and not exists (select * from expenseyear EY where 
 										EY.idexp = C.idexp_main AND
 							            C.ayear = EY.ayear)
+						and exists (select * from csa_importriep R where idcsa_import = @idcsa_import and idcsa_contract=C.idcsa_contract )				
+
 ) 
 begin
 	INSERT INTO #errors VALUES( 'Regole specifiche CSA con movimento di spesa principale senza imputazione nell''esercizio corrente' , 52,'S')
@@ -924,6 +943,7 @@ end
 					and not exists (select * from expenseyear EY where 
 										EY.idexp = CT.idexp AND
 							            C.ayear = EY.ayear)
+					and exists (select * from csa_importriep R where idcsa_import = @idcsa_import and idcsa_contract=C.idcsa_contract )				
 )
                    
 begin

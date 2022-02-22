@@ -1,0 +1,42 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="afferenza_stru_idmansionekind">Mansione</label>
+					<select id="afferenza_stru_idmansionekind" class="custom-select d-block w-100"  data-source-name="mansionekind" data-value-member="idmansionekind" data-display-member="title" data-custom-control="combo" data-tag="afferenza.idmansionekind?afferenzastruview.afferenza_idmansionekind" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="afferenza_stru_idreg">Membro del personale</label>
+					<div>
+						<input id="afferenza_stru_idreg" name="afferenza_stru_idreg" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="getregistrydocentiamministratividefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#afferenza_stru_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="afferenza_stru_start">Dal </label>
+					<input id="afferenza_stru_start" type="text" class="form-control" data-tag="afferenza.start?afferenzastruview.afferenza_start" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#afferenza_stru_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="afferenza_stru_stop">Al </label>
+					<input id="afferenza_stru_stop" type="text" class="form-control" data-tag="afferenza.stop?afferenzastruview.afferenza_stop" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

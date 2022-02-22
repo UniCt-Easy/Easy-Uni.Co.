@@ -91,7 +91,7 @@
         <div class="col-md-3">
         </div>
         <div class="col-md-6">
-            <cc1:hwButton ID="btnAutorizza" runat="server" TabIndex="70" Tag="autorizza" Text="Autorizza e continua" class="btn btn-block" />
+            <cc1:hwButton ID="btnAutorizza" runat="server" TabIndex="70" Tag="autorizza" Text="Autorizza e continua" class="btn btn-primary" />
         </div>
         <div class="col-md-3">
         </div>

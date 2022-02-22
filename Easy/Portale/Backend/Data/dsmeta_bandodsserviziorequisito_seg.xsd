@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_bandodsserviziorequisito_seg" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_bandodsserviziorequisito_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="bandodsserviziorequisito" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="cfbonus" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cfbonushp" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cfconseguiti" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cfconseguitihp" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idbandods" type="xs:int" />
+              <xs:element name="idbandodsservizio" type="xs:int" />
+              <xs:element name="idbandodsserviziorequisito" type="xs:int" />
+              <xs:element name="idtipologiastudente" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:bandodsserviziorequisito" />
+      <xs:field xpath="mstns:idbandods" />
+      <xs:field xpath="mstns:idbandodsservizio" />
+      <xs:field xpath="mstns:idbandodsserviziorequisito" />
+      <xs:field xpath="mstns:idtipologiastudente" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

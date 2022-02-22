@@ -1,3 +1,21 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_buono_carico]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_buono_carico]
 GO
@@ -64,7 +82,9 @@ CREATE TABLE #assetload
 	discount float,			
 	idlocation int,
 	idman int,
-	annotation text
+	annotation text,
+	rfid varchar(30),
+	idsubmanager int
 )
 INSERT INTO #assetload
 (
@@ -93,7 +113,9 @@ INSERT INTO #assetload
 	discount,		
 	idlocation,
 	idman, 
-	prezzocopertina -- importo al lordo dello sconto
+	prezzocopertina, -- importo al lordo dello sconto
+	rfid,
+	idsubmanager
 )
 SELECT
 	assetload.idassetloadkind,
@@ -124,7 +146,12 @@ SELECT
 	CONVERT(decimal(19,2),ROUND(
 			ROUND(ISNULL(assetacquire.taxable, 0),2)
 			+ ROUND(ISNULL(assetacquire.taxable,0) * isnull(assetacquire.taxrate,1),2)-- IVA calcolata PRIMA dello sconto
-			,2))
+			,2)),
+	asset.rfid,
+	(SELECT TOP 1 idmanager
+				FROM assetsubmanager
+				WHERE assetsubmanager.idasset = asset.idasset
+				ORDER BY start desc)
 FROM assetacquire
 JOIN assetload
 	ON assetload.idassetload = assetacquire.idassetload
@@ -167,7 +194,9 @@ INSERT INTO #assetload
 	unitaryvalue,
 	idlocation,
 	idman, 
-	prezzocopertina -- importo al lordo dello sconto
+	prezzocopertina, -- importo al lordo dello sconto
+	rfid,
+	idsubmanager
 )
 SELECT
 	assetload.idassetloadkind,
@@ -197,7 +226,12 @@ SELECT
 	CONVERT(decimal(19,2),ROUND(
 			ROUND(ISNULL(assetacquire.taxable, 0),2)
 			+ ROUND(ISNULL(assetacquire.tax,0) / assetacquire.number,2)
-			,2))
+			,2)),
+	asset.rfid,
+	(SELECT TOP 1 idmanager
+				FROM assetsubmanager
+				WHERE assetsubmanager.idasset = asset.idasset
+				ORDER BY start desc)
 FROM assetacquire
 JOIN assetload
 	ON assetload.idassetload = assetacquire.idassetload
@@ -244,7 +278,9 @@ INSERT INTO #assetload
 	assetdescription,
 	unitaryvalue,
 	idlocation,
-	idman
+	idman,
+	rfid,
+	idsubmanager
 )
 SELECT 
 	assetload.idassetloadkind,
@@ -270,7 +306,12 @@ SELECT
 	inventoryamortization.description + ' n. '+ convert(varchar(4),namortization) + char(13) + assetamortization.description,
 	ROUND(ISNULL(assetamortization.assetvalue,0) * ISNULL(assetamortization.amortizationquota,0),2),
 	(SELECT idlocation FROM assetlocation l WHERE l.idasset = asset.idasset AND l.start IS NULL),
-	(SELECT idman FROM assetmanager m WHERE m.idasset = asset.idasset AND m.start IS NULL)
+	(SELECT idman FROM assetmanager m WHERE m.idasset = asset.idasset AND m.start IS NULL),
+	asset.rfid,
+	(SELECT TOP 1 idmanager
+				FROM assetsubmanager
+				WHERE assetsubmanager.idasset = asset.idasset
+				ORDER BY start desc)
 FROM assetload
 JOIN assetamortization
 	ON assetload.idassetload = assetamortization.idassetload
@@ -316,7 +357,9 @@ INSERT INTO #assetload
 	assetdescription,
 	unitaryvalue,
 	idlocation,
-	idman
+	idman,
+	rfid,
+	idsubmanager
 )
 SELECT 
 	assetload.idassetloadkind,
@@ -342,7 +385,12 @@ SELECT
 	inventoryamortization.description + ' n. '+ convert(varchar(4),namortization) + char(13) + assetamortization.description,
 	ROUND(ISNULL(assetamortization.assetvalue,0) * ISNULL(assetamortization.amortizationquota,0),2),
 	(SELECT idlocation FROM assetlocation l WHERE l.idasset = asset.idasset AND l.start IS NULL),
-	(SELECT idman FROM assetmanager m WHERE m.idasset = asset.idasset AND m.start IS NULL)
+	(SELECT idman FROM assetmanager m WHERE m.idasset = asset.idasset AND m.start IS NULL),
+	asset.rfid,
+	(SELECT TOP 1 idmanager
+				FROM assetsubmanager
+				WHERE assetsubmanager.idasset = asset.idasset
+				ORDER BY start desc)
 FROM assetload
 JOIN assetamortization
 	ON  assetload.idassetload = assetamortization.idassetload
@@ -411,7 +459,7 @@ SELECT
 	unitaryvalue,
 	discount 	,
 	#assetload.idlocation ,
-	location.description as location ,
+	location.locationcode + '-' +location.description as location,
 	#assetload.idman ,
 	manager.title as manager,
 	AGENCY.title_l,   -- sezione firme
@@ -423,8 +471,10 @@ SELECT
 	isnull(#assetload.prezzocopertina,0)  as prezzocopertina,
 	case	when  INVKIND.flag & 4 <>0 then 'S'
 			else  'N'
-	end as 'libri'
-	FROM #assetload
+	end as 'libri',
+	#assetload.rfid,
+	Submanager.title as submanager
+FROM #assetload
 JOIN inventory
 	on #assetload.idinventory = inventory.idinventory
 LEFT OUTER JOIN assetloadmotive
@@ -441,6 +491,9 @@ LEFT OUTER JOIN location
 	ON location.idlocation = #assetload.idlocation
 LEFT OUTER JOIN  manager
 	ON manager.idman = #assetload.idman
+LEFT OUTER JOIN  manager as Submanager
+	ON Submanager.idman = #assetload.idsubmanager
+
 ORDER BY nassetload,#assetload.startnumber,operationorder
 END
 

@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "funzioni_configurazione", "unmanaged\funzioni_configurazione\funzioni_configurazione.csproj", "{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}"
 EndProject
@@ -21,6 +21,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ivakind_default", "ivakind\ivakind_default\ivakind_default.csproj", "{45D7CD5D-B738-4420-BDAE-25BD05F88B30}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "invoice_default", "invoice\invoice_default\invoice_default.csproj", "{CBC9DF8C-A08C-4E91-AF3F-1E19599B20E8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8A907C2D-9448-47BB-A500-93CD4E8A10A0} = {8A907C2D-9448-47BB-A500-93CD4E8A10A0}
+		{6A80EFA8-CD84-4745-B395-63EF6A03E9D8} = {6A80EFA8-CD84-4745-B395-63EF6A03E9D8}
+		{48099CAD-020C-449E-A81B-1C81F54FC173} = {48099CAD-020C-449E-A81B-1C81F54FC173}
+		{58FFF4DD-20F9-433D-9629-C2CFC94EAEFF} = {58FFF4DD-20F9-433D-9629-C2CFC94EAEFF}
+		{CB5C02E2-746C-49E6-B204-297CC092B186} = {CB5C02E2-746C-49E6-B204-297CC092B186}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_invoice", "invoice\meta_invoice\meta_invoice.csproj", "{7AC2A9C3-7716-4565-82C7-CB1604E82902}"
 EndProject
@@ -31,6 +38,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_invoicedetailview", "invoicedetail\meta_invoicedetailview\meta_invoicedetailview.csproj", "{101996A1-7BA2-49D7-BB69-AFAED3F07BE8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "invoicedetail_single", "invoicedetail\invoicedetail_single\invoicedetail_single.csproj", "{93021D29-9E9A-4EE9-A365-1449785DF2A6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0027E37F-AFA2-4973-AAE5-98F9BC1A242E} = {0027E37F-AFA2-4973-AAE5-98F9BC1A242E}
+		{7AC2A9C3-7716-4565-82C7-CB1604E82902} = {7AC2A9C3-7716-4565-82C7-CB1604E82902}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_ivaregister", "ivaregister\meta_ivaregister\meta_ivaregister.csproj", "{8A907C2D-9448-47BB-A500-93CD4E8A10A0}"
 EndProject
@@ -111,6 +122,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "income_wizardinvoicedetail", "income\income_wizardinvoicedetail\income_wizardinvoicedetail.csproj", "{FD81B584-C799-4E08-B1B3-C633DB0C4731}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "invoicedetail_default", "invoicedetail\invoicedetail_default\invoicedetail_default.csproj", "{FC02ADC7-932A-43D3-BA81-3C406DD74532}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7AC2A9C3-7716-4565-82C7-CB1604E82902} = {7AC2A9C3-7716-4565-82C7-CB1604E82902}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_invoiceexpavailable", "invoice\meta_invoiceexpavailable\meta_invoiceexpavailable.csproj", "{D5BF9CD5-B0E6-425A-BF4C-0CB104BFCBC1}"
 EndProject
@@ -177,6 +191,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sdiservice", "sdiservice\sdiservice\sdiservice.csproj", "{8860CE2D-B02B-4414-A147-54E6CB4CAC0B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sdi_acquisto_default", "sdi_acquisto\sdi_acquisto_default\sdi_acquisto_default.csproj", "{81F1BFAE-EBBE-40EA-97AC-44E24A9C0CF8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1025AF39-73B8-4CE9-9FC6-C34D1DCB41E4} = {1025AF39-73B8-4CE9-9FC6-C34D1DCB41E4}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_sdi_acquisto", "sdi_acquisto\meta_sdi_acquisto\meta_sdi_acquisto.csproj", "{1025AF39-73B8-4CE9-9FC6-C34D1DCB41E4}"
 EndProject
@@ -187,6 +204,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_sdi_vendita", "sdi_vendita\meta_sdi_vendita\meta_sdi_vendita.csproj", "{58FFF4DD-20F9-433D-9629-C2CFC94EAEFF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sdi_vendita_default", "sdi_vendita\sdi_vendita_default\sdi_vendita_default.csproj", "{3DFA7045-1463-4DBB-8DF0-6F01F2AAD064}"
+	ProjectSection(ProjectDependencies) = postProject
+		{58FFF4DD-20F9-433D-9629-C2CFC94EAEFF} = {58FFF4DD-20F9-433D-9629-C2CFC94EAEFF}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_sdi_venditaview", "sdi_vendita\meta_sdi_venditaview\meta_sdi_venditaview.csproj", "{68B1D659-AB1C-4D9D-A205-26E5B9805526}"
 EndProject
@@ -227,6 +247,34 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_nocigmotive", "nocigmotive\meta_nocigmotive\meta_nocigmotive.csproj", "{903E049B-92F7-4EBF-99C9-44CB3D494193}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "no_table_esterometro", "no_table\no_table_esterometro\no_table_esterometro.csproj", "{5DBF41C5-9F84-49F3-ABE4-744736A6C3BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webpayment_prenotazioni_default", "webpaymentprenotazioni\webpayment_prenotazioni_default\webpayment_prenotazioni_default.csproj", "{C4EAB028-B3D1-49B8-A63D-C9F04C3E5325}"
+	ProjectSection(ProjectDependencies) = postProject
+		{77CFFD41-B5D8-4895-913D-8AA6B1A90544} = {77CFFD41-B5D8-4895-913D-8AA6B1A90544}
+		{F1748C92-9679-43EA-96D9-8EECAFD70616} = {F1748C92-9679-43EA-96D9-8EECAFD70616}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_webpayment", "webpayment\meta_webpayment\meta_webpayment.csproj", "{F1748C92-9679-43EA-96D9-8EECAFD70616}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_webpaymentdetail", "webpaymentdetail\meta_webpaymentdetail\meta_webpaymentdetail.csproj", "{77CFFD41-B5D8-4895-913D-8AA6B1A90544}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_webpayment_prenotazioniview", "webpaymentprenotazioni\meta_webpaymentprenotazioniview\meta_webpayment_prenotazioniview.csproj", "{CA70532F-D003-4688-9EE8-C8D8F7946555}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webpaymentdetail_single", "webpaymentdetail\webpaymentdetail_single\webpaymentdetail_single.csproj", "{1E6E4A66-4633-4B56-9825-EB36A21C9F38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "invoiceattachmentkind_default", "invoiceattachmentkind\invoiceattachmentkind_default\invoiceattachmentkind_default.csproj", "{A45F553A-C170-4B7A-9639-0171C09E9308}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_invoiceattachmentkind", "invoiceattachmentkind\meta_invoiceattachmentkind\meta_invoiceattachmentkind.csproj", "{E6942572-1F34-4C24-AD38-90D9D762A1CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_invoicekindview", "invoicekind\meta_invoicekindview\meta_invoicekindview.csproj", "{DA5B1402-B7B9-403C-B99A-3F31EB4DB5F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "invoicedeferred_fattureliquidate", "invoicedeferred\invoicedeferred_fattureliquidate\invoicedeferred_fattureliquidate.csproj", "{B4858686-5A09-4AD0-8151-A7B19AF29958}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sdi_acquistoestere_default", "sdi_acquistoestere\sdi_acquistoestere_default\sdi_acquistoestere_default.csproj", "{7FF47CB0-06D4-484D-9E42-F6ECB3C34ACA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_sdi_acquistoestere", "sdi_acquistoestere\meta_sdi_acquistoestere\meta_sdi_acquistoestere.csproj", "{E9B91BB4-97C2-4B84-8B8A-0CC7B8972AED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_sdi_acquistoestereview", "sdi_acquistoestereview\meta_sdi_acquistoestereview\meta_sdi_acquistoestereview.csproj", "{AF1E623A-1695-4D30-A42C-6019157FAAFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -686,8 +734,59 @@ Global
 		{5DBF41C5-9F84-49F3-ABE4-744736A6C3BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DBF41C5-9F84-49F3-ABE4-744736A6C3BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DBF41C5-9F84-49F3-ABE4-744736A6C3BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4EAB028-B3D1-49B8-A63D-C9F04C3E5325}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4EAB028-B3D1-49B8-A63D-C9F04C3E5325}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4EAB028-B3D1-49B8-A63D-C9F04C3E5325}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4EAB028-B3D1-49B8-A63D-C9F04C3E5325}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1748C92-9679-43EA-96D9-8EECAFD70616}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1748C92-9679-43EA-96D9-8EECAFD70616}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1748C92-9679-43EA-96D9-8EECAFD70616}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1748C92-9679-43EA-96D9-8EECAFD70616}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77CFFD41-B5D8-4895-913D-8AA6B1A90544}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77CFFD41-B5D8-4895-913D-8AA6B1A90544}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77CFFD41-B5D8-4895-913D-8AA6B1A90544}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77CFFD41-B5D8-4895-913D-8AA6B1A90544}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA70532F-D003-4688-9EE8-C8D8F7946555}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA70532F-D003-4688-9EE8-C8D8F7946555}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA70532F-D003-4688-9EE8-C8D8F7946555}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA70532F-D003-4688-9EE8-C8D8F7946555}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E6E4A66-4633-4B56-9825-EB36A21C9F38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E6E4A66-4633-4B56-9825-EB36A21C9F38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E6E4A66-4633-4B56-9825-EB36A21C9F38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E6E4A66-4633-4B56-9825-EB36A21C9F38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A45F553A-C170-4B7A-9639-0171C09E9308}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A45F553A-C170-4B7A-9639-0171C09E9308}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A45F553A-C170-4B7A-9639-0171C09E9308}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A45F553A-C170-4B7A-9639-0171C09E9308}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6942572-1F34-4C24-AD38-90D9D762A1CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6942572-1F34-4C24-AD38-90D9D762A1CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6942572-1F34-4C24-AD38-90D9D762A1CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6942572-1F34-4C24-AD38-90D9D762A1CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA5B1402-B7B9-403C-B99A-3F31EB4DB5F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA5B1402-B7B9-403C-B99A-3F31EB4DB5F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA5B1402-B7B9-403C-B99A-3F31EB4DB5F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA5B1402-B7B9-403C-B99A-3F31EB4DB5F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4858686-5A09-4AD0-8151-A7B19AF29958}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4858686-5A09-4AD0-8151-A7B19AF29958}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4858686-5A09-4AD0-8151-A7B19AF29958}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4858686-5A09-4AD0-8151-A7B19AF29958}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FF47CB0-06D4-484D-9E42-F6ECB3C34ACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FF47CB0-06D4-484D-9E42-F6ECB3C34ACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FF47CB0-06D4-484D-9E42-F6ECB3C34ACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FF47CB0-06D4-484D-9E42-F6ECB3C34ACA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9B91BB4-97C2-4B84-8B8A-0CC7B8972AED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9B91BB4-97C2-4B84-8B8A-0CC7B8972AED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9B91BB4-97C2-4B84-8B8A-0CC7B8972AED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9B91BB4-97C2-4B84-8B8A-0CC7B8972AED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF1E623A-1695-4D30-A42C-6019157FAAFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF1E623A-1695-4D30-A42C-6019157FAAFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF1E623A-1695-4D30-A42C-6019157FAAFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF1E623A-1695-4D30-A42C-6019157FAAFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2DB0CA65-387A-4BA4-9FFD-6FA273F3C6F7}
 	EndGlobalSection
 EndGlobal

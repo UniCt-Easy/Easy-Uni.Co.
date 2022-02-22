@@ -7,19 +7,19 @@
 <DiagramLayout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ex:showrelationlabel="False" ViewPortX="-10" ViewPortY="-10" xmlns:ex="urn:schemas-microsoft-com:xml-msdatasource-layout-extended" xmlns="urn:schemas-microsoft-com:xml-msdatasource-layout">
   <Shapes>
     <Shape ID="DesignTable:expensephase" ZOrder="4" X="184" Y="44" Height="143" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="139" />
-    <Shape ID="DesignTable:expenseview" ZOrder="3" X="347" Y="304" Height="257" Width="166" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="253" />
+    <Shape ID="DesignTable:expenseview" ZOrder="3" X="279" Y="306" Height="257" Width="166" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="253" />
     <Shape ID="DesignTable:csa_importriep_partition_expense" ZOrder="2" X="530" Y="200" Height="219" Width="260" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="215" />
   </Shapes>
   <Connectors>
     <Connector ID="DesignRelation:expenseview_csa_importriep_partition_expense" ZOrder="1" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>513</X>
-          <Y>361</Y>
+          <X>445</X>
+          <Y>363</Y>
         </Point>
         <Point>
           <X>530</X>
-          <Y>361</Y>
+          <Y>363</Y>
         </Point>
       </RoutePoints>
     </Connector>

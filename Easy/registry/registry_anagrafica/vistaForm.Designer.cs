@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -24,6 +23,7 @@ using System.Runtime.Serialization;
 #pragma warning disable 1591
 using meta_registry;
 using meta_registryreference;
+using meta_address;
 using meta_registryclass;
 using meta_geo_city;
 using meta_registryaddress;
@@ -34,102 +34,54 @@ using metadatalibrary;
 namespace registry_anagrafica {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable registry 		=> (registryTable)Tables["registry"];
 
-	///<summary>
-	///Stato civile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable maritalstatus 		=> (MetaTable)Tables["maritalstatus"];
 
-	///<summary>
-	///Categoria
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable category 		=> (MetaTable)Tables["category"];
 
-	///<summary>
-	///Classificazione centralizzata anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable centralizedcategory 		=> (MetaTable)Tables["centralizedcategory"];
 
-	///<summary>
-	///Qualifica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable position 		=> (MetaTable)Tables["position"];
 
-	///<summary>
-	///Inquadramento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registrylegalstatus 		=> (MetaTable)Tables["registrylegalstatus"];
 
-	///<summary>
-	///Contatto
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryreferenceTable registryreference 		=> (registryreferenceTable)Tables["registryreference"];
 
-	///<summary>
-	///Classificazione anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registrysorting 		=> (MetaTable)Tables["registrysorting"];
 
-	///<summary>
-	///Classificazione Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registrykind 		=> (MetaTable)Tables["registrykind"];
 
-	///<summary>
-	///Titolo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable title 		=> (MetaTable)Tables["title"];
 
-	///<summary>
-	///Modalit√† pagamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registrypaymethod 		=> (MetaTable)Tables["registrypaymethod"];
 
-	///<summary>
-	///Reddito Annuo Presunto
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registrytaxablestatus 		=> (MetaTable)Tables["registrytaxablestatus"];
 
-	///<summary>
-	/// Tipo Residenza
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable residence 		=> (MetaTable)Tables["residence"];
 
-	///<summary>
-	///Tipo Indirizzo  (anagrafica)
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable address 		=> (MetaTable)Tables["address"];
+	public addressTable address 		=> (addressTable)Tables["address"];
 
-	///<summary>
-	///Tipologie classificazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryclassTable registryclass 		=> (registryclassTable)Tables["registryclass"];
 
-	///<summary>
-	///Comuni
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public geo_cityTable geo_city 		=> (geo_cityTable)Tables["geo_city"];
 
@@ -139,9 +91,6 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable geo_city_agencyview 		=> (MetaTable)Tables["geo_city_agencyview"];
 
-	///<summary>
-	///Indirizzo di anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryaddressTable registryaddress 		=> (registryaddressTable)Tables["registryaddress"];
 
@@ -151,24 +100,15 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable geo_nazione_alias 		=> (MetaTable)Tables["geo_nazione_alias"];
 
-	///<summary>
-	///Nazioni
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public geo_nationTable geo_nation 		=> (geo_nationTable)Tables["geo_nation"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sortingview 		=> (MetaTable)Tables["sortingview"];
 
-	///<summary>
-	///Storicizzazione Codice Fiscale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registrycf 		=> (MetaTable)Tables["registrycf"];
 
-	///<summary>
-	///Storicizzazione Partita IVA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registrypiva 		=> (MetaTable)Tables["registrypiva"];
 
@@ -178,47 +118,44 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable accmotiveapplied_credit 		=> (MetaTable)Tables["accmotiveapplied_credit"];
 
-	///<summary>
-	///DURC
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registrydurc 		=> (MetaTable)Tables["registrydurc"];
 
-	///<summary>
-	///Tipo DURC
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable durckind 		=> (MetaTable)Tables["durckind"];
 
-	///<summary>
-	///CV
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registrycvattachment 		=> (MetaTable)Tables["registrycvattachment"];
 
-	///<summary>
-	///Categorie particolari
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registryspecialcategory770 		=> (MetaTable)Tables["registryspecialcategory770"];
 
-	///<summary>
-	///Categoria speciale 770
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable specialcategory770 		=> (MetaTable)Tables["specialcategory770"];
 
-	///<summary>
-	///Posizione Dalia
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable dalia_position 		=> (MetaTable)Tables["dalia_position"];
 
-	///<summary>
-	///visura camerale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registryvisura 		=> (MetaTable)Tables["registryvisura"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registrycasellariogiudiziale 		=> (MetaTable)Tables["registrycasellariogiudiziale"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registrycasellarioamministrativo 		=> (MetaTable)Tables["registrycasellarioamministrativo"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registryottemperanzalegge68_99 		=> (MetaTable)Tables["registryottemperanzalegge68_99"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registryregolaritafiscale 		=> (MetaTable)Tables["registryregolaritafiscale"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registryverificaanac 		=> (MetaTable)Tables["registryverificaanac"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registryattachment 		=> (MetaTable)Tables["registryattachment"];
 
 	#endregion
 
@@ -247,7 +184,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new registryTable();
-	tregistry.addBaseColumns("idreg","title","cf","p_iva","residence","idregistrykind","annotation","birthdate","gender","surname","forename","foreigncf","active","txt","rtf","cu","ct","lu","lt","extmatricula","idregistryclass","idcentralizedcategory","idtitle","idmaritalstatus","badgecode","maritalsurname","idcategory","idcity","location","idnation","authorization_free","multi_cf","idaccmotivecredit","idaccmotivedebit","ccp","flagbankitaliaproceeds","ipa_fe","flag_pa","sdi_norifamm","sdi_defrifamm","pec_fe","email_fe");
+	tregistry.addBaseColumns("idreg","title","cf","p_iva","residence","idregistrykind","annotation","birthdate","gender","surname","forename","foreigncf","active","txt","rtf","cu","ct","lu","lt","extmatricula","idregistryclass","idcentralizedcategory","idtitle","idmaritalstatus","badgecode","maritalsurname","idcategory","idcity","location","idnation","authorization_free","multi_cf","idaccmotivecredit","idaccmotivedebit","ccp","flagbankitaliaproceeds","ipa_fe","flag_pa","sdi_norifamm","sdi_defrifamm","pec_fe","email_fe","ipa_perlapa");
 	Tables.Add(tregistry);
 	tregistry.defineKey("idreg");
 
@@ -401,6 +338,7 @@ private void initClass() {
 	tregistrypaymethod.defineColumn("ccdedicato_doc", typeof(Byte[]));
 	tregistrypaymethod.defineColumn("ccdedicato_cf", typeof(Byte[]));
 	tregistrypaymethod.defineColumn("requested_doc", typeof(int));
+	tregistrypaymethod.defineColumn("ccdedicato_stop", typeof(DateTime));
 	Tables.Add(tregistrypaymethod);
 	tregistrypaymethod.defineKey("idreg", "idregistrypaymethod");
 
@@ -431,13 +369,8 @@ private void initClass() {
 	tresidence.defineKey("idresidence");
 
 	//////////////////// ADDRESS /////////////////////////////////
-	var taddress= new MetaTable("address");
-	taddress.defineColumn("idaddress", typeof(int),false);
-	taddress.defineColumn("description", typeof(string),false);
-	taddress.defineColumn("lt", typeof(DateTime));
-	taddress.defineColumn("lu", typeof(string));
-	taddress.defineColumn("active", typeof(string));
-	taddress.defineColumn("codeaddress", typeof(string));
+	var taddress= new addressTable();
+	taddress.addBaseColumns("idaddress","description","lt","lu","active","codeaddress");
 	Tables.Add(taddress);
 	taddress.defineKey("idaddress");
 
@@ -562,6 +495,7 @@ private void initClass() {
 	tregistrymainview.defineColumn("sdi_defrifamm", typeof(string));
 	tregistrymainview.defineColumn("email_fe", typeof(string));
 	tregistrymainview.defineColumn("pec_fe", typeof(string));
+	tregistrymainview.defineColumn("ipa_perlapa", typeof(string));
 	Tables.Add(tregistrymainview);
 	tregistrymainview.defineKey("idreg");
 
@@ -778,6 +712,90 @@ private void initClass() {
 	Tables.Add(tregistryvisura);
 	tregistryvisura.defineKey("idregistryvisura", "idreg");
 
+	//////////////////// REGISTRYCASELLARIOGIUDIZIALE /////////////////////////////////
+	var tregistrycasellariogiudiziale= new MetaTable("registrycasellariogiudiziale");
+	tregistrycasellariogiudiziale.defineColumn("idregistrycasellariogiudiziale", typeof(int),false);
+	tregistrycasellariogiudiziale.defineColumn("idreg", typeof(int),false);
+	tregistrycasellariogiudiziale.defineColumn("casellariocertification", typeof(Byte[]));
+	tregistrycasellariogiudiziale.defineColumn("start", typeof(DateTime));
+	tregistrycasellariogiudiziale.defineColumn("stop", typeof(DateTime));
+	tregistrycasellariogiudiziale.defineColumn("cu", typeof(string),false);
+	tregistrycasellariogiudiziale.defineColumn("ct", typeof(DateTime),false);
+	tregistrycasellariogiudiziale.defineColumn("lu", typeof(string),false);
+	tregistrycasellariogiudiziale.defineColumn("lt", typeof(DateTime),false);
+	Tables.Add(tregistrycasellariogiudiziale);
+	tregistrycasellariogiudiziale.defineKey("idregistrycasellariogiudiziale", "idreg");
+
+	//////////////////// REGISTRYCASELLARIOAMMINISTRATIVO /////////////////////////////////
+	var tregistrycasellarioamministrativo= new MetaTable("registrycasellarioamministrativo");
+	tregistrycasellarioamministrativo.defineColumn("idregistrycasellarioamministrativo", typeof(int),false);
+	tregistrycasellarioamministrativo.defineColumn("idreg", typeof(int),false);
+	tregistrycasellarioamministrativo.defineColumn("casellariocertification", typeof(Byte[]));
+	tregistrycasellarioamministrativo.defineColumn("start", typeof(DateTime));
+	tregistrycasellarioamministrativo.defineColumn("stop", typeof(DateTime));
+	tregistrycasellarioamministrativo.defineColumn("cu", typeof(string),false);
+	tregistrycasellarioamministrativo.defineColumn("ct", typeof(DateTime),false);
+	tregistrycasellarioamministrativo.defineColumn("lu", typeof(string),false);
+	tregistrycasellarioamministrativo.defineColumn("lt", typeof(DateTime),false);
+	Tables.Add(tregistrycasellarioamministrativo);
+	tregistrycasellarioamministrativo.defineKey("idregistrycasellarioamministrativo", "idreg");
+
+	//////////////////// REGISTRYOTTEMPERANZALEGGE68_99 /////////////////////////////////
+	var tregistryottemperanzalegge68_99= new MetaTable("registryottemperanzalegge68_99");
+	tregistryottemperanzalegge68_99.defineColumn("idregistryottemperanzalegge", typeof(int),false);
+	tregistryottemperanzalegge68_99.defineColumn("idreg", typeof(int),false);
+	tregistryottemperanzalegge68_99.defineColumn("ottemperanzacertification", typeof(Byte[]));
+	tregistryottemperanzalegge68_99.defineColumn("start", typeof(DateTime));
+	tregistryottemperanzalegge68_99.defineColumn("stop", typeof(DateTime));
+	tregistryottemperanzalegge68_99.defineColumn("cu", typeof(string),false);
+	tregistryottemperanzalegge68_99.defineColumn("ct", typeof(DateTime),false);
+	tregistryottemperanzalegge68_99.defineColumn("lu", typeof(string),false);
+	tregistryottemperanzalegge68_99.defineColumn("lt", typeof(DateTime),false);
+	Tables.Add(tregistryottemperanzalegge68_99);
+	tregistryottemperanzalegge68_99.defineKey("idregistryottemperanzalegge", "idreg");
+
+	//////////////////// REGISTRYREGOLARITAFISCALE /////////////////////////////////
+	var tregistryregolaritafiscale= new MetaTable("registryregolaritafiscale");
+	tregistryregolaritafiscale.defineColumn("idregistryregolaritafiscale", typeof(int),false);
+	tregistryregolaritafiscale.defineColumn("idreg", typeof(int),false);
+	tregistryregolaritafiscale.defineColumn("regolaritacertification", typeof(Byte[]));
+	tregistryregolaritafiscale.defineColumn("start", typeof(DateTime));
+	tregistryregolaritafiscale.defineColumn("stop", typeof(DateTime));
+	tregistryregolaritafiscale.defineColumn("cu", typeof(string),false);
+	tregistryregolaritafiscale.defineColumn("ct", typeof(DateTime),false);
+	tregistryregolaritafiscale.defineColumn("lu", typeof(string),false);
+	tregistryregolaritafiscale.defineColumn("lt", typeof(DateTime),false);
+	Tables.Add(tregistryregolaritafiscale);
+	tregistryregolaritafiscale.defineKey("idregistryregolaritafiscale", "idreg");
+
+	//////////////////// REGISTRYVERIFICAANAC /////////////////////////////////
+	var tregistryverificaanac= new MetaTable("registryverificaanac");
+	tregistryverificaanac.defineColumn("idregistryverificaanac", typeof(int),false);
+	tregistryverificaanac.defineColumn("idreg", typeof(int),false);
+	tregistryverificaanac.defineColumn("verificaanaccertification", typeof(Byte[]));
+	tregistryverificaanac.defineColumn("start", typeof(DateTime));
+	tregistryverificaanac.defineColumn("stop", typeof(DateTime));
+	tregistryverificaanac.defineColumn("cu", typeof(string),false);
+	tregistryverificaanac.defineColumn("ct", typeof(DateTime),false);
+	tregistryverificaanac.defineColumn("lu", typeof(string),false);
+	tregistryverificaanac.defineColumn("lt", typeof(DateTime),false);
+	Tables.Add(tregistryverificaanac);
+	tregistryverificaanac.defineKey("idregistryverificaanac", "idreg");
+
+	//////////////////// REGISTRYATTACHMENT /////////////////////////////////
+	var tregistryattachment= new MetaTable("registryattachment");
+	tregistryattachment.defineColumn("idreg", typeof(int),false);
+	tregistryattachment.defineColumn("idattachment", typeof(int),false);
+	tregistryattachment.defineColumn("attachment", typeof(Byte[]));
+	tregistryattachment.defineColumn("filename", typeof(string));
+	tregistryattachment.defineColumn("cu", typeof(string));
+	tregistryattachment.defineColumn("ct", typeof(DateTime));
+	tregistryattachment.defineColumn("lu", typeof(string));
+	tregistryattachment.defineColumn("lt", typeof(DateTime));
+	tregistryattachment.defineColumn("idattachmentkind", typeof(int));
+	Tables.Add(tregistryattachment);
+	tregistryattachment.defineKey("idreg", "idattachment");
+
 	#endregion
 
 
@@ -826,9 +844,14 @@ private void initClass() {
 	Relations.Add(new DataRelation("FK_accmotiveapplied_credit_registry",cPar,cChild,false));
 
 	this.defineRelation("registry_registryvisura","registry","registryvisura","idreg");
+	this.defineRelation("FK_registry_registrycasellariogiudiziale","registry","registrycasellariogiudiziale","idreg");
+	this.defineRelation("registry_registrycasellarioamministrativo","registry","registrycasellarioamministrativo","idreg");
+	this.defineRelation("registry_registryottemperanzalegge68_99","registry","registryottemperanzalegge68_99","idreg");
+	this.defineRelation("registry_registryregolaritafiscale","registry","registryregolaritafiscale","idreg");
+	this.defineRelation("registry_registryverificaanac","registry","registryverificaanac","idreg");
+	this.defineRelation("registry_registryattachment","registry","registryattachment","idreg");
 	#endregion
 
 }
 }
 }
-

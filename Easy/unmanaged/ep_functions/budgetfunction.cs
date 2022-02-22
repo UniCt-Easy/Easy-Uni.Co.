@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -25,6 +24,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using metaeasylibrary;
+using q = metadatalibrary.MetaExpression;
 
 namespace ep_functions {
     /// <summary>
@@ -64,14 +64,14 @@ namespace ep_functions {
             DataTable u = Conn.RUN_SELECT("uniconfig", "*", null, null, null, null, true);
             if (t == null) return;
             if (t.Rows.Count == 0) {
-                MessageBox.Show("Non esiste la configurazione dell'anno in corso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non esiste la configurazione dell'anno in corso");
                 return;
             }
 
             if (u == null)
                 return;
             if (u.Rows.Count == 0) {
-                MessageBox.Show("Non esiste la configurazione consolidata dell'anno in corso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non esiste la configurazione consolidata dell'anno in corso");
                 return;
             }
 
@@ -424,6 +424,13 @@ namespace ep_functions {
                     return ComposeObjects(new[] {"provision", R["idprovision", toConsider]});
                 case "provisiondetail":
                     return ComposeObjects(new[] {"provision", R["idprovision"], R["rownum"]});
+                case "ivapay":
+                    return ComposeObjects(
+                        new[] {
+                            "ivapay",
+                            R["yivapay", toConsider],
+                            R["nivapay", toConsider]
+                        });
             }
 
             return null;
@@ -468,7 +475,7 @@ namespace ep_functions {
             MetaData ToMeta = Meta.Dispatcher.Get(table);
             if (ToMeta == null) return false;
             ToMeta.ContextFilter = filter;
-            bool result = ToMeta.Edit(Meta.LinkedForm.ParentForm, "default", false);
+            bool result = ToMeta.Edit(Meta.linkedForm.ParentForm, "default", false);
             string listtype = "default";
             DataRow R = ToMeta.SelectOne(listtype, filter, null, null);
             if (R != null) {
@@ -726,7 +733,7 @@ namespace ep_functions {
                 MetaData Doc = meta.Dispatcher.Get(table);
                 Doc.ContextFilter = filter;
                 Form F = null;
-                if (meta.LinkedForm != null) F = meta.LinkedForm.ParentForm;
+                if (meta.linkedForm != null) F = meta.linkedForm.ParentForm;
                 bool result = Doc.Edit(F, "default", false);
                 string listtype = Doc.DefaultListType;
                 DataRow RR = Doc.SelectOne(listtype, filter, null, null);
@@ -768,7 +775,7 @@ namespace ep_functions {
             string checkfilter = QHS.AppAnd(filterRelated, QHS.CmpEq("nphase", nphase));
             ToMeta.ContextFilter = checkfilter;
             Form F = null;
-            if (Meta.LinkedForm != null) F = Meta.LinkedForm.ParentForm;
+            if (Meta.linkedForm != null) F = Meta.linkedForm.ParentForm;
             bool result = ToMeta.Edit(F, "default", false);
             string listtype = ToMeta.DefaultListType;
             DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
@@ -858,7 +865,7 @@ namespace ep_functions {
                 }
                 else {
                     if (!Post.DO_POST()) {
-                        MessageBox.Show("Errore durante la cancellazione degli impegni di budget", "Errore");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore durante la cancellazione degli impegni di budget", "Errore");
                         return false;
                     }
                 }
@@ -973,6 +980,7 @@ namespace ep_functions {
         /// <returns></returns>
         public bool getEpMovForDocument(string table, string idrelated, int nPhase) {
 
+	        if (string.IsNullOrEmpty(idrelated)) return false;
 
             string filterOriginal = getDocChildCondition(QHS, idrelated);
 
@@ -1431,12 +1439,35 @@ namespace ep_functions {
 
         public void setEpExpRow(string idrelated, int nPhase, DataRow r) {
             string k = idrelated.ToString() + "*" + nPhase;
-            EpExpByIdRelated[k] = r;
+            if (r == null ) {
+	            if (EpExpByIdRelated.ContainsKey(k)) EpExpByIdRelated.Remove(k);
+            }
+            else {
+	            EpExpByIdRelated[k] = r;
+            }
         }
 
         public void setEpAccRow(string idrelated, int nPhase, DataRow r) {
             string k = idrelated.ToString() + "*" + nPhase;
-            EpAccByIdRelated[k] = r;
+            if (r == null) {
+	            if (EpAccByIdRelated.ContainsKey(k)) EpAccByIdRelated.Remove(k);
+            }
+            else {
+	            EpAccByIdRelated[k] = r;
+            }
+        }
+
+		
+
+        public DataRow getEpExpRowLike(object idrelated, int nphase) {
+	        foreach (var existing in EpExpByIdRelated.Keys) {
+				var parts = existing.Split('*');
+				if (parts[1].ToString()!=nphase.ToString())continue;
+				if (parts[0] == idrelated.ToString()) return EpExpByIdRelated[existing];
+				if (parts[0].StartsWith(idrelated.ToString()+"§")) return EpExpByIdRelated[existing];
+	        }
+
+	        return null;
         }
 
         public DataRow getEpExpRow(object idrelated, int nphase) {
@@ -1489,7 +1520,7 @@ namespace ep_functions {
                 Ry = getEpExpYearById(CfgFn.GetNoNullInt32(R["idepexp"]));
 
                 if (Ry == null) {
-                    MessageBox.Show(
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(
                         "L'impegno di budget " + R["yepexp"] + "/" + R["nepexp"] + " non esiste nell'esercizio " +
                         Conn.GetEsercizio(),
                         "Errore");
@@ -1569,6 +1600,23 @@ namespace ep_functions {
             return null;
         }
 
+        public DataRow getEpAccById(object idepacc) {
+	        if (idepacc == null || idepacc == DBNull.Value) return null;
+	        DataRow[] epAcc = D.Tables["epacc"].Select(QHC.CmpEq("idepacc", idepacc));
+	        if (epAcc.Length > 0) {
+		        return epAcc[0];
+	        }
+	        return null;
+        }
+        public DataRow getEpExpById(object idepexp) {
+	        if (idepexp == null || idepexp == DBNull.Value) return null;
+	        DataRow[] epExp = D.Tables["epexp"].Select(QHC.CmpEq("idepexp", idepexp));
+	        if (epExp.Length > 0) {
+		        return epExp[0];
+	        }
+	        return null;
+        }
+
         public DataRow getEpExpYearById(object idepexp) {
             if (idepexp == null || idepexp == DBNull.Value) return null;
             int id = CfgFn.GetNoNullInt32(idepexp);
@@ -1615,7 +1663,7 @@ namespace ep_functions {
                 R = rEpAcc;
                 Ry = getEpAccYearById(CfgFn.GetNoNullInt32(R["idepacc"]));
                 if (Ry == null) {
-                    MessageBox.Show(
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(
                         "L'accertamento di budget " + R["yepacc"] + "/" + R["nepacc"] +
                         " non esiste nell'esercizio. " +
                         Conn.GetEsercizio(),
@@ -1655,8 +1703,8 @@ namespace ep_functions {
                 am = GetAmounts(amount, (DateTime) start, (DateTime) stop);
             }
 
-            Ry["amount"] = CfgFn.GetNoNullDecimal(Ry["amount"]) + am[0];
-            Ry["amount2"] = CfgFn.GetNoNullDecimal(Ry["amount2"]) + am[1];
+            Ry["amount"] = CfgFn.GetNoNullDecimal(Ry["amount"]) + am[0]; //in rigenerazione il vecchio valore già c'è...
+            Ry["amount2"] = CfgFn.GetNoNullDecimal(Ry["amount2"]) + am[1];// quindi viene aumentato ancora
             Ry["amount3"] = CfgFn.GetNoNullDecimal(Ry["amount3"]) + am[2];
             Ry["amount4"] = CfgFn.GetNoNullDecimal(Ry["amount4"]) + am[3];
             Ry["amount5"] = CfgFn.GetNoNullDecimal(Ry["amount5"]) + am[4];
@@ -1755,6 +1803,9 @@ namespace ep_functions {
             }
         }
 
+        /// <summary>
+        /// Cancella le righe che hanno importo zero
+        /// </summary>
         public void RemoveEmptyEpexp() {
             DataTable EpExp = D.Tables["epexp"];
             DataTable EpExpYear = D.Tables["epexpyear"];
@@ -1847,6 +1898,10 @@ namespace ep_functions {
             //ClearDetails();
         }
 
+        /// <summary>
+        /// Effettua un reject changes sulle modifiche effettuate sull'impegno considerato, in modo che alla fine non saranno azzerati o intaccati
+        /// </summary>
+        /// <param name="idepexp"></param>
         public void RemoveEpExp(object idepexp) {
             if (idepexp == DBNull.Value) return;
             var epExpCached = getEpExpYearById(idepexp);
@@ -1862,6 +1917,10 @@ namespace ep_functions {
             }
         }
 
+        /// <summary>
+        /// Effettua un reject changes sulle modifiche effettuate sull'accertamento considerato, in modo che alla fine non saranno azzerati o intaccati
+        /// </summary>
+        /// <param name="idepacc"></param>
         public void RemoveEpAcc(object idepacc) {
             if (idepacc == DBNull.Value) return;
             var epAccCached = getEpAccYearById(idepacc);
@@ -1939,6 +1998,15 @@ namespace ep_functions {
             DataRow RowForIDSOR, string dummy) {
 
         }
+        decimal[] amountsFromDict(Dictionary<string,object> r) {
+	        decimal[] res = new decimal[5];
+	        res[0] = CfgFn.GetNoNullDecimal(r["amount"]);
+	        res[1] = CfgFn.GetNoNullDecimal(r["amount2"]);
+	        res[2] = CfgFn.GetNoNullDecimal(r["amount3"]);
+	        res[3] = CfgFn.GetNoNullDecimal(r["amount4"]);
+	        res[4] = CfgFn.GetNoNullDecimal(r["amount5"]);
+	        return res;
+        }
 
         decimal[] amountsFromRow(DataRow r, DataRowVersion rv = DataRowVersion.Current) {
             decimal[] res = new decimal[5];
@@ -1947,6 +2015,21 @@ namespace ep_functions {
             res[2] = CfgFn.GetNoNullDecimal(r["amount3", rv]);
             res[3] = CfgFn.GetNoNullDecimal(r["amount4", rv]);
             res[4] = CfgFn.GetNoNullDecimal(r["amount5", rv]);
+            return res;
+        }
+
+        /// <summary>
+        /// Restituisce true o false a seconda che i due array siano uguali
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        bool IsEqual(decimal[] a, decimal[] b) {
+            bool res = true;
+            for (int i = 0; i <= 4; i++) {
+                if (a[i] != b[i])
+                    return false;
+            }
             return res;
         }
 
@@ -2006,7 +2089,7 @@ namespace ep_functions {
                 int id1 = CfgFn.GetNoNullInt32(r[id]);
                 epmovyear[id1] = r;
             }
-
+            
             foreach (DataRow e in D.Tables[table].Rows) {
                 if (e.RowState == DataRowState.Added) continue;
                 DataRow ey = null;
@@ -2024,77 +2107,65 @@ namespace ep_functions {
                 else {
                     ey = epmovyear[CfgFn.GetNoNullInt32(e[id])];
                 }
-
                 if (e.RowState == DataRowState.Unchanged && ey.RowState == DataRowState.Unchanged) continue;
 
-                decimal[] yearAmount = amountsFromRow(ey, DataRowVersion.Original); //Importo iniziale annuo
-                decimal[] currAmount = amountsFromRow(ey); //Sarà l'importo corrente
-                decimal[] pagatoAnniPrecedenti = new decimal[] {0, 0, 0, 0, 0};
                 int yepexp = CfgFn.GetNoNullInt32(e["y" + table]);
+                //importi anno iniziale del movimento di budget
+                
+                decimal[] currAmount = amountsFromRow(ey); //E' l'importo come impostato dall'operazione attuale, importo attuale che trova è 0
+
+                decimal[] importoPrecedente = amountsFromRow(ey, DataRowVersion.Original); //è uguale a yearAmount dell'anno, in questo caso 799
+                
+                decimal[] pagatoAnniPrecedenti = new decimal[] {0, 0, 0, 0, 0};
+                //calcola il pagato anni precedenti come yearAmount e quello iniziale alla creazione del movimento
+
                 if (yepexp < esercizio) {
-                    //All'importo corrente va sottratto la differenza che c'è di base sul db, ossia il "pagato" anni precedenti
-                    DataTable t = Conn.RUN_SELECT(table + "year",
-                        "id" + table + ",amount,amount2,amount3,amount4,amount5,ayear", null,
-                        QHS.AppAnd(QHS.CmpEq(id, e[id]), QHS.CmpEq("ayear", e["y" + table])), null, false);
-                    DataTable tVar = Conn.RUN_SELECT(table + "var",
-                        "id" + table + ",amount,amount2,amount3,amount4,amount5,nvar,yvar", null,
-                        QHS.AppAnd(QHS.CmpEq(id, e[id]), QHS.CmpLt("yvar", esercizio)), null, false);
-
-                    if (t.Rows.Count > 0) {
-                        DataRow rI = t.Rows[0];
-                        decimal[] importoInizialeSfasato = amountsFromRow(rI);
-                        decimal[] importoIniziale = new decimal[5];
-                        for (int i = 0; i <= 4; i++) {
-                            importoIniziale[i] = 0;
-                        }
-
-                        int annoOriginaleImpegno = CfgFn.GetNoNullInt32(rI["ayear"]);
-                        for (int i = 0; i <= 4; i++) {
-                            int annoImporto = annoOriginaleImpegno + i;
-                            int indice = annoImporto - esercizio;
-                            int indiceGood = indice;
-                            if (indiceGood < 0) indiceGood = 0;
-                            if (indiceGood > 4) indiceGood = 4;
-                            importoIniziale[indiceGood] += importoInizialeSfasato[i];
-                        }
-
-                        if (tVar != null) {
-                            foreach (DataRow var in tVar.Select()) {
-                                int annoVariazione = CfgFn.GetNoNullInt32(var["yvar"]);
-                                for (int i = 0; i <= 4; i++) {
-                                    decimal importoVarAnno = CfgFn.GetNoNullDecimal(var["amount" + nameSuffix(i)]);
-                                    if (importoVarAnno == 0) continue;
-                                    int indice = annoVariazione + i - esercizio;
-                                    int indiceGood = indice;
-                                    if (indiceGood < 0) indiceGood = 0;
-                                    if (indiceGood > 4) indiceGood = 4;
-                                    importoIniziale[indiceGood] += importoVarAnno;
-                                }
-
-                            }
-
-                        }
-
-                        pagatoAnniPrecedenti =
-                            decDiff(importoIniziale, yearAmount); //== importoIniziale- importoInizialeAnnuo
-                        //currAmount = decDiff(currAmount, pagatoAnniPrecedenti);
-                    }
+	                pagatoAnniPrecedenti = getPagatoAnniPrecedenti(attivo, e, ey);
+                    //currAmount = decAdd(currAmount, pagatoAnniPrecedenti);
+                    //currAmount = decAdd(importoRicalcolato, pagatoAnniPrecedenti);  //l'importo a partire dall'anno corrente deve incorporare i pag. anni prec per essere paragonabile a quello totale
+                    //importoPrecedente = importoRicalcolato;                         //da 799 diventa 2000, perchè? comunque 2000 è l'importo iniziale non quello precedente, che sarebbe invece quello di inizio anno
+								// a 2000 andrebbe sottratto il pagato dell'anno scorso. Ma alla fine a che serve, non possiamo prendere l'importo precedente uguale a quello originale iniziale e basta ossia 
+                                // lasciarlo invariato??
+                    
                 }
+                //Abbiamo:
+                // pagato anni precedenti = 1200
+                // importo precedente = importo iniziale anno = 799
+                // importo corrente = 0 (include teoricamente il pagato anni precedenti, ossia potrebbe essere 2000 se non fosse che stiamo annullando)
+                // importo variazioni anno corrente = -799 
+                // vogliamo confrontare l'importo corrente con quello iniziale annuo (importo precedente) per capire quale variazione vada creata
+                //  l'ideale sarebbe fare  importo corrente   - importo precedente  e ottenere il valore della variazione
+                //  ma se ripetiamo il procedimento otterremmo sempre nuove variazioni quindi dobbiamo tenere conto delle variazioni già create 
+                //   quindi facciamo (importo corrente - variazioni)  - importo precedente 
+                // l'importo corrente inoltre non tiene conto del pagato anni precedenti quindi ad esso va sommato tale valore
+                // quindi  (importo  corrente - pagato anni precedenti - variazioni) - importo precedente 
+                //     = ( 0 (importo corrente)  - 1201 (pagato anni prec) + 799  (-variazioni)) - 799 =   1201 ma dovrebbe uscire 0
+                // direi di fare importo precedente (799) + pagato anni precedenti
+                
 
-                decimal[] importoPrecedente = amountsFromRow(ey, DataRowVersion.Original);
-
+                //curramount è 50  ma dobbiamo sottrarre le variazioni dell'anno ossia +300
+                //aggiunge a currAmount anche le var. di quest'anno
                 if (epexpVarList.ContainsKey(CfgFn.GetNoNullInt32(e[id]))) {
                     foreach (DataRow v in epexpVarList[CfgFn.GetNoNullInt32(e[id])]) {
                         //aggiorna currAmount aggiungendovi le variazioni nuove
-                        //currAmount = decAdd(currAmount, amountsFromRow(v));
-                        importoPrecedente = decAdd(importoPrecedente, amountsFromRow(v));
+                        currAmount = decDiff(currAmount, amountsFromRow(v)); //curramount inizialmente vale 50, con le variazioni va in negativo a -250 che sono le variazioni presenti
+                        //importoPrecedente = decAdd(importoPrecedente, amountsFromRow(v));
                     }
                 }
+                //currAmount era 50 ora è -250  (-250, 0, 0, 0 , 0)
+                
+             
 
-                importoPrecedente = decAdd(importoPrecedente, pagatoAnniPrecedenti);
-                decimal[] importoVariazione = decDiff(currAmount, importoPrecedente); //ottiene la nuova variazione
+                //yearAmount lo vogliamo lasciare unchanged
+                //la differenza tra l'importo desiderato  e quello attuale la deve mettere in una variazione
 
-
+                currAmount = decDiff(currAmount, pagatoAnniPrecedenti); //importo precedente passa da 1200 a 2000 perchè sommiamo il pagato di 899
+                //riarmonizza l'importo corrente se trova dei negativi
+                //Se currAmount = importoPrecedente non riarmonizza currAmount
+                if (!IsEqual(currAmount, importoPrecedente)) {
+                    riarmonizza(currAmount);
+                }
+                decimal[] importoVariazione = decDiff(currAmount, importoPrecedente); //ottiene la nuova variazione 
 
                 //e.RejectChanges();
                 foreach (string fieldToRestore in new string[]
@@ -2116,8 +2187,127 @@ namespace ep_functions {
             }
         }
 
+        /// <summary>
+        /// Cerchiamo di eliminare i negativi dagli importi, mantenendo il totale invariato
+        /// Deve funzionare sia che la negatività sia seguita che preceduta da positività
+        /// </summary>
+        /// <param name="num"></param>
+        void riarmonizza(decimal[] num) {
+            // 2020 2021 2022 2023 2024         >>> risultato desiderato dalla funzione
+            // 100, -40,  100                   >>> 100, 0 , 60           OK            60, 0, 100 ???
+            // 100, -40,  0                     >>> 100, 0, 0 , 0 , -40   NOT OK
+            // -40, 100,  0                     >>> 0, 60                 OK
 
 
+	        decimal diff = 0;   //"debito" da colonne precedenti, da spalmare nelle successive
+            for (int i = 0; i <= num.Length-1 ; i++) {
+                decimal curr = num[i];
+                if (curr > 0) {
+                    if (diff < 0) {//spalma quello che può sulla colonna corrente
+                        if (curr + diff >= 0) {
+                            curr += diff;
+                            diff = 0;
+                        }
+                        else {
+                            diff += curr;
+                            curr = 0;
+                        }
+                    }
+                }
+                else {//il debito aumenta
+                    diff += curr;
+                    curr = 0;
+                }
+
+                num[i] = curr;
+            }
+            num[num.Length-1] += diff;
+
+            diff = 0;   //"debito" da colonne precedenti, da spalmare nelle successive
+
+            for (int i = num.Length-1; i >=0 ; i--) {
+                decimal curr = num[i];
+                if (curr > 0) {
+                    if (diff < 0) {//spalma quello che può sulla colonna corrente
+                        if (curr + diff >= 0) {
+                            curr += diff;
+                            diff = 0;
+                        }
+                        else {
+                            diff += curr;
+                            curr = 0;
+                        }
+                    }
+                }
+                else {//il debito aumenta
+                    diff += curr;
+                    curr = 0;
+                }
+
+                num[i] = curr;
+            }
+            num[0] += diff;
+
+        }
+
+        public decimal[] getPagatoAnniPrecedenti(bool attivo, DataRow mov, DataRow movYear) {
+	        string table = attivo ? "epacc" : "epexp";
+	        string id = "id" + table;
+
+	        decimal[] importoPrecedente =
+		        amountsFromRow(movYear, DataRowVersion.Original); //è uguale a yearAmount dell'anno, in questo caso 799
+
+
+	        DataTable tYearStart = Conn.RUN_SELECT(table + "year",
+		        "id" + table + ",amount,amount2,amount3,amount4,amount5,ayear", null,
+		        QHS.AppAnd(QHS.CmpEq(id, mov[id]), QHS.CmpEq("ayear", mov["y" + table])), null,
+		        false); //Importo iniziale
+	        DataTable tVar = Conn.RUN_SELECT(table + "var",
+		        "id" + table + ",amount,amount2,amount3,amount4,amount5,nvar,yvar", null,
+		        QHS.AppAnd(QHS.CmpEq(id, mov[id]), QHS.CmpLt("yvar", esercizio)), null, false);
+
+	        if (tYearStart.Rows.Count == 0) {
+		        return new decimal[] {0, 0, 0, 0, 0};
+	        }
+
+
+
+	        DataRow rI = tYearStart.Rows[0];
+	        decimal[] importoInizialeSfasato = amountsFromRow(rI);
+	        decimal[] importoRicalcolato = new decimal[5];
+	        for (int i = 0; i <= 4; i++) {
+		        importoRicalcolato[i] = 0;
+	        }
+
+	        int annoOriginaleImpegno = CfgFn.GetNoNullInt32(rI["ayear"]);
+	        for (int i = 0; i <= 4; i++) {
+		        int annoImporto = annoOriginaleImpegno + i;
+		        int indice = annoImporto - esercizio;
+		        int indiceGood = indice;
+		        if (indiceGood < 0) indiceGood = 0;
+		        if (indiceGood > 4) indiceGood = 4;
+		        importoRicalcolato[indiceGood] += importoInizialeSfasato[i]; //è 2000,0,0,0,0
+	        }
+
+	        if (tVar != null) { //variazioni di anni precedenti, non considera quelle dell'anno però
+		        foreach (DataRow var in tVar.Select()) {
+			        int annoVariazione = CfgFn.GetNoNullInt32(var["yvar"]);
+			        for (int i = 0; i <= 4; i++) {
+				        decimal importoVarAnno = CfgFn.GetNoNullDecimal(var["amount" + nameSuffix(i)]);
+				        if (importoVarAnno == 0) continue;
+				        int indice = annoVariazione + i - esercizio;
+				        int indiceGood = indice;
+				        if (indiceGood < 0) indiceGood = 0;
+				        if (indiceGood > 4) indiceGood = 4;
+				        importoRicalcolato[indiceGood] += importoVarAnno;
+			        }
+		        }
+	        }
+
+	        //importo ricalcolato = 2000
+	        return decDiff(importoRicalcolato, importoPrecedente);
+
+        }
 
         bool changedCol(DataRow r, string col) {
             if (r.RowState == DataRowState.Added || r.RowState == DataRowState.Deleted) return true;
@@ -2285,6 +2475,13 @@ namespace ep_functions {
             }
         }
 
+        /// <summary>
+        /// Valorizza EPRules ove silent
+        /// </summary>
+        /// <param name="silent"></param>
+        /// <param name="chiediMovimentiParent"></param>
+        /// <param name="posting"></param>
+        /// <returns></returns>
         internal bool SaveAll(bool silent, bool chiediMovimentiParent, ep_poster posting) {
 
             //CopiaInfoParent(); //non c'è più questa
@@ -2296,7 +2493,7 @@ namespace ep_functions {
 
             //10434 lo commento perchè se no non genera le scritture nelle fatture collegate  a contratti passivi o attivi
             //if (D.Tables["epexp"].Rows.Count == 0 && D.Tables["epacc"].Rows.Count==0) {
-            //    MessageBox.Show("Nessun movimento di budget da generare", "Avviso");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessun movimento di budget da generare", "Avviso");
             //    return false;
             //}
             cancellaParentConFigliInMemoria();
@@ -2335,9 +2532,9 @@ namespace ep_functions {
                 }
             }
 
-            if (someToLink && !silent && chiediMovimentiParent) {
+            if (someToLink && !silent && chiediMovimentiParent) {//attenzione che mi sta bloccando la transazione qui
                 if (!associaMovimentiParent()) {
-                    MessageBox.Show("Salvataggio annullato dall'utente.", "Avviso");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Salvataggio annullato dall'utente.", "Avviso");
                     return false;
                 }
             }
@@ -2374,23 +2571,25 @@ namespace ep_functions {
                 //    posting.mergeMessages(lm);
                 //    return listaMsg.CanIgnore;
                 //}
-
-                return posting.saveData(D, Post);
+                
+                var res=  posting.saveData(D, Post);
+                EPRules = posting.EPResult;
+                return res;
             }
             else {                
 
                 Post.InitClass(D, Conn);
                 if (silent) {
-                    var res = Post.DO_POST_SERVICE();
-                    return (res.Count == 0);
+	                EPRules = Post.DO_POST_SERVICE();
+                    return (EPRules.Count == 0);
                 }
                 else {
                     if (!Post.DO_POST()) {
-                        string error = "Errore nel salvataggio dei movimenti di budget";
+	                    string error = "Errore nel salvataggio dei movimenti di budget";
                         if (D.Tables["epexp"].Rows.Count == 0 && D.Tables["epacc"].Rows.Count == 0) {
                             error = "Errore nel salvataggio delle scritture";
                         }                        
-                        MessageBox.Show(error, "Errore");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(error, "Errore");
                         return false;
                     }
                 }
@@ -2398,6 +2597,8 @@ namespace ep_functions {
 
             return true;
         }
+
+        public ProcedureMessageCollection EPRules;
 
         /// <summary>
         /// Visualizza le informazioni in fase di salvataggio e permette di agganciare i parent prima di salvare
@@ -2575,4 +2776,4 @@ namespace ep_functions {
 
 
     }
-}
+}

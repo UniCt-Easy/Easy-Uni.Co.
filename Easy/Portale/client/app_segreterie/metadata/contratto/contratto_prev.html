@@ -1,0 +1,91 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contratto_prev_idcontrattokind">Tipologia di contratto</label>
+					<select id="contratto_prev_idcontrattokind" class="custom-select d-block w-100"  data-source-name="contrattokinddefaultview" data-value-member="idcontrattokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="contratto.idcontrattokind?contrattoprevview.idcontrattokind" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contratto_prev_idinquadramento">Inquadramento</label>
+					<select id="contratto_prev_idinquadramento" class="custom-select d-block w-100"  data-source-name="inquadramentodefaultview" data-value-member="idinquadramento" data-display-member="dropdown_title" data-custom-control="combo" data-tag="contratto.idinquadramento?contrattoprevview.contratto_idinquadramento" data-subentity   data-master="contrattokinddefaultview"> </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contratto_prev_classe">Classe</label>
+					<input id="contratto_prev_classe" type="text" class="form-control" data-tag="contratto.classe?contrattoprevview.contratto_classe" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contratto_prev_scatto">Scatto</label>
+					<input id="contratto_prev_scatto" type="text" class="form-control" data-tag="contratto.scatto?contrattoprevview.contratto_scatto" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#contratto_prev_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="contratto_prev_start">Inizio</label>
+					<input id="contratto_prev_start" type="text" class="form-control" data-tag="contratto.start?contrattoprevview.contratto_start" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#contratto_prev_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="contratto_prev_stop">Fine</label>
+					<input id="contratto_prev_stop" type="text" class="form-control" data-tag="contratto.stop?contrattoprevview.contratto_stop" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contratto_prev_parttime">Part-time %</label>
+					<input id="contratto_prev_parttime" type="text" class="form-control" data-tag="contratto.parttime.fixed.2?contrattoprevview.contratto_parttime" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contratto_prev_tempindet">Tempo indeterminato</label>
+					<div class="custom-control custom-radio">
+						<input id="contratto_prev_tempindetSi" type="radio" name="contratto_prev_tempindet" class="custom-control-input" data-tag="contratto.tempindet:S?contrattoprevview.contratto_tempindet:Si" data-subentity  data-mandatory ><label for="contratto_prev_tempindetSi"> Si</label>
+						<input id="contratto_prev_tempindetNo" type="radio" name="contratto_prev_tempindet" class="custom-control-input" data-tag="contratto.tempindet:N?contrattoprevview.contratto_tempindet:No" data-subentity  data-mandatory ><label for="contratto_prev_tempindetNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contratto_prev_tempdef">Tempo definito</label>
+					<div class="custom-control custom-radio">
+						<input id="contratto_prev_tempdefSi" type="radio" name="contratto_prev_tempdef" class="custom-control-input" data-tag="contratto.tempdef:S?contrattoprevview.contratto_tempdef:Si" data-subentity  data-mandatory ><label for="contratto_prev_tempdefSi"> Si</label>
+						<input id="contratto_prev_tempdefNo" type="radio" name="contratto_prev_tempdef" class="custom-control-input" data-tag="contratto.tempdef:N?contrattoprevview.contratto_tempdef:No" data-subentity  data-mandatory ><label for="contratto_prev_tempdefNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contratto_prev_estremibando">Estremi del bando di contratto</label>
+					<input id="contratto_prev_estremibando" type="text" class="form-control" data-tag="contratto.estremibando?contrattoprevview.contratto_estremibando" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#contratto_prev_datarivalutazione").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="contratto_prev_datarivalutazione">Data di prossima rivalutazione</label>
+					<input id="contratto_prev_datarivalutazione" type="text" class="form-control" data-tag="contratto.datarivalutazione?contrattoprevview.contratto_datarivalutazione" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contratto_prev_percentualesufondiateneo">Percentuale su fondi interni</label>
+					<input id="contratto_prev_percentualesufondiateneo" type="text" class="form-control" data-tag="contratto.percentualesufondiateneo.fixed.2?contrattoprevview.contratto_percentualesufondiateneo" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

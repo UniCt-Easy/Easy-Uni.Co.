@@ -159,6 +159,8 @@
               <xs:element name="idreg_rupanac" type="xs:int" minOccurs="0" />
               <xs:element name="publishdatekind" type="xs:string" minOccurs="0" />
               <xs:element name="tenderkind" type="xs:string" minOccurs="0" />
+              <xs:element name="requested_doc" type="xs:string" minOccurs="0" />
+              <xs:element name="flagbit" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

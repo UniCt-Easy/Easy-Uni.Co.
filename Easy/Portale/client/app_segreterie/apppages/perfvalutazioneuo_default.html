@@ -1,0 +1,120 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabperfvalutazioneuo_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabperfvalutazioneuo_default_0"><i class="fa fa-building mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabperfvalutazioneuo_default_1" class="nav-link" data-toggle="pill" data-target="#tabperfvalutazioneuo_default_1"><i class="fa fa-paperclip mr-1"></i>Allegati</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabperfvalutazioneuo_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfvalutazioneuo_default_year">Anno solare</label>
+					<select id="perfvalutazioneuo_default_year" class="custom-select d-block w-100"  data-source-name="year" data-value-member="year" data-display-member="year" data-custom-control="combo" data-tag="perfvalutazioneuo.year?perfvalutazioneuodefaultview.year" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfvalutazioneuo_default_idstruttura">Unità organizzativa</label>
+					<select id="perfvalutazioneuo_default_idstruttura" class="custom-select d-block w-100"  data-source-name="strutturaperfelenchiview" data-value-member="idstruttura" data-display-member="dropdown_title" data-custom-control="combo" data-tag="perfvalutazioneuo.idstruttura?perfvalutazioneuodefaultview.idstruttura" data-subentity  data-mandatory  > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelperfvalutazioneuo_default_risultato" >Media pesata di tutte le percentuali degli obiettivi </div>
+					<label class="col-form-label col-md-12" for="perfvalutazioneuo_default_risultato">Risultato %</label>
+					<input id="perfvalutazioneuo_default_risultato" type="text" class="form-control" data-tag="perfvalutazioneuo.risultato.fixed.2?perfvalutazioneuodefaultview.perfvalutazioneuo_risultato" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfvalutazioneuo_default_idperfschedastatus">Stato</label>
+					<select id="perfvalutazioneuo_default_idperfschedastatus" class="custom-select d-block w-100"  data-source-name="perfschedastatusdefaultview" data-value-member="idperfschedastatus" data-display-member="dropdown_title" data-custom-control="combo" data-tag="perfvalutazioneuo.idperfschedastatus?perfvalutazioneuodefaultview.perfvalutazioneuo_idperfschedastatus" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfvalutazioneuo_default_idreg_val">Valutatore</label>
+					<select id="perfvalutazioneuo_default_idreg_val" class="custom-select d-block w-100"  data-source-name="getregistrydocentiamministratividefaultview" data-value-member="idreg" data-display-member="dropdown_title" data-custom-control="combo" data-tag="perfvalutazioneuo.idreg_val?perfvalutazioneuodefaultview.perfvalutazioneuo_idreg_val" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfvalutazioneuo_default_idreg_appr">Approvatore</label>
+					<select id="perfvalutazioneuo_default_idreg_appr" class="custom-select d-block w-100"  data-source-name="getregistrydocentiamministratividefaultview_alias1" data-value-member="idreg" data-display-member="dropdown_title" data-custom-control="combo" data-tag="perfvalutazioneuo.idreg_appr?perfvalutazioneuodefaultview.perfvalutazioneuo_idreg_appr" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelperfvalutazioneuo_default_XXperfprogettoobiettivouoview" >Obiettivi dei progetti Strategici della UO</div>
+				<div class="gridx" id="grid_perfprogettoobiettivouoview_default" data-tag="perfprogettoobiettivouoview.default.default" data-custom-control="gridxchild" data-mdlgroupedcolumns="progetto_title" data-mdltotnotvisible  ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfvalutazioneuo_default_pesoproguo">Peso della valutazione della performance dei Progetti Strategici della UO</label>
+					<input id="perfvalutazioneuo_default_pesoproguo" type="text" class="form-control" data-tag="perfvalutazioneuo.pesoproguo.fixed.2?perfvalutazioneuodefaultview.perfvalutazioneuo_pesoproguo" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelperfvalutazioneuo_default_completamentopsuo" >Percentuale complessiva di completamento degli obiettivi dei progetti strategici della UO dello stesso anno</div>
+					<label class="col-form-label col-md-12" for="perfvalutazioneuo_default_completamentopsuo">Percentuale di completamento per i progetti Strategici della UO</label>
+					<input id="perfvalutazioneuo_default_completamentopsuo" type="text" class="form-control" data-tag="perfvalutazioneuo.completamentopsuo.fixed.2?perfvalutazioneuodefaultview.perfvalutazioneuo_completamentopsuo" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelperfvalutazioneuo_default_XXperfprogettoobiettivopersonaleview" >Obiettivi dei progetti Strategici di altre UO</div>
+				<div class="gridx" id="grid_perfprogettoobiettivopersonaleview_default" data-tag="perfprogettoobiettivopersonaleview.default.default" data-custom-control="gridxchild" data-mdlgroupedcolumns="progetto_title" data-mdltotnotvisible  ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfvalutazioneuo_default_pesoprogaltreuo">Peso della valutazione della performance dei Progetti Strategici di altre UO </label>
+					<input id="perfvalutazioneuo_default_pesoprogaltreuo" type="text" class="form-control" data-tag="perfvalutazioneuo.pesoprogaltreuo.fixed.2?perfvalutazioneuodefaultview.perfvalutazioneuo_pesoprogaltreuo" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelperfvalutazioneuo_default_completamentopsauo" >Percentuale complessiva di completamento degli obiettivi dei progetti strategici di altre UO svolte da personale della UO dello stesso anno</div>
+					<label class="col-form-label col-md-12" for="perfvalutazioneuo_default_completamentopsauo">Percentuale di completamento dei progetti Strategici di altre UO</label>
+					<input id="perfvalutazioneuo_default_completamentopsauo" type="text" class="form-control" data-tag="perfvalutazioneuo.completamentopsauo.fixed.2?perfvalutazioneuodefaultview.perfvalutazioneuo_completamentopsauo" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelperfvalutazioneuo_default_XXperfvalutazioneuoindicatori" >Indicatori operativi</div>
+				<div class="gridx" id="grid_perfvalutazioneuoindicatori_default" data-tag="perfvalutazioneuoindicatori.default.default" data-custom-control="gridxchild" data-mdlbuttonedit  ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfvalutazioneuo_default_pesoindicatori">Peso della valutazione della performance degli indicatori</label>
+					<input id="perfvalutazioneuo_default_pesoindicatori" type="text" class="form-control" data-tag="perfvalutazioneuo.pesoindicatori.fixed.2?perfvalutazioneuodefaultview.perfvalutazioneuo_pesoindicatori" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfvalutazioneuo_default_indicatori">Percentuale di completamento degli indicatori</label>
+					<input id="perfvalutazioneuo_default_indicatori" type="text" class="form-control" data-tag="perfvalutazioneuo.indicatori.fixed.2?perfvalutazioneuodefaultview.perfvalutazioneuo_indicatori" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelperfvalutazioneuo_default_XXperfobiettiviuo" >Obiettivi una tantum</div>
+				<div class="gridx" id="grid_perfobiettiviuo_default" data-tag="perfobiettiviuo.default.default" data-custom-control="gridxchild"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfvalutazioneuo_default_pesoobiettivi">Peso della valutazione della performance degli obiettivi una tantum</label>
+					<input id="perfvalutazioneuo_default_pesoobiettivi" type="text" class="form-control" data-tag="perfvalutazioneuo.pesoobiettivi.fixed.2?perfvalutazioneuodefaultview.perfvalutazioneuo_pesoobiettivi" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfvalutazioneuo_default_obiettiviindividuali">Percentuale di completamento degli obiettivi una tantum</label>
+					<input id="perfvalutazioneuo_default_obiettiviindividuali" type="text" class="form-control" data-tag="perfvalutazioneuo.obiettiviindividuali.fixed.2?perfvalutazioneuodefaultview.perfvalutazioneuo_obiettiviindividuali" data-subentity  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabperfvalutazioneuo_default_1" role="tabpanel">
+				<div class="gridx" id="grid_perfvalutazioneuoattach_default" data-tag="perfvalutazioneuoattach.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

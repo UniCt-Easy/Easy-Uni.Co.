@@ -410,6 +410,74 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="finvardetailview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yvar" type="xs:short" />
+              <xs:element name="nvar" type="xs:int" />
+              <xs:element name="rownum" type="xs:int" />
+              <xs:element name="variationdescription" type="xs:string" />
+              <xs:element name="idenactment" type="xs:int" minOccurs="0" />
+              <xs:element name="enactment" type="xs:string" minOccurs="0" />
+              <xs:element name="nenactment" type="xs:string" minOccurs="0" />
+              <xs:element name="enactmentdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="variationkind" type="xs:unsignedByte" />
+              <xs:element name="variationkinddescr" type="xs:string" />
+              <xs:element name="flagprevision" type="xs:string" />
+              <xs:element name="flagcredit" type="xs:string" />
+              <xs:element name="flagproceeds" type="xs:string" />
+              <xs:element name="flagsecondaryprev" type="xs:string" />
+              <xs:element name="official" type="xs:string" minOccurs="0" />
+              <xs:element name="nofficial" type="xs:int" minOccurs="0" />
+              <xs:element name="enactmentnumber" type="xs:int" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="manager" type="xs:string" minOccurs="0" />
+              <xs:element name="idfinvarstatus" type="xs:short" minOccurs="0" />
+              <xs:element name="finvarstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="idfin" type="xs:int" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="flag" type="xs:unsignedByte" />
+              <xs:element name="finpart" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="codefin" type="xs:string" />
+              <xs:element name="finance" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="upb" type="xs:string" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="limit" type="xs:decimal" minOccurs="0" />
+              <xs:element name="annotation" type="xs:string" minOccurs="0" />
+              <xs:element name="idlcard" type="xs:int" minOccurs="0" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idunderwriting" type="xs:int" minOccurs="0" />
+              <xs:element name="underwriting" type="xs:string" minOccurs="0" />
+              <xs:element name="prevision2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="prevision3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="residual" type="xs:decimal" minOccurs="0" />
+              <xs:element name="createexpense" type="xs:string" minOccurs="0" />
+              <xs:element name="idexp" type="xs:int" minOccurs="0" />
+              <xs:element name="phase" type="xs:string" minOccurs="0" />
+              <xs:element name="nmov" type="xs:int" minOccurs="0" />
+              <xs:element name="flagactivity" type="xs:short" minOccurs="0" />
+              <xs:element name="activity" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="flagkind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="kindd" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="kindr" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="varflag" type="xs:int" minOccurs="0" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="previousprevision" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -459,6 +527,12 @@
       <xs:selector xpath=".//mstns:expenseview" />
       <xs:field xpath="mstns:idexp" />
       <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="finvardetailview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:finvardetailview" />
+      <xs:field xpath="mstns:yvar" />
+      <xs:field xpath="mstns:nvar" />
+      <xs:field xpath="mstns:rownum" />
     </xs:unique>
   </xs:element>
   <xs:annotation>

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -29,7 +28,7 @@ namespace admpay_splitcolumn {
 	/// <summary>
 	/// Descrizione di riepilogo per FrmAdmPay_SplitColumn.
 	/// </summary>
-	public class FrmAdmPay_SplitColumn : System.Windows.Forms.Form {
+	public class FrmAdmPay_SplitColumn : MetaDataForm {
 		System.Data.DataTable mData = new System.Data.DataTable();
         System.Data.DataTable tToExcel;
 		MetaData Meta;
@@ -38,7 +37,7 @@ namespace admpay_splitcolumn {
 		private System.Windows.Forms.Button btnInputFile;
 		private System.Windows.Forms.TextBox txtInputFile;
 		private System.Windows.Forms.Button btnFileLordi;
-		private System.Windows.Forms.OpenFileDialog openInputFileDlg;
+		private System.Windows.Forms.OpenFileDialog _openInputFileDlg;
 		private System.Windows.Forms.SaveFileDialog saveOutputFileDlg;
 		private System.Windows.Forms.ProgressBar progressBar1;
 		private System.Windows.Forms.Label lblTask;
@@ -46,6 +45,7 @@ namespace admpay_splitcolumn {
         private System.Windows.Forms.Button btnFileContr;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
+        public IOpenFileDialog openInputFileDlg;
 		/// <summary>
 		/// Variabile di progettazione necessaria.
 		/// </summary>
@@ -53,6 +53,7 @@ namespace admpay_splitcolumn {
 
 		public FrmAdmPay_SplitColumn() {
 			InitializeComponent();
+            openInputFileDlg = createOpenFileDialog(_openInputFileDlg);
 		}
 
 		/// <summary>
@@ -77,7 +78,7 @@ namespace admpay_splitcolumn {
             this.btnInputFile = new System.Windows.Forms.Button();
             this.txtInputFile = new System.Windows.Forms.TextBox();
             this.btnFileLordi = new System.Windows.Forms.Button();
-            this.openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
+            this._openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
             this.saveOutputFileDlg = new System.Windows.Forms.SaveFileDialog();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblTask = new System.Windows.Forms.Label();
@@ -223,7 +224,7 @@ namespace admpay_splitcolumn {
 		private void btnInputFile_Click(object sender, System.EventArgs e) {
 			DialogResult dr = openInputFileDlg.ShowDialog();
 			if (dr != DialogResult.OK){
-				MessageBox.Show("Non è stato scelto alcun file");
+				show("Non è stato scelto alcun file");
 				txtInputFile.Text = "";
 				return;
 			}
@@ -243,7 +244,7 @@ namespace admpay_splitcolumn {
             }
 
             if (!effettuaSplit("L")) {
-				MessageBox.Show("Errore nello split delle colonne");
+				show("Errore nello split delle colonne");
 				return;
 			}
 
@@ -280,7 +281,7 @@ namespace admpay_splitcolumn {
 				}
 			}
 			catch(Exception ex) {
-				MessageBox.Show(this, ex.Message);
+				show(this, ex.Message);
 			}
 		}
 
@@ -540,7 +541,7 @@ namespace admpay_splitcolumn {
 				m_objExcel.Visible = true;    
 			}
 			catch {
-				MessageBox.Show( "Non è possibile eseguire l'esportazione in Excel. "+
+				(new MetaDataForm()).show( "Non è possibile eseguire l'esportazione in Excel. "+
 					"Excel non è installato su questo computer o è presente una versione "+
 					"non compatibile con l'oggetto COM: Microsoft Excel 9.0 Object Library",
 					"Esportazione non riuscita");
@@ -593,7 +594,7 @@ namespace admpay_splitcolumn {
 						ExcCol.NumberFormat =  Col.ExtendedProperties["ExcelFormat"].ToString();
 					}
 					catch (Exception E) {
-						MessageBox.Show(E.Message,"Errore");
+						(new MetaDataForm()).show(E.Message,"Errore");
 					}
 				}
 				Object [,]arr;
@@ -627,7 +628,7 @@ namespace admpay_splitcolumn {
 					X.EntireColumn.AutoFit(); //Giustifica la colonna
 				}
 				catch (Exception E){
-					MessageBox.Show(E.Message,"Errore");
+					(new MetaDataForm()).show(E.Message,"Errore");
 				}
 			}
    		}
@@ -644,7 +645,7 @@ namespace admpay_splitcolumn {
             }
 
             if (!effettuaSplit("R")) {
-                MessageBox.Show("Errore nello split delle colonne");
+                show("Errore nello split delle colonne");
                 return;
             }
 
@@ -682,7 +683,7 @@ namespace admpay_splitcolumn {
             // Si seleziona il tipo di classificazione definito per il task corrente sulle ritenute
             string idsorkind = ottieniSortingKindPerTax();
             if (idsorkind == "") {
-                MessageBox.Show(this, "Non è stata impostata la classificazione delle ritenute nella tabella di configurazione dell'importazione stipendi", "Errore");
+                show(this, "Non è stata impostata la classificazione delle ritenute nella tabella di configurazione dell'importazione stipendi", "Errore");
                 return false;
             }
 
@@ -691,7 +692,7 @@ namespace admpay_splitcolumn {
             System.Data.DataTable tColCaption = Meta.Conn.SQLRunner(q);
 
             if (tColCaption == null) {
-                MessageBox.Show(this, "Errore nella query per ricavare i nomi delle colonne delle ritenute");
+                show(this, "Errore nella query per ricavare i nomi delle colonne delle ritenute");
                 return false;
             }
 
@@ -761,7 +762,7 @@ namespace admpay_splitcolumn {
             }
 
             if (!effettuaSplit("V")) {
-                MessageBox.Show("Errore nello split delle colonne");
+                show("Errore nello split delle colonne");
                 return;
             }
 
@@ -780,7 +781,7 @@ namespace admpay_splitcolumn {
             progressBar1.Maximum = 100;
 
             if (txtInputFile.Text == "") {
-                MessageBox.Show("Non è stato scelto alcun file!");
+                show("Non è stato scelto alcun file!");
                 return false;
             }
 
@@ -791,12 +792,12 @@ namespace admpay_splitcolumn {
                 ReadCurrentSheet();
             }
             catch (Exception ex) {
-                MessageBox.Show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
+                show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
                 return false;
             }
 
             if (!verificaValiditaFileExcel(task)) {
-                MessageBox.Show(this, "Il file selezionato non è valido per il compito selezionato", "Errore");
+                show(this, "Il file selezionato non è valido per il compito selezionato", "Errore");
                 return false;
             }
 
@@ -839,11 +840,11 @@ namespace admpay_splitcolumn {
 
             foreach (string col in elencoColonne) {
                 if (!mData.Columns.Contains(col)) {
-                    MessageBox.Show(this, "Nel file " + openInputFileDlg.FileName + " non esiste la colonna " + col, "Errore");
+                    show(this, "Nel file " + openInputFileDlg.FileName + " non esiste la colonna " + col, "Errore");
                     return false;
                 }
             }
             return true;
         }
 	}
-}
+}

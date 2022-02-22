@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA upbyearview
 IF EXISTS(select * from sysobjects where id = object_id(N'[upbyearview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [upbyearview]
@@ -8,12 +25,13 @@ GO
 --clear_table_info'upbyearview'
 --setuser 'amm'
 --setuser 'amministrazione'
-
+--select * from upbyearview
 CREATE     VIEW  upbyearview 
 (
 	idupb,
 	codeupb,
 	upb,
+	paridupb,
 	idman,
 	manager,
 	iddivision,
@@ -64,13 +82,27 @@ CREATE     VIEW  upbyearview
 	expiration,
 	newcodeupb,
 	revenueprevision,
-	costprevision
+	costprevision,
+	cofogmpcode,
+	uesiopecode,
+	idunderwriter,
+	ri_ra_quota,
+	ri_rb_quota,
+	ri_sa_quota,
+	idupb_capofila,
+	codeupb_capofila,
+	upb_capofila,
+	locked,
+	blocca_cont_gen,
+	blocca_cont_fin,
+	soggetto_limitecosto
 )
 
 AS SELECT
 	upb.idupb,
 	upb.codeupb,
 	upb.title,
+	upb.paridupb,
 	upb.idman,
 	manager.title,
 	division.iddivision,
@@ -458,7 +490,20 @@ AS SELECT
 	upb.expiration,
 	upb.newcodeupb,
 	upbyear.revenueprevision,
-	upbyear.costprevision
+	upbyear.costprevision,
+	upb.cofogmpcode,
+	upb.uesiopecode,
+	upb.idunderwriter,
+	null,
+	null,
+	null,
+	upb.idupb_capofila,
+	upb_capofila.codeupb,
+	upb_capofila.title,
+	upbyear.locked,
+	CASE when (( isnull(upbyear.locked, 0) & 1) = 0)  then 'N' ELSE 'S' END, 
+	CASE when (( isnull(upbyear.locked, 0) & 2) = 0)  then 'N' ELSE 'S' END, 
+	CASE when (( isnull(upbyear.locked, 0) & 4) = 0)  then 'N' ELSE 'S' END
 FROM upb (nolock)
 CROSS JOIN accountingyear (nolock)
 JOIN config (nolock)				ON config.ayear = accountingyear.ayear
@@ -467,7 +512,7 @@ LEFT OUTER JOIN division (nolock)	ON division.iddivision = manager.iddivision
 LEFT OUTER JOIN treasurer (nolock)	ON treasurer.idtreasurer = upb.idtreasurer
 LEFT OUTER JOIN epupbkind (nolock)	ON epupbkind.idepupbkind = upb.idepupbkind
 LEFT OUTER JOIN upbyear	(nolock)	on upbyear.idupb = upb.idupb and upbyear.ayear = accountingyear.ayear
-
+LEFT OUTER JOIN upb upb_capofila (nolock)	on upb.idupb_capofila = upb_capofila.idupb  
 
 
 GO

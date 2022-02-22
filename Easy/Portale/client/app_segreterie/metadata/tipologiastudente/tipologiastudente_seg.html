@@ -1,0 +1,116 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabtipologiastudente_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabtipologiastudente_seg_0"><i class="fa fa-user-graduate mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabtipologiastudente_seg_1" class="nav-link" data-toggle="pill" data-target="#tabtipologiastudente_seg_1"><i class="fa fa-list mr-1"></i>Requisiti</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabtipologiastudente_seg_6" class="nav-link" data-toggle="pill" data-target="#tabtipologiastudente_seg_6"><i class="fa fa-check mr-1"></i>Esito</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabtipologiastudente_seg_2" class="nav-link" data-toggle="pill" data-target="#tabtipologiastudente_seg_2"><i class="fa fa-paperclip mr-1"></i>Allegati richiesti</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabtipologiastudente_seg_3" class="nav-link" data-toggle="pill" data-target="#tabtipologiastudente_seg_3"><i class="fa fa-calendar-alt mr-1"></i>Date di presentazione delle domande</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabtipologiastudente_seg_4" class="nav-link" data-toggle="pill" data-target="#tabtipologiastudente_seg_4"><i class="fa fa-stream mr-1"></i>Strutture dei corsi a cui lo studente deve essere iscritto</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabtipologiastudente_seg_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tipologiastudente_seg_idcorsostudiokind">Tipologia del corso a cui è iscritto</label>
+					<select id="tipologiastudente_seg_idcorsostudiokind" class="custom-select d-block w-100"  data-source-name="corsostudiokinddefaultview" data-value-member="idcorsostudiokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="tipologiastudente.idcorsostudiokind"   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tipologiastudente_seg_abbreviazione">Iscritto con una abbreviazione di corso</label>
+					<div class="custom-control custom-radio">
+						<input id="tipologiastudente_seg_abbreviazioneSi" type="radio" name="tipologiastudente_seg_abbreviazione" class="custom-control-input" data-tag="tipologiastudente.abbreviazione:S"  ><label for="tipologiastudente_seg_abbreviazioneSi"> Si</label>
+						<input id="tipologiastudente_seg_abbreviazioneNo" type="radio" name="tipologiastudente_seg_abbreviazione" class="custom-control-input" data-tag="tipologiastudente.abbreviazione:N"  ><label for="tipologiastudente_seg_abbreviazioneNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tipologiastudente_seg_annoiscr">Anno di iscrizione</label>
+					<input id="tipologiastudente_seg_annoiscr" type="text" class="form-control" data-tag="tipologiastudente.annoiscr"  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#graduatoriaesiti_seg_datachiusura").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="graduatoriaesiti_seg_datachiusura">Data di chiusura</label>
+					<input id="graduatoriaesiti_seg_datachiusura" type="text" class="form-control" data-tag="graduatoriaesiti.datachiusura.g" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="graduatoriaesiti_seg_provvisoria">Provvisoria</label>
+					<div class="custom-control custom-radio">
+						<input id="graduatoriaesiti_seg_provvisoriaP" type="radio" name="graduatoriaesiti_seg_provvisoria" class="custom-control-input" data-tag="graduatoriaesiti.provvisoria:P:Provvisoria" data-subentity  data-mandatory ><label for="graduatoriaesiti_seg_provvisoriaP"> Provvisoria</label>
+						<input id="graduatoriaesiti_seg_provvisoriaD" type="radio" name="graduatoriaesiti_seg_provvisoria" class="custom-control-input" data-tag="graduatoriaesiti.provvisoria:D:Definitiva" data-subentity  data-mandatory ><label for="graduatoriaesiti_seg_provvisoriaD"> Definitiva</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tipologiastudente_seg_immatricolato">Immatricolato</label>
+					<div class="custom-control custom-radio">
+						<input id="tipologiastudente_seg_immatricolatoSi" type="radio" name="tipologiastudente_seg_immatricolato" class="custom-control-input" data-tag="tipologiastudente.immatricolato:S"  ><label for="tipologiastudente_seg_immatricolatoSi"> Si</label>
+						<input id="tipologiastudente_seg_immatricolatoNo" type="radio" name="tipologiastudente_seg_immatricolato" class="custom-control-input" data-tag="tipologiastudente.immatricolato:N"  ><label for="tipologiastudente_seg_immatricolatoNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tipologiastudente_seg_iscrittobmi">Iscritto ad un bando di mobilità internazionale</label>
+					<div class="custom-control custom-radio">
+						<input id="tipologiastudente_seg_iscrittobmiSi" type="radio" name="tipologiastudente_seg_iscrittobmi" class="custom-control-input" data-tag="tipologiastudente.iscrittobmi:S"  ><label for="tipologiastudente_seg_iscrittobmiSi"> Si</label>
+						<input id="tipologiastudente_seg_iscrittobmiNo" type="radio" name="tipologiastudente_seg_iscrittobmi" class="custom-control-input" data-tag="tipologiastudente.iscrittobmi:N"  ><label for="tipologiastudente_seg_iscrittobmiNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tipologiastudente_seg_passaggio">Iscritto con un passaggio di corso</label>
+					<div class="custom-control custom-radio">
+						<input id="tipologiastudente_seg_passaggioSi" type="radio" name="tipologiastudente_seg_passaggio" class="custom-control-input" data-tag="tipologiastudente.passaggio:S"  ><label for="tipologiastudente_seg_passaggioSi"> Si</label>
+						<input id="tipologiastudente_seg_passaggioNo" type="radio" name="tipologiastudente_seg_passaggio" class="custom-control-input" data-tag="tipologiastudente.passaggio:N"  ><label for="tipologiastudente_seg_passaggioNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tipologiastudente_seg_tri">Trasferimento in ingresso</label>
+					<div class="custom-control custom-radio">
+						<input id="tipologiastudente_seg_triSi" type="radio" name="tipologiastudente_seg_tri" class="custom-control-input" data-tag="tipologiastudente.tri:S"  ><label for="tipologiastudente_seg_triSi"> Si</label>
+						<input id="tipologiastudente_seg_triNo" type="radio" name="tipologiastudente_seg_tri" class="custom-control-input" data-tag="tipologiastudente.tri:N"  ><label for="tipologiastudente_seg_triNo"> No</label>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabtipologiastudente_seg_1" role="tabpanel">
+				<div class="gridx" id="grid_bandodsserviziorequisito_seg" data-tag="bandodsserviziorequisito.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabtipologiastudente_seg_6" role="tabpanel">
+				<div class="gridx" id="grid_graduatoriaesitipos_seg" data-tag="graduatoriaesitipos.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabtipologiastudente_seg_2" role="tabpanel">
+				<div class="gridx" id="grid_bandodsservizioattach_seg" data-tag="bandodsservizioattach.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabtipologiastudente_seg_3" role="tabpanel">
+				<div class="gridx" id="grid_bandodsserviziodatepres_seg" data-tag="bandodsserviziodatepres.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabtipologiastudente_seg_4" role="tabpanel">
+		<div id="grid_tipologiastudentestruttura_seg" data-tag="struttura.default.default" data-custom-control="checklist"  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

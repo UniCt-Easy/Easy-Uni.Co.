@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
@@ -335,6 +334,12 @@ namespace XmlFormatter {
 
             // Load the memory stream into the xmlDocument
             xmlDocument.Load(memoryStream);
+
+            if (_ns.Length > 2)
+                xmlDocument.InnerXml = xmlDocument.InnerXml.Replace(
+                    "<head:gestorePosizioniHeader />",
+                    "<head:gestorePosizioniHeader><user>" + _ns[2] + "</user><password>" + _ns[3] + "</password></head:gestorePosizioniHeader>");
+
             string s = xmlDocument.InnerXml;
             // Remove the attributes from the second node down form the top
             foreach (string nn in _ns) cascadeDeleteAttribute(xmlDocument.ChildNodes[1], nn);
@@ -403,4 +408,3 @@ namespace XmlFormatter {
         }
     }
 }
-

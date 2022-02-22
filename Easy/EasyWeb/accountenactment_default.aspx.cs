@@ -1,23 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-Ôªøusing System;
+using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -238,7 +236,7 @@ public partial class accountenactment_default :MetaPage {
     protected void btnWait_Click(object sender, EventArgs e) {
         SetRunningCommand("do_wait");
 
-        bool do_update = ShowClientMessage("Attenzione, l'atto sar√† rimesso nello stato di 'In attesa di approvazione' " +
+        bool do_update = ShowClientMessage("Attenzione, l'atto sar‡ rimesso nello stato di 'In attesa di approvazione' " +
                             "e tutte le variazioni contenute che attualmente " +
                             "sono nello stato di 'approvata' retrocederanno nuovamente allo stato " +
                             " 'Inserita' ", "Conferma", System.Windows.Forms.MessageBoxButtons.OKCancel);
@@ -389,7 +387,7 @@ public partial class accountenactment_default :MetaPage {
 
     protected void btnAnnulla_Click(object sender, EventArgs e) {
         SetRunningCommand("do_annulla");
-        bool do_update = ShowClientMessage("Attenzione l'atto sar√† annullato " +
+        bool do_update = ShowClientMessage("Attenzione l'atto sar‡ annullato " +
                             "e tutte le variazioni in esso contenute attualmente nello stato di 'Inserita'" +
                             "passeranno allo stato " +
                             " 'Annullata' ", "Conferma", System.Windows.Forms.MessageBoxButtons.OKCancel);
@@ -417,4 +415,3 @@ public partial class accountenactment_default :MetaPage {
 
 
 }
-

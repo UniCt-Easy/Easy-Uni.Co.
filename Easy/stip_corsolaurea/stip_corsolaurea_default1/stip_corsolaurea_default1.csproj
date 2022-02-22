@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9B5CAD70-ED9A-41B1-952E-26F076A1F8EF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>stip_corsolaurea_default</RootNamespace>
+    <AssemblyName>stip_corsolaurea_default</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="metadatalibrary">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="metaeasylibrary">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="meta_upb">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_upb</Name>
+      <HintPath>..\..\upb\meta_upb\bin\Debug\meta_upb.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_stip_corsolaurea">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_stip_corsolaurea</Name>
+      <HintPath>..\meta_stip_corsolaurea\bin\Debug\meta_stip_corsolaurea.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Frm_stip_corsolaurea_default.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_stip_corsolaurea_default.Designer.cs">
+      <DependentUpon>Frm_stip_corsolaurea_default.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="vistaForm.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </Compile>
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\stip_decodifica\meta_stip_decodifica\meta_stip_decodifica.csproj">
+      <Project>{0fcfb414-1ed0-4186-9a4f-b80789ca089f}</Project>
+      <Name>meta_stip_decodifica</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\stip_tassa\meta_stip_tassa\meta_stip_tassa.csproj">
+      <Project>{3cb346e9-a097-481c-bdae-6a4de0b000e7}</Project>
+      <Name>meta_stip_tassa</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\stip_voce\meta_stip_voce\meta_stip_voce.csproj">
+      <Project>{352b6666-097a-4187-b661-a3f41e1eb9d2}</Project>
+      <Name>meta_stip_voce</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Frm_stip_corsolaurea_default.resx">
+      <DependentUpon>Frm_stip_corsolaurea_default.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vistaForm.xsc">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
+    <None Include="vistaForm.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaForm.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaForm.xss">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)output" /Y</PostBuildEvent>
+  </PropertyGroup>
+</Project>

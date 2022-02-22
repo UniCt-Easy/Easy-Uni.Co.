@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -29,7 +28,7 @@ using System.Collections;
 using LiveUpdate;
 
 namespace assetacquire_export {
-    public partial class FrmAssetAcquire_Export : Form {
+    public partial class FrmAssetAcquire_Export : MetaDataForm {
         MetaData Meta;
         CQueryHelper QHC;
         QueryHelper QHS;
@@ -72,6 +71,10 @@ namespace assetacquire_export {
             progressBar1.Minimum = 0;
             progressBar1.Maximum = nPassi;
             int indiceEnte = cmbEnte.SelectedIndex;
+            if (cmbEnte.SelectedIndex <= 0) {
+	            Meta.showClientMsg("Selezionare l'ente", "Errore", MessageBoxButtons.OK);
+	            return;
+            }
             enteScelto = cmbEnte.SelectedValue;
             codiceEnteScelto = DS.inventoryagency.Select(QHC.CmpEq("idinventoryagency", enteScelto))[0]["codeinventoryagency"];
             string path = txtPath.Text;
@@ -90,7 +93,7 @@ namespace assetacquire_export {
             }
 
             if (visualizzaMessaggio) {
-                MessageBox.Show(this, messaggio);
+                show(this, messaggio);
                 return;
             }
             dsEsporta.Clear();
@@ -98,7 +101,7 @@ namespace assetacquire_export {
 
             esportaAnagrafica = chkAnagrafica.Checked;
             if (!riempiTabelle()) {
-                MessageBox.Show(this, "Si è verificato un errore. Processo Interrotto. Il file non verrà generato", "Errore");
+                show(this, "Si è verificato un errore. Processo Interrotto. Il file non verrà generato", "Errore");
                 return;
             }
             salvaFile();
@@ -112,7 +115,7 @@ namespace assetacquire_export {
 
         private void salvaFile() {
             if ((codiceEnteScelto == null) || (codiceEnteScelto == DBNull.Value)) {
-                MessageBox.Show(this, "Attenzione!, l'ente selezionato non esiste in archivio! Chiamare l'assistenza");
+                show(this, "Attenzione!, l'ente selezionato non esiste in archivio! Chiamare l'assistenza");
                 return;
             }
             string path = txtPath.Text;
@@ -123,13 +126,13 @@ namespace assetacquire_export {
                 fs.Close();
             }
             catch (Exception ex) {
-                MessageBox.Show(this, "Impossibile generare il file\n" + ex.Message);
+                show(this, "Impossibile generare il file\n" + ex.Message);
                 return;
             }
 
             valorizzaFlagTransmitted();
 
-            MessageBox.Show(this, "File generato correttamente. Il percorso dove trovare il file è: " + fileName);
+            show(this, "File generato correttamente. Il percorso dove trovare il file è: " + fileName);
             azzeraDataSet();
             dsEsporta.Clear();
         }
@@ -467,33 +470,33 @@ namespace assetacquire_export {
 
         private bool riempiTabelle() {
             if (!riempiAssetAmortization()) {
-                MessageBox.Show(this, "Errore nel caricamento della tabella ASSETAMORTIZATION!\nImpossibile proseguire");
+                show(this, "Errore nel caricamento della tabella ASSETAMORTIZATION!\nImpossibile proseguire");
                 return false;
             }
 
             if (!riempiAssetAcquire()) {
-                MessageBox.Show(this, "Errore nel caricamento della tabella ASSETACQUIRE!\nImpossibile proseguire");
+                show(this, "Errore nel caricamento della tabella ASSETACQUIRE!\nImpossibile proseguire");
                 return false;
             }
 
             if (!riempiAsset()) {
-                MessageBox.Show(this, "Errore nel caricamento della tabella ASSET!\nImpossibile proseguire");
+                show(this, "Errore nel caricamento della tabella ASSET!\nImpossibile proseguire");
                 return false;
             }
 
             if (!riempiAssetLoad()) {
-                MessageBox.Show(this, "Errore nel caricamento della tabella ASSETLOAD!\nImpossibile proseguire");
+                show(this, "Errore nel caricamento della tabella ASSETLOAD!\nImpossibile proseguire");
                 return false;
             }
 
             if (!riempiAssetUnload()) {
-                MessageBox.Show(this, "Errore nel caricamento della tabella ASSETUNLOAD!\nImpossibile proseguire");
+                show(this, "Errore nel caricamento della tabella ASSETUNLOAD!\nImpossibile proseguire");
                 return false;
             }
 
             if (esportaAnagrafica) {
                 if (!riempiRegistry()) {
-                    MessageBox.Show(this, "Errore nel caricamento della tabella REGISTRY!\nImpossibile proseguire");
+                    show(this, "Errore nel caricamento della tabella REGISTRY!\nImpossibile proseguire");
                     return false;
                 }
             }
@@ -575,4 +578,4 @@ namespace assetacquire_export {
             txtPath.Text = path;
         }
     }
-}
+}

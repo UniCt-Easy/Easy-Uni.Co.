@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -28,7 +27,7 @@ using metaeasylibrary;
 using funzioni_configurazione;
 
 namespace no_table_undo_trasf_nuoveanagrafiche_record8000 {
-    public partial class FrmNo_table_undo_trasf_nuoveanagrafiche_record8000 : Form {
+    public partial class FrmNo_table_undo_trasf_nuoveanagrafiche_record8000 : MetaDataForm {
         MetaData Meta;
 
         public FrmNo_table_undo_trasf_nuoveanagrafiche_record8000()
@@ -100,10 +99,10 @@ namespace no_table_undo_trasf_nuoveanagrafiche_record8000 {
             string warning = " Saranno cancellati i numeri di matricola compresi tra " + matricola_da + " a " + matricola_a +
                              " (inclusi). L'operazione non sarà reversibile. Si desidera continuare?";
 
-            if (MessageBox.Show(warning, "Conferma cancellazione",
+            if (show(warning, "Conferma cancellazione",
                      MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) != DialogResult.Yes)
             {
-                MessageBox.Show("Operazione non eseguita");
+                show("Operazione non eseguita");
                 return;
             }
 
@@ -111,7 +110,7 @@ namespace no_table_undo_trasf_nuoveanagrafiche_record8000 {
                             " and convert(int,extmatricula) <= " + imatricola_a;
             DataTable T = Meta.Conn.SQLRunner(script, true);
 
-            MessageBox.Show("Operazione eseguita");
+            show("Operazione eseguita");
         }
 
 
@@ -120,4 +119,4 @@ namespace no_table_undo_trasf_nuoveanagrafiche_record8000 {
             Close();
         }
     }
-}
+}

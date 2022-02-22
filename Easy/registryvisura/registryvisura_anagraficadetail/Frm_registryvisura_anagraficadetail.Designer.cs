@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªønamespace registryvisura_anagraficadetail {
+
+namespace registryvisura_anagraficadetail {
     partial class Frm_registryvisura_anagraficadetail {
         /// <summary>
         /// Required designer variable.
@@ -53,7 +52,7 @@
             this.btnAllegaVisura = new System.Windows.Forms.Button();
             this.btnAnnulla = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
-            this.opendlg = new System.Windows.Forms.OpenFileDialog();
+            this._opendlg = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
@@ -95,7 +94,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(103, 30);
             this.label4.TabIndex = 69;
-            this.label4.Text = "Data inizio validit√†";
+            this.label4.Text = "Data inizio validit‡";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // groupBox3
@@ -171,7 +170,7 @@
             // 
             // opendlg
             // 
-            this.opendlg.Title = "Scegli il file da allegare";
+            this._opendlg.Title = "Scegli il file da allegare";
             // 
             // Frm_registryvisura_anagraficadetail
             // 
@@ -206,7 +205,7 @@
         private System.Windows.Forms.Button btnAllegaVisura;
         private System.Windows.Forms.Button btnAnnulla;
         private System.Windows.Forms.Button btnOk;
-        private System.Windows.Forms.OpenFileDialog opendlg;
+        private System.Windows.Forms.OpenFileDialog _opendlg;
         public vistaForm DS;
     }
-}
+}

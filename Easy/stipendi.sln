@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mainform", "mainform\mainform.csproj", "{E04C2CEF-078B-4B25-904C-6374C88E0EE7}"
 EndProject
@@ -67,6 +67,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "expensesorted_all", "expensesorted\expensesorted_all\expensesorted_all.csproj", "{042D7E8D-5673-4110-86BD-7580E7C914FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "incomesorted_all", "incomesorted\incomesorted_all\incomesorted_all.csproj", "{45593A63-BE23-4D3A-8F78-B2630EB71235}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AD647D66-C986-4061-8B83-2DFE45D6BBA3} = {AD647D66-C986-4061-8B83-2DFE45D6BBA3}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_incomesorted", "incomesorted\meta_incomesorted\meta_incomesorted.csproj", "{AD647D66-C986-4061-8B83-2DFE45D6BBA3}"
 EndProject
@@ -319,6 +322,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csa_import_inail_maxphase", "csa_import\csa_import_inail_maxphase\csa_import_inail_maxphase.csproj", "{D99B8B6A-BB36-4585-B0F1-087F6D056E7F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_csa_importver_annualpaymentview", "csa_importver\meta_csa_importver_annualpaymentview\meta_csa_importver_annualpaymentview.csproj", "{EE35C199-9CFD-43EA-B00B-E506CE447A15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csa_contract_annulment", "csa_contract\csa_contract_annulment\csa_contract_annulment.csproj", "{38FD9597-378A-4863-B783-AA1087CEC2C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -962,8 +967,16 @@ Global
 		{EE35C199-9CFD-43EA-B00B-E506CE447A15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE35C199-9CFD-43EA-B00B-E506CE447A15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE35C199-9CFD-43EA-B00B-E506CE447A15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38FD9597-378A-4863-B783-AA1087CEC2C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38FD9597-378A-4863-B783-AA1087CEC2C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38FD9597-378A-4863-B783-AA1087CEC2C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38FD9597-378A-4863-B783-AA1087CEC2C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {B4DFE7BE-3FC6-4CC8-B5C7-C71EA91AD67A}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_menuweb_treevis" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_menuweb_treevis" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="menuwebdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idmenuweb" type="xs:int" />
+              <xs:element name="idmenuwebparent" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="menuweb" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="editType" type="xs:string" minOccurs="0" />
+              <xs:element name="idmenuweb" type="xs:int" />
+              <xs:element name="idmenuwebparent" type="xs:int" minOccurs="0" />
+              <xs:element name="label" type="xs:string" />
+              <xs:element name="link" type="xs:string" minOccurs="0" />
+              <xs:element name="sort" type="xs:int" minOccurs="0" />
+              <xs:element name="tableName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:menuwebdefaultview" />
+      <xs:field xpath="mstns:idmenuweb" />
+    </xs:unique>
+    <xs:unique name="menuweb_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:menuweb" />
+      <xs:field xpath="mstns:idmenuweb" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_menuweb_menuwebdefaultview_idmenuwebparent" msdata:parent="menuwebdefaultview" msdata:child="menuweb" msdata:parentkey="idmenuweb" msdata:childkey="idmenuwebparent" />
+      <msdata:Relationship name="FK_menuweb_menuweb_idmenuweb" msdata:parent="menuweb" msdata:child="menuweb" msdata:parentkey="idmenuweb" msdata:childkey="idmenuwebparent" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

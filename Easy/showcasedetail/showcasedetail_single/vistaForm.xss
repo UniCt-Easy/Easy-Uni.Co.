@@ -8,26 +8,14 @@
   <Shapes>
     <Shape ID="DesignTable:listview" ZOrder="13" X="66" Y="216" Height="467" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="463" />
     <Shape ID="DesignTable:showcasedetail" ZOrder="12" X="321" Y="259" Height="334" Width="153" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="330" />
-    <Shape ID="DesignTable:ivakind" ZOrder="3" X="583" Y="162" Height="295" Width="156" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="291" />
-    <Shape ID="DesignTable:estimatekind" ZOrder="10" X="388" Y="10" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
-    <Shape ID="DesignTable:upb" ZOrder="9" X="893" Y="100" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
-    <Shape ID="DesignTable:invoicekind" ZOrder="6" X="836" Y="520" Height="182" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="178" />
-    <Shape ID="DesignTable:upb_iva" ZOrder="2" X="586" Y="673" Height="144" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="140" />
+    <Shape ID="DesignTable:ivakind" ZOrder="4" X="583" Y="162" Height="295" Width="156" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="291" />
+    <Shape ID="DesignTable:estimatekind" ZOrder="11" X="388" Y="10" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
+    <Shape ID="DesignTable:upb" ZOrder="10" X="893" Y="100" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
+    <Shape ID="DesignTable:invoicekind" ZOrder="7" X="836" Y="520" Height="182" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="178" />
+    <Shape ID="DesignTable:upb_iva" ZOrder="3" X="586" Y="673" Height="144" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="140" />
   </Shapes>
   <Connectors>
-    <Connector ID="DesignRelation:listview_showcasedetail" ZOrder="11" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>216</X>
-          <Y>338</Y>
-        </Point>
-        <Point>
-          <X>321</X>
-          <Y>338</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
-    <Connector ID="DesignRelation:upb_showcasedetail" ZOrder="4" LineWidth="11">
+    <Connector ID="DesignRelation:upb_showcasedetail" ZOrder="5" LineWidth="11">
       <RoutePoints>
         <Point>
           <X>910</X>
@@ -43,7 +31,7 @@
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:estimatekind_showcasedetail" ZOrder="8" LineWidth="11">
+    <Connector ID="DesignRelation:estimatekind_showcasedetail" ZOrder="9" LineWidth="11">
       <RoutePoints>
         <Point>
           <X>431</X>
@@ -55,7 +43,7 @@
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:ivakind_showcasedetail" ZOrder="7" LineWidth="11">
+    <Connector ID="DesignRelation:ivakind_showcasedetail" ZOrder="8" LineWidth="11">
       <RoutePoints>
         <Point>
           <X>583</X>
@@ -67,7 +55,7 @@
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:invoicekind_showcasedetail" ZOrder="5" LineWidth="11">
+    <Connector ID="DesignRelation:invoicekind_showcasedetail" ZOrder="6" LineWidth="11">
       <RoutePoints>
         <Point>
           <X>836</X>
@@ -79,7 +67,7 @@
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:upb_iva_showcasedetail" ZOrder="1" LineWidth="11">
+    <Connector ID="DesignRelation:upb_iva_showcasedetail" ZOrder="2" LineWidth="11">
       <RoutePoints>
         <Point>
           <X>586</X>
@@ -92,6 +80,18 @@
         <Point>
           <X>457</X>
           <Y>593</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
+    <Connector ID="DesignRelation:listview_showcasedetail" ZOrder="1" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>216</X>
+          <Y>426</Y>
+        </Point>
+        <Point>
+          <X>321</X>
+          <Y>426</Y>
         </Point>
       </RoutePoints>
     </Connector>

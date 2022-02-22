@@ -1,0 +1,63 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_disabil_seganagstu_aa">Anno Accademico</label>
+					<select id="dichiar_disabil_seganagstu_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="dichiar.aa?dichiardisabil_seganagstuview.aa" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#dichiar_disabil_seganagstu_date").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="dichiar_disabil_seganagstu_date">Data</label>
+					<input id="dichiar_disabil_seganagstu_date" type="text" class="form-control" data-tag="dichiar.date?dichiardisabil_seganagstuview.dichiar_date" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_disabil_seganagstu_iddichiarkind">Tipologia</label>
+					<select id="dichiar_disabil_seganagstu_iddichiarkind" class="custom-select d-block w-100"  data-source-name="dichiarkinddefaultview" data-value-member="iddichiarkind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="dichiar.iddichiarkind?dichiardisabil_seganagstuview.dichiar_iddichiarkind" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_disabil_seganagstu_protnumero">NumeroProtocollo</label>
+					<input id="dichiar_disabil_seganagstu_protnumero" type="text" class="form-control" data-tag="dichiar.protnumero?dichiardisabil_seganagstuview.dichiar_protnumero" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_disabil_seganagstu_protanno">Anno Protocollo</label>
+					<input id="dichiar_disabil_seganagstu_protanno" type="text" class="form-control" data-tag="dichiar.protanno?dichiardisabil_seganagstuview.dichiar_protanno" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_disabil_seganagstu_percentuale">Percentuale</label>
+					<input id="dichiar_disabil_seganagstu_percentuale" type="text" class="form-control" data-tag="dichiar_disabil.percentuale.fixed.2?dichiardisabil_seganagstuview.dichiar_disabil_percentuale" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_disabil_seganagstu_permanente">Permanente</label>
+					<div class="custom-control custom-radio">
+						<input id="dichiar_disabil_seganagstu_permanenteSi" type="radio" name="dichiar_disabil_seganagstu_permanente" class="custom-control-input" data-tag="dichiar_disabil.permanente:S?dichiardisabil_seganagstuview.dichiar_disabil_permanente:Si" data-subentity  data-mandatory ><label for="dichiar_disabil_seganagstu_permanenteSi"> Si</label>
+						<input id="dichiar_disabil_seganagstu_permanenteNo" type="radio" name="dichiar_disabil_seganagstu_permanente" class="custom-control-input" data-tag="dichiar_disabil.permanente:N?dichiardisabil_seganagstuview.dichiar_disabil_permanente:No" data-subentity  data-mandatory ><label for="dichiar_disabil_seganagstu_permanenteNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#dichiar_disabil_seganagstu_scadenza").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="dichiar_disabil_seganagstu_scadenza">Scadenza</label>
+					<input id="dichiar_disabil_seganagstu_scadenza" type="text" class="form-control" data-tag="dichiar_disabil.scadenza?dichiardisabil_seganagstuview.dichiar_disabil_scadenza" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

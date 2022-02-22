@@ -1,26 +1,26 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
@@ -43,14 +43,16 @@ namespace siopeplus_functions {
             writer.Flush();
             writer.Close();
 
-            string xmlBase = File.ReadAllText(filePath);
-            string xml = RemoveInvalidXmlChars(xmlBase);
+			XmlDocument xmldoc = new XmlDocument();
+            xmldoc.Load(filePath);
+            
+            string xml = RemoveInvalidXmlChars(xmldoc.InnerXml);
             File.WriteAllBytes(filePath, e.GetBytes(xml));
         }
 
-        public static string RemoveInvalidXmlChars(string content)
+        public static string RemoveInvalidXmlChars(string xmlContent)
         {
-            return new string(content.Where(ch => System.Xml.XmlConvert.IsXmlChar(ch)).ToArray());
+            return new string(xmlContent.Where(ch => XmlConvert.IsXmlChar(ch)).ToArray());
         }
 
         public static string toXml<T>(this T value, Encoding e= null) {
@@ -83,4 +85,3 @@ namespace siopeplus_functions {
 
     }
 }
-

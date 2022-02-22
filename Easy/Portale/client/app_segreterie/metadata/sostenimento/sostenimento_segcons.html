@@ -1,0 +1,150 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#sostenimento_segcons_data").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_data">Data</label>
+					<input id="sostenimento_segcons_data" type="text" class="form-control" data-tag="sostenimento.data?sostenimentosegconsview.sostenimento_data" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_domande">Domande</label>
+					<textarea class="textarea form-control" id="sostenimento_segcons_domande" type="text"  rows="4" data-tag="sostenimento.domande?sostenimentosegconsview.sostenimento_domande" data-subentity></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_ects">ECTS</label>
+					<input id="sostenimento_segcons_ects" type="text" class="form-control" data-tag="sostenimento.ects?sostenimentosegconsview.sostenimento_ects" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_giudizio">Giudizio</label>
+					<input id="sostenimento_segcons_giudizio" type="text" class="form-control" data-tag="sostenimento.giudizio?sostenimentosegconsview.giudizio" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_idappello">Appello</label>
+					<div>
+						<input id="sostenimento_segcons_idappello" name="sostenimento_segcons_idappello" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="appellodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_idattivform">Attività formativa</label>
+					<div>
+						<input id="sostenimento_segcons_idattivform" name="sostenimento_segcons_idattivform" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="attivformdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_idcorsostudio">Prova di ammissione</label>
+					<div>
+						<input id="sostenimento_segcons_idcorsostudio" name="sostenimento_segcons_idcorsostudio" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="corsostudiodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_iddidprog">Prova di ammissione</label>
+					<div>
+						<input id="sostenimento_segcons_iddidprog" name="sostenimento_segcons_iddidprog" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_idiscrizione">Iscrizione</label>
+					<div>
+						<input id="sostenimento_segcons_idiscrizione" name="sostenimento_segcons_idiscrizione" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="iscrizionedefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_idprova">Prova</label>
+					<div>
+						<input id="sostenimento_segcons_idprova" name="sostenimento_segcons_idprova" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="provadefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_idsostenimentoesito">Esito</label>
+					<div>
+						<input id="sostenimento_segcons_idsostenimentoesito" name="sostenimento_segcons_idsostenimentoesito" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sostenimentoesitodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_idtitolostudio">Titolo di studio</label>
+					<div>
+						<input id="sostenimento_segcons_idtitolostudio" name="sostenimento_segcons_idtitolostudio" type="text" data-listtype="docenti"  class="form-control" data-minchar="2" data-tag="titolostudiodocentiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_insecod">Codice insegnamento</label>
+					<input id="sostenimento_segcons_insecod" type="text" class="form-control" data-tag="sostenimento.insecod?sostenimentosegconsview.sostenimento_insecod" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_insedesc">Insegnamento</label>
+					<input id="sostenimento_segcons_insedesc" type="text" class="form-control" data-tag="sostenimento.insedesc?sostenimentosegconsview.sostenimento_insedesc" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_livello">Livello</label>
+					<div class="custom-control custom-radio">
+						<input id="sostenimento_segcons_livelloSi" type="radio" name="sostenimento_segcons_livello" class="custom-control-input" data-tag="sostenimento.livello:S?sostenimentosegconsview.sostenimento_livello:Si" data-subentity  ><label for="sostenimento_segcons_livelloSi"> Si</label>
+						<input id="sostenimento_segcons_livelloNo" type="radio" name="sostenimento_segcons_livello" class="custom-control-input" data-tag="sostenimento.livello:N?sostenimentosegconsview.sostenimento_livello:No" data-subentity  ><label for="sostenimento_segcons_livelloNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_paridsostenimento">Sostenimento parziale di</label>
+					<div>
+						<input id="sostenimento_segcons_paridsostenimento" name="sostenimento_segcons_paridsostenimento" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sostenimentodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_voto">Voto</label>
+					<input id="sostenimento_segcons_voto" type="text" class="form-control" data-tag="sostenimento.voto.fixed.2?sostenimentosegconsview.sostenimento_voto" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_votolode">Lode</label>
+					<div class="custom-control custom-radio">
+						<input id="sostenimento_segcons_votolodeSi" type="radio" name="sostenimento_segcons_votolode" class="custom-control-input" data-tag="sostenimento.votolode:S?sostenimentosegconsview.sostenimento_votolode:Si" data-subentity  ><label for="sostenimento_segcons_votolodeSi"> Si</label>
+						<input id="sostenimento_segcons_votolodeNo" type="radio" name="sostenimento_segcons_votolode" class="custom-control-input" data-tag="sostenimento.votolode:N?sostenimentosegconsview.sostenimento_votolode:No" data-subentity  ><label for="sostenimento_segcons_votolodeNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_votosu">Su</label>
+					<input id="sostenimento_segcons_votosu" type="text" class="form-control" data-tag="sostenimento.votosu?sostenimentosegconsview.sostenimento_votosu" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_protnumero">Numero Protocollo</label>
+					<input id="sostenimento_segcons_protnumero" type="text" class="form-control" data-tag="sostenimento.protnumero?sostenimentosegconsview.sostenimento_protnumero" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segcons_protanno">Anno protocollo</label>
+					<input id="sostenimento_segcons_protanno" type="text" class="form-control" data-tag="sostenimento.protanno?sostenimentosegconsview.sostenimento_protanno" data-subentity  />
+				</div>
+			</div>
+ <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-stamp mr-1" ></i>Protocolla
+    </button>
+</form>
+
+</div>
+<!--footer-->

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -40,6 +39,7 @@ namespace meta_placcount
             EditTypes.Add("treer");
             EditTypes.Add("treecnew");
             EditTypes.Add("treernew");
+			EditTypes.Add("tree_all");
 			ListingTypes.Add("default");
 			ListingTypes.Add("treecr");
 			ListingTypes.Add("tree");
@@ -93,6 +93,14 @@ namespace meta_placcount
                     F.tree.Tag = "placcount." + FormName;
                     return F;
                 }
+			if (FormName == "tree_all") {
+				Name = "Scelta del Conto Economico";
+				ActAsList();
+				IsTree = true;
+				Frm_placcount_tree F = new Frm_placcount_tree();
+				F.tree.Tag = "placcount." + FormName;
+				return F;
+			}
 			return null;
 		}
 
@@ -128,8 +136,7 @@ namespace meta_placcount
 		public override void DescribeTree(TreeView tree, DataTable T, string ListingType) {
 			int maxlev=0;
 
-            if (ListingType == "treecr" || ListingType == "tree" || ListingType == "treec" || ListingType == "treer" || ListingType == "treecnew" || ListingType == "treernew")
-            {
+            if (ListingType == "treecr" || ListingType == "tree" || ListingType == "treec" || ListingType == "treer" || ListingType == "treecnew" || ListingType == "treernew" || ListingType == "tree_all") {
 				base.DescribeColumns(T, ListingType);
 				foreach (DataColumn C in T.Columns)
 					DescribeAColumn(T, C.ColumnName, "");
@@ -146,7 +153,7 @@ namespace meta_placcount
 			string filtersql=QHS.CmpEq("nlevel","1");
 			string kind="CR";
 			bool all = false;
-			
+			bool allLevel = false;
 			if (ListingType=="treecr") {
                 //filter="(nlevel='1')";
 				kind="CR";
@@ -176,7 +183,8 @@ namespace meta_placcount
                 filteresercizio = QHS.CmpEq("ayear", esercizionew);
                 all = true;
             }
-            if (ListingType == "treernew")
+
+			if (ListingType == "treernew")
             {
                 string livsupid = esercizionew.ToString().Substring(2) + "R";
                 filterc = QHC.CmpEq("paridplaccount", livsupid);
@@ -187,16 +195,20 @@ namespace meta_placcount
                 all = true;
             }
 
-            int maxlevel = 0;
+			if (ListingType == "tree_all") {
+				kind = "CR";
+				allLevel = true;
+			}
+
             object o = Conn.DO_READ_VALUE("placcountlevel", filteresercizio , "max(nlevel)");
-            if ((o != null) && (o != DBNull.Value)) maxlevel = Convert.ToInt32(o);
+            if ((o != null) && (o != DBNull.Value)) maxlev = Convert.ToInt32(o);
 	
 			if (maxlev>0) {
                 myGetData.SetStaticFilter("placcount", QHS.AppAnd(filteresercizio, QHS.CmpLe("nlevel", maxlev)));
                 myGetData.SetStaticFilter("placcountview", QHS.AppAnd(filteresercizio, QHS.CmpLe("nlevel", maxlev)));
 			}
 
-			TreeViewContoEconomico M = new TreeViewContoEconomico(T, tree, filterc,  filtersql, kind, all,maxlev);
+			TreeViewContoEconomico M = new TreeViewContoEconomico(T, tree, filterc,  filtersql, kind, all,maxlev, allLevel);
             myGetData.SetStaticFilter("placcountlevel", filteresercizio);
 		}
 
@@ -222,7 +234,7 @@ namespace meta_placcount
 				SetDefault(T,"paridplaccount",GetSys("esercizio").ToString().Substring(2,2)+parteconto);
 			}
 			if (level > (Levels.Rows.Count-1)){
-				MessageBox.Show("Non è possibile inserire un livello inferiore a quello selezionato");
+				//MessageBox .Show("Non è possibile inserire un livello inferiore a quello selezionato");
 				return null;
 			}
 			string kind = "A"; //corresponding to "flagreset"
@@ -248,6 +260,7 @@ namespace meta_placcount
 
 		public class contoeconomico_node_dispatcher : easy_node_dispatcher {
 			int maxlevel;
+			private bool allLevel;
 			public contoeconomico_node_dispatcher(
 				string level_table, 
 				string level_field,
@@ -255,23 +268,26 @@ namespace meta_placcount
 				string selectable_level_field,
 				string descr_field,
 				string code_string,
-				int maxlevel
-				):base(level_table,
+				int maxlevel,
+				bool allLevel
+				) :base(level_table,
 				level_field,
 				descr_level_field, 
 				selectable_level_field, 
 				descr_field,code_string) {
 				this.maxlevel= maxlevel;
+				this.allLevel = allLevel;
 			}		
 			override public tree_node GetNode(DataRow Parent, DataRow Child) {
 				return new contoeconomico_tree_node("placcountlevel", "nlevel", 
 					"description",null,
-					"title", "codeplaccount", Child,maxlevel);
+					"title", "codeplaccount", Child,maxlevel, allLevel);
 			}
 		}// class contoeconomico_node_dispatcher
 		
 		public class contoeconomico_tree_node: easy_tree_node {
 			int maxlevel;
+			public bool allSelectable = false;
 			public contoeconomico_tree_node(string level_table, 
 				string level_field,
 				string descr_level_field,
@@ -279,8 +295,9 @@ namespace meta_placcount
 				string descr_field,
 				string code_string,
 				DataRow R,
-				int maxlevel
-				):base(level_table,
+				int maxlevel,
+				bool allSelectable
+				) :base(level_table,
 				descr_level_field,
 				descr_level_field,
 				selectable_level_field,
@@ -288,6 +305,7 @@ namespace meta_placcount
 				code_string,
 				R) {
 				this.maxlevel=maxlevel;
+				this.allSelectable = allSelectable;
 			}
 
 			bool row_exists() {
@@ -303,7 +321,8 @@ namespace meta_placcount
 			/// <returns></returns>
 			override public bool CanSelect() {
                 if (!row_exists()) return false;
-                DataRow Lev = LevelRow();
+				if (allSelectable) return true;
+				DataRow Lev = LevelRow();
                 if (maxlevel > 0) {
                     if (Lev["nlevel"].ToString() == maxlevel.ToString()) return true;
                 }
@@ -316,7 +335,7 @@ namespace meta_placcount
 			string kind;
 			public int maxlevel=0;
 			public TreeViewContoEconomico(DataTable T, TreeView tree, string filterc, string filtersql, 
-                            string kind, bool all,int maxlevel):               
+                            string kind, bool all,int maxlevel, bool allLevel) :               
 				base(T,tree, 
 				(all?new easy_node_dispatcher(
 				"placcountlevel",
@@ -332,7 +351,7 @@ namespace meta_placcount
 				null,
 				"title",
 				"codeplaccount",
-				maxlevel
+				maxlevel, allLevel
 				)
 				),filterc,filtersql) {
 				this.kind=kind;
@@ -390,4 +409,3 @@ namespace meta_placcount
 	}
 }
 
-

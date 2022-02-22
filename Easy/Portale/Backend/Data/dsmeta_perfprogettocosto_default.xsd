@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_perfprogettocosto_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_perfprogettocosto_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="perfprogettocostobudgetview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="annotation" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc" type="xs:string" />
+              <xs:element name="idaccmotive" type="xs:string" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
+              <xs:element name="idinv" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nvar" type="xs:int" />
+              <xs:element name="prevcassa" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rownum" type="xs:int" />
+              <xs:element name="underwritingkind" type="xs:string" minOccurs="0" />
+              <xs:element name="underwritingkind_desc" type="xs:string" minOccurs="0" />
+              <xs:element name="yvar" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="getcostoview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="accmotive_title" type="xs:string" minOccurs="0" />
+              <xs:element name="adate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="doc" type="xs:string" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idaccmotive" type="xs:string" />
+              <xs:element name="idexp" type="xs:int" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="nmov" type="xs:int" minOccurs="0" />
+              <xs:element name="p_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="payment_adate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="registry_title" type="xs:string" minOccurs="0" />
+              <xs:element name="transactiondate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="transmissiondate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ymov" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="year" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="upbdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="idupb_capofila" type="xs:string" minOccurs="0" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accmotivedefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idaccmotive" type="xs:string" />
+              <xs:element name="paridaccmotive" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettocosto" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="budget" type="xs:decimal" minOccurs="0" />
+              <xs:element name="budgetcurr" type="xs:decimal" minOccurs="0" />
+              <xs:element name="consuntivo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idaccmotive" type="xs:string" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettocosto" type="xs:int" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettocostobudgetview" />
+      <xs:field xpath="mstns:nvar" />
+      <xs:field xpath="mstns:rownum" />
+      <xs:field xpath="mstns:yvar" />
+    </xs:unique>
+    <xs:unique name="getcostoview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getcostoview" />
+      <xs:field xpath="mstns:idaccmotive" />
+      <xs:field xpath="mstns:idexp" />
+      <xs:field xpath="mstns:idupb" />
+      <xs:field xpath="mstns:ymov" />
+    </xs:unique>
+    <xs:unique name="year_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:year" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="upbdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upbdefaultview" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="accmotivedefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accmotivedefaultview" />
+      <xs:field xpath="mstns:idaccmotive" />
+    </xs:unique>
+    <xs:unique name="perfprogettocosto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettocosto" />
+      <xs:field xpath="mstns:idaccmotive" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettocosto" />
+      <xs:field xpath="mstns:idupb" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_perfprogettocostobudgetview_perfprogettocosto_idaccmotive-idupb" msdata:parent="perfprogettocosto" msdata:child="perfprogettocostobudgetview" msdata:parentkey="idaccmotive idupb" msdata:childkey="idaccmotive idupb" />
+      <msdata:Relationship name="FK_getcostoview_perfprogettocosto_idaccmotive-idupb" msdata:parent="perfprogettocosto" msdata:child="getcostoview" msdata:parentkey="idaccmotive idupb" msdata:childkey="idaccmotive idupb" />
+      <msdata:Relationship name="FK_perfprogettocosto_year_year" msdata:parent="year" msdata:child="perfprogettocosto" msdata:parentkey="year" msdata:childkey="year" />
+      <msdata:Relationship name="FK_perfprogettocosto_upbdefaultview_idupb" msdata:parent="upbdefaultview" msdata:child="perfprogettocosto" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="FK_perfprogettocosto_accmotivedefaultview_idaccmotive" msdata:parent="accmotivedefaultview" msdata:child="perfprogettocosto" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotive" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -31,7 +30,7 @@ namespace provisiondetail_default {//UnDettVarBilancio//
 	/// <summary>
 	/// Summary description for frmUnDettVarBilancio.
 	/// </summary>
-	public class Frm_provisiondetail_default : System.Windows.Forms.Form {
+	public class Frm_provisiondetail_default : MetaDataForm {
 		public dsmeta DS;
         private System.ComponentModel.IContainer components;
 		MetaData Meta;
@@ -213,7 +212,7 @@ namespace provisiondetail_default {//UnDettVarBilancio//
             this.groupBox1.Size = new System.Drawing.Size(356, 144);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Tag = "AutoManage.txtCodiceCausale.tree.(in_use=\'S\')";
+            this.groupBox1.Tag = "AutoManage.textBox3.tree.(in_use=\'S\')";
             this.groupBox1.Text = "Causale di reddito (se immessa genera un accertamento di budget)";
             // 
             // textBox2
@@ -563,6 +562,7 @@ namespace provisiondetail_default {//UnDettVarBilancio//
             grbDettaglio.Enabled = abilita;
             grbFondo.Enabled = abilita;
             txtEsercizio.ReadOnly = true;
+            grpCausale.Enabled = abilita;
         }
         }
-}
+}

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -221,7 +220,7 @@ namespace no_table_unifydip {
 
 
                 if (num_conflict_over > 0) {
-                    MessageBox.Show(
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(
                         "Nella tabella " + tablename + " del db di destinazione il campo " + field +
                         " assume già dei valori compresi tra " + min_over_threeshold.ToString() + " e " +
                         max_over_threshold.ToString() + ", facenti parte di quelli presenti nel db di origine " +
@@ -249,7 +248,7 @@ namespace no_table_unifydip {
 
 
                 if (num_conflict_under > 0) {
-                    MessageBox.Show(
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(
                         "Nella tabella " + tablename + " del db di destinazione il campo " + field +
                         " assume già dei valori compresi tra " + min_under_threeshold.ToString() + "+" +
                         offset.ToString() + " e " +
@@ -277,7 +276,7 @@ namespace no_table_unifydip {
 
 
                 if (num_conflict_0 > 0) {
-                    MessageBox.Show(
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(
                         "Nella tabella " + tablename + " del db di destinazione il campo " + field +
                         " assume già dei valori compresi tra " + min.ToString() + "+" +
                         offset.ToString() + " e " +
@@ -409,7 +408,7 @@ namespace no_table_unifydip {
 
         public virtual bool Precheck(DataAccess Source, DataAccess Dest, string table) {
             if (offset < max_dest) {
-                MessageBox.Show("Nella tabella " + table + " l'offset impostato (" + offset.ToString() +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nella tabella " + table + " l'offset impostato (" + offset.ToString() +
                                 ") è minore del massimo valore presente nel campo " + field +
                                 "(" + max_dest.ToString() + ").", "Errore");
                 status = false;
@@ -496,7 +495,7 @@ namespace no_table_unifydip {
                     status = false;
                     stato = "ATTENZIONE ERRORE nella tabella " + table + ": " + dest_codefield + " = " + R[source_codefield] +
                             " non trovato nel dipartimento di destinazione";
-                    MessageBox.Show(stato, "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(stato, "Errore");
                     return this;
                 }
                 H[R[keyfield]] = TDest.Select(filterDestC)[0][keyfield];
@@ -517,7 +516,7 @@ namespace no_table_unifydip {
                 status = false;
                 stato = "ATTENZIONE ERRORE nella tabella " + table + " il campo " + source_codefield + 
                                 " assume valori null per alcune righe e quindi non è possibile procedere con la traduzione";
-                MessageBox.Show(stato, "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(stato, "Errore");
             }
             return status;
         }
@@ -532,4 +531,3 @@ namespace no_table_unifydip {
     }
 
 }
-

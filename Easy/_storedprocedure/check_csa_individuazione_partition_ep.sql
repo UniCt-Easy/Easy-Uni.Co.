@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[check_csa_individuazione_partition_ep]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [check_csa_individuazione_partition_ep]
 GO
@@ -78,7 +95,7 @@ end
  SELECT * FROM csa_importver WHERE idcsa_import = @idcsa_import AND
   ISNULL(csa_importver.flagclawback,'N') = 'N' 
   AND (idcsa_contracttax is not  null or idcsa_contractkinddata is not null)
-  and idcsa_incomesetup is not null --- non si tratta quindi di contributi figurativi
+  --and idcsa_incomesetup is not null --- non si tratta quindi di contributi figurativi
   AND idacc_expense is null and importo>0
   ) 
 begin
@@ -97,7 +114,7 @@ end
 						CP.idcsa_import = csa_importver.idcsa_import AND
 						CP.idver =  csa_importver.idver 
 					) 
-		OR EXISTS (SELECT * FROM csa_importver_partition CP where  
+		AND EXISTS (SELECT * FROM csa_importver_partition CP where  
 							CP.idcsa_import = csa_importver.idcsa_import AND
 							CP.idver =  csa_importver.idver AND
 							CP.idacc is null 
@@ -113,7 +130,7 @@ end
  SELECT * FROM csa_importver WHERE idcsa_import = @idcsa_import AND
   ISNULL(csa_importver.flagclawback,'N') = 'N' 
   AND (idcsa_contracttax is not  null or idcsa_contractkinddata is not null)
-  AND idcsa_incomesetup is not null --- non si tratta quindi di contributi figurativi
+  --AND idcsa_incomesetup is not null --- non si tratta quindi di contributi figurativi
   AND idacc_revenue is null and importo<0
   ) 
 begin
@@ -167,7 +184,7 @@ end
  SELECT * FROM csa_importver WHERE idcsa_import = @idcsa_import AND
   ISNULL(csa_importver.flagclawback,'N') = 'N' 
   AND (idcsa_contracttax is not  null or idcsa_contractkinddata is not null)
-  AND idcsa_incomesetup is not null --- non si tratta quindi di contributi figurativi
+  --AND idcsa_incomesetup is not null --- non si tratta quindi di contributi figurativi
   AND idacc_agency_credit is null and importo<0
   ) 
 begin
@@ -191,7 +208,7 @@ end
 													  csa_contract_partition.ayear = @ayear and idacc IS NULL)
   )) 
 begin
-	INSERT INTO #errors VALUES('Conto di costo per il lordo  non valorizzato nella ripartizione delle Regole specifiche CSA', 11,'S')
+	INSERT INTO #errors VALUES('Conto di costo per il lordo  non valorizzato nella ripartizione delle Regole specifiche CSA', 11,'N')
 end
 
 -- 12) Conto di costo per contributi di contratto (idacc) non valorizzato in righe Contributi di Contratti CSA
@@ -258,7 +275,7 @@ end
   ) 
 begin
 	INSERT INTO #errors VALUES('Conto di Credito verso ente,  Conto di Debito verso ente o conto di ricavo ' +
-								' non configurati nella scheda Voce CSA del contributo', 18,'S')
+								' non configurati nella scheda Voce CSA del contributo', 18,'N')
 end
 
 --19) CONFIGURAZIONE REGOLE SPECIFICHE E CONTRIBUTI: PARTIZIONE UNICA NON CREATA PER INCOERENZA NELLE RIPARTIZIONI ORIGINALI
@@ -282,6 +299,102 @@ BEGIN
 	INSERT INTO #errors VALUES('Ripartizione unica non creata per ripartizioni di partenza errate', 19,'S')
 END  
 
+ 
+
+--22)  Righe di versamento con preimpegno di budget avente conto incoerente con quello della ripartizione nell''esercizio corrente
+ if exists ( SELECT * FROM csa_importver V
+					  JOIN csa_importver_partition VP  
+						ON V.idcsa_import = VP.idcsa_import
+						AND  V.idver = VP.idver
+						AND  VP.idexp IS NOT NULL
+                       WHERE V.ayear = @ayear   
+					   AND V.idcsa_import = @idcsa_import  
+					   AND EXISTS (SELECT * FROM  epexpyear EY WHERE 
+										EY.idepexp = VP.idepexp AND
+							            V.ayear = EY.ayear AND
+										EY.idacc <> VP.idacc)                
+) 
+begin
+	INSERT INTO #errors VALUES( 'Righe di versamento con preimpegno di budget avente conto incoerente con quello della ripartizione nell''esercizio corrente' , 22,'S')
+end
+
+--23)  Righe di versamento con preimpegno di budget avente UPB incoerente con quello della ripartizione nell''esercizio corrente
+ if exists ( SELECT * FROM csa_importver V
+					  JOIN csa_importver_partition VP  
+						ON V.idcsa_import = VP.idcsa_import
+						AND  V.idver = VP.idver
+						AND  VP.idepexp IS NOT NULL
+                       WHERE V.ayear = @ayear   
+					   AND V.idcsa_import = @idcsa_import  
+					   AND EXISTS (SELECT * FROM  epexpyear EY WHERE 
+										EY.idepexp = VP.idepexp AND
+							            V.ayear = EY.ayear AND
+										EY.idupb <> VP.idupb)         
+						
+) 
+begin
+	INSERT INTO #errors VALUES( 'Righe di versamento con preimpegno di budget avente UPB incoerente con quello della ripartizione nell''esercizio corrente' , 23,'S')
+end
+
+
+
+--24)  Righe di riepilogo con preimpegno di budget avente conto incoerente con quello della ripartizione nell''esercizio corrente
+ if exists ( SELECT * FROM csa_importriep R
+					  JOIN csa_importriep_partition RP  
+						ON R.idcsa_import = RP.idcsa_import
+						AND  R.idriep = RP.idriep
+						AND  RP.idepexp IS NOT NULL
+                       WHERE R.ayear = @ayear   
+					   AND R.idcsa_import = @idcsa_import  
+					   AND EXISTS (SELECT * FROM  epexpyear EY WHERE 
+										EY.idepexp = RP.idepexp AND
+							            R.ayear = EY.ayear AND
+										EY.idacc <> RP.idacc)                
+) 
+begin
+	INSERT INTO #errors VALUES( 'Righe di riepilogo con preimpegno di budget avente conto incoerente con quello della ripartizione nell''esercizio corrente' , 24,'S')
+end
+
+--25)  Righe di riepilogo con preimpegno di budget avente UPB incoerente con quello della ripartizione nell''esercizio corrente
+ if exists ( SELECT * FROM csa_importriep R
+					  JOIN csa_importriep_partition RP  
+						ON R.idcsa_import = RP.idcsa_import
+						AND  R.idriep = RP.idriep AND  RP.idepexp IS NOT NULL
+                       WHERE R.ayear = @ayear   
+					   AND R.idcsa_import = @idcsa_import  
+					   AND EXISTS (SELECT * FROM  epexpyear EY WHERE 
+										EY.idepexp = RP.idepexp AND
+							            R.ayear = EY.ayear AND
+										EY.idupb <> RP.idupb)                
+) 
+begin
+	INSERT INTO #errors VALUES( 'Righe di riepilogo con preimpegno di budget avente UPB incoerente con quello della ripartizione nell''esercizio corrente' , 25,'S')
+end
+
+--- controllo esistenza anagrafica se è configurata la generazione di movimenti finanziari nominativi
+declare @mandatinominativi char(1)
+set @mandatinominativi='S'
+select @mandatinominativi = isnull(csa_nominativo,'N') from config where ayear=@ayear
+if (@mandatinominativi='S') 
+begin
+--26) Riepiloghi con Anagrafica lavoratore non valorizzata
+	 if exists (  SELECT * FROM csa_importriep 
+					WHERE idcsa_import = @idcsa_import and ( idreg is null or idreg = 0)	) 
+	begin
+		INSERT INTO #errors VALUES('Riepiloghi con Anagrafica non valorizzata', 26,'S')
+	end
+--27) Riepiloghi con Anagrafica  valorizzata ma priva di causale  di debito o di credito
+	 if exists (  SELECT * FROM csa_importriep 
+					WHERE idcsa_import = @idcsa_import and  csa_importriep.idreg is not null 
+					AND (
+							 (SELECT COUNT(*) FROM registry WHERE registry.idreg = csa_importriep.idreg and registry.idaccmotivedebit is not null) = 0  OR
+							 (SELECT COUNT(*) FROM registry WHERE registry.idreg = csa_importriep.idreg and registry.idaccmotivecredit is not null) = 0 	
+						 ) 
+				)
+	begin
+		INSERT INTO #errors VALUES('Riepiloghi con Anagrafica priva di causale di debito valorizzata nella scheda "Altri Dati"', 27,'N')
+	end
+end
  
 
 SELECT * FROM #errors

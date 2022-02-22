@@ -1,0 +1,73 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabtirocinioproposto_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabtirocinioproposto_seg_0"><i class="fa fa-user-edit mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabtirocinioproposto_seg_1" class="nav-link" data-toggle="pill" data-target="#tabtirocinioproposto_seg_1"><i class="fa fa-people-arrows mr-1"></i>Candidature</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabtirocinioproposto_seg_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="tirocinioproposto_seg_title">Titolo</label>
+					<textarea class="textarea form-control" id="tirocinioproposto_seg_title" type="text"  rows="4" data-tag="tirocinioproposto.title?tirociniopropostosegview.title" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="tirocinioproposto_seg_title_en">Titolo in inglese</label>
+					<textarea class="textarea form-control" id="tirocinioproposto_seg_title_en" type="text"  rows="4" data-tag="tirocinioproposto.title_en?tirociniopropostosegview.tirocinioproposto_title_en" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="tirocinioproposto_seg_description">Descrizione</label>
+					<textarea class="textarea form-control" id="tirocinioproposto_seg_description" type="text"  rows="4" data-tag="tirocinioproposto.description?tirociniopropostosegview.tirocinioproposto_description" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="tirocinioproposto_seg_description_en">Descrizione in inglese</label>
+					<textarea class="textarea form-control" id="tirocinioproposto_seg_description_en" type="text"  rows="4" data-tag="tirocinioproposto.description_en?tirociniopropostosegview.tirocinioproposto_description_en" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tirocinioproposto_seg_idreg_referente">Referente</label>
+					<div>
+						<input id="tirocinioproposto_seg_idreg_referente" name="tirocinioproposto_seg_idreg_referente" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="registrydefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tirocinioproposto_seg_idstruttura">Struttura dell'istituto</label>
+					<div>
+						<input id="tirocinioproposto_seg_idstruttura" name="tirocinioproposto_seg_idstruttura" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="strutturadefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tirocinioproposto_seg_ore">Ore</label>
+					<input id="tirocinioproposto_seg_ore" type="text" class="form-control" data-tag="tirocinioproposto.ore?tirociniopropostosegview.tirocinioproposto_ore" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tirocinioproposto_seg_idaoo">Area organizzativa omogenea</label>
+					<div>
+						<input id="tirocinioproposto_seg_idaoo" name="tirocinioproposto_seg_idaoo" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="aoodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabtirocinioproposto_seg_1" role="tabpanel">
+				<div class="gridx" id="grid_tirociniocandidatura_seg" data-tag="tirociniocandidatura.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

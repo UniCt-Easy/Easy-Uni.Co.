@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -107,7 +106,7 @@ namespace SiopePlus {
 
         private string codiceIpa { get; }
         //Default Constructor
-        public SiopePlusREST(string urlRest, PagoPaService.OpiSiopeplusConfig cfg, string user = null, string password = null, string codiceIpa=null) {
+        public SiopePlusREST(string urlRest, PagoPaService.OpiSiopeplusConfig cfg, string user = null, string password = null, string codiceIpa = null) {
 
             endPoint = urlRest;
             this.user = user;
@@ -115,7 +114,7 @@ namespace SiopePlus {
             this.codiceIpa = codiceIpa;
             this.cfg = cfg;
 
-        }
+            }
 
         public string inviaOrdinativi(string file) {
 
@@ -162,20 +161,23 @@ namespace SiopePlus {
             }
             
             string addr = endPoint + codiceIpa;
-                 
+            byte[] responseOpBinary;
+
             try {
                 //var response = wc.UploadFile(addr, "POST", file);
                 byte[] filebytes = File.ReadAllBytes(file);
-                var responseOpBinary = wc.UploadData(addr, "POST", filebytes);
+                responseOpBinary = wc.UploadData(addr, "POST", filebytes);
 
                 //string FileString = System.Text.Encoding.UTF8.GetString(filebytes, 0, filebytes.Length);
                 //var response3 = wc.UploadString(addr,"POST", FileString);
 
+                string textResponse = System.Text.Encoding.UTF8.GetString(responseOpBinary, 0, responseOpBinary.Length);
+				if (!textResponse.StartsWith("{\n")){
                 
-                
-                var responseStream = new GZipStream(new MemoryStream(responseOpBinary), CompressionMode.Decompress);
-                var reader = new StreamReader(responseStream);
-                var textResponse = reader.ReadToEnd();
+	                var responseStream = new GZipStream(new MemoryStream(responseOpBinary), CompressionMode.Decompress);
+	                var reader = new StreamReader(responseStream);
+	                textResponse = reader.ReadToEnd();
+				}
 
                 var esito = "";
                 var errore = "";
@@ -191,7 +193,7 @@ namespace SiopePlus {
                 foreach (var objSelBuild in arr) {
                     var c = objSelBuild["messageCode"];
                     var m = objSelBuild["message"];
-                    errore =errore + c.ToString() +"-"+ m.ToString() + "\r\n";;
+                    errore =errore + c.ToString() +"-"+ m.ToString() + "\r\n";
                 }
                 return esito.ToUpper() == "OK" ? null : errore;
                 //return "Risposta malformata";
@@ -237,7 +239,7 @@ namespace SiopePlus {
         //}
 
 
-        public Stream[] GetGiornaledicassa(DateTime inizio, DateTime fine, out string errore) {
+        public Stream[] GetGiornaledicassa(DateTime inizio, DateTime fine, bool salvaFile, out string errore) {
             errore = null;
             var wc = new MyWebClient(cfg);
             MyWebClient.SetCertificatePolicy();
@@ -274,8 +276,10 @@ namespace SiopePlus {
                 var responseStr = wc.DownloadData(addr); 
                 byte[] response = responseStr;
 
-
-                //File.WriteAllBytes("prova.bin",responseStr);
+                if (salvaFile) {
+	                File.WriteAllBytes(Path.GetTempFileName()+".zip",responseStr);
+                }
+                //
                 //var responseStream = new GZipStream(new MemoryStream(response), CompressionMode.Decompress);
                 //MemoryStream ms = new MemoryStream();
                 //responseStream.CopyTo(ms);
@@ -312,4 +316,3 @@ namespace SiopePlus {
     }
    
 }
-

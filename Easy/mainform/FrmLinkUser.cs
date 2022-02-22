@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -22,13 +21,14 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using metaeasylibrary;
+using metadatalibrary;
 
 namespace mainform
 {
 	/// <summary>
 	/// Summary description for FrmLinkUser.
 	/// </summary>
-	public class FrmLinkUser : System.Windows.Forms.Form
+	public class FrmLinkUser : MetaDataForm
 	{
 		private System.Windows.Forms.TextBox txtLogin;
 		private System.Windows.Forms.Label label1;
@@ -177,10 +177,9 @@ namespace mainform
 			string error;
 			Conn.linkUserToDepartment(txtLogin.Text,out error);
             if (error==null) return;
-			MessageBox.Show("Prolemi nel resettare la password dell'utente: "+error);
+			show("Prolemi nel resettare la password dell'utente: "+error);
 			DialogResult = DialogResult.None;
 			
 		}
 	}
 }
-

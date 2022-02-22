@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -32,7 +31,7 @@ namespace assetunload_storico
 	/// <summary>
 	/// Summary description for frmbuonoscaricoinventario.
 	/// </summary>
-	public class Frm_assetunload_storico : System.Windows.Forms.Form
+	public class Frm_assetunload_storico : MetaDataForm
 	{
         DataTable tInventoryAmortization;
         DataTable tInventorySortingAmortizationYear;
@@ -1177,7 +1176,7 @@ namespace assetunload_storico
 			Meta.MarkTableAsNotEntityChild(DS.assetpieceview);
 
 			if (messaggiovisualizzato){
-				MessageBox.Show("Insieme al cespite selezionato saranno scaricati anche i relativi ACCESSORI",
+				show("Insieme al cespite selezionato saranno scaricati anche i relativi ACCESSORI",
 				"Avviso");
 			}
 			Meta.FreshForm();
@@ -1293,7 +1292,7 @@ namespace assetunload_storico
 		private void EsaminaFlag() {	
 			if (Warning) return;
 			if (DS.config.Rows.Count==0) {
-				MessageBox.Show("La configurazione del PATRIMONIO non è stata definita per l'esercizio corrente. "+
+				show("La configurazione del PATRIMONIO non è stata definita per l'esercizio corrente. "+
 					"Non sarà possibile salvare il buono di scarico.\r"+
 					@"La configurazione si trova alla voce di menu Configurazione\Operazioni inventariabili\Configurazione","Attenzione",
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -1304,7 +1303,7 @@ namespace assetunload_storico
 			DataRow r=DS.Tables["config"].Rows[0];
             string flagnumerazione = r["asset_flagnumbering"].ToString().ToUpper();
 			if (flagnumerazione=="" || flagnumerazione=="N") {
-				MessageBox.Show("Non è stato definito il tipo di numerazione per la configurazione "+
+				show("Non è stato definito il tipo di numerazione per la configurazione "+
 					"del PATRIMONIO per l'esercizio corrente. "+
 					"Non sarà possibile salvare il buono di scarico.\r"+
 					@"La configurazione si trova alla voce di menu Configurazione\Operazioni inventariabili\Configurazione","Attenzione",
@@ -1378,7 +1377,7 @@ namespace assetunload_storico
 			if (MetaData.Empty(this)) return;
             if (cboTipo.SelectedIndex <= 0)
             {
-                MessageBox.Show("Selezionare prima il tipo del buono di scarico",
+                show("Selezionare prima il tipo del buono di scarico",
                 "Avviso");
                 return;
             }
@@ -1537,7 +1536,7 @@ namespace assetunload_storico
 		private void btnWizard_Click(object sender, System.EventArgs e) {
 			if (Meta.IsEmpty) return;
             if (cboTipo.SelectedIndex <= 0) {
-                MessageBox.Show("Selezionare prima il tipo del buono di scarico",
+                show("Selezionare prima il tipo del buono di scarico",
                 "Avviso");
                 return;
             }
@@ -1562,7 +1561,7 @@ namespace assetunload_storico
                 //for (i = 1; i < T.Rows.Count; i++) {
                 //     NewIdInv = T.Rows[i]["idinventory"];
                 //     if (!PrimoIdInv.Equals(NewIdInv)) {
-                //         MessageBox.Show("Attenzione! I cespiti selezionati appartengono a diversi tipi di inventario");
+                //         show("Attenzione! I cespiti selezionati appartengono a diversi tipi di inventario");
                 //         return;
                 //     }
                 //} 
@@ -1643,7 +1642,7 @@ namespace assetunload_storico
             string fAsset = QHS.AppAnd(QHS.CmpEq("idasset", idasset), QHS.CmpEq("idpiece", idpiece));
             object idinv = Meta.Conn.DO_READ_VALUE("assetview", fAsset, "idinv");
             if (idinv == null) {
-                MessageBox.Show(this, "Classificazione inventariale mancante al cespite n. " + idasset + " / " + idpiece, "Errore");
+                show(this, "Classificazione inventariale mancante al cespite n. " + idasset + " / " + idpiece, "Errore");
                 return null;
             }
 
@@ -1768,7 +1767,7 @@ namespace assetunload_storico
                 Curr["nassetunload"].ToString().PadLeft(6, '0');
 
             if (EP.MainEntryExists()) {
-                if (MessageBox.Show("Attenzione, le scritture in E/P risultano già generate." +
+                if (show("Attenzione, le scritture in E/P risultano già generate." +
                     " Si desidera sovrascriverle per aggiornarle?", "Avviso",
                     MessageBoxButtons.OKCancel) == DialogResult.Cancel) return;
             }
@@ -1792,7 +1791,7 @@ namespace assetunload_storico
                 object idaccmotive = ottieniIdAccMotiveAmm(tipoAmm, idasset, idpiece);
                 if ((idaccmotive == null) || (idaccmotive == DBNull.Value)) {
                     string textVar = (isAmmortamento) ? "dell'ammortamento " : "della svalutazione ";
-                    MessageBox.Show(this, "La causale " + textVar + inventoryamortization.ToString() + " non è stata impostata!", "Errore");
+                    show(this, "La causale " + textVar + inventoryamortization.ToString() + " non è stata impostata!", "Errore");
                     return;
                 }
 				DataRow []ContiSpesa= EP.GetAccMotiveDetails(idaccmotive.ToString());
@@ -1845,7 +1844,7 @@ namespace assetunload_storico
 
                 object idaccmotive = calcolaIdAccMotiveCespite(rAsset["idinv"]);
                 if ((idaccmotive == null) || (idaccmotive == DBNull.Value)) {
-                    MessageBox.Show(this, "Non è stata specificata la causale per la class. inventariale del cespite n." +
+                    show(this, "Non è stata specificata la causale per la class. inventariale del cespite n." +
                         rAsset["idasset"] + "/" + rAsset["idpiece"], "Errore");
                     return;
                 }
@@ -1889,7 +1888,7 @@ namespace assetunload_storico
 
             Post.InitClass(EP.D, Meta.Conn);
             if (!Post.DO_POST()) {
-                MessageBox.Show(this, "Errore durante la cancellazione delle scritture in PD");
+                show(this, "Errore durante la cancellazione delle scritture in PD");
             }
         }
 
@@ -1900,4 +1899,3 @@ namespace assetunload_storico
         }
     }
 }
-

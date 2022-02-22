@@ -1,0 +1,334 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tablearningagrtrainer_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tablearningagrtrainer_seg_0"><i class="fa fa-handshake mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tablearningagrtrainer_seg_3" class="nav-link" data-toggle="pill" data-target="#tablearningagrtrainer_seg_3"><i class="fa fa-language mr-1"></i>Lingua principale in cui viene svolto il lavoro e livello conosciuto</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tablearningagrtrainer_seg_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_title">Titolo del tirocinio </label>
+					<textarea class="textarea form-control" id="learningagrtrainer_seg_title" type="text"  rows="4" data-tag="learningagrtrainer.title?learningagrtrainersegview.title" data-subentity  data-mandatory></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmitr_cf">Crediti formativi</label>
+					<input id="convalida_segmitr_cf" type="text" class="form-control" data-tag="convalida.cf.fixed.2?learningagrtrainersegview.convalida_cf" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_address">Indirizzo</label>
+					<input id="learningagrtrainer_seg_address" type="text" class="form-control" data-tag="learningagrtrainer.address?learningagrtrainersegview.learningagrtrainer_address" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmitr_cfintegrazione">Crediti formativi di integrazione</label>
+					<input id="convalida_segmitr_cfintegrazione" type="text" class="form-control" data-tag="convalida.cfintegrazione.fixed.2?learningagrtrainersegview.convalida_cfintegrazione" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_assicurazienda">Assicurazione dell'azienda</label>
+					<div class="custom-control custom-radio">
+						<input id="learningagrtrainer_seg_assicuraziendaSi" type="radio" name="learningagrtrainer_seg_assicurazienda" class="custom-control-input" data-tag="learningagrtrainer.assicurazienda:S?learningagrtrainersegview.learningagrtrainer_assicurazienda:Si" data-subentity  ><label for="learningagrtrainer_seg_assicuraziendaSi"> Si</label>
+						<input id="learningagrtrainer_seg_assicuraziendaNo" type="radio" name="learningagrtrainer_seg_assicurazienda" class="custom-control-input" data-tag="learningagrtrainer.assicurazienda:N?learningagrtrainersegview.learningagrtrainer_assicurazienda:No" data-subentity  ><label for="learningagrtrainer_seg_assicuraziendaNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#convalida_segmitr_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="convalida_segmitr_data">Data</label>
+					<input id="convalida_segmitr_data" type="text" class="form-control" data-tag="convalida.data.g?learningagrtrainersegview.convalida_data.g" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_assicuraziendacivile">Copertura responsabilità civile</label>
+					<div class="custom-control custom-radio">
+						<input id="learningagrtrainer_seg_assicuraziendacivileSi" type="radio" name="learningagrtrainer_seg_assicuraziendacivile" class="custom-control-input" data-tag="learningagrtrainer.assicuraziendacivile:S?learningagrtrainersegview.learningagrtrainer_assicuraziendacivile:Si" data-subentity  ><label for="learningagrtrainer_seg_assicuraziendacivileSi"> Si</label>
+						<input id="learningagrtrainer_seg_assicuraziendacivileNo" type="radio" name="learningagrtrainer_seg_assicuraziendacivile" class="custom-control-input" data-tag="learningagrtrainer.assicuraziendacivile:N?learningagrtrainersegview.learningagrtrainer_assicuraziendacivile:No" data-subentity  ><label for="learningagrtrainer_seg_assicuraziendacivileNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_assicuraziendaspost">Copertura infortuni negli spostamenti per e dal lavoro</label>
+					<div class="custom-control custom-radio">
+						<input id="learningagrtrainer_seg_assicuraziendaspostSi" type="radio" name="learningagrtrainer_seg_assicuraziendaspost" class="custom-control-input" data-tag="learningagrtrainer.assicuraziendaspost:S?learningagrtrainersegview.learningagrtrainer_assicuraziendaspost:Si" data-subentity  ><label for="learningagrtrainer_seg_assicuraziendaspostSi"> Si</label>
+						<input id="learningagrtrainer_seg_assicuraziendaspostNo" type="radio" name="learningagrtrainer_seg_assicuraziendaspost" class="custom-control-input" data-tag="learningagrtrainer.assicuraziendaspost:N?learningagrtrainersegview.learningagrtrainer_assicuraziendaspost:No" data-subentity  ><label for="learningagrtrainer_seg_assicuraziendaspostNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmitr_iddichiar">Dichiarazione da convalidare</label>
+					<div>
+						<input id="convalida_segmitr_iddichiar" name="convalida_segmitr_iddichiar" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="dichiar.iddichiarkind" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_assicuraziendaviagg">Copertura viaggi di lavoro</label>
+					<div class="custom-control custom-radio">
+						<input id="learningagrtrainer_seg_assicuraziendaviaggSi" type="radio" name="learningagrtrainer_seg_assicuraziendaviagg" class="custom-control-input" data-tag="learningagrtrainer.assicuraziendaviagg:S?learningagrtrainersegview.learningagrtrainer_assicuraziendaviagg:Si" data-subentity  ><label for="learningagrtrainer_seg_assicuraziendaviaggSi"> Si</label>
+						<input id="learningagrtrainer_seg_assicuraziendaviaggNo" type="radio" name="learningagrtrainer_seg_assicuraziendaviagg" class="custom-control-input" data-tag="learningagrtrainer.assicuraziendaviagg:N?learningagrtrainersegview.learningagrtrainer_assicuraziendaviagg:No" data-subentity  ><label for="learningagrtrainer_seg_assicuraziendaviaggNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmitr_iddidprog">Didattica programmata</label>
+					<div>
+						<input id="convalida_segmitr_iddidprog" name="convalida_segmitr_iddidprog" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_assicuristituto">Assicurazione dell'istituto</label>
+					<div class="custom-control custom-radio">
+						<input id="learningagrtrainer_seg_assicuristitutoSi" type="radio" name="learningagrtrainer_seg_assicuristituto" class="custom-control-input" data-tag="learningagrtrainer.assicuristituto:S?learningagrtrainersegview.learningagrtrainer_assicuristituto:Si" data-subentity  data-mandatory ><label for="learningagrtrainer_seg_assicuristitutoSi"> Si</label>
+						<input id="learningagrtrainer_seg_assicuristitutoNo" type="radio" name="learningagrtrainer_seg_assicuristituto" class="custom-control-input" data-tag="learningagrtrainer.assicuristituto:N?learningagrtrainersegview.learningagrtrainer_assicuristituto:No" data-subentity  data-mandatory ><label for="learningagrtrainer_seg_assicuristitutoNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmitr_idiscrizione">Iscrizione</label>
+					<div>
+						<input id="convalida_segmitr_idiscrizione" name="convalida_segmitr_idiscrizione" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="iscrizionedefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_assicuristitutocivile">Copertura responsabilità civile</label>
+					<div class="custom-control custom-radio">
+						<input id="learningagrtrainer_seg_assicuristitutocivileSi" type="radio" name="learningagrtrainer_seg_assicuristitutocivile" class="custom-control-input" data-tag="learningagrtrainer.assicuristitutocivile:S?learningagrtrainersegview.learningagrtrainer_assicuristitutocivile:Si" data-subentity  ><label for="learningagrtrainer_seg_assicuristitutocivileSi"> Si</label>
+						<input id="learningagrtrainer_seg_assicuristitutocivileNo" type="radio" name="learningagrtrainer_seg_assicuristitutocivile" class="custom-control-input" data-tag="learningagrtrainer.assicuristitutocivile:N?learningagrtrainersegview.learningagrtrainer_assicuristitutocivile:No" data-subentity  ><label for="learningagrtrainer_seg_assicuristitutocivileNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_assicuristitutospost">Copertura infortuni negli spostamenti per e dal lavoro</label>
+					<div class="custom-control custom-radio">
+						<input id="learningagrtrainer_seg_assicuristitutospostSi" type="radio" name="learningagrtrainer_seg_assicuristitutospost" class="custom-control-input" data-tag="learningagrtrainer.assicuristitutospost:S?learningagrtrainersegview.learningagrtrainer_assicuristitutospost:Si" data-subentity  ><label for="learningagrtrainer_seg_assicuristitutospostSi"> Si</label>
+						<input id="learningagrtrainer_seg_assicuristitutospostNo" type="radio" name="learningagrtrainer_seg_assicuristitutospost" class="custom-control-input" data-tag="learningagrtrainer.assicuristitutospost:N?learningagrtrainersegview.learningagrtrainer_assicuristitutospost:No" data-subentity  ><label for="learningagrtrainer_seg_assicuristitutospostNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_assicuristitutoviagg">Copertura viaggi di lavoro</label>
+					<div class="custom-control custom-radio">
+						<input id="learningagrtrainer_seg_assicuristitutoviaggSi" type="radio" name="learningagrtrainer_seg_assicuristitutoviagg" class="custom-control-input" data-tag="learningagrtrainer.assicuristitutoviagg:S?learningagrtrainersegview.learningagrtrainer_assicuristitutoviagg:Si" data-subentity  ><label for="learningagrtrainer_seg_assicuristitutoviaggSi"> Si</label>
+						<input id="learningagrtrainer_seg_assicuristitutoviaggNo" type="radio" name="learningagrtrainer_seg_assicuristitutoviagg" class="custom-control-input" data-tag="learningagrtrainer.assicuristitutoviagg:N?learningagrtrainersegview.learningagrtrainer_assicuristitutoviagg:No" data-subentity  ><label for="learningagrtrainer_seg_assicuristitutoviaggNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_cap">CAP</label>
+					<input id="learningagrtrainer_seg_cap" type="text" class="form-control" data-tag="learningagrtrainer.cap?learningagrtrainersegview.learningagrtrainer_cap" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_capacitaacquis">Capacità e competenze che verranno acquisite</label>
+					<textarea class="textarea form-control" id="learningagrtrainer_seg_capacitaacquis" type="text"  rows="4" data-tag="learningagrtrainer.capacitaacquis?learningagrtrainersegview.learningagrtrainer_capacitaacquis" data-subentity  data-mandatory></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_ectscf">Numero di crediti ECTS</label>
+					<input id="learningagrtrainer_seg_ectscf" type="text" class="form-control" data-tag="learningagrtrainer.ectscf?learningagrtrainersegview.learningagrtrainer_ectscf" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmitr_idpratica">pratica di convalida</label>
+					<div>
+						<input id="convalida_segmitr_idpratica" name="convalida_segmitr_idpratica" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="pratica.idreg" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_ectstitle">Titolo ECTS</label>
+					<textarea class="textarea form-control" id="learningagrtrainer_seg_ectstitle" type="text"  rows="4" data-tag="learningagrtrainer.ectstitle?learningagrtrainersegview.learningagrtrainer_ectstitle" data-subentity></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmitr_voto">Voto</label>
+					<input id="convalida_segmitr_voto" type="text" class="form-control" data-tag="convalida.voto.fixed.2?learningagrtrainersegview.convalida_voto" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmitr_votolode">Lode</label>
+					<div class="custom-control custom-radio">
+						<input id="convalida_segmitr_votolodeSi" type="radio" name="convalida_segmitr_votolode" class="custom-control-input" data-tag="convalida.votolode:S?learningagrtrainersegview.convalida_votolode:Si" data-subentity  ><label for="convalida_segmitr_votolodeSi"> Si</label>
+						<input id="convalida_segmitr_votolodeNo" type="radio" name="convalida_segmitr_votolode" class="custom-control-input" data-tag="convalida.votolode:N?learningagrtrainersegview.convalida_votolode:No" data-subentity  ><label for="convalida_segmitr_votolodeNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_idcity">Città</label>
+					<div>
+						<input id="learningagrtrainer_seg_idcity" name="learningagrtrainer_seg_idcity" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmitr_votosu">Su</label>
+					<input id="convalida_segmitr_votosu" type="text" class="form-control" data-tag="convalida.votosu?learningagrtrainersegview.convalida_votosu" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_idlearningagrkind">Fase del tirocinio</label>
+					<select id="learningagrtrainer_seg_idlearningagrkind" class="custom-select d-block w-100"  data-source-name="learningagrkind" data-value-member="idlearningagrkind" data-display-member="title" data-custom-control="combo" data-tag="learningagrtrainer.idlearningagrkind?learningagrtrainersegview.learningagrtrainer_idlearningagrkind" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_idlearningagrtrainerkind">Tipologia</label>
+					<select id="learningagrtrainer_seg_idlearningagrtrainerkind" class="custom-select d-block w-100"  data-source-name="learningagrtrainerkind" data-value-member="idlearningagrtrainerkind" data-display-member="title" data-custom-control="combo" data-tag="learningagrtrainer.idlearningagrtrainerkind?learningagrtrainersegview.learningagrtrainer_idlearningagrtrainerkind" data-subentity  data-mandatory  > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_idlearningagrtrainervalut">Tipo di valutazione finale</label>
+					<div>
+						<input id="learningagrtrainer_seg_idlearningagrtrainervalut" name="learningagrtrainer_seg_idlearningagrtrainervalut" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="learningagrtrainervalut.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_idreg_aziende">Azienda o ente</label>
+					<div>
+						<input id="learningagrtrainer_seg_idreg_aziende" name="learningagrtrainer_seg_idreg_aziende" type="text" data-listtype="aziende"  class="form-control" data-minchar="2" data-tag="registryaziendeview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_location">Località</label>
+					<input id="learningagrtrainer_seg_location" type="text" class="form-control" data-tag="learningagrtrainer.location?learningagrtrainersegview.learningagrtrainer_location" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_oresettimana">Ore di lavoro alla settimana </label>
+					<input id="learningagrtrainer_seg_oresettimana" type="text" class="form-control" data-tag="learningagrtrainer.oresettimana?learningagrtrainersegview.learningagrtrainer_oresettimana" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_pianomonit">Piano di monitoraggio</label>
+					<textarea class="textarea form-control" id="learningagrtrainer_seg_pianomonit" type="text"  rows="4" data-tag="learningagrtrainer.pianomonit?learningagrtrainersegview.learningagrtrainer_pianomonit" data-subentity  data-mandatory></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_pianovalut">Piano di valutazione</label>
+					<textarea class="textarea form-control" id="learningagrtrainer_seg_pianovalut" type="text"  rows="4" data-tag="learningagrtrainer.pianovalut?learningagrtrainersegview.learningagrtrainer_pianovalut" data-subentity  data-mandatory></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_programma">Programma</label>
+					<textarea class="textarea form-control" id="learningagrtrainer_seg_programma" type="text"  rows="4" data-tag="learningagrtrainer.programma?learningagrtrainersegview.learningagrtrainer_programma" data-subentity  data-mandatory></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_registrainemd">Registra l’attività nell’Europass Mobility Document</label>
+					<div class="custom-control custom-radio">
+						<input id="learningagrtrainer_seg_registrainemdSi" type="radio" name="learningagrtrainer_seg_registrainemd" class="custom-control-input" data-tag="learningagrtrainer.registrainemd:S?learningagrtrainersegview.learningagrtrainer_registrainemd:Si" data-subentity  ><label for="learningagrtrainer_seg_registrainemdSi"> Si</label>
+						<input id="learningagrtrainer_seg_registrainemdNo" type="radio" name="learningagrtrainer_seg_registrainemd" class="custom-control-input" data-tag="learningagrtrainer.registrainemd:N?learningagrtrainersegview.learningagrtrainer_registrainemd:No" data-subentity  ><label for="learningagrtrainer_seg_registrainemdNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_registraintor">Registra l’attività nel Transcript of records</label>
+					<div class="custom-control custom-radio">
+						<input id="learningagrtrainer_seg_registraintorSi" type="radio" name="learningagrtrainer_seg_registraintor" class="custom-control-input" data-tag="learningagrtrainer.registraintor:S?learningagrtrainersegview.learningagrtrainer_registraintor:Si" data-subentity  ><label for="learningagrtrainer_seg_registraintorSi"> Si</label>
+						<input id="learningagrtrainer_seg_registraintorNo" type="radio" name="learningagrtrainer_seg_registraintor" class="custom-control-input" data-tag="learningagrtrainer.registraintor:N?learningagrtrainersegview.learningagrtrainer_registraintor:No" data-subentity  ><label for="learningagrtrainer_seg_registraintorNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_sostaltro">Sostegni di qualunque altro tipo dell’azienda</label>
+					<input id="learningagrtrainer_seg_sostaltro" type="text" class="form-control" data-tag="learningagrtrainer.sostaltro.fixed.2?learningagrtrainersegview.learningagrtrainer_sostaltro" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_sostazienda">Sostegno economico dell’azienda</label>
+					<input id="learningagrtrainer_seg_sostazienda" type="text" class="form-control" data-tag="learningagrtrainer.sostazienda.fixed.2?learningagrtrainersegview.learningagrtrainer_sostazienda" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#learningagrtrainer_seg_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_start">Data inizio periodo </label>
+					<input id="learningagrtrainer_seg_start" type="text" class="form-control" data-tag="learningagrtrainer.start?learningagrtrainersegview.learningagrtrainer_start" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#learningagrtrainer_seg_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_stop">Data fine periodo </label>
+					<input id="learningagrtrainer_seg_stop" type="text" class="form-control" data-tag="learningagrtrainer.stop?learningagrtrainersegview.learningagrtrainer_stop" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_voto">Voto</label>
+					<input id="learningagrtrainer_seg_voto" type="text" class="form-control" data-tag="learningagrtrainer.voto?learningagrtrainersegview.learningagrtrainer_voto" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelconvalida_segmitr_XXconvalidato" >Convalidato</div>
+				<div class="gridx" id="grid_convalidato_segmitr" data-tag="convalidato.segmitr.segmitr" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tablearningagrtrainer_seg_3" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="cefrlanglevel_default_idnation">Lingua</label>
+					<div>
+						<input id="cefrlanglevel_default_idnation" name="cefrlanglevel_default_idnation" type="text" data-listtype="lingue"  class="form-control" data-minchar="2" data-tag="geo_nation.lang" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="cefrlanglevel_default_idcefr_compasc">Comprensione ascolto</label>
+					<select id="cefrlanglevel_default_idcefr_compasc" class="custom-select d-block w-100"  data-source-name="cefrdefaultview" data-value-member="idcefr" data-display-member="dropdown_title" data-custom-control="combo" data-tag="cefrlanglevel.idcefr_compasc?learningagrtrainersegview.cefrlanglevel_idcefr_compasc" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="cefrlanglevel_default_idcefr_complett">Comprensione lettura</label>
+					<select id="cefrlanglevel_default_idcefr_complett" class="custom-select d-block w-100"  data-source-name="cefrdefaultview_alias1" data-value-member="idcefr" data-display-member="dropdown_title" data-custom-control="combo" data-tag="cefrlanglevel.idcefr_complett?learningagrtrainersegview.cefrlanglevel_idcefr_complett" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="cefrlanglevel_default_idcefr_parlinter">Parlato interazione</label>
+					<select id="cefrlanglevel_default_idcefr_parlinter" class="custom-select d-block w-100"  data-source-name="cefrdefaultview_alias2" data-value-member="idcefr" data-display-member="dropdown_title" data-custom-control="combo" data-tag="cefrlanglevel.idcefr_parlinter?learningagrtrainersegview.cefrlanglevel_idcefr_parlinter" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="cefrlanglevel_default_idcefr_parlprod">Parlato produzione</label>
+					<select id="cefrlanglevel_default_idcefr_parlprod" class="custom-select d-block w-100"  data-source-name="cefrdefaultview_alias3" data-value-member="idcefr" data-display-member="dropdown_title" data-custom-control="combo" data-tag="cefrlanglevel.idcefr_parlprod?learningagrtrainersegview.cefrlanglevel_idcefr_parlprod" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="cefrlanglevel_default_idcefr_scritto">Scritto</label>
+					<select id="cefrlanglevel_default_idcefr_scritto" class="custom-select d-block w-100"  data-source-name="cefrdefaultview_alias4" data-value-member="idcefr" data-display-member="dropdown_title" data-custom-control="combo" data-tag="cefrlanglevel.idcefr_scritto?learningagrtrainersegview.cefrlanglevel_idcefr_scritto" data-subentity   > </select>
+				</div>
+			</div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -30,7 +29,7 @@ namespace proceedsview_esitazionemultipla {
     /// <summary>
     /// Summary description for FrmProceedsview_esitazionemultipla.
     /// </summary>
-    public class FrmProceedsview_esitazionemultipla : System.Windows.Forms.Form {
+    public class FrmProceedsview_esitazionemultipla : MetaDataForm {
         private string MESSAGGIO = "Tenere premuto il tasto CTRL o MAIUSC e contemporaneamente cliccare con il mouse per selezionare più ";
         private MetaData meta;
         private System.Windows.Forms.DataGrid gridReversali;
@@ -441,7 +440,7 @@ namespace proceedsview_esitazionemultipla {
                     }
                 }
                 catch (FormatException) {
-                    MessageBox.Show(this, "Errore nella selezione desiderata: " + valore + "\nImmettere i numeri dei movimenti e/o gli intervalli dei movimenti separati da virgole.");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella selezione desiderata: " + valore + "\nImmettere i numeri dei movimenti e/o gli intervalli dei movimenti separati da virgole.");
                     return;
                 }
             }
@@ -520,7 +519,7 @@ namespace proceedsview_esitazionemultipla {
 
         private void esita() {
             if (txtDataOperaz.Text == "") {
-                MessageBox.Show(this, "Inserire la data di operazione");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire la data di operazione");
                 txtDataOperaz.Focus();
                 return;
             }
@@ -540,7 +539,7 @@ namespace proceedsview_esitazionemultipla {
                     }
                     catch
                     {
-                        MessageBox.Show(this, "Data operazione non valida");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Data operazione non valida");
                         return;
                     }
                 }
@@ -554,7 +553,7 @@ namespace proceedsview_esitazionemultipla {
                 }
                 catch
                 {
-                    MessageBox.Show(this, "Data valuta non valida");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Data valuta non valida");
                     return;
                 }
             }
@@ -599,10 +598,10 @@ namespace proceedsview_esitazionemultipla {
             pd.InitClass(DS, meta.Conn);
             if (pd.DO_POST()) {
                 epm.afterPost();
-                MessageBox.Show(this, messaggio, "DB AGGIORNATO CORRETTAMENTE");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messaggio, "DB AGGIORNATO CORRETTAMENTE");
             }
             else {
-                MessageBox.Show(this, "Errore durante l'aggiornamento del D.B.!", "ERRORE");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore durante l'aggiornamento del D.B.!", "ERRORE");
             }
             aggiornaDataGrid("MOVIMENTI esitati totalmente");
             decimal importoTot = ricalcolaImportoTotale();
@@ -656,4 +655,4 @@ namespace proceedsview_esitazionemultipla {
             return importoTot;
         }
     }
-}
+}

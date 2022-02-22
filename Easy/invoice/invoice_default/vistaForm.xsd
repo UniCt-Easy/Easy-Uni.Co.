@@ -88,6 +88,9 @@
               <xs:element name="idreg_sostituto" type="xs:int" minOccurs="0" />
               <xs:element name="email_ven_cliente" type="xs:string" minOccurs="0" />
               <xs:element name="pec_ven_cliente" type="xs:string" minOccurs="0" />
+              <xs:element name="idsdi_acquistoestere" type="xs:int" minOccurs="0" />
+              <xs:element name="idtreasurer_acq_estere" type="xs:int" minOccurs="0" />
+              <xs:element name="idfedocumentkind" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -114,6 +117,7 @@
               <xs:element name="riferimento_amministrazione" type="xs:string" minOccurs="0" />
               <xs:element name="codeinvkind" type="xs:string" minOccurs="0" />
               <xs:element name="enable_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="enable_fe_estera" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -271,6 +275,8 @@
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_codesorsiope" type="xs:string" minOccurs="0" />
               <xs:element name="idepexp_pre" type="xs:int" minOccurs="0" />
+              <xs:element name="idtassonomia" type="xs:int" minOccurs="0" />
+              <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1171,6 +1177,7 @@
               <xs:element name="epkind" type="xs:string" minOccurs="0" />
               <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
+              <xs:element name="rownum_main" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1235,22 +1242,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="invoiceattachment" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idinvkind" type="xs:int" />
-              <xs:element name="yinv" type="xs:short" />
-              <xs:element name="ninv" type="xs:int" />
-              <xs:element name="idattachment" type="xs:int" />
-              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
-              <xs:element name="filename" type="xs:string" minOccurs="0" />
-              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="lu" type="xs:string" minOccurs="0" />
-              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="cu" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="sdi_acquisto" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -1261,7 +1252,7 @@
               <xs:element name="xml" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
-              <xs:element name="identificativo_sdi" type="xs:int" minOccurs="0" />
+              <xs:element name="identificativo_sdi" type="xs:long" minOccurs="0" />
               <xs:element name="mt" type="xs:string" minOccurs="0" />
               <xs:element name="ec" type="xs:string" minOccurs="0" />
               <xs:element name="ec_sent" type="xs:string" minOccurs="0" />
@@ -1312,7 +1303,7 @@
               <xs:element name="xml" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
-              <xs:element name="identificativo_sdi" type="xs:int" minOccurs="0" />
+              <xs:element name="identificativo_sdi" type="xs:long" minOccurs="0" />
               <xs:element name="ns" type="xs:string" minOccurs="0" />
               <xs:element name="mc" type="xs:string" minOccurs="0" />
               <xs:element name="rc" type="xs:string" minOccurs="0" />
@@ -1481,6 +1472,7 @@
               <xs:element name="idinvkind_forwarder" type="xs:int" minOccurs="0" />
               <xs:element name="yinv_forwarder" type="xs:short" minOccurs="0" />
               <xs:element name="ninv_forwarder" type="xs:int" minOccurs="0" />
+              <xs:element name="idnocigmotive" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_invkind" type="xs:string" minOccurs="0" />
               <xs:element name="flagbit" type="xs:int" minOccurs="0" />
             </xs:sequence>
@@ -1734,6 +1726,186 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="invoiceattachment" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinvkind" type="xs:int" />
+              <xs:element name="yinv" type="xs:short" />
+              <xs:element name="ninv" type="xs:int" />
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_attachmentkind" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_attachment_fe" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="invoiceattachmentkind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idattachmentkind" type="xs:int" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="attachment_fe" type="xs:string" />
+              <xs:element name="flagvisiblekind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sdi_acquistoestere" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idsdi_acquistoestere" type="xs:int" />
+              <xs:element name="adate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="arrivalprotocolnum" type="xs:string" minOccurs="0" />
+              <xs:element name="exported" type="xs:string" />
+              <xs:element name="filename" type="xs:string" />
+              <xs:element name="flag_unseen" type="xs:int" minOccurs="0" />
+              <xs:element name="identificativo_sdi" type="xs:long" minOccurs="0" />
+              <xs:element name="idsdi_deliverystatus" type="xs:short" minOccurs="0" />
+              <xs:element name="idsdi_rifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="idsdi_status" type="xs:short" minOccurs="0" />
+              <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="issigned" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="mc" type="xs:string" minOccurs="0" />
+              <xs:element name="mc_prot" type="xs:string" minOccurs="0" />
+              <xs:element name="ns" type="xs:string" minOccurs="0" />
+              <xs:element name="ns_prot" type="xs:string" minOccurs="0" />
+              <xs:element name="position" type="xs:int" minOccurs="0" />
+              <xs:element name="protocol_error" type="xs:string" minOccurs="0" />
+              <xs:element name="rc" type="xs:string" minOccurs="0" />
+              <xs:element name="rc_prot" type="xs:string" minOccurs="0" />
+              <xs:element name="signedxml" type="xs:string" minOccurs="0" />
+              <xs:element name="signedxmlfilename" type="xs:string" minOccurs="0" />
+              <xs:element name="xml" type="xs:string" />
+              <xs:element name="zipfilename" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="treasurer_acq_estere" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="agencycodefortransmission" type="xs:string" minOccurs="0" />
+              <xs:element name="cabcodefortransmission" type="xs:string" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="cc" type="xs:string" minOccurs="0" />
+              <xs:element name="cin" type="xs:string" minOccurs="0" />
+              <xs:element name="city" type="xs:string" minOccurs="0" />
+              <xs:element name="country" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="depcodefortransmission" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="faxnumber" type="xs:string" minOccurs="0" />
+              <xs:element name="faxprefix" type="xs:string" minOccurs="0" />
+              <xs:element name="flagdefault" type="xs:string" />
+              <xs:element name="idaccmotive_payment" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_proceeds" type="xs:string" minOccurs="0" />
+              <xs:element name="idbank" type="xs:string" minOccurs="0" />
+              <xs:element name="idcab" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="phonenumber" type="xs:string" minOccurs="0" />
+              <xs:element name="phoneprefix" type="xs:string" minOccurs="0" />
+              <xs:element name="codetreasurer" type="xs:string" />
+              <xs:element name="idtreasurer" type="xs:int" />
+              <xs:element name="spexportexp" type="xs:string" minOccurs="0" />
+              <xs:element name="flagmultiexp" type="xs:string" minOccurs="0" />
+              <xs:element name="fileextension" type="xs:string" minOccurs="0" />
+              <xs:element name="spexportinc" type="xs:string" minOccurs="0" />
+              <xs:element name="iban" type="xs:string" minOccurs="0" />
+              <xs:element name="bic" type="xs:string" minOccurs="0" />
+              <xs:element name="flagfruitful" type="xs:string" minOccurs="0" />
+              <xs:element name="cccbi" type="xs:string" minOccurs="0" />
+              <xs:element name="cincbi" type="xs:string" minOccurs="0" />
+              <xs:element name="idbankcbi" type="xs:string" minOccurs="0" />
+              <xs:element name="idcabcbi" type="xs:string" minOccurs="0" />
+              <xs:element name="ibancbi" type="xs:string" minOccurs="0" />
+              <xs:element name="siacodecbi" type="xs:string" minOccurs="0" />
+              <xs:element name="reccbikind" type="xs:string" minOccurs="0" />
+              <xs:element name="trasmcode" type="xs:string" minOccurs="0" />
+              <xs:element name="flagbank_grouping" type="xs:int" minOccurs="0" />
+              <xs:element name="motivelen" type="xs:short" minOccurs="0" />
+              <xs:element name="motiveprefix" type="xs:string" minOccurs="0" />
+              <xs:element name="motiveseparator" type="xs:string" minOccurs="0" />
+              <xs:element name="annotations" type="xs:string" minOccurs="0" />
+              <xs:element name="flagedisp" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="billcode" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="header" type="xs:string" minOccurs="0" />
+              <xs:element name="savepath" type="xs:string" minOccurs="0" />
+              <xs:element name="departmentname_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="enable_ndoc_treasurer" type="xs:string" minOccurs="0" />
+              <xs:element name="flussocrediticode" type="xs:string" minOccurs="0" />
+              <xs:element name="ftpuser" type="xs:string" minOccurs="0" />
+              <xs:element name="ftppassword" type="xs:string" minOccurs="0" />
+              <xs:element name="ftpaddress" type="xs:string" minOccurs="0" />
+              <xs:element name="pasvmode" type="xs:string" minOccurs="0" />
+              <xs:element name="ftpport" type="xs:int" minOccurs="0" />
+              <xs:element name="ftpdir" type="xs:string" minOccurs="0" />
+              <xs:element name="tramite_bt_code" type="xs:string" minOccurs="0" />
+              <xs:element name="tramite_agency_code" type="xs:string" minOccurs="0" />
+              <xs:element name="agency_istat_code" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="fedocumentkind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfedocumentkind" type="xs:int" />
+              <xs:element name="codefedocumentkind" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sdi_status_acquestere" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idsdi_status" type="xs:short" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="listingorder" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sdi_deliverystatus_acquestere" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idsdi_deliverystatus" type="xs:short" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="listingorder" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -1938,13 +2110,6 @@
       <xs:selector xpath=".//mstns:pccview" />
       <xs:field xpath="mstns:idpcc" />
     </xs:unique>
-    <xs:unique name="invoiceattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:invoiceattachment" />
-      <xs:field xpath="mstns:idinvkind" />
-      <xs:field xpath="mstns:yinv" />
-      <xs:field xpath="mstns:ninv" />
-      <xs:field xpath="mstns:idattachment" />
-    </xs:unique>
     <xs:unique name="sdi_acquisto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:sdi_acquisto" />
       <xs:field xpath="mstns:idsdi_acquisto" />
@@ -2008,6 +2173,37 @@
       <xs:selector xpath=".//mstns:registry_sostituto" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
+    <xs:unique name="invoiceattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:invoiceattachment" />
+      <xs:field xpath="mstns:idinvkind" />
+      <xs:field xpath="mstns:yinv" />
+      <xs:field xpath="mstns:ninv" />
+      <xs:field xpath="mstns:idattachment" />
+    </xs:unique>
+    <xs:unique name="invoiceattachmentkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:invoiceattachmentkind" />
+      <xs:field xpath="mstns:idattachmentkind" />
+    </xs:unique>
+    <xs:unique name="sdi_acquistoestere_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sdi_acquistoestere" />
+      <xs:field xpath="mstns:idsdi_acquistoestere" />
+    </xs:unique>
+    <xs:unique name="treasurer_acq_estere_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:treasurer_acq_estere" />
+      <xs:field xpath="mstns:idtreasurer" />
+    </xs:unique>
+    <xs:unique name="fedocumentkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:fedocumentkind" />
+      <xs:field xpath="mstns:idfedocumentkind" />
+    </xs:unique>
+    <xs:unique name="sdi_status_acquestere_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sdi_status_acquestere" />
+      <xs:field xpath="mstns:idsdi_status" />
+    </xs:unique>
+    <xs:unique name="sdi_deliverystatus_acquestere_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sdi_deliverystatus_acquestere" />
+      <xs:field xpath="mstns:idsdi_deliverystatus" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -2017,8 +2213,6 @@
       <msdata:Relationship name="FK_invoicekind_bolladoganale_invoice_bolladoganale" msdata:parent="invoicekind_bolladoganale" msdata:child="invoice_bolladoganale" msdata:parentkey="idinvkind" msdata:childkey="idinvkind" />
       <msdata:Relationship name="FK_sdi_statusvendita_sdi_vendita" msdata:parent="sdi_statusvendita" msdata:child="sdi_vendita" msdata:parentkey="idsdi_status" msdata:childkey="idsdi_status" />
       <msdata:Relationship name="FK_sdi_deliverystatus_sdi_vendita" msdata:parent="sdi_deliverystatus" msdata:child="sdi_vendita" msdata:parentkey="idsdi_deliverystatus" msdata:childkey="idsdi_deliverystatus" />
-      <msdata:Relationship name="FK_sdi_status_sdi_acquisto" msdata:parent="sdi_status" msdata:child="sdi_acquisto" msdata:parentkey="idsdi_status" msdata:childkey="idsdi_status" />
-      <msdata:Relationship name="invoice_invoiceattachment" msdata:parent="invoice" msdata:child="invoiceattachment" msdata:parentkey="idinvkind yinv ninv" msdata:childkey="idinvkind yinv ninv" />
       <msdata:Relationship name="FK_invoice_pccview" msdata:parent="invoice" msdata:child="pccview" msdata:parentkey="idinvkind yinv ninv" msdata:childkey="idinvkind yinv ninv" />
       <msdata:Relationship name="FK_invoice_uniqueregister" msdata:parent="invoice" msdata:child="uniqueregister" msdata:parentkey="idinvkind yinv ninv" msdata:childkey="idinvkind yinv ninv" />
       <msdata:Relationship name="invoicedetail_stock" msdata:parent="invoicedetail" msdata:child="stock" msdata:parentkey="idinvkind yinv ninv idgroup" msdata:childkey="idinvkind yinv ninv inv_idgroup" />
@@ -2063,6 +2257,14 @@
       <msdata:Relationship name="invoice_profservice1" msdata:parent="invoice" msdata:child="profservice_1" msdata:parentkey="idinvkind yinv ninv" msdata:childkey="idinvkind yinv ninv" />
       <msdata:Relationship name="sorting_siope_invoicedetail" msdata:parent="sorting_siope" msdata:child="invoicedetail" msdata:parentkey="idsor" msdata:childkey="idsor_siope" />
       <msdata:Relationship name="registry_sostituto_invoice" msdata:parent="registry_sostituto" msdata:child="invoice" msdata:parentkey="idreg" msdata:childkey="idreg_sostituto" />
+      <msdata:Relationship name="invoice_invoiceattachment" msdata:parent="invoice" msdata:child="invoiceattachment" msdata:parentkey="idinvkind yinv ninv" msdata:childkey="idinvkind yinv ninv" />
+      <msdata:Relationship name="invoiceattachmentkind_invoiceattachment" msdata:parent="invoiceattachmentkind" msdata:child="invoiceattachment" msdata:parentkey="idattachmentkind" msdata:childkey="idattachmentkind" />
+      <msdata:Relationship name="treasurer_acq_estere_invoice" msdata:parent="treasurer_acq_estere" msdata:child="invoice" msdata:parentkey="idtreasurer" msdata:childkey="idtreasurer_acq_estere" />
+      <msdata:Relationship name="fedocumentkind_invoice" msdata:parent="fedocumentkind" msdata:child="invoice" msdata:parentkey="idfedocumentkind" msdata:childkey="idfedocumentkind" />
+      <msdata:Relationship name="FK_sdi_status_sdi_acquisto" msdata:parent="sdi_status" msdata:child="sdi_acquisto" msdata:parentkey="idsdi_status" msdata:childkey="idsdi_status" />
+      <msdata:Relationship name="sdi_status_acquestere_sdi_acquistoestere" msdata:parent="sdi_status_acquestere" msdata:child="sdi_acquistoestere" msdata:parentkey="idsdi_status" msdata:childkey="idsdi_status" />
+      <msdata:Relationship name="sdi_deliverystatus_acquestere_sdi_acquistoestere" msdata:parent="sdi_deliverystatus_acquestere" msdata:child="sdi_acquistoestere" msdata:parentkey="idsdi_deliverystatus" msdata:childkey="idsdi_deliverystatus" />
+      <msdata:Relationship name="sdi_acquistoestere_invoice" msdata:parent="sdi_acquistoestere" msdata:child="invoice" msdata:parentkey="idsdi_acquistoestere" msdata:childkey="idsdi_acquistoestere" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

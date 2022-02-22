@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using metaeasylibrary;
@@ -72,7 +71,12 @@ namespace meta_assetacquireview {//meta_caricobeneinventarioview//
 					DescribeAColumn(T, C.ColumnName, "");
 
 				int nPos = 1;
+				//DescribeAColumn(T, "idpiece", "Num. parte", nPos++);
 				DescribeAColumn(T, "nassetacquire", "Num. carico",nPos++);
+				DescribeAColumn(T, "inventorykind", "Tipo inventario",nPos++);
+				DescribeAColumn(T, "inventory", "Inventario", nPos++);
+				DescribeAColumn(T, "startnumber", "Num. inventario iniziale", nPos++);
+				DescribeAColumn(T, "ispieceacquire","Accessori", nPos++);
 				DescribeAColumn(T, "idmankind", "Tipo  Contr. Passivo",nPos++);
 				DescribeAColumn(T, "yman", "Eserc.  Contr. Passivo",nPos++);
 				DescribeAColumn(T, "nman", "Num.  Contr. Passivo",nPos++);
@@ -88,11 +92,9 @@ namespace meta_assetacquireview {//meta_caricobeneinventarioview//
                 DescribeAColumn(T, "registry", "Cedente",nPos++);
 				DescribeAColumn(T, "assetloadmotive", "Causale",nPos++);
 				DescribeAColumn(T, "codeinv", "Codice class.",nPos++);
-				DescribeAColumn(T, "inventorytree", "Desc. class",nPos++);
+				DescribeAColumn(T, "inventorytree", "Class. Inventariale",nPos++);
                 DescribeAColumn(T, "intcode", "codice listino", nPos++);
-                DescribeAColumn(T, "list", "Listino", nPos++);
-                DescribeAColumn(T, "description", "Descrizione",nPos++);
-				DescribeAColumn(T, "inventory", "Inventario",nPos++);
+                DescribeAColumn(T, "list", "Listino", nPos++);                
 				DescribeAColumn(T, "assetloadkind", "Tipo buono",nPos++);
 				DescribeAColumn(T, "yassetload", "Eserc. buono",nPos++);
 				DescribeAColumn(T, "nassetload", "Num. buono",nPos++);
@@ -105,7 +107,7 @@ namespace meta_assetacquireview {//meta_caricobeneinventarioview//
 				DescribeAColumn(T, "cost", "Costo ",nPos++);
 				DescribeAColumn(T,"abatable","IVA detraibile",nPos++);
 				DescribeAColumn(T, "discount", "Sconto",nPos++);
-				DescribeAColumn(T, "startnumber", "Num. iniziale",nPos++);
+				DescribeAColumn(T, "description", "Descrizione", nPos++);
 				DescribeAColumn(T, "adate", "Data cont.",nPos++);
 				DescribeAColumn(T, "loadkind", "Flag tipo carico",nPos++);
 				DescribeAColumn(T, "flagload", "Flag buono",nPos++);
@@ -117,12 +119,13 @@ namespace meta_assetacquireview {//meta_caricobeneinventarioview//
 					DescribeAColumn(T, C.ColumnName, "",-1);
                 int nPos = 1;
 
-                //DescribeAColumn(T, "nassetacquire", "Numero carico", nPos++);
+				DescribeAColumn(T, "idpiece", "Num. parte", nPos++);
+				DescribeAColumn(T, "nassetacquire", "Numero carico", nPos++);
                 DescribeAColumn(T, "startnumber", "Num. iniz.", nPos++);
-                DescribeAColumn(T, "inventory", "Inventario", nPos++);
-                DescribeAColumn(T, "description", "Descrizione", nPos++);
+				DescribeAColumn(T, "description", "Descrizione", nPos++);
+				DescribeAColumn(T, "inventory", "Inventario", nPos++);                
                 //DescribeAColumn(T, "adate", "Data acquisizione", nPos++);
-                //DescribeAColumn(T, "inventorytree", "Class.inventariale", nPos++);
+                DescribeAColumn(T, "inventorytree", "Class.inventariale", nPos++);
                 DescribeAColumn(T, "number", "Quantità", nPos++);
                 DescribeAColumn(T, "taxable", "Imponibile unit.", nPos++);
                 DescribeAColumn(T, "taxrate", "Aliquota IVA", nPos++);
@@ -159,4 +162,4 @@ namespace meta_assetacquireview {//meta_caricobeneinventarioview//
 			}
 		}
 	}
-}
+}

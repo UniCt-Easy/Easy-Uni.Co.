@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -50,7 +49,7 @@ namespace meta_profservice//meta_contrattoprof//
             DataTable tConfigurazione = T.DataSet.Tables["config"];
             DataRow[] rConfig = tConfigurazione.Select(filteresercizio);
             if (rConfig.Length == 0) {
-                MessageBox.Show(testoMessaggio, "Contratto Professionale - Dati Mancanti", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(testoMessaggio, "Contratto Professionale - Dati Mancanti", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return null;
             }
 
@@ -103,7 +102,7 @@ namespace meta_profservice//meta_contrattoprof//
                           "http://www.inps.it/ . Si raccomanda di informare tempestivamente \n\r " +
                           "l'ufficio competente alla trasmissione della denuncia UNIEMENS.";
                 errfield = "idser";
-                MessageBox.Show(errmess, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(errmess, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
             bool IsAdmin = (GetSys("manage_prestazioni") != null)
@@ -142,7 +141,7 @@ namespace meta_profservice//meta_contrattoprof//
                     if (IsAdmin) {
                         errmess = "L'Anagrafe delle Prestazioni è stata già generata, e risultano modificati i seguenti dati: \n\r"
                             + message + "Adeguare anche i dati dell'Incarico.";
-                        MessageBox.Show(errmess, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(errmess, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                     else {
                         errmess = "Risultano modificati i seguenti dati: \n\r"
@@ -221,6 +220,12 @@ namespace meta_profservice//meta_contrattoprof//
                 errfield = "authdoc";
                 return false;
             }
+            if (R.Table.DataSet.Tables.Contains("profservicetax") && (R.Table.DataSet.Tables["profservicetax"].Select().Length == 0)) {
+	           
+			            errmess = "Non è possibile salvare una prestazione professionale senza ritenute";
+			            return false;
+            
+            }
 
 
             if ((R.RowState == DataRowState.Added) && (!RowChange.IsAutoIncrement(R.Table.Columns["ncon"]))) {
@@ -272,6 +277,7 @@ namespace meta_profservice//meta_contrattoprof//
             SetDefault(PrimaryTable, "flagmixed", "N");
             SetDefault(PrimaryTable, "authneeded", "X");
             SetDefault(PrimaryTable, "requested_doc", 0);
+            SetDefault(PrimaryTable, "flagexcludefromcertificate", "N");
         }
 
         public override void DescribeColumns(DataTable T, string ListingType) {
@@ -284,4 +290,3 @@ namespace meta_profservice//meta_contrattoprof//
         }
     }
 }
-

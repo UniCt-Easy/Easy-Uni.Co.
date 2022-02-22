@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -31,7 +30,7 @@ namespace itinerationlap_default{//missionetappa//
 	/// <summary>
 	/// Summary description for frmmissionetappa.
 	/// </summary>
-	public class Frm_itinerationlap_default : System.Windows.Forms.Form {
+	public class Frm_itinerationlap_default : MetaDataForm {
 		#region dich. controlli
 
 		private System.Windows.Forms.TextBox txtDataOraInizio;
@@ -808,7 +807,7 @@ namespace itinerationlap_default{//missionetappa//
 
 		public void MetaData_AfterFill(){
 //			if (filter==null){
-//				MessageBox.Show("I dati inseriti nella scheda Generalità sono incompleti o mancanti");
+//				show("I dati inseriti nella scheda Generalità sono incompleti o mancanti");
 //				DialogResult = DialogResult.Cancel;
 //				return;
 //			}	
@@ -886,7 +885,7 @@ namespace itinerationlap_default{//missionetappa//
 
                 filter = QHS.MCmp(Curr, "iditineration");
 				N += Meta.Conn.RUN_SELECT_COUNT("pettycashoperationitineration",filter,false);
-				if (N>0) MessageBox.Show(
+				if (N>0) show(
 							 "Avendo già contabilizzato l'anticipo di questa missione, le modifiche alla tappa "+
 							 "non saranno tenute in considerazione ai fini del calcolo dell'anticipo della missione.","Avviso");
 			}
@@ -959,7 +958,7 @@ namespace itinerationlap_default{//missionetappa//
                 "amount, advancepercentage", null, filter, null, false);
             double percanticipoitalia = 0;
             if ((TempTable == null) || (TempTable.Rows.Count == 0)) {
-                MessageBox.Show("Le informazioni relative alla diaria sono incomplete o mancanti. ", "Avviso");
+                show("Le informazioni relative alla diaria sono incomplete o mancanti. ", "Avviso");
                 return;
             }
             indennitaEUR = CfgFn.GetNoNullDecimal(TempTable.Rows[0]["amount"]);
@@ -994,7 +993,7 @@ namespace itinerationlap_default{//missionetappa//
             DataTable TempTable = Meta.Conn.RUN_SELECT("allowanceruledetail",
                 "amount, advancepercentage", null, filter, null, false);
             if ((TempTable == null) || (TempTable.Rows.Count == 0)) {
-                MessageBox.Show("Le informazioni relative alla diaria sono incomplete o mancanti. ", "Avviso");
+                show("Le informazioni relative alla diaria sono incomplete o mancanti. ", "Avviso");
                 ImpostaIndennitaPercTappa(0, 0);
                 return;
             }
@@ -1048,7 +1047,7 @@ namespace itinerationlap_default{//missionetappa//
             DataTable dettind = Meta.Conn.RUN_SELECT("foreignallowanceruledetail",
                 "amount,advancepercentage", null, filter, null, false);
             if ((dettind == null) || (dettind.Rows.Count == 0)) {
-                MessageBox.Show("Le informazioni relative alla diaria estera sono incomplete o mancanti." +
+                show("Le informazioni relative alla diaria estera sono incomplete o mancanti." +
                     "(Tappa n." + Curr["lapnumber"].ToString() + ")"
                     , "Avviso");
                 return;
@@ -1091,7 +1090,7 @@ namespace itinerationlap_default{//missionetappa//
             DataTable dettind = Meta.Conn.RUN_SELECT("foreignallowanceruledetail",
                 "amount,advancepercentage", null, filter, null, false);
             if ((dettind == null) || (dettind.Rows.Count == 0)) {
-                MessageBox.Show("Le informazioni relative alla diaria estera sono incomplete o mancanti." +
+                show("Le informazioni relative alla diaria estera sono incomplete o mancanti." +
                     "(Tappa n." + Curr["lapnumber"].ToString() + ")"
                     , "Avviso");
                 ClearIndennitaTrasfertaEstero();
@@ -1159,7 +1158,7 @@ namespace itinerationlap_default{//missionetappa//
 
 		void RicalcolaGiorniOreMissione() {
 		    if (Meta.IsEmpty) return;
-		    if (Meta.inchiusura) return;
+		    if (Meta.formController.isClosing) return;
 			Meta.GetFormData(true);
 		    DataRow Curr = DS.itinerationlap.Rows[0];
 
@@ -1250,7 +1249,7 @@ namespace itinerationlap_default{//missionetappa//
                                 null, filter, null, false);
 
             if ((TempItalia == null) || (TempItalia.Rows.Count == 0)) {
-				MessageBox.Show("Le informazioni relative alla riduzione sono incomplete o mancanti.");
+				show("Le informazioni relative alla riduzione sono incomplete o mancanti.");
                 Curr["reductionpercentage"] = 0;
 				AbilitaDisabilitaTipoRiduzione(true);
 			}
@@ -1454,4 +1453,3 @@ namespace itinerationlap_default{//missionetappa//
 
 	}
 }
-

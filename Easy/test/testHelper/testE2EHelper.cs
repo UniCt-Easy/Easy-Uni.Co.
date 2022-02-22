@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using metadatalibrary;
 using System.Data;
 using System.Collections.Generic;
@@ -161,19 +160,59 @@ namespace TestHelper {
     public class testE2EMainHelper {
         public frmMain mainForm;
         public MyListener ls;
-        public testE2EMainHelper() {
-            string[] parConn = DbConn.getParams("test");
-
-            frmMain.argCopy = new string[] {"autostart", parConn[0], parConn[4], parConn[5],"31/12/2018","2018"};
-            
-            ErrorLogger.Logger= new TestErrorLogger();
-            
-            mainForm = new frmMain();
-            mainForm.Show();
-            var lsGetter = mainForm.GetType().GetField("TS",BindingFlags.NonPublic|BindingFlags.Instance);
-            ls = lsGetter.GetValue(mainForm) as MyListener;
+        public testE2EMainHelper(DateTime d, string dns="test") {
+	        init(d, dns);
         }
 
+        void init(DateTime d, string dns) {
+	        string[] parConn = DbConn.getParams(dns);
+
+	        frmMain.argCopy = new string[] {"autostart", parConn[0], parConn[4], parConn[5],$"{d.Day}/{d.Month}/{d.Year}",$"{d.Year}"};
+            
+	        ErrorLogger.Logger= new TestErrorLogger();
+	        
+	        MetaFactory.factory.getSingleton<IMessageShower>().getResponder().clearMessages();
+
+	        mainForm = new frmMain();
+	        mainForm.isUnderTest = true;
+	        mainForm.Show();
+	        var lsGetter = mainForm.GetType().GetField("TS",BindingFlags.NonPublic|BindingFlags.Instance);
+	        ls = lsGetter.GetValue(mainForm) as MyListener;
+        }
+
+
+        public testE2EMainHelper(string dns="test") {
+	        init(new DateTime(2018, 12, 31), dns);
+        }
+
+
+        /// <summary>
+        /// Opens a form given metadata name and editType
+        /// </summary>
+        /// <param name="meta"></param>
+        /// <param name="editType"></param>
+        public void openFromMenuByTitle(params string[] nome) {
+	        var menu = getProp("mainMenu1") as MainMenu;
+	        var collection = menu.MenuItems;
+	        MenuItem found = null;
+	        foreach (string n in nome) {
+		        found = findByTitle(n, collection);
+		        if (found == null) throw new Exception($"voce di menu {n} non trovata");
+		        collection = found.MenuItems;
+                
+	        }
+	        found?.PerformClick();
+        }
+
+        MenuItem findByTitle(string name, Menu.MenuItemCollection menu) {
+	        foreach (MenuItem m in menu) {
+		        var el = m as Element;
+		        if (el != null) {
+			        if (el.Text==name) return m;
+		        }                
+	        }
+	        return null;
+        }
 
         /// <summary>
         /// Opens a form given metadata name and editType
@@ -213,6 +252,7 @@ namespace TestHelper {
         /// </summary>
         public void close() {
             mainForm.Close();
+            Application.DoEvents();
         }
 
         /// <summary>
@@ -301,13 +341,20 @@ namespace TestHelper {
         public void closeForm() {
             f.Close();
             f.Dispose();
+            Application.DoEvents();
         }
         
-        public static void onActivationForm(FormActivated e) {
+        static void onActivationForm(FormActivated e) {
             if (activated.ContainsKey(e.f)) return;
             activated.Add(e.f, true);
             var meta = e.f.getInstance<IMetaData>();
-            string key = $"{meta.TableName}#{meta.editType}";
+            string key = "";
+            if (meta != null) {
+                key = $"{meta.TableName}#{meta.editType}";
+            }
+            else {
+                key = e.f.Name;
+            }
             if (registeredFun.ContainsKey(key)) {
                 testFunDelegate f = registeredFun[key];
                 registeredFun.Remove(key);
@@ -322,12 +369,30 @@ namespace TestHelper {
         }
       
         static Dictionary<string,testFunDelegate> registeredFun = new Dictionary<string, testFunDelegate>();
+
+        /// <summary>
+        /// Register a test that will be executed when the form meta/edittype will be opened
+        /// </summary>
+        /// <param name="meta"></param>
+        /// <param name="editType"></param>
+        /// <param name="testFun"></param>
         public static void registerFormTest(string meta, string editType, testFunDelegate testFun) {
             string key = $"{meta}#{editType}";
             registeredFun[key] = testFun;
         }
 
-       
+        /// <summary>
+        /// Unregister a test that will be executed when the form meta/edittype will be opened
+        /// </summary>
+        /// <param name="meta"></param>
+        /// <param name="editType"></param>
+        /// <param name="testFun"></param>
+        public static void unregisterFormTest(string meta, string editType) {
+	        string key = $"{meta}#{editType}";
+	        if (registeredFun.ContainsKey(key)) registeredFun.Remove(key);
+        }
+
+
 
         public static void delayedClose(Form f) {
             var _delayTimer = new System.Timers.Timer();
@@ -352,36 +417,44 @@ namespace TestHelper {
             if (c is Button)((Button)c).PerformClick();
         }
 
-        public Control findByTag(string tag, Control.ControlCollection ctrls=null) {
-            if (ctrls == null) ctrls = f.Controls;
-            foreach (Control c in ctrls) {
-                if (c.Tag != null && c.Tag is string) {
-                    if ((string) c.Tag == tag) return c;
-                }
-                if (c.Controls.Count > 0) {
-                    Control res = findByTag(tag, c.Controls);
-                    if (res != null) return res;
-                }
+        public static Control findByTag(Form f, string tag, Control.ControlCollection ctrls = null) {
+	        if (ctrls == null) ctrls = f.Controls;
+	        foreach (Control c in ctrls) {
+		        if (c.Tag != null && c.Tag is string) {
+			        if ((string) c.Tag == tag) return c;
+		        }
+		        if (c.Controls.Count > 0) {
+			        Control res = findByTag(f,tag, c.Controls);
+			        if (res != null) return res;
+		        }
 
-            }
-
-            return null;
+	        }
+	        return null;
         }
+
+        public Control findByTag(string tag, Control.ControlCollection ctrls=null) {
+	        return findByTag(f, tag, ctrls);
+        }
+
+
+        public static Control findByName(Form f,string name, Control.ControlCollection ctrls = null) {
+	        if (ctrls == null) ctrls = f.Controls;
+	        foreach (Control c in ctrls) {
+                
+		        if (c.Name == name) return c;
+                
+		        if (c.Controls.Count > 0) {
+			        Control res = findByName(f,name, c.Controls);
+			        if (res != null) return res;
+		        }
+
+	        }
+
+	        return null;
+        }
+
         public Control findByName(string name, Control.ControlCollection ctrls=null) {
-            if (ctrls == null) ctrls = f.Controls;
-            foreach (Control c in ctrls) {
-                
-                if (c.Name == name) return c;
-                
-                if (c.Controls.Count > 0) {
-                    Control res = findByName(name, c.Controls);
-                    if (res != null) return res;
-                }
-
-            }
-
-            return null;
+	        return findByName(f, name, ctrls);
         }
     }
 }
-

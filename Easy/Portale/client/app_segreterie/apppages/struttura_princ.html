@@ -1,0 +1,68 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="struttura_princ_title">Denominazione</label>
+					<input id="struttura_princ_title" type="text" class="form-control" data-tag="struttura.title?strutturaprincview.title" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="struttura_princ_codice">Codice</label>
+					<input id="struttura_princ_codice" type="text" class="form-control" data-tag="struttura.codice?strutturaprincview.struttura_codice" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="struttura_princ_codiceipa">Codice IPA</label>
+					<input id="struttura_princ_codiceipa" type="text" class="form-control" data-tag="struttura.codiceipa?strutturaprincview.struttura_codiceipa" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="struttura_princ_email">E-Mail</label>
+					<input id="struttura_princ_email" type="text" class="form-control" data-tag="struttura.email?strutturaprincview.struttura_email" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="struttura_princ_fax">Fax</label>
+					<input id="struttura_princ_fax" type="text" class="form-control" data-tag="struttura.fax?strutturaprincview.struttura_fax" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="struttura_princ_idaoo">AOO</label>
+					<select id="struttura_princ_idaoo" class="custom-select d-block w-100"  data-source-name="aoodefaultview" data-value-member="idaoo" data-display-member="dropdown_title" data-custom-control="combo" data-tag="struttura.idaoo?strutturaprincview.struttura_idaoo" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="struttura_princ_idsede">Sede</label>
+					<select id="struttura_princ_idsede" class="custom-select d-block w-100"  data-source-name="sededefaultview" data-value-member="idsede" data-display-member="dropdown_title" data-custom-control="combo" data-tag="struttura.idsede?strutturaprincview.struttura_idsede" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="struttura_princ_idstrutturakind">Tipo</label>
+					<select id="struttura_princ_idstrutturakind" class="custom-select d-block w-100"  data-source-name="strutturakinddefaultview" data-value-member="idstrutturakind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="struttura.idstrutturakind?strutturaprincview.struttura_idstrutturakind" data-subentity  data-mandatory  > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="struttura_princ_idupb">UPB</label>
+					<div>
+						<input id="struttura_princ_idupb" name="struttura_princ_idupb" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="upbdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="struttura_princ_telefono">Telefono</label>
+					<input id="struttura_princ_telefono" type="text" class="form-control" data-tag="struttura.telefono?strutturaprincview.struttura_telefono" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="struttura_princ_title_en">Denominazione (ENG)</label>
+					<input id="struttura_princ_title_en" type="text" class="form-control" data-tag="struttura.title_en?strutturaprincview.struttura_title_en" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

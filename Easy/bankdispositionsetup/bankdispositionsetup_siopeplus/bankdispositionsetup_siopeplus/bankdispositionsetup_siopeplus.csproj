@@ -30,17 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="funzioni_configurazione">
-      <HintPath>..\..\..\unmanaged\funzioni_configurazione\bin\Debug\funzioni_configurazione.dll</HintPath>
-    </Reference>
     <Reference Include="metadatalibrary">
       <HintPath>..\..\..\dll\metadatalibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="pagoPaService">
-      <HintPath>..\..\..\unmanaged\pagoPaService\pagoPaService\bin\Debug\pagoPaService.dll</HintPath>
-    </Reference>
-    <Reference Include="siopeplus_functions">
-      <HintPath>..\..\..\siopeplus_functions\bin\Debug\siopeplus_functions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -85,15 +76,26 @@
     <Compile Include="FrmViewError.Designer.cs">
       <DependentUpon>FrmViewError.cs</DependentUpon>
     </Compile>
-    <Compile Include="OPI_incassi.designer.cs" />
-    <Compile Include="OPI_pagamenti.designer.cs" />
     <Compile Include="vistaForm.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\siopeplus_functions\siopeplus_functions.csproj">
+      <Project>{7d85344b-860d-48e2-b073-a8cfef78bf07}</Project>
+      <Name>siopeplus_functions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
+      <Project>{c0dacf4d-2f3e-44d6-a718-7c9821a1bdcd}</Project>
+      <Name>funzioni_configurazione</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\unmanaged\pagoPaService\pagoPaService\pagoPaService.csproj">
+      <Project>{0dc2a503-5cc5-4afd-a1b5-1776f0557559}</Project>
+      <Name>pagoPaService</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FrmBankdispositionsetup_siopeplus.resx">
       <DependentUpon>FrmBankdispositionsetup_siopeplus.cs</DependentUpon>

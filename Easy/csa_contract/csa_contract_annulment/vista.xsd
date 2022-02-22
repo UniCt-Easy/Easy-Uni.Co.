@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="csa_contract" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcsa_contract" type="xs:int" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="ycontract" type="xs:short" />
+              <xs:element name="ncontract" type="xs:int" />
+              <xs:element name="idcsa_contractkind" type="xs:int" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="flagkeepalive" type="xs:string" />
+              <xs:element name="flagrecreate" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_main" type="xs:string" minOccurs="0" />
+              <xs:element name="idexp_main" type="xs:int" minOccurs="0" />
+              <xs:element name="idfin_main" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor_siope_main" type="xs:int" minOccurs="0" />
+              <xs:element name="idunderwriting" type="xs:int" minOccurs="0" />
+              <xs:element name="idepexp_main" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="csa_contractview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="idcsa_contract" type="xs:int" />
+              <xs:element name="ycontract" type="xs:short" />
+              <xs:element name="ncontract" type="xs:int" />
+              <xs:element name="idcsa_contractkind" type="xs:int" minOccurs="0" />
+              <xs:element name="csa_contractkindcode" type="xs:string" minOccurs="0" />
+              <xs:element name="csa_contractkind" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="codeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="upb" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb_contractkind" type="xs:string" minOccurs="0" />
+              <xs:element name="codeupb_contractkind" type="xs:string" minOccurs="0" />
+              <xs:element name="upb_contractkind" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_main" type="xs:string" minOccurs="0" />
+              <xs:element name="codeacc_main" type="xs:string" minOccurs="0" />
+              <xs:element name="account_main" type="xs:string" minOccurs="0" />
+              <xs:element name="idfin_main" type="xs:int" minOccurs="0" />
+              <xs:element name="codefin_main" type="xs:string" minOccurs="0" />
+              <xs:element name="fin_main" type="xs:string" minOccurs="0" />
+              <xs:element name="idexp_main" type="xs:int" minOccurs="0" />
+              <xs:element name="nphase_main" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="phase_main" type="xs:string" minOccurs="0" />
+              <xs:element name="ymov_main" type="xs:short" minOccurs="0" />
+              <xs:element name="nmov_main" type="xs:int" minOccurs="0" />
+              <xs:element name="flagkeepalive" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idsor_siope_main" type="xs:int" minOccurs="0" />
+              <xs:element name="sortcode_main" type="xs:string" minOccurs="0" />
+              <xs:element name="sorting_main" type="xs:string" minOccurs="0" />
+              <xs:element name="idunderwriting" type="xs:int" minOccurs="0" />
+              <xs:element name="underwriting" type="xs:string" minOccurs="0" />
+              <xs:element name="idepexp_main" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="csa_contractkind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcsa_contractkind" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="contractkindcode" type="xs:string" />
+              <xs:element name="flagcr" type="xs:string" />
+              <xs:element name="flagkeepalive" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idunderwriting" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:csa_contract" />
+      <xs:field xpath="mstns:idcsa_contract" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="csa_contractview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:csa_contractview" />
+      <xs:field xpath="mstns:ayear" />
+      <xs:field xpath="mstns:idcsa_contract" />
+    </xs:unique>
+    <xs:unique name="csa_contractkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:csa_contractkind" />
+      <xs:field xpath="mstns:idcsa_contractkind" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -29,51 +28,39 @@ public class invoicedetailRow: MetaRow  {
 	public invoicedetailRow(DataRowBuilder rb) : base(rb) {} 
 
 	#region Field Definition
-	///<summary>
-	///n.fattura
-	///</summary>
-	public Int32? ninv{ 
-		get {if (this["ninv"]==DBNull.Value)return null; return  (Int32?)this["ninv"];}
-		set {if (value==null) this["ninv"]= DBNull.Value; else this["ninv"]= value;}
+	public Int32 ninv{ 
+		get {return  (Int32)this["ninv"];}
+		set {this["ninv"]= value;}
 	}
 	public object ninvValue { 
 		get{ return this["ninv"];}
-		set {if (value==null|| value==DBNull.Value) this["ninv"]= DBNull.Value; else this["ninv"]= value;}
+		set {this["ninv"]= value;}
 	}
-	public Int32? ninvOriginal { 
-		get {if (this["ninv",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["ninv",DataRowVersion.Original];}
+	public Int32 ninvOriginal { 
+		get {return  (Int32)this["ninv",DataRowVersion.Original];}
 	}
-	///<summary>
-	///N. riga
-	///</summary>
-	public Int32? rownum{ 
-		get {if (this["rownum"]==DBNull.Value)return null; return  (Int32?)this["rownum"];}
-		set {if (value==null) this["rownum"]= DBNull.Value; else this["rownum"]= value;}
+	public Int32 rownum{ 
+		get {return  (Int32)this["rownum"];}
+		set {this["rownum"]= value;}
 	}
 	public object rownumValue { 
 		get{ return this["rownum"];}
-		set {if (value==null|| value==DBNull.Value) this["rownum"]= DBNull.Value; else this["rownum"]= value;}
+		set {this["rownum"]= value;}
 	}
-	public Int32? rownumOriginal { 
-		get {if (this["rownum",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["rownum",DataRowVersion.Original];}
+	public Int32 rownumOriginal { 
+		get {return  (Int32)this["rownum",DataRowVersion.Original];}
 	}
-	///<summary>
-	///anno fattura
-	///</summary>
-	public Int16? yinv{ 
-		get {if (this["yinv"]==DBNull.Value)return null; return  (Int16?)this["yinv"];}
-		set {if (value==null) this["yinv"]= DBNull.Value; else this["yinv"]= value;}
+	public Int16 yinv{ 
+		get {return  (Int16)this["yinv"];}
+		set {this["yinv"]= value;}
 	}
 	public object yinvValue { 
 		get{ return this["yinv"];}
-		set {if (value==null|| value==DBNull.Value) this["yinv"]= DBNull.Value; else this["yinv"]= value;}
+		set {this["yinv"]= value;}
 	}
-	public Int16? yinvOriginal { 
-		get {if (this["yinv",DataRowVersion.Original]==DBNull.Value)return null; return  (Int16?)this["yinv",DataRowVersion.Original];}
+	public Int16 yinvOriginal { 
+		get {return  (Int16)this["yinv",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Appunti
-	///</summary>
 	public String annotations{ 
 		get {if (this["annotations"]==DBNull.Value)return null; return  (String)this["annotations"];}
 		set {if (value==null) this["annotations"]= DBNull.Value; else this["annotations"]= value;}
@@ -85,9 +72,6 @@ public class invoicedetailRow: MetaRow  {
 	public String annotationsOriginal { 
 		get {if (this["annotations",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["annotations",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Data inizio competenza
-	///</summary>
 	public DateTime? competencystart{ 
 		get {if (this["competencystart"]==DBNull.Value)return null; return  (DateTime?)this["competencystart"];}
 		set {if (value==null) this["competencystart"]= DBNull.Value; else this["competencystart"]= value;}
@@ -99,9 +83,6 @@ public class invoicedetailRow: MetaRow  {
 	public DateTime? competencystartOriginal { 
 		get {if (this["competencystart",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["competencystart",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Competenza ai fini della Liquidazione IVA
-	///</summary>
 	public DateTime? paymentcompetency{ 
 		get {if (this["paymentcompetency"]==DBNull.Value)return null; return  (DateTime?)this["paymentcompetency"];}
 		set {if (value==null) this["paymentcompetency"]= DBNull.Value; else this["paymentcompetency"]= value;}
@@ -113,9 +94,6 @@ public class invoicedetailRow: MetaRow  {
 	public DateTime? paymentcompetencyOriginal { 
 		get {if (this["paymentcompetency",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["paymentcompetency",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Data fine competenza
-	///</summary>
 	public DateTime? competencystop{ 
 		get {if (this["competencystop"]==DBNull.Value)return null; return  (DateTime?)this["competencystop"];}
 		set {if (value==null) this["competencystop"]= DBNull.Value; else this["competencystop"]= value;}
@@ -127,37 +105,28 @@ public class invoicedetailRow: MetaRow  {
 	public DateTime? competencystopOriginal { 
 		get {if (this["competencystop",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["competencystop",DataRowVersion.Original];}
 	}
-	///<summary>
-	///data creazione
-	///</summary>
-	public DateTime? ct{ 
-		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
-		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
+	public DateTime ct{ 
+		get {return  (DateTime)this["ct"];}
+		set {this["ct"]= value;}
 	}
 	public object ctValue { 
 		get{ return this["ct"];}
-		set {if (value==null|| value==DBNull.Value) this["ct"]= DBNull.Value; else this["ct"]= value;}
+		set {this["ct"]= value;}
 	}
-	public DateTime? ctOriginal { 
-		get {if (this["ct",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["ct",DataRowVersion.Original];}
+	public DateTime ctOriginal { 
+		get {return  (DateTime)this["ct",DataRowVersion.Original];}
 	}
-	///<summary>
-	///nome utente creazione
-	///</summary>
 	public String cu{ 
-		get {if (this["cu"]==DBNull.Value)return null; return  (String)this["cu"];}
-		set {if (value==null) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		get {return  (String)this["cu"];}
+		set {this["cu"]= value;}
 	}
 	public object cuValue { 
 		get{ return this["cu"];}
-		set {if (value==null|| value==DBNull.Value) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		set {this["cu"]= value;}
 	}
 	public String cuOriginal { 
-		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
+		get {return  (String)this["cu",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Descrizione dettaglio
-	///</summary>
 	public String detaildescription{ 
 		get {if (this["detaildescription"]==DBNull.Value)return null; return  (String)this["detaildescription"];}
 		set {if (value==null) this["detaildescription"]= DBNull.Value; else this["detaildescription"]= value;}
@@ -169,9 +138,6 @@ public class invoicedetailRow: MetaRow  {
 	public String detaildescriptionOriginal { 
 		get {if (this["detaildescription",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["detaildescription",DataRowVersion.Original];}
 	}
-	///<summary>
-	///sconto
-	///</summary>
 	public Double? discount{ 
 		get {if (this["discount"]==DBNull.Value)return null; return  (Double?)this["discount"];}
 		set {if (value==null) this["discount"]= DBNull.Value; else this["discount"]= value;}
@@ -183,9 +149,6 @@ public class invoicedetailRow: MetaRow  {
 	public Double? discountOriginal { 
 		get {if (this["discount",DataRowVersion.Original]==DBNull.Value)return null; return  (Double?)this["discount",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id causale (tabella acccmotive)
-	///</summary>
 	public String idaccmotive{ 
 		get {if (this["idaccmotive"]==DBNull.Value)return null; return  (String)this["idaccmotive"];}
 		set {if (value==null) this["idaccmotive"]= DBNull.Value; else this["idaccmotive"]= value;}
@@ -197,9 +160,6 @@ public class invoicedetailRow: MetaRow  {
 	public String idaccmotiveOriginal { 
 		get {if (this["idaccmotive",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idaccmotive",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id tipo contratto (tabella mandatekind)
-	///</summary>
 	public String idmankind{ 
 		get {if (this["idmankind"]==DBNull.Value)return null; return  (String)this["idmankind"];}
 		set {if (value==null) this["idmankind"]= DBNull.Value; else this["idmankind"]= value;}
@@ -211,9 +171,6 @@ public class invoicedetailRow: MetaRow  {
 	public String idmankindOriginal { 
 		get {if (this["idmankind",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idmankind",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id voce upb (tabella upb)
-	///</summary>
 	public String idupb{ 
 		get {if (this["idupb"]==DBNull.Value)return null; return  (String)this["idupb"];}
 		set {if (value==null) this["idupb"]= DBNull.Value; else this["idupb"]= value;}
@@ -225,37 +182,28 @@ public class invoicedetailRow: MetaRow  {
 	public String idupbOriginal { 
 		get {if (this["idupb",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idupb",DataRowVersion.Original];}
 	}
-	///<summary>
-	///data ultima modifica
-	///</summary>
-	public DateTime? lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
-		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
+	public DateTime lt{ 
+		get {return  (DateTime)this["lt"];}
+		set {this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
-		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
+		set {this["lt"]= value;}
 	}
-	public DateTime? ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
+	public DateTime ltOriginal { 
+		get {return  (DateTime)this["lt",DataRowVersion.Original];}
 	}
-	///<summary>
-	///nome ultimo utente modifica
-	///</summary>
 	public String lu{ 
-		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
-		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		get {return  (String)this["lu"];}
+		set {this["lu"]= value;}
 	}
 	public object luValue { 
 		get{ return this["lu"];}
-		set {if (value==null|| value==DBNull.Value) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		set {this["lu"]= value;}
 	}
 	public String luOriginal { 
-		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
+		get {return  (String)this["lu",DataRowVersion.Original];}
 	}
-	///<summary>
-	///N. contratto passivo collegato
-	///</summary>
 	public Int32? manrownum{ 
 		get {if (this["manrownum"]==DBNull.Value)return null; return  (Int32?)this["manrownum"];}
 		set {if (value==null) this["manrownum"]= DBNull.Value; else this["manrownum"]= value;}
@@ -267,9 +215,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? manrownumOriginal { 
 		get {if (this["manrownum",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["manrownum",DataRowVersion.Original];}
 	}
-	///<summary>
-	///n.contratto
-	///</summary>
 	public Int32? nman{ 
 		get {if (this["nman"]==DBNull.Value)return null; return  (Int32?)this["nman"];}
 		set {if (value==null) this["nman"]= DBNull.Value; else this["nman"]= value;}
@@ -281,9 +226,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? nmanOriginal { 
 		get {if (this["nman",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["nman",DataRowVersion.Original];}
 	}
-	///<summary>
-	///quantità
-	///</summary>
 	public Decimal? number{ 
 		get {if (this["number"]==DBNull.Value)return null; return  (Decimal?)this["number"];}
 		set {if (value==null) this["number"]= DBNull.Value; else this["number"]= value;}
@@ -295,9 +237,6 @@ public class invoicedetailRow: MetaRow  {
 	public Decimal? numberOriginal { 
 		get {if (this["number",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["number",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Nome imposta (tabella tax)
-	///</summary>
 	public Decimal? tax{ 
 		get {if (this["tax"]==DBNull.Value)return null; return  (Decimal?)this["tax"];}
 		set {if (value==null) this["tax"]= DBNull.Value; else this["tax"]= value;}
@@ -309,9 +248,6 @@ public class invoicedetailRow: MetaRow  {
 	public Decimal? taxOriginal { 
 		get {if (this["tax",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["tax",DataRowVersion.Original];}
 	}
-	///<summary>
-	///imponibile
-	///</summary>
 	public Decimal? taxable{ 
 		get {if (this["taxable"]==DBNull.Value)return null; return  (Decimal?)this["taxable"];}
 		set {if (value==null) this["taxable"]= DBNull.Value; else this["taxable"]= value;}
@@ -323,9 +259,6 @@ public class invoicedetailRow: MetaRow  {
 	public Decimal? taxableOriginal { 
 		get {if (this["taxable",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["taxable",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Iva indetraibile
-	///</summary>
 	public Decimal? unabatable{ 
 		get {if (this["unabatable"]==DBNull.Value)return null; return  (Decimal?)this["unabatable"];}
 		set {if (value==null) this["unabatable"]= DBNull.Value; else this["unabatable"]= value;}
@@ -337,9 +270,6 @@ public class invoicedetailRow: MetaRow  {
 	public Decimal? unabatableOriginal { 
 		get {if (this["unabatable",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["unabatable",DataRowVersion.Original];}
 	}
-	///<summary>
-	///anno contratto
-	///</summary>
 	public Int16? yman{ 
 		get {if (this["yman"]==DBNull.Value)return null; return  (Int16?)this["yman"];}
 		set {if (value==null) this["yman"]= DBNull.Value; else this["yman"]= value;}
@@ -351,9 +281,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int16? ymanOriginal { 
 		get {if (this["yman",DataRowVersion.Original]==DBNull.Value)return null; return  (Int16?)this["yman",DataRowVersion.Original];}
 	}
-	///<summary>
-	///chiave tipo contratto attivo (tabella estimatekind)
-	///</summary>
 	public String idestimkind{ 
 		get {if (this["idestimkind"]==DBNull.Value)return null; return  (String)this["idestimkind"];}
 		set {if (value==null) this["idestimkind"]= DBNull.Value; else this["idestimkind"]= value;}
@@ -365,9 +292,6 @@ public class invoicedetailRow: MetaRow  {
 	public String idestimkindOriginal { 
 		get {if (this["idestimkind",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idestimkind",DataRowVersion.Original];}
 	}
-	///<summary>
-	///N. contratto attivo collegato
-	///</summary>
 	public Int32? estimrownum{ 
 		get {if (this["estimrownum"]==DBNull.Value)return null; return  (Int32?)this["estimrownum"];}
 		set {if (value==null) this["estimrownum"]= DBNull.Value; else this["estimrownum"]= value;}
@@ -379,9 +303,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? estimrownumOriginal { 
 		get {if (this["estimrownum",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["estimrownum",DataRowVersion.Original];}
 	}
-	///<summary>
-	///N.contratto attivo
-	///</summary>
 	public Int32? nestim{ 
 		get {if (this["nestim"]==DBNull.Value)return null; return  (Int32?)this["nestim"];}
 		set {if (value==null) this["nestim"]= DBNull.Value; else this["nestim"]= value;}
@@ -393,9 +314,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? nestimOriginal { 
 		get {if (this["nestim",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["nestim",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Anno contratto attivo
-	///</summary>
 	public Int16? yestim{ 
 		get {if (this["yestim"]==DBNull.Value)return null; return  (Int16?)this["yestim"];}
 		set {if (value==null) this["yestim"]= DBNull.Value; else this["yestim"]= value;}
@@ -407,9 +325,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int16? yestimOriginal { 
 		get {if (this["yestim",DataRowVersion.Original]==DBNull.Value)return null; return  (Int16?)this["yestim",DataRowVersion.Original];}
 	}
-	///<summary>
-	///n. raggruppamento dettagli
-	///</summary>
 	public Int32? idgroup{ 
 		get {if (this["idgroup"]==DBNull.Value)return null; return  (Int32?)this["idgroup"];}
 		set {if (value==null) this["idgroup"]= DBNull.Value; else this["idgroup"]= value;}
@@ -421,9 +336,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idgroupOriginal { 
 		get {if (this["idgroup",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idgroup",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Movimento di spesa che contabilizza l'imponibile
-	///</summary>
 	public Int32? idexp_taxable{ 
 		get {if (this["idexp_taxable"]==DBNull.Value)return null; return  (Int32?)this["idexp_taxable"];}
 		set {if (value==null) this["idexp_taxable"]= DBNull.Value; else this["idexp_taxable"]= value;}
@@ -435,9 +347,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idexp_taxableOriginal { 
 		get {if (this["idexp_taxable",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idexp_taxable",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Movimento di spesa che contabilizza l'iva
-	///</summary>
 	public Int32? idexp_iva{ 
 		get {if (this["idexp_iva"]==DBNull.Value)return null; return  (Int32?)this["idexp_iva"];}
 		set {if (value==null) this["idexp_iva"]= DBNull.Value; else this["idexp_iva"]= value;}
@@ -449,9 +358,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idexp_ivaOriginal { 
 		get {if (this["idexp_iva",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idexp_iva",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Movimento di entrata che contabilizza l'imponibile
-	///</summary>
 	public Int32? idinc_taxable{ 
 		get {if (this["idinc_taxable"]==DBNull.Value)return null; return  (Int32?)this["idinc_taxable"];}
 		set {if (value==null) this["idinc_taxable"]= DBNull.Value; else this["idinc_taxable"]= value;}
@@ -463,9 +369,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idinc_taxableOriginal { 
 		get {if (this["idinc_taxable",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idinc_taxable",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Movimento di entrata che contabilizza l'iva
-	///</summary>
 	public Int32? idinc_iva{ 
 		get {if (this["idinc_iva"]==DBNull.Value)return null; return  (Int32?)this["idinc_iva"];}
 		set {if (value==null) this["idinc_iva"]= DBNull.Value; else this["idinc_iva"]= value;}
@@ -477,9 +380,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idinc_ivaOriginal { 
 		get {if (this["idinc_iva",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idinc_iva",DataRowVersion.Original];}
 	}
-	///<summary>
-	///N. fattura principale in caso di note di credito/debito
-	///</summary>
 	public Int32? ninv_main{ 
 		get {if (this["ninv_main"]==DBNull.Value)return null; return  (Int32?)this["ninv_main"];}
 		set {if (value==null) this["ninv_main"]= DBNull.Value; else this["ninv_main"]= value;}
@@ -491,9 +391,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? ninv_mainOriginal { 
 		get {if (this["ninv_main",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["ninv_main",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Anno fattura principale in caso di note di credito/debito
-	///</summary>
 	public Int16? yinv_main{ 
 		get {if (this["yinv_main"]==DBNull.Value)return null; return  (Int16?)this["yinv_main"];}
 		set {if (value==null) this["yinv_main"]= DBNull.Value; else this["yinv_main"]= value;}
@@ -505,37 +402,28 @@ public class invoicedetailRow: MetaRow  {
 	public Int16? yinv_mainOriginal { 
 		get {if (this["yinv_main",DataRowVersion.Original]==DBNull.Value)return null; return  (Int16?)this["yinv_main",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id tipo iva (tabella ivakind)
-	///</summary>
-	public Int32? idivakind{ 
-		get {if (this["idivakind"]==DBNull.Value)return null; return  (Int32?)this["idivakind"];}
-		set {if (value==null) this["idivakind"]= DBNull.Value; else this["idivakind"]= value;}
+	public Int32 idivakind{ 
+		get {return  (Int32)this["idivakind"];}
+		set {this["idivakind"]= value;}
 	}
 	public object idivakindValue { 
 		get{ return this["idivakind"];}
-		set {if (value==null|| value==DBNull.Value) this["idivakind"]= DBNull.Value; else this["idivakind"]= value;}
+		set {this["idivakind"]= value;}
 	}
-	public Int32? idivakindOriginal { 
-		get {if (this["idivakind",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idivakind",DataRowVersion.Original];}
+	public Int32 idivakindOriginal { 
+		get {return  (Int32)this["idivakind",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id tipo documento (tabella invoicekind)
-	///</summary>
-	public Int32? idinvkind{ 
-		get {if (this["idinvkind"]==DBNull.Value)return null; return  (Int32?)this["idinvkind"];}
-		set {if (value==null) this["idinvkind"]= DBNull.Value; else this["idinvkind"]= value;}
+	public Int32 idinvkind{ 
+		get {return  (Int32)this["idinvkind"];}
+		set {this["idinvkind"]= value;}
 	}
 	public object idinvkindValue { 
 		get{ return this["idinvkind"];}
-		set {if (value==null|| value==DBNull.Value) this["idinvkind"]= DBNull.Value; else this["idinvkind"]= value;}
+		set {this["idinvkind"]= value;}
 	}
-	public Int32? idinvkindOriginal { 
-		get {if (this["idinvkind",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idinvkind",DataRowVersion.Original];}
+	public Int32 idinvkindOriginal { 
+		get {return  (Int32)this["idinvkind",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id voce analitica 1(tabella sorting)
-	///</summary>
 	public Int32? idsor1{ 
 		get {if (this["idsor1"]==DBNull.Value)return null; return  (Int32?)this["idsor1"];}
 		set {if (value==null) this["idsor1"]= DBNull.Value; else this["idsor1"]= value;}
@@ -547,9 +435,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idsor1Original { 
 		get {if (this["idsor1",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsor1",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id voce analitica 2(tabella sorting)
-	///</summary>
 	public Int32? idsor2{ 
 		get {if (this["idsor2"]==DBNull.Value)return null; return  (Int32?)this["idsor2"];}
 		set {if (value==null) this["idsor2"]= DBNull.Value; else this["idsor2"]= value;}
@@ -561,9 +446,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idsor2Original { 
 		get {if (this["idsor2",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsor2",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id voce analitica 3(tabella sorting)
-	///</summary>
 	public Int32? idsor3{ 
 		get {if (this["idsor3"]==DBNull.Value)return null; return  (Int32?)this["idsor3"];}
 		set {if (value==null) this["idsor3"]= DBNull.Value; else this["idsor3"]= value;}
@@ -575,9 +457,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idsor3Original { 
 		get {if (this["idsor3",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsor3",DataRowVersion.Original];}
 	}
-	///<summary>
-	///ID Nomenclatura combinata (tabella intrastatcode)
-	///</summary>
 	public Int32? idintrastatcode{ 
 		get {if (this["idintrastatcode"]==DBNull.Value)return null; return  (Int32?)this["idintrastatcode"];}
 		set {if (value==null) this["idintrastatcode"]= DBNull.Value; else this["idintrastatcode"]= value;}
@@ -589,9 +468,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idintrastatcodeOriginal { 
 		get {if (this["idintrastatcode",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idintrastatcode",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id unità di misura intrastat (tabella intrastatmeasure)
-	///</summary>
 	public Int32? idintrastatmeasure{ 
 		get {if (this["idintrastatmeasure"]==DBNull.Value)return null; return  (Int32?)this["idintrastatmeasure"];}
 		set {if (value==null) this["idintrastatmeasure"]= DBNull.Value; else this["idintrastatmeasure"]= value;}
@@ -603,9 +479,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idintrastatmeasureOriginal { 
 		get {if (this["idintrastatmeasure",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idintrastatmeasure",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Massa netta in Kilogrammi (solo se è presente una unità di misura supplementare)
-	///</summary>
 	public Decimal? weight{ 
 		get {if (this["weight"]==DBNull.Value)return null; return  (Decimal?)this["weight"];}
 		set {if (value==null) this["weight"]= DBNull.Value; else this["weight"]= value;}
@@ -617,13 +490,6 @@ public class invoicedetailRow: MetaRow  {
 	public Decimal? weightOriginal { 
 		get {if (this["weight",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["weight",DataRowVersion.Original];}
 	}
-	///<summary>
-	///tipologia per quadro VF26
-	///	 A:  Altri acquisti e importazioni
-	///	 N: Beni strumentali non ammortizzabili
-	///	 R: Beni destinati alla rivendita ovvero alla produzione di beni e servizi
-	///	 S: Beni ammortizzabili
-	///</summary>
 	public String va3type{ 
 		get {if (this["va3type"]==DBNull.Value)return null; return  (String)this["va3type"];}
 		set {if (value==null) this["va3type"]= DBNull.Value; else this["va3type"]= value;}
@@ -635,9 +501,6 @@ public class invoicedetailRow: MetaRow  {
 	public String va3typeOriginal { 
 		get {if (this["va3type",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["va3type",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Beni/Servizi
-	///</summary>
 	public String intrastatoperationkind{ 
 		get {if (this["intrastatoperationkind"]==DBNull.Value)return null; return  (String)this["intrastatoperationkind"];}
 		set {if (value==null) this["intrastatoperationkind"]= DBNull.Value; else this["intrastatoperationkind"]= value;}
@@ -649,9 +512,6 @@ public class invoicedetailRow: MetaRow  {
 	public String intrastatoperationkindOriginal { 
 		get {if (this["intrastatoperationkind",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["intrastatoperationkind",DataRowVersion.Original];}
 	}
-	///<summary>
-	///ID Codice del servizio (tabella intrastatservice)
-	///</summary>
 	public Int32? idintrastatservice{ 
 		get {if (this["idintrastatservice"]==DBNull.Value)return null; return  (Int32?)this["idintrastatservice"];}
 		set {if (value==null) this["idintrastatservice"]= DBNull.Value; else this["idintrastatservice"]= value;}
@@ -663,9 +523,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idintrastatserviceOriginal { 
 		get {if (this["idintrastatservice",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idintrastatservice",DataRowVersion.Original];}
 	}
-	///<summary>
-	///ID  Natura della transazione (tabella intrastatsupplymethod)
-	///</summary>
 	public Int32? idintrastatsupplymethod{ 
 		get {if (this["idintrastatsupplymethod"]==DBNull.Value)return null; return  (Int32?)this["idintrastatsupplymethod"];}
 		set {if (value==null) this["idintrastatsupplymethod"]= DBNull.Value; else this["idintrastatsupplymethod"]= value;}
@@ -677,9 +534,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idintrastatsupplymethodOriginal { 
 		get {if (this["idintrastatsupplymethod",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idintrastatsupplymethod",DataRowVersion.Original];}
 	}
-	///<summary>
-	///chiave listino (tabella list)
-	///</summary>
 	public Int32? idlist{ 
 		get {if (this["idlist"]==DBNull.Value)return null; return  (Int32?)this["idlist"];}
 		set {if (value==null) this["idlist"]= DBNull.Value; else this["idlist"]= value;}
@@ -691,9 +545,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idlistOriginal { 
 		get {if (this["idlist",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idlist",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id unità di misura (tabella unit)
-	///</summary>
 	public Int32? idunit{ 
 		get {if (this["idunit"]==DBNull.Value)return null; return  (Int32?)this["idunit"];}
 		set {if (value==null) this["idunit"]= DBNull.Value; else this["idunit"]= value;}
@@ -705,9 +556,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idunitOriginal { 
 		get {if (this["idunit",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idunit",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Id confezione (tabella package) (U.tà di misura imballo)
-	///</summary>
 	public Int32? idpackage{ 
 		get {if (this["idpackage"]==DBNull.Value)return null; return  (Int32?)this["idpackage"];}
 		set {if (value==null) this["idpackage"]= DBNull.Value; else this["idpackage"]= value;}
@@ -719,9 +567,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idpackageOriginal { 
 		get {if (this["idpackage",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idpackage",DataRowVersion.Original];}
 	}
-	///<summary>
-	///N. unità per confezione - Coeff. di conversione
-	///</summary>
 	public Int32? unitsforpackage{ 
 		get {if (this["unitsforpackage"]==DBNull.Value)return null; return  (Int32?)this["unitsforpackage"];}
 		set {if (value==null) this["unitsforpackage"]= DBNull.Value; else this["unitsforpackage"]= value;}
@@ -733,9 +578,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? unitsforpackageOriginal { 
 		get {if (this["unitsforpackage",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["unitsforpackage",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Q.tà
-	///</summary>
 	public Decimal? npackage{ 
 		get {if (this["npackage"]==DBNull.Value)return null; return  (Decimal?)this["npackage"];}
 		set {if (value==null) this["npackage"]= DBNull.Value; else this["npackage"]= value;}
@@ -747,9 +589,6 @@ public class invoicedetailRow: MetaRow  {
 	public Decimal? npackageOriginal { 
 		get {if (this["npackage",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["npackage",DataRowVersion.Original];}
 	}
-	///<summary>
-	///flag
-	///</summary>
 	public Int32? flag{ 
 		get {if (this["flag"]==DBNull.Value)return null; return  (Int32?)this["flag"];}
 		set {if (value==null) this["flag"]= DBNull.Value; else this["flag"]= value;}
@@ -761,12 +600,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? flagOriginal { 
 		get {if (this["flag",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["flag",DataRowVersion.Original];}
 	}
-	///<summary>
-	///IVA sui servizi in applicazione art. 7quarter, 7quinquies, 7sexies e 7septies del D.P.R. n. 633 del 1972. 
-	///(Utile per la compilazione del Modello INTRA-12.)
-	///	 N: Non trattasi di IVA sui servizi in applicazione art. 7quarter, 7quinquies, 7sexies
-	///	 S: IVA sui servizi in applicazione art. 7quarter, 7quinquies, 7sexies..
-	///</summary>
 	public String exception12{ 
 		get {if (this["exception12"]==DBNull.Value)return null; return  (String)this["exception12"];}
 		set {if (value==null) this["exception12"]= DBNull.Value; else this["exception12"]= value;}
@@ -778,11 +611,6 @@ public class invoicedetailRow: MetaRow  {
 	public String exception12Original { 
 		get {if (this["exception12",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["exception12",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Tipo (Beni/Servizi)
-	///	 B: Beni
-	///	 S: Servizi
-	///</summary>
 	public String intra12operationkind{ 
 		get {if (this["intra12operationkind"]==DBNull.Value)return null; return  (String)this["intra12operationkind"];}
 		set {if (value==null) this["intra12operationkind"]= DBNull.Value; else this["intra12operationkind"]= value;}
@@ -794,11 +622,6 @@ public class invoicedetailRow: MetaRow  {
 	public String intra12operationkindOriginal { 
 		get {if (this["intra12operationkind",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["intra12operationkind",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Acquisti da soggetti UE non residenti in Italia(Utile per la compilazione del Modello INTRA-12).
-	///	 N: Non trattasi di acquisti da soggetti UE non residenti in Italia
-	///	 S: Acquisti da soggetti UE non residenti in Italia(Utile per la compilazione del Modello INTRA-12).
-	///</summary>
 	public String move12{ 
 		get {if (this["move12"]==DBNull.Value)return null; return  (String)this["move12"];}
 		set {if (value==null) this["move12"]= DBNull.Value; else this["move12"]= value;}
@@ -810,9 +633,6 @@ public class invoicedetailRow: MetaRow  {
 	public String move12Original { 
 		get {if (this["move12",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["move12",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id dell'upb per la contabilizzazione dell'iva
-	///</summary>
 	public String idupb_iva{ 
 		get {if (this["idupb_iva"]==DBNull.Value)return null; return  (String)this["idupb_iva"];}
 		set {if (value==null) this["idupb_iva"]= DBNull.Value; else this["idupb_iva"]= value;}
@@ -824,9 +644,6 @@ public class invoicedetailRow: MetaRow  {
 	public String idupb_ivaOriginal { 
 		get {if (this["idupb_iva",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idupb_iva",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Tipo documento fattura principale in caso di note di credito/debito
-	///</summary>
 	public Int32? idinvkind_main{ 
 		get {if (this["idinvkind_main"]==DBNull.Value)return null; return  (Int32?)this["idinvkind_main"];}
 		set {if (value==null) this["idinvkind_main"]= DBNull.Value; else this["idinvkind_main"]= value;}
@@ -838,15 +655,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idinvkind_mainOriginal { 
 		get {if (this["idinvkind_main",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idinvkind_main",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Noleggio/Leasing (per Spesometro)
-	///	 A: Autovettura 
-	///	 B: Caravan
-	///	 C: Altri veicoli 
-	///	 D: Unità da diporto 
-	///	 E: Aeromobili
-	///	 N: No noleggio/leasing
-	///</summary>
 	public String leasing{ 
 		get {if (this["leasing"]==DBNull.Value)return null; return  (String)this["leasing"];}
 		set {if (value==null) this["leasing"]= DBNull.Value; else this["leasing"]= value;}
@@ -858,15 +666,6 @@ public class invoicedetailRow: MetaRow  {
 	public String leasingOriginal { 
 		get {if (this["leasing",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["leasing",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Valutazione del dettaglio ai fini delle dichiarazione (Spesometro)
-	///	 A: Escludi il dettaglio perchè  Importazione
-	///	 B: Escludi perchè esportazioni di cui all'art.8
-	///	 C: Escludi perchè Operazioni intracomunitarie
-	///	 D: Escludi perchè oggetto di comunicaz. anagrafe tributaria..
-	///	 E: Escludi  importo pari o superiore a euro tremilaseicento...
-	///	 F: Non escludere
-	///</summary>
 	public String usedmodesospesometro{ 
 		get {if (this["usedmodesospesometro"]==DBNull.Value)return null; return  (String)this["usedmodesospesometro"];}
 		set {if (value==null) this["usedmodesospesometro"]= DBNull.Value; else this["usedmodesospesometro"]= value;}
@@ -878,11 +677,6 @@ public class invoicedetailRow: MetaRow  {
 	public String usedmodesospesometroOriginal { 
 		get {if (this["usedmodesospesometro",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["usedmodesospesometro",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Azzera residuo ordine
-	///	 N: Non azzerare residuo ordine
-	///	 S: Azzera residuo ordine
-	///</summary>
 	public String resetresidualmandate{ 
 		get {if (this["resetresidualmandate"]==DBNull.Value)return null; return  (String)this["resetresidualmandate"];}
 		set {if (value==null) this["resetresidualmandate"]= DBNull.Value; else this["resetresidualmandate"]= value;}
@@ -894,9 +688,6 @@ public class invoicedetailRow: MetaRow  {
 	public String resetresidualmandateOriginal { 
 		get {if (this["resetresidualmandate",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["resetresidualmandate",DataRowVersion.Original];}
 	}
-	///<summary>
-	///ID Tipo Cessione / Prestazione per fattura elettronica (tabella fetransfer)
-	///</summary>
 	public String idfetransfer{ 
 		get {if (this["idfetransfer"]==DBNull.Value)return null; return  (String)this["idfetransfer"];}
 		set {if (value==null) this["idfetransfer"]= DBNull.Value; else this["idfetransfer"]= value;}
@@ -908,9 +699,6 @@ public class invoicedetailRow: MetaRow  {
 	public String idfetransferOriginal { 
 		get {if (this["idfetransfer",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idfetransfer",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Riferimento Normativo (Fattura elettronica)
-	///</summary>
 	public String fereferencerule{ 
 		get {if (this["fereferencerule"]==DBNull.Value)return null; return  (String)this["fereferencerule"];}
 		set {if (value==null) this["fereferencerule"]= DBNull.Value; else this["fereferencerule"]= value;}
@@ -922,9 +710,6 @@ public class invoicedetailRow: MetaRow  {
 	public String fereferenceruleOriginal { 
 		get {if (this["fereferencerule",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["fereferencerule",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Codice CUP
-	///</summary>
 	public String cupcode{ 
 		get {if (this["cupcode"]==DBNull.Value)return null; return  (String)this["cupcode"];}
 		set {if (value==null) this["cupcode"]= DBNull.Value; else this["cupcode"]= value;}
@@ -936,9 +721,6 @@ public class invoicedetailRow: MetaRow  {
 	public String cupcodeOriginal { 
 		get {if (this["cupcode",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cupcode",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Codice CIG
-	///</summary>
 	public String cigcode{ 
 		get {if (this["cigcode"]==DBNull.Value)return null; return  (String)this["cigcode"];}
 		set {if (value==null) this["cigcode"]= DBNull.Value; else this["cigcode"]= value;}
@@ -950,9 +732,6 @@ public class invoicedetailRow: MetaRow  {
 	public String cigcodeOriginal { 
 		get {if (this["cigcode",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cigcode",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id stato debito (tabella pccdebitstatus)
-	///</summary>
 	public String idpccdebitstatus{ 
 		get {if (this["idpccdebitstatus"]==DBNull.Value)return null; return  (String)this["idpccdebitstatus"];}
 		set {if (value==null) this["idpccdebitstatus"]= DBNull.Value; else this["idpccdebitstatus"]= value;}
@@ -964,9 +743,6 @@ public class invoicedetailRow: MetaRow  {
 	public String idpccdebitstatusOriginal { 
 		get {if (this["idpccdebitstatus",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idpccdebitstatus",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id causale debito pcc (tabella pccdebitmotive)
-	///</summary>
 	public String idpccdebitmotive{ 
 		get {if (this["idpccdebitmotive"]==DBNull.Value)return null; return  (String)this["idpccdebitmotive"];}
 		set {if (value==null) this["idpccdebitmotive"]= DBNull.Value; else this["idpccdebitmotive"]= value;}
@@ -978,9 +754,6 @@ public class invoicedetailRow: MetaRow  {
 	public String idpccdebitmotiveOriginal { 
 		get {if (this["idpccdebitmotive",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idpccdebitmotive",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id ripartizione dei costi (tabella costpartition)
-	///</summary>
 	public Int32? idcostpartition{ 
 		get {if (this["idcostpartition"]==DBNull.Value)return null; return  (Int32?)this["idcostpartition"];}
 		set {if (value==null) this["idcostpartition"]= DBNull.Value; else this["idcostpartition"]= value;}
@@ -992,9 +765,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idcostpartitionOriginal { 
 		get {if (this["idcostpartition",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idcostpartition",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Tipo spesa PCC (COrrente o CApitale)
-	///</summary>
 	public String expensekind{ 
 		get {if (this["expensekind"]==DBNull.Value)return null; return  (String)this["expensekind"];}
 		set {if (value==null) this["expensekind"]= DBNull.Value; else this["expensekind"]= value;}
@@ -1006,11 +776,6 @@ public class invoicedetailRow: MetaRow  {
 	public String expensekindOriginal { 
 		get {if (this["expensekind",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["expensekind",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Dettaglio inserito per rappresentare arrotondamenti presenti in fattura elettronica
-	///	 N: E' un normale dettaglio
-	///	 S: Si tratta di dettaglio inserito per arrotondamento
-	///</summary>
 	public String rounding{ 
 		get {if (this["rounding"]==DBNull.Value)return null; return  (String)this["rounding"];}
 		set {if (value==null) this["rounding"]= DBNull.Value; else this["rounding"]= value;}
@@ -1022,9 +787,6 @@ public class invoicedetailRow: MetaRow  {
 	public String roundingOriginal { 
 		get {if (this["rounding",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["rounding",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id impegno di budget (tabella epexp)
-	///</summary>
 	public Int32? idepexp{ 
 		get {if (this["idepexp"]==DBNull.Value)return null; return  (Int32?)this["idepexp"];}
 		set {if (value==null) this["idepexp"]= DBNull.Value; else this["idepexp"]= value;}
@@ -1036,9 +798,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idepexpOriginal { 
 		get {if (this["idepexp",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idepexp",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id accertamento di budget (tabella epacc)
-	///</summary>
 	public Int32? idepacc{ 
 		get {if (this["idepacc"]==DBNull.Value)return null; return  (Int32?)this["idepacc"];}
 		set {if (value==null) this["idepacc"]= DBNull.Value; else this["idepacc"]= value;}
@@ -1050,9 +809,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idepaccOriginal { 
 		get {if (this["idepacc",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idepacc",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Flag a bit.
-	///</summary>
 	public Byte? flagbit{ 
 		get {if (this["flagbit"]==DBNull.Value)return null; return  (Byte?)this["flagbit"];}
 		set {if (value==null) this["flagbit"]= DBNull.Value; else this["flagbit"]= value;}
@@ -1064,9 +820,6 @@ public class invoicedetailRow: MetaRow  {
 	public Byte? flagbitOriginal { 
 		get {if (this["flagbit",DataRowVersion.Original]==DBNull.Value)return null; return  (Byte?)this["flagbit",DataRowVersion.Original];}
 	}
-	///<summary>
-	///causale finanziaria
-	///</summary>
 	public String idfinmotive{ 
 		get {if (this["idfinmotive"]==DBNull.Value)return null; return  (String)this["idfinmotive"];}
 		set {if (value==null) this["idfinmotive"]= DBNull.Value; else this["idfinmotive"]= value;}
@@ -1078,9 +831,6 @@ public class invoicedetailRow: MetaRow  {
 	public String idfinmotiveOriginal { 
 		get {if (this["idfinmotive",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idfinmotive",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Codice bollettino univoco (IUV)
-	///</summary>
 	public String iduniqueformcode{ 
 		get {if (this["iduniqueformcode"]==DBNull.Value)return null; return  (String)this["iduniqueformcode"];}
 		set {if (value==null) this["iduniqueformcode"]= DBNull.Value; else this["iduniqueformcode"]= value;}
@@ -1092,9 +842,6 @@ public class invoicedetailRow: MetaRow  {
 	public String iduniqueformcodeOriginal { 
 		get {if (this["iduniqueformcode",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["iduniqueformcode",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Anno contratto
-	///</summary>
 	public Int32? ycon{ 
 		get {if (this["ycon"]==DBNull.Value)return null; return  (Int32?)this["ycon"];}
 		set {if (value==null) this["ycon"]= DBNull.Value; else this["ycon"]= value;}
@@ -1106,9 +853,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? yconOriginal { 
 		get {if (this["ycon",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["ycon",DataRowVersion.Original];}
 	}
-	///<summary>
-	///N. contratto
-	///</summary>
 	public Int32? ncon{ 
 		get {if (this["ncon"]==DBNull.Value)return null; return  (Int32?)this["ncon"];}
 		set {if (value==null) this["ncon"]= DBNull.Value; else this["ncon"]= value;}
@@ -1120,9 +864,6 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? nconOriginal { 
 		get {if (this["ncon",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["ncon",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Codice tipo ai fini delle esportazioni intrastat
-	///</summary>
 	public String codicetipo{ 
 		get {if (this["codicetipo"]==DBNull.Value)return null; return  (String)this["codicetipo"];}
 		set {if (value==null) this["codicetipo"]= DBNull.Value; else this["codicetipo"]= value;}
@@ -1134,9 +875,6 @@ public class invoicedetailRow: MetaRow  {
 	public String codicetipoOriginal { 
 		get {if (this["codicetipo",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codicetipo",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Codice valore ai fini delle esportazioni intrastat
-	///</summary>
 	public String codicevalore{ 
 		get {if (this["codicevalore"]==DBNull.Value)return null; return  (String)this["codicevalore"];}
 		set {if (value==null) this["codicevalore"]= DBNull.Value; else this["codicevalore"]= value;}
@@ -1148,9 +886,6 @@ public class invoicedetailRow: MetaRow  {
 	public String codicevaloreOriginal { 
 		get {if (this["codicevalore",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codicevalore",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id della class. siope (idsor di sorting) per il costo o ricavo
-	///</summary>
 	public Int32? idsor_siope{ 
 		get {if (this["idsor_siope"]==DBNull.Value)return null; return  (Int32?)this["idsor_siope"];}
 		set {if (value==null) this["idsor_siope"]= DBNull.Value; else this["idsor_siope"]= value;}
@@ -1173,12 +908,31 @@ public class invoicedetailRow: MetaRow  {
 	public Int32? idepexp_preOriginal { 
 		get {if (this["idepexp_pre",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idepexp_pre",DataRowVersion.Original];}
 	}
+	public Int32? idtassonomia{ 
+		get {if (this["idtassonomia"]==DBNull.Value)return null; return  (Int32?)this["idtassonomia"];}
+		set {if (value==null) this["idtassonomia"]= DBNull.Value; else this["idtassonomia"]= value;}
+	}
+	public object idtassonomiaValue { 
+		get{ return this["idtassonomia"];}
+		set {if (value==null|| value==DBNull.Value) this["idtassonomia"]= DBNull.Value; else this["idtassonomia"]= value;}
+	}
+	public Int32? idtassonomiaOriginal { 
+		get {if (this["idtassonomia",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idtassonomia",DataRowVersion.Original];}
+	}
+	public String idfinmotive_iva{ 
+		get {if (this["idfinmotive_iva"]==DBNull.Value)return null; return  (String)this["idfinmotive_iva"];}
+		set {if (value==null) this["idfinmotive_iva"]= DBNull.Value; else this["idfinmotive_iva"]= value;}
+	}
+	public object idfinmotive_ivaValue { 
+		get{ return this["idfinmotive_iva"];}
+		set {if (value==null|| value==DBNull.Value) this["idfinmotive_iva"]= DBNull.Value; else this["idfinmotive_iva"]= value;}
+	}
+	public String idfinmotive_ivaOriginal { 
+		get {if (this["idfinmotive_iva",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idfinmotive_iva",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
-///<summary>
-///Dettaglio documento IVA
-///</summary>
 public class invoicedetailTable : MetaTableBase<invoicedetailRow> {
 	public invoicedetailTable() : base("invoicedetail"){
 		baseColumns = new Dictionary<string, DataColumn>(){
@@ -1262,8 +1016,9 @@ public class invoicedetailTable : MetaTableBase<invoicedetailRow> {
 			{"codicevalore",createColumn("codicevalore",typeof(string),true,false)},
 			{"idsor_siope",createColumn("idsor_siope",typeof(int),true,false)},
 			{"idepexp_pre",createColumn("idepexp_pre",typeof(int),true,false)},
+			{"idtassonomia",createColumn("idtassonomia",typeof(int),true,false)},
+			{"idfinmotive_iva",createColumn("idfinmotive_iva",typeof(string),true,false)},
 		};
 	}
 }
 }
-

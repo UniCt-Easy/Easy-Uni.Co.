@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_creditoistanza_rimb_segistrimb" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_creditoistanza_rimb_segistrimb" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="pagamento" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="dataora" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="idpagamento" type="xs:int" />
+              <xs:element name="idpagamentokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="debito" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codicebollettino" type="xs:string" minOccurs="0" />
+              <xs:element name="codicemav" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="idiscrizione" type="xs:int" minOccurs="0" />
+              <xs:element name="idistanza" type="xs:int" minOccurs="0" />
+              <xs:element name="idnullaosta" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idtassaconf" type="xs:int" minOccurs="0" />
+              <xs:element name="IUV" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="scadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="credito" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="autorizzato" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idcredito" type="xs:int" />
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="idpagamento" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="creditoistanza_rimb" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idcredito" type="xs:int" />
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="idistanza" type="xs:int" />
+              <xs:element name="idpagamento" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pagamento" />
+      <xs:field xpath="mstns:iddebito" />
+      <xs:field xpath="mstns:idpagamento" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="debito_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:debito" />
+      <xs:field xpath="mstns:iddebito" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="credito_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:credito" />
+      <xs:field xpath="mstns:idcredito" />
+      <xs:field xpath="mstns:iddebito" />
+      <xs:field xpath="mstns:idpagamento" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="creditoistanza_rimb_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:creditoistanza_rimb" />
+      <xs:field xpath="mstns:idcredito" />
+      <xs:field xpath="mstns:iddebito" />
+      <xs:field xpath="mstns:idistanza" />
+      <xs:field xpath="mstns:idpagamento" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_creditoistanza_rimb_pagamento_idpagamento" msdata:parent="pagamento" msdata:child="creditoistanza_rimb" msdata:parentkey="idpagamento" msdata:childkey="idpagamento" />
+      <msdata:Relationship name="FK_creditoistanza_rimb_debito_iddebito" msdata:parent="debito" msdata:child="creditoistanza_rimb" msdata:parentkey="iddebito" msdata:childkey="iddebito" />
+      <msdata:Relationship name="FK_creditoistanza_rimb_credito_idcredito" msdata:parent="credito" msdata:child="creditoistanza_rimb" msdata:parentkey="idcredito" msdata:childkey="idcredito" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

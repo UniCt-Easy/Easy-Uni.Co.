@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -30,7 +29,7 @@ namespace asset_cambioinventario {
     /// <summary>
     /// Summary description for frmbeneinv_trasferimento.
     /// </summary>
-    public class Frm_asset_cambioinventario : System.Windows.Forms.Form {
+    public class Frm_asset_cambioinventario : MetaDataForm {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -56,7 +55,7 @@ namespace asset_cambioinventario {
         private object assetUnloadMotive;
         private string docUnload;
         private object docDateUnload = DBNull.Value;
-        private string enactmentUnload;
+        private object enactmentUnload;
         private object enactmentDateUnload = DBNull.Value;
         private object _adateUnload = DBNull.Value;
         private object printDateUnload = DBNull.Value;
@@ -243,1289 +242,1289 @@ namespace asset_cambioinventario {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_asset_cambioinventario));
-            this.DS = new asset_cambioinventario.vistaForm();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnNext = new System.Windows.Forms.Button();
-            this.btnBack = new System.Windows.Forms.Button();
-            this.tabPage5 = new Crownwood.Magic.Controls.TabPage();
-            this.lblFase4 = new System.Windows.Forms.Label();
-            this.tabPage3 = new Crownwood.Magic.Controls.TabPage();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtDataRatificaCarico = new System.Windows.Forms.TextBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtDescrBuonoCarico = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.cmbTipoBuonoCarico = new System.Windows.Forms.ComboBox();
-            this.txtDataContCarico = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.txtDataStampaCarico = new System.Windows.Forms.TextBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.cmbCausaleCarico = new System.Windows.Forms.ComboBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.txtDataProvvCarico = new System.Windows.Forms.TextBox();
-            this.txtProvvCarico = new System.Windows.Forms.TextBox();
-            this.grpCedente = new System.Windows.Forms.GroupBox();
-            this.txtCedente = new System.Windows.Forms.TextBox();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.txtDataDocCarico = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.txtDocCarico = new System.Windows.Forms.TextBox();
-            this.tabPage2 = new Crownwood.Magic.Controls.TabPage();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cmbConsegnatario = new System.Windows.Forms.ComboBox();
-            this.chkSubRespInvariato = new System.Windows.Forms.CheckBox();
-            this.gboxUPB = new System.Windows.Forms.GroupBox();
-            this.chkUpbInvariato = new System.Windows.Forms.CheckBox();
-            this.txtUPB = new System.Windows.Forms.TextBox();
-            this.txtDescrUPB = new System.Windows.Forms.TextBox();
-            this.btnUPBCode = new System.Windows.Forms.Button();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.chkpreservaInventario = new System.Windows.Forms.CheckBox();
-            this.txtEnteCarico = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.cmbInventarioDest = new System.Windows.Forms.ComboBox();
-            this.grpResponsabile = new System.Windows.Forms.GroupBox();
-            this.cmbResponsabile = new System.Windows.Forms.ComboBox();
-            this.chkRespInvariato = new System.Windows.Forms.CheckBox();
-            this.tabPage4 = new Crownwood.Magic.Controls.TabPage();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.txtDataRatificaScarico = new System.Windows.Forms.TextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtDescrBuonoScarico = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.cmbTipoBuonoScarico = new System.Windows.Forms.ComboBox();
-            this.txtDataContScarico = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtDataStampaScarico = new System.Windows.Forms.TextBox();
-            this.grpCausaleScarico = new System.Windows.Forms.GroupBox();
-            this.cboCausaleScarico = new System.Windows.Forms.ComboBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.txtDataProvvScarico = new System.Windows.Forms.TextBox();
-            this.txtProvvScarico = new System.Windows.Forms.TextBox();
-            this.grpCessionario = new System.Windows.Forms.GroupBox();
-            this.txtCessionario = new System.Windows.Forms.TextBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.txtDataDocScarico = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtDocScarico = new System.Windows.Forms.TextBox();
-            this.tabPage2bis = new Crownwood.Magic.Controls.TabPage();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.gridCespiti = new System.Windows.Forms.DataGrid();
-            this.btnSelezionaTutto = new System.Windows.Forms.Button();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.tabPage1 = new Crownwood.Magic.Controls.TabPage();
-            this.grpInventoryOrigin = new System.Windows.Forms.GroupBox();
-            this.label29 = new System.Windows.Forms.Label();
-            this.cboConsegnatario = new System.Windows.Forms.ComboBox();
-            this.label28 = new System.Windows.Forms.Label();
-            this.cboResp = new System.Windows.Forms.ComboBox();
-            this.chkReady = new System.Windows.Forms.CheckBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.txtEnteScarico = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.cmbInventarioOrig = new System.Windows.Forms.ComboBox();
-            this.txt_numinv_a = new System.Windows.Forms.TextBox();
-            this.txt_numinv_da = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.tabPageInizio = new Crownwood.Magic.Controls.TabPage();
-            this.lblFase1 = new System.Windows.Forms.Label();
-            this.tabController = new Crownwood.Magic.Controls.TabControl();
-            this.panel1 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            this.tabPage5.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.grpCedente.SuspendLayout();
-            this.groupBox9.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.gboxUPB.SuspendLayout();
-            this.groupBox8.SuspendLayout();
-            this.grpResponsabile.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.grpCausaleScarico.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.grpCessionario.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.tabPage2bis.SuspendLayout();
-            this.groupBox10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridCespiti)).BeginInit();
-            this.tabPage1.SuspendLayout();
-            this.grpInventoryOrigin.SuspendLayout();
-            this.tabPageInizio.SuspendLayout();
-            this.tabController.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.EnforceConstraints = false;
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(801, 540);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 12;
-            this.btnCancel.Text = "Annulla";
-            // 
-            // btnNext
-            // 
-            this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNext.Location = new System.Drawing.Point(697, 540);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(75, 23);
-            this.btnNext.TabIndex = 11;
-            this.btnNext.Text = "Avanti >";
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
-            // btnBack
-            // 
-            this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBack.Location = new System.Drawing.Point(617, 540);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(75, 23);
-            this.btnBack.TabIndex = 10;
-            this.btnBack.Text = "< Indietro";
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.lblFase4);
-            this.tabPage5.Location = new System.Drawing.Point(0, 0);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Selected = false;
-            this.tabPage5.Size = new System.Drawing.Size(876, 508);
-            this.tabPage5.TabIndex = 10;
-            // 
-            // lblFase4
-            // 
-            this.lblFase4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_asset_cambioinventario));
+			this.DS = new asset_cambioinventario.vistaForm();
+			this.btnCancel = new System.Windows.Forms.Button();
+			this.btnNext = new System.Windows.Forms.Button();
+			this.btnBack = new System.Windows.Forms.Button();
+			this.tabPage5 = new Crownwood.Magic.Controls.TabPage();
+			this.lblFase4 = new System.Windows.Forms.Label();
+			this.tabPage3 = new Crownwood.Magic.Controls.TabPage();
+			this.label8 = new System.Windows.Forms.Label();
+			this.txtDataRatificaCarico = new System.Windows.Forms.TextBox();
+			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.label9 = new System.Windows.Forms.Label();
+			this.txtDescrBuonoCarico = new System.Windows.Forms.TextBox();
+			this.label12 = new System.Windows.Forms.Label();
+			this.cmbTipoBuonoCarico = new System.Windows.Forms.ComboBox();
+			this.txtDataContCarico = new System.Windows.Forms.TextBox();
+			this.label14 = new System.Windows.Forms.Label();
+			this.label18 = new System.Windows.Forms.Label();
+			this.txtDataStampaCarico = new System.Windows.Forms.TextBox();
+			this.groupBox6 = new System.Windows.Forms.GroupBox();
+			this.cmbCausaleCarico = new System.Windows.Forms.ComboBox();
+			this.groupBox7 = new System.Windows.Forms.GroupBox();
+			this.label19 = new System.Windows.Forms.Label();
+			this.txtDataProvvCarico = new System.Windows.Forms.TextBox();
+			this.txtProvvCarico = new System.Windows.Forms.TextBox();
+			this.grpCedente = new System.Windows.Forms.GroupBox();
+			this.txtCedente = new System.Windows.Forms.TextBox();
+			this.groupBox9 = new System.Windows.Forms.GroupBox();
+			this.txtDataDocCarico = new System.Windows.Forms.TextBox();
+			this.label20 = new System.Windows.Forms.Label();
+			this.txtDocCarico = new System.Windows.Forms.TextBox();
+			this.tabPage2 = new Crownwood.Magic.Controls.TabPage();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.cmbConsegnatario = new System.Windows.Forms.ComboBox();
+			this.chkSubRespInvariato = new System.Windows.Forms.CheckBox();
+			this.gboxUPB = new System.Windows.Forms.GroupBox();
+			this.chkUpbInvariato = new System.Windows.Forms.CheckBox();
+			this.txtUPB = new System.Windows.Forms.TextBox();
+			this.txtDescrUPB = new System.Windows.Forms.TextBox();
+			this.btnUPBCode = new System.Windows.Forms.Button();
+			this.groupBox8 = new System.Windows.Forms.GroupBox();
+			this.label26 = new System.Windows.Forms.Label();
+			this.label24 = new System.Windows.Forms.Label();
+			this.chkpreservaInventario = new System.Windows.Forms.CheckBox();
+			this.txtEnteCarico = new System.Windows.Forms.TextBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.label23 = new System.Windows.Forms.Label();
+			this.cmbInventarioDest = new System.Windows.Forms.ComboBox();
+			this.grpResponsabile = new System.Windows.Forms.GroupBox();
+			this.cmbResponsabile = new System.Windows.Forms.ComboBox();
+			this.chkRespInvariato = new System.Windows.Forms.CheckBox();
+			this.tabPage4 = new Crownwood.Magic.Controls.TabPage();
+			this.label4 = new System.Windows.Forms.Label();
+			this.label27 = new System.Windows.Forms.Label();
+			this.txtDataRatificaScarico = new System.Windows.Forms.TextBox();
+			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.txtDescrBuonoScarico = new System.Windows.Forms.TextBox();
+			this.label11 = new System.Windows.Forms.Label();
+			this.cmbTipoBuonoScarico = new System.Windows.Forms.ComboBox();
+			this.txtDataContScarico = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.txtDataStampaScarico = new System.Windows.Forms.TextBox();
+			this.grpCausaleScarico = new System.Windows.Forms.GroupBox();
+			this.cboCausaleScarico = new System.Windows.Forms.ComboBox();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.label15 = new System.Windows.Forms.Label();
+			this.txtDataProvvScarico = new System.Windows.Forms.TextBox();
+			this.txtProvvScarico = new System.Windows.Forms.TextBox();
+			this.grpCessionario = new System.Windows.Forms.GroupBox();
+			this.txtCessionario = new System.Windows.Forms.TextBox();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.txtDataDocScarico = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.txtDocScarico = new System.Windows.Forms.TextBox();
+			this.tabPage2bis = new Crownwood.Magic.Controls.TabPage();
+			this.groupBox10 = new System.Windows.Forms.GroupBox();
+			this.gridCespiti = new System.Windows.Forms.DataGrid();
+			this.btnSelezionaTutto = new System.Windows.Forms.Button();
+			this.label17 = new System.Windows.Forms.Label();
+			this.label10 = new System.Windows.Forms.Label();
+			this.tabPage1 = new Crownwood.Magic.Controls.TabPage();
+			this.grpInventoryOrigin = new System.Windows.Forms.GroupBox();
+			this.label29 = new System.Windows.Forms.Label();
+			this.cboConsegnatario = new System.Windows.Forms.ComboBox();
+			this.label28 = new System.Windows.Forms.Label();
+			this.cboResp = new System.Windows.Forms.ComboBox();
+			this.chkReady = new System.Windows.Forms.CheckBox();
+			this.label22 = new System.Windows.Forms.Label();
+			this.label25 = new System.Windows.Forms.Label();
+			this.txtEnteScarico = new System.Windows.Forms.TextBox();
+			this.label21 = new System.Windows.Forms.Label();
+			this.label16 = new System.Windows.Forms.Label();
+			this.label13 = new System.Windows.Forms.Label();
+			this.cmbInventarioOrig = new System.Windows.Forms.ComboBox();
+			this.txt_numinv_a = new System.Windows.Forms.TextBox();
+			this.txt_numinv_da = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
+			this.tabPageInizio = new Crownwood.Magic.Controls.TabPage();
+			this.lblFase1 = new System.Windows.Forms.Label();
+			this.tabController = new Crownwood.Magic.Controls.TabControl();
+			this.panel1 = new System.Windows.Forms.Panel();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.tabPage5.SuspendLayout();
+			this.tabPage3.SuspendLayout();
+			this.groupBox5.SuspendLayout();
+			this.groupBox6.SuspendLayout();
+			this.groupBox7.SuspendLayout();
+			this.grpCedente.SuspendLayout();
+			this.groupBox9.SuspendLayout();
+			this.tabPage2.SuspendLayout();
+			this.groupBox1.SuspendLayout();
+			this.gboxUPB.SuspendLayout();
+			this.groupBox8.SuspendLayout();
+			this.grpResponsabile.SuspendLayout();
+			this.tabPage4.SuspendLayout();
+			this.groupBox4.SuspendLayout();
+			this.grpCausaleScarico.SuspendLayout();
+			this.groupBox2.SuspendLayout();
+			this.grpCessionario.SuspendLayout();
+			this.groupBox3.SuspendLayout();
+			this.tabPage2bis.SuspendLayout();
+			this.groupBox10.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.gridCespiti)).BeginInit();
+			this.tabPage1.SuspendLayout();
+			this.grpInventoryOrigin.SuspendLayout();
+			this.tabPageInizio.SuspendLayout();
+			this.tabController.SuspendLayout();
+			this.panel1.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// btnCancel
+			// 
+			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.btnCancel.Location = new System.Drawing.Point(801, 540);
+			this.btnCancel.Name = "btnCancel";
+			this.btnCancel.Size = new System.Drawing.Size(75, 23);
+			this.btnCancel.TabIndex = 12;
+			this.btnCancel.Text = "Annulla";
+			// 
+			// btnNext
+			// 
+			this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnNext.Location = new System.Drawing.Point(697, 540);
+			this.btnNext.Name = "btnNext";
+			this.btnNext.Size = new System.Drawing.Size(75, 23);
+			this.btnNext.TabIndex = 11;
+			this.btnNext.Text = "Avanti >";
+			this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+			// 
+			// btnBack
+			// 
+			this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnBack.Location = new System.Drawing.Point(617, 540);
+			this.btnBack.Name = "btnBack";
+			this.btnBack.Size = new System.Drawing.Size(75, 23);
+			this.btnBack.TabIndex = 10;
+			this.btnBack.Text = "< Indietro";
+			this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+			// 
+			// tabPage5
+			// 
+			this.tabPage5.Controls.Add(this.lblFase4);
+			this.tabPage5.Location = new System.Drawing.Point(0, 0);
+			this.tabPage5.Name = "tabPage5";
+			this.tabPage5.Selected = false;
+			this.tabPage5.Size = new System.Drawing.Size(876, 508);
+			this.tabPage5.TabIndex = 10;
+			// 
+			// lblFase4
+			// 
+			this.lblFase4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFase4.Location = new System.Drawing.Point(22, 17);
-            this.lblFase4.Name = "lblFase4";
-            this.lblFase4.Size = new System.Drawing.Size(824, 463);
-            this.lblFase4.TabIndex = 2;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.label8);
-            this.tabPage3.Controls.Add(this.txtDataRatificaCarico);
-            this.tabPage3.Controls.Add(this.groupBox5);
-            this.tabPage3.Controls.Add(this.txtDataContCarico);
-            this.tabPage3.Controls.Add(this.label14);
-            this.tabPage3.Controls.Add(this.label18);
-            this.tabPage3.Controls.Add(this.txtDataStampaCarico);
-            this.tabPage3.Controls.Add(this.groupBox6);
-            this.tabPage3.Controls.Add(this.groupBox7);
-            this.tabPage3.Controls.Add(this.grpCedente);
-            this.tabPage3.Controls.Add(this.groupBox9);
-            this.tabPage3.Location = new System.Drawing.Point(0, 0);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Selected = false;
-            this.tabPage3.Size = new System.Drawing.Size(876, 508);
-            this.tabPage3.TabIndex = 5;
-            this.tabPage3.Title = "Page3";
-            this.tabPage3.Visible = false;
-            // 
-            // label8
-            // 
-            this.label8.Location = new System.Drawing.Point(17, 320);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(94, 16);
-            this.label8.TabIndex = 95;
-            this.label8.Text = "Data ratifica:";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtDataRatificaCarico
-            // 
-            this.txtDataRatificaCarico.Location = new System.Drawing.Point(117, 320);
-            this.txtDataRatificaCarico.Name = "txtDataRatificaCarico";
-            this.txtDataRatificaCarico.Size = new System.Drawing.Size(80, 23);
-            this.txtDataRatificaCarico.TabIndex = 94;
-            this.txtDataRatificaCarico.Leave += new System.EventHandler(this.txtData_Leave);
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.label9);
-            this.groupBox5.Controls.Add(this.txtDescrBuonoCarico);
-            this.groupBox5.Controls.Add(this.label12);
-            this.groupBox5.Controls.Add(this.cmbTipoBuonoCarico);
-            this.groupBox5.Location = new System.Drawing.Point(14, 7);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(372, 144);
-            this.groupBox5.TabIndex = 93;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Buono di Carico";
-            // 
-            // label9
-            // 
-            this.label9.Location = new System.Drawing.Point(17, 15);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(80, 16);
-            this.label9.TabIndex = 84;
-            this.label9.Text = "Tipo:";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtDescrBuonoCarico
-            // 
-            this.txtDescrBuonoCarico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.lblFase4.Location = new System.Drawing.Point(22, 17);
+			this.lblFase4.Name = "lblFase4";
+			this.lblFase4.Size = new System.Drawing.Size(824, 463);
+			this.lblFase4.TabIndex = 2;
+			// 
+			// tabPage3
+			// 
+			this.tabPage3.Controls.Add(this.label8);
+			this.tabPage3.Controls.Add(this.txtDataRatificaCarico);
+			this.tabPage3.Controls.Add(this.groupBox5);
+			this.tabPage3.Controls.Add(this.txtDataContCarico);
+			this.tabPage3.Controls.Add(this.label14);
+			this.tabPage3.Controls.Add(this.label18);
+			this.tabPage3.Controls.Add(this.txtDataStampaCarico);
+			this.tabPage3.Controls.Add(this.groupBox6);
+			this.tabPage3.Controls.Add(this.groupBox7);
+			this.tabPage3.Controls.Add(this.grpCedente);
+			this.tabPage3.Controls.Add(this.groupBox9);
+			this.tabPage3.Location = new System.Drawing.Point(0, 0);
+			this.tabPage3.Name = "tabPage3";
+			this.tabPage3.Selected = false;
+			this.tabPage3.Size = new System.Drawing.Size(876, 508);
+			this.tabPage3.TabIndex = 5;
+			this.tabPage3.Title = "Page3";
+			this.tabPage3.Visible = false;
+			// 
+			// label8
+			// 
+			this.label8.Location = new System.Drawing.Point(17, 320);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(94, 16);
+			this.label8.TabIndex = 95;
+			this.label8.Text = "Data ratifica:";
+			this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtDataRatificaCarico
+			// 
+			this.txtDataRatificaCarico.Location = new System.Drawing.Point(117, 320);
+			this.txtDataRatificaCarico.Name = "txtDataRatificaCarico";
+			this.txtDataRatificaCarico.Size = new System.Drawing.Size(80, 23);
+			this.txtDataRatificaCarico.TabIndex = 94;
+			this.txtDataRatificaCarico.Leave += new System.EventHandler(this.txtData_Leave);
+			// 
+			// groupBox5
+			// 
+			this.groupBox5.Controls.Add(this.label9);
+			this.groupBox5.Controls.Add(this.txtDescrBuonoCarico);
+			this.groupBox5.Controls.Add(this.label12);
+			this.groupBox5.Controls.Add(this.cmbTipoBuonoCarico);
+			this.groupBox5.Location = new System.Drawing.Point(14, 7);
+			this.groupBox5.Name = "groupBox5";
+			this.groupBox5.Size = new System.Drawing.Size(372, 144);
+			this.groupBox5.TabIndex = 93;
+			this.groupBox5.TabStop = false;
+			this.groupBox5.Text = "Buono di Carico";
+			// 
+			// label9
+			// 
+			this.label9.Location = new System.Drawing.Point(17, 15);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(80, 16);
+			this.label9.TabIndex = 84;
+			this.label9.Text = "Tipo:";
+			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtDescrBuonoCarico
+			// 
+			this.txtDescrBuonoCarico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescrBuonoCarico.Location = new System.Drawing.Point(15, 82);
-            this.txtDescrBuonoCarico.MaxLength = 150;
-            this.txtDescrBuonoCarico.Multiline = true;
-            this.txtDescrBuonoCarico.Name = "txtDescrBuonoCarico";
-            this.txtDescrBuonoCarico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescrBuonoCarico.Size = new System.Drawing.Size(349, 56);
-            this.txtDescrBuonoCarico.TabIndex = 82;
-            // 
-            // label12
-            // 
-            this.label12.Location = new System.Drawing.Point(17, 63);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(80, 16);
-            this.label12.TabIndex = 83;
-            this.label12.Text = "Descrizione:";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cmbTipoBuonoCarico
-            // 
-            this.cmbTipoBuonoCarico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDescrBuonoCarico.Location = new System.Drawing.Point(15, 82);
+			this.txtDescrBuonoCarico.MaxLength = 150;
+			this.txtDescrBuonoCarico.Multiline = true;
+			this.txtDescrBuonoCarico.Name = "txtDescrBuonoCarico";
+			this.txtDescrBuonoCarico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtDescrBuonoCarico.Size = new System.Drawing.Size(349, 56);
+			this.txtDescrBuonoCarico.TabIndex = 82;
+			// 
+			// label12
+			// 
+			this.label12.Location = new System.Drawing.Point(17, 63);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(80, 16);
+			this.label12.TabIndex = 83;
+			this.label12.Text = "Descrizione:";
+			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// cmbTipoBuonoCarico
+			// 
+			this.cmbTipoBuonoCarico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbTipoBuonoCarico.DataSource = this.DS.assetloadkind;
-            this.cmbTipoBuonoCarico.DisplayMember = "description";
-            this.cmbTipoBuonoCarico.Location = new System.Drawing.Point(17, 34);
-            this.cmbTipoBuonoCarico.MaxDropDownItems = 25;
-            this.cmbTipoBuonoCarico.Name = "cmbTipoBuonoCarico";
-            this.cmbTipoBuonoCarico.Size = new System.Drawing.Size(349, 23);
-            this.cmbTipoBuonoCarico.TabIndex = 80;
-            this.cmbTipoBuonoCarico.ValueMember = "idassetloadkind";
-            this.cmbTipoBuonoCarico.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
-            this.cmbTipoBuonoCarico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
-            // 
-            // txtDataContCarico
-            // 
-            this.txtDataContCarico.Location = new System.Drawing.Point(117, 265);
-            this.txtDataContCarico.Name = "txtDataContCarico";
-            this.txtDataContCarico.Size = new System.Drawing.Size(80, 23);
-            this.txtDataContCarico.TabIndex = 89;
-            this.txtDataContCarico.Leave += new System.EventHandler(this.txtData_Leave);
-            // 
-            // label14
-            // 
-            this.label14.Location = new System.Drawing.Point(17, 266);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(94, 16);
-            this.label14.TabIndex = 91;
-            this.label14.Text = "Data contabile:";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label18
-            // 
-            this.label18.Location = new System.Drawing.Point(17, 294);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(94, 16);
-            this.label18.TabIndex = 92;
-            this.label18.Text = "Data stampa:";
-            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtDataStampaCarico
-            // 
-            this.txtDataStampaCarico.Location = new System.Drawing.Point(117, 293);
-            this.txtDataStampaCarico.Name = "txtDataStampaCarico";
-            this.txtDataStampaCarico.Size = new System.Drawing.Size(80, 23);
-            this.txtDataStampaCarico.TabIndex = 90;
-            this.txtDataStampaCarico.TextChanged += new System.EventHandler(this.txtData_Leave);
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.cmbCausaleCarico);
-            this.groupBox6.Location = new System.Drawing.Point(14, 209);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(372, 45);
-            this.groupBox6.TabIndex = 86;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Tag = "";
-            this.groupBox6.Text = "Causale di Carico";
-            // 
-            // cmbCausaleCarico
-            // 
-            this.cmbCausaleCarico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbTipoBuonoCarico.DataSource = this.DS.assetloadkind;
+			this.cmbTipoBuonoCarico.DisplayMember = "description";
+			this.cmbTipoBuonoCarico.Location = new System.Drawing.Point(17, 34);
+			this.cmbTipoBuonoCarico.MaxDropDownItems = 25;
+			this.cmbTipoBuonoCarico.Name = "cmbTipoBuonoCarico";
+			this.cmbTipoBuonoCarico.Size = new System.Drawing.Size(349, 23);
+			this.cmbTipoBuonoCarico.TabIndex = 80;
+			this.cmbTipoBuonoCarico.ValueMember = "idassetloadkind";
+			this.cmbTipoBuonoCarico.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
+			this.cmbTipoBuonoCarico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
+			// 
+			// txtDataContCarico
+			// 
+			this.txtDataContCarico.Location = new System.Drawing.Point(117, 265);
+			this.txtDataContCarico.Name = "txtDataContCarico";
+			this.txtDataContCarico.Size = new System.Drawing.Size(80, 23);
+			this.txtDataContCarico.TabIndex = 89;
+			this.txtDataContCarico.Leave += new System.EventHandler(this.txtData_Leave);
+			// 
+			// label14
+			// 
+			this.label14.Location = new System.Drawing.Point(17, 266);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(94, 16);
+			this.label14.TabIndex = 91;
+			this.label14.Text = "Data contabile:";
+			this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// label18
+			// 
+			this.label18.Location = new System.Drawing.Point(17, 294);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(94, 16);
+			this.label18.TabIndex = 92;
+			this.label18.Text = "Data stampa:";
+			this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtDataStampaCarico
+			// 
+			this.txtDataStampaCarico.Location = new System.Drawing.Point(117, 293);
+			this.txtDataStampaCarico.Name = "txtDataStampaCarico";
+			this.txtDataStampaCarico.Size = new System.Drawing.Size(80, 23);
+			this.txtDataStampaCarico.TabIndex = 90;
+			this.txtDataStampaCarico.TextChanged += new System.EventHandler(this.txtData_Leave);
+			// 
+			// groupBox6
+			// 
+			this.groupBox6.Controls.Add(this.cmbCausaleCarico);
+			this.groupBox6.Location = new System.Drawing.Point(14, 209);
+			this.groupBox6.Name = "groupBox6";
+			this.groupBox6.Size = new System.Drawing.Size(372, 45);
+			this.groupBox6.TabIndex = 86;
+			this.groupBox6.TabStop = false;
+			this.groupBox6.Tag = "";
+			this.groupBox6.Text = "Causale di Carico";
+			// 
+			// cmbCausaleCarico
+			// 
+			this.cmbCausaleCarico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbCausaleCarico.DataSource = this.DS.assetloadmotive;
-            this.cmbCausaleCarico.DisplayMember = "description";
-            this.cmbCausaleCarico.Location = new System.Drawing.Point(16, 14);
-            this.cmbCausaleCarico.MaxDropDownItems = 25;
-            this.cmbCausaleCarico.Name = "cmbCausaleCarico";
-            this.cmbCausaleCarico.Size = new System.Drawing.Size(348, 23);
-            this.cmbCausaleCarico.TabIndex = 48;
-            this.cmbCausaleCarico.ValueMember = "idmot";
-            this.cmbCausaleCarico.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
-            this.cmbCausaleCarico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbCausaleCarico.DataSource = this.DS.assetloadmotive;
+			this.cmbCausaleCarico.DisplayMember = "description";
+			this.cmbCausaleCarico.Location = new System.Drawing.Point(16, 14);
+			this.cmbCausaleCarico.MaxDropDownItems = 25;
+			this.cmbCausaleCarico.Name = "cmbCausaleCarico";
+			this.cmbCausaleCarico.Size = new System.Drawing.Size(348, 23);
+			this.cmbCausaleCarico.TabIndex = 48;
+			this.cmbCausaleCarico.ValueMember = "idmot";
+			this.cmbCausaleCarico.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
+			this.cmbCausaleCarico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
+			// 
+			// groupBox7
+			// 
+			this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox7.Controls.Add(this.label19);
-            this.groupBox7.Controls.Add(this.txtDataProvvCarico);
-            this.groupBox7.Controls.Add(this.txtProvvCarico);
-            this.groupBox7.Location = new System.Drawing.Point(392, 137);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(445, 117);
-            this.groupBox7.TabIndex = 88;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Provvedimento";
-            // 
-            // label19
-            // 
-            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label19.Location = new System.Drawing.Point(274, 93);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(40, 16);
-            this.label19.TabIndex = 75;
-            this.label19.Text = "Data:";
-            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDataProvvCarico
-            // 
-            this.txtDataProvvCarico.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDataProvvCarico.Location = new System.Drawing.Point(329, 88);
-            this.txtDataProvvCarico.Name = "txtDataProvvCarico";
-            this.txtDataProvvCarico.Size = new System.Drawing.Size(105, 23);
-            this.txtDataProvvCarico.TabIndex = 74;
-            this.txtDataProvvCarico.Leave += new System.EventHandler(this.txtData_Leave);
-            // 
-            // txtProvvCarico
-            // 
-            this.txtProvvCarico.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox7.Controls.Add(this.label19);
+			this.groupBox7.Controls.Add(this.txtDataProvvCarico);
+			this.groupBox7.Controls.Add(this.txtProvvCarico);
+			this.groupBox7.Location = new System.Drawing.Point(392, 137);
+			this.groupBox7.Name = "groupBox7";
+			this.groupBox7.Size = new System.Drawing.Size(445, 117);
+			this.groupBox7.TabIndex = 88;
+			this.groupBox7.TabStop = false;
+			this.groupBox7.Text = "Provvedimento";
+			// 
+			// label19
+			// 
+			this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.label19.Location = new System.Drawing.Point(274, 93);
+			this.label19.Name = "label19";
+			this.label19.Size = new System.Drawing.Size(40, 16);
+			this.label19.TabIndex = 75;
+			this.label19.Text = "Data:";
+			this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtDataProvvCarico
+			// 
+			this.txtDataProvvCarico.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDataProvvCarico.Location = new System.Drawing.Point(329, 88);
+			this.txtDataProvvCarico.Name = "txtDataProvvCarico";
+			this.txtDataProvvCarico.Size = new System.Drawing.Size(105, 23);
+			this.txtDataProvvCarico.TabIndex = 74;
+			this.txtDataProvvCarico.Leave += new System.EventHandler(this.txtData_Leave);
+			// 
+			// txtProvvCarico
+			// 
+			this.txtProvvCarico.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtProvvCarico.Location = new System.Drawing.Point(16, 16);
-            this.txtProvvCarico.MaxLength = 150;
-            this.txtProvvCarico.Multiline = true;
-            this.txtProvvCarico.Name = "txtProvvCarico";
-            this.txtProvvCarico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtProvvCarico.Size = new System.Drawing.Size(418, 69);
-            this.txtProvvCarico.TabIndex = 72;
-            // 
-            // grpCedente
-            // 
-            this.grpCedente.Controls.Add(this.txtCedente);
-            this.grpCedente.Location = new System.Drawing.Point(14, 155);
-            this.grpCedente.Name = "grpCedente";
-            this.grpCedente.Size = new System.Drawing.Size(372, 48);
-            this.grpCedente.TabIndex = 85;
-            this.grpCedente.TabStop = false;
-            this.grpCedente.Tag = "AutoChoose.txtCedente.lista.(active=\'S\')";
-            this.grpCedente.Text = "Cedente";
-            // 
-            // txtCedente
-            // 
-            this.txtCedente.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtProvvCarico.Location = new System.Drawing.Point(16, 16);
+			this.txtProvvCarico.MaxLength = 150;
+			this.txtProvvCarico.Multiline = true;
+			this.txtProvvCarico.Name = "txtProvvCarico";
+			this.txtProvvCarico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtProvvCarico.Size = new System.Drawing.Size(418, 69);
+			this.txtProvvCarico.TabIndex = 72;
+			// 
+			// grpCedente
+			// 
+			this.grpCedente.Controls.Add(this.txtCedente);
+			this.grpCedente.Location = new System.Drawing.Point(14, 155);
+			this.grpCedente.Name = "grpCedente";
+			this.grpCedente.Size = new System.Drawing.Size(372, 48);
+			this.grpCedente.TabIndex = 85;
+			this.grpCedente.TabStop = false;
+			this.grpCedente.Tag = "AutoChoose.txtCedente.lista.(active=\'S\')";
+			this.grpCedente.Text = "Cedente";
+			// 
+			// txtCedente
+			// 
+			this.txtCedente.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCedente.Location = new System.Drawing.Point(16, 16);
-            this.txtCedente.Name = "txtCedente";
-            this.txtCedente.Size = new System.Drawing.Size(348, 23);
-            this.txtCedente.TabIndex = 1;
-            this.txtCedente.Tag = "registry_assetload.title?x";
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtCedente.Location = new System.Drawing.Point(16, 16);
+			this.txtCedente.Name = "txtCedente";
+			this.txtCedente.Size = new System.Drawing.Size(348, 23);
+			this.txtCedente.TabIndex = 1;
+			this.txtCedente.Tag = "registry_assetload.title?x";
+			// 
+			// groupBox9
+			// 
+			this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox9.Controls.Add(this.txtDataDocCarico);
-            this.groupBox9.Controls.Add(this.label20);
-            this.groupBox9.Controls.Add(this.txtDocCarico);
-            this.groupBox9.Location = new System.Drawing.Point(392, 7);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(444, 124);
-            this.groupBox9.TabIndex = 87;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Documento";
-            // 
-            // txtDataDocCarico
-            // 
-            this.txtDataDocCarico.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDataDocCarico.Location = new System.Drawing.Point(329, 92);
-            this.txtDataDocCarico.Name = "txtDataDocCarico";
-            this.txtDataDocCarico.Size = new System.Drawing.Size(105, 23);
-            this.txtDataDocCarico.TabIndex = 65;
-            this.txtDataDocCarico.Leave += new System.EventHandler(this.txtData_Leave);
-            // 
-            // label20
-            // 
-            this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label20.Location = new System.Drawing.Point(274, 94);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(40, 16);
-            this.label20.TabIndex = 66;
-            this.label20.Text = "Data:";
-            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDocCarico
-            // 
-            this.txtDocCarico.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox9.Controls.Add(this.txtDataDocCarico);
+			this.groupBox9.Controls.Add(this.label20);
+			this.groupBox9.Controls.Add(this.txtDocCarico);
+			this.groupBox9.Location = new System.Drawing.Point(392, 7);
+			this.groupBox9.Name = "groupBox9";
+			this.groupBox9.Size = new System.Drawing.Size(444, 124);
+			this.groupBox9.TabIndex = 87;
+			this.groupBox9.TabStop = false;
+			this.groupBox9.Text = "Documento";
+			// 
+			// txtDataDocCarico
+			// 
+			this.txtDataDocCarico.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDataDocCarico.Location = new System.Drawing.Point(329, 92);
+			this.txtDataDocCarico.Name = "txtDataDocCarico";
+			this.txtDataDocCarico.Size = new System.Drawing.Size(105, 23);
+			this.txtDataDocCarico.TabIndex = 65;
+			this.txtDataDocCarico.Leave += new System.EventHandler(this.txtData_Leave);
+			// 
+			// label20
+			// 
+			this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.label20.Location = new System.Drawing.Point(274, 94);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(40, 16);
+			this.label20.TabIndex = 66;
+			this.label20.Text = "Data:";
+			this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtDocCarico
+			// 
+			this.txtDocCarico.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDocCarico.Location = new System.Drawing.Point(16, 16);
-            this.txtDocCarico.MaxLength = 35;
-            this.txtDocCarico.Multiline = true;
-            this.txtDocCarico.Name = "txtDocCarico";
-            this.txtDocCarico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDocCarico.Size = new System.Drawing.Size(418, 73);
-            this.txtDocCarico.TabIndex = 63;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Controls.Add(this.gboxUPB);
-            this.tabPage2.Controls.Add(this.groupBox8);
-            this.tabPage2.Controls.Add(this.grpResponsabile);
-            this.tabPage2.Location = new System.Drawing.Point(0, 0);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Selected = false;
-            this.tabPage2.Size = new System.Drawing.Size(876, 508);
-            this.tabPage2.TabIndex = 4;
-            this.tabPage2.Title = "Page2";
-            this.tabPage2.Visible = false;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDocCarico.Location = new System.Drawing.Point(16, 16);
+			this.txtDocCarico.MaxLength = 35;
+			this.txtDocCarico.Multiline = true;
+			this.txtDocCarico.Name = "txtDocCarico";
+			this.txtDocCarico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtDocCarico.Size = new System.Drawing.Size(418, 73);
+			this.txtDocCarico.TabIndex = 63;
+			// 
+			// tabPage2
+			// 
+			this.tabPage2.Controls.Add(this.groupBox1);
+			this.tabPage2.Controls.Add(this.gboxUPB);
+			this.tabPage2.Controls.Add(this.groupBox8);
+			this.tabPage2.Controls.Add(this.grpResponsabile);
+			this.tabPage2.Location = new System.Drawing.Point(0, 0);
+			this.tabPage2.Name = "tabPage2";
+			this.tabPage2.Selected = false;
+			this.tabPage2.Size = new System.Drawing.Size(876, 508);
+			this.tabPage2.TabIndex = 4;
+			this.tabPage2.Title = "Page2";
+			this.tabPage2.Visible = false;
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.cmbConsegnatario);
-            this.groupBox1.Controls.Add(this.chkSubRespInvariato);
-            this.groupBox1.Location = new System.Drawing.Point(10, 296);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(626, 53);
-            this.groupBox1.TabIndex = 98;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Selezionare il nuovo subconsegnatario o selezionare \"lascia invariato\"";
-            // 
-            // cmbConsegnatario
-            // 
-            this.cmbConsegnatario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.groupBox1.Controls.Add(this.cmbConsegnatario);
+			this.groupBox1.Controls.Add(this.chkSubRespInvariato);
+			this.groupBox1.Location = new System.Drawing.Point(10, 296);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(626, 53);
+			this.groupBox1.TabIndex = 98;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Selezionare il nuovo subconsegnatario o selezionare \"lascia invariato\"";
+			// 
+			// cmbConsegnatario
+			// 
+			this.cmbConsegnatario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbConsegnatario.DataSource = this.DS.managerconsegnatario;
-            this.cmbConsegnatario.DisplayMember = "title";
-            this.cmbConsegnatario.Location = new System.Drawing.Point(8, 21);
-            this.cmbConsegnatario.MaxDropDownItems = 25;
-            this.cmbConsegnatario.Name = "cmbConsegnatario";
-            this.cmbConsegnatario.Size = new System.Drawing.Size(466, 23);
-            this.cmbConsegnatario.TabIndex = 0;
-            this.cmbConsegnatario.ValueMember = "idman";
-            this.cmbConsegnatario.SelectedIndexChanged += new System.EventHandler(this.cmbConsegnatario_SelectedIndexChanged);
-            this.cmbConsegnatario.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
-            this.cmbConsegnatario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
-            // 
-            // chkSubRespInvariato
-            // 
-            this.chkSubRespInvariato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkSubRespInvariato.AutoSize = true;
-            this.chkSubRespInvariato.Location = new System.Drawing.Point(496, 23);
-            this.chkSubRespInvariato.Name = "chkSubRespInvariato";
-            this.chkSubRespInvariato.Size = new System.Drawing.Size(107, 19);
-            this.chkSubRespInvariato.TabIndex = 100;
-            this.chkSubRespInvariato.Text = "Lascia invariato";
-            this.chkSubRespInvariato.UseVisualStyleBackColor = true;
-            this.chkSubRespInvariato.CheckedChanged += new System.EventHandler(this.chkSubRespInvariato_CheckedChanged);
-            // 
-            // gboxUPB
-            // 
-            this.gboxUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbConsegnatario.DataSource = this.DS.managerconsegnatario;
+			this.cmbConsegnatario.DisplayMember = "title";
+			this.cmbConsegnatario.Location = new System.Drawing.Point(8, 21);
+			this.cmbConsegnatario.MaxDropDownItems = 25;
+			this.cmbConsegnatario.Name = "cmbConsegnatario";
+			this.cmbConsegnatario.Size = new System.Drawing.Size(466, 23);
+			this.cmbConsegnatario.TabIndex = 0;
+			this.cmbConsegnatario.ValueMember = "idman";
+			this.cmbConsegnatario.SelectedIndexChanged += new System.EventHandler(this.cmbConsegnatario_SelectedIndexChanged);
+			this.cmbConsegnatario.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
+			this.cmbConsegnatario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
+			// 
+			// chkSubRespInvariato
+			// 
+			this.chkSubRespInvariato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.chkSubRespInvariato.AutoSize = true;
+			this.chkSubRespInvariato.Location = new System.Drawing.Point(496, 23);
+			this.chkSubRespInvariato.Name = "chkSubRespInvariato";
+			this.chkSubRespInvariato.Size = new System.Drawing.Size(107, 19);
+			this.chkSubRespInvariato.TabIndex = 100;
+			this.chkSubRespInvariato.Text = "Lascia invariato";
+			this.chkSubRespInvariato.UseVisualStyleBackColor = true;
+			this.chkSubRespInvariato.CheckedChanged += new System.EventHandler(this.chkSubRespInvariato_CheckedChanged);
+			// 
+			// gboxUPB
+			// 
+			this.gboxUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxUPB.Controls.Add(this.chkUpbInvariato);
-            this.gboxUPB.Controls.Add(this.txtUPB);
-            this.gboxUPB.Controls.Add(this.txtDescrUPB);
-            this.gboxUPB.Controls.Add(this.btnUPBCode);
-            this.gboxUPB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
-            this.gboxUPB.Location = new System.Drawing.Point(10, 367);
-            this.gboxUPB.Name = "gboxUPB";
-            this.gboxUPB.Size = new System.Drawing.Size(626, 104);
-            this.gboxUPB.TabIndex = 97;
-            this.gboxUPB.TabStop = false;
-            this.gboxUPB.Tag = "AutoChoose.txtUPB.default.(active=\'S\')";
-            this.gboxUPB.Text = "Selezionare il nuovo upb di destinazione o selezionare \"lascia invariato\"";
-            // 
-            // chkUpbInvariato
-            // 
-            this.chkUpbInvariato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkUpbInvariato.AutoSize = true;
-            this.chkUpbInvariato.Location = new System.Drawing.Point(496, 51);
-            this.chkUpbInvariato.Name = "chkUpbInvariato";
-            this.chkUpbInvariato.Size = new System.Drawing.Size(107, 19);
-            this.chkUpbInvariato.TabIndex = 101;
-            this.chkUpbInvariato.Text = "Lascia invariato";
-            this.chkUpbInvariato.UseVisualStyleBackColor = true;
-            this.chkUpbInvariato.CheckedChanged += new System.EventHandler(this.chkUpbInvariato_CheckedChanged);
-            // 
-            // txtUPB
-            // 
-            this.txtUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.gboxUPB.Controls.Add(this.chkUpbInvariato);
+			this.gboxUPB.Controls.Add(this.txtUPB);
+			this.gboxUPB.Controls.Add(this.txtDescrUPB);
+			this.gboxUPB.Controls.Add(this.btnUPBCode);
+			this.gboxUPB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+			this.gboxUPB.Location = new System.Drawing.Point(10, 367);
+			this.gboxUPB.Name = "gboxUPB";
+			this.gboxUPB.Size = new System.Drawing.Size(626, 104);
+			this.gboxUPB.TabIndex = 97;
+			this.gboxUPB.TabStop = false;
+			this.gboxUPB.Tag = "AutoChoose.txtUPB.default.(active=\'S\')";
+			this.gboxUPB.Text = "Selezionare il nuovo upb di destinazione o selezionare \"lascia invariato\"";
+			// 
+			// chkUpbInvariato
+			// 
+			this.chkUpbInvariato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.chkUpbInvariato.AutoSize = true;
+			this.chkUpbInvariato.Location = new System.Drawing.Point(496, 51);
+			this.chkUpbInvariato.Name = "chkUpbInvariato";
+			this.chkUpbInvariato.Size = new System.Drawing.Size(107, 19);
+			this.chkUpbInvariato.TabIndex = 101;
+			this.chkUpbInvariato.Text = "Lascia invariato";
+			this.chkUpbInvariato.UseVisualStyleBackColor = true;
+			this.chkUpbInvariato.CheckedChanged += new System.EventHandler(this.chkUpbInvariato_CheckedChanged);
+			// 
+			// txtUPB
+			// 
+			this.txtUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtUPB.Location = new System.Drawing.Point(8, 77);
-            this.txtUPB.Name = "txtUPB";
-            this.txtUPB.Size = new System.Drawing.Size(466, 23);
-            this.txtUPB.TabIndex = 5;
-            this.txtUPB.Tag = "upb.codeupb?x";
-            // 
-            // txtDescrUPB
-            // 
-            this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtUPB.Location = new System.Drawing.Point(8, 77);
+			this.txtUPB.Name = "txtUPB";
+			this.txtUPB.Size = new System.Drawing.Size(466, 23);
+			this.txtUPB.TabIndex = 5;
+			this.txtUPB.Tag = "upb.codeupb?x";
+			// 
+			// txtDescrUPB
+			// 
+			this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescrUPB.Location = new System.Drawing.Point(126, 22);
-            this.txtDescrUPB.Multiline = true;
-            this.txtDescrUPB.Name = "txtDescrUPB";
-            this.txtDescrUPB.ReadOnly = true;
-            this.txtDescrUPB.Size = new System.Drawing.Size(348, 49);
-            this.txtDescrUPB.TabIndex = 4;
-            this.txtDescrUPB.TabStop = false;
-            this.txtDescrUPB.Tag = "upb.title";
-            // 
-            // btnUPBCode
-            // 
-            this.btnUPBCode.BackColor = System.Drawing.SystemColors.Control;
-            this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUPBCode.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnUPBCode.Location = new System.Drawing.Point(8, 51);
-            this.btnUPBCode.Name = "btnUPBCode";
-            this.btnUPBCode.Size = new System.Drawing.Size(112, 20);
-            this.btnUPBCode.TabIndex = 2;
-            this.btnUPBCode.TabStop = false;
-            this.btnUPBCode.Tag = "manage.upb.tree";
-            this.btnUPBCode.Text = "UPB:";
-            this.btnUPBCode.UseVisualStyleBackColor = false;
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.label26);
-            this.groupBox8.Controls.Add(this.label24);
-            this.groupBox8.Controls.Add(this.chkpreservaInventario);
-            this.groupBox8.Controls.Add(this.txtEnteCarico);
-            this.groupBox8.Controls.Add(this.label7);
-            this.groupBox8.Controls.Add(this.label23);
-            this.groupBox8.Controls.Add(this.cmbInventarioDest);
-            this.groupBox8.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox8.Location = new System.Drawing.Point(10, 5);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(626, 238);
-            this.groupBox8.TabIndex = 96;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Selezionare l\'Inventario di Destinazione";
-            // 
-            // label26
-            // 
-            this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDescrUPB.Location = new System.Drawing.Point(126, 22);
+			this.txtDescrUPB.Multiline = true;
+			this.txtDescrUPB.Name = "txtDescrUPB";
+			this.txtDescrUPB.ReadOnly = true;
+			this.txtDescrUPB.Size = new System.Drawing.Size(348, 49);
+			this.txtDescrUPB.TabIndex = 4;
+			this.txtDescrUPB.TabStop = false;
+			this.txtDescrUPB.Tag = "upb.title";
+			// 
+			// btnUPBCode
+			// 
+			this.btnUPBCode.BackColor = System.Drawing.SystemColors.Control;
+			this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnUPBCode.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.btnUPBCode.Location = new System.Drawing.Point(8, 51);
+			this.btnUPBCode.Name = "btnUPBCode";
+			this.btnUPBCode.Size = new System.Drawing.Size(112, 20);
+			this.btnUPBCode.TabIndex = 2;
+			this.btnUPBCode.TabStop = false;
+			this.btnUPBCode.Tag = "manage.upb.tree";
+			this.btnUPBCode.Text = "UPB:";
+			this.btnUPBCode.UseVisualStyleBackColor = false;
+			// 
+			// groupBox8
+			// 
+			this.groupBox8.Controls.Add(this.label26);
+			this.groupBox8.Controls.Add(this.label24);
+			this.groupBox8.Controls.Add(this.chkpreservaInventario);
+			this.groupBox8.Controls.Add(this.txtEnteCarico);
+			this.groupBox8.Controls.Add(this.label7);
+			this.groupBox8.Controls.Add(this.label23);
+			this.groupBox8.Controls.Add(this.cmbInventarioDest);
+			this.groupBox8.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.groupBox8.Location = new System.Drawing.Point(10, 5);
+			this.groupBox8.Name = "groupBox8";
+			this.groupBox8.Size = new System.Drawing.Size(626, 238);
+			this.groupBox8.TabIndex = 96;
+			this.groupBox8.TabStop = false;
+			this.groupBox8.Text = "Selezionare l\'Inventario di Destinazione";
+			// 
+			// label26
+			// 
+			this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label26.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(14, 185);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(601, 42);
-            this.label26.TabIndex = 88;
-            this.label26.Text = "Il trasferimento lascerà invariato il Numero Inventario se si sceglie tale opzion" +
+			this.label26.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label26.Location = new System.Drawing.Point(14, 185);
+			this.label26.Name = "label26";
+			this.label26.Size = new System.Drawing.Size(601, 42);
+			this.label26.TabIndex = 88;
+			this.label26.Text = "Il trasferimento lascerà invariato il Numero Inventario se si sceglie tale opzion" +
     "e, oppure, in caso contrario, assegnerà un nuovo Numero";
-            // 
-            // label24
-            // 
-            this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			// 
+			// label24
+			// 
+			this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label24.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(13, 151);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(601, 42);
-            this.label24.TabIndex = 87;
-            this.label24.Text = "I cespiti selezionati e i relativi accessori saranno associati al nuovo inventari" +
+			this.label24.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label24.Location = new System.Drawing.Point(13, 151);
+			this.label24.Name = "label24";
+			this.label24.Size = new System.Drawing.Size(601, 42);
+			this.label24.TabIndex = 87;
+			this.label24.Text = "I cespiti selezionati e i relativi accessori saranno associati al nuovo inventari" +
     "o";
-            // 
-            // chkpreservaInventario
-            // 
-            this.chkpreservaInventario.AutoSize = true;
-            this.chkpreservaInventario.Location = new System.Drawing.Point(30, 124);
-            this.chkpreservaInventario.Name = "chkpreservaInventario";
-            this.chkpreservaInventario.Size = new System.Drawing.Size(196, 17);
-            this.chkpreservaInventario.TabIndex = 65;
-            this.chkpreservaInventario.Text = "Preserva il Numero Inventario";
-            this.chkpreservaInventario.UseVisualStyleBackColor = true;
-            // 
-            // txtEnteCarico
-            // 
-            this.txtEnteCarico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			// 
+			// chkpreservaInventario
+			// 
+			this.chkpreservaInventario.AutoSize = true;
+			this.chkpreservaInventario.Location = new System.Drawing.Point(30, 124);
+			this.chkpreservaInventario.Name = "chkpreservaInventario";
+			this.chkpreservaInventario.Size = new System.Drawing.Size(196, 17);
+			this.chkpreservaInventario.TabIndex = 65;
+			this.chkpreservaInventario.Text = "Preserva il Numero Inventario";
+			this.chkpreservaInventario.UseVisualStyleBackColor = true;
+			// 
+			// txtEnteCarico
+			// 
+			this.txtEnteCarico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtEnteCarico.Enabled = false;
-            this.txtEnteCarico.Location = new System.Drawing.Point(67, 48);
-            this.txtEnteCarico.Multiline = true;
-            this.txtEnteCarico.Name = "txtEnteCarico";
-            this.txtEnteCarico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtEnteCarico.Size = new System.Drawing.Size(543, 53);
-            this.txtEnteCarico.TabIndex = 64;
-            this.txtEnteCarico.Tag = "";
-            // 
-            // label7
-            // 
-            this.label7.Location = new System.Drawing.Point(14, 48);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(47, 16);
-            this.label7.TabIndex = 36;
-            this.label7.Text = "Ente:";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label23
-            // 
-            this.label23.Location = new System.Drawing.Point(13, 19);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(47, 16);
-            this.label23.TabIndex = 33;
-            this.label23.Text = "Tipo:";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // cmbInventarioDest
-            // 
-            this.cmbInventarioDest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtEnteCarico.Enabled = false;
+			this.txtEnteCarico.Location = new System.Drawing.Point(67, 48);
+			this.txtEnteCarico.Multiline = true;
+			this.txtEnteCarico.Name = "txtEnteCarico";
+			this.txtEnteCarico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtEnteCarico.Size = new System.Drawing.Size(543, 53);
+			this.txtEnteCarico.TabIndex = 64;
+			this.txtEnteCarico.Tag = "";
+			// 
+			// label7
+			// 
+			this.label7.Location = new System.Drawing.Point(14, 48);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(47, 16);
+			this.label7.TabIndex = 36;
+			this.label7.Text = "Ente:";
+			this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// label23
+			// 
+			this.label23.Location = new System.Drawing.Point(13, 19);
+			this.label23.Name = "label23";
+			this.label23.Size = new System.Drawing.Size(47, 16);
+			this.label23.TabIndex = 33;
+			this.label23.Text = "Tipo:";
+			this.label23.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// cmbInventarioDest
+			// 
+			this.cmbInventarioDest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbInventarioDest.DataSource = this.DS.inventory_dest;
-            this.cmbInventarioDest.DisplayMember = "description";
-            this.cmbInventarioDest.Location = new System.Drawing.Point(66, 19);
-            this.cmbInventarioDest.MaxDropDownItems = 25;
-            this.cmbInventarioDest.Name = "cmbInventarioDest";
-            this.cmbInventarioDest.Size = new System.Drawing.Size(544, 21);
-            this.cmbInventarioDest.TabIndex = 28;
-            this.cmbInventarioDest.ValueMember = "idinventory";
-            this.cmbInventarioDest.SelectedIndexChanged += new System.EventHandler(this.cmbInventarioDest_SelectedIndexChanged);
-            this.cmbInventarioDest.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
-            this.cmbInventarioDest.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
-            // 
-            // grpResponsabile
-            // 
-            this.grpResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbInventarioDest.DataSource = this.DS.inventory_dest;
+			this.cmbInventarioDest.DisplayMember = "description";
+			this.cmbInventarioDest.Location = new System.Drawing.Point(66, 19);
+			this.cmbInventarioDest.MaxDropDownItems = 25;
+			this.cmbInventarioDest.Name = "cmbInventarioDest";
+			this.cmbInventarioDest.Size = new System.Drawing.Size(544, 21);
+			this.cmbInventarioDest.TabIndex = 28;
+			this.cmbInventarioDest.ValueMember = "idinventory";
+			this.cmbInventarioDest.SelectedIndexChanged += new System.EventHandler(this.cmbInventarioDest_SelectedIndexChanged);
+			this.cmbInventarioDest.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
+			this.cmbInventarioDest.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
+			// 
+			// grpResponsabile
+			// 
+			this.grpResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpResponsabile.Controls.Add(this.cmbResponsabile);
-            this.grpResponsabile.Controls.Add(this.chkRespInvariato);
-            this.grpResponsabile.Location = new System.Drawing.Point(11, 248);
-            this.grpResponsabile.Name = "grpResponsabile";
-            this.grpResponsabile.Size = new System.Drawing.Size(625, 46);
-            this.grpResponsabile.TabIndex = 7;
-            this.grpResponsabile.TabStop = false;
-            this.grpResponsabile.Text = "Selezionare il nuovo responsabile o selezionare \"lascia invariato\"";
-            // 
-            // cmbResponsabile
-            // 
-            this.cmbResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.grpResponsabile.Controls.Add(this.cmbResponsabile);
+			this.grpResponsabile.Controls.Add(this.chkRespInvariato);
+			this.grpResponsabile.Location = new System.Drawing.Point(11, 248);
+			this.grpResponsabile.Name = "grpResponsabile";
+			this.grpResponsabile.Size = new System.Drawing.Size(625, 46);
+			this.grpResponsabile.TabIndex = 7;
+			this.grpResponsabile.TabStop = false;
+			this.grpResponsabile.Text = "Selezionare il nuovo responsabile o selezionare \"lascia invariato\"";
+			// 
+			// cmbResponsabile
+			// 
+			this.cmbResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbResponsabile.DataSource = this.DS.manager;
-            this.cmbResponsabile.DisplayMember = "title";
-            this.cmbResponsabile.Location = new System.Drawing.Point(8, 19);
-            this.cmbResponsabile.MaxDropDownItems = 25;
-            this.cmbResponsabile.Name = "cmbResponsabile";
-            this.cmbResponsabile.Size = new System.Drawing.Size(465, 23);
-            this.cmbResponsabile.TabIndex = 0;
-            this.cmbResponsabile.ValueMember = "idman";
-            this.cmbResponsabile.SelectedIndexChanged += new System.EventHandler(this.cboResp_SelectedIndexChanged);
-            this.cmbResponsabile.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
-            this.cmbResponsabile.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
-            // 
-            // chkRespInvariato
-            // 
-            this.chkRespInvariato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkRespInvariato.AutoSize = true;
-            this.chkRespInvariato.Location = new System.Drawing.Point(495, 19);
-            this.chkRespInvariato.Name = "chkRespInvariato";
-            this.chkRespInvariato.Size = new System.Drawing.Size(107, 19);
-            this.chkRespInvariato.TabIndex = 99;
-            this.chkRespInvariato.Text = "Lascia invariato";
-            this.chkRespInvariato.UseVisualStyleBackColor = true;
-            this.chkRespInvariato.CheckedChanged += new System.EventHandler(this.chkRespInvariato_CheckedChanged);
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.label4);
-            this.tabPage4.Controls.Add(this.label27);
-            this.tabPage4.Controls.Add(this.txtDataRatificaScarico);
-            this.tabPage4.Controls.Add(this.groupBox4);
-            this.tabPage4.Controls.Add(this.txtDataContScarico);
-            this.tabPage4.Controls.Add(this.label3);
-            this.tabPage4.Controls.Add(this.txtDataStampaScarico);
-            this.tabPage4.Controls.Add(this.grpCausaleScarico);
-            this.tabPage4.Controls.Add(this.groupBox2);
-            this.tabPage4.Controls.Add(this.grpCessionario);
-            this.tabPage4.Controls.Add(this.groupBox3);
-            this.tabPage4.Location = new System.Drawing.Point(0, 0);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Selected = false;
-            this.tabPage4.Size = new System.Drawing.Size(876, 508);
-            this.tabPage4.TabIndex = 9;
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(10, 321);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(94, 16);
-            this.label4.TabIndex = 98;
-            this.label4.Text = "Data stampa:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label27
-            // 
-            this.label27.Location = new System.Drawing.Point(12, 350);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(94, 16);
-            this.label27.TabIndex = 97;
-            this.label27.Text = "Data ratifica:";
-            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtDataRatificaScarico
-            // 
-            this.txtDataRatificaScarico.Location = new System.Drawing.Point(112, 350);
-            this.txtDataRatificaScarico.Name = "txtDataRatificaScarico";
-            this.txtDataRatificaScarico.Size = new System.Drawing.Size(80, 23);
-            this.txtDataRatificaScarico.TabIndex = 96;
-            this.txtDataRatificaScarico.Leave += new System.EventHandler(this.txtData_Leave);
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.label1);
-            this.groupBox4.Controls.Add(this.txtDescrBuonoScarico);
-            this.groupBox4.Controls.Add(this.label11);
-            this.groupBox4.Controls.Add(this.cmbTipoBuonoScarico);
-            this.groupBox4.Location = new System.Drawing.Point(9, 5);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(375, 170);
-            this.groupBox4.TabIndex = 84;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Buono di scarico";
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(17, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 16);
-            this.label1.TabIndex = 84;
-            this.label1.Text = "Tipo:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtDescrBuonoScarico
-            // 
-            this.txtDescrBuonoScarico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbResponsabile.DataSource = this.DS.manager;
+			this.cmbResponsabile.DisplayMember = "title";
+			this.cmbResponsabile.Location = new System.Drawing.Point(8, 19);
+			this.cmbResponsabile.MaxDropDownItems = 25;
+			this.cmbResponsabile.Name = "cmbResponsabile";
+			this.cmbResponsabile.Size = new System.Drawing.Size(465, 23);
+			this.cmbResponsabile.TabIndex = 0;
+			this.cmbResponsabile.ValueMember = "idman";
+			this.cmbResponsabile.SelectedIndexChanged += new System.EventHandler(this.cboResp_SelectedIndexChanged);
+			this.cmbResponsabile.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
+			this.cmbResponsabile.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
+			// 
+			// chkRespInvariato
+			// 
+			this.chkRespInvariato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.chkRespInvariato.AutoSize = true;
+			this.chkRespInvariato.Location = new System.Drawing.Point(495, 19);
+			this.chkRespInvariato.Name = "chkRespInvariato";
+			this.chkRespInvariato.Size = new System.Drawing.Size(107, 19);
+			this.chkRespInvariato.TabIndex = 99;
+			this.chkRespInvariato.Text = "Lascia invariato";
+			this.chkRespInvariato.UseVisualStyleBackColor = true;
+			this.chkRespInvariato.CheckedChanged += new System.EventHandler(this.chkRespInvariato_CheckedChanged);
+			// 
+			// tabPage4
+			// 
+			this.tabPage4.Controls.Add(this.label4);
+			this.tabPage4.Controls.Add(this.label27);
+			this.tabPage4.Controls.Add(this.txtDataRatificaScarico);
+			this.tabPage4.Controls.Add(this.groupBox4);
+			this.tabPage4.Controls.Add(this.txtDataContScarico);
+			this.tabPage4.Controls.Add(this.label3);
+			this.tabPage4.Controls.Add(this.txtDataStampaScarico);
+			this.tabPage4.Controls.Add(this.grpCausaleScarico);
+			this.tabPage4.Controls.Add(this.groupBox2);
+			this.tabPage4.Controls.Add(this.grpCessionario);
+			this.tabPage4.Controls.Add(this.groupBox3);
+			this.tabPage4.Location = new System.Drawing.Point(0, 0);
+			this.tabPage4.Name = "tabPage4";
+			this.tabPage4.Size = new System.Drawing.Size(876, 508);
+			this.tabPage4.TabIndex = 9;
+			// 
+			// label4
+			// 
+			this.label4.Location = new System.Drawing.Point(10, 321);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(94, 16);
+			this.label4.TabIndex = 98;
+			this.label4.Text = "Data stampa:";
+			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// label27
+			// 
+			this.label27.Location = new System.Drawing.Point(12, 350);
+			this.label27.Name = "label27";
+			this.label27.Size = new System.Drawing.Size(94, 16);
+			this.label27.TabIndex = 97;
+			this.label27.Text = "Data ratifica:";
+			this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtDataRatificaScarico
+			// 
+			this.txtDataRatificaScarico.Location = new System.Drawing.Point(112, 350);
+			this.txtDataRatificaScarico.Name = "txtDataRatificaScarico";
+			this.txtDataRatificaScarico.Size = new System.Drawing.Size(80, 23);
+			this.txtDataRatificaScarico.TabIndex = 96;
+			this.txtDataRatificaScarico.Leave += new System.EventHandler(this.txtData_Leave);
+			// 
+			// groupBox4
+			// 
+			this.groupBox4.Controls.Add(this.label1);
+			this.groupBox4.Controls.Add(this.txtDescrBuonoScarico);
+			this.groupBox4.Controls.Add(this.label11);
+			this.groupBox4.Controls.Add(this.cmbTipoBuonoScarico);
+			this.groupBox4.Location = new System.Drawing.Point(9, 5);
+			this.groupBox4.Name = "groupBox4";
+			this.groupBox4.Size = new System.Drawing.Size(375, 170);
+			this.groupBox4.TabIndex = 84;
+			this.groupBox4.TabStop = false;
+			this.groupBox4.Text = "Buono di scarico";
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(17, 15);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(80, 16);
+			this.label1.TabIndex = 84;
+			this.label1.Text = "Tipo:";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtDescrBuonoScarico
+			// 
+			this.txtDescrBuonoScarico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescrBuonoScarico.Location = new System.Drawing.Point(15, 101);
-            this.txtDescrBuonoScarico.MaxLength = 150;
-            this.txtDescrBuonoScarico.Multiline = true;
-            this.txtDescrBuonoScarico.Name = "txtDescrBuonoScarico";
-            this.txtDescrBuonoScarico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescrBuonoScarico.Size = new System.Drawing.Size(352, 56);
-            this.txtDescrBuonoScarico.TabIndex = 82;
-            // 
-            // label11
-            // 
-            this.label11.Location = new System.Drawing.Point(17, 81);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(80, 16);
-            this.label11.TabIndex = 83;
-            this.label11.Text = "Descrizione:";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cmbTipoBuonoScarico
-            // 
-            this.cmbTipoBuonoScarico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDescrBuonoScarico.Location = new System.Drawing.Point(15, 101);
+			this.txtDescrBuonoScarico.MaxLength = 150;
+			this.txtDescrBuonoScarico.Multiline = true;
+			this.txtDescrBuonoScarico.Name = "txtDescrBuonoScarico";
+			this.txtDescrBuonoScarico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtDescrBuonoScarico.Size = new System.Drawing.Size(352, 56);
+			this.txtDescrBuonoScarico.TabIndex = 82;
+			// 
+			// label11
+			// 
+			this.label11.Location = new System.Drawing.Point(17, 81);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(80, 16);
+			this.label11.TabIndex = 83;
+			this.label11.Text = "Descrizione:";
+			this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// cmbTipoBuonoScarico
+			// 
+			this.cmbTipoBuonoScarico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbTipoBuonoScarico.DataSource = this.DS.assetunloadkind;
-            this.cmbTipoBuonoScarico.DisplayMember = "description";
-            this.cmbTipoBuonoScarico.Location = new System.Drawing.Point(17, 34);
-            this.cmbTipoBuonoScarico.MaxDropDownItems = 25;
-            this.cmbTipoBuonoScarico.Name = "cmbTipoBuonoScarico";
-            this.cmbTipoBuonoScarico.Size = new System.Drawing.Size(352, 23);
-            this.cmbTipoBuonoScarico.TabIndex = 80;
-            this.cmbTipoBuonoScarico.ValueMember = "idassetunloadkind";
-            this.cmbTipoBuonoScarico.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
-            this.cmbTipoBuonoScarico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
-            // 
-            // txtDataContScarico
-            // 
-            this.txtDataContScarico.Location = new System.Drawing.Point(112, 282);
-            this.txtDataContScarico.Name = "txtDataContScarico";
-            this.txtDataContScarico.Size = new System.Drawing.Size(80, 23);
-            this.txtDataContScarico.TabIndex = 80;
-            this.txtDataContScarico.Leave += new System.EventHandler(this.txtData_Leave);
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(10, 283);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(96, 16);
-            this.label3.TabIndex = 82;
-            this.label3.Text = "Data contabile";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtDataStampaScarico
-            // 
-            this.txtDataStampaScarico.Location = new System.Drawing.Point(112, 316);
-            this.txtDataStampaScarico.Name = "txtDataStampaScarico";
-            this.txtDataStampaScarico.Size = new System.Drawing.Size(80, 23);
-            this.txtDataStampaScarico.TabIndex = 81;
-            this.txtDataStampaScarico.Leave += new System.EventHandler(this.txtData_Leave);
-            // 
-            // grpCausaleScarico
-            // 
-            this.grpCausaleScarico.Controls.Add(this.cboCausaleScarico);
-            this.grpCausaleScarico.Location = new System.Drawing.Point(3, 235);
-            this.grpCausaleScarico.Name = "grpCausaleScarico";
-            this.grpCausaleScarico.Size = new System.Drawing.Size(370, 40);
-            this.grpCausaleScarico.TabIndex = 31;
-            this.grpCausaleScarico.TabStop = false;
-            this.grpCausaleScarico.Tag = "";
-            this.grpCausaleScarico.Text = "Causale di Scarico";
-            // 
-            // cboCausaleScarico
-            // 
-            this.cboCausaleScarico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbTipoBuonoScarico.DataSource = this.DS.assetunloadkind;
+			this.cmbTipoBuonoScarico.DisplayMember = "description";
+			this.cmbTipoBuonoScarico.Location = new System.Drawing.Point(17, 34);
+			this.cmbTipoBuonoScarico.MaxDropDownItems = 25;
+			this.cmbTipoBuonoScarico.Name = "cmbTipoBuonoScarico";
+			this.cmbTipoBuonoScarico.Size = new System.Drawing.Size(352, 23);
+			this.cmbTipoBuonoScarico.TabIndex = 80;
+			this.cmbTipoBuonoScarico.ValueMember = "idassetunloadkind";
+			this.cmbTipoBuonoScarico.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
+			this.cmbTipoBuonoScarico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
+			// 
+			// txtDataContScarico
+			// 
+			this.txtDataContScarico.Location = new System.Drawing.Point(112, 282);
+			this.txtDataContScarico.Name = "txtDataContScarico";
+			this.txtDataContScarico.Size = new System.Drawing.Size(80, 23);
+			this.txtDataContScarico.TabIndex = 80;
+			this.txtDataContScarico.Leave += new System.EventHandler(this.txtData_Leave);
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(10, 283);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(96, 16);
+			this.label3.TabIndex = 82;
+			this.label3.Text = "Data contabile";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtDataStampaScarico
+			// 
+			this.txtDataStampaScarico.Location = new System.Drawing.Point(112, 316);
+			this.txtDataStampaScarico.Name = "txtDataStampaScarico";
+			this.txtDataStampaScarico.Size = new System.Drawing.Size(80, 23);
+			this.txtDataStampaScarico.TabIndex = 81;
+			this.txtDataStampaScarico.Leave += new System.EventHandler(this.txtData_Leave);
+			// 
+			// grpCausaleScarico
+			// 
+			this.grpCausaleScarico.Controls.Add(this.cboCausaleScarico);
+			this.grpCausaleScarico.Location = new System.Drawing.Point(3, 235);
+			this.grpCausaleScarico.Name = "grpCausaleScarico";
+			this.grpCausaleScarico.Size = new System.Drawing.Size(370, 40);
+			this.grpCausaleScarico.TabIndex = 31;
+			this.grpCausaleScarico.TabStop = false;
+			this.grpCausaleScarico.Tag = "";
+			this.grpCausaleScarico.Text = "Causale di Scarico";
+			// 
+			// cboCausaleScarico
+			// 
+			this.cboCausaleScarico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboCausaleScarico.DataSource = this.DS.assetunloadmotive;
-            this.cboCausaleScarico.DisplayMember = "description";
-            this.cboCausaleScarico.Location = new System.Drawing.Point(16, 14);
-            this.cboCausaleScarico.MaxDropDownItems = 25;
-            this.cboCausaleScarico.Name = "cboCausaleScarico";
-            this.cboCausaleScarico.Size = new System.Drawing.Size(348, 23);
-            this.cboCausaleScarico.TabIndex = 48;
-            this.cboCausaleScarico.ValueMember = "idmot";
-            this.cboCausaleScarico.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
-            this.cboCausaleScarico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cboCausaleScarico.DataSource = this.DS.assetunloadmotive;
+			this.cboCausaleScarico.DisplayMember = "description";
+			this.cboCausaleScarico.Location = new System.Drawing.Point(16, 14);
+			this.cboCausaleScarico.MaxDropDownItems = 25;
+			this.cboCausaleScarico.Name = "cboCausaleScarico";
+			this.cboCausaleScarico.Size = new System.Drawing.Size(348, 23);
+			this.cboCausaleScarico.TabIndex = 48;
+			this.cboCausaleScarico.ValueMember = "idmot";
+			this.cboCausaleScarico.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
+			this.cboCausaleScarico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.label15);
-            this.groupBox2.Controls.Add(this.txtDataProvvScarico);
-            this.groupBox2.Controls.Add(this.txtProvvScarico);
-            this.groupBox2.Location = new System.Drawing.Point(390, 143);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(449, 132);
-            this.groupBox2.TabIndex = 33;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Provvedimento";
-            // 
-            // label15
-            // 
-            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label15.Location = new System.Drawing.Point(284, 98);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(40, 16);
-            this.label15.TabIndex = 75;
-            this.label15.Text = "Data:";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDataProvvScarico
-            // 
-            this.txtDataProvvScarico.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDataProvvScarico.Location = new System.Drawing.Point(332, 98);
-            this.txtDataProvvScarico.Name = "txtDataProvvScarico";
-            this.txtDataProvvScarico.Size = new System.Drawing.Size(88, 23);
-            this.txtDataProvvScarico.TabIndex = 74;
-            this.txtDataProvvScarico.Leave += new System.EventHandler(this.txtData_Leave);
-            // 
-            // txtProvvScarico
-            // 
-            this.txtProvvScarico.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox2.Controls.Add(this.label15);
+			this.groupBox2.Controls.Add(this.txtDataProvvScarico);
+			this.groupBox2.Controls.Add(this.txtProvvScarico);
+			this.groupBox2.Location = new System.Drawing.Point(390, 143);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(449, 132);
+			this.groupBox2.TabIndex = 33;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Provvedimento";
+			// 
+			// label15
+			// 
+			this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.label15.Location = new System.Drawing.Point(284, 98);
+			this.label15.Name = "label15";
+			this.label15.Size = new System.Drawing.Size(40, 16);
+			this.label15.TabIndex = 75;
+			this.label15.Text = "Data:";
+			this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtDataProvvScarico
+			// 
+			this.txtDataProvvScarico.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDataProvvScarico.Location = new System.Drawing.Point(332, 98);
+			this.txtDataProvvScarico.Name = "txtDataProvvScarico";
+			this.txtDataProvvScarico.Size = new System.Drawing.Size(88, 23);
+			this.txtDataProvvScarico.TabIndex = 74;
+			this.txtDataProvvScarico.Leave += new System.EventHandler(this.txtData_Leave);
+			// 
+			// txtProvvScarico
+			// 
+			this.txtProvvScarico.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtProvvScarico.Location = new System.Drawing.Point(16, 16);
-            this.txtProvvScarico.MaxLength = 150;
-            this.txtProvvScarico.Multiline = true;
-            this.txtProvvScarico.Name = "txtProvvScarico";
-            this.txtProvvScarico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtProvvScarico.Size = new System.Drawing.Size(398, 71);
-            this.txtProvvScarico.TabIndex = 72;
-            // 
-            // grpCessionario
-            // 
-            this.grpCessionario.Controls.Add(this.txtCessionario);
-            this.grpCessionario.Location = new System.Drawing.Point(8, 181);
-            this.grpCessionario.Name = "grpCessionario";
-            this.grpCessionario.Size = new System.Drawing.Size(370, 48);
-            this.grpCessionario.TabIndex = 30;
-            this.grpCessionario.TabStop = false;
-            this.grpCessionario.Tag = "AutoChoose.txtCessionario.default.(active=\'S\')";
-            this.grpCessionario.Text = "Cessionario";
-            // 
-            // txtCessionario
-            // 
-            this.txtCessionario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtProvvScarico.Location = new System.Drawing.Point(16, 16);
+			this.txtProvvScarico.MaxLength = 150;
+			this.txtProvvScarico.Multiline = true;
+			this.txtProvvScarico.Name = "txtProvvScarico";
+			this.txtProvvScarico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtProvvScarico.Size = new System.Drawing.Size(398, 71);
+			this.txtProvvScarico.TabIndex = 72;
+			// 
+			// grpCessionario
+			// 
+			this.grpCessionario.Controls.Add(this.txtCessionario);
+			this.grpCessionario.Location = new System.Drawing.Point(8, 181);
+			this.grpCessionario.Name = "grpCessionario";
+			this.grpCessionario.Size = new System.Drawing.Size(370, 48);
+			this.grpCessionario.TabIndex = 30;
+			this.grpCessionario.TabStop = false;
+			this.grpCessionario.Tag = "AutoChoose.txtCessionario.default.(active=\'S\')";
+			this.grpCessionario.Text = "Cessionario";
+			// 
+			// txtCessionario
+			// 
+			this.txtCessionario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCessionario.Location = new System.Drawing.Point(16, 16);
-            this.txtCessionario.Name = "txtCessionario";
-            this.txtCessionario.Size = new System.Drawing.Size(338, 23);
-            this.txtCessionario.TabIndex = 1;
-            this.txtCessionario.Tag = "registry_assetunload.title?x";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtCessionario.Location = new System.Drawing.Point(16, 16);
+			this.txtCessionario.Name = "txtCessionario";
+			this.txtCessionario.Size = new System.Drawing.Size(338, 23);
+			this.txtCessionario.TabIndex = 1;
+			this.txtCessionario.Tag = "registry_assetunload.title?x";
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.txtDataDocScarico);
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.txtDocScarico);
-            this.groupBox3.Location = new System.Drawing.Point(388, 4);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(451, 140);
-            this.groupBox3.TabIndex = 32;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Documento";
-            // 
-            // txtDataDocScarico
-            // 
-            this.txtDataDocScarico.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDataDocScarico.Location = new System.Drawing.Point(334, 104);
-            this.txtDataDocScarico.Name = "txtDataDocScarico";
-            this.txtDataDocScarico.Size = new System.Drawing.Size(80, 23);
-            this.txtDataDocScarico.TabIndex = 65;
-            this.txtDataDocScarico.Leave += new System.EventHandler(this.txtData_Leave);
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.Location = new System.Drawing.Point(286, 104);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 16);
-            this.label2.TabIndex = 66;
-            this.label2.Text = "Data:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDocScarico
-            // 
-            this.txtDocScarico.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox3.Controls.Add(this.txtDataDocScarico);
+			this.groupBox3.Controls.Add(this.label2);
+			this.groupBox3.Controls.Add(this.txtDocScarico);
+			this.groupBox3.Location = new System.Drawing.Point(388, 4);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(451, 140);
+			this.groupBox3.TabIndex = 32;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Documento";
+			// 
+			// txtDataDocScarico
+			// 
+			this.txtDataDocScarico.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDataDocScarico.Location = new System.Drawing.Point(334, 104);
+			this.txtDataDocScarico.Name = "txtDataDocScarico";
+			this.txtDataDocScarico.Size = new System.Drawing.Size(80, 23);
+			this.txtDataDocScarico.TabIndex = 65;
+			this.txtDataDocScarico.Leave += new System.EventHandler(this.txtData_Leave);
+			// 
+			// label2
+			// 
+			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.label2.Location = new System.Drawing.Point(286, 104);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(40, 16);
+			this.label2.TabIndex = 66;
+			this.label2.Text = "Data:";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtDocScarico
+			// 
+			this.txtDocScarico.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDocScarico.Location = new System.Drawing.Point(16, 16);
-            this.txtDocScarico.MaxLength = 35;
-            this.txtDocScarico.Multiline = true;
-            this.txtDocScarico.Name = "txtDocScarico";
-            this.txtDocScarico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDocScarico.Size = new System.Drawing.Size(400, 82);
-            this.txtDocScarico.TabIndex = 63;
-            // 
-            // tabPage2bis
-            // 
-            this.tabPage2bis.Controls.Add(this.groupBox10);
-            this.tabPage2bis.Controls.Add(this.btnSelezionaTutto);
-            this.tabPage2bis.Controls.Add(this.label17);
-            this.tabPage2bis.Controls.Add(this.label10);
-            this.tabPage2bis.Location = new System.Drawing.Point(0, 0);
-            this.tabPage2bis.Name = "tabPage2bis";
-            this.tabPage2bis.Selected = false;
-            this.tabPage2bis.Size = new System.Drawing.Size(876, 508);
-            this.tabPage2bis.TabIndex = 7;
-            this.tabPage2bis.Title = "Page 2bis";
-            // 
-            // groupBox10
-            // 
-            this.groupBox10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtDocScarico.Location = new System.Drawing.Point(16, 16);
+			this.txtDocScarico.MaxLength = 35;
+			this.txtDocScarico.Multiline = true;
+			this.txtDocScarico.Name = "txtDocScarico";
+			this.txtDocScarico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtDocScarico.Size = new System.Drawing.Size(400, 82);
+			this.txtDocScarico.TabIndex = 63;
+			// 
+			// tabPage2bis
+			// 
+			this.tabPage2bis.Controls.Add(this.groupBox10);
+			this.tabPage2bis.Controls.Add(this.btnSelezionaTutto);
+			this.tabPage2bis.Controls.Add(this.label17);
+			this.tabPage2bis.Controls.Add(this.label10);
+			this.tabPage2bis.Location = new System.Drawing.Point(0, 0);
+			this.tabPage2bis.Name = "tabPage2bis";
+			this.tabPage2bis.Selected = false;
+			this.tabPage2bis.Size = new System.Drawing.Size(876, 508);
+			this.tabPage2bis.TabIndex = 7;
+			this.tabPage2bis.Title = "Page 2bis";
+			// 
+			// groupBox10
+			// 
+			this.groupBox10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox10.Controls.Add(this.gridCespiti);
-            this.groupBox10.Location = new System.Drawing.Point(12, 62);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(834, 426);
-            this.groupBox10.TabIndex = 31;
-            this.groupBox10.TabStop = false;
-            // 
-            // gridCespiti
-            // 
-            this.gridCespiti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox10.Controls.Add(this.gridCespiti);
+			this.groupBox10.Location = new System.Drawing.Point(12, 62);
+			this.groupBox10.Name = "groupBox10";
+			this.groupBox10.Size = new System.Drawing.Size(834, 426);
+			this.groupBox10.TabIndex = 31;
+			this.groupBox10.TabStop = false;
+			// 
+			// gridCespiti
+			// 
+			this.gridCespiti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridCespiti.DataMember = "";
-            this.gridCespiti.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.gridCespiti.Location = new System.Drawing.Point(6, 12);
-            this.gridCespiti.Name = "gridCespiti";
-            this.gridCespiti.Size = new System.Drawing.Size(795, 391);
-            this.gridCespiti.TabIndex = 0;
-            this.gridCespiti.Tag = "assetview.default";
-            // 
-            // btnSelezionaTutto
-            // 
-            this.btnSelezionaTutto.Location = new System.Drawing.Point(13, 9);
-            this.btnSelezionaTutto.Name = "btnSelezionaTutto";
-            this.btnSelezionaTutto.Size = new System.Drawing.Size(88, 23);
-            this.btnSelezionaTutto.TabIndex = 30;
-            this.btnSelezionaTutto.Text = "Seleziona tutto";
-            this.btnSelezionaTutto.Click += new System.EventHandler(this.btnSelezionaTutto_Click_1);
-            // 
-            // label17
-            // 
-            this.label17.Location = new System.Drawing.Point(117, 9);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(456, 32);
-            this.label17.TabIndex = 29;
-            this.label17.Text = "Tenere premuto il tasto CTRL o MAIUSC e contemporaneamente cliccare con il mouse " +
+			this.gridCespiti.DataMember = "";
+			this.gridCespiti.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.gridCespiti.Location = new System.Drawing.Point(6, 12);
+			this.gridCespiti.Name = "gridCespiti";
+			this.gridCespiti.Size = new System.Drawing.Size(795, 391);
+			this.gridCespiti.TabIndex = 0;
+			this.gridCespiti.Tag = "assetview.default";
+			// 
+			// btnSelezionaTutto
+			// 
+			this.btnSelezionaTutto.Location = new System.Drawing.Point(13, 9);
+			this.btnSelezionaTutto.Name = "btnSelezionaTutto";
+			this.btnSelezionaTutto.Size = new System.Drawing.Size(88, 23);
+			this.btnSelezionaTutto.TabIndex = 30;
+			this.btnSelezionaTutto.Text = "Seleziona tutto";
+			this.btnSelezionaTutto.Click += new System.EventHandler(this.btnSelezionaTutto_Click_1);
+			// 
+			// label17
+			// 
+			this.label17.Location = new System.Drawing.Point(117, 9);
+			this.label17.Name = "label17";
+			this.label17.Size = new System.Drawing.Size(456, 32);
+			this.label17.TabIndex = 29;
+			this.label17.Text = "Tenere premuto il tasto CTRL o MAIUSC e contemporaneamente cliccare con il mouse " +
     "per selezionare più cespiti da trasferire";
-            // 
-            // label10
-            // 
-            this.label10.Location = new System.Drawing.Point(12, 43);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(440, 16);
-            this.label10.TabIndex = 1;
-            this.label10.Text = "Verranno elaborati i seguenti cespiti principali:";
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.grpInventoryOrigin);
-            this.tabPage1.Location = new System.Drawing.Point(0, 0);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Selected = false;
-            this.tabPage1.Size = new System.Drawing.Size(876, 508);
-            this.tabPage1.TabIndex = 3;
-            this.tabPage1.Title = "Page1";
-            this.tabPage1.Visible = false;
-            // 
-            // grpInventoryOrigin
-            // 
-            this.grpInventoryOrigin.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			// 
+			// label10
+			// 
+			this.label10.Location = new System.Drawing.Point(12, 43);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(440, 16);
+			this.label10.TabIndex = 1;
+			this.label10.Text = "Verranno elaborati i seguenti cespiti principali:";
+			// 
+			// tabPage1
+			// 
+			this.tabPage1.Controls.Add(this.grpInventoryOrigin);
+			this.tabPage1.Location = new System.Drawing.Point(0, 0);
+			this.tabPage1.Name = "tabPage1";
+			this.tabPage1.Selected = false;
+			this.tabPage1.Size = new System.Drawing.Size(876, 508);
+			this.tabPage1.TabIndex = 3;
+			this.tabPage1.Title = "Page1";
+			this.tabPage1.Visible = false;
+			// 
+			// grpInventoryOrigin
+			// 
+			this.grpInventoryOrigin.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpInventoryOrigin.Controls.Add(this.label29);
-            this.grpInventoryOrigin.Controls.Add(this.cboConsegnatario);
-            this.grpInventoryOrigin.Controls.Add(this.label28);
-            this.grpInventoryOrigin.Controls.Add(this.cboResp);
-            this.grpInventoryOrigin.Controls.Add(this.chkReady);
-            this.grpInventoryOrigin.Controls.Add(this.label22);
-            this.grpInventoryOrigin.Controls.Add(this.label25);
-            this.grpInventoryOrigin.Controls.Add(this.txtEnteScarico);
-            this.grpInventoryOrigin.Controls.Add(this.label21);
-            this.grpInventoryOrigin.Controls.Add(this.label16);
-            this.grpInventoryOrigin.Controls.Add(this.label13);
-            this.grpInventoryOrigin.Controls.Add(this.cmbInventarioOrig);
-            this.grpInventoryOrigin.Controls.Add(this.txt_numinv_a);
-            this.grpInventoryOrigin.Controls.Add(this.txt_numinv_da);
-            this.grpInventoryOrigin.Controls.Add(this.label5);
-            this.grpInventoryOrigin.Controls.Add(this.label6);
-            this.grpInventoryOrigin.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpInventoryOrigin.Location = new System.Drawing.Point(7, 4);
-            this.grpInventoryOrigin.Name = "grpInventoryOrigin";
-            this.grpInventoryOrigin.Size = new System.Drawing.Size(835, 476);
-            this.grpInventoryOrigin.TabIndex = 85;
-            this.grpInventoryOrigin.TabStop = false;
-            this.grpInventoryOrigin.Text = "Selezionare l\'Inventario di Partenza";
-            // 
-            // label29
-            // 
-            this.label29.Location = new System.Drawing.Point(12, 131);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(146, 32);
-            this.label29.TabIndex = 92;
-            this.label29.Text = "Subconsegnatario attuale";
-            this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cboConsegnatario
-            // 
-            this.cboConsegnatario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.grpInventoryOrigin.Controls.Add(this.label29);
+			this.grpInventoryOrigin.Controls.Add(this.cboConsegnatario);
+			this.grpInventoryOrigin.Controls.Add(this.label28);
+			this.grpInventoryOrigin.Controls.Add(this.cboResp);
+			this.grpInventoryOrigin.Controls.Add(this.chkReady);
+			this.grpInventoryOrigin.Controls.Add(this.label22);
+			this.grpInventoryOrigin.Controls.Add(this.label25);
+			this.grpInventoryOrigin.Controls.Add(this.txtEnteScarico);
+			this.grpInventoryOrigin.Controls.Add(this.label21);
+			this.grpInventoryOrigin.Controls.Add(this.label16);
+			this.grpInventoryOrigin.Controls.Add(this.label13);
+			this.grpInventoryOrigin.Controls.Add(this.cmbInventarioOrig);
+			this.grpInventoryOrigin.Controls.Add(this.txt_numinv_a);
+			this.grpInventoryOrigin.Controls.Add(this.txt_numinv_da);
+			this.grpInventoryOrigin.Controls.Add(this.label5);
+			this.grpInventoryOrigin.Controls.Add(this.label6);
+			this.grpInventoryOrigin.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.grpInventoryOrigin.Location = new System.Drawing.Point(7, 4);
+			this.grpInventoryOrigin.Name = "grpInventoryOrigin";
+			this.grpInventoryOrigin.Size = new System.Drawing.Size(835, 476);
+			this.grpInventoryOrigin.TabIndex = 85;
+			this.grpInventoryOrigin.TabStop = false;
+			this.grpInventoryOrigin.Text = "Selezionare l\'Inventario di Partenza";
+			// 
+			// label29
+			// 
+			this.label29.Location = new System.Drawing.Point(12, 131);
+			this.label29.Name = "label29";
+			this.label29.Size = new System.Drawing.Size(146, 32);
+			this.label29.TabIndex = 92;
+			this.label29.Text = "Subconsegnatario attuale";
+			this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// cboConsegnatario
+			// 
+			this.cboConsegnatario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboConsegnatario.DataSource = this.DS.managerconsegnatario_origin;
-            this.cboConsegnatario.DisplayMember = "title";
-            this.cboConsegnatario.Location = new System.Drawing.Point(164, 131);
-            this.cboConsegnatario.MaxDropDownItems = 25;
-            this.cboConsegnatario.Name = "cboConsegnatario";
-            this.cboConsegnatario.Size = new System.Drawing.Size(628, 21);
-            this.cboConsegnatario.TabIndex = 91;
-            this.cboConsegnatario.ValueMember = "idman";
-            // 
-            // label28
-            // 
-            this.label28.Location = new System.Drawing.Point(14, 104);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(136, 23);
-            this.label28.TabIndex = 90;
-            this.label28.Text = "Responsabile attuale";
-            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cboResp
-            // 
-            this.cboResp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cboConsegnatario.DataSource = this.DS.managerconsegnatario_origin;
+			this.cboConsegnatario.DisplayMember = "title";
+			this.cboConsegnatario.Location = new System.Drawing.Point(164, 131);
+			this.cboConsegnatario.MaxDropDownItems = 25;
+			this.cboConsegnatario.Name = "cboConsegnatario";
+			this.cboConsegnatario.Size = new System.Drawing.Size(628, 21);
+			this.cboConsegnatario.TabIndex = 91;
+			this.cboConsegnatario.ValueMember = "idman";
+			// 
+			// label28
+			// 
+			this.label28.Location = new System.Drawing.Point(14, 104);
+			this.label28.Name = "label28";
+			this.label28.Size = new System.Drawing.Size(136, 23);
+			this.label28.TabIndex = 90;
+			this.label28.Text = "Responsabile attuale";
+			this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// cboResp
+			// 
+			this.cboResp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboResp.DataSource = this.DS.manager_orig;
-            this.cboResp.DisplayMember = "title";
-            this.cboResp.Location = new System.Drawing.Point(166, 104);
-            this.cboResp.MaxDropDownItems = 25;
-            this.cboResp.Name = "cboResp";
-            this.cboResp.Size = new System.Drawing.Size(628, 21);
-            this.cboResp.TabIndex = 89;
-            this.cboResp.ValueMember = "idman";
-            // 
-            // chkReady
-            // 
-            this.chkReady.AutoSize = true;
-            this.chkReady.Location = new System.Drawing.Point(16, 298);
-            this.chkReady.Name = "chkReady";
-            this.chkReady.Size = new System.Drawing.Size(389, 17);
-            this.chkReady.TabIndex = 88;
-            this.chkReady.Text = "Seleziona solo cespiti marcati come \"Pronti per il trasferimento\"";
-            this.chkReady.UseVisualStyleBackColor = true;
-            // 
-            // label22
-            // 
-            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cboResp.DataSource = this.DS.manager_orig;
+			this.cboResp.DisplayMember = "title";
+			this.cboResp.Location = new System.Drawing.Point(166, 104);
+			this.cboResp.MaxDropDownItems = 25;
+			this.cboResp.Name = "cboResp";
+			this.cboResp.Size = new System.Drawing.Size(628, 21);
+			this.cboResp.TabIndex = 89;
+			this.cboResp.ValueMember = "idman";
+			// 
+			// chkReady
+			// 
+			this.chkReady.AutoSize = true;
+			this.chkReady.Location = new System.Drawing.Point(16, 298);
+			this.chkReady.Name = "chkReady";
+			this.chkReady.Size = new System.Drawing.Size(389, 17);
+			this.chkReady.TabIndex = 88;
+			this.chkReady.Text = "Seleziona solo cespiti marcati come \"Pronti per il trasferimento\"";
+			this.chkReady.UseVisualStyleBackColor = true;
+			// 
+			// label22
+			// 
+			this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label22.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(16, 205);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(778, 23);
-            this.label22.TabIndex = 87;
-            this.label22.Text = "Saranno trasferiti anche gli accessori associati";
-            // 
-            // label25
-            // 
-            this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.label22.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label22.Location = new System.Drawing.Point(16, 205);
+			this.label22.Name = "label22";
+			this.label22.Size = new System.Drawing.Size(778, 23);
+			this.label22.TabIndex = 87;
+			this.label22.Text = "Saranno trasferiti anche gli accessori associati";
+			// 
+			// label25
+			// 
+			this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label25.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(15, 163);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(778, 42);
-            this.label25.TabIndex = 86;
-            this.label25.Text = resources.GetString("label25.Text");
-            // 
-            // txtEnteScarico
-            // 
-            this.txtEnteScarico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.label25.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label25.Location = new System.Drawing.Point(15, 163);
+			this.label25.Name = "label25";
+			this.label25.Size = new System.Drawing.Size(778, 42);
+			this.label25.TabIndex = 86;
+			this.label25.Text = resources.GetString("label25.Text");
+			// 
+			// txtEnteScarico
+			// 
+			this.txtEnteScarico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtEnteScarico.Enabled = false;
-            this.txtEnteScarico.Location = new System.Drawing.Point(67, 48);
-            this.txtEnteScarico.Multiline = true;
-            this.txtEnteScarico.Name = "txtEnteScarico";
-            this.txtEnteScarico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtEnteScarico.Size = new System.Drawing.Size(725, 50);
-            this.txtEnteScarico.TabIndex = 64;
-            this.txtEnteScarico.Tag = "";
-            // 
-            // label21
-            // 
-            this.label21.Location = new System.Drawing.Point(14, 48);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(47, 16);
-            this.label21.TabIndex = 36;
-            this.label21.Text = "Ente:";
-            this.label21.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label16
-            // 
-            this.label16.Location = new System.Drawing.Point(15, 240);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(123, 20);
-            this.label16.TabIndex = 34;
-            this.label16.Text = "Numeri Inventario:";
-            // 
-            // label13
-            // 
-            this.label13.Location = new System.Drawing.Point(13, 19);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(47, 16);
-            this.label13.TabIndex = 33;
-            this.label13.Text = "Tipo:";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // cmbInventarioOrig
-            // 
-            this.cmbInventarioOrig.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtEnteScarico.Enabled = false;
+			this.txtEnteScarico.Location = new System.Drawing.Point(67, 48);
+			this.txtEnteScarico.Multiline = true;
+			this.txtEnteScarico.Name = "txtEnteScarico";
+			this.txtEnteScarico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtEnteScarico.Size = new System.Drawing.Size(725, 50);
+			this.txtEnteScarico.TabIndex = 64;
+			this.txtEnteScarico.Tag = "";
+			// 
+			// label21
+			// 
+			this.label21.Location = new System.Drawing.Point(14, 48);
+			this.label21.Name = "label21";
+			this.label21.Size = new System.Drawing.Size(47, 16);
+			this.label21.TabIndex = 36;
+			this.label21.Text = "Ente:";
+			this.label21.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// label16
+			// 
+			this.label16.Location = new System.Drawing.Point(15, 240);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(123, 20);
+			this.label16.TabIndex = 34;
+			this.label16.Text = "Numeri Inventario:";
+			// 
+			// label13
+			// 
+			this.label13.Location = new System.Drawing.Point(13, 19);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(47, 16);
+			this.label13.TabIndex = 33;
+			this.label13.Text = "Tipo:";
+			this.label13.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// cmbInventarioOrig
+			// 
+			this.cmbInventarioOrig.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbInventarioOrig.DataSource = this.DS.inventory_origin;
-            this.cmbInventarioOrig.DisplayMember = "description";
-            this.cmbInventarioOrig.Location = new System.Drawing.Point(66, 19);
-            this.cmbInventarioOrig.MaxDropDownItems = 25;
-            this.cmbInventarioOrig.Name = "cmbInventarioOrig";
-            this.cmbInventarioOrig.Size = new System.Drawing.Size(726, 21);
-            this.cmbInventarioOrig.TabIndex = 28;
-            this.cmbInventarioOrig.ValueMember = "idinventory";
-            this.cmbInventarioOrig.SelectedIndexChanged += new System.EventHandler(this.cmbInventarioOrig_SelectedIndexChanged);
-            this.cmbInventarioOrig.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
-            this.cmbInventarioOrig.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
-            // 
-            // txt_numinv_a
-            // 
-            this.txt_numinv_a.Location = new System.Drawing.Point(290, 239);
-            this.txt_numinv_a.Name = "txt_numinv_a";
-            this.txt_numinv_a.Size = new System.Drawing.Size(63, 21);
-            this.txt_numinv_a.TabIndex = 31;
-            // 
-            // txt_numinv_da
-            // 
-            this.txt_numinv_da.Location = new System.Drawing.Point(175, 239);
-            this.txt_numinv_da.Name = "txt_numinv_da";
-            this.txt_numinv_da.Size = new System.Drawing.Size(63, 21);
-            this.txt_numinv_da.TabIndex = 29;
-            // 
-            // label5
-            // 
-            this.label5.Location = new System.Drawing.Point(256, 243);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 16);
-            this.label5.TabIndex = 32;
-            this.label5.Text = "a:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label6
-            // 
-            this.label6.Location = new System.Drawing.Point(135, 239);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(39, 16);
-            this.label6.TabIndex = 30;
-            this.label6.Text = "Da:";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // tabPageInizio
-            // 
-            this.tabPageInizio.Controls.Add(this.lblFase1);
-            this.tabPageInizio.Location = new System.Drawing.Point(0, 0);
-            this.tabPageInizio.Name = "tabPageInizio";
-            this.tabPageInizio.Size = new System.Drawing.Size(876, 508);
-            this.tabPageInizio.TabIndex = 6;
-            this.tabPageInizio.Title = "Inizio";
-            // 
-            // lblFase1
-            // 
-            this.lblFase1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.cmbInventarioOrig.DataSource = this.DS.inventory_origin;
+			this.cmbInventarioOrig.DisplayMember = "description";
+			this.cmbInventarioOrig.Location = new System.Drawing.Point(66, 19);
+			this.cmbInventarioOrig.MaxDropDownItems = 25;
+			this.cmbInventarioOrig.Name = "cmbInventarioOrig";
+			this.cmbInventarioOrig.Size = new System.Drawing.Size(726, 21);
+			this.cmbInventarioOrig.TabIndex = 28;
+			this.cmbInventarioOrig.ValueMember = "idinventory";
+			this.cmbInventarioOrig.SelectedIndexChanged += new System.EventHandler(this.cmbInventarioOrig_SelectedIndexChanged);
+			this.cmbInventarioOrig.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
+			this.cmbInventarioOrig.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
+			// 
+			// txt_numinv_a
+			// 
+			this.txt_numinv_a.Location = new System.Drawing.Point(290, 239);
+			this.txt_numinv_a.Name = "txt_numinv_a";
+			this.txt_numinv_a.Size = new System.Drawing.Size(63, 21);
+			this.txt_numinv_a.TabIndex = 31;
+			// 
+			// txt_numinv_da
+			// 
+			this.txt_numinv_da.Location = new System.Drawing.Point(175, 239);
+			this.txt_numinv_da.Name = "txt_numinv_da";
+			this.txt_numinv_da.Size = new System.Drawing.Size(63, 21);
+			this.txt_numinv_da.TabIndex = 29;
+			// 
+			// label5
+			// 
+			this.label5.Location = new System.Drawing.Point(256, 243);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(36, 16);
+			this.label5.TabIndex = 32;
+			this.label5.Text = "a:";
+			this.label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// label6
+			// 
+			this.label6.Location = new System.Drawing.Point(135, 239);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(39, 16);
+			this.label6.TabIndex = 30;
+			this.label6.Text = "Da:";
+			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// tabPageInizio
+			// 
+			this.tabPageInizio.Controls.Add(this.lblFase1);
+			this.tabPageInizio.Location = new System.Drawing.Point(0, 0);
+			this.tabPageInizio.Name = "tabPageInizio";
+			this.tabPageInizio.Selected = false;
+			this.tabPageInizio.Size = new System.Drawing.Size(876, 508);
+			this.tabPageInizio.TabIndex = 6;
+			this.tabPageInizio.Title = "Inizio";
+			// 
+			// lblFase1
+			// 
+			this.lblFase1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFase1.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
-            this.lblFase1.Location = new System.Drawing.Point(8, 16);
-            this.lblFase1.Name = "lblFase1";
-            this.lblFase1.Size = new System.Drawing.Size(833, 404);
-            this.lblFase1.TabIndex = 0;
-            // 
-            // tabController
-            // 
-            this.tabController.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabController.IDEPixelArea = true;
-            this.tabController.Location = new System.Drawing.Point(0, 0);
-            this.tabController.Name = "tabController";
-            this.tabController.SelectedIndex = 0;
-            this.tabController.SelectedTab = this.tabPageInizio;
-            this.tabController.Size = new System.Drawing.Size(876, 533);
-            this.tabController.TabIndex = 1;
-            this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
+			this.lblFase1.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+			this.lblFase1.Location = new System.Drawing.Point(8, 16);
+			this.lblFase1.Name = "lblFase1";
+			this.lblFase1.Size = new System.Drawing.Size(833, 404);
+			this.lblFase1.TabIndex = 0;
+			// 
+			// tabController
+			// 
+			this.tabController.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tabController.IDEPixelArea = true;
+			this.tabController.Location = new System.Drawing.Point(0, 0);
+			this.tabController.Name = "tabController";
+			this.tabController.SelectedIndex = 3;
+			this.tabController.SelectedTab = this.tabPage4;
+			this.tabController.Size = new System.Drawing.Size(876, 533);
+			this.tabController.TabIndex = 1;
+			this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
             this.tabPageInizio,
             this.tabPage1,
             this.tabPage2bis,
@@ -1533,72 +1532,72 @@ namespace asset_cambioinventario {
             this.tabPage2,
             this.tabPage3,
             this.tabPage5});
-            this.tabController.SelectionChanged += new System.EventHandler(this.tabController_SelectionChanged);
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.tabController.SelectionChanged += new System.EventHandler(this.tabController_SelectionChanged);
+			// 
+			// panel1
+			// 
+			this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.tabController);
-            this.panel1.Location = new System.Drawing.Point(1, 1);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(876, 533);
-            this.panel1.TabIndex = 13;
-            // 
-            // Frm_asset_cambioinventario
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(885, 574);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnNext);
-            this.Controls.Add(this.btnBack);
-            this.Name = "Frm_asset_cambioinventario";
-            this.Text = "frmasset_cambioinventario";
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.grpCedente.ResumeLayout(false);
-            this.grpCedente.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.gboxUPB.ResumeLayout(false);
-            this.gboxUPB.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
-            this.grpResponsabile.ResumeLayout(false);
-            this.grpResponsabile.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.grpCausaleScarico.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.grpCessionario.ResumeLayout(false);
-            this.grpCessionario.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.tabPage2bis.ResumeLayout(false);
-            this.groupBox10.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridCespiti)).EndInit();
-            this.tabPage1.ResumeLayout(false);
-            this.grpInventoryOrigin.ResumeLayout(false);
-            this.grpInventoryOrigin.PerformLayout();
-            this.tabPageInizio.ResumeLayout(false);
-            this.tabController.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.ResumeLayout(false);
+			this.panel1.Controls.Add(this.tabController);
+			this.panel1.Location = new System.Drawing.Point(1, 1);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(876, 533);
+			this.panel1.TabIndex = 13;
+			// 
+			// Frm_asset_cambioinventario
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(885, 574);
+			this.Controls.Add(this.panel1);
+			this.Controls.Add(this.btnCancel);
+			this.Controls.Add(this.btnNext);
+			this.Controls.Add(this.btnBack);
+			this.Name = "Frm_asset_cambioinventario";
+			this.Text = "frmasset_cambioinventario";
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.tabPage5.ResumeLayout(false);
+			this.tabPage3.ResumeLayout(false);
+			this.tabPage3.PerformLayout();
+			this.groupBox5.ResumeLayout(false);
+			this.groupBox5.PerformLayout();
+			this.groupBox6.ResumeLayout(false);
+			this.groupBox7.ResumeLayout(false);
+			this.groupBox7.PerformLayout();
+			this.grpCedente.ResumeLayout(false);
+			this.grpCedente.PerformLayout();
+			this.groupBox9.ResumeLayout(false);
+			this.groupBox9.PerformLayout();
+			this.tabPage2.ResumeLayout(false);
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
+			this.gboxUPB.ResumeLayout(false);
+			this.gboxUPB.PerformLayout();
+			this.groupBox8.ResumeLayout(false);
+			this.groupBox8.PerformLayout();
+			this.grpResponsabile.ResumeLayout(false);
+			this.grpResponsabile.PerformLayout();
+			this.tabPage4.ResumeLayout(false);
+			this.tabPage4.PerformLayout();
+			this.groupBox4.ResumeLayout(false);
+			this.groupBox4.PerformLayout();
+			this.grpCausaleScarico.ResumeLayout(false);
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
+			this.grpCessionario.ResumeLayout(false);
+			this.grpCessionario.PerformLayout();
+			this.groupBox3.ResumeLayout(false);
+			this.groupBox3.PerformLayout();
+			this.tabPage2bis.ResumeLayout(false);
+			this.groupBox10.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.gridCespiti)).EndInit();
+			this.tabPage1.ResumeLayout(false);
+			this.grpInventoryOrigin.ResumeLayout(false);
+			this.grpInventoryOrigin.PerformLayout();
+			this.tabPageInizio.ResumeLayout(false);
+			this.tabController.ResumeLayout(false);
+			this.panel1.ResumeLayout(false);
+			this.ResumeLayout(false);
 
         }
 
@@ -1648,7 +1647,7 @@ namespace asset_cambioinventario {
         private void EsaminaFlag() {
 
             if (DS.config.Rows.Count == 0) {
-                MessageBox.Show("La configurazione del PATRIMONIO non è stata definita per l'esercizio corrente. " +
+                show("La configurazione del PATRIMONIO non è stata definita per l'esercizio corrente. " +
                                 "Non sarà possibile salvare il buono di carico.\r" +
                                 @"La configurazione si trova alla voce di menu Configurazione\Operazioni inventariabili\Configurazione",
                     "Attenzione",
@@ -1660,7 +1659,7 @@ namespace asset_cambioinventario {
             DataRow r = DS.Tables["config"].Rows[0];
             string flagnumerazione = r["asset_flagnumbering"].ToString().ToUpper();
             if (flagnumerazione == "" || flagnumerazione == "N") {
-                MessageBox.Show("Non è stato definito il tipo di numerazione per la configurazione " +
+                show("Non è stato definito il tipo di numerazione per la configurazione " +
                                 "del PATRIMONIO per l'esercizio corrente. " +
                                 "Non sarà possibile salvare il buono di carico.\r" +
                                 @"La configurazione si trova alla voce di menu Configurazione\Operazioni inventariabili\Configurazione",
@@ -1702,7 +1701,7 @@ namespace asset_cambioinventario {
 
         bool CustomChangeTab(int oldTab, int newTab) {
             if ((oldTab == 0) && (newTab == 1)) return true;
-            if ((oldTab == 1) && (newTab == 2)) {
+            if (((oldTab == 1) && (newTab == 2)) || ((oldTab == 3) && (newTab == 2))) {
                 if (GetFiltroScarico()) {
                     return AggiornaGrid();
                 }
@@ -2027,6 +2026,7 @@ namespace asset_cambioinventario {
             NewAssetPiece["lu"] = "trasf_inventario";
 
             NewAssetPiece["nassetacquire"] = new_nassetacquire["nassetacquire"];
+            NewAssetPiece["idinventory"] = new_nassetacquire["idinventory"];
             // attenzione al numero inventario
             NewAssetPiece["ninventory"] = DBNull.Value;
             NewAssetPiece["rtf"] = R["rtf"];
@@ -2085,10 +2085,10 @@ namespace asset_cambioinventario {
             NewAssetAcq["idinv"] = R["idinv"];
             NewAssetAcq["idlist"] = R["idlist"];
             
-            NewAssetAcq["idinvkind"] = R["idinvkind"];
-            NewAssetAcq["yinv"] = R["yinv"];
-            NewAssetAcq["ninv"] = R["ninv"];
-            NewAssetAcq["invrownum"] = R["invrownum"];
+            //NewAssetAcq["idinvkind"] = R["idinvkind"];
+            //NewAssetAcq["yinv"] = R["yinv"];
+            //NewAssetAcq["ninv"] = R["ninv"];
+            //NewAssetAcq["invrownum"] = R["invrownum"];
 
 
             //decimal tax = CfgFn.GetNoNullDecimal(R["tax"]);   -->
@@ -2376,7 +2376,7 @@ namespace asset_cambioinventario {
                 return pd.DO_POST();
             }
             else {
-                MessageBox.Show("Non ci sono cespiti da elaborare", "Attenzione");
+                show("Non ci sono cespiti da elaborare", "Attenzione");
             }
             return true;
         }
@@ -2653,7 +2653,7 @@ namespace asset_cambioinventario {
             if (GetInfoCarico()) {
                 string msg =
                     "Si desidera proseguire? Tutti i cespiti selezionati saranno scaricati con i relativi accessori e caricati nel nuovo inventario";
-                if (MessageBox.Show(msg, "Attenzione",
+                if (show(msg, "Attenzione",
                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) != DialogResult.Yes)
                     return false;
 
@@ -2755,7 +2755,7 @@ namespace asset_cambioinventario {
             assetUnloadMotive = DBNull.Value;
             docUnload = "";
             docDateUnload = DBNull.Value;
-            enactmentUnload = "";
+            enactmentUnload = DBNull.Value;
             enactmentDateUnload = DBNull.Value;
             printDateUnload = DBNull.Value;
             _adateUnload = DBNull.Value;
@@ -2770,7 +2770,7 @@ namespace asset_cambioinventario {
 
             }
             else {
-                MessageBox.Show("Selezionare il Tipo Buono di Scarico");
+                show("Selezionare il Tipo Buono di Scarico");
                 return false;
             }
 
@@ -3025,7 +3025,7 @@ namespace asset_cambioinventario {
         }
 
         private void ShowMsg(string msg) {
-            MessageBox.Show(this,msg, "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            show(this,msg, "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
 
@@ -3206,4 +3206,4 @@ namespace asset_cambioinventario {
             }
         }
     }
-}
+}

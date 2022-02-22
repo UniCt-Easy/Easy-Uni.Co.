@@ -1,0 +1,234 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabregistry_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabregistry_default_0"><i class="fa fa-users mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_default_2" class="nav-link" data-toggle="pill" data-target="#tabregistry_default_2"><i class="fa fa-map-marked-alt mr-1"></i>Indirizzi</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_default_1" class="nav-link" data-toggle="pill" data-target="#tabregistry_default_1"><i class="fa fa-users mr-1"></i>Altri Dati</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabregistry_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_idreg">Identificativo</label>
+					<input id="registry_default_idreg" type="text" class="form-control" data-tag="registry.idreg?registrydefaultview.idreg" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_gender">Sesso (M/F)</label>
+					<div class="custom-control custom-radio">
+						<input id="registry_default_genderSi" type="radio" name="registry_default_gender" class="custom-control-input" data-tag="registry.gender:S?registrydefaultview.registry_gender:Si" data-subentity  ><label for="registry_default_genderSi"> Si</label>
+						<input id="registry_default_genderNo" type="radio" name="registry_default_gender" class="custom-control-input" data-tag="registry.gender:N?registrydefaultview.registry_gender:No" data-subentity  ><label for="registry_default_genderNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_idregistryclass">Tipologia</label>
+					<div>
+						<input id="registry_default_idregistryclass" name="registry_default_idregistryclass" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="registryclassdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_idtitle">ID Titolo (tabella title)</label>
+					<div>
+						<input id="registry_default_idtitle" name="registry_default_idtitle" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="title.description" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_residence">Tipo residenza (chiave di tabella residence)</label>
+					<div>
+						<input id="registry_default_residence" name="registry_default_residence" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="residence.description" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_idmaritalstatus">ID Stato civile (tabella maritalstatus)</label>
+					<select id="registry_default_idmaritalstatus" class="custom-select d-block w-100"  data-source-name="maritalstatus" data-value-member="idmaritalstatus" data-display-member="description" data-custom-control="combo" data-tag="registry.idmaritalstatus?registrydefaultview.registry_idmaritalstatus" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_title">Denominazione</label>
+					<input id="registry_default_title" type="text" class="form-control" data-tag="registry.title?registrydefaultview.title" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_surname">Cognome</label>
+					<input id="registry_default_surname" type="text" class="form-control" data-tag="registry.surname?registrydefaultview.registry_surname" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_forename">Nome</label>
+					<input id="registry_default_forename" type="text" class="form-control" data-tag="registry.forename?registrydefaultview.registry_forename" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_idnation">Id nazione (tabella geo_nation)</label>
+					<div>
+						<input id="registry_default_idnation" name="registry_default_idnation" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_nation.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_idcity">id citt? (tabella geo_city)</label>
+					<div>
+						<input id="registry_default_idcity" name="registry_default_idcity" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#registry_default_birthdate").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="registry_default_birthdate">Data di nascita</label>
+					<input id="registry_default_birthdate" type="text" class="form-control" data-tag="registry.birthdate?registrydefaultview.registry_birthdate" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_location">ubicazione</label>
+					<input id="registry_default_location" type="text" class="form-control" data-tag="registry.location?registrydefaultview.registry_location" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_cf">Codice fiscale</label>
+					<input id="registry_default_cf" type="text" class="form-control" data-tag="registry.cf?registrydefaultview.registry_cf" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_p_iva">Partita iva</label>
+					<input id="registry_default_p_iva" type="text" class="form-control" data-tag="registry.p_iva?registrydefaultview.registry_p_iva" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_foreigncf">Codice fiscale estero</label>
+					<input id="registry_default_foreigncf" type="text" class="form-control" data-tag="registry.foreigncf?registrydefaultview.registry_foreigncf" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_maritalsurname">Cognome acquisito</label>
+					<input id="registry_default_maritalsurname" type="text" class="form-control" data-tag="registry.maritalsurname?registrydefaultview.registry_maritalsurname" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_multi_cf">Consenti duplicazione CF/P. IVA (S/N)</label>
+					<div class="custom-control custom-radio">
+						<input id="registry_default_multi_cfSi" type="radio" name="registry_default_multi_cf" class="custom-control-input" data-tag="registry.multi_cf:S?registrydefaultview.registry_multi_cf:Si" data-subentity  ><label for="registry_default_multi_cfSi"> Si</label>
+						<input id="registry_default_multi_cfNo" type="radio" name="registry_default_multi_cf" class="custom-control-input" data-tag="registry.multi_cf:N?registrydefaultview.registry_multi_cf:No" data-subentity  ><label for="registry_default_multi_cfNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_active">attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="registry_default_activeSi" type="radio" name="registry_default_active" class="custom-control-input" data-tag="registry.active:S?registrydefaultview.registry_active:Si" data-subentity  data-mandatory ><label for="registry_default_activeSi"> Si</label>
+						<input id="registry_default_activeNo" type="radio" name="registry_default_active" class="custom-control-input" data-tag="registry.active:N?registrydefaultview.registry_active:No" data-subentity  data-mandatory ><label for="registry_default_activeNo"> No</label>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_default_2" role="tabpanel">
+				<div class="gridx" id="grid_registryaddress_seg" data-tag="registryaddress.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="active,S,Si;active,N,No;flagforeign,S,Si;flagforeign,N,No;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_default_1" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_idregistrykind">ID Classificazione Anagrafica (tabella registrykind)</label>
+					<select id="registry_default_idregistrykind" class="custom-select d-block w-100"  data-source-name="registrykind" data-value-member="idregistrykind" data-display-member="description" data-custom-control="combo" data-tag="registry.idregistrykind?registrydefaultview.registry_idregistrykind" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_idcentralizedcategory">ID Classificazione centralizzata anagrafica (tabella centralizedcategory)</label>
+					<div>
+						<input id="registry_default_idcentralizedcategory" name="registry_default_idcentralizedcategory" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="centralizedcategory.description" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_idcategory">ID Categoria (tabella category)</label>
+					<div>
+						<input id="registry_default_idcategory" name="registry_default_idcategory" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="category.description" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_badgecode">Codice badge</label>
+					<input id="registry_default_badgecode" type="text" class="form-control" data-tag="registry.badgecode?registrydefaultview.registry_badgecode" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_extmatricula">Matricola</label>
+					<input id="registry_default_extmatricula" type="text" class="form-control" data-tag="registry.extmatricula?registrydefaultview.registry_extmatricula" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_authorization_free">Esente ai fini dell'autorizzazione EQUITALIA. (S/N)</label>
+					<div class="custom-control custom-radio">
+						<input id="registry_default_authorization_freeSi" type="radio" name="registry_default_authorization_free" class="custom-control-input" data-tag="registry.authorization_free:S?registrydefaultview.registry_authorization_free:Si" data-subentity  ><label for="registry_default_authorization_freeSi"> Si</label>
+						<input id="registry_default_authorization_freeNo" type="radio" name="registry_default_authorization_free" class="custom-control-input" data-tag="registry.authorization_free:N?registrydefaultview.registry_authorization_free:No" data-subentity  ><label for="registry_default_authorization_freeNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_ccp">Conto corrente postale di Riscossione</label>
+					<input id="registry_default_ccp" type="text" class="form-control" data-tag="registry.ccp?registrydefaultview.registry_ccp" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_flagbankitaliaproceeds">Regolarizzazione Riscossioni presso  T.P.S. - Banca d'Italia</label>
+					<div class="custom-control custom-radio">
+						<input id="registry_default_flagbankitaliaproceedsSi" type="radio" name="registry_default_flagbankitaliaproceeds" class="custom-control-input" data-tag="registry.flagbankitaliaproceeds:S?registrydefaultview.registry_flagbankitaliaproceeds:Si" data-subentity  ><label for="registry_default_flagbankitaliaproceedsSi"> Si</label>
+						<input id="registry_default_flagbankitaliaproceedsNo" type="radio" name="registry_default_flagbankitaliaproceeds" class="custom-control-input" data-tag="registry.flagbankitaliaproceeds:N?registrydefaultview.registry_flagbankitaliaproceeds:No" data-subentity  ><label for="registry_default_flagbankitaliaproceedsNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_flag_pa">Applica lo split payment  (per le fatture di vendita)</label>
+					<div class="custom-control custom-radio">
+						<input id="registry_default_flag_paSi" type="radio" name="registry_default_flag_pa" class="custom-control-input" data-tag="registry.flag_pa:S?registrydefaultview.registry_flag_pa:Si" data-subentity  ><label for="registry_default_flag_paSi"> Si</label>
+						<input id="registry_default_flag_paNo" type="radio" name="registry_default_flag_pa" class="custom-control-input" data-tag="registry.flag_pa:N?registrydefaultview.registry_flag_pa:No" data-subentity  ><label for="registry_default_flag_paNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_ipa_fe">Codice Univoco Ufficio di PCC o Codice Univoco Ufficio di IPA, prelevato dal sito www.indicepa.gov.it.</label>
+					<input id="registry_default_ipa_fe" type="text" class="form-control" data-tag="registry.ipa_fe?registrydefaultview.registry_ipa_fe" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_annotation">Annotazioni</label>
+					<input id="registry_default_annotation" type="text" class="form-control" data-tag="registry.annotation?registrydefaultview.registry_annotation" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_sdi_norifamm">Consenti al fornitore di non specificare il riferimento amministrativo in fatt.elettronica</label>
+					<div class="custom-control custom-radio">
+						<input id="registry_default_sdi_norifammSi" type="radio" name="registry_default_sdi_norifamm" class="custom-control-input" data-tag="registry.sdi_norifamm:S?registrydefaultview.registry_sdi_norifamm:Si" data-subentity  ><label for="registry_default_sdi_norifammSi"> Si</label>
+						<input id="registry_default_sdi_norifammNo" type="radio" name="registry_default_sdi_norifamm" class="custom-control-input" data-tag="registry.sdi_norifamm:N?registrydefaultview.registry_sdi_norifamm:No" data-subentity  ><label for="registry_default_sdi_norifammNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_sdi_defrifamm">Rif.Amministrazione di default per fattura elettronica</label>
+					<input id="registry_default_sdi_defrifamm" type="text" class="form-control" data-tag="registry.sdi_defrifamm?registrydefaultview.registry_sdi_defrifamm" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_default_ipa_perlapa">Ipa_perlapa</label>
+					<input id="registry_default_ipa_perlapa" type="text" class="form-control" data-tag="registry.ipa_perlapa?registrydefaultview.registry_ipa_perlapa" data-subentity  />
+				</div>
+			</div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

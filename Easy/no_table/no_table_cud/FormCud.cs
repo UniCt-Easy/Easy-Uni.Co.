@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -30,7 +29,7 @@ using System.Collections;
 using System.Globalization;
 
 namespace no_table_cud {
-    public partial class FormCud : Form {
+    public partial class FormCud : MetaDataForm {
         MetaData Meta;
         QueryHelper QHS;
         CQueryHelper QHC;
@@ -109,7 +108,7 @@ namespace no_table_cud {
                     else {
                         if (!vecchio.Equals(parte[i])) {
                             ht.Remove(tag);
-                            //MessageBox.Show(this, "Campo: " + tag + "\r\n" + vecchio + "\r\n" + getValore(rRecordG), "ERRORE");
+                            //show(this, "Campo: " + tag + "\r\n" + vecchio + "\r\n" + getValore(rRecordG), "ERRORE");
                         }
                     }
                 }
@@ -129,7 +128,7 @@ namespace no_table_cud {
                 else {
                     if (!old.Equals(getValore(rRecordG))) {
                         ht.Remove(campo);
-                        //MessageBox.Show(this, "Campo: " + campo + "\r\n" + old + "\r\n" + getValore(rRecordG), "ERRORE");
+                        //show(this, "Campo: " + campo + "\r\n" + old + "\r\n" + getValore(rRecordG), "ERRORE");
                     }
                 }
             }
@@ -176,13 +175,13 @@ namespace no_table_cud {
         private void btnGeneraCud_Click(object sender, EventArgs e) {
             QHS = Meta.Conn.GetQueryHelper();
             if (!Meta.GetSys("esercizio").Equals(2010)) {
-                MessageBox.Show(this, "Questa procedura produce solo modelli cud per l'anno 2010", "Errore");
+                show(this, "Questa procedura produce solo modelli cud per l'anno 2010", "Errore");
                 return;
             }
             if (txtCartella.Text == "") {
                 faiScegliereCartella();
                 if (txtCartella.Text == "") {
-                    MessageBox.Show(this, "Occorre specificare la cartella in cui creare i modelli CUD", "errore");
+                    show(this, "Occorre specificare la cartella in cui creare i modelli CUD", "errore");
                     return;
                 }
             }
@@ -194,7 +193,7 @@ namespace no_table_cud {
             }
             catch (Exception ex) {
                 if (!File.Exists(moduloPdf)) {
-                    MessageBox.Show(this, ex.Message, "Errore");
+                    show(this, ex.Message, "Errore");
                 }
             }
             if (!verificaContrattiNonPagati()) return;
@@ -204,7 +203,7 @@ namespace no_table_cud {
 
             DataSet ds = Meta.Conn.CallSP("exp_modello770_10_g", new object[] {"cud"}, true, 0);
             if ((ds == null) || (ds.Tables.Count == 0)) {
-                MessageBox.Show(this, "La procedura di estrazione dati ha riscontrato un errore o non ha restituito risultati");
+                show(this, "La procedura di estrazione dati ha riscontrato un errore o non ha restituito risultati");
                 return;
             }
             DataTable tRecordG = ds.Tables[0];
@@ -370,7 +369,7 @@ namespace no_table_cud {
                 stampaXml(ht, commento);
             }
             Cursor = null;
-            MessageBox.Show(this, "Sono stati generati " + collaboratori.Count + " modelli CUD (.xdp) nella cartella:\n" 
+            show(this, "Sono stati generati " + collaboratori.Count + " modelli CUD (.xdp) nella cartella:\n" 
                 + txtCartella.Text
                 + "\nIl file CUDmod_2010.pdf va ignorato perchè contiene solo il modello CUD vuoto.", "Salvataggio effettuato");
         }
@@ -576,7 +575,7 @@ namespace no_table_cud {
         private void btnProblemi_Click(object sender, EventArgs e) {
             DataTable z = controlloCompleto();
             if (z.Rows.Count == 0) {
-                MessageBox.Show(this, "Non ci sono problemi di configurazione delle prestazioni", "Nessun problema riscontrato");
+                show(this, "Non ci sono problemi di configurazione delle prestazioni", "Nessun problema riscontrato");
             }
             exportclass.DataTableToExcel(z, true);
         }
@@ -609,7 +608,7 @@ namespace no_table_cud {
                 errore += "\n\npoichè in tali contratti ci sono cedolini non pagati,"
                     + "tali cedolini vanno trasferiti nella competenza dell'esercizio attuale."
                     + "\nL'operazione è stata annullata.";
-                MessageBox.Show(this, errore);
+                show(this, errore);
                 return false;
             }
             return true;
@@ -643,7 +642,7 @@ namespace no_table_cud {
                     errore += "\nn° " + r["ncon"] + " del " + r["ycon"] + "-" + r["description"];
                 }
                 errore += "\nL'operazione è stata annullata.";
-                MessageBox.Show(this, errore);
+                show(this, errore);
                 return false;
             }
             return true;
@@ -675,7 +674,7 @@ namespace no_table_cud {
                     errore += "\nn° " + r["ncon"] + " del " + r["ycon"] + "-" + r["description"];
                 }
                 errore += "\nL'operazione è stata annullata.";
-                MessageBox.Show(this, errore);
+                show(this, errore);
                 return false;
             }
             return true;
@@ -713,7 +712,7 @@ namespace no_table_cud {
                     errore += "\n" + r["title"];
                 }
                 errore += "\nL'operazione è stata annullata.";
-                MessageBox.Show(this, errore);
+                show(this, errore);
                 return false;
             }
             return true;
@@ -766,4 +765,4 @@ namespace no_table_cud {
             exportclass.DataTableToExcel(t, true);
         }
     }
-}
+}

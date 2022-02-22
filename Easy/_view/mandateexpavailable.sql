@@ -1,9 +1,26 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA mandateexpavailable
 IF EXISTS(select * from sysobjects where id = object_id(N'[mandateexpavailable]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [mandateexpavailable]
 GO
 
-
+-- setuser 'amministrazione'
 --select * from mandateexpavailable
 -- Rusciano G. 01.12.2005
 CREATE      VIEW [mandateexpavailable]
@@ -33,7 +50,8 @@ CREATE      VIEW [mandateexpavailable]
 	idsor01,idsor02,idsor03,idsor04,idsor05,
 	subappropriation,
 	finsubappropriation,
-	adatesubappropriation
+	adatesubappropriation,
+	linktoinvoice
 )
 AS SELECT
 	mandate.idmankind,
@@ -79,16 +97,11 @@ AS SELECT
 		(SELECT CONVERT(DECIMAL(19,2),
 			ISNULL(SUM(
 				CASE 
-				WHEN (md.idexp_taxable IS  NULL) AND ( md.idexp_iva IS  NOT NULL)
-				THEN
-					 ROUND((ISNULL(md.taxable,0) * ISNULL(md.npackage, md.number))  ,2)
+				WHEN (md.idexp_taxable IS  NULL) AND ( md.idexp_iva IS  NOT NULL)				THEN					 ROUND((ISNULL(md.taxable,0) * ISNULL(md.npackage, md.number))  ,2)
 
-			WHEN (( md.idexp_iva IS NULL) AND (md.idexp_taxable IS  NOT NULL) and ( m.flagintracom <>'N'))
-			THEN
-					 0
-				WHEN (( md.idexp_iva IS NULL) AND (md.idexp_taxable IS  NOT NULL) and (m.flagintracom ='N'))
-				THEN
-					 ROUND( ISNULL(md.tax,0)  ,2)
+				WHEN (( md.idexp_iva IS NULL) AND (md.idexp_taxable IS  NOT NULL) and ( m.flagintracom <>'N') and ((m.flagbit&1)=0)) 			THEN	0
+				WHEN (( md.idexp_iva IS NULL) AND (md.idexp_taxable IS  NOT NULL) and ( m.flagintracom <>'N') and ((m.flagbit&1)<>0)) 			THEN	ROUND( ISNULL(md.tax,0)  ,2)
+				WHEN (( md.idexp_iva IS NULL) AND (md.idexp_taxable IS  NOT NULL) and (m.flagintracom ='N') )									THEN	ROUND( ISNULL(md.tax,0)  ,2)
 
 				WHEN ( md.idexp_iva IS  NULL) AND (md.idexp_taxable IS  NULL)
 				THEN
@@ -119,7 +132,8 @@ AS SELECT
 	isnull(mandate.idsor05,mandatekind.idsor05),
 	mandate.subappropriation,
 	mandate.finsubappropriation,
-	mandate.adatesubappropriation
+	mandate.adatesubappropriation,
+	mandatekind.linktoinvoice
 	FROM mandate (NOLOCK)
 	JOIN mandatekind
 	ON mandatekind.idmankind = mandate.idmankind

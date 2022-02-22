@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -32,7 +31,7 @@ namespace banktransaction_recuperadati {
 	/// <summary>
 	/// Summary description for FrmBankTransaction_RecuperaDati.
 	/// </summary>
-	public class FrmBankTransaction_RecuperaDati : System.Windows.Forms.Form {
+	public class FrmBankTransaction_RecuperaDati : MetaDataForm {
 		MetaData Meta;
 		public banktransaction_recuperadati.vistaForm DS;
 		private System.Windows.Forms.Label label1;
@@ -234,7 +233,7 @@ namespace banktransaction_recuperadati {
 				sourceConn = new DataAccess("master", server, db, (int)Meta.GetSys("esercizio"), DateTime.Now);
 			}
 			catch(Exception ex) {
-				MessageBox.Show(this, "Errore nella prima connessione"+"\r\n"+ex.ToString());
+				show(this, "Errore nella prima connessione"+"\r\n"+ex.ToString());
 			}
 
 			string whereClause = "WHERE name NOT IN ('master','model','msdb','tempdb')"; 
@@ -263,7 +262,7 @@ namespace banktransaction_recuperadati {
 				sourceConn = new DataAccess("master", server, db, (int)Meta.GetSys("esercizio"), DateTime.Now);
 			}
 			catch(Exception ex) {
-				MessageBox.Show(this, "Errore nella prima connessione\r\n"+ex.ToString());
+				show(this, "Errore nella prima connessione\r\n"+ex.ToString());
 			}
 			
 
@@ -334,7 +333,7 @@ namespace banktransaction_recuperadati {
 
 			if (!creaEsiti("E")) return false;
 
-			MessageBox.Show(this, "Recupero dati effettuato con successo!", "Procedura Terminata", MessageBoxButtons.OK,
+			show(this, "Recupero dati effettuato con successo!", "Procedura Terminata", MessageBoxButtons.OK,
 				MessageBoxIcon.Information);
 
 			return true;
@@ -993,15 +992,15 @@ namespace banktransaction_recuperadati {
 				StreamWriter fsw = new StreamWriter("temp.sql", false, Encoding.Default);
 				fsw.Write(sw.ToString());
 				fsw.Close();
-				MessageBox.Show(this, "Errore durante la copia: "+nomeCopia+"\r\nLo script lanciato si trova nel file 'temp.sql'");
+				show(this, "Errore durante la copia: "+nomeCopia+"\r\nLo script lanciato si trova nel file 'temp.sql'");
 			}
 			sw.Close();
 			return true;
 		}
 
-		public static bool lanciaScript(Form form, DataAccess destConn, DataTable t, string nomeCopia) {
+		public bool lanciaScript(Form form, DataAccess destConn, DataTable t, string nomeCopia) {
 			if (!CopyTable(form,t,destConn,nomeCopia)){
-				MessageBox.Show(form, "Errore durante la copia: "+nomeCopia+"\r\n");
+				show(form, "Errore durante la copia: " + nomeCopia + "\r\n");
 				return false;
 			}
 			return true;
@@ -1083,4 +1082,4 @@ namespace banktransaction_recuperadati {
 			txtDBOrigine.Text = (cmbDB.SelectedValue == null) ? "" :  cmbDB.SelectedValue.ToString();
 		}
 	}
-}
+}

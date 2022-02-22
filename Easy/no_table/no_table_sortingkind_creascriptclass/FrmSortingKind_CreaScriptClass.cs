@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -29,7 +28,7 @@ using System.IO;
 using System.Collections;
 
 namespace no_table_sortingkind_creascriptclass {
-    public partial class Frmno_table_sortingkind_creascriptclass : Form {
+    public partial class Frmno_table_sortingkind_creascriptclass : MetaDataForm {
         string Header = "--JTR";
         MetaData Meta;
         public Frmno_table_sortingkind_creascriptclass() {
@@ -46,18 +45,18 @@ namespace no_table_sortingkind_creascriptclass {
         private void btnInstall_Click(object sender, EventArgs e) {
             lblFile.Text = "";
             if (txtTipoClass.Text == "") {
-                MessageBox.Show(this, "Specificare il codice del tipo di classificazione", "Errore");
+                show(this, "Specificare il codice del tipo di classificazione", "Errore");
                 return;
             }
             if (txtDescrizione.Text == "") {
-                MessageBox.Show(this, "Specificare la descrizione del tipo di classificazione", "Errore");
+                show(this, "Specificare la descrizione del tipo di classificazione", "Errore");
                 return;
             }
 
             codesorkind = txtTipoClass.Text;
             description = txtDescrizione.Text;
             if (!generaScript()) {
-                MessageBox.Show(this, "Errore! Procedura interrotta");
+                show(this, "Errore! Procedura interrotta");
             }
         }
 
@@ -68,22 +67,22 @@ namespace no_table_sortingkind_creascriptclass {
             DataTable tSorting = DataAccess.CreateTableByName(Meta.Conn, "sorting", "*");
 
             if (!fillSortingKind(tSortingKind)) {
-                MessageBox.Show(this, "Errore nel riempimento di SORTINGKIND");
+                show(this, "Errore nel riempimento di SORTINGKIND");
                 return false;
             }
 
             if (!fillSortingApplicability(tSortingApplicability)){
-                MessageBox.Show(this, "Errore nel riempimento di SORTINGAPPLICABILITY");
+                show(this, "Errore nel riempimento di SORTINGAPPLICABILITY");
                 return false;
             }
 
             if (!fillSortingLevel(tSortingLevel)) {
-                MessageBox.Show(this, "Errore nel riempimento di SORTINGLEVEL");
+                show(this, "Errore nel riempimento di SORTINGLEVEL");
                 return false;
             }
 
             if (!fillSorting(tSorting)) {
-                MessageBox.Show(this, "Errore nel riempimento di SORTING");
+                show(this, "Errore nel riempimento di SORTING");
                 return false;
             }
 
@@ -95,10 +94,10 @@ namespace no_table_sortingkind_creascriptclass {
 
 
             if (!creaScriptClass(dsScript)) {
-                MessageBox.Show(this,"Errore nella generazione del file");
+                show(this,"Errore nella generazione del file");
                 return false;
             }
-            MessageBox.Show(this, "Generazione dello script effettuata");
+            show(this, "Generazione dello script effettuata");
             return true;
         }
         
@@ -134,13 +133,13 @@ namespace no_table_sortingkind_creascriptclass {
         private bool fillSortingLevel(DataTable tSortingLevel) {
             DataTable tInventorySortingLevel = DataAccess.CreateTableByName(Meta.Conn, "inventorysortinglevel", "*");
             if (tInventorySortingLevel == null) {
-                MessageBox.Show(this, "Errore nella creazione della tabella dei livelli");
+                show(this, "Errore nella creazione della tabella dei livelli");
                 return false;
             }
 
             DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, tInventorySortingLevel, "nlevel", null, null, true);
             if (tInventorySortingLevel.Rows.Count == 0) {
-                MessageBox.Show(this, "La tabella dei livelli non ha righe");
+                show(this, "La tabella dei livelli non ha righe");
                 return false;
             }
 
@@ -163,13 +162,13 @@ namespace no_table_sortingkind_creascriptclass {
         private bool fillSorting(DataTable tSorting) {
             DataTable tInventoryTree = DataAccess.CreateTableByName(Meta.Conn, "inventorytree", "*");
             if (tInventoryTree == null) {
-                MessageBox.Show(this, "Errore nella creazione della tabella della class. inventario");
+                show(this, "Errore nella creazione della tabella della class. inventario");
                 return false;
             }
 
             DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, tInventoryTree, "idinv", null, null, true);
             if (tInventoryTree.Rows.Count == 0) {
-                MessageBox.Show(this, "La tabella della classificazione inventariale non ha righe");
+                show(this, "La tabella della classificazione inventariale non ha righe");
                 return false;
             }
 
@@ -198,7 +197,7 @@ namespace no_table_sortingkind_creascriptclass {
             generaSortingKind(Meta.Conn, ds, sw);
             DialogResult dr = saveFileDialog1.ShowDialog();
             if (dr != DialogResult.OK) {
-                MessageBox.Show(this, "File non scelto. Procedura interrotta");
+                show(this, "File non scelto. Procedura interrotta");
                 return false;
             }
             string filename = saveFileDialog1.FileName;
@@ -212,7 +211,7 @@ namespace no_table_sortingkind_creascriptclass {
         private void btnDati_Click(object sender, EventArgs e) {
             DialogResult dr = saveFileDialog1.ShowDialog();
             if (dr != DialogResult.OK) {
-                MessageBox.Show(this, "File non scelto. Procedura interrotta");
+                show(this, "File non scelto. Procedura interrotta");
                 return;
             }
             string filename = saveFileDialog1.FileName;
@@ -223,11 +222,11 @@ namespace no_table_sortingkind_creascriptclass {
             DataTable tInventoryTree = DataAccess.CreateTableByName(Meta.Conn, "inventorytree", "*");
             DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, tInventoryTree, "idinv", null, null, true);
             if (tInventoryTree == null) {
-                MessageBox.Show(this, "Errore nel riempimento dell tabella INVENTORYTREE", "Errore");
+                show(this, "Errore nel riempimento dell tabella INVENTORYTREE", "Errore");
                 return;
             }
             if (tInventoryTree.Rows.Count == 0) {
-                MessageBox.Show(this, "La tabella INVENTORYTREE risulta vuota, non verrà generato alcuno script", "Avviso");
+                show(this, "La tabella INVENTORYTREE risulta vuota, non verrà generato alcuno script", "Avviso");
                 return;
             }
 
@@ -236,7 +235,7 @@ namespace no_table_sortingkind_creascriptclass {
 
             GeneraSQL.GeneraStrutturaEDati(Meta.Conn, dsIT, writer, UpdateType.onlyInsert, DataGenerationType.onlyData, true);
             writer.Close();
-            MessageBox.Show("File generato correttamente");
+            show("File generato correttamente");
             return;
         }
 
@@ -399,7 +398,7 @@ namespace no_table_sortingkind_creascriptclass {
                         }
                         else {
                             if (ParID[Sor["paridsor"].ToString()] == null) {
-                                MessageBox.Show("Riga parent di " + Sor["idsor"].ToString() +
+                                (new MetaDataForm()).show("Riga parent di " + Sor["idsor"].ToString() +
                                     " non trovata in sorting.");
                                 writer.Close();
                                 return false;
@@ -434,4 +433,4 @@ namespace no_table_sortingkind_creascriptclass {
         }
 
     }
-}
+}

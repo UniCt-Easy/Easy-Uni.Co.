@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -22,32 +21,34 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using metadatalibrary;
 #pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_finview {
 public class finviewRow: MetaRow  {
 	public finviewRow(DataRowBuilder rb) : base(rb) {} 
 
 	#region Field Definition
-	public Int32? idfin{ 
-		get {if (this["idfin"]==DBNull.Value)return null; return  (Int32?)this["idfin"];}
-		set {if (value==null) this["idfin"]= DBNull.Value; else this["idfin"]= value;}
+	public Int32 idfin{ 
+		get {return  (Int32)this["idfin"];}
+		set {this["idfin"]= value;}
 	}
 	public object idfinValue { 
 		get{ return this["idfin"];}
-		set {if (value==null|| value==DBNull.Value) this["idfin"]= DBNull.Value; else this["idfin"]= value;}
+		set {this["idfin"]= value;}
 	}
-	public Int32? idfinOriginal { 
-		get {if (this["idfin",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idfin",DataRowVersion.Original];}
+	public Int32 idfinOriginal { 
+		get {return  (Int32)this["idfin",DataRowVersion.Original];}
 	}
-	public Int16? ayear{ 
-		get {if (this["ayear"]==DBNull.Value)return null; return  (Int16?)this["ayear"];}
-		set {if (value==null) this["ayear"]= DBNull.Value; else this["ayear"]= value;}
+	public Int16 ayear{ 
+		get {return  (Int16)this["ayear"];}
+		set {this["ayear"]= value;}
 	}
 	public object ayearValue { 
 		get{ return this["ayear"];}
-		set {if (value==null|| value==DBNull.Value) this["ayear"]= DBNull.Value; else this["ayear"]= value;}
+		set {this["ayear"]= value;}
 	}
-	public Int16? ayearOriginal { 
-		get {if (this["ayear",DataRowVersion.Original]==DBNull.Value)return null; return  (Int16?)this["ayear",DataRowVersion.Original];}
+	public Int16 ayearOriginal { 
+		get {return  (Int16)this["ayear",DataRowVersion.Original];}
 	}
 	public String finpart{ 
 		get {if (this["finpart"]==DBNull.Value)return null; return  (String)this["finpart"];}
@@ -61,37 +62,37 @@ public class finviewRow: MetaRow  {
 		get {if (this["finpart",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["finpart",DataRowVersion.Original];}
 	}
 	public String codefin{ 
-		get {if (this["codefin"]==DBNull.Value)return null; return  (String)this["codefin"];}
-		set {if (value==null) this["codefin"]= DBNull.Value; else this["codefin"]= value;}
+		get {return  (String)this["codefin"];}
+		set {this["codefin"]= value;}
 	}
 	public object codefinValue { 
 		get{ return this["codefin"];}
-		set {if (value==null|| value==DBNull.Value) this["codefin"]= DBNull.Value; else this["codefin"]= value;}
+		set {this["codefin"]= value;}
 	}
 	public String codefinOriginal { 
-		get {if (this["codefin",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codefin",DataRowVersion.Original];}
+		get {return  (String)this["codefin",DataRowVersion.Original];}
 	}
-	public Byte? nlevel{ 
-		get {if (this["nlevel"]==DBNull.Value)return null; return  (Byte?)this["nlevel"];}
-		set {if (value==null) this["nlevel"]= DBNull.Value; else this["nlevel"]= value;}
+	public Byte nlevel{ 
+		get {return  (Byte)this["nlevel"];}
+		set {this["nlevel"]= value;}
 	}
 	public object nlevelValue { 
 		get{ return this["nlevel"];}
-		set {if (value==null|| value==DBNull.Value) this["nlevel"]= DBNull.Value; else this["nlevel"]= value;}
+		set {this["nlevel"]= value;}
 	}
-	public Byte? nlevelOriginal { 
-		get {if (this["nlevel",DataRowVersion.Original]==DBNull.Value)return null; return  (Byte?)this["nlevel",DataRowVersion.Original];}
+	public Byte nlevelOriginal { 
+		get {return  (Byte)this["nlevel",DataRowVersion.Original];}
 	}
 	public String leveldescr{ 
-		get {if (this["leveldescr"]==DBNull.Value)return null; return  (String)this["leveldescr"];}
-		set {if (value==null) this["leveldescr"]= DBNull.Value; else this["leveldescr"]= value;}
+		get {return  (String)this["leveldescr"];}
+		set {this["leveldescr"]= value;}
 	}
 	public object leveldescrValue { 
 		get{ return this["leveldescr"];}
-		set {if (value==null|| value==DBNull.Value) this["leveldescr"]= DBNull.Value; else this["leveldescr"]= value;}
+		set {this["leveldescr"]= value;}
 	}
 	public String leveldescrOriginal { 
-		get {if (this["leveldescr",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["leveldescr",DataRowVersion.Original];}
+		get {return  (String)this["leveldescr",DataRowVersion.Original];}
 	}
 	public Int32? paridfin{ 
 		get {if (this["paridfin"]==DBNull.Value)return null; return  (Int32?)this["paridfin"];}
@@ -127,26 +128,26 @@ public class finviewRow: MetaRow  {
 		get {if (this["manager",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["manager",DataRowVersion.Original];}
 	}
 	public String printingorder{ 
-		get {if (this["printingorder"]==DBNull.Value)return null; return  (String)this["printingorder"];}
-		set {if (value==null) this["printingorder"]= DBNull.Value; else this["printingorder"]= value;}
+		get {return  (String)this["printingorder"];}
+		set {this["printingorder"]= value;}
 	}
 	public object printingorderValue { 
 		get{ return this["printingorder"];}
-		set {if (value==null|| value==DBNull.Value) this["printingorder"]= DBNull.Value; else this["printingorder"]= value;}
+		set {this["printingorder"]= value;}
 	}
 	public String printingorderOriginal { 
-		get {if (this["printingorder",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["printingorder",DataRowVersion.Original];}
+		get {return  (String)this["printingorder",DataRowVersion.Original];}
 	}
 	public String title{ 
-		get {if (this["title"]==DBNull.Value)return null; return  (String)this["title"];}
-		set {if (value==null) this["title"]= DBNull.Value; else this["title"]= value;}
+		get {return  (String)this["title"];}
+		set {this["title"]= value;}
 	}
 	public object titleValue { 
 		get{ return this["title"];}
-		set {if (value==null|| value==DBNull.Value) this["title"]= DBNull.Value; else this["title"]= value;}
+		set {this["title"]= value;}
 	}
 	public String titleOriginal { 
-		get {if (this["title",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["title",DataRowVersion.Original];}
+		get {return  (String)this["title",DataRowVersion.Original];}
 	}
 	public Decimal? prevision{ 
 		get {if (this["prevision"]==DBNull.Value)return null; return  (Decimal?)this["prevision"];}
@@ -324,16 +325,16 @@ public class finviewRow: MetaRow  {
 	public Decimal? limitOriginal { 
 		get {if (this["limit",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["limit",DataRowVersion.Original];}
 	}
-	public Byte? flag{ 
-		get {if (this["flag"]==DBNull.Value)return null; return  (Byte?)this["flag"];}
-		set {if (value==null) this["flag"]= DBNull.Value; else this["flag"]= value;}
+	public Byte flag{ 
+		get {return  (Byte)this["flag"];}
+		set {this["flag"]= value;}
 	}
 	public object flagValue { 
 		get{ return this["flag"];}
-		set {if (value==null|| value==DBNull.Value) this["flag"]= DBNull.Value; else this["flag"]= value;}
+		set {this["flag"]= value;}
 	}
-	public Byte? flagOriginal { 
-		get {if (this["flag",DataRowVersion.Original]==DBNull.Value)return null; return  (Byte?)this["flag",DataRowVersion.Original];}
+	public Byte flagOriginal { 
+		get {return  (Byte)this["flag",DataRowVersion.Original];}
 	}
 	public String flagusable{ 
 		get {if (this["flagusable"]==DBNull.Value)return null; return  (String)this["flagusable"];}
@@ -347,37 +348,37 @@ public class finviewRow: MetaRow  {
 		get {if (this["flagusable",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["flagusable",DataRowVersion.Original];}
 	}
 	public String idupb{ 
-		get {if (this["idupb"]==DBNull.Value)return null; return  (String)this["idupb"];}
-		set {if (value==null) this["idupb"]= DBNull.Value; else this["idupb"]= value;}
+		get {return  (String)this["idupb"];}
+		set {this["idupb"]= value;}
 	}
 	public object idupbValue { 
 		get{ return this["idupb"];}
-		set {if (value==null|| value==DBNull.Value) this["idupb"]= DBNull.Value; else this["idupb"]= value;}
+		set {this["idupb"]= value;}
 	}
 	public String idupbOriginal { 
-		get {if (this["idupb",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idupb",DataRowVersion.Original];}
+		get {return  (String)this["idupb",DataRowVersion.Original];}
 	}
 	public String codeupb{ 
-		get {if (this["codeupb"]==DBNull.Value)return null; return  (String)this["codeupb"];}
-		set {if (value==null) this["codeupb"]= DBNull.Value; else this["codeupb"]= value;}
+		get {return  (String)this["codeupb"];}
+		set {this["codeupb"]= value;}
 	}
 	public object codeupbValue { 
 		get{ return this["codeupb"];}
-		set {if (value==null|| value==DBNull.Value) this["codeupb"]= DBNull.Value; else this["codeupb"]= value;}
+		set {this["codeupb"]= value;}
 	}
 	public String codeupbOriginal { 
-		get {if (this["codeupb",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codeupb",DataRowVersion.Original];}
+		get {return  (String)this["codeupb",DataRowVersion.Original];}
 	}
 	public String upb{ 
-		get {if (this["upb"]==DBNull.Value)return null; return  (String)this["upb"];}
-		set {if (value==null) this["upb"]= DBNull.Value; else this["upb"]= value;}
+		get {return  (String)this["upb"];}
+		set {this["upb"]= value;}
 	}
 	public object upbValue { 
 		get{ return this["upb"];}
-		set {if (value==null|| value==DBNull.Value) this["upb"]= DBNull.Value; else this["upb"]= value;}
+		set {this["upb"]= value;}
 	}
 	public String upbOriginal { 
-		get {if (this["upb",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["upb",DataRowVersion.Original];}
+		get {return  (String)this["upb",DataRowVersion.Original];}
 	}
 	public Int32? idsor01{ 
 		get {if (this["idsor01"]==DBNull.Value)return null; return  (Int32?)this["idsor01"];}
@@ -446,48 +447,48 @@ public class finviewRow: MetaRow  {
 		get {if (this["cupcode",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cupcode",DataRowVersion.Original];}
 	}
 	public String cu{ 
-		get {if (this["cu"]==DBNull.Value)return null; return  (String)this["cu"];}
-		set {if (value==null) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		get {return  (String)this["cu"];}
+		set {this["cu"]= value;}
 	}
 	public object cuValue { 
 		get{ return this["cu"];}
-		set {if (value==null|| value==DBNull.Value) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		set {this["cu"]= value;}
 	}
 	public String cuOriginal { 
-		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
+		get {return  (String)this["cu",DataRowVersion.Original];}
 	}
-	public DateTime? ct{ 
-		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
-		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
+	public DateTime ct{ 
+		get {return  (DateTime)this["ct"];}
+		set {this["ct"]= value;}
 	}
 	public object ctValue { 
 		get{ return this["ct"];}
-		set {if (value==null|| value==DBNull.Value) this["ct"]= DBNull.Value; else this["ct"]= value;}
+		set {this["ct"]= value;}
 	}
-	public DateTime? ctOriginal { 
-		get {if (this["ct",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["ct",DataRowVersion.Original];}
+	public DateTime ctOriginal { 
+		get {return  (DateTime)this["ct",DataRowVersion.Original];}
 	}
 	public String lu{ 
-		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
-		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		get {return  (String)this["lu"];}
+		set {this["lu"]= value;}
 	}
 	public object luValue { 
 		get{ return this["lu"];}
-		set {if (value==null|| value==DBNull.Value) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		set {this["lu"]= value;}
 	}
 	public String luOriginal { 
-		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
+		get {return  (String)this["lu",DataRowVersion.Original];}
 	}
-	public DateTime? lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
-		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
+	public DateTime lt{ 
+		get {return  (DateTime)this["lt"];}
+		set {this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
-		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
+		set {this["lt"]= value;}
 	}
-	public DateTime? ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
+	public DateTime ltOriginal { 
+		get {return  (DateTime)this["lt",DataRowVersion.Original];}
 	}
 	#endregion
 
@@ -495,50 +496,49 @@ public class finviewRow: MetaRow  {
 public class finviewTable : MetaTableBase<finviewRow> {
 	public finviewTable() : base("finview"){
 		baseColumns = new Dictionary<string, DataColumn>(){
-			{"idfin",createColumn("idfin",typeof(Int32),false,false)},
-			{"ayear",createColumn("ayear",typeof(Int16),false,false)},
-			{"finpart",createColumn("finpart",typeof(String),true,true)},
-			{"codefin",createColumn("codefin",typeof(String),false,false)},
-			{"nlevel",createColumn("nlevel",typeof(Byte),false,false)},
-			{"leveldescr",createColumn("leveldescr",typeof(String),false,false)},
-			{"paridfin",createColumn("paridfin",typeof(Int32),true,false)},
-			{"idman",createColumn("idman",typeof(Int32),true,true)},
-			{"manager",createColumn("manager",typeof(String),true,true)},
-			{"printingorder",createColumn("printingorder",typeof(String),false,false)},
-			{"title",createColumn("title",typeof(String),false,false)},
-			{"prevision",createColumn("prevision",typeof(Decimal),true,true)},
-			{"currentprevision",createColumn("currentprevision",typeof(Decimal),true,true)},
-			{"availableprevision",createColumn("availableprevision",typeof(Decimal),true,true)},
-			{"previousprevision",createColumn("previousprevision",typeof(Decimal),true,false)},
-			{"secondaryprev",createColumn("secondaryprev",typeof(Decimal),true,false)},
-			{"currentsecondaryprev",createColumn("currentsecondaryprev",typeof(Decimal),true,true)},
-			{"availablesecondaryprev",createColumn("availablesecondaryprev",typeof(Decimal),true,true)},
-			{"previoussecondaryprev",createColumn("previoussecondaryprev",typeof(Decimal),true,false)},
-			{"currentarrears",createColumn("currentarrears",typeof(Decimal),true,false)},
-			{"previousarrears",createColumn("previousarrears",typeof(Decimal),true,false)},
-			{"prevision2",createColumn("prevision2",typeof(Decimal),true,false)},
-			{"prevision3",createColumn("prevision3",typeof(Decimal),true,false)},
-			{"prevision4",createColumn("prevision4",typeof(Decimal),true,false)},
-			{"prevision5",createColumn("prevision5",typeof(Decimal),true,false)},
+			{"idfin",createColumn("idfin",typeof(int),false,false)},
+			{"ayear",createColumn("ayear",typeof(short),false,false)},
+			{"finpart",createColumn("finpart",typeof(string),true,true)},
+			{"codefin",createColumn("codefin",typeof(string),false,false)},
+			{"nlevel",createColumn("nlevel",typeof(byte),false,false)},
+			{"leveldescr",createColumn("leveldescr",typeof(string),false,false)},
+			{"paridfin",createColumn("paridfin",typeof(int),true,false)},
+			{"idman",createColumn("idman",typeof(int),true,true)},
+			{"manager",createColumn("manager",typeof(string),true,true)},
+			{"printingorder",createColumn("printingorder",typeof(string),false,false)},
+			{"title",createColumn("title",typeof(string),false,false)},
+			{"prevision",createColumn("prevision",typeof(decimal),true,true)},
+			{"currentprevision",createColumn("currentprevision",typeof(decimal),true,true)},
+			{"availableprevision",createColumn("availableprevision",typeof(decimal),true,true)},
+			{"previousprevision",createColumn("previousprevision",typeof(decimal),true,false)},
+			{"secondaryprev",createColumn("secondaryprev",typeof(decimal),true,false)},
+			{"currentsecondaryprev",createColumn("currentsecondaryprev",typeof(decimal),true,true)},
+			{"availablesecondaryprev",createColumn("availablesecondaryprev",typeof(decimal),true,true)},
+			{"previoussecondaryprev",createColumn("previoussecondaryprev",typeof(decimal),true,false)},
+			{"currentarrears",createColumn("currentarrears",typeof(decimal),true,false)},
+			{"previousarrears",createColumn("previousarrears",typeof(decimal),true,false)},
+			{"prevision2",createColumn("prevision2",typeof(decimal),true,false)},
+			{"prevision3",createColumn("prevision3",typeof(decimal),true,false)},
+			{"prevision4",createColumn("prevision4",typeof(decimal),true,false)},
+			{"prevision5",createColumn("prevision5",typeof(decimal),true,false)},
 			{"expiration",createColumn("expiration",typeof(DateTime),true,false)},
-			{"limit",createColumn("limit",typeof(Decimal),true,false)},
-			{"flag",createColumn("flag",typeof(Byte),false,false)},
-			{"flagusable",createColumn("flagusable",typeof(String),true,true)},
-			{"idupb",createColumn("idupb",typeof(String),false,false)},
-			{"codeupb",createColumn("codeupb",typeof(String),false,false)},
-			{"upb",createColumn("upb",typeof(String),false,false)},
-			{"idsor01",createColumn("idsor01",typeof(Int32),true,false)},
-			{"idsor02",createColumn("idsor02",typeof(Int32),true,false)},
-			{"idsor03",createColumn("idsor03",typeof(Int32),true,false)},
-			{"idsor04",createColumn("idsor04",typeof(Int32),true,false)},
-			{"idsor05",createColumn("idsor05",typeof(Int32),true,false)},
-			{"cupcode",createColumn("cupcode",typeof(String),true,false)},
-			{"cu",createColumn("cu",typeof(String),false,false)},
+			{"limit",createColumn("limit",typeof(decimal),true,false)},
+			{"flag",createColumn("flag",typeof(byte),false,false)},
+			{"flagusable",createColumn("flagusable",typeof(string),true,true)},
+			{"idupb",createColumn("idupb",typeof(string),false,false)},
+			{"codeupb",createColumn("codeupb",typeof(string),false,false)},
+			{"upb",createColumn("upb",typeof(string),false,false)},
+			{"idsor01",createColumn("idsor01",typeof(int),true,false)},
+			{"idsor02",createColumn("idsor02",typeof(int),true,false)},
+			{"idsor03",createColumn("idsor03",typeof(int),true,false)},
+			{"idsor04",createColumn("idsor04",typeof(int),true,false)},
+			{"idsor05",createColumn("idsor05",typeof(int),true,false)},
+			{"cupcode",createColumn("cupcode",typeof(string),true,false)},
+			{"cu",createColumn("cu",typeof(string),false,false)},
 			{"ct",createColumn("ct",typeof(DateTime),false,false)},
-			{"lu",createColumn("lu",typeof(String),false,false)},
+			{"lu",createColumn("lu",typeof(string),false,false)},
 			{"lt",createColumn("lt",typeof(DateTime),false,false)},
 		};
 	}
 }
 }
-

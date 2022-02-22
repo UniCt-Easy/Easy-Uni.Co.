@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -30,7 +29,7 @@ using LiveUpdate;
 using generaSQL;
 
 namespace assetsetup_uniformadati {
-    public partial class FrmAssetSetup_UniformaDati : Form {
+    public partial class FrmAssetSetup_UniformaDati : MetaDataForm {
         MetaData Meta;
 
         // DataSet dove vengono riversati i dati prensenti nel file .xml di input
@@ -45,8 +44,11 @@ namespace assetsetup_uniformadati {
 
         object iddep = null;
         object codedep = null;
+        public IOpenFileDialog openFileDialog1;
+
         public FrmAssetSetup_UniformaDati() {
             InitializeComponent();
+            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
         }
 
         public void MetaData_AfterLink() {
@@ -58,7 +60,7 @@ namespace assetsetup_uniformadati {
         private void btnFile_Click(object sender, EventArgs e) {
             DialogResult dr = openFileDialog1.ShowDialog();
             if (dr != DialogResult.OK) {
-                MessageBox.Show(this, "File non selezionato", "Avvertimento");
+                show(this, "File non selezionato", "Avvertimento");
                 return;
             }
             txtFile.Text = openFileDialog1.FileName;
@@ -127,7 +129,7 @@ namespace assetsetup_uniformadati {
 
         private void btnUniforma_Click(object sender, EventArgs e) {
             if (openFileDialog1.FileName == "") {
-                MessageBox.Show(this, "File non selezionato, processo interrotto", "Errore");
+                show(this, "File non selezionato, processo interrotto", "Errore");
                 return;
             }
 
@@ -135,13 +137,13 @@ namespace assetsetup_uniformadati {
             AskInventoryAgency aia = new AskInventoryAgency(dsFile.Tables["inventoryagency"]);
             DialogResult dr = aia.ShowDialog();
             if (dr != DialogResult.OK) {
-                MessageBox.Show(this, "Ente inventariale non selezionato, processo interrotto", "Errore");
+                show(this, "Ente inventariale non selezionato, processo interrotto", "Errore");
                 return;
             }
 
             iddep = aia.cmbEnte.SelectedValue;
             if ((iddep == null) || (iddep == DBNull.Value)) {
-                MessageBox.Show(this, "L'ente inventariale selezionato non è valido", "Errore");
+                show(this, "L'ente inventariale selezionato non è valido", "Errore");
                 azzeraDataSet();
                 return;
             }
@@ -154,7 +156,7 @@ namespace assetsetup_uniformadati {
                 string filter = calcolaFiltro(t);
                 
                 if (!verificaEUniformaTabelle(t, filter)) {
-                    MessageBox.Show(this, "Errore nella verifica e uniformazione della tabella " + t, "Errore");
+                    show(this, "Errore nella verifica e uniformazione della tabella " + t, "Errore");
                     azzeraDataSet();
                     return;
                 }
@@ -164,7 +166,7 @@ namespace assetsetup_uniformadati {
                 FrmRiepilogo fr = new FrmRiepilogo(Meta, dsLookUp);
                 DialogResult drRiep = fr.ShowDialog();
                 if (drRiep != DialogResult.OK) {
-                    MessageBox.Show(this, "Il processo sarà interrotto", "Errore");
+                    show(this, "Il processo sarà interrotto", "Errore");
                     azzeraDataSet();
                     return;
                 }
@@ -173,18 +175,18 @@ namespace assetsetup_uniformadati {
             
             foreach (string t in table) {
                 if (!aggiornaDB(t)) {
-                    MessageBox.Show("Errore nel cambio delle chiavi esterne riferite alla tabella " + t, "Errore");
+                    show("Errore nel cambio delle chiavi esterne riferite alla tabella " + t, "Errore");
                     azzeraDataSet();
                     return;
                 }
             }
             if (!aggiornaDB("config")) {
-                MessageBox.Show("Errore nel cambio delle chiavi esterne riferite alla tabella CONFIG", "Errore");
+                show("Errore nel cambio delle chiavi esterne riferite alla tabella CONFIG", "Errore");
                 azzeraDataSet();
                 return;
             }
 
-            MessageBox.Show(this, "Uniformazione dati completata", "Ok");
+            show(this, "Uniformazione dati completata", "Ok");
         }
 
         public bool verificaSeChiamareFormRiepilogo() {
@@ -337,7 +339,7 @@ namespace assetsetup_uniformadati {
                         AskObject ao = new AskObject(rDB[code_field].ToString(), rDB[descr_field].ToString(), id_field, descr_field, tDS);
                         DialogResult dr = ao.ShowDialog();
                         if (dr != DialogResult.OK) {
-                            MessageBox.Show(this, "Look up non impostato");
+                            show(this, "Look up non impostato");
                             return false;
                         }
                         object idSelected = ao.cmbObject.SelectedValue; 
@@ -412,7 +414,7 @@ namespace assetsetup_uniformadati {
                         break;
                     }
                 default: {
-                        MessageBox.Show(this, "Tabella non esistente " + tName, "Errore");
+                        show(this, "Tabella non esistente " + tName, "Errore");
                         break;
                     }
             }
@@ -467,7 +469,7 @@ namespace assetsetup_uniformadati {
                         break;
                     }
                 default: {
-                        MessageBox.Show(this, "Tabella non esistente " + tName, "Errore");
+                        show(this, "Tabella non esistente " + tName, "Errore");
                         break;
                     }
             }
@@ -481,11 +483,11 @@ namespace assetsetup_uniformadati {
                 fs.Close();
             }
             catch (Exception) {
-                MessageBox.Show(this, "Errore nell'apertura del file! Processo Terminato");
+                show(this, "Errore nell'apertura del file! Processo Terminato");
                 return false;
             }
             return true;
         }
 
     }
-}
+}

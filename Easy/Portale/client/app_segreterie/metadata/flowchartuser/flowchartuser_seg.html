@@ -1,0 +1,39 @@
+﻿<div class="p-2 custom_lng_div" data-langkey="pageheader780" >Pagina per eseguire la ricerca e associare gli utenti a questo nodo di sicurezza</div>
+
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="flowchartuser_seg_idcustomuser">Utente</label>
+					<div>
+						<input id="flowchartuser_seg_idcustomuser" name="flowchartuser_seg_idcustomuser" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="customuser.idcustomuser" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#flowchartuser_seg_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="flowchartuser_seg_start">Data inizio validità</label>
+					<input id="flowchartuser_seg_start" type="text" class="form-control" data-tag="flowchartuser.start"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#flowchartuser_seg_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="flowchartuser_seg_stop">data fine</label>
+					<input id="flowchartuser_seg_stop" type="text" class="form-control" data-tag="flowchartuser.stop"  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

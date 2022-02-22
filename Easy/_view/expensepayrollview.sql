@@ -1,9 +1,24 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA expensepayrollview
 IF EXISTS(select * from sysobjects where id = object_id(N'[expensepayrollview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [expensepayrollview]
 GO
-
-
 
 
 
@@ -17,17 +32,11 @@ CREATE   VIEW [expensepayrollview]
 	codefin, finance, 
 	idupb,	codeupb,upb,
 	idreg,registry,
-	idman, manager,kpay, ypay,npay, 
+	idman, manager,
 	doc, docdate, description, 
 	amount,
 	ayearstartamount, 
 	curramount, available, 
-	idpaymethod, iban, cin, 
-	idbank, idcab,cc, 
-	paymentdescr, idser, 
-	service, codeser, servicestart, 
-	servicestop, ivaamount, 
-	flag,
 	autokind,
 	idpayment, 
 	totflag,
@@ -55,17 +64,11 @@ SELECT
 	upb.codeupb,
 	upb.title,
 	expense.idreg, registry.title,
-	expense.idman, manager.title , payment.kpay, payment.ypay, payment.npay, 
+	expense.idman, manager.title ,
 	expense.doc, expense.docdate, expense.description, 
 	expenseyear_starting.amount,
 	expenseyear.amount,
-	expensetotal.curramount, expensetotal.available, 
-	expenselast.idpaymethod, expenselast.iban, expenselast.cin, 
-	expenselast.idbank, expenselast.idcab, expenselast.cc, 
-	expenselast.paymentdescr, expenselast.idser, 
-	service.description, service.codeser, expenselast.servicestart, 
-	expenselast.servicestop, expenselast.ivaamount, 
-	expenselast.flag,
+	expensetotal.curramount, expensetotal.available,  
 	expense.autokind, 
 	expense.idpayment, 
 	expensetotal.flag,
@@ -101,10 +104,165 @@ LEFT OUTER JOIN fin				ON fin.idfin = expenseyear.idfin
 LEFT OUTER JOIN upb				ON  upb.idupb = expenseyear.idupb 
 LEFT OUTER JOIN registry		ON registry.idreg = expense.idreg 
 LEFT OUTER JOIN manager			ON manager.idman = expense.idman 
-LEFT OUTER JOIN expenselast		ON expenselast.idexp in (select idchild from expenselink where idparent=expense.idexp)
-LEFT OUTER JOIN service			ON service.idser = expenselast.idser
-LEFT OUTER JOIN payment			ON payment.kpay = expenselast.kpay
+
+
+
 
 
 
 GO
+
+-- VERIFICA DI expensepayrollview IN COLUMNTYPES --
+DELETE FROM columntypes WHERE tablename = 'expensepayrollview'
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','adate','3','''assistenza17''','date','expensepayrollview','','','','','N','N','date','assistenza17','System.DateTime')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','amount','9','''assistenza17''','decimal(19,2)','expensepayrollview','','19','','2','S','N','decimal','assistenza17','System.Decimal')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','autokind','1','''assistenza17''','tinyint','expensepayrollview','','','','','S','N','tinyint','assistenza17','System.Byte')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','available','9','''assistenza17''','decimal(19,2)','expensepayrollview','','19','','2','S','N','decimal','assistenza17','System.Decimal')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','ayear','2','''assistenza17''','smallint','expensepayrollview','','','','','N','N','smallint','assistenza17','System.Int16')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','ayearstartamount','9','''assistenza17''','decimal(19,2)','expensepayrollview','','19','','2','S','N','decimal','assistenza17','System.Decimal')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','codefin','50','''assistenza17''','varchar(50)','expensepayrollview','','','','','S','N','varchar','assistenza17','System.String')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','codeupb','50','''assistenza17''','varchar(50)','expensepayrollview','','','','','S','N','varchar','assistenza17','System.String')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','ct','8','''assistenza17''','datetime','expensepayrollview','','','','','S','N','datetime','assistenza17','System.DateTime')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','cu','64','''assistenza17''','varchar(64)','expensepayrollview','','','','','S','N','varchar','assistenza17','System.String')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','curramount','9','''assistenza17''','decimal(19,2)','expensepayrollview','','19','','2','S','N','decimal','assistenza17','System.Decimal')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','description','150','''assistenza17''','varchar(150)','expensepayrollview','','','','','N','N','varchar','assistenza17','System.String')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','doc','35','''assistenza17''','varchar(35)','expensepayrollview','','','','','S','N','varchar','assistenza17','System.String')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','docdate','3','''assistenza17''','date','expensepayrollview','','','','','S','N','date','assistenza17','System.DateTime')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','expiration','3','''assistenza17''','date','expensepayrollview','','','','','S','N','date','assistenza17','System.DateTime')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','finance','150','''assistenza17''','varchar(150)','expensepayrollview','','','','','S','N','varchar','assistenza17','System.String')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','fiscalyear','4','''assistenza17''','int','expensepayrollview','','','','','N','N','int','assistenza17','System.Int32')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','flagarrear','1','''assistenza17''','varchar(1)','expensepayrollview','','','','','S','N','varchar','assistenza17','System.String')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','formernmov','4','''assistenza17''','int','expensepayrollview','','','','','S','N','int','assistenza17','System.Int32')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','formerymov','2','''assistenza17''','smallint','expensepayrollview','','','','','S','N','smallint','assistenza17','System.Int16')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idaccmotive','36','''assistenza17''','varchar(36)','expensepayrollview','','','','','S','N','varchar','assistenza17','System.String')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','idcon','8','''assistenza17''','varchar(8)','expensepayrollview','','','','','N','N','varchar','assistenza17','System.String')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','idexp','4','''assistenza17''','int','expensepayrollview','','','','','N','N','int','assistenza17','System.Int32')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idfin','4','''assistenza17''','int','expensepayrollview','','','','','S','N','int','assistenza17','System.Int32')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idman','4','''assistenza17''','int','expensepayrollview','','','','','S','N','int','assistenza17','System.Int32')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idpayment','4','''assistenza17''','int','expensepayrollview','','','','','S','N','int','assistenza17','System.Int32')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','idpayroll','4','''assistenza17''','int','expensepayrollview','','','','','N','N','int','assistenza17','System.Int32')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idreg','4','''assistenza17''','int','expensepayrollview','','','','','S','N','int','assistenza17','System.Int32')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idsor01','4','''assistenza17''','int','expensepayrollview','','','','','S','N','int','assistenza17','System.Int32')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idsor02','4','''assistenza17''','int','expensepayrollview','','','','','S','N','int','assistenza17','System.Int32')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idsor03','4','''assistenza17''','int','expensepayrollview','','','','','S','N','int','assistenza17','System.Int32')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idsor04','4','''assistenza17''','int','expensepayrollview','','','','','S','N','int','assistenza17','System.Int32')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idsor05','4','''assistenza17''','int','expensepayrollview','','','','','S','N','int','assistenza17','System.Int32')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idupb','36','''assistenza17''','varchar(36)','expensepayrollview','','','','','S','N','varchar','assistenza17','System.String')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','lt','8','''assistenza17''','datetime','expensepayrollview','','','','','S','N','datetime','assistenza17','System.DateTime')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','lu','64','''assistenza17''','varchar(64)','expensepayrollview','','','','','S','N','varchar','assistenza17','System.String')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','manager','150','''assistenza17''','varchar(150)','expensepayrollview','','','','','S','N','varchar','assistenza17','System.String')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','nmov','4','''assistenza17''','int','expensepayrollview','','','','','N','N','int','assistenza17','System.Int32')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','npayroll','4','''assistenza17''','int','expensepayrollview','','','','','N','N','int','assistenza17','System.Int32')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','nphase','1','''assistenza17''','tinyint','expensepayrollview','','','','','N','N','tinyint','assistenza17','System.Byte')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','parentidexp','4','''assistenza17''','int','expensepayrollview','','','','','S','N','int','assistenza17','System.Int32')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','parentnmov','4','''assistenza17''','int','expensepayrollview','','','','','S','N','int','assistenza17','System.Int32')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','parentymov','2','''assistenza17''','smallint','expensepayrollview','','','','','S','N','smallint','assistenza17','System.Int16')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','phase','50','''assistenza17''','varchar(50)','expensepayrollview','','','','','N','N','varchar','assistenza17','System.String')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','registry','100','''assistenza17''','varchar(100)','expensepayrollview','','','','','S','N','varchar','assistenza17','System.String')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','totflag','1','''assistenza17''','tinyint','expensepayrollview','','','','','S','N','tinyint','assistenza17','System.Byte')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','upb','150','''assistenza17''','varchar(150)','expensepayrollview','','','','','S','N','varchar','assistenza17','System.String')
+GO
+
+INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','ymov','2','''assistenza17''','smallint','expensepayrollview','','','','','N','N','smallint','assistenza17','System.Int16')
+GO
+
+-- VERIFICA DI expensepayrollview IN CUSTOMOBJECT --
+IF EXISTS(select * from customobject where objectname = 'expensepayrollview')
+UPDATE customobject set isreal = 'N' where objectname = 'expensepayrollview'
+ELSE
+INSERT INTO customobject (objectname, isreal) values('expensepayrollview', 'N')
+GO
+-- FINE GENERAZIONE SCRIPT --
+

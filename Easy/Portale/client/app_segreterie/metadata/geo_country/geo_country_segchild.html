@@ -1,0 +1,54 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="geo_country_segchild_title">Denominazione</label>
+					<input id="geo_country_segchild_title" type="text" class="form-control" data-tag="geo_country.title?geo_countrysegchildview.title" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="geo_country_segchild_newcountry">id nuova provincia in cui questa è confluita</label>
+					<div>
+						<input id="geo_country_segchild_newcountry" name="geo_country_segchild_newcountry" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_country_alias1.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="geo_country_segchild_oldcountry">id provincia da cui questa è confluita</label>
+					<div>
+						<input id="geo_country_segchild_oldcountry" name="geo_country_segchild_oldcountry" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_country_alias2.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="geo_country_segchild_province">sigla provincia</label>
+					<input id="geo_country_segchild_province" type="text" class="form-control" data-tag="geo_country.province?geo_countrysegchildview.geo_country_province" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#geo_country_segchild_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="geo_country_segchild_start">data inizio</label>
+					<input id="geo_country_segchild_start" type="text" class="form-control" data-tag="geo_country.start?geo_countrysegchildview.geo_country_start" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#geo_country_segchild_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="geo_country_segchild_stop">data fine</label>
+					<input id="geo_country_segchild_stop" type="text" class="form-control" data-tag="geo_country.stop?geo_countrysegchildview.geo_country_stop" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

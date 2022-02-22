@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,7 +26,7 @@ using System.Runtime.Serialization;
 namespace notable_importazione {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaCpassivi"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaCpassivi: DataSet {
+public partial class vistaCpassivi: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -351,6 +350,8 @@ private void initClass() {
 	tmandate.Columns.Add( new DataColumn("idreg_rupanac", typeof(int)));
 	tmandate.Columns.Add( new DataColumn("publishdatekind", typeof(string)));
 	tmandate.Columns.Add( new DataColumn("tenderkind", typeof(string)));
+	tmandate.Columns.Add( new DataColumn("requested_doc", typeof(string)));
+	tmandate.Columns.Add( new DataColumn("flagbit", typeof(string)));
 	Tables.Add(tmandate);
 	tmandate.PrimaryKey =  new DataColumn[]{tmandate.Columns["idmankind"], tmandate.Columns["nman"], tmandate.Columns["yman"]};
 
@@ -860,4 +861,3 @@ private void initClass() {
 }
 }
 }
-

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_questionariodomrisp_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_questionariodomrisp_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="questionariodomrisp" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idquestionario" type="xs:int" />
+              <xs:element name="idquestionariodom" type="xs:int" />
+              <xs:element name="idquestionariodomrisp" type="xs:int" />
+              <xs:element name="indicedom" type="xs:int" minOccurs="0" />
+              <xs:element name="indicerisp" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="max" type="xs:decimal" minOccurs="0" />
+              <xs:element name="min" type="xs:decimal" minOccurs="0" />
+              <xs:element name="multiplacontxt" type="xs:string" minOccurs="0" />
+              <xs:element name="punteggio" type="xs:decimal" minOccurs="0" />
+              <xs:element name="risposta" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:questionariodomrisp" />
+      <xs:field xpath="mstns:idquestionario" />
+      <xs:field xpath="mstns:idquestionariodom" />
+      <xs:field xpath="mstns:idquestionariodomrisp" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

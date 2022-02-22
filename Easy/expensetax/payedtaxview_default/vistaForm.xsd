@@ -97,6 +97,8 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
               <xs:element name="department" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

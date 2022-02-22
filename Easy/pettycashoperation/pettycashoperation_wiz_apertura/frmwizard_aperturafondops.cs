@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -32,7 +31,7 @@ namespace pettycashoperation_wiz_apertura{//wizard_aperturafondops//
 	/// <summary>
 	/// Summary description for frmwizard_aperturafondops.
 	/// </summary>
-	public class Frm_pettycashoperation_wiz_apertura : System.Windows.Forms.Form {
+	public class Frm_pettycashoperation_wiz_apertura : MetaDataForm {
 		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.Button btnNext;
 		private System.Windows.Forms.Button btnBack;
@@ -173,7 +172,7 @@ namespace pettycashoperation_wiz_apertura{//wizard_aperturafondops//
 			this.btnCancel.Location = new System.Drawing.Point(521, 396);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.TabIndex = 11;
-			this.btnCancel.Text = "Cancel";
+			this.btnCancel.Text = "Annulla";
 			// 
 			// btnNext
 			// 
@@ -495,7 +494,7 @@ namespace pettycashoperation_wiz_apertura{//wizard_aperturafondops//
 			}
 			
 			if (!CheckChiusuraFondo(cmbFondoPS.SelectedValue)) {
-				DialogResult res = MessageBox.Show(this, Messaggi["warn_fondochiuso"].ToString()+"\nContinuare?", 
+				DialogResult res = show(this, Messaggi["warn_fondochiuso"].ToString()+"\nContinuare?", 
 					"Avvertimento", MessageBoxButtons.YesNo);
 				if (res!=DialogResult.Yes) {
 					lblMessaggi.Text=Messaggi["err_fondochiuso"].ToString();
@@ -759,7 +758,7 @@ namespace pettycashoperation_wiz_apertura{//wizard_aperturafondops//
                         object codicecreddeb = R["idreg"];
                         DataRow ModPagam = CfgFn.ModalitaPagamentoDefault(Meta.Conn, codicecreddeb);
                         if (ModPagam == null) {
-                            MessageBox.Show(this,
+                            show(this,
                                 "E' necessario che sia definita almeno una modalità di pagamento per il percipiente " +
                                 "\"" + R["registry"].ToString() + "\"\n\n" +
                                 "Dati non salvati", "Errore", MessageBoxButtons.OK);
@@ -896,7 +895,8 @@ namespace pettycashoperation_wiz_apertura{//wizard_aperturafondops//
                 if (newcomputesorting == "S") {
                     ManageClassificazioni = new GestioneClassificazioni(Meta, null, null, null, null, null, null, null, null);
                     ManageClassificazioni.ClassificaTramiteClassDocumento(ga.DSP, DS);
-                }
+					ManageClassificazioni.completaClassificazioniSiope(ga.DSP.Tables["expensesorted"], ga.DSP);
+				}
                 if (autoClassify == "S") {
                     ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
                 }
@@ -904,11 +904,11 @@ namespace pettycashoperation_wiz_apertura{//wizard_aperturafondops//
 
                 res = ga.GeneraAutomatismiAfterPost(true);
                 if (!res) {
-                    MessageBox.Show(this, "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
+                    show(this, "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
                     return;
                 }
                 //if (Meta.Conn.RUN_SELECT_COUNT("sortingtranslation", null, false) > 0 && autoClassify != "S") {
-                //    if (MessageBox.Show(this, "Calcolo le classificazioni indirette a partire da quelle presenti?", "Conferma",
+                //    if (show(this, "Calcolo le classificazioni indirette a partire da quelle presenti?", "Conferma",
                 //            MessageBoxButtons.YesNo) ==
                 //        DialogResult.Yes) {
                 //        //GeneraClassificazioniIndiretteMov(DS, "expense");
@@ -925,7 +925,7 @@ namespace pettycashoperation_wiz_apertura{//wizard_aperturafondops//
                 Easy_PostData MyPostData = new Easy_PostData();
                 MyPostData.InitClass(DS.Copy(), Conn);
                 if (MyPostData.DO_POST()) {
-                    MessageBox.Show("Salvataggio effettuato correttamente");
+                    show("Salvataggio effettuato correttamente");
                 }
             }
         }
@@ -1042,7 +1042,7 @@ namespace pettycashoperation_wiz_apertura{//wizard_aperturafondops//
 			string rowfilter;
 			int maxfase = GetMaxFaseForSelection(RigheSelezionate, "expense");
 			if (maxfase<1){
-				MessageBox.Show("Non è possibile collegare tutte le righe selezionate ad uno stesso movimento.\n"+
+				show("Non è possibile collegare tutte le righe selezionate ad uno stesso movimento.\n"+
 					"Le informazioni di bilancio, percipiente e UPB sono "+
 					"troppo diverse tra loro.","Errore");
 				return;
@@ -1160,4 +1160,4 @@ namespace pettycashoperation_wiz_apertura{//wizard_aperturafondops//
 			return selectresult[0];
 		}
 	}
-}
+}

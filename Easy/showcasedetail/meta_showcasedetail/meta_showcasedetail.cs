@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using funzioni_configurazione;
 using metadatalibrary;
@@ -74,6 +73,8 @@ namespace meta_showcasedetail {
                 DescribeAColumn(T, "unitprice", "Prezzo unitario", nPos++);
                 DescribeAColumn(T, "!description", "Desc. articolo", "listview.description", nPos++);
                 DescribeAColumn(T, "!listclass", "Class. merceologica", "listview.listclass", nPos++);
+                DescribeAColumn(T, "!codicetassonomia", "Class. merceologica", "listview.codicetassonomia", nPos++);
+                DescribeAColumn(T, "!tassonomia", "Class. merceologica", "listview.tassonomia", nPos++);
                 DescribeAColumn(T, "availability", "Disponibilità", nPos++);
                 DescribeAColumn(T, "!codeupb", "UPB", "upb.codeupb", nPos++);
                 DescribeAColumn(T, "idestimkind", "Tipo contratto attivo", nPos++);
@@ -87,4 +88,3 @@ namespace meta_showcasedetail {
     }
 
 }
-

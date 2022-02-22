@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -33,7 +32,7 @@ namespace invoice_default {
 	/// <summary>
     /// Summary description for FrmAssociaDettagliDaFE.
 	/// </summary>
-    public class FrmAssociaDettagliDaFE : System.Windows.Forms.Form {
+    public class FrmAssociaDettagliDaFE : MetaDataForm {
         private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button btnOk;
 		private System.Windows.Forms.Button btnAnnulla;
@@ -202,7 +201,7 @@ namespace invoice_default {
             if (Curr["xml"] == DBNull.Value) {
                 string messaggio;
                 messaggio = "Non vi è alcun file da importare\nErrore";
-                MessageBox.Show(this, messaggio);
+                show(this, messaggio);
                 return;
             }
             XmlDocument document = new XmlDocument();
@@ -250,7 +249,7 @@ namespace invoice_default {
             if (Curr["xml"] == DBNull.Value) {
                 string messaggio;
                 messaggio = "Non vi è alcun file da importare\nErrore";
-                MessageBox.Show(this, messaggio);
+                show(this, messaggio);
                 return;
             }
             XmlDocument document = new XmlDocument();
@@ -284,7 +283,7 @@ namespace invoice_default {
             if (Curr["xml"] == DBNull.Value) {
                 string messaggio;
                 messaggio = "Non vi è alcun file da importare\nErrore";
-                MessageBox.Show(this, messaggio);
+                show(this, messaggio);
                 return;
             }
             XmlDocument document = new XmlDocument();
@@ -310,7 +309,7 @@ namespace invoice_default {
                 RiferimentoNumeroLinea = getXmlText(document, "//FatturaElettronicaBody/DatiGenerali/DatiConvenzione/RiferimentoNumeroLinea");
             }
             if (CodiceCIG == null)
-                MessageBox.Show("I dettagli fattura sono privi di Codice CIG, in quanto non presente nel tracciato compilato dal fornitore. Inserire il Codice CIG a mano sui dettagli della fattura");
+                show("I dettagli fattura sono privi di Codice CIG, in quanto non presente nel tracciato compilato dal fornitore. Inserire il Codice CIG a mano sui dettagli della fattura");
 
             Dictionary<int, string> lookupDocumento = new Dictionary<int, string>();
             XmlNodeList DatiFattureCollegate = document.SelectNodes("//FatturaElettronicaBody/DatiGenerali/DatiFattureCollegate");
@@ -370,7 +369,7 @@ namespace invoice_default {
                         Quantita = Decimal.Round(PrezzoTotale / PrezzoUnitario, 2);
                         if (!messageShown) {
                             messageShown = true;
-                            MessageBox.Show("Per almeno un dettaglio è stato calcolata la quantità con la formula inversa PrezzoTotale/PrezzoUnitario", "Avviso");
+                            show("Per almeno un dettaglio è stato calcolata la quantità con la formula inversa PrezzoTotale/PrezzoUnitario", "Avviso");
                         }
                     }
                 }
@@ -733,7 +732,7 @@ namespace invoice_default {
             {
                 string messaggio;
                 messaggio = "Non vi è alcun file da importare\nErrore";
-                MessageBox.Show(this, messaggio);
+                show(this, messaggio);
                 return;
             }
             XmlDocument document = new XmlDocument();
@@ -896,7 +895,7 @@ namespace invoice_default {
             MIinvoiceview.FilterLocked = true;
             MIinvoiceview.DS = DS;
  
-            MessageBox.Show("Selezionare la Fattura madre da associare al dettaglio di descrizione "+r["Descrizione"] +
+            show("Selezionare la Fattura madre da associare al dettaglio di descrizione "+r["Descrizione"] +
                         " e imponibile "+CfgFn.GetNoNullDecimal(r["PrezzoUnitario"]).ToString("c"), "Avviso",MessageBoxButtons.OK);
             DataRow MyDR = null;
             string filter = QHS.CmpEq("doc", r["IdDocumento"]);            
@@ -905,12 +904,12 @@ namespace invoice_default {
                 if (MyDR != null) {
                     return MyDR;
                 }
-                MessageBox.Show($@"E' necessario selezionare una fattura madre(idDocument:{r["IdDocumento"]}) da associare al dettaglio",
+                show($@"E' necessario selezionare una fattura madre(idDocument:{r["IdDocumento"]}) da associare al dettaglio",
                     @"Avviso", 
                     MessageBoxButtons.OK);
                 if (filter != null) {
                     filter = null;
-                    MessageBox.Show(
+                    show(
                         @"Non avendo selezionato nulla la ricerca della fattura non sarà fatta per documento ma tra tutte.",
                         @"Avviso",
                         MessageBoxButtons.OK);
@@ -939,7 +938,7 @@ namespace invoice_default {
             if (CfgFn.GetNoNullDouble(AliquotaIVA) > 0) {
                 DataTable Tivakind = Conn.RUN_SELECT("ivakind", "*", "unabatabilitypercentage ASC", QHS.AppAnd(QHS.CmpEq("rate", AliquotaIVA), QHS.CmpEq("active", "S"), filterAttivita), null, true);
                 if ((Tivakind == null) || (Tivakind.Rows.Count == 0)) {
-                    MessageBox.Show("Non è stata trovata un'aliquota per l'iva al " +
+                    show("Non è stata trovata un'aliquota per l'iva al " +
                                     AliquotaIVA.ToString("n") + "%");
                 }
                 if (Tivakind.Rows.Count == 1) {
@@ -952,7 +951,7 @@ namespace invoice_default {
                     MIvakind.FilterLocked = true;
                     MIvakind.DS = DS;
                     double AliquotaIVA_Perc = CfgFn.GetNoNullDouble(AliquotaIVA)*100;
-                    MessageBox.Show("Sono stati trovati diversi tipi IVA con aliquota al " +
+                    show("Sono stati trovati diversi tipi IVA con aliquota al " +
                                     AliquotaIVA_Perc.ToString("n") + "%. Selezionare quello più appropriato.");
                     DataRow MyDR = null;
                     while (MyDR == null) {
@@ -968,7 +967,7 @@ namespace invoice_default {
                 //string Natura = FE_Selected["Natura"].ToString(); col task 6713 è stato rimosso il filtro sulla natura
                 DataTable Tivakind = Conn.RUN_SELECT("ivakind", "*", "unabatabilitypercentage ASC", QHS.AppAnd(QHS.CmpEq("rate", 0), QHS.CmpEq("active", "S"), filterAttivita), null, true);
                 if ((Tivakind == null) || (Tivakind.Rows.Count == 0)) {
-                    MessageBox.Show("Non è stata trovata alcuna aliquota 0.00 % attiva, coerente con l'attività del Tipo documento.");
+                    show("Non è stata trovata alcuna aliquota 0.00 % attiva, coerente con l'attività del Tipo documento.");
                 }
                 if (Tivakind.Rows.Count == 1) {
                     DataRow Rivakind = Tivakind.Rows[0];
@@ -1010,13 +1009,13 @@ namespace invoice_default {
         private void btnEseguiAssociazione_Click(object sender, EventArgs e) {
             CP_SelectedRows = GetGridSelectedRows(dgrDettagliCP);
             if ((CP_SelectedRows == null) || (CP_SelectedRows.Length == 0)) {
-                MessageBox.Show("Non è stato selezionato alcun dettaglio Contratto Passivo.");
+                show("Non è stato selezionato alcun dettaglio Contratto Passivo.");
                 return;
             }
 
             FE_SelectedRows = GetGridSelectedRows(dgrDettagliFE);
             if ((FE_SelectedRows == null) || (FE_SelectedRows.Length == 0)) {
-                MessageBox.Show("Non è stato selezionato alcun dettaglio della Fattura Elettronica.");
+                show("Non è stato selezionato alcun dettaglio della Fattura Elettronica.");
                 return;
             }
 
@@ -1026,7 +1025,7 @@ namespace invoice_default {
                                                                                                  // ed hanno la stessa q.tà. Quindi basta prenderne uno.
             if (quantitaCP < quantitaFE) {
                 //Deseleziona tutto ed esce
-                MessageBox.Show("Q.tà Fattura Elettronica pari a " + quantitaFE.ToString()+ ". Q.tà dettaglio Contratto Passivo pari a " + quantitaCP.ToString()+".");
+                show("Q.tà Fattura Elettronica pari a " + quantitaFE.ToString()+ ". Q.tà dettaglio Contratto Passivo pari a " + quantitaCP.ToString()+".");
                 DeSelezionaTutto(dgrDettagliCP);
                 DeSelezionaTutto(dgrDettagliFE);
                 CP_SelectedRows = null;
@@ -1326,7 +1325,7 @@ namespace invoice_default {
         private void btnImportaSenzaAssociazione_Click(object sender, EventArgs e) {
             FE_SelectedRows = GetGridSelectedRows(dgrDettagliFE);
             if ((FE_SelectedRows == null) || (FE_SelectedRows.Length == 0)) {
-                MessageBox.Show("Non è stato selezionato alcun dettaglio della Fattura Elettronica.");
+                show("Non è stato selezionato alcun dettaglio della Fattura Elettronica.");
                 return;
             }
             //Scrive le associazioni in Tassociazioni
@@ -1335,6 +1334,7 @@ namespace invoice_default {
             double AliquotaIVAOld = -1; 
             object idivakind = DBNull.Value; 
             foreach (DataRow rFE in FE_SelectedRows) {
+	            if (rFE.RowState == DataRowState.Detached || rFE.RowState == DataRowState.Deleted) continue;
                 R = Tassociazioni.NewRow();
                 R["id"] = rFE["id"];
                 R["NumeroLinea"] = rFE["NumeroLinea"];
@@ -1459,7 +1459,7 @@ namespace invoice_default {
             if (sceltaManualeIgnora) return;
             if (this.DialogResult != DialogResult.OK) return;
             if (Tassociazioni == null || Tassociazioni.Rows.Count == 0) {
-                MessageBox.Show("Non è stata creata alcuna associazione.", "Avviso");
+                show("Non è stata creata alcuna associazione.", "Avviso");
                 e.Cancel = true;
             }
         }
@@ -1469,4 +1469,3 @@ namespace invoice_default {
         }
     }
 }
-

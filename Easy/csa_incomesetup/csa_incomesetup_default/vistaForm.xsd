@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
-  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="false">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element name="csa_incomesetup">
@@ -521,9 +521,12 @@
               <xs:element name="idacc_debit" type="xs:string" minOccurs="0" />
               <xs:element name="codeacc_debit" type="xs:string" minOccurs="0" />
               <xs:element name="account_debit" type="xs:string" minOccurs="0" />
-              <xs:element name="idacc_ente" type="xs:string" minOccurs="0" />
-              <xs:element name="codeacc_ente" type="xs:string" minOccurs="0" />
-              <xs:element name="account_ente" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_cost" type="xs:string" minOccurs="0" />
+              <xs:element name="codeacc_cost" type="xs:string" minOccurs="0" />
+              <xs:element name="account_cost" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_expense" type="xs:string" minOccurs="0" />
+              <xs:element name="codeacc_expense" type="xs:string" minOccurs="0" />
+              <xs:element name="account_expense" type="xs:string" minOccurs="0" />
               <xs:element name="idacc_internalcredit" type="xs:string" minOccurs="0" />
               <xs:element name="codeacc_internalcredit" type="xs:string" minOccurs="0" />
               <xs:element name="account_internalcredit" type="xs:string" minOccurs="0" />

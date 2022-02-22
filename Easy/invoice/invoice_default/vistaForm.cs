@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -45,114 +44,60 @@ using metadatalibrary;
 namespace invoice_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Fattura
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public invoiceTable invoice 		=> (invoiceTable)Tables["invoice"];
 
-	///<summary>
-	///Tipo di documento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public invoicekindTable invoicekind 		=> (invoicekindTable)Tables["invoicekind"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable registry 		=> (registryTable)Tables["registry"];
 
-	///<summary>
-	///Valuta
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable currency 		=> (MetaTable)Tables["currency"];
 
-	///<summary>
-	/// Tipo Scadenza
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expirationkind 		=> (MetaTable)Tables["expirationkind"];
 
-	///<summary>
-	///Dettaglio documento IVA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public invoicedetailTable invoicedetail 		=> (invoicedetailTable)Tables["invoicedetail"];
 
-	///<summary>
-	///Elenco aliquote
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public ivakindTable ivakind 		=> (ivakindTable)Tables["ivakind"];
 
-	///<summary>
-	///Registro iva
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public ivaregisterTable ivaregister 		=> (ivaregisterTable)Tables["ivaregister"];
 
-	///<summary>
-	///collegamento tra registri iva e  tipo documento iva
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable invoicekindregisterkind 		=> (MetaTable)Tables["invoicekindregisterkind"];
 
-	///<summary>
-	///Registro IVA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public ivaregisterkindTable ivaregisterkind 		=> (ivaregisterkindTable)Tables["ivaregisterkind"];
 
-	///<summary>
-	///iva di una fattura inserita in liquidazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable invoicedeferred 		=> (MetaTable)Tables["invoicedeferred"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting 		=> (sortingTable)Tables["sorting"];
 
-	///<summary>
-	///Classificazione documento IVA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable invoicesorting 		=> (MetaTable)Tables["invoicesorting"];
 
-	///<summary>
-	///Tipo conto, determina il modo in cui √® movimentato nelle varie situazioni.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable accountkind 		=> (MetaTable)Tables["accountkind"];
 
-	///<summary>
-	///informazioni annuali su un tipo documento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable invoicekindyear 		=> (MetaTable)Tables["invoicekindyear"];
 
-	///<summary>
-	///Parcella Professionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public profserviceTable profservice 		=> (profserviceTable)Tables["profservice"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public configTable config 		=> (configTable)Tables["config"];
 
-	///<summary>
-	///Tesoriere
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public treasurerTable treasurer 		=> (treasurerTable)Tables["treasurer"];
 
@@ -165,9 +110,6 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable intrastatnation_destination 		=> (MetaTable)Tables["intrastatnation_destination"];
 
-	///<summary>
-	///Natura della transazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable intrastatkind 		=> (MetaTable)Tables["intrastatkind"];
 
@@ -183,9 +125,6 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable accmotiveapplied_crg 		=> (MetaTable)Tables["accmotiveapplied_crg"];
 
-	///<summary>
-	/// Natura della transazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable intrastatpaymethod 		=> (MetaTable)Tables["intrastatpaymethod"];
 
@@ -195,15 +134,9 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable stockview 		=> (MetaTable)Tables["stockview"];
 
-	///<summary>
-	///Merce in Magazzino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable stock 		=> (MetaTable)Tables["stock"];
 
-	///<summary>
-	///Paesi a fiscalit√† privilegiata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable blacklist 		=> (MetaTable)Tables["blacklist"];
 
@@ -225,75 +158,39 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sorting05 		=> (MetaTable)Tables["sorting05"];
 
-	///<summary>
-	///Classificazione Movimenti di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public expensesortedTable expensesorted 		=> (expensesortedTable)Tables["expensesorted"];
 
-	///<summary>
-	///Variazione movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public expensevarTable expensevar 		=> (expensevarTable)Tables["expensevar"];
 
-	///<summary>
-	///Dettaglio contratto passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public mandatedetailTable mandatedetail 		=> (mandatedetailTable)Tables["mandatedetail"];
 
-	///<summary>
-	///Condizioni pagamento fattura elettronica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable fepaymethod 		=> (MetaTable)Tables["fepaymethod"];
 
-	///<summary>
-	///Condizioni  pagamento fattura elettronica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable fepaymethodcondition 		=> (MetaTable)Tables["fepaymethodcondition"];
 
-	///<summary>
-	///Registro unico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable uniqueregister 		=> (MetaTable)Tables["uniqueregister"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable pccview 		=> (MetaTable)Tables["pccview"];
 
-	///<summary>
-	///allegato alla fattura
-	///</summary>
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable invoiceattachment 		=> (MetaTable)Tables["invoiceattachment"];
-
-	///<summary>
-	///Fattura Elettronica-Acquisto
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sdi_acquistoTable sdi_acquisto 		=> (sdi_acquistoTable)Tables["sdi_acquisto"];
 
-	///<summary>
-	///Stato fattura in SDI
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sdi_status 		=> (MetaTable)Tables["sdi_status"];
 
-	///<summary>
-	///Fatture di vendita selezionate per la trasmissione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sdi_venditaTable sdi_vendita 		=> (sdi_venditaTable)Tables["sdi_vendita"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sdi_statusvendita 		=> (MetaTable)Tables["sdi_statusvendita"];
 
-	///<summary>
-	///Stato trasmissione SDI
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sdi_deliverystatus 		=> (MetaTable)Tables["sdi_deliverystatus"];
 
@@ -312,9 +209,6 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable invoicekind_bolladoganale 		=> (MetaTable)Tables["invoicekind_bolladoganale"];
 
-	///<summary>
-	///Carico dei cespiti da bolla/fattura
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public assetacquireTable assetacquire 		=> (assetacquireTable)Tables["assetacquire"];
 
@@ -329,6 +223,27 @@ public class dsmeta: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registry_sostituto 		=> (MetaTable)Tables["registry_sostituto"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable invoiceattachment 		=> (MetaTable)Tables["invoiceattachment"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable invoiceattachmentkind 		=> (MetaTable)Tables["invoiceattachmentkind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable sdi_acquistoestere 		=> (MetaTable)Tables["sdi_acquistoestere"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable treasurer_acq_estere 		=> (MetaTable)Tables["treasurer_acq_estere"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable fedocumentkind 		=> (MetaTable)Tables["fedocumentkind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable sdi_status_acquestere 		=> (MetaTable)Tables["sdi_status_acquestere"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable sdi_deliverystatus_acquestere 		=> (MetaTable)Tables["sdi_deliverystatus_acquestere"];
 
 	#endregion
 
@@ -357,13 +272,13 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// INVOICE /////////////////////////////////
 	var tinvoice= new invoiceTable();
-	tinvoice.addBaseColumns("idinvkind","yinv","ninv","idreg","registryreference","description","paymentexpiring","idexpirationkind","idcurrency","exchangerate","doc","docdate","adate","packinglistnum","packinglistdate","flagdeferred","officiallyprinted","txt","rtf","cu","ct","lu","lt","active","idtreasurer","flagintracom","iso_origin","iso_provenance","iso_destination","idcountry_origin","idcountry_destination","idintrastatkind","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","idintrastatpaymethod","iso_payment","flag_ddt","flag","idblacklist","idinvkind_real","yinv_real","ninv_real","autoinvoice","idsor01","idsor02","idsor03","idsor04","idsor05","protocoldate","idfepaymethodcondition","idfepaymethod","nelectronicinvoice","yelectronicinvoice","arrivalprotocolnum","annotations","toincludeinpaymentindicator","resendingpcc","touniqueregister","idstampkind","flag_enable_split_payment","flag_auto_split_payment","idsdi_acquisto","idsdi_vendita","flag_reverse_charge","ipa_acq","rifamm_acq","ipa_ven_emittente","rifamm_ven_emittente","ipa_ven_cliente","rifamm_ven_cliente","ssntipospesa","ssnflagtipospesa","idinvkind_forwarder","yinv_forwarder","ninv_forwarder","flagbit","requested_doc","idnocigmotive","idreg_sostituto","email_ven_cliente","pec_ven_cliente");
+	tinvoice.addBaseColumns("idinvkind","yinv","ninv","idreg","registryreference","description","paymentexpiring","idexpirationkind","idcurrency","exchangerate","doc","docdate","adate","packinglistnum","packinglistdate","flagdeferred","officiallyprinted","txt","rtf","cu","ct","lu","lt","active","idtreasurer","flagintracom","iso_origin","iso_provenance","iso_destination","idcountry_origin","idcountry_destination","idintrastatkind","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","idintrastatpaymethod","iso_payment","flag_ddt","flag","idblacklist","idinvkind_real","yinv_real","ninv_real","autoinvoice","idsor01","idsor02","idsor03","idsor04","idsor05","protocoldate","idfepaymethodcondition","idfepaymethod","nelectronicinvoice","yelectronicinvoice","arrivalprotocolnum","annotations","toincludeinpaymentindicator","resendingpcc","touniqueregister","idstampkind","flag_enable_split_payment","flag_auto_split_payment","idsdi_acquisto","idsdi_vendita","flag_reverse_charge","ipa_acq","rifamm_acq","ipa_ven_emittente","rifamm_ven_emittente","ipa_ven_cliente","rifamm_ven_cliente","ssntipospesa","ssnflagtipospesa","idinvkind_forwarder","yinv_forwarder","ninv_forwarder","flagbit","requested_doc","idnocigmotive","idreg_sostituto","email_ven_cliente","pec_ven_cliente","idsdi_acquistoestere","idtreasurer_acq_estere","idfedocumentkind");
 	Tables.Add(tinvoice);
 	tinvoice.defineKey("idinvkind", "yinv", "ninv");
 
 	//////////////////// INVOICEKIND /////////////////////////////////
 	var tinvoicekind= new invoicekindTable();
-	tinvoicekind.addBaseColumns("idinvkind","flag","description","cu","ct","lu","lt","flag_autodocnumbering","formatstring","active","idinvkind_auto","idsor01","idsor02","idsor03","idsor04","idsor05","ipa_fe","riferimento_amministrazione","codeinvkind","enable_fe");
+	tinvoicekind.addBaseColumns("idinvkind","flag","description","cu","ct","lu","lt","flag_autodocnumbering","formatstring","active","idinvkind_auto","idsor01","idsor02","idsor03","idsor04","idsor05","ipa_fe","riferimento_amministrazione","codeinvkind","enable_fe","enable_fe_estera");
 	Tables.Add(tinvoicekind);
 	tinvoicekind.defineKey("idinvkind");
 
@@ -397,7 +312,7 @@ private void initClass() {
 
 	//////////////////// INVOICEDETAIL /////////////////////////////////
 	var tinvoicedetail= new invoicedetailTable();
-	tinvoicedetail.addBaseColumns("idinvkind","yinv","ninv","rownum","idivakind","detaildescription","annotations","taxable","tax","unabatable","cu","ct","lu","lt","discount","idmankind","yman","nman","manrownum","number","idupb","idsor1","idsor2","idsor3","competencystart","competencystop","paymentcompetency","idaccmotive","idestimkind","yestim","nestim","estimrownum","idexp_iva","idexp_taxable","idinc_iva","idinc_taxable","idgroup","yinv_main","ninv_main","va3type","idintrastatcode","idintrastatmeasure","weight","intrastatoperationkind","idintrastatservice","idunit","idlist","idpackage","npackage","unitsforpackage","idintrastatsupplymethod","flag","exception12","intra12operationkind","move12","idupb_iva","idinvkind_main","leasing","usedmodesospesometro","resetresidualmandate","idfetransfer","fereferencerule","cupcode","cigcode","idcostpartition","idpccdebitstatus","idpccdebitmotive","expensekind","rounding","idepexp","idepacc","flagbit","iduniqueformcode","idfinmotive","ycon","ncon","codicetipo","codicevalore","idsor_siope","idepexp_pre");
+	tinvoicedetail.addBaseColumns("idinvkind","yinv","ninv","rownum","idivakind","detaildescription","annotations","taxable","tax","unabatable","cu","ct","lu","lt","discount","idmankind","yman","nman","manrownum","number","idupb","idsor1","idsor2","idsor3","competencystart","competencystop","paymentcompetency","idaccmotive","idestimkind","yestim","nestim","estimrownum","idexp_iva","idexp_taxable","idinc_iva","idinc_taxable","idgroup","yinv_main","ninv_main","va3type","idintrastatcode","idintrastatmeasure","weight","intrastatoperationkind","idintrastatservice","idunit","idlist","idpackage","npackage","unitsforpackage","idintrastatsupplymethod","flag","exception12","intra12operationkind","move12","idupb_iva","idinvkind_main","leasing","usedmodesospesometro","resetresidualmandate","idfetransfer","fereferencerule","cupcode","cigcode","idcostpartition","idpccdebitstatus","idpccdebitmotive","expensekind","rounding","idepexp","idepacc","flagbit","iduniqueformcode","idfinmotive","ycon","ncon","codicetipo","codicevalore","idsor_siope","idepexp_pre","idtassonomia","idfinmotive_iva");
 	tinvoicedetail.defineColumn("!tipoiva", typeof(string));
 	tinvoicedetail.defineColumn("!aliquota", typeof(double));
 	tinvoicedetail.defineColumn("!percindetraibilita", typeof(double));
@@ -949,7 +864,7 @@ private void initClass() {
 
 	//////////////////// MANDATEDETAIL /////////////////////////////////
 	var tmandatedetail= new mandatedetailTable();
-	tmandatedetail.addBaseColumns("idmankind","nman","rownum","yman","annotations","assetkind","competencystart","competencystop","ct","cu","detaildescription","discount","idupb","lt","lu","ninvoiced","number","start","stop","tax","taxable","taxrate","toinvoice","flagmixed","idaccmotive","unabatable","idgroup","idreg","idexp_taxable","idexp_iva","idinv","idivakind","idsor1","idsor2","idsor3","idaccmotiveannulment","flagactivity","va3type","applierannotations","ivanotes","idlist","idunit","idpackage","unitsforpackage","npackage","cupcode","cigcode","flagto_unload","epkind","idcostpartition","idsor_siope");
+	tmandatedetail.addBaseColumns("idmankind","nman","rownum","yman","annotations","assetkind","competencystart","competencystop","ct","cu","detaildescription","discount","idupb","lt","lu","ninvoiced","number","start","stop","tax","taxable","taxrate","toinvoice","flagmixed","idaccmotive","unabatable","idgroup","idreg","idexp_taxable","idexp_iva","idinv","idivakind","idsor1","idsor2","idsor3","idaccmotiveannulment","flagactivity","va3type","applierannotations","ivanotes","idlist","idunit","idpackage","unitsforpackage","npackage","cupcode","cigcode","flagto_unload","epkind","idcostpartition","idsor_siope","rownum_main");
 	Tables.Add(tmandatedetail);
 	tmandatedetail.defineKey("idmankind", "nman", "rownum", "yman");
 
@@ -1009,21 +924,6 @@ private void initClass() {
 	tpccview.defineColumn("nman", typeof(int));
 	Tables.Add(tpccview);
 	tpccview.defineKey("idpcc");
-
-	//////////////////// INVOICEATTACHMENT /////////////////////////////////
-	var tinvoiceattachment= new MetaTable("invoiceattachment");
-	tinvoiceattachment.defineColumn("idinvkind", typeof(int),false);
-	tinvoiceattachment.defineColumn("yinv", typeof(short),false);
-	tinvoiceattachment.defineColumn("ninv", typeof(int),false);
-	tinvoiceattachment.defineColumn("idattachment", typeof(int),false);
-	tinvoiceattachment.defineColumn("attachment", typeof(Byte[]));
-	tinvoiceattachment.defineColumn("filename", typeof(string));
-	tinvoiceattachment.defineColumn("lt", typeof(DateTime));
-	tinvoiceattachment.defineColumn("lu", typeof(string));
-	tinvoiceattachment.defineColumn("ct", typeof(DateTime));
-	tinvoiceattachment.defineColumn("cu", typeof(string));
-	Tables.Add(tinvoiceattachment);
-	tinvoiceattachment.defineKey("idinvkind", "yinv", "ninv", "idattachment");
 
 	//////////////////// SDI_ACQUISTO /////////////////////////////////
 	var tsdi_acquisto= new sdi_acquistoTable();
@@ -1190,6 +1090,7 @@ private void initClass() {
 	tinvoice_bolladoganale.defineColumn("idinvkind_forwarder", typeof(int));
 	tinvoice_bolladoganale.defineColumn("yinv_forwarder", typeof(short));
 	tinvoice_bolladoganale.defineColumn("ninv_forwarder", typeof(int));
+	tinvoice_bolladoganale.defineColumn("idnocigmotive", typeof(int));
 	tinvoice_bolladoganale.defineColumn("!invkind", typeof(string));
 	tinvoice_bolladoganale.defineColumn("flagbit", typeof(int));
 	Tables.Add(tinvoice_bolladoganale);
@@ -1400,6 +1301,179 @@ private void initClass() {
 	Tables.Add(tregistry_sostituto);
 	tregistry_sostituto.defineKey("idreg");
 
+	//////////////////// INVOICEATTACHMENT /////////////////////////////////
+	var tinvoiceattachment= new MetaTable("invoiceattachment");
+	tinvoiceattachment.defineColumn("idinvkind", typeof(int),false);
+	tinvoiceattachment.defineColumn("yinv", typeof(short),false);
+	tinvoiceattachment.defineColumn("ninv", typeof(int),false);
+	tinvoiceattachment.defineColumn("idattachment", typeof(int),false);
+	tinvoiceattachment.defineColumn("attachment", typeof(Byte[]));
+	tinvoiceattachment.defineColumn("filename", typeof(string));
+	tinvoiceattachment.defineColumn("lt", typeof(DateTime));
+	tinvoiceattachment.defineColumn("lu", typeof(string));
+	tinvoiceattachment.defineColumn("ct", typeof(DateTime));
+	tinvoiceattachment.defineColumn("cu", typeof(string));
+	tinvoiceattachment.defineColumn("idattachmentkind", typeof(int));
+	tinvoiceattachment.defineColumn("!attachmentkind", typeof(string));
+	tinvoiceattachment.defineColumn("!attachment_fe", typeof(string));
+	Tables.Add(tinvoiceattachment);
+	tinvoiceattachment.defineKey("idinvkind", "yinv", "ninv", "idattachment");
+
+	//////////////////// INVOICEATTACHMENTKIND /////////////////////////////////
+	var tinvoiceattachmentkind= new MetaTable("invoiceattachmentkind");
+	tinvoiceattachmentkind.defineColumn("idattachmentkind", typeof(int),false);
+	tinvoiceattachmentkind.defineColumn("active", typeof(string),false);
+	tinvoiceattachmentkind.defineColumn("ct", typeof(DateTime));
+	tinvoiceattachmentkind.defineColumn("cu", typeof(string));
+	tinvoiceattachmentkind.defineColumn("lt", typeof(DateTime));
+	tinvoiceattachmentkind.defineColumn("lu", typeof(string));
+	tinvoiceattachmentkind.defineColumn("title", typeof(string),false);
+	tinvoiceattachmentkind.defineColumn("attachment_fe", typeof(string),false);
+	tinvoiceattachmentkind.defineColumn("flagvisiblekind", typeof(string));
+	Tables.Add(tinvoiceattachmentkind);
+	tinvoiceattachmentkind.defineKey("idattachmentkind");
+
+	//////////////////// SDI_ACQUISTOESTERE /////////////////////////////////
+	var tsdi_acquistoestere= new MetaTable("sdi_acquistoestere");
+	tsdi_acquistoestere.defineColumn("idsdi_acquistoestere", typeof(int),false);
+	tsdi_acquistoestere.defineColumn("adate", typeof(DateTime));
+	tsdi_acquistoestere.defineColumn("arrivalprotocolnum", typeof(string));
+	tsdi_acquistoestere.defineColumn("exported", typeof(string),false);
+	tsdi_acquistoestere.defineColumn("filename", typeof(string),false);
+	tsdi_acquistoestere.defineColumn("flag_unseen", typeof(int));
+	tsdi_acquistoestere.defineColumn("identificativo_sdi", typeof(long));
+	tsdi_acquistoestere.defineColumn("idsdi_deliverystatus", typeof(short));
+	tsdi_acquistoestere.defineColumn("idsdi_rifamm", typeof(string));
+	tsdi_acquistoestere.defineColumn("idsdi_status", typeof(short));
+	tsdi_acquistoestere.defineColumn("ipa_fe", typeof(string));
+	tsdi_acquistoestere.defineColumn("issigned", typeof(string));
+	tsdi_acquistoestere.defineColumn("lt", typeof(DateTime),false);
+	tsdi_acquistoestere.defineColumn("lu", typeof(string),false);
+	tsdi_acquistoestere.defineColumn("mc", typeof(string));
+	tsdi_acquistoestere.defineColumn("mc_prot", typeof(string));
+	tsdi_acquistoestere.defineColumn("ns", typeof(string));
+	tsdi_acquistoestere.defineColumn("ns_prot", typeof(string));
+	tsdi_acquistoestere.defineColumn("position", typeof(int));
+	tsdi_acquistoestere.defineColumn("protocol_error", typeof(string));
+	tsdi_acquistoestere.defineColumn("rc", typeof(string));
+	tsdi_acquistoestere.defineColumn("rc_prot", typeof(string));
+	tsdi_acquistoestere.defineColumn("signedxml", typeof(string));
+	tsdi_acquistoestere.defineColumn("signedxmlfilename", typeof(string));
+	tsdi_acquistoestere.defineColumn("xml", typeof(string),false);
+	tsdi_acquistoestere.defineColumn("zipfilename", typeof(string));
+	Tables.Add(tsdi_acquistoestere);
+	tsdi_acquistoestere.defineKey("idsdi_acquistoestere");
+
+	//////////////////// TREASURER_ACQ_ESTERE /////////////////////////////////
+	var ttreasurer_acq_estere= new MetaTable("treasurer_acq_estere");
+	ttreasurer_acq_estere.defineColumn("address", typeof(string));
+	ttreasurer_acq_estere.defineColumn("agencycodefortransmission", typeof(string));
+	ttreasurer_acq_estere.defineColumn("cabcodefortransmission", typeof(string));
+	ttreasurer_acq_estere.defineColumn("cap", typeof(string));
+	ttreasurer_acq_estere.defineColumn("cc", typeof(string));
+	ttreasurer_acq_estere.defineColumn("cin", typeof(string));
+	ttreasurer_acq_estere.defineColumn("city", typeof(string));
+	ttreasurer_acq_estere.defineColumn("country", typeof(string));
+	ttreasurer_acq_estere.defineColumn("ct", typeof(DateTime),false);
+	ttreasurer_acq_estere.defineColumn("cu", typeof(string),false);
+	ttreasurer_acq_estere.defineColumn("depcodefortransmission", typeof(string));
+	ttreasurer_acq_estere.defineColumn("description", typeof(string));
+	ttreasurer_acq_estere.defineColumn("faxnumber", typeof(string));
+	ttreasurer_acq_estere.defineColumn("faxprefix", typeof(string));
+	ttreasurer_acq_estere.defineColumn("flagdefault", typeof(string),false);
+	ttreasurer_acq_estere.defineColumn("idaccmotive_payment", typeof(string));
+	ttreasurer_acq_estere.defineColumn("idaccmotive_proceeds", typeof(string));
+	ttreasurer_acq_estere.defineColumn("idbank", typeof(string));
+	ttreasurer_acq_estere.defineColumn("idcab", typeof(string));
+	ttreasurer_acq_estere.defineColumn("lt", typeof(DateTime),false);
+	ttreasurer_acq_estere.defineColumn("lu", typeof(string),false);
+	ttreasurer_acq_estere.defineColumn("phonenumber", typeof(string));
+	ttreasurer_acq_estere.defineColumn("phoneprefix", typeof(string));
+	ttreasurer_acq_estere.defineColumn("codetreasurer", typeof(string),false);
+	ttreasurer_acq_estere.defineColumn("idtreasurer", typeof(int),false);
+	ttreasurer_acq_estere.defineColumn("spexportexp", typeof(string));
+	ttreasurer_acq_estere.defineColumn("flagmultiexp", typeof(string));
+	ttreasurer_acq_estere.defineColumn("fileextension", typeof(string));
+	ttreasurer_acq_estere.defineColumn("spexportinc", typeof(string));
+	ttreasurer_acq_estere.defineColumn("iban", typeof(string));
+	ttreasurer_acq_estere.defineColumn("bic", typeof(string));
+	ttreasurer_acq_estere.defineColumn("flagfruitful", typeof(string));
+	ttreasurer_acq_estere.defineColumn("cccbi", typeof(string));
+	ttreasurer_acq_estere.defineColumn("cincbi", typeof(string));
+	ttreasurer_acq_estere.defineColumn("idbankcbi", typeof(string));
+	ttreasurer_acq_estere.defineColumn("idcabcbi", typeof(string));
+	ttreasurer_acq_estere.defineColumn("ibancbi", typeof(string));
+	ttreasurer_acq_estere.defineColumn("siacodecbi", typeof(string));
+	ttreasurer_acq_estere.defineColumn("reccbikind", typeof(string));
+	ttreasurer_acq_estere.defineColumn("trasmcode", typeof(string));
+	ttreasurer_acq_estere.defineColumn("flagbank_grouping", typeof(int));
+	ttreasurer_acq_estere.defineColumn("motivelen", typeof(short));
+	ttreasurer_acq_estere.defineColumn("motiveprefix", typeof(string));
+	ttreasurer_acq_estere.defineColumn("motiveseparator", typeof(string));
+	ttreasurer_acq_estere.defineColumn("annotations", typeof(string));
+	ttreasurer_acq_estere.defineColumn("flagedisp", typeof(string));
+	ttreasurer_acq_estere.defineColumn("idsor01", typeof(int));
+	ttreasurer_acq_estere.defineColumn("idsor02", typeof(int));
+	ttreasurer_acq_estere.defineColumn("idsor03", typeof(int));
+	ttreasurer_acq_estere.defineColumn("idsor04", typeof(int));
+	ttreasurer_acq_estere.defineColumn("idsor05", typeof(int));
+	ttreasurer_acq_estere.defineColumn("billcode", typeof(string));
+	ttreasurer_acq_estere.defineColumn("active", typeof(string));
+	ttreasurer_acq_estere.defineColumn("flag", typeof(int));
+	ttreasurer_acq_estere.defineColumn("header", typeof(string));
+	ttreasurer_acq_estere.defineColumn("savepath", typeof(string));
+	ttreasurer_acq_estere.defineColumn("departmentname_fe", typeof(string));
+	ttreasurer_acq_estere.defineColumn("idstruttura", typeof(int));
+	ttreasurer_acq_estere.defineColumn("enable_ndoc_treasurer", typeof(string));
+	ttreasurer_acq_estere.defineColumn("flussocrediticode", typeof(string));
+	ttreasurer_acq_estere.defineColumn("ftpuser", typeof(string));
+	ttreasurer_acq_estere.defineColumn("ftppassword", typeof(string));
+	ttreasurer_acq_estere.defineColumn("ftpaddress", typeof(string));
+	ttreasurer_acq_estere.defineColumn("pasvmode", typeof(string));
+	ttreasurer_acq_estere.defineColumn("ftpport", typeof(int));
+	ttreasurer_acq_estere.defineColumn("ftpdir", typeof(string));
+	ttreasurer_acq_estere.defineColumn("tramite_bt_code", typeof(string));
+	ttreasurer_acq_estere.defineColumn("tramite_agency_code", typeof(string));
+	ttreasurer_acq_estere.defineColumn("agency_istat_code", typeof(string));
+	Tables.Add(ttreasurer_acq_estere);
+	ttreasurer_acq_estere.defineKey("idtreasurer");
+
+	//////////////////// FEDOCUMENTKIND /////////////////////////////////
+	var tfedocumentkind= new MetaTable("fedocumentkind");
+	tfedocumentkind.defineColumn("idfedocumentkind", typeof(int),false);
+	tfedocumentkind.defineColumn("codefedocumentkind", typeof(string));
+	tfedocumentkind.defineColumn("description", typeof(string),false);
+	tfedocumentkind.defineColumn("cu", typeof(string),false);
+	tfedocumentkind.defineColumn("ct", typeof(DateTime),false);
+	tfedocumentkind.defineColumn("lu", typeof(string),false);
+	tfedocumentkind.defineColumn("lt", typeof(DateTime),false);
+	Tables.Add(tfedocumentkind);
+	tfedocumentkind.defineKey("idfedocumentkind");
+
+	//////////////////// SDI_STATUS_ACQUESTERE /////////////////////////////////
+	var tsdi_status_acquestere= new MetaTable("sdi_status_acquestere");
+	tsdi_status_acquestere.defineColumn("idsdi_status", typeof(short),false);
+	tsdi_status_acquestere.defineColumn("ct", typeof(DateTime),false);
+	tsdi_status_acquestere.defineColumn("cu", typeof(string),false);
+	tsdi_status_acquestere.defineColumn("description", typeof(string),false);
+	tsdi_status_acquestere.defineColumn("listingorder", typeof(int));
+	tsdi_status_acquestere.defineColumn("lt", typeof(DateTime),false);
+	tsdi_status_acquestere.defineColumn("lu", typeof(string),false);
+	Tables.Add(tsdi_status_acquestere);
+	tsdi_status_acquestere.defineKey("idsdi_status");
+
+	//////////////////// SDI_DELIVERYSTATUS_ACQUESTERE /////////////////////////////////
+	var tsdi_deliverystatus_acquestere= new MetaTable("sdi_deliverystatus_acquestere");
+	tsdi_deliverystatus_acquestere.defineColumn("idsdi_deliverystatus", typeof(short),false);
+	tsdi_deliverystatus_acquestere.defineColumn("ct", typeof(DateTime),false);
+	tsdi_deliverystatus_acquestere.defineColumn("cu", typeof(string),false);
+	tsdi_deliverystatus_acquestere.defineColumn("description", typeof(string),false);
+	tsdi_deliverystatus_acquestere.defineColumn("listingorder", typeof(int));
+	tsdi_deliverystatus_acquestere.defineColumn("lt", typeof(DateTime),false);
+	tsdi_deliverystatus_acquestere.defineColumn("lu", typeof(string),false);
+	Tables.Add(tsdi_deliverystatus_acquestere);
+	tsdi_deliverystatus_acquestere.defineKey("idsdi_deliverystatus");
+
 	#endregion
 
 
@@ -1416,8 +1490,6 @@ private void initClass() {
 	this.defineRelation("FK_invoicekind_bolladoganale_invoice_bolladoganale","invoicekind_bolladoganale","invoice_bolladoganale","idinvkind");
 	this.defineRelation("FK_sdi_statusvendita_sdi_vendita","sdi_statusvendita","sdi_vendita","idsdi_status");
 	this.defineRelation("FK_sdi_deliverystatus_sdi_vendita","sdi_deliverystatus","sdi_vendita","idsdi_deliverystatus");
-	this.defineRelation("FK_sdi_status_sdi_acquisto","sdi_status","sdi_acquisto","idsdi_status");
-	this.defineRelation("invoice_invoiceattachment","invoice","invoiceattachment","idinvkind","yinv","ninv");
 	this.defineRelation("FK_invoice_pccview","invoice","pccview","idinvkind","yinv","ninv");
 	this.defineRelation("FK_invoice_uniqueregister","invoice","uniqueregister","idinvkind","yinv","ninv");
 	cPar = new []{invoicedetail.Columns["idinvkind"], invoicedetail.Columns["yinv"], invoicedetail.Columns["ninv"], invoicedetail.Columns["idgroup"]};
@@ -1519,9 +1591,19 @@ private void initClass() {
 	cChild = new []{invoice.Columns["idreg_sostituto"]};
 	Relations.Add(new DataRelation("registry_sostituto_invoice",cPar,cChild,false));
 
+	this.defineRelation("invoice_invoiceattachment","invoice","invoiceattachment","idinvkind","yinv","ninv");
+	this.defineRelation("invoiceattachmentkind_invoiceattachment","invoiceattachmentkind","invoiceattachment","idattachmentkind");
+	cPar = new []{treasurer_acq_estere.Columns["idtreasurer"]};
+	cChild = new []{invoice.Columns["idtreasurer_acq_estere"]};
+	Relations.Add(new DataRelation("treasurer_acq_estere_invoice",cPar,cChild,false));
+
+	this.defineRelation("fedocumentkind_invoice","fedocumentkind","invoice","idfedocumentkind");
+	this.defineRelation("FK_sdi_status_sdi_acquisto","sdi_status","sdi_acquisto","idsdi_status");
+	this.defineRelation("sdi_status_acquestere_sdi_acquistoestere","sdi_status_acquestere","sdi_acquistoestere","idsdi_status");
+	this.defineRelation("sdi_deliverystatus_acquestere_sdi_acquistoestere","sdi_deliverystatus_acquestere","sdi_acquistoestere","idsdi_deliverystatus");
+	this.defineRelation("sdi_acquistoestere_invoice","sdi_acquistoestere","invoice","idsdi_acquistoestere");
 	#endregion
 
 }
 }
 }
-

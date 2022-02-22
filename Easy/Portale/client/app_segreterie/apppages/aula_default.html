@@ -1,0 +1,133 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabaula_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabaula_default_0"><i class="fa fa-chalkboard mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabaula_default_1" class="nav-link" data-toggle="pill" data-target="#tabaula_default_1"><i class="fa fa-chalkboard mr-1"></i>Prove</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabaula_default_2" class="nav-link" data-toggle="pill" data-target="#tabaula_default_2"><i class="fa fa-chalkboard-teacher mr-1"></i>Lezioni</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabaula_default_3" class="nav-link" data-toggle="pill" data-target="#tabaula_default_3"><i class="fa fa-stopwatch mr-1"></i>Sospensione delle attività</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabaula_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_default_title">Denominazione</label>
+					<input id="aula_default_title" type="text" class="form-control" data-tag="aula.title?auladefaultview.title" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_default_code">Codice</label>
+					<input id="aula_default_code" type="text" class="form-control" data-tag="aula.code?auladefaultview.aula_code" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_default_idsede">Sede</label>
+					<select id="aula_default_idsede" class="custom-select d-block w-100"  data-source-name="sededefaultview" data-value-member="idsede" data-display-member="dropdown_title" data-custom-control="combo" data-tag="aula.idsede?auladefaultview.idsede" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_default_idedificio">Edificio</label>
+					<select id="aula_default_idedificio" class="custom-select d-block w-100"  data-source-name="edificiodefaultview" data-value-member="idedificio" data-display-member="dropdown_title" data-custom-control="combo" data-tag="aula.idedificio?auladefaultview.idedificio" data-subentity  data-mandatory  data-master="sededefaultview"> </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_default_capienza">Capienza</label>
+					<input id="aula_default_capienza" type="text" class="form-control" data-tag="aula.capienza?auladefaultview.aula_capienza" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_default_capienzadis">Capienza disabili</label>
+					<input id="aula_default_capienzadis" type="text" class="form-control" data-tag="aula.capienzadis?auladefaultview.aula_capienzadis" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_default_idaulakind">Tipologia</label>
+					<select id="aula_default_idaulakind" class="custom-select d-block w-100"  data-source-name="aulakinddefaultview" data-value-member="idaulakind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="aula.idaulakind?auladefaultview.aula_idaulakind" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_default_idstruttura">Struttura didattica di afferenza</label>
+					<div>
+						<input id="aula_default_idstruttura" name="aula_default_idstruttura" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="strutturadefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="aula_default_dotazioni">Dotazioni</label>
+					<textarea class="textarea form-control" id="aula_default_dotazioni" type="text"  rows="4" data-tag="aula.dotazioni?auladefaultview.aula_dotazioni" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_default_address">Indirizzo</label>
+					<input id="aula_default_address" type="text" class="form-control" data-tag="aula.address?auladefaultview.aula_address" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_default_location">Località</label>
+					<input id="aula_default_location" type="text" class="form-control" data-tag="aula.location?auladefaultview.aula_location" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_default_cap">CAP</label>
+					<input id="aula_default_cap" type="text" class="form-control" data-tag="aula.cap?auladefaultview.aula_cap" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_default_idcity">Città</label>
+					<div>
+						<input id="aula_default_idcity" name="aula_default_idcity" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_default_idnation">Nazione</label>
+					<div>
+						<input id="aula_default_idnation" name="aula_default_idnation" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_nation.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_default_latitude">latitudine</label>
+					<input id="aula_default_latitude" type="text" class="form-control" data-tag="aula.latitude.fixed.7?auladefaultview.aula_latitude" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_default_longitude">Longitudine</label>
+					<input id="aula_default_longitude" type="text" class="form-control" data-tag="aula.longitude.fixed.7?auladefaultview.aula_longitude" data-subentity  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabaula_default_1" role="tabpanel">
+	<hr>
+		<div class="row">
+			<div class="col-md-12">
+				<div id="calendar21" data-tag="provaaula.aula.aula" data-custom-control="calendar"  data-mdltitlecolumnname="!idprova_prova_title"   data-mdlstartcolumnname="!idprova_prova_start"   data-mdlstopcolumnname="!idprova_prova_stop"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
+			</div>
+		</div>
+	</div>
+	<div class="tab-pane fade" id="tabaula_default_2" role="tabpanel">
+	<hr>
+		<div class="row">
+			<div class="col-md-12">
+				<div id="calendar22" data-tag="lezione.default.default" data-custom-control="calendar"  data-mdltitlecolumnname="!title"   data-mdlstartcolumnname="start"   data-mdlstopcolumnname="stop" data-mdlbuttonedit data-mdldragdrop ></div>
+			</div>
+		</div>
+	</div>
+	<div class="tab-pane fade" id="tabaula_default_3" role="tabpanel">
+				<div class="gridx" id="grid_sospensione_aula" data-tag="sospensione.aula.aula" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

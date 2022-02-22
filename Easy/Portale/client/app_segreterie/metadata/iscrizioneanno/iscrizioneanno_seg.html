@@ -1,0 +1,54 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="iscrizioneanno_seg_aa">Anno Accademico</label>
+					<select id="iscrizioneanno_seg_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="iscrizioneanno.aa"  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="iscrizioneanno_seg_anno">Anno</label>
+					<input id="iscrizioneanno_seg_anno" type="text" class="form-control" data-tag="iscrizioneanno.anno"  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="iscrizioneanno_seg_annofc">Anno fuori corso</label>
+					<input id="iscrizioneanno_seg_annofc" type="text" class="form-control" data-tag="iscrizioneanno.annofc"  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#iscrizioneanno_seg_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="iscrizioneanno_seg_data">Data</label>
+					<input id="iscrizioneanno_seg_data" type="text" class="form-control" data-tag="iscrizioneanno.data.g"  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="iscrizioneanno_seg_iddidprogori">Orientamento</label>
+					<select id="iscrizioneanno_seg_iddidprogori" class="custom-select d-block w-100"  data-source-name="didprogoridefaultview" data-value-member="iddidprogori" data-display-member="dropdown_title" data-custom-control="combo" data-tag="iscrizioneanno.iddidprogori"  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="iscrizioneanno_seg_protnumero">Numero di protocollo</label>
+					<input id="iscrizioneanno_seg_protnumero" type="text" class="form-control" data-tag="iscrizioneanno.protnumero"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="iscrizioneanno_seg_protanno">Anno di protocollo</label>
+					<input id="iscrizioneanno_seg_protanno" type="text" class="form-control" data-tag="iscrizioneanno.protanno"  />
+				</div>
+			</div>
+ <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-stamp mr-1" ></i>Protocolla
+    </button>
+</form>
+
+</div>
+<!--footer-->

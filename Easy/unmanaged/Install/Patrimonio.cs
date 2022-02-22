@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections;
@@ -51,7 +50,7 @@ namespace Install
 			string errMsg;
 			DataTable tAsset = SourceConn.SQLRunner(query, 0, out errMsg);
 			if (errMsg != null) {
-				MessageBox.Show(form, errMsg);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, errMsg);
 				return false;
 			}
 			tAsset.TableName = "asset";
@@ -111,7 +110,7 @@ namespace Install
 			string errMsg;
 			DataTable tAsset = SourceConn.SQLRunner(query, 0, out errMsg);
 			if (errMsg != null) {
-				MessageBox.Show(form, errMsg);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, errMsg);
 				return false;
 			}
 			if (tAsset.Rows.Count==0) return true;
@@ -193,7 +192,7 @@ namespace Install
 			string errMsg;
 			DataTable tAssetAcquire = SourceConn.SQLRunner(query, 0, out errMsg);
 			if (errMsg != null) {
-				MessageBox.Show(form, errMsg);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, errMsg);
 				return false;
 			}
 			tAssetAcquire.Columns.Add("idpiece",typeof(int));
@@ -275,7 +274,7 @@ namespace Install
 			string errMsg;
 			DataTable tAssetAcquire = SourceConn.SQLRunner(query, 0, out errMsg);
 			if (errMsg != null) {
-				MessageBox.Show(form, errMsg);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, errMsg);
 				return false;
 			}
 			tAssetAcquire.Columns.Add("nassetacquire",typeof(int));
@@ -371,7 +370,7 @@ namespace Install
 			string errMsg;
 			DataTable tAssetAcquire = SourceConn.SQLRunner(query, 0, out errMsg);
 			if (errMsg != null) {
-				MessageBox.Show(form, errMsg);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, errMsg);
 				return false;
 			}
 			if (tAssetAcquire.Rows.Count==0) return true;
@@ -414,7 +413,7 @@ namespace Install
 			string errMsg;
 			DataTable tAssetAcquire = SourceConn.SQLRunner(query, 0, out errMsg);
 			if (errMsg != null) {
-				MessageBox.Show(form, errMsg);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, errMsg);
 				return false;
 			}
 			if (tAssetAcquire.Rows.Count==0) return true;
@@ -434,7 +433,7 @@ namespace Install
 			string messaggio;
 			DataTable t = SourceConn.SQLRunner(query, 0, out messaggio);
 			if (messaggio != null) {
-				MessageBox.Show(form, messaggio);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, messaggio);
 				return false;
 			}
 			if (t.Rows.Count > 0) {
@@ -455,7 +454,7 @@ namespace Install
 			string messaggio;
 			DataTable t = SourceConn.SQLRunner(query, 0, out messaggio);
 			if (messaggio != null) {
-				MessageBox.Show(form, messaggio);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, messaggio);
 				return false;
 			}
 			if (t.Rows.Count > 0) {
@@ -481,7 +480,7 @@ namespace Install
 //			DataTable t = SourceConn.SQLRunner(query, -1, out messaggio);
 //			if (messaggio != null) 
 //			{
-//				MessageBox.Show(form, messaggio);
+//				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, messaggio);
 //				return;
 //			}
 //			if (t.Rows.Count > 0) 
@@ -509,7 +508,7 @@ namespace Install
 			string messaggio;
 			DataTable t = SourceConn.SQLRunner(query,0, out messaggio);
 			if (messaggio != null) {
-				MessageBox.Show(form, messaggio);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, messaggio);
 				return false;
 			}
 			if (t.Rows.Count > 0) 
@@ -539,7 +538,7 @@ namespace Install
 			string messaggio;
 			DataTable t = SourceConn.SQLRunner(query, 0, out messaggio);
 			if (messaggio != null) {
-				MessageBox.Show(form, messaggio);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, messaggio);
 				return false;
 			}
 			if (t.Rows.Count > 0) 
@@ -572,7 +571,7 @@ namespace Install
 			string messaggio;
 			DataTable t = SourceConn.SQLRunner(query, 0, out messaggio);
 			if (messaggio != null) {
-				MessageBox.Show(form, messaggio);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, messaggio);
 				return false;
 			}
 			if (t.Rows.Count > 0) 
@@ -600,7 +599,7 @@ namespace Install
 			string messaggio;
 			DataTable t = SourceConn.SQLRunner(query, 0, out messaggio);
 			if (messaggio != null) {
-				MessageBox.Show(form, messaggio);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, messaggio);
 				return false;
 			}
 			if (t.Rows.Count > 0) {
@@ -628,7 +627,7 @@ namespace Install
 			string messaggio;
 			DataTable t = SourceConn.SQLRunner(query, 0, out messaggio);
 			if (messaggio != null) {
-				MessageBox.Show(form, messaggio);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, messaggio);
 				return false;
 			}
 			if (t.Rows.Count > 0) {
@@ -647,7 +646,7 @@ namespace Install
 //			int quantita = CfgFn.GetNoNullInt32( SourceConn.DO_READ_VALUE("caricobeneinventario", null, "sum(quantita)"));
 //			if (beni!=quantita) {
 //				string confronto = (quantita < beni) ? "minore" : "maggiore";
-//				MessageBox.Show(form, "La somma delle quantità dei carichi dei beni ("+quantita
+//				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "La somma delle quantità dei carichi dei beni ("+quantita
 //					+ ") è "+confronto+" del numero dei beni ("+beni+")", "ERRORE!");
 //				return false;
 //			}
@@ -660,7 +659,7 @@ namespace Install
 			string messaggio;
 			DataTable t = SourceConn.SQLRunner(query, 0, out messaggio);
 			if (messaggio != null) {
-				MessageBox.Show(form, messaggio);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, messaggio);
 				return false;
 			}
 			if (t.Rows.Count > 0) {
@@ -685,7 +684,7 @@ namespace Install
 			string messaggio;
 			DataTable t = SourceConn.SQLRunner(query, 0, out messaggio);
 			if (messaggio != null) {
-				MessageBox.Show(form, messaggio);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, messaggio);
 				return false;
 			}
 			if (t.Rows.Count > 0) {
@@ -712,7 +711,7 @@ namespace Install
 			string messaggio;
 			DataTable t = SourceConn.SQLRunner(query, 0, out messaggio);
 			if (messaggio != null) {
-				MessageBox.Show(form, messaggio);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, messaggio);
 				return false;
 			}
 			if (t.Rows.Count > 0) {
@@ -731,7 +730,7 @@ namespace Install
 			int quantita = CfgFn.GetNoNullInt32( SourceConn.DO_READ_VALUE("caricoparteinventario", null, "sum(quantita)"));
 			if (parti!=quantita) {
 				string confronto = (quantita < parti) ? "minore" : "maggiore";
-				DialogResult dr= MessageBox.Show(form, "La somma delle quantità dei carichi delle parti ("+quantita
+				DialogResult dr= MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "La somma delle quantità dei carichi delle parti ("+quantita
 					+ ") è "+confronto+" del numero delle parti ("+parti+")", "ERRORE!",
 						MessageBoxButtons.YesNo);
 				if (dr==DialogResult.No) {
@@ -750,7 +749,7 @@ namespace Install
 			string messaggio;
 			DataTable t = SourceConn.SQLRunner(query, 0, out messaggio);
 			if (messaggio != null) {
-				MessageBox.Show(form, messaggio);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, messaggio);
 				return false;
 			}
 			if (t.Rows.Count > 0) {
@@ -915,4 +914,4 @@ namespace Install
 			
 		}
 	}
-}
+}

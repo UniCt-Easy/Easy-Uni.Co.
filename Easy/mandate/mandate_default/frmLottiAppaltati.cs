@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,7 +26,7 @@ using funzioni_configurazione;
 using metadatalibrary;
 
 namespace mandate_default {
-    public partial class frmLottiAppaltati : Form {
+    public partial class frmLottiAppaltati : MetaDataForm {
 
         DataTable Lotti;
         DataRow Partecipante;
@@ -37,7 +36,7 @@ namespace mandate_default {
         object idavcp = DBNull.Value;
 
         /// <summary>
-        /// Lotti Ã¨ la tabella mandatedetail del chiamante, Partecipante Ã¨ la riga (mandateavcp) del partecipante 
+        /// Lotti è la tabella mandatedetail del chiamante, Partecipante è la riga (mandateavcp) del partecipante 
         /// </summary>
         /// <param name="Lotti"></param>
         /// <param name="Partecipante"></param>
@@ -147,13 +146,13 @@ namespace mandate_default {
         /// </summary>
         void AccettaAssociazioni() {
 
-            //Per tutte le righe attive in Associazioni, le scollega se la corrispondente riga non Ã¨ piÃ¹ selezionata
+            //Per tutte le righe attive in Associazioni, le scollega se la corrispondente riga non è più selezionata
             foreach (DataRow r in Lotti.Select(QHC.CmpEq("idavcp", idavcp))) {
                 if (isChecked(r["cigcode"])) continue;
                 r["idavcp"] = DBNull.Value;
             }
 
-            //Per tutte le righe selezionate, le aggiunge ad Associazioni se  non sono giÃ  presenti in essa
+            //Per tutte le righe selezionate, le aggiunge ad Associazioni se  non sono già presenti in essa
             foreach (DataRow p in Lotti.Select()) {
                 if (!isChecked(p["cigcode"])) continue;
                 p["idavcp"] = idavcp;
@@ -180,4 +179,3 @@ namespace mandate_default {
         }
     }
 }
-

@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_contoeconomico_coordanal_dm2012_new]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_contoeconomico_coordanal_dm2012_new]
 GO
@@ -6,7 +23,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-
+--setuser'amministrazione'
 CREATE PROCEDURE rpt_contoeconomico_coordanal_dm2012_new
 	(
 	@ayear int,
@@ -45,15 +62,18 @@ CREATE PROCEDURE rpt_contoeconomico_coordanal_dm2012_new
 	-  @showidsor1child =  N filtra solo per la coordinata indicata e , scrive idsor01 nell'intestazione
 	se showcoordanal = S restituisce in out tutti i figli, che saranno visualizzati nell'intestazione 
 */
+DECLARE @Mostracoordianataanalitica1 char(1)
+SELECT @Mostracoordianataanalitica1= isnull(paramvalue,'N') 
+FROM reportadditionalparam WHERE paramname = 'Mostracoordianataanalitica1'
+and reportname = 'contoeconomicodm2012_new'
 
 create table #ANALITICA1(_idsor1 int)
 if ((@idsor1 is not null) and  @showidsor1child = 'N')
 Begin
 	insert into #ANALITICA1 select @idsor1
-	
 End	
 
-if ((@idsor1 is not null ) and  @showidsor1child = 'S')
+if ((@idsor1 is not null ) and ( @showidsor1child = 'S')) 
 Begin
 	insert into #ANALITICA1 (_idsor1)
 	select distinct entrydetail.idsor1 
@@ -65,22 +85,32 @@ Begin
 	where entry.adate BETWEEN @start AND @stop
 		AND (entrydetail.idupb like @idupb  OR @idupb = '%')
 		AND entry.identrykind not in (6,11,12) -- DEVO ESCLUDERE LE SCRITTURE DI EPILOGO
-		and  SLK1.idparent = @idsor1
+		and  (SLK1.idparent = @idsor1)
 		AND (@idsor01 IS NULL OR entry.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR entry.idsor02 = @idsor02) AND (@idsor03 IS NULL OR entry.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR entry.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR entry.idsor05 = @idsor05)
 		
 		
 End	
 
-
-if(@idsor1 is null)
+if(@idsor1 is null AND @Mostracoordianataanalitica1 = 'S')
 Begin
-		insert into #ANALITICA1 
-		select null
+	insert into #ANALITICA1 (_idsor1)
+	select distinct entrydetail.idsor1 
+	from entrydetail 
+	join entry 
+		ON entry.yentry = entrydetail.yentry AND entry.nentry = entrydetail.nentry
+	join sortinglink SLK1
+		on SLK1.idchild = entrydetail.idsor1 
+	where entry.adate BETWEEN @start AND @stop
+		AND (entrydetail.idupb like @idupb  OR @idupb = '%')
+		AND entry.identrykind not in (6,11,12) -- DEVO ESCLUDERE LE SCRITTURE DI EPILOGO
+		AND (@idsor01 IS NULL OR entry.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR entry.idsor02 = @idsor02) AND (@idsor03 IS NULL OR entry.idsor03 = @idsor03)	
+		AND (@idsor04 IS NULL OR entry.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR entry.idsor05 = @idsor05)
 end
 
 
--- select * from #ANALITICA1
+
+--select * from #ANALITICA1
 	CREATE TABLE #dati
 	(nlevel int ,				label varchar(200),			codeplaccount varchar(200),		 
 	_curramount decimal(19,2),	_prevamount decimal(19,2), 	_saldo decimal(19,2),	_nonrealizzato decimal(19,2),
@@ -265,7 +295,7 @@ INSERT INTO #dati  SELECT 4,'RISULTATO DI ESERCIZIO', null,  0,0,0,0, 'SUBT' , n
 		   declare @_prevamount   decimal(19,2)
 
 		   
-		   if(@idsor1 is null)
+		   if(@idsor1 is null AND @Mostracoordianataanalitica1 = 'N')
 		   Begin 
 				SET @_curramount = ISNULL(( SELECT SUM(entrydetail.amount)
 							  FROM entrydetail
@@ -457,7 +487,7 @@ Begin
 --Se si vuole considerare i figli E si vuole anche mostarli, mostra i vari idsor, se invece si vuole SOLO totalizzarli SENZA mostarli si fa l'update
 	update #dati set _idsor1 = @idsor1
 End
-if (@idsor1 is null)
+if (@idsor1 is null AND @Mostracoordianataanalitica1 = 'N')
 Begin
 	SELECT
 		@ayear				  AS ayear         ,

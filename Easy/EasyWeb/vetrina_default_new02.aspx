@@ -5,16 +5,18 @@
 
     <div class="row">
         <div class="col-md-5">
-            <div class="row">
-                <cc1:hwPanel GroupingText="Vetrine Disponibili" CssClass="gbox scheduler-border form-group" Style="text-align: center;" ID="grpVetrina" runat="server" Tag="">
-                    <div class="row">
+            <cc1:hwPanel GroupingText="Vetrine Disponibili" CssClass="gbox scheduler-border form-group" Style="text-align: center;" ID="grpVetrina" runat="server" Tag="">
+                <div class="row">
+                    <div class="col-md-12">
                         <cc1:hwLabel runat="server" ID="lbl01" Text="Cliccare sul nome della vetrina per selezionarla:"></cc1:hwLabel>
                     </div>
-                    <div class="row">
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
                         <asp:PlaceHolder runat="server" ID="showcases"></asp:PlaceHolder>
                     </div>
-                </cc1:hwPanel>
-            </div>
+                </div>
+            </cc1:hwPanel>
             <div class="row">
                 <div class="col-md-12">
                     <button type="button" id="btnMostraCarello" class="btn btn-primary btn-block" onclick="javascript:showcart();">Mostra Carrello</button>

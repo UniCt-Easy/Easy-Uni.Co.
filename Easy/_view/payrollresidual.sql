@@ -1,10 +1,27 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA payrollresidual
 IF EXISTS(select * from sysobjects where id = object_id(N'[payrollresidual]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [payrollresidual]
 GO
+--select * from [payrollresidual]
 
-
-
+ --setuser 'amm'
 
 CREATE                                   VIEW [payrollresidual]
 (
@@ -16,6 +33,8 @@ CREATE                                   VIEW [payrollresidual]
 	netfee,
 	ct,
 	cu,
+	idupb,
+	codeupb,
 	disbursementdate,
 	stop,
 	start,
@@ -40,6 +59,8 @@ payroll.feegross,
 payroll.netfee,
 payroll.ct,
 payroll.cu,
+payroll.idupb,
+upb.codeupb,
 payroll.disbursementdate,
 payroll.stop,
 payroll.start,
@@ -99,7 +120,8 @@ CONVERT(decimal(23,6),payroll.feegross -
 FROM payroll  with (nolock)
 JOIN parasubcontract with (nolock)
 	ON payroll.idcon = parasubcontract.idcon
-
+LEFT OUTER JOIN upb 
+	ON upb.idupb = payroll.idupb
 
 
 

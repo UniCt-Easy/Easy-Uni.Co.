@@ -1,0 +1,67 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabprogettotimesheet_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabprogettotimesheet_default_0"><i class="fa fa-calendar-day mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogettotimesheet_default_1" class="nav-link" data-toggle="pill" data-target="#tabprogettotimesheet_default_1"><i class="fa fa-calendar-minus mr-1"></i>Progetti da visualizzare nel timesheet</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabprogettotimesheet_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettotimesheet_default_title">Descrizione</label>
+					<input id="progettotimesheet_default_title" type="text" class="form-control" data-tag="progettotimesheet.title"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettotimesheet_default_idtimesheettemplate">Intestazione</label>
+					<div>
+						<input id="progettotimesheet_default_idtimesheettemplate" name="progettotimesheet_default_idtimesheettemplate" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="timesheettemplate.idtimesheettemplate" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettotimesheet_default_showactivitiesrow">Visualizza la riga con il totale giornaliero</label>
+					<div class="custom-control custom-radio">
+						<input id="progettotimesheet_default_showactivitiesrowSi" type="radio" name="progettotimesheet_default_showactivitiesrow" class="custom-control-input" data-tag="progettotimesheet.showactivitiesrow:S"  ><label for="progettotimesheet_default_showactivitiesrowSi"> Si</label>
+						<input id="progettotimesheet_default_showactivitiesrowNo" type="radio" name="progettotimesheet_default_showactivitiesrow" class="custom-control-input" data-tag="progettotimesheet.showactivitiesrow:N"  ><label for="progettotimesheet_default_showactivitiesrowNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettotimesheet_default_year">Anno</label>
+					<select id="progettotimesheet_default_year" class="custom-select d-block w-100"  data-source-name="year" data-value-member="year" data-display-member="year" data-custom-control="combo" data-tag="progettotimesheet.year"   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettotimesheet_default_intestazioneallsheet">Intestazione in  tutti i fogli</label>
+					<div class="custom-control custom-radio">
+						<input id="progettotimesheet_default_intestazioneallsheetSi" type="radio" name="progettotimesheet_default_intestazioneallsheet" class="custom-control-input" data-tag="progettotimesheet.intestazioneallsheet:S"  ><label for="progettotimesheet_default_intestazioneallsheetSi"> Si</label>
+						<input id="progettotimesheet_default_intestazioneallsheetNo" type="radio" name="progettotimesheet_default_intestazioneallsheet" class="custom-control-input" data-tag="progettotimesheet.intestazioneallsheet:N"  ><label for="progettotimesheet_default_intestazioneallsheetNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettotimesheet_default_riepilogoanno">Inserisci il riepilogo annuale</label>
+					<div class="custom-control custom-radio">
+						<input id="progettotimesheet_default_riepilogoannoSi" type="radio" name="progettotimesheet_default_riepilogoanno" class="custom-control-input" data-tag="progettotimesheet.riepilogoanno:S"  ><label for="progettotimesheet_default_riepilogoannoSi"> Si</label>
+						<input id="progettotimesheet_default_riepilogoannoNo" type="radio" name="progettotimesheet_default_riepilogoanno" class="custom-control-input" data-tag="progettotimesheet.riepilogoanno:N"  ><label for="progettotimesheet_default_riepilogoannoNo"> No</label>
+					</div>
+				</div>
+			</div>
+ <button id="timesheetReport" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-file-excel mr-1 mr-1" ></i>Genera il Timesheet Report
+    </button>
+	</div>
+	<div class="tab-pane fade" id="tabprogettotimesheet_default_1" role="tabpanel">
+		<div id="grid_progettotimesheetprogetto_default" data-tag="progetto.seg.seg" data-custom-control="checklist"  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

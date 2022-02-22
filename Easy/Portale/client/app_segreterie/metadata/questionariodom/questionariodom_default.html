@@ -1,0 +1,39 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabquestionariodom_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabquestionariodom_default_0"><i class="fa fa-question mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabquestionariodom_default_1" class="nav-link" data-toggle="pill" data-target="#tabquestionariodom_default_1"><i class="fa fa-list-ol mr-1"></i>Risposte</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabquestionariodom_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="questionariodom_default_domanda">Domanda</label>
+					<input id="questionariodom_default_domanda" type="text" class="form-control" data-tag="questionariodom.domanda"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="questionariodom_default_idquestionariodomkind">Tipologia</label>
+					<select id="questionariodom_default_idquestionariodomkind" class="custom-select d-block w-100"  data-source-name="questionariodomkinddefaultview" data-value-member="idquestionariodomkind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="questionariodom.idquestionariodomkind"   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="questionariodom_default_indicedom">Ordinamento</label>
+					<input id="questionariodom_default_indicedom" type="text" class="form-control" data-tag="questionariodom.indicedom"  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabquestionariodom_default_1" role="tabpanel">
+				<div class="gridx" id="grid_questionariodomrisp_default" data-tag="questionariodomrisp.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="multiplacontxt,S,Si;multiplacontxt,N,No;" ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

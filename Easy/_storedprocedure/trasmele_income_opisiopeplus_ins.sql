@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_income_opisiopeplus_ins]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trasmele_income_opisiopeplus_ins]
 GO
@@ -6,32 +23,49 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
-
+--setuser'amministrazione'
 if not exists (select * from systypes where name = 'int_list') begin 
 	CREATE TYPE dbo.int_list AS TABLE      ( n int)  
 end
 GO
--- setuser 'amministrazione'
--- setuser 'amm'
---	exec trasmele_income_opisiopeplus_ins 2018, 779
--- exec trasmele_income_opisiopeplus_ins 2018, 113 
--- exec trasmele_income_opisiopeplus_ins 2019, 199
+-- setuser 'amministrazione' 
+
+-- exec trasmele_income_opisiopeplus_ins 2021, 27
 
 CREATE  PROCEDURE [trasmele_income_opisiopeplus_ins]
 (
 	@y int,
 	@n int,
+	@ischeck char(1)='N',
 	@lista_id dbo.int_list  READONLY 
 )
 AS BEGIN
- 
+ -- Riempimento della tabella con i dati della classificazione SIOPE
+DECLARE @codeclassSIOPE varchar(20)
+
+
+SELECT  @codeclassSIOPE  =  
+CASE  
+	WHEN  (@y<= 2006) THEN  'SIOPE'
+	WHEN  (@y BETWEEN 2007 AND 2017) THEN  '07E_SIOPE'
+	ELSE   'SIOPE_E_18'
+END
+
+
+DECLARE @classSIOPE int
+SELECT @classSIOPE = idsorkind FROM sortingkind WHERE codesorkind = @codeclassSIOPE
+
+-- Per i dettagli fattura contabilizzati solo iva deve leggere il siope da config, se null dal dettaglio fattura come adesso.[16383]
+declare @idsor_siopeivavendita int
+select @idsor_siopeivavendita = idsor_siopeivavendita from config where ayear = @y
+
 ----------------------------------------------------------------
 --  STORED PROCEDURE PER LA TRASMISSIONE DELLE REVERSALI PER  --
 --------------- BANCA POPOLARE DEL CASSINATE--------------------
 ----------------------------------------------------------------
 -- Inizio Sezione dichiarativa
 DECLARE @len_codentebt INT
-SET @len_codentebt = 7
+SET @len_codentebt = 12
 
 DECLARE @len_desc_dept int
 SET @len_desc_dept = 30
@@ -87,7 +121,7 @@ SET @opkind = 'INSERIMENTO'
 --(vedere specifiche tracciato ma non la gestiamo)
 
 DECLARE @cod_department varchar(20) -- Codice dell'ente da esportare
-DECLARE @cc varchar(28) -- Numero del Conto dell'ente presso l'istituto cassiere
+DECLARE @cc varchar(30) -- Numero del Conto dell'ente presso l'istituto cassiere
 DECLARE @cin char(2) -- Codice CIN
 DECLARE @ABI_code varchar(5)
 -- Fine Sezione Dichiarativa
@@ -113,14 +147,21 @@ SELECT
 		ELSE SUBSTRING(billcode,1,@len_CodiceStruttura)
 		END*/
 FROM treasurer WHERE idtreasurer = @idtreasurer
-
  
+DECLARE @codice_tramite_BT VARCHAR(20) --(NEW) -- TODO: aggiungere alla tabella treasurer FATTO
+DECLARE @codice_istat_ente	varchar(20)--(new)-- Codice ISTAT dell'ente.contiene il codice ente SIOPE in corso di validità.  TODO: aggiungere alla tabella treasurer. FATTO
+declare @codice_tramite_ente  VARCHAR(20) --(NEW) -- TODO: aggiungere alla tabella treasurer FATTO
+
+SELECT  @codice_tramite_BT = ISNULL(RTRIM(tramite_bt_code),''),
+	@codice_tramite_ente =  ISNULL(RTRIM(tramite_agency_code),''),
+	@codice_istat_ente = ISNULL(RTRIM(agency_istat_code),'')
+FROM treasurer WHERE idtreasurer = @idtreasurer
 
 DECLARE @cf_dept varchar(16)
 DECLARE @piva_dept varchar(16)
 DECLARE @desc_dept varchar(150)
-DECLARE @address_dept varchar(30)
-DECLARE @location_dept varchar(35)
+DECLARE @address_dept varchar(50)
+DECLARE @location_dept varchar(50)
 
 SELECT  @cf_dept = ISNULL(cf,p_iva),
 @piva_dept = p_iva,
@@ -175,6 +216,12 @@ Begin
 				SET @message = @message + ' Il codice ABI'
 				SET @error = 'S'
 			END
+
+			IF (@codice_istat_ente IS NULL OR @codice_istat_ente = '')
+			BEGIN
+				SET @message = @message + ' Il codice ABI'
+				SET @error = 'S'
+			END
 			IF (@error = 'S')
 			BEGIN
 				SET @message = @message + ' Andare nella maschera CONFIGURAZIONE - CASSIERE - CASSIERE ed inserire i dati'
@@ -193,28 +240,52 @@ Begin
 			INSERT INTO #error (message)
 			SELECT 'Il versante ' + ISNULL(R.title,'XXX') + ' con codice ' + CONVERT(varchar(6),R.idreg) + ' non ha una tipologia associata. E'' necessario inserirla'
 			FROM income I
-			JOIN incomelast IL				ON I.idinc = IL.idinc
-			JOIN proceeds P					ON P.kpro = IL.kpro
-			JOIN proceedstransmission T		ON T.kproceedstransmission = P.kproceedstransmission
-			JOIN registry R					ON R.idreg = I.idreg
+			JOIN incomelast IL	(NOLOCK)			ON I.idinc = IL.idinc
+			JOIN proceeds P		 (NOLOCK)			ON P.kpro = IL.kpro
+			JOIN proceedstransmission T	(NOLOCK)	ON T.kproceedstransmission = P.kproceedstransmission
+			JOIN registry	R	(NOLOCK)				ON R.idreg = I.idreg
 			WHERE R.idregistryclass IS NULL				AND T.kproceedstransmission = @k
 
 			-- CONTROLLO N.4. Movimento di Entrata a Importo zero
 			INSERT INTO #error (message)
 			(SELECT 'Il movimento n.' + CONVERT(varchar(6),nmov) 
 			+ '/' + CONVERT(varchar(4),ymov) + ' ha importo pari a zero'
-			FROM proceedscommunicated
+			FROM proceedscommunicated 
 			WHERE yproceedstransmission = @y
 				AND nproceedstransmission = @n
 				AND ISNULL(curramount,0) = 0)
 	
-	
-			
+			-- CONTROLLO  Submovimenti bancari non generati, manca il progressivo versante
+			INSERT INTO #error (message)
+			(SELECT 'Il movimento n.' + CONVERT(varchar(6),I.nmov) 
+			+ '/' + CONVERT(varchar(4),I.ymov) + ' non ha un progressivo versante associato. E'' necessario salvare la reversale '  + CONVERT(varchar(6),P.npro) 
+			+ '/' + CONVERT(varchar(4),P.ypro)
+			FROM income I
+			JOIN incomelast IL	(NOLOCK)			ON I.idinc = IL.idinc
+			JOIN proceeds P		 (NOLOCK)			ON P.kpro = IL.kpro
+			JOIN proceedstransmission T	(NOLOCK)	ON T.kproceedstransmission = P.kproceedstransmission
+			WHERE   T.kproceedstransmission = @k AND IL.idpro IS NULL
+			)
+			-- CONTROLLO N.5. Numero di bollette associati ad un incasso maggiore di 1000
+			/*
+			INSERT INTO #error (message)
+			(SELECT 'Il movimento n.' + CONVERT(varchar(6),nmov) 
+			+ '/' + CONVERT(varchar(4),ymov) + ' ha più di 1000 bollette collegate'
+			FROM income I (NOLOCK)
+			JOIN incomelast IL	(NOLOCK)			ON I.idinc = IL.idinc
+			JOIN proceeds P		(NOLOCK)			ON P.kpro = IL.kpro
+			WHERE P.kproceedstransmission = @k
+			and (select count(*) from incomebill B(NOLOCK)  where B.idinc = I.idinc)	>1000
+			)
+			*/
+
 			IF (SELECT COUNT(*) FROM #error) > 0
 			BEGIN
 				SELECT * FROM #error
 				RETURN
 			END
+
+	
 End
 -- Fine Sezione Controlli
 
@@ -270,8 +341,8 @@ CREATE TABLE #proceeds
 	txt varchar(200),
 	npay int,
 	idpay int,
-	flagpendingincome char(1),
-	flagcompensation char(1)
+	flagcompensation char(1),
+	nClassSiope int
 )
 
 -- Tabella della classificazione SIOPE
@@ -284,15 +355,14 @@ CREATE TABLE #siope
 	ndoc int,  idinc int,
 	ndocformatted varchar(7),
 	idpro int, 
-	sortcode varchar(30),
+	sortcode varchar(50),
 	descr_sorting varchar(200),
 	importoclassificazionemov decimal(19,2),   -- importo classificato
-	curramount decimal(19,2), -- importo reale incasso
-	amount_expense decimal(19,2),  --- importo spesa accessoria
+	--curramount decimal(19,2), -- importo reale incasso
+	--amount_expense decimal(19,2),  --- importo spesa accessoria
 	cupcodefin varchar(15),
 	cupcodeupb varchar(15),
 	cupcodeincome varchar(15),
-	flagpendingincome char(1),
 	tipo_debito_siope varchar(15), --COMMERCIALE o IVA o NON COMMERCIALE
 	codice_ipa_ente_siope varchar(7),
 	
@@ -345,7 +415,7 @@ Begin
 				title_ver, cf_ver, pi_ver, pi_ver_estera, proceedsdescr, fulfilled, idexp, 
 				nbill, idpro, 
 				cupcodefin,cupcodeupb,cupcodeincome,tipo_riscossione, ccp_collection,
-				destinazione, tipo_entrata,txt, npay, idpay ,flagpendingincome,flagcompensation
+				destinazione, tipo_entrata,txt, npay, idpay ,flagcompensation,nClassSiope
 			)
 			SELECT
 				t.yproceedstransmission, t.nproceedstransmission, d.ypro, d.npro, e.idinc, i.curramount,
@@ -387,8 +457,10 @@ Begin
 				@destinazione, --CASE	when  (( il.flag & 16)= 0) then 'LIBERA'	else 'VINCOLATA'		END,
 				CASE	WHEN (d.flag & 8) <> 0 THEN 'FRUTTIFERO'	ELSE 'INFRUTTIFERO'		END,
 				ltrim(rtrim(substring(e.txt, 1, 200))),		isnull(el1.npay,pm.npay), isnull(el1.idpay,el.idpay),
-				CASE	WHEN ((il.flag&32) <> 0) THEN 'S'			ELSE 'N'				END,
-				'N' 
+				'N' ,
+				(select count(distinct sorting.idsor) from incomesorted 
+					join sorting  on incomesorted.idsor= sorting.idsor
+					where incomesorted.idinc= e.idinc and sorting.idsorkind=@classSIOPE)
 			FROM income e
 			JOIN incomelast il						ON e.idinc = il.idinc
 			JOIN incomeyear y						ON y.idinc = e.idinc
@@ -420,83 +492,8 @@ Begin
 				-- e movimento di entrata su partita di giro
 			 WHERE t.kproceedstransmission = @k
 
-
-
-			---INSERISCO GLI INCASSI VIRTUALI OTTENUTI DAGLI INCASSI A REGOLARIZZAZIONE DI SOSPESI 
-			-- L'incasso reale sarà suddiviso in due tranches, uno a regolarizzazione di importo pari al sospeso e non collegato alla spesa
-			-- l'altro sarà un incasso virtuale  collegato alla spesa (in modo da ottenere complessivamente saldo zero ) e con idpro
-			-- fittizio pari a 2 (obblighiamo a fare le reversali singole in tali casi)
-
-			INSERT INTO #proceeds 
-			(
-				yproceedstransmission, nproceedstransmission, ydoc, ndoc, idinc, curramount,curramount_expense,
-				idreg, income_adate, proceeds_adate, transmissiondate,stamphandling,
-				stamp_charge,exemption_stamp_motive, accountkind,
-				title_ver, cf_ver, pi_ver, pi_ver_estera, proceedsdescr, fulfilled, idexp, 
-				nbill, idpro,
-				cupcodefin,cupcodeupb,cupcodeincome,tipo_riscossione, ccp_collection,
-				destinazione, tipo_entrata,txt, npay, idpay ,flagpendingincome,flagcompensation
-			)
-			SELECT
-				t.yproceedstransmission, t.nproceedstransmission, d.ypro, d.npro, e.idinc, i.curramount,et.curramount,
-				e.idreg, e.adate, d.adate, t.transmissiondate, 
-				tb.description, 
-				CASE WHEN (tb.flag&0) <> 0 THEN 'N'		ELSE 'S'		END, --esenzione bollo
-				ISNULL(tb.handlingbankcode,''), -- causale esenzione bollo
-				CASE	WHEN (d.flag & 8) <> 0 THEN 'F'	ELSE 'I'	END,
-				ISNULL(c.title,''),
-				CASE	WHEN ctc.flaghuman = 'S' AND c.cf IS NOT NULL	THEN c.cf  
-						WHEN ctc.flaghuman = 'S' AND c.cf IS NULL THEN null--SPACE(@len_cf)
-						ELSE null--SPACE(@len_cf)
-				END,
-	
-			-- Partita IVA
-				CASE	WHEN ctc.flaghuman = 'N' AND c.p_iva IS NOT NULL AND ASCII(SUBSTRING(c.p_iva,1,1)) NOT BETWEEN 48 AND 57	THEN null--SPACE(@len_pi) 
-					WHEN ctc.flaghuman = 'N' AND c.p_iva IS NOT NULL				THEN SUBSTRING(isnull(c.p_iva,''),1,@len_pi)
-					ELSE null--SPACE(@len_pi) 
-				END,
-			-- Partita Iva estera
-				CASE	WHEN ctc.flaghuman = 'N' AND c.p_iva IS NOT NULL AND ASCII(SUBSTRING(c.p_iva,1,1)) NOT BETWEEN 48 AND 57 THEN c.p_iva
-					ELSE NULL  -- Se è straniera la copiamo tale e quale. Quando verrrà inserita nel Record MP verrà interrogata nuovamente.												
-				END,
-				-- Causale riscossione
-				ISNULL(e.description,'') ,
-				CASE	when (( il.flag & 1)=1) then 'S'	else 'N'		End,
-				e.idpayment,				null, --il.nbill, 
-				isnull(il.idpro+1,	ROW_NUMBER() over (order by d.npro asc)+1000), -- il.idpro +1,
-				finlast.cupcode,				u.cupcode,		RegPhase.cupcode,
-				CASE	when ((( il.flag & 4)<> 0) and (( il.flag & 1)= 0)) then 'PRELIEVODACCPOSTALE'
-						when (((il.flag & 8)<> 0) and (( il.flag & 1)= 0)) then 'ACCREDITOBANCADITALIA'
-						when (((il.flag & 8)<> 0) and (( il.flag & 1)<>0)) then 'REGOLARIZZAZIONEACCREDITOBANCADITALIA'
-					else 'CASSA'
-				END,
-				c.ccp,
-				@destinazione, --CASE	when  (( il.flag & 16)= 0) then 'LIBERA' else 'VINCOLATA'			END,
-				CASE	WHEN (d.flag & 8) <> 0 THEN 'FRUTTIFERO' ELSE 'INFRUTTIFERO'		END,
-				ltrim(rtrim(substring(e.txt, 1, 200))),				pm.npay, el.idpay,
-				CASE	WHEN ((il.flag&32) <> 0) THEN 'S'	ELSE 'N'	END,
-				'N' 
-			FROM income e			
-			JOIN incomelast il					ON e.idinc = il.idinc
-			JOIN incomeyear y					ON y.idinc = e.idinc
-			JOIN incometotal i					ON i.idinc = e.idinc
-			JOIN proceeds d						ON d.kpro = il.kpro
-			JOIN proceedstransmission t			ON t.kproceedstransmission = d.kproceedstransmission
-			JOIN registry c						ON c.idreg = e.idreg
-			JOIN registryclass ctc				ON ctc.idregistryclass = c.idregistryclass
-			JOIN incomelink as RegPhaseELK		ON RegPhaseELK.idchild = il.idinc	AND RegPhaseELK.nlevel = @incomeregphase -- Dobbiamo risalire alla fase del creditore per recuperare CUP e CIG
-			JOIN income RegPhase				ON RegPhase.idinc = RegPhaseELK.idparent -- fase del Creditore
-			JOIN upb U							ON U.idupb = y.idupb
-			JOIN finlast						ON finlast.idfin = y.idfin
-			LEFT OUTER JOIN fin f				ON f.idfin = d.idfin
-			LEFT OUTER JOIN stamphandling tb	ON d.idstamphandling = tb.idstamphandling
-			LEFT OUTER JOIN expenselast el		ON 	el.idexp = e.idpayment
-			LEFT OUTER JOIN expense sp			ON el.idexp = sp.idexp	AND  sp.idreg = e.idreg
-			LEFT OUTER JOIN expenseyear  ey		ON el.idexp = ey.idexp
-			LEFT OUTER JOIN expensetotal et		ON et.idexp = ey.idexp
-			LEFT OUTER JOIN payment pm			ON el.kpay = pm.kpay
-			WHERE t.kproceedstransmission = @k		AND ((il.flag&32) <>  0) 
-End
+end			 
+		
 Else
 Begin
 			INSERT INTO #proceeds
@@ -507,7 +504,7 @@ Begin
 				title_ver, cf_ver, pi_ver, pi_ver_estera, proceedsdescr, fulfilled, idexp, 
 				nbill, idpro,idinc,
 				cupcodefin,cupcodeupb,cupcodeincome,tipo_riscossione, ccp_collection,
-				destinazione, tipo_entrata,txt, npay, idpay ,flagpendingincome,flagcompensation
+				destinazione, tipo_entrata,txt, npay, idpay ,flagcompensation,nClassSiope
 			)
 			SELECT
 				@y,--t.yproceedstransmission, 
@@ -568,8 +565,10 @@ Begin
 				END,*/
 				ltrim(rtrim(substring(e.txt, 1, 200))),
 				coalesce(el1.npay,pm.npay,99), coalesce(el1.idpay,el.idpay,99),
-				CASE	WHEN ((il.flag&32) <> 0) THEN 'S'		ELSE 'N'		END,
-				'N' 
+				'N' ,
+				(select count(distinct sorting.idsor) from incomesorted 
+					join sorting  on incomesorted.idsor= sorting.idsor
+					where incomesorted.idinc= e.idinc and sorting.idsorkind=@classSIOPE)
 			FROM income e
 			JOIN @lista_id on e.idinc = [@lista_id].n
 			JOIN incomelast il				ON e.idinc = il.idinc
@@ -598,120 +597,7 @@ Begin
 
 
 
-			---INSERISCO GLI INCASSI VIRTUALI OTTENUTI DAGLI INCASSI A REGOLARIZZAZIONE DI SOSPESI 
-			-- L'incasso reale sarà suddiviso in due tranches, uno a regolarizzazione di importo pari al sospeso e non collegato alla spesa
-			-- l'altro sarà un incasso virtuale  collegato alla spesa (in modo da ottenere complessivamente saldo zero ) e con idpro
-			-- fittizio pari a 2 (obblighiamo a fare le reversali singole in tali casi)
-
-			INSERT INTO #proceeds 
-			(
-				yproceedstransmission, nproceedstransmission, ydoc, ndoc,  curramount,curramount_expense,
-				idreg, income_adate, proceeds_adate, transmissiondate,stamphandling,
-				stamp_charge,exemption_stamp_motive, accountkind,
-				title_ver, cf_ver, pi_ver, pi_ver_estera, proceedsdescr, fulfilled, idexp, 
-				nbill, idpro,idinc,
-				cupcodefin,cupcodeupb,cupcodeincome,tipo_riscossione, ccp_collection,
-				destinazione, tipo_entrata,txt, npay, idpay ,flagpendingincome,flagcompensation
-			)
-			SELECT
-				e.ymov, 99999,--t.yproceedstransmission, t.nproceedstransmission,
-				e.ymov,--d.ypro, 
-				9999,--d.npro, 
-				i.curramount,et.curramount,
-				e.idreg, e.adate, e.adate, e.adate,--t.transmissiondate, 
-				'descrizione fittizia bollo',--tb.description, 
-				/*CASE 
-					WHEN (tb.flag&0) <> 0 THEN 'N'
-					ELSE 'S'
-				END, */
-				'S',
-				--esenzione bollo
-				'12345678901234567890',--ISNULL(tb.handlingbankcode,''), -- causale esenzione bollo
-				'F',/*CASE
-					WHEN (d.flag & 8) <> 0 THEN 'F'
-					ELSE 'I'
-				END,*/
-				ISNULL(c.title,''),
-				CASE
-					WHEN ctc.flaghuman = 'S' AND c.cf IS NOT NULL
-						THEN c.cf  
-					WHEN ctc.flaghuman = 'S' AND c.cf IS NULL THEN null--SPACE(@len_cf)
-					ELSE null--SPACE(@len_cf)
-				END,
-	
-			-- Partita IVA
-				CASE
-					WHEN ctc.flaghuman = 'N' AND c.p_iva IS NOT NULL AND ASCII(SUBSTRING(c.p_iva,1,1)) NOT BETWEEN 48 AND 57
-						THEN null--SPACE(@len_pi) 
-					WHEN ctc.flaghuman = 'N' AND c.p_iva IS NOT NULL
-					THEN SUBSTRING(isnull(c.p_iva,''),1,@len_pi)
-					ELSE null--SPACE(@len_pi) 
-				END,
-			-- Partita Iva estera
-				CASE
-					WHEN ctc.flaghuman = 'N' AND c.p_iva IS NOT NULL AND ASCII(SUBSTRING(c.p_iva,1,1)) NOT BETWEEN 48 AND 57
-					-- Se è straniera la copiamo tale e quale. Quando verrrà inserita nel Record MP verrà interrogata nuovamente.		
-					THEN c.p_iva
-					ELSE NULL
-				END,
-				-- Causale riscossione
-				ISNULL(e.description,'') ,
-				CASE
-					when (( il.flag & 1)=1) then 'S'
-					else 'N'
-				End,
-				e.idpayment,
-				null, --il.nbill, 
-					ROW_NUMBER()OVER(order by e.ymov)+1000,
-					il.idinc,
-				finlast.cupcode,
-				u.cupcode,
-				RegPhase.cupcode,
-				CASE
-					when ((( il.flag & 4)<> 0) and (( il.flag & 1)= 0)) then 'PRELIEVODACCPOSTALE'
-					when (((il.flag & 8)<> 0) and (( il.flag & 1)= 0)) then 'ACCREDITOBANCADITALIA'
-					when (((il.flag & 8)<> 0) and (( il.flag & 1)<>0)) then 'REGOLARIZZAZIONEACCREDITOBANCADITALIA'
-					else 'CASSA'
-				END,
-				c.ccp,
-				/*CASE
-					when  (( il.flag & 16)= 0) then 'LIBERA'
-					else 'VINCOLATA'
-				END*/
-				@destinazione,
-				'FRUTTIFERO',/*CASE
-					WHEN (d.flag & 8) <> 0 THEN 'FRUTTIFERO'
-					ELSE 'INFRUTTIFERO'
-				END,*/
-				ltrim(rtrim(substring(e.txt, 1, 200))),
-				isnull(pm.npay,99), isnull(el.idpay,99),
-				CASE
-					WHEN ((il.flag&32) <> 0) THEN 'S'
-					ELSE 'N'
-				END,
-				'N' 
-			FROM income e
-			JOIN @lista_id on e.idinc = [@lista_id].n
-			JOIN incomelast il					ON e.idinc = il.idinc
-			JOIN incomeyear y					ON y.idinc = e.idinc
-			JOIN incometotal i					ON i.idinc = e.idinc
-			JOIN registry c						ON c.idreg = e.idreg
-			JOIN registryclass ctc				ON ctc.idregistryclass = c.idregistryclass
-			JOIN incomelink as RegPhaseELK		ON RegPhaseELK.idchild = il.idinc AND RegPhaseELK.nlevel = @incomeregphase -- Dobbiamo risalire alla fase del creditore per recuperare CUP e CIG
-			JOIN income RegPhase				ON RegPhase.idinc = RegPhaseELK.idparent -- fase del Creditore
-			JOIN upb U							ON U.idupb = y.idupb
-			JOIN finlast						ON finlast.idfin = y.idfin
-			LEFT OUTER JOIN fin f				ON f.idfin = y.idfin
-			LEFT OUTER JOIN expenselast el		ON 	el.idexp = e.idpayment
-			LEFT OUTER JOIN expense sp			ON el.idexp = sp.idexp	AND  sp.idreg = e.idreg
-			LEFT OUTER JOIN expenseyear  ey		ON el.idexp = ey.idexp
-			LEFT OUTER JOIN expensetotal et		ON et.idexp = ey.idexp
-			LEFT OUTER JOIN payment pm			ON el.kpay = pm.kpay
-			WHERE -- il.idinc = @idinc	AND 
-				((il.flag&32) <>  0) 
-
 End
-
 UPDATE #proceeds SET CUP = ISNULL(cupcodeincome,  ISNULL(cupcodeupb, ISNULL(cupcodefin,''))) --Codice CUP
 
 ----------------------------------------------------------------
@@ -764,6 +650,9 @@ CREATE TABLE #tax
 	curramount_expense decimal(19,2),
 	idpro int
 )
+
+
+
 -- Calcolo del saldo dei pagamenti principali associati per capire se stiamo trasmettendo 
 -- incassi a compensazione
 -- Leggo TUTTI gli incassi ritenute e recuperi sugli stessi pagamenti principali prima estratti 
@@ -776,15 +665,16 @@ SELECT
 	p.idexp, e.idinc, e.ymov, isnull(di.npro,99999),  
 	ie.curramount, se.curramount, e.ymov, e.nmov, il.idpro
 FROM #proceeds p	
-JOIN income e				ON e.idpayment = p.idexp	
-JOIN incomelast il			ON e.idinc = il.idinc
-JOIN incometotal ie			ON e.idinc = ie.idinc
-JOIN expenselast el			ON p.idexp = el.idexp
-JOIN expensetotal se		ON p.idexp = se.idexp
-LEFT OUTER JOIN proceeds di			ON di.kpro = il.kpro
-WHERE e.nphase = @maxincomephase
-AND e.idreg = p.idreg 
-AND ie.ayear = @y
+JOIN income e		(nolock)		ON e.idpayment = p.idexp /*AND e.idreg = p.idreg*/
+JOIN incomelast il	(nolock)		ON e.idinc = il.idinc
+JOIN incometotal ie	(nolock)		ON e.idinc = ie.idinc AND ie.ayear = @y
+JOIN expenselast el	(nolock)		ON p.idexp = el.idexp
+JOIN expensetotal se (nolock)		ON p.idexp = se.idexp AND se.ayear = @y
+LEFT OUTER JOIN proceeds di	(nolock)		ON di.kpro = il.kpro
+WHERE e.nphase = @maxincomephase AND ((e.idreg = p.idreg) or (e.autokind = 14) /*automatismo generico, non è richiesta la stessa anagrafica*/)
+
+
+
 
 
 -- Tabella delle trattenute a carico dell'ente
@@ -807,7 +697,11 @@ CREATE TABLE #admintax
 
 
  
+if (@admintaxkind = 2) begin
+-- movimento di spesa sul capitolo di spesa o sul capitolo di liquidazione del contributo
+							-- e movimento di entrata su partita di giro
 -- Inserimento delle trattenute (vengono inseriti i contributi c/amministrazione)
+
 INSERT INTO #admintax
 (
 	idexp, idinc, ypro, npro,  amount, amount_expense,
@@ -817,26 +711,23 @@ INSERT INTO #admintax
 	p.idexp, e.idinc, di.ypro, di.npro, iy.amount, sy.amount,
 	e.ymov, e.nmov, il.idpro
 FROM #proceeds p
-JOIN income e			ON e.idinc = p.idinc	
-JOIN incomelast il		ON e.idinc = il.idinc
-JOIN incometotal ie		ON e.idinc = ie.idinc
-JOIN incomeyear iy		ON iy.idinc = ie.idinc	AND iy.ayear = ie.ayear
+JOIN income e	(nolock)		ON e.idinc = p.idinc	AND p.idreg = e.idreg
+JOIN incomelast il	(nolock)	ON e.idinc = il.idinc
+JOIN incometotal ie	(nolock)	ON e.idinc = ie.idinc  AND ie.ayear = @y
+JOIN incomeyear iy	(nolock)	ON iy.idinc = ie.idinc	AND iy.ayear = ie.ayear
 LEFT OUTER JOIN proceeds di		ON di.kpro = il.kpro
-JOIN expense s			ON s.idpayment = e.idpayment
-JOIN expenselast el		ON s.idexp = el.idexp
-JOIN expensetotal se	ON s.idexp = se.idexp
-JOIN expenseyear sy		ON sy.idexp = se.idexp	AND sy.ayear = se.ayear
+JOIN expense s	(nolock)		ON s.idpayment = e.idpayment
+JOIN expenselast el	(nolock)	ON s.idexp = el.idexp
+--JOIN expensetotal se(nolock)	ON s.idexp = se.idexp AND se.ayear = @y
+JOIN expenseyear sy	 (nolock)	ON sy.idexp = el.idexp	AND sy.ayear = @y
 WHERE e.nphase = @maxincomephase
 	and s.nphase = @maxexpensephase
 	AND e.autokind = 4 -- Contributo
 	AND s.autokind = 4 
 	AND s.autocode  = e.autocode
-	AND p.idreg = e.idreg
-	AND ie.ayear = @y
-	AND se.ayear = @y
 	AND iy.amount = sy.amount
-	AND @admintaxkind = 2-- movimento di spesa sul capitolo di spesa o sul capitolo di liquidazione del contributo
-	-- e movimento di entrata su partita di giro
+END	
+
 			
 UPDATE #proceeds SET flagcompensation = 'S'		WHERE idinc in (select idinc FROM #admintax)
 
@@ -966,7 +857,8 @@ CREATE TABLE #DocContabilizzato(
 	sorting varchar(200),
 	--amount decimal(19,2),
 	idinc int,
-	
+	idsor_siope int, 
+
 	tipo_debito_siope varchar(15), --COMMERCIALE o IVA o NON COMMERCIALE
 	codice_ipa_ente_siope varchar(7),
 	
@@ -984,12 +876,15 @@ CREATE TABLE #DocContabilizzato(
 	natura_spesa_siope varchar(10),-- CORRENTE o CAPITALE
 	data_scadenza_pagam_siope datetime,
 	motivo_scadenza_siope varchar(50),
-	var_present char(1)
+	var_present char(1),
+	contarigheDettaglioDistinte int
 
 )
+
+
 INSERT INTO #DocContabilizzato(
 	ydoc, ndoc,	idpro, idinc, 
-
+	idsor_siope,
 	tipo_debito_siope, --COMMERCIALE o IVA o NON COMMERCIALE
 	codice_ipa_ente_siope,
 	
@@ -1002,7 +897,7 @@ INSERT INTO #DocContabilizzato(
 	
 	/*ctDati_fattura_siope*/
 	numero_fattura_siope, 
-	--importo_siope,
+	importo_siope,
 	natura_spesa_siope,-- CORRENTE o CAPITALE
 	data_scadenza_pagam_siope,
 	motivo_scadenza_siope
@@ -1015,8 +910,7 @@ OR
 recupero cplit payment
 => COMMERCIALE
 */
-SELECT distinct 
-	#proceeds.ydoc, #proceeds.ndoc, #proceeds.idpro, #proceeds.idinc,
+SELECT 	#proceeds.ydoc, #proceeds.ndoc, #proceeds.idpro, #proceeds.idinc,D.idsor_siope,
 	case when invoicekind.enable_fe='S' THEN 'COMMERCIALE' ELSE 'NON COMMERCIALE' end,
 	I.ipa_acq,
 	case when invoicekind.enable_fe='S' then 'ELETTRONICO' else 'ANALOGICO' end,
@@ -1025,8 +919,22 @@ SELECT distinct
 	@cf_dept,
 	year(I.adate),
 	case when invoicekind.enable_fe='S'  then sdi_acquisto.ninvoice else substring(I.doc,1,20) end ,
-	case when	(select sum(d2.taxable * ISNULL(d2.npackage,d2.number)) from invoicedetail as d2 where d2.idinvkind = d.idinvkind and d2.yinv=d.yinv and d2.ninv = d.ninv and d2.expensekind = 'CO')>
-				(select sum(d3.taxable * ISNULL(d3.npackage,d3.number))  from invoicedetail as d3 where d3.idinvkind = d.idinvkind and d3.yinv=d.yinv and d3.ninv = d.ninv and d3.expensekind = 'CA')
+		--importo_siope = Contabilizzazione TOTALE,
+		CASE when ((invoicekind.flag&4)<>0) THEN 
+			- (CONVERT(decimal(19,2), ROUND(D.taxable * ISNULL(D.npackage,D.number) * 
+				CONVERT(DECIMAL(19,10),ISNULL(I.exchangerate,1)) *
+				(1 - CONVERT(DECIMAL(19,6),ISNULL(D.discount, 0.0))),2
+				))+
+			CONVERT(decimal(19,2),ROUND(ISNULL(D.tax,0),2))
+			)
+	else 	CONVERT(decimal(19,2), ROUND(D.taxable * ISNULL(D.npackage,D.number) * 
+				CONVERT(DECIMAL(19,10),ISNULL(I.exchangerate,1)) *
+				(1 - CONVERT(DECIMAL(19,6),ISNULL(D.discount, 0.0))),2
+				))+
+			CONVERT(decimal(19,2),ROUND(ISNULL(D.tax,0),2))
+	end,
+	case when	isnull((select sum(d2.taxable * ISNULL(d2.npackage,d2.number)) from invoicedetail as d2 where d2.idinvkind = d.idinvkind and d2.yinv=d.yinv and d2.ninv = d.ninv and d2.expensekind = 'CO'),0)>
+				isnull((select sum(d3.taxable * ISNULL(d3.npackage,d3.number))  from invoicedetail as d3 where d3.idinvkind = d.idinvkind and d3.yinv=d.yinv and d3.ninv = d.ninv and d3.expensekind = 'CA'),0)
 				then 'CORRENTE'
 				else 'CAPITALE'
 	end,
@@ -1052,7 +960,7 @@ SELECT distinct
 	else null
 	end,
 	-- motivo scadenza siope
-	case when  D.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL') then 'SOSP_DECORRENZA_TERMINI'
+	case when  exists (select * from invoicedetail D2 where D2.idinvkind = D.idinvkind and D2.yinv = D.yinv and D2.ninv = D.ninv and D2.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL')) then 'SOSP_DECORRENZA_TERMINI'
 		when I.idexpirationkind is not null then 'CORRETTA_SCAD_FATTURA'
 	else null
 	end
@@ -1070,10 +978,29 @@ where D.idinc_taxable = D.idinc_iva -- Contabilizzazione totale
 				 where  IRK.idinvkind = i.idinvkind
 					and RK.registerclass = 'A' -- il tipo documento è associato a un registro Acquisti
 				) >0
-UNION
 
-SELECT distinct 
-	#proceeds.ydoc, #proceeds.ndoc, #proceeds.idpro, #proceeds.idinc,
+INSERT INTO #DocContabilizzato(
+	ydoc, ndoc,	idpro, idinc, idsor_siope,
+
+	tipo_debito_siope, --COMMERCIALE o IVA o NON COMMERCIALE
+	codice_ipa_ente_siope,
+	
+	tipo_documento_siope, -- ELETTRONICO o ANALOGICO
+	identificativo_lotto_sdi_siope, -- E' un INT!!!!!! /*Se FE*/
+	tipo_documento_analogico_siope , -- FATT_ANALOGICA o DOC_EQUIVALENTE
+	/*Se cartacea*/
+	codice_fiscale_emittente_siope,
+	anno_emissione_fattura_siope ,
+	
+	/*ctDati_fattura_siope*/
+	numero_fattura_siope, 
+	importo_siope,
+	natura_spesa_siope,-- CORRENTE o CAPITALE
+	data_scadenza_pagam_siope,
+	motivo_scadenza_siope
+)
+SELECT  
+	#proceeds.ydoc, #proceeds.ndoc, #proceeds.idpro, #proceeds.idinc,d.idsor_siope,
 	case when invoicekind.enable_fe='S' THEN 'COMMERCIALE' ELSE 'NON COMMERCIALE' end,
 	I.ipa_acq,
 	case when invoicekind.enable_fe='S' then 'ELETTRONICO' else 'ANALOGICO' end,
@@ -1082,8 +1009,20 @@ SELECT distinct
 	@cf_dept,
 	year(I.adate),
 	case when invoicekind.enable_fe='S'  then sdi_acquisto.ninvoice else substring(I.doc,1,20) end ,
-	case when	(select sum(d2.taxable * ISNULL(d2.npackage,d2.number)) from invoicedetail as d2 where d2.idinvkind = d.idinvkind and d2.yinv=d.yinv and d2.ninv = d.ninv and d2.expensekind = 'CO')>
-				(select sum(d3.taxable * ISNULL(d3.npackage,d3.number))  from invoicedetail as d3 where d3.idinvkind = d.idinvkind and d3.yinv=d.yinv and d3.ninv = d.ninv and d3.expensekind = 'CA')
+	--importo_siope = Contabilizzazione IMPON,
+		CASE when ((invoicekind.flag&4)<>0) THEN 
+			- (CONVERT(decimal(19,2), ROUND(D.taxable * ISNULL(D.npackage,D.number) * 
+				CONVERT(DECIMAL(19,10),ISNULL(I.exchangerate,1)) *
+				(1 - CONVERT(DECIMAL(19,6),ISNULL(D.discount, 0.0))),2
+				))
+			)
+	else 	CONVERT(decimal(19,2), ROUND(D.taxable * ISNULL(D.npackage,D.number) * 
+				CONVERT(DECIMAL(19,10),ISNULL(I.exchangerate,1)) *
+				(1 - CONVERT(DECIMAL(19,6),ISNULL(D.discount, 0.0))),2
+				))
+	end,
+	case when	isnull((select sum(d2.taxable * ISNULL(d2.npackage,d2.number)) from invoicedetail as d2 where d2.idinvkind = d.idinvkind and d2.yinv=d.yinv and d2.ninv = d.ninv and d2.expensekind = 'CO'),0)>
+				isnull((select sum(d3.taxable * ISNULL(d3.npackage,d3.number))  from invoicedetail as d3 where d3.idinvkind = d.idinvkind and d3.yinv=d.yinv and d3.ninv = d.ninv and d3.expensekind = 'CA'),0)
 				then 'CORRENTE'
 				else 'CAPITALE'
 	end,
@@ -1109,7 +1048,7 @@ SELECT distinct
 	else null
 	end,
 	-- motivo scadenza siope
-	case when  D.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL') then 'SOSP_DECORRENZA_TERMINI'
+	case when  exists (select * from invoicedetail D2 where D2.idinvkind = D.idinvkind and D2.yinv = D.yinv and D2.ninv = D.ninv and D2.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL')) then 'SOSP_DECORRENZA_TERMINI'
 		when I.idexpirationkind is not null then 'CORRETTA_SCAD_FATTURA'
 	else null
 	end
@@ -1127,9 +1066,29 @@ where D.idinc_taxable is not null and (D.idinc_iva is null or D.idinc_taxable <>
 				 where  IRK.idinvkind = i.idinvkind
 					and RK.registerclass = 'A' -- il tipo documento è associato a un registro Acquisti
 				) >0
-UNION 
-SELECT distinct 
-	#proceeds.ydoc, #proceeds.ndoc, #proceeds.idpro, #proceeds.idinc,
+
+INSERT INTO #DocContabilizzato(
+	ydoc, ndoc,	idpro, idinc, idsor_siope,
+
+	tipo_debito_siope, --COMMERCIALE o IVA o NON COMMERCIALE
+	codice_ipa_ente_siope,
+	
+	tipo_documento_siope, -- ELETTRONICO o ANALOGICO
+	identificativo_lotto_sdi_siope, -- E' un INT!!!!!! /*Se FE*/
+	tipo_documento_analogico_siope , -- FATT_ANALOGICA o DOC_EQUIVALENTE
+	/*Se cartacea*/
+	codice_fiscale_emittente_siope,
+	anno_emissione_fattura_siope ,
+	
+	/*ctDati_fattura_siope*/
+	numero_fattura_siope, 
+	importo_siope,
+	natura_spesa_siope,-- CORRENTE o CAPITALE
+	data_scadenza_pagam_siope,
+	motivo_scadenza_siope
+)
+SELECT 
+	#proceeds.ydoc, #proceeds.ndoc, #proceeds.idpro, #proceeds.idinc, isnull(@idsor_siopeivavendita, d.idsor_siope),
 	case when invoicekind.enable_fe='S' THEN 'COMMERCIALE' ELSE 'NON COMMERCIALE' end,
 	I.ipa_acq,
 	case when invoicekind.enable_fe='S' then 'ELETTRONICO' else 'ANALOGICO' end,
@@ -1138,11 +1097,20 @@ SELECT distinct
 	@cf_dept,
 	year(I.adate),
 	case when invoicekind.enable_fe='S'  then sdi_acquisto.ninvoice else substring(I.doc,1,20) end ,
-	case when	(select sum(d2.taxable * ISNULL(d2.npackage,d2.number)) from invoicedetail as d2 where d2.idinvkind = d.idinvkind and d2.yinv=d.yinv and d2.ninv = d.ninv and d2.expensekind = 'CO')>
-				(select sum(d3.taxable * ISNULL(d3.npackage,d3.number))  from invoicedetail as d3 where d3.idinvkind = d.idinvkind and d3.yinv=d.yinv and d3.ninv = d.ninv and d3.expensekind = 'CA')
+
+	--importo_siope = totale = Contabilizzazione solo IVA,
+		CASE when ((invoicekind.flag&4)<>0) THEN 
+			- (
+			CONVERT(decimal(19,2),ROUND(ISNULL(D.tax,0),2))
+			)
+	else 	CONVERT(decimal(19,2),ROUND(ISNULL(D.tax,0),2))
+	end,
+	case when	isnull((select sum(d2.taxable * ISNULL(d2.npackage,d2.number)) from invoicedetail as d2 where d2.idinvkind = d.idinvkind and d2.yinv=d.yinv and d2.ninv = d.ninv and d2.expensekind = 'CO'),0)>
+				isnull((select sum(d3.taxable * ISNULL(d3.npackage,d3.number))  from invoicedetail as d3 where d3.idinvkind = d.idinvkind and d3.yinv=d.yinv and d3.ninv = d.ninv and d3.expensekind = 'CA'),0)
 				then 'CORRENTE'
 				else 'CAPITALE'
 	end,
+
 	-- Data Scadenza Pagamento
 	case 
 	-- Data contabile(data registrazione)  = Numero gg D.R.F.
@@ -1165,7 +1133,7 @@ SELECT distinct
 	else null
 	end,
 	-- motivo scadenza siope
-	case when  D.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL') then 'SOSP_DECORRENZA_TERMINI'
+	case when  exists (select * from invoicedetail D2 where D2.idinvkind = D.idinvkind and D2.yinv = D.yinv and D2.ninv = D.ninv and D2.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL')) then 'SOSP_DECORRENZA_TERMINI'
 		when I.idexpirationkind is not null then 'CORRETTA_SCAD_FATTURA'
 	else null
 	end
@@ -1184,10 +1152,14 @@ where D.idinc_iva is not null and (D.idinc_taxable is null or D.idinc_taxable <>
 					and RK.registerclass = 'A' -- il tipo documento è associato a un registro Acquisti
 				) >0
 
-				
+declare @15_SPLIT_PAYMENT int
+select @15_SPLIT_PAYMENT = idclawback from clawback where clawbackref ='15_SPLIT_PAYMENT'
+declare @16_SPLIT_PAYMENT_C int
+select @16_SPLIT_PAYMENT_C = idclawback from clawback where clawbackref ='16_SPLIT_PAYMENT_C'
+			
 -- Inseriamo i dati delle fatture di acquisto soggette a SplitPayment il cui recupero iva è un mov. di entrata acssociato alla reversale in oggetto.
 INSERT INTO #DocContabilizzato(
-	ydoc, ndoc,	idpro, idinc, 
+	ydoc, ndoc,	idpro, idinc, idsor_siope,
 
 	tipo_debito_siope, --COMMERCIALE o IVA o NON COMMERCIALE
 	codice_ipa_ente_siope,
@@ -1208,9 +1180,11 @@ INSERT INTO #DocContabilizzato(
 	motivo_scadenza_siope,
 	var_present
 )
---Prima inserisce le fatture aventi anche una NC associata, e poi le fatture senza NC associata.
+
+
+--Inserisce le fatture aventi anche una NC associata, e poi le fatture senza NC associata.
 SELECT  
-	#proceeds.ydoc, #proceeds.ndoc, #proceeds.idpro, #proceeds.idinc,
+	#proceeds.ydoc, #proceeds.ndoc, #proceeds.idpro, #proceeds.idinc,d.idsor_siope,
 	case when invoicekind.enable_fe='S' THEN 'COMMERCIALE' ELSE 'NON COMMERCIALE' end,
 	I.ipa_acq,
 	case when invoicekind.enable_fe='S' then 'ELETTRONICO' else 'ANALOGICO' end,
@@ -1222,12 +1196,13 @@ SELECT
 	case when ((invoicekind.flag&4)<>0) then 'S' else 'N' end,
 	CASE when ((invoicekind.flag&4)<>0) THEN 
 		- (
-		CONVERT(decimal(19,2),ROUND(ISNULL(D.tax,0),2))
+		CONVERT(decimal(19,2),ROUND(ISNULL(D.tax,0),2))				
 		)
 	else 	CONVERT(decimal(19,2),ROUND(ISNULL(D.tax,0),2))
 	end,
-	case when	(select sum(d2.taxable * ISNULL(d2.npackage,d2.number)) from invoicedetail as d2 where d2.idinvkind = d.idinvkind and d2.yinv=d.yinv and d2.ninv = d.ninv and d2.expensekind = 'CO')>
-				(select sum(d3.taxable * ISNULL(d3.npackage,d3.number))  from invoicedetail as d3 where d3.idinvkind = d.idinvkind and d3.yinv=d.yinv and d3.ninv = d.ninv and d3.expensekind = 'CA')
+
+	case when	isnull((select sum(d2.taxable * ISNULL(d2.npackage,d2.number)) from invoicedetail as d2 where d2.idinvkind = d.idinvkind and d2.yinv=d.yinv and d2.ninv = d.ninv and d2.expensekind = 'CO'),0)>
+				isnull((select sum(d3.taxable * ISNULL(d3.npackage,d3.number))  from invoicedetail as d3 where d3.idinvkind = d.idinvkind and d3.yinv=d.yinv and d3.ninv = d.ninv and d3.expensekind = 'CA'),0)
 				then 'CORRENTE'
 				else 'CAPITALE'
 	end,
@@ -1253,92 +1228,235 @@ SELECT
 	else null
 	end,
 	-- motivo scadenza siope
-	case when  D.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL') then 'SOSP_DECORRENZA_TERMINI'
+	case  when  exists (select * from invoicedetail D2 where D2.idinvkind = D.idinvkind and D2.yinv = D.yinv and D2.ninv = D.ninv and D2.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL')) then 'SOSP_DECORRENZA_TERMINI'
 		when I.idexpirationkind is not null then 'CORRETTA_SCAD_FATTURA'
 	else null
 	end,
-	'S'
+	case when (select count(*) from expensevar where expensevar.idexp = #proceeds.idexp) >0 then  'S' else 'N' end /*Esiste un NC contabilizzata col Pagamento*/
 FROM #proceeds
 JOIN invoicedetail D			ON #proceeds.idexp = D.idexp_taxable
 join invoice I					on I.idinvkind = D.idinvkind and I.yinv = D.yinv and I.ninv = D.ninv
 join invoicekind				on I.idinvkind = invoicekind.idinvkind
 left outer join sdi_acquisto	on I.idsdi_acquisto = sdi_acquisto.idsdi_acquisto
-where  (select count(*) from expensevar where expensevar.idexp = #proceeds.idexp) >0 /*Esiste un NC contabilizzata col Pagamento*/
-UNION
-SELECT  
-	#proceeds.ydoc, #proceeds.ndoc, #proceeds.idpro, #proceeds.idinc,
-	case when invoicekind.enable_fe='S' THEN 'COMMERCIALE' ELSE 'NON COMMERCIALE' end,
-	I.ipa_acq,
-	case when invoicekind.enable_fe='S' then 'ELETTRONICO' else 'ANALOGICO' end,
-	convert(varchar(20), sdi_acquisto.identificativo_sdi),
-	case when invoicekind.enable_fe='N' then 'FATT_ANALOGICA' else null end,
-	@cf_dept,
-	year(I.adate),
-	case when invoicekind.enable_fe='S'  then sdi_acquisto.ninvoice else substring(I.doc,1,20) end ,
-	case when ((invoicekind.flag&4)<>0) then 'S' else 'N' end,
-	null, --importo_siope,
-	case when	(select sum(d2.taxable * ISNULL(d2.npackage,d2.number)) from invoicedetail as d2 where d2.idinvkind = d.idinvkind and d2.yinv=d.yinv and d2.ninv = d.ninv and d2.expensekind = 'CO')>
-				(select sum(d3.taxable * ISNULL(d3.npackage,d3.number))  from invoicedetail as d3 where d3.idinvkind = d.idinvkind and d3.yinv=d.yinv and d3.ninv = d.ninv and d3.expensekind = 'CA')
-				then 'CORRENTE'
-				else 'CAPITALE'
-	end,
-	-- Data Scadenza Pagamento
-	case 
-	-- Data contabile(data registrazione)  = Numero gg D.R.F.
-	when (I.idexpirationkind = 1 AND isnull(I.paymentexpiring,0)>0) then DATEADD(day, paymentexpiring, I.adate)
-	when (I.idexpirationkind = 1 AND isnull(I.paymentexpiring,0)=0) then I.adate
-	-- Data documento = Numero gg  D.F.
-	when (I.idexpirationkind = 2 AND I.docdate is not null AND isnull(I.paymentexpiring,0)>0) then DATEADD(day, paymentexpiring, I.docdate)
-	when (I.idexpirationkind = 2 AND isnull(I.paymentexpiring,0)=0) then I.docdate
-	-- Fine mese data documento = Numero gg F.M.D.F.
-	when (I.idexpirationkind = 3 AND I.docdate is not null and isnull(I.paymentexpiring,0)>0) then DATEADD(day, paymentexpiring,  DATEADD(day, -1, DATEADD(month, 1, DATEADD(day, 1 - DAY(I.docdate) ,I.docdate))) ) 
-	when (I.idexpirationkind = 3 AND I.docdate is not null and isnull(I.paymentexpiring,0)=0) then DATEADD(day, -1, DATEADD(month, 1, DATEADD(day, 1 - DAY(I.docdate) ,I.docdate)))
-	-- Fine mese data contabile = Numero gg F.M.D.R.F.
-	when (I.idexpirationkind = 4  and isnull(I.paymentexpiring,0)>0) then DATEADD(day, paymentexpiring,     DATEADD(day, -1, DATEADD(month, 1, DATEADD(day, 1 - DAY(I.adate) ,I.adate))) )
-	when (I.idexpirationkind = 4  and isnull(I.paymentexpiring,0)=0) then DATEADD(day, -1, DATEADD(month, 1, DATEADD(day, 1 - DAY(I.adate) ,I.adate)))
-	--	Pagamento Immediato  = data registrazione
-	when I.idexpirationkind = 5 then I.adate
-	-- Data ricezione
-	when (I.idexpirationkind = 6 AND I.protocoldate is not null AND isnull(I.paymentexpiring,0)>0) then DATEADD(day, paymentexpiring, I.protocoldate)
-	when (I.idexpirationkind = 6 AND isnull(I.paymentexpiring,0)=0) then I.protocoldate
-	else null
-	end,
-	-- motivo scadenza siope
-	case when  D.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL') then 'SOSP_DECORRENZA_TERMINI'
-		when I.idexpirationkind is not null then 'CORRETTA_SCAD_FATTURA'
-	else null
-	end,
-	'N'
-FROM #proceeds
-JOIN invoicedetail D			ON #proceeds.idexp = D.idexp_taxable
-join invoice I					on I.idinvkind = D.idinvkind and I.yinv = D.yinv and I.ninv = D.ninv
-join invoicekind				on I.idinvkind = invoicekind.idinvkind
-left outer join sdi_acquisto	on I.idsdi_acquisto = sdi_acquisto.idsdi_acquisto
-where  (select count(*) from expensevar where expensevar.idexp = #proceeds.idexp) =0 /*Non Esiste un NC contabilizzata col Pagamento*/
-and (select income.autokind from income where income.idinc =  #proceeds.idinc) = 6  
--- Riempimento della tabella con i dati della classificazione SIOPE
-DECLARE @codeclassSIOPE varchar(20)
+where (select income.autokind from income where income.idinc =  #proceeds.idinc) = 6  --recupero
+		and (select count(*) from income where income.idinc =  #proceeds.idinc and autocode in ( @15_SPLIT_PAYMENT, @16_SPLIT_PAYMENT_C) )>0 -- Prende la fattura di riferimento, sono se si tratta di Recupero split payment
+ 
+update  #DocContabilizzato set contarigheDettaglioDistinte = (select count(*) /*AS distinct_count */
+from (SELECT DISTINCT numero_fattura_siope, motivo_scadenza_siope FROM #DocContabilizzato d where d.idinc= #DocContabilizzato.idinc ) as t
+)
 
-SELECT  @codeclassSIOPE  =  
-CASE  
-	WHEN  (@y<= 2006) THEN  'SIOPE'
-	WHEN  (@y BETWEEN 2007 AND 2017) THEN  '07E_SIOPE'
-	ELSE   'SIOPE_E_18'
-END
+CREATE TABLE #incomesorted_sum(
+	idsor int,
+	idinc int,
+	amount decimal(19,2)
+	)
+insert into #incomesorted_sum(idsor,idinc,amount)
+select es.idsor,es.idinc,sum(amount)
+	from incomesorted es 
+		join sorting s on es.idsor=s.idsor
+		join #proceeds  on #proceeds.idinc=es.idinc
+		where s.idsorkind=@classSIOPE
+		group by  es.idsor,es.idinc
+
+CREATE TABLE #DocContabilizzatoRigheDiverse(
+	ydoc int,
+	ndoc int,
+	idpro int,
+	--amount decimal(19,2),
+	idinc int,
+	
+	tipo_debito_siope varchar(15), --COMMERCIALE o IVA o NON COMMERCIALE
+	codice_ipa_ente_siope varchar(7),
+	
+	tipo_documento_siope varchar(20), -- ELETTRONICO o ANALOGICO
+	identificativo_lotto_sdi_siope varchar(20), -- E' un INT!!!!!! /*Se FE*/
+	tipo_documento_analogico_siope varchar(20), -- FATT_ANALOGICA o DOC_EQUIVALENTE
+	/*Se cartacea*/
+	codice_fiscale_emittente_siope varchar(16),
+	anno_emissione_fattura_siope varchar(4) ,
+	
+	/*ctDati_fattura_siope*/
+	numero_fattura_siope varchar(20), 
+	flagnc char(1),
+	importo_siope decimal(19,2),
+	natura_spesa_siope varchar(10),-- CORRENTE o CAPITALE
+	data_scadenza_pagam_siope datetime,
+	motivo_scadenza_siope varchar(50),
+	var_present char(1),
+	contarigheDettaglioDistinte int
+
+)
+
+	insert into #DocContabilizzatoRigheDiverse(
+			ydoc, ndoc,	idpro, idinc, 
+
+	tipo_debito_siope, --COMMERCIALE o IVA o NON COMMERCIALE
+	codice_ipa_ente_siope,
+	
+	tipo_documento_siope, -- ELETTRONICO o ANALOGICO
+	identificativo_lotto_sdi_siope, -- E' un INT!!!!!! /*Se FE*/
+	tipo_documento_analogico_siope , -- FATT_ANALOGICA o DOC_EQUIVALENTE
+	/*Se cartacea*/
+	codice_fiscale_emittente_siope,
+	anno_emissione_fattura_siope ,
+	
+	/*ctDati_fattura_siope*/ 
+	numero_fattura_siope, 
+	flagnc,
+	importo_siope,
+	natura_spesa_siope, -- CORRENTE o CAPITALE
+	data_scadenza_pagam_siope,
+	motivo_scadenza_siope,
+	contarigheDettaglioDistinte)
+	select 
+	ydoc, ndoc,	idpro, idinc, 
+
+	tipo_debito_siope, --COMMERCIALE o IVA o NON COMMERCIALE
+	codice_ipa_ente_siope,
+	
+	tipo_documento_siope, -- ELETTRONICO o ANALOGICO
+	identificativo_lotto_sdi_siope, -- E' un INT!!!!!! /*Se FE*/
+	tipo_documento_analogico_siope , -- FATT_ANALOGICA o DOC_EQUIVALENTE
+	/*Se cartacea*/
+	codice_fiscale_emittente_siope,
+	anno_emissione_fattura_siope ,
+	
+	/*ctDati_fattura_siope*/ 
+	numero_fattura_siope, 
+	flagnc,
+	sum(importo_siope),
+	natura_spesa_siope, -- CORRENTE o CAPITALE
+	data_scadenza_pagam_siope,
+	motivo_scadenza_siope,
+	contarigheDettaglioDistinte
+	from #DocContabilizzato
+	group by
+	ydoc, ndoc,	idpro, idinc, 
+
+	tipo_debito_siope, --COMMERCIALE o IVA o NON COMMERCIALE
+	codice_ipa_ente_siope,
+	
+	tipo_documento_siope, -- ELETTRONICO o ANALOGICO
+	identificativo_lotto_sdi_siope, -- E' un INT!!!!!! /*Se FE*/
+	tipo_documento_analogico_siope , -- FATT_ANALOGICA o DOC_EQUIVALENTE
+	/*Se cartacea*/
+	codice_fiscale_emittente_siope,
+	anno_emissione_fattura_siope ,
+	
+	/*ctDati_fattura_siope*/ 
+	numero_fattura_siope, 
+	flagnc,
+	natura_spesa_siope, -- CORRENTE o CAPITALE
+	data_scadenza_pagam_siope,
+	motivo_scadenza_siope,
+	contarigheDettaglioDistinte
+	having sum(importo_siope)<>0
 
 
-DECLARE @classSIOPE int
-SELECT @classSIOPE = idsorkind FROM sortingkind WHERE codesorkind = @codeclassSIOPE
+CREATE TABLE #DocContabilizzatoSommaSiope(
+	ydoc int,
+	ndoc int,
+	idpro int,
+	--amount decimal(19,2),
+	idinc int,
+	idsor_siope int,
 
--- Riempimento della tabella delle classificazioni SIOPE
+	tipo_debito_siope varchar(15), --COMMERCIALE o IVA o NON COMMERCIALE
+	codice_ipa_ente_siope varchar(7),
+	
+	tipo_documento_siope varchar(20), -- ELETTRONICO o ANALOGICO
+	identificativo_lotto_sdi_siope varchar(20), -- E' un INT!!!!!! /*Se FE*/
+	tipo_documento_analogico_siope varchar(20), -- FATT_ANALOGICA o DOC_EQUIVALENTE
+	/*Se cartacea*/
+	codice_fiscale_emittente_siope varchar(16),
+	anno_emissione_fattura_siope varchar(4) ,
+	
+	/*ctDati_fattura_siope*/
+	numero_fattura_siope varchar(20), 
+	flagnc char(1),
+	importo_siope decimal(19,2),
+	natura_spesa_siope varchar(10),-- CORRENTE o CAPITALE
+	data_scadenza_pagam_siope datetime,
+	motivo_scadenza_siope varchar(50),
+	var_present char(1),
+	contarigheDettaglioDistinte int
+
+)
+
+
+insert into #DocContabilizzatoSommaSiope(
+		ydoc, ndoc,	idpro, idinc, idsor_siope, tipo_debito_siope, --COMMERCIALE o IVA o NON COMMERCIALE
+codice_ipa_ente_siope,
+	
+tipo_documento_siope, -- ELETTRONICO o ANALOGICO
+identificativo_lotto_sdi_siope, -- E' un INT!!!!!! /*Se FE*/
+tipo_documento_analogico_siope , -- FATT_ANALOGICA o DOC_EQUIVALENTE
+/*Se cartacea*/
+codice_fiscale_emittente_siope,
+anno_emissione_fattura_siope ,
+	
+/*ctDati_fattura_siope*/ 
+numero_fattura_siope, 
+flagnc,
+importo_siope,
+natura_spesa_siope, -- CORRENTE o CAPITALE
+data_scadenza_pagam_siope,
+motivo_scadenza_siope,
+contarigheDettaglioDistinte)
+	select 
+	ydoc, ndoc,	idpro, idinc, 	idsor_siope,
+	tipo_debito_siope, --COMMERCIALE o IVA o NON COMMERCIALE
+	codice_ipa_ente_siope,
+	
+	tipo_documento_siope, -- ELETTRONICO o ANALOGICO
+	identificativo_lotto_sdi_siope, -- E' un INT!!!!!! /*Se FE*/
+	tipo_documento_analogico_siope , -- FATT_ANALOGICA o DOC_EQUIVALENTE
+	/*Se cartacea*/
+	codice_fiscale_emittente_siope,
+	anno_emissione_fattura_siope ,
+	
+	/*ctDati_fattura_siope*/ 
+	numero_fattura_siope, 
+	flagnc,
+	sum(importo_siope),
+	natura_spesa_siope, -- CORRENTE o CAPITALE
+	data_scadenza_pagam_siope,
+	motivo_scadenza_siope,
+	contarigheDettaglioDistinte
+	from #DocContabilizzato
+	group by
+	ydoc, ndoc,	idpro, idinc, idsor_siope,
+	
+	tipo_debito_siope, --COMMERCIALE o IVA o NON COMMERCIALE
+	codice_ipa_ente_siope,
+	
+	tipo_documento_siope, -- ELETTRONICO o ANALOGICO
+	identificativo_lotto_sdi_siope, -- E' un INT!!!!!! /*Se FE*/
+	tipo_documento_analogico_siope , -- FATT_ANALOGICA o DOC_EQUIVALENTE
+	/*Se cartacea*/
+	codice_fiscale_emittente_siope,
+	anno_emissione_fattura_siope ,
+	
+	/*ctDati_fattura_siope*/ 
+	numero_fattura_siope, 
+	flagnc,
+	natura_spesa_siope, -- CORRENTE o CAPITALE
+	data_scadenza_pagam_siope,
+	motivo_scadenza_siope,
+	contarigheDettaglioDistinte
+
+--select * from #proceeds
+--select * from #DocContabilizzatoRigheDiverse
+
+--Inserimento delle classificazioni SIOPE dei movimenti di entrata
 INSERT INTO #siope
 (
 	yproceedstransmission, nproceedstransmission, ydoc, ndoc, idpro,idinc,
 	sortcode, descr_sorting, 
-	curramount, amount_expense, 
+	--curramount, amount_expense, 
 	importoclassificazionemov, --> CLASSIIFCAZIONE SIOPE
 	importo_siope,
-	cupcodefin, cupcodeupb, cupcodeincome,opkind,flagpendingincome,
+	cupcodefin, cupcodeupb, cupcodeincome,opkind,
 	tipo_debito_siope, --COMMERCIALE o IVA o NON COMMERCIALE
 	codice_ipa_ente_siope,
 	
@@ -1360,11 +1478,10 @@ INSERT INTO #siope
 		#proceeds.yproceedstransmission, #proceeds.nproceedstransmission, #proceeds.ydoc, #proceeds.ndoc,
 		#proceeds.idpro, #proceeds.idinc, 
 		sorting.sortcode,sorting.description,  
-		SUM(#proceeds.curramount), SUM(#proceeds.curramount_expense),
-
-		incomesorted.amount, 
-		SUM(DOC.importo_siope),		
-		#proceeds.cupcodefin, #proceeds.cupcodeupb, #proceeds.cupcodeincome, #proceeds.opkind,#proceeds.flagpendingincome,
+		--#proceeds.curramount, #proceeds.curramount_expense,
+		#incomesorted_sum.amount, 
+		DOC.importo_siope,		
+		#proceeds.cupcodefin, #proceeds.cupcodeupb, #proceeds.cupcodeincome, #proceeds.opkind,
 		--DOC.tipo_debito_siope, --COMMERCIALE o IVA o NON COMMERCIALE
 		case when DOC.tipo_debito_siope is not null then DOC.tipo_debito_siope
 			else 'NON COMMERCIALE'
@@ -1384,33 +1501,47 @@ INSERT INTO #siope
 		DOC.data_scadenza_pagam_siope,
 		DOC.motivo_scadenza_siope,
 		DOC.flagnc
-	FROM #proceeds
-	JOIN incomesorted			ON #proceeds.idinc = incomesorted.idinc
-	JOIN sorting				ON sorting.idsor = incomesorted.idsor
-	join #DocContabilizzato DOC	on DOC.idinc = #proceeds.idinc
-	WHERE sorting.idsorkind = @classSIOPE
-	 and DOC.var_present='S'
-	GROUP BY
-		#proceeds.yproceedstransmission, #proceeds.nproceedstransmission, #proceeds.ydoc, #proceeds.ndoc,
-		#proceeds.idpro, #proceeds.idinc,sorting.sortcode,sorting.description,
-		#proceeds.cupcodefin, #proceeds.cupcodeupb, #proceeds.cupcodeincome,#proceeds.opkind,#proceeds.flagpendingincome,
-		DOC.tipo_debito_siope,
-		DOC.codice_ipa_ente_siope,	DOC.tipo_documento_siope, 
-		DOC.identificativo_lotto_sdi_siope,	DOC.tipo_documento_analogico_siope , 
-		DOC.codice_fiscale_emittente_siope,	DOC.anno_emissione_fattura_siope ,
-		DOC.numero_fattura_siope, 	DOC.natura_spesa_siope,DOC.data_scadenza_pagam_siope,	
-		DOC.motivo_scadenza_siope,DOC.flagnc,incomesorted.amount
-	HAVING SUM(incomesorted.amount) <> 0
-UNION
---Iserisce le fatture di acquisto che hanno dato origine al recupero split, aventi una NC collegata
--- e gli incassi senza documento
+FROM #proceeds
+--join #DocContabilizzato DOC					on DOC.idexp = #payment.idexp
+join #DocContabilizzatoRigheDiverse doc		on DOC.idinc = #proceeds.idinc
+JOIN #incomesorted_sum							ON #proceeds.idinc = #incomesorted_sum.idinc 
+JOIN sorting								ON sorting.idsor = #incomesorted_sum.idsor
+WHERE #proceeds.nClassSiope=1			--vale sia con 1 o più gruppi di dettagli siope
+		and (#incomesorted_sum.amount) <> 0
+
+		
+INSERT INTO #siope
+(
+	yproceedstransmission, nproceedstransmission, ydoc, ndoc, idpro,idinc,
+	sortcode, descr_sorting, 
+	importoclassificazionemov, --> CLASSIIFCAZIONE SIOPE
+	importo_siope,
+	cupcodefin, cupcodeupb, cupcodeincome,opkind, 
+	tipo_debito_siope, --COMMERCIALE o IVA o NON COMMERCIALE
+	codice_ipa_ente_siope,
+	
+	tipo_documento_siope, -- ELETTRONICO o ANALOGICO
+	identificativo_lotto_sdi_siope, -- E' un INT!!!!!! /*Se FE*/
+	tipo_documento_analogico_siope , -- FATT_ANALOGICA o DOC_EQUIVALENTE
+	/*Se cartacea*/
+	codice_fiscale_emittente_siope,
+	anno_emissione_fattura_siope ,
+	
+	/*ctDati_fattura_siope*/
+	numero_fattura_siope, 
+	natura_spesa_siope, -- CORRENTE o CAPITALE
+	data_scadenza_pagam_siope,
+	motivo_scadenza_siope,
+	flagnc
+)
 	SELECT
 		#proceeds.yproceedstransmission, #proceeds.nproceedstransmission, #proceeds.ydoc, #proceeds.ndoc,
-		#proceeds.idpro, #proceeds.idinc, sorting.sortcode,sorting.description,  
-		SUM(#proceeds.curramount), SUM(#proceeds.curramount_expense),
-		incomesorted.amount, 
-		SUM(incomesorted.amount), 
-		#proceeds.cupcodefin, #proceeds.cupcodeupb, #proceeds.cupcodeincome, #proceeds.opkind,#proceeds.flagpendingincome,
+		#proceeds.idpro, #proceeds.idinc, 
+		sorting.sortcode,sorting.description,  
+
+		#incomesorted_sum.amount, 
+		#incomesorted_sum.amount, 	
+		#proceeds.cupcodefin, #proceeds.cupcodeupb, #proceeds.cupcodeincome, #proceeds.opkind, 
 		--DOC.tipo_debito_siope, --COMMERCIALE o IVA o NON COMMERCIALE
 		case when DOC.tipo_debito_siope is not null then DOC.tipo_debito_siope
 			else 'NON COMMERCIALE'
@@ -1429,50 +1560,196 @@ UNION
 		DOC.natura_spesa_siope,-- CORRENTE o CAPITALE
 		DOC.data_scadenza_pagam_siope,
 		DOC.motivo_scadenza_siope,
-		isnull(DOC.flagnc,'N')
+		DOC.flagnc
+FROM #proceeds
+--join #DocContabilizzato DOC					on DOC.idexp = #payment.idexp
+join #DocContabilizzatoRigheDiverse doc		on DOC.idinc = #proceeds.idinc
+JOIN #incomesorted_sum							ON #proceeds.idinc = #incomesorted_sum.idinc 
+JOIN sorting								ON sorting.idsor = #incomesorted_sum.idsor
+WHERE #proceeds.nClassSiope>1			and doc.contarigheDettaglioDistinte=1	
+		and (#incomesorted_sum.amount) <> 0
+
+		
+
+INSERT INTO #siope
+(
+	yproceedstransmission, nproceedstransmission, ydoc, ndoc, idpro,idinc,
+	sortcode, descr_sorting, 
+	importoclassificazionemov, --> CLASSIIFCAZIONE SIOPE
+	importo_siope,
+	cupcodefin, cupcodeupb, cupcodeincome,opkind, 
+	tipo_debito_siope, --COMMERCIALE o IVA o NON COMMERCIALE
+	codice_ipa_ente_siope,
+	
+	tipo_documento_siope, -- ELETTRONICO o ANALOGICO
+	identificativo_lotto_sdi_siope, -- E' un INT!!!!!! /*Se FE*/
+	tipo_documento_analogico_siope , -- FATT_ANALOGICA o DOC_EQUIVALENTE
+	/*Se cartacea*/
+	codice_fiscale_emittente_siope,
+	anno_emissione_fattura_siope ,
+	
+	/*ctDati_fattura_siope*/
+	numero_fattura_siope, 
+	natura_spesa_siope, -- CORRENTE o CAPITALE
+	data_scadenza_pagam_siope,
+	motivo_scadenza_siope,
+	flagnc
+)
+	SELECT
+		#proceeds.yproceedstransmission, #proceeds.nproceedstransmission, #proceeds.ydoc, #proceeds.ndoc,
+		#proceeds.idpro, #proceeds.idinc, 
+		sorting.sortcode,sorting.description,  
+		(select sum(d.importo_siope) from #DocContabilizzatoSommaSiope d where d.idinc = doc.idinc and d.idsor_siope = doc.idsor_siope ),
+										--importo netto sul siope (somma fattura e note di credito) su tutto il movimento di spesa
+		doc.importo_siope,					/*IMPORTO SIOPE raggruppato per documento, alcune somme sono positive e altre (per le NC) negative */
+
+		#proceeds.cupcodefin, #proceeds.cupcodeupb, #proceeds.cupcodeincome, #proceeds.opkind, 
+		--DOC.tipo_debito_siope, --COMMERCIALE o IVA o NON COMMERCIALE
+		case when DOC.tipo_debito_siope is not null then DOC.tipo_debito_siope
+			else 'NON COMMERCIALE'
+			end,
+		DOC.codice_ipa_ente_siope,
+	
+		DOC.tipo_documento_siope, -- ELETTRONICO o ANALOGICO
+		DOC.identificativo_lotto_sdi_siope, -- E' un INT!!!!!! /*Se FE*/
+		DOC.tipo_documento_analogico_siope , -- FATT_ANALOGICA o DOC_EQUIVALENTE
+		/*Se cartacea*/
+		DOC.codice_fiscale_emittente_siope,
+		DOC.anno_emissione_fattura_siope ,
+	
+		/*ctDati_fattura_siope*/
+		DOC.numero_fattura_siope, 
+		DOC.natura_spesa_siope,-- CORRENTE o CAPITALE
+		DOC.data_scadenza_pagam_siope,
+		DOC.motivo_scadenza_siope,
+		DOC.flagnc
+FROM #proceeds
+--join #DocContabilizzato DOC					on DOC.idexp = #payment.idexp
+join #DocContabilizzatoSommaSiope doc		on DOC.idinc = #proceeds.idinc
+JOIN sorting								ON sorting.idsor = DOC.idsor_siope
+WHERE sorting.idsorkind = @classSIOPE and #proceeds.nClassSiope>1 and doc.contarigheDettaglioDistinte>1	
+		and (select sum(d.importo_siope) from #DocContabilizzatoSommaSiope d where d.idinc = #proceeds.idinc) <> 0
+			and DOC.importo_siope<>0
+
+
+
+--select * from #proceeds
+
+--select * from #DocContabilizzatoSommaSiope
+
+--select * from #DocContabilizzatoRigheDiverse
+
+
+
+
+--inserisce incassi senza fattura e incassi iva split di fatt. acquisto
+INSERT INTO #siope
+(
+	yproceedstransmission, nproceedstransmission, ydoc, ndoc, idpro,idinc,
+	sortcode, descr_sorting, 
+	importoclassificazionemov, --> CLASSIIFCAZIONE SIOPE
+	importo_siope,
+	cupcodefin, cupcodeupb, cupcodeincome,opkind, 
+	tipo_debito_siope, --COMMERCIALE o IVA o NON COMMERCIALE
+	codice_ipa_ente_siope,
+	
+	tipo_documento_siope, -- ELETTRONICO o ANALOGICO
+	identificativo_lotto_sdi_siope, -- E' un INT!!!!!! /*Se FE*/
+	tipo_documento_analogico_siope , -- FATT_ANALOGICA o DOC_EQUIVALENTE
+	/*Se cartacea*/
+	codice_fiscale_emittente_siope,
+	anno_emissione_fattura_siope ,
+	
+	/*ctDati_fattura_siope*/
+	numero_fattura_siope, 
+	natura_spesa_siope, -- CORRENTE o CAPITALE
+	data_scadenza_pagam_siope,
+	motivo_scadenza_siope,
+	flagnc
+)
+	SELECT
+		#proceeds.yproceedstransmission, #proceeds.nproceedstransmission, #proceeds.ydoc, #proceeds.ndoc,
+		#proceeds.idpro, #proceeds.idinc, sorting.sortcode,sorting.description,  
+		#incomesorted_sum.amount,		
+		null,	
+		#proceeds.cupcodefin, #proceeds.cupcodeupb, #proceeds.cupcodeincome, #proceeds.opkind, 
+		--DOC.tipo_debito_siope, --COMMERCIALE o IVA o NON COMMERCIALE
+		'NON COMMERCIALE',
+		null, --DOC.codice_ipa_ente_siope,
+		null, --DOC.tipo_documento_siope, -- ELETTRONICO o ANALOGICO
+		null, --DOC.identificativo_lotto_sdi_siope, -- E' un INT!!!!!! /*Se FE*/
+		null, --DOC.tipo_documento_analogico_siope , -- FATT_ANALOGICA o DOC_EQUIVALENTE
+		/*Se cartacea*/
+		null, --DOC.codice_fiscale_emittente_siope,
+		null, --DOC.anno_emissione_fattura_siope ,
+	
+		/*ctDati_fattura_siope*/
+		null, --DOC.numero_fattura_siope, 
+		null, --DOC.natura_spesa_siope,-- CORRENTE o CAPITALE
+		null, --DOC.data_scadenza_pagam_siope,
+		null, --DOC.motivo_scadenza_siope,
+		'N'
 	FROM #proceeds
-	JOIN incomesorted			ON #proceeds.idinc = incomesorted.idinc
-	JOIN sorting				ON sorting.idsor = incomesorted.idsor
-	left outer join #DocContabilizzato DOC	on DOC.idinc = #proceeds.idinc
+	JOIN #incomesorted_sum			ON #proceeds.idinc = #incomesorted_sum.idinc
+	JOIN sorting				ON sorting.idsor = #incomesorted_sum.idsor
 	WHERE sorting.idsorkind = @classSIOPE
-	and (DOC.var_present='N' or   DOC.var_present is null)
-GROUP BY
-	#proceeds.yproceedstransmission, #proceeds.nproceedstransmission, #proceeds.ydoc, #proceeds.ndoc,
-	#proceeds.idpro, #proceeds.idinc,sorting.sortcode,sorting.description,
-	#proceeds.cupcodefin, #proceeds.cupcodeupb, #proceeds.cupcodeincome,#proceeds.opkind,#proceeds.flagpendingincome,
-	DOC.tipo_debito_siope,
-	DOC.codice_ipa_ente_siope,	DOC.tipo_documento_siope, 
-	DOC.identificativo_lotto_sdi_siope,	DOC.tipo_documento_analogico_siope , 
-	DOC.codice_fiscale_emittente_siope,	DOC.anno_emissione_fattura_siope ,
-	DOC.numero_fattura_siope, 	DOC.natura_spesa_siope,DOC.data_scadenza_pagam_siope,	
-	DOC.motivo_scadenza_siope,DOC.flagnc,incomesorted.amount
-HAVING SUM(incomesorted.amount) <> 0
+	and (select count(*) from #siope where #siope.idinc = #proceeds.idinc )=0
+	and (#incomesorted_sum.amount) <> 0
 
--- Riproporziono l'importo delle classificazioni SIOPE
--- Per idpro 1
--- vecchio importo classificato : nuovo importo classificato = importo corrente : importo corrente - spesa accessoria
--- nuovo importo classificato = vecchio importo classificato * (importo corrente -spesa accessoria) / importo corrente  
-UPDATE #siope SET importoclassificazionemov= isnull(#siope.importoclassificazionemov,0) * (isnull(#siope.curramount,0) - isnull(#siope.amount_expense,0))/isnull(#siope.curramount,0) 
-WHERE #siope.flagpendingincome  = 'S' and #siope.idpro = 1
 
---Per idpro 2
---vecchio importo classificato : nuovo importo classificato = importo corrente : spesa accessoria
---nuovo importo classificato = vecchio importo classificato * spesa accessoria / importo corrente
-UPDATE #siope SET importoclassificazionemov = isnull(#siope.importoclassificazionemov,0) * (isnull(#siope.amount_expense,0)/isnull(#siope.curramount,0))
-WHERE #siope.flagpendingincome  = 'S' and #siope.idpro = 2
 
--- L'incasso virtuale viene modificato per quanto attiene il flag a copertura, in quanto non può essere agganciato al sospeso,
--- solo la porzione di importo corrente - spesa accessoria deve figurare a regolarizzazione (idpro 1)
-UPDATE #proceeds SET fulfilled = 'N'
-WHERE #proceeds.flagpendingincome  = 'S' and #proceeds.idpro = 2
 
--- Infine  ricalcolo l'importo degli incassi
-UPDATE #proceeds SET curramount=  isnull(#proceeds.curramount,0) - isnull(#proceeds.curramount_expense,0)
-WHERE #proceeds.flagpendingincome  = 'S' and #proceeds.idpro = 1
+-- Tabella dei dati ARCONET
+CREATE TABLE #dati_arconet
+(
+	yproceedstransmission int,
+	nproceedstransmission int,
+	ydoc int,
+	ndoc int,
+	idpro int,
+	idsor int,
+	idinc int,
 
-UPDATE #proceeds SET curramount= isnull(#proceeds.curramount_expense,0)
-WHERE #proceeds.flagpendingincome  = 'S' and #proceeds.idpro = 2
+	codice_missione_siope varchar(50),
+	codice_programma_siope varchar(50),
+	codice_economico_siope  varchar(50),
+	importo_codice_economico_siope  decimal(19,2),
+	codice_UE_siope varchar(50) 
+	
+)
 
+-- Tabella dei dati ARCONET
+insert into #dati_arconet(
+	yproceedstransmission, nproceedstransmission,
+	ydoc, 	ndoc,
+	idpro,
+	idsor,	--importoclassificazionemov,
+	idinc,
+
+	codice_economico_siope,
+	importo_codice_economico_siope,
+	codice_UE_siope 
+	)
+SELECT
+	#proceeds.yproceedstransmission, #proceeds.nproceedstransmission,
+	#proceeds.ydoc, #proceeds.ndoc, 
+	#proceeds.idpro, 
+	incomesorted.idsor, 
+	#proceeds.idinc,
+
+	sorting.sortcode,				--codice economico
+	SUM(incomesorted.amount),		--importo_codice_economico_siope
+	incomesorted.valueS1			--codice_UE_siope
+FROM #proceeds
+JOIN incomesorted
+	ON #proceeds.idinc = incomesorted.idinc
+JOIN sorting
+	ON sorting.idsor = incomesorted.idsor
+WHERE sorting.idsorkind = @classSIOPE
+	and isnull(incomesorted.valueS1,'') <>''--Solo se il codice UE è stato indicato
+GROUP BY #proceeds.yproceedstransmission, #proceeds.nproceedstransmission, #proceeds.ydoc,	#proceeds.ndoc, 
+	#proceeds.idpro, incomesorted.idsor,  sorting.sortcode,
+	#proceeds.idinc, incomesorted.valueS1, incomesorted.values2
 
 
 -- Tabella delle bollette multiple 
@@ -1511,7 +1788,7 @@ SELECT
 	#proceeds.idpro, incomebill.ybill, incomebill.nbill,  incomebill.amount
 FROM #proceeds
 JOIN incomebill ON #proceeds.idinc = incomebill.idinc AND #proceeds.fulfilled = 'S'
-WHERE (#proceeds.flagpendingincome = 'N' OR (#proceeds.flagpendingincome = 'S' AND #proceeds.idpro <> 2))
+
 -----------------------------------------------------------------------------------------------------------------
 ----------------------------------------------inizio tracciato---------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------
@@ -1520,7 +1797,6 @@ WHERE (#proceeds.flagpendingincome = 'N' OR (#proceeds.flagpendingincome = 'S' A
 ---------- testata flusso -------------------
 ---------------------------------------------
 DECLARE @codice_ABI_BT varchar(5)
-DECLARE @identificativo_flusso  varchar(10)
 --DECLARE @data_ora_creazione_flusso  varchar(20)
 --SET   @data_ora_creazione_flusso = CONVERT(varchar(19),CONVERT(smalldatetime, GETDATE(), 126),126) 
 DECLARE @data_ora_creazione_flusso  datetime
@@ -1536,14 +1812,6 @@ DECLARE @descrizione_ente varchar(150)
 set @descrizione_ente = @desc_dept
 DECLARE @codice_ente_BT  varchar(20)
 SET @codice_ente_BT = @cod_department
-DECLARE @codice_tramite_BT VARCHAR(20) --(NEW) -- TODO: aggiungere alla tabella treasurer FATTO
-DECLARE @codice_istat_ente	varchar(20)--(new)-- Codice ISTAT dell'ente.contiene il codice ente SIOPE in corso di validità.  TODO: aggiungere alla tabella treasurer. FATTO
-declare @codice_tramite_ente  VARCHAR(20) --(NEW) -- TODO: aggiungere alla tabella treasurer FATTO
-
-SELECT  @codice_tramite_BT = ISNULL(RTRIM(tramite_bt_code),''),
-	@codice_tramite_ente =  ISNULL(RTRIM(tramite_agency_code),''),
-	@codice_istat_ente = ISNULL(RTRIM(agency_istat_code),'')
-FROM treasurer WHERE idtreasurer = @idtreasurer
 DECLARE @riferimento_ente varchar(30)
 DECLARE @esercizio int
 SET @esercizio = @y -- esercizio finanziario
@@ -1561,7 +1829,7 @@ CREATE TABLE #trace
 	---------- testata flusso -------------------
 	---------------------------------------------
 	codice_ABI_BT varchar(5),
-	identificativo_flusso varchar(20),
+	identificativo_flusso varchar(50),
 	data_ora_creazione_flusso datetime,---varchar(20),
 	codice_ente varchar(16), -- Prima : partita iva o codice fiscale, Ora:ipa
 	descrizione_ente varchar(150),
@@ -1570,7 +1838,7 @@ CREATE TABLE #trace
 	codice_tramite_ente varchar(20),
 	codice_tramite_BT VARCHAR(20), --new
 	codice_ente_BT varchar(20),
-	riferimento_ente varchar(20),
+	riferimento_ente varchar(30),
 	esercizio int,
 	---------------------------------------------
 	----------------- reversale -------------------
@@ -1616,6 +1884,10 @@ CREATE TABLE #trace
 	natura_spesa_siope varchar(10), -- CORRENTE o CAPITALE
 	data_scadenza_pagam_siope varchar(20),
 	motivo_scadenza_siope varchar(50),
+
+	codice_economico_siope	varchar(50),
+	importo_codice_economico_siope  decimal(19,2), 
+	codice_UE_siope			varchar(50),
 
 	---------------------------------------------
 	----------------- bollo ---------------------
@@ -1671,7 +1943,7 @@ CREATE TABLE #trace
 SELECT 
 				   'TESTATA',
 				   @codice_ABI_BT,
-				   'reversali_'+ convert(varchar(4),@y) + '_' + convert(varchar(4),@n),
+				   'reversali_'+ convert(varchar(4),@y) + '_' + convert(varchar(10),@n),
 				   @data_ora_creazione_flusso,
 				   @codice_ente,
 				   @descrizione_ente,
@@ -1699,6 +1971,9 @@ SELECT
 FROM #proceeds
 GROUP BY  #proceeds.ndoc,opkind,proceeds_adate	
 ORDER BY  #proceeds.ndoc
+
+update #proceeds set proceedsdescr = dbo.f_removespecialchar(proceedsdescr) where proceedsdescr is not null
+update #proceeds set address_ver = dbo.f_removespecialchar(address_ver) where address_ver is not null
 	   
 INSERT INTO #trace(kind,
 				   ndoc,
@@ -1774,145 +2049,72 @@ iso_code_ver, pi_ver, cf_ver, proceedsdescr, stamphandling, stamp_charge,exempti
 isnull(#proceeds.txt,'') , npay,  idpay,flagcompensation, fulfilled,#proceeds.idinc
 ORDER BY #proceeds.ndoc, #proceeds.idpro
 				 
-INSERT INTO #trace(
-					kind,
-					ndoc,idinc,
-					idpro,
-					codice_cge,
-
-					importoclassificazionemov,
-					importo_siope,
-
-					tipo_debito_siope,
-					codice_ipa_ente_siope,
-	
-					tipo_documento_siope, -- ELETTRONICO o ANALOGICO
+INSERT INTO #trace(kind,ndoc,idinc,idpro,codice_cge,importo_siope,
+					tipo_debito_siope,	codice_ipa_ente_siope, tipo_documento_siope, -- ELETTRONICO o ANALOGICO
 					identificativo_lotto_sdi_siope, -- E' un INT!!!!!! /*Se FE*/
 					tipo_documento_analogico_siope , -- FATT_ANALOGICA o DOC_EQUIVALENTE
 					/*Se cartacea*/
-					codice_fiscale_emittente_siope,
-					anno_emissione_fattura_siope ,
+					codice_fiscale_emittente_siope,anno_emissione_fattura_siope ,
 	
 					/*ctDati_fattura_siope*/
-					numero_fattura_siope, 
-					natura_spesa_siope,
-					data_scadenza_pagam_siope,
-					motivo_scadenza_siope
+					numero_fattura_siope, natura_spesa_siope,data_scadenza_pagam_siope,motivo_scadenza_siope
 				   )
 SELECT 
 					'CLASSIFICAZIONI_FATTURASIOPE',
-					ndoc,
-					idinc, idpro, 
-					sortcode,
-					SUM(importoclassificazionemov), 
-					SUM(importo_siope),
-
-					tipo_debito_siope,
-					codice_ipa_ente_siope,
+					ndoc,idinc, idpro, sortcode,
+					--SUM(importoclassificazionemov), 
+					importo_siope,tipo_debito_siope,codice_ipa_ente_siope,
 	
-					tipo_documento_siope,
-					identificativo_lotto_sdi_siope,
-					tipo_documento_analogico_siope,
+					tipo_documento_siope,identificativo_lotto_sdi_siope,tipo_documento_analogico_siope,
 					/*Se cartacea*/
-					codice_fiscale_emittente_siope,
-					anno_emissione_fattura_siope,
+					codice_fiscale_emittente_siope,anno_emissione_fattura_siope,
 	
 					/*ctDati_fattura_siope*/
-					numero_fattura_siope,
-					natura_spesa_siope,
-				CONVERT(VARCHAR(10),data_scadenza_pagam_siope,20),
-					motivo_scadenza_siope
-FROM #siope
-GROUP BY  ndoc, idpro, idinc, sortcode,
-		tipo_debito_siope, codice_ipa_ente_siope,tipo_documento_siope,
-		identificativo_lotto_sdi_siope,	tipo_documento_analogico_siope,	codice_fiscale_emittente_siope, anno_emissione_fattura_siope,
-		numero_fattura_siope,		--importo_siope ,
-		natura_spesa_siope,data_scadenza_pagam_siope, motivo_scadenza_siope
-ORDER BY  ndoc, idpro, sortcode
+					numero_fattura_siope,natura_spesa_siope,
+						CONVERT(VARCHAR(10),data_scadenza_pagam_siope,20),	motivo_scadenza_siope
+				FROM #siope
+				ORDER BY  ndoc, idpro, sortcode
 
-INSERT INTO #trace(
-				   kind,
-				   ndoc,idinc,
-				   idpro,
-				   codice_cge,
-				   importoclassificazionemov,
-					tipo_debito_siope--,
-					--codice_ipa_ente_siope,
-	
-					--tipo_documento_siope, -- ELETTRONICO o ANALOGICO
-					--identificativo_lotto_sdi_siope, -- E' un INT!!!!!! /*Se FE*/
-					--tipo_documento_analogico_siope , -- FATT_ANALOGICA o DOC_EQUIVALENTE
-					--/*Se cartacea*/
-					--codice_fiscale_emittente_siope,
-					--anno_emissione_fattura_siope ,
-	
-					--/*ctDati_fattura_siope*/
-					--numero_fattura_siope, 
-					--natura_spesa_siope,
-					--data_scadenza_pagam_siope,
-					--motivo_scadenza_siope
-				   )
+INSERT INTO #trace(kind,ndoc,idpro, idinc,	codice_cge, 
+		codice_economico_siope,	importo_codice_economico_siope,	codice_UE_siope)
 SELECT 
-				   'CLASSIFICAZIONI',
-				   ndoc,
-				   idinc, idpro, 
-				   sortcode,
-				   	importoclassificazionemov, 
-					tipo_debito_siope--,
-					--codice_ipa_ente_siope,
-	
-				--	tipo_documento_siope,
-				--	identificativo_lotto_sdi_siope,
-				--	tipo_documento_analogico_siope,
-				--	/*Se cartacea*/
-				--	codice_fiscale_emittente_siope,
-				--	anno_emissione_fattura_siope,
-	
-				--	/*ctDati_fattura_siope*/
-				--	numero_fattura_siope,
-				--	natura_spesa_siope,
-				--CONVERT(VARCHAR(10),data_scadenza_pagam_siope,20),
-				--	motivo_scadenza_siope
+	'ARCONET',	ndoc,	idpro,	idinc,	codice_economico_siope,
+	codice_economico_siope,	importo_codice_economico_siope,	codice_UE_siope
+FROM #dati_arconet
+
+INSERT INTO #trace(kind,  ndoc,idinc,idpro, codice_cge,importoclassificazionemov, tipo_debito_siope				   )
+SELECT				'CLASSIFICAZIONI', ndoc, idinc, idpro, sortcode, importoclassificazionemov, tipo_debito_siope
 FROM #siope
 where flagnc='N' -- Prende le righe della classificazione Fattura o mov principale. 
---GROUP BY  ndoc, idpro, idinc, sortcode,
---		tipo_debito_siope, codice_ipa_ente_siope,tipo_documento_siope,
---		identificativo_lotto_sdi_siope,	tipo_documento_analogico_siope,	codice_fiscale_emittente_siope, anno_emissione_fattura_siope,
---		numero_fattura_siope,		--importo_siope ,
---		natura_spesa_siope,data_scadenza_pagam_siope, motivo_scadenza_siope
+or flagnc is null
+ 
 ORDER BY  ndoc, idpro, sortcode
 
 
-INSERT INTO #trace(
-				   kind,
-				   ndoc,
-				   idpro, idinc,
-				   importo_provvisorio,
-				   numero_provvisorio
-				   )
-SELECT 
-				   'SOSPESI',
-				   ndoc,
-				   idpro, idinc,
-				   amount,
-				   nbill    	
+INSERT INTO #trace(kind,ndoc,idpro, idinc,importo_provvisorio,numero_provvisorio)
+SELECT 			   'SOSPESI',ndoc,idpro, idinc,amount, nbill    	
 FROM #incomebill
 ORDER BY  #incomebill.ndoc, #incomebill.idpro, #incomebill.nbill
 
 
-SELECT * from #trace
+
+if(@ischeck='N')
+Begin
+	SELECT * FROM #trace 
+End
+Else
+Begin
+	select kind, ndoc, importo_reversale, idinc, 
+	anagrafica_versante, importo_versante, 
+	codice_cge,	 importoclassificazionemov,
+	 tipo_debito_siope, importo_siope,
+	importo_codice_economico_siope,
+	tipo_operazione,tipo_documento_siope,identificativo_lotto_sdi_siope
+	FROM #trace 
+	where kind <>'TESTATA'
+End
+
 END
 
 
-GO
-
-SET QUOTED_IDENTIFIER OFF 
-GO
-SET ANSI_NULLS ON 
-GO
-
- 
--- exec trasmele_income_opisiopeplus_ins 2018,426
--- exec trasmele_income_opisiopeplus_ins 2018, 299
---exec trasmele_income_opisiopeplus_ins 2018, 327
-
+go

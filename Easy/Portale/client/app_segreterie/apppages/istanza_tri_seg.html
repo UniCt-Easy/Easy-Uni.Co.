@@ -1,0 +1,112 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabistanza_tri_tri_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabistanza_tri_tri_seg_0"><i class="fa fa-dot-circle-o mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabistanza_tri_tri_seg_1" class="nav-link" data-toggle="pill" data-target="#tabistanza_tri_tri_seg_1"><i class="fa fa-circle mr-1"></i>Nullaosta</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabistanza_tri_tri_seg_2" class="nav-link" data-toggle="pill" data-target="#tabistanza_tri_tri_seg_2"><i class="fa fa-dot-circle-o mr-1"></i>Pratica di convalida/riconoscimento/dispensa collegata</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabistanza_tri_tri_seg_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_tri_seg_aa">Anno accademico</label>
+					<select id="istanza_tri_seg_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="istanza.aa?istanzatri_segview.aa" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#istanza_tri_seg_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="istanza_tri_seg_data">Data</label>
+					<input id="istanza_tri_seg_data" type="text" class="form-control" data-tag="istanza.data.g?istanzatri_segview.istanza_data.g" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_tri_seg_idcorsostudio">Corso di studi</label>
+					<div>
+						<input id="istanza_tri_seg_idcorsostudio" name="istanza_tri_seg_idcorsostudio" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="corsostudiodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_tri_seg_iddidprog">Didattica programmata</label>
+					<div>
+						<input id="istanza_tri_seg_iddidprog" name="istanza_tri_seg_iddidprog" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_tri_seg_idiscrizione">Iscrizione</label>
+					<div>
+						<input id="istanza_tri_seg_idiscrizione" name="istanza_tri_seg_idiscrizione" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="iscrizionedefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_tri_seg_idstatuskind">Status</label>
+					<select id="istanza_tri_seg_idstatuskind" class="custom-select d-block w-100"  data-source-name="statuskind" data-value-member="idstatuskind" data-display-member="title" data-custom-control="combo" data-tag="istanza.idstatuskind?istanzatri_segview.istanza_idstatuskind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_tri_seg_paridistanza">Istanza collegata</label>
+					<div>
+						<input id="istanza_tri_seg_paridistanza" name="istanza_tri_seg_paridistanza" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="istanza_alias1.idistanzakind" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_tri_seg_protnumero">Numero di protocollo</label>
+					<input id="istanza_tri_seg_protnumero" type="text" class="form-control" data-tag="istanza.protnumero?istanzatri_segview.istanza_protnumero" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_tri_seg_protanno">Anno di protocollo</label>
+					<input id="istanza_tri_seg_protanno" type="text" class="form-control" data-tag="istanza.protanno?istanzatri_segview.istanza_protanno" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_tri_seg_aaprimaiscr">Anno accademico di prima iscrizione</label>
+					<input id="istanza_tri_seg_aaprimaiscr" type="text" class="form-control" data-tag="istanza_tri.aaprimaiscr?istanzatri_segview.aaprimaiscr" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_tri_seg_iddichiar_titolo">Dichiarazione di titolo di studio in corso</label>
+					<div>
+						<input id="istanza_tri_seg_iddichiar_titolo" name="istanza_tri_seg_iddichiar_titolo" type="text" data-listtype="titolo"  class="form-control" data-minchar="2" data-tag="dichiar.idreg" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_tri_seg_idreg_istituti">Istituto di provenienza</label>
+					<div>
+						<input id="istanza_tri_seg_idreg_istituti" name="istanza_tri_seg_idreg_istituti" type="text" data-listtype="istituti"  class="form-control" data-minchar="2" data-tag="registryistitutiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelistanza_segpratica_XXdiniego" >Diniego</div>
+				<div class="gridx" id="grid_diniego_alias3_segpratica" data-tag="diniego_alias3.segpratica.segpratica" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabistanza_tri_tri_seg_1" role="tabpanel">
+				<div class="gridx" id="grid_nullaosta_alias4_segpratica" data-tag="nullaosta_alias4.segpratica.segpratica" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabistanza_tri_tri_seg_2" role="tabpanel">
+				<div class="gridx" id="grid_pratica_segisttri" data-tag="pratica.segisttri.segisttri" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

@@ -49,6 +49,7 @@
               <xs:element name="_x0021_finance" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_codeupb" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_upb" type="xs:string" minOccurs="0" />
+              <xs:element name="originalamount" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -323,6 +324,7 @@
               <xs:element name="_x0021_finance" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_codeupb" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_upb" type="xs:string" minOccurs="0" />
+              <xs:element name="originalamount" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

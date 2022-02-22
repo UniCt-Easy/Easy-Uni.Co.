@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.Text;
@@ -49,13 +48,13 @@ namespace bankdispositionsetup_importnew {
             DS.carime.Clear();
 
             Hashtable ht = new Hashtable();
-            // La 1¬∞ posizione indica il Tipo Documento= TIPDOC, assume valori:
+            // La 1∞ posizione indica il Tipo Documento= TIPDOC, assume valori:
             //          M = mandato, R = reversale, I = part pend. incasso, P = part. Pend. pagamento
-            // La 2¬∞ posizione indica il SEGNO.
-            // La 3¬∞ posizione INDREG indica la regolarizzazione. Se valorizzaro a ‚ÄúR‚Äù trattasi di regolarizzazione.
+            // La 2∞ posizione indica il SEGNO.
+            // La 3∞ posizione INDREG indica la regolarizzazione. Se valorizzaro a ìRî trattasi di regolarizzazione.
             // Il movimento che agisce sulla bolletta c'ha sempre la R, sia esso Storno, Regolarizzazione, Annullo
-            // L'apertura bolletta: non ha R, nella 3¬∞ posizione.
-            // Chiusura bolletta, storno bolletta e regolarizzazione: ha R nella 3¬∞ posizione.
+            // L'apertura bolletta: non ha R, nella 3∞ posizione.
+            // Chiusura bolletta, storno bolletta e regolarizzazione: ha R nella 3∞ posizione.
             // Il segno meno va inserito se e solo se Storni.
 
             ht["001"] = "R+ ";  //Riscossione Reversale
@@ -65,7 +64,7 @@ namespace bankdispositionsetup_importnew {
 
             ht["003"] = "I+ ";  //Apertura partita pendente incasso. 
             ht["004"] = "I- ";  //Storno Provvisorio Entrata (banca fornisce il segno -)
-            ht["023"] = "I+R";  //Regolarizzazione provvisorio entrata. Verranno Saltati non ci serve il dato della regolarizzazione della bolletta, perch√® √® un dato che non memorizziamo.
+            ht["023"] = "I+R";  //Regolarizzazione provvisorio entrata. Verranno Saltati non ci serve il dato della regolarizzazione della bolletta, perchË Ë un dato che non memorizziamo.
                                         //(banca fornisce il segno -)
             ht["024"] = "I-R";  //Annullo Regolarizzazione provvisorio entrata= Storno movimenti provvisorio entrata.  (banca fornisce il segno +)
 
@@ -77,11 +76,11 @@ namespace bankdispositionsetup_importnew {
             
             ht["013"] = "P+ ";  //Apertura partita pendente pagamento
             ht["014"] = "P- ";  //Storno Provvisorio Uscita (banca fornisce il segno -)
-            ht["033"] = "P+R";  //Regolarizzazione provvisorio Uscita. Verranno Saltati non ci serve il dato della regolarizzazione della bolletta, perch√® √® un dato che non memorizziamo.
+            ht["033"] = "P+R";  //Regolarizzazione provvisorio Uscita. Verranno Saltati non ci serve il dato della regolarizzazione della bolletta, perchË Ë un dato che non memorizziamo.
                                         //(banca fornisce il segno -)
             ht["034"] = "P-R";  //Annullo Regolarizzazione provvisorio Uscita = Storno movimenti provvisorio Uscita.  (banca fornisce il segno +)
 
-            ht["015"] = "M+ ";  //Disposizioni Uscita se NSUB > 0, √® un Provvisorio di Uscita = 013 se NSUB= 0
+            ht["015"] = "M+ ";  //Disposizioni Uscita se NSUB > 0, Ë un Provvisorio di Uscita = 013 se NSUB= 0
             ht["016"] = "M- ";  //Storno Disposizioni Uscita      (banca fornisce il segno +)
 
             //segni da cambiare: 002 012 022 023 024  032 033 034 016
@@ -127,7 +126,7 @@ namespace bankdispositionsetup_importnew {
             if (altriEsercizi.Count > 0) {
                 string messaggio = "Nel file ci sono esitazioni relative ad esercizi diversi.\nDopo aver esitato nel "
                 + Conn.GetSys("esercizio")
-                + ", se necessario, occorrer√† ripetere l'operazione anche per ";
+                + ", se necessario, occorrer‡ ripetere l'operazione anche per ";
                 if (altriEsercizi.Count == 1) {
                     messaggio += "l'esercizio " + altriEsercizi[0];
                 }
@@ -139,8 +138,8 @@ namespace bankdispositionsetup_importnew {
                     messaggio += " e " + altriEsercizi[altriEsercizi.Count - 1];
                    
                 }
-                messaggio += ". Non √® necessario a tal fine manipolare il file in alcun modo.";
-                MessageBox.Show(messaggio,"Avviso");
+                messaggio += ". Non Ë necessario a tal fine manipolare il file in alcun modo.";
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(messaggio,"Avviso");
             }
             return true;
         }
@@ -194,7 +193,7 @@ namespace bankdispositionsetup_importnew {
             // Nel caso di
             // Storno Reversale,Storno Mandati,Storno Disposizione di Uscita,Annullo Regolarizzazione Reversale,Annullo Regolarizzazione Mandato
             // noi consideriamo l'importo negativo
-            // In questi 4 casi l'importo segnalato dalla banca √® positivo ma noi lo cambiamo perch√© la nostra gestione prevede un segno opposto
+            // In questi 4 casi l'importo segnalato dalla banca Ë positivo ma noi lo cambiamo perchÈ la nostra gestione prevede un segno opposto
             //    segni da cambiare:002 012 016 022 023 024  032 033 034 
             if ((tipomovimento == "002") || (tipomovimento == "012") || (tipomovimento == "016")
                     || (tipomovimento == "022") || (tipomovimento == "023")  || (tipomovimento == "024")
@@ -229,7 +228,7 @@ namespace bankdispositionsetup_importnew {
             // In base alla combinazione dei 3 campi della Hashtable, valorizza TIPDOC, SEGNO e INDREG
             object o = ht[tipomovimento];
 
-            // I tipi 040 e 049, 042,043,044, 050,051,052 sono NON UTILIZZATO, per√≤ posso essere presenti nel file degli esiti, quindi li trascuriamo e NON li aggiungeremo 
+            // I tipi 040 e 049, 042,043,044, 050,051,052 sono NON UTILIZZATO, perÚ posso essere presenti nel file degli esiti, quindi li trascuriamo e NON li aggiungeremo 
             // alla tabella. 
             bool tipoInutilizzato = (
                     //(tipomovimento == "023") || (tipomovimento == "024") || (tipomovimento == "033") || (tipomovimento == "034") ||
@@ -250,9 +249,9 @@ namespace bankdispositionsetup_importnew {
             }
 
             if (!tipoInutilizzato) {
-                //flag[1] √® il segno atteso in base alla nostra conoscenza dell'operazione
-                //segno √® il segno trovato nel campo importo
-                // ai tipi 2,12,16,22,32 per√≤ abbiamo cambiato il segno del movimento perch√© il tracciato lavora in logica positiva mentre a noi serviva il segno negativo.
+                //flag[1] Ë il segno atteso in base alla nostra conoscenza dell'operazione
+                //segno Ë il segno trovato nel campo importo
+                // ai tipi 2,12,16,22,32 perÚ abbiamo cambiato il segno del movimento perchÈ il tracciato lavora in logica positiva mentre a noi serviva il segno negativo.
                 //  in part
                 //verifica che il segno dell'importo deve essere quello della hash table tranne per i casi 2 12 16 22 32
                 string flag = (string)o;
@@ -317,11 +316,11 @@ namespace bankdispositionsetup_importnew {
             return vaiACapo(tr);
         }
         private void copia_Carime_IN020304() {
-            //Quando viene regolarizzato un mandato, ossia in presenza del TipoMov 031 vi √® anche il TipoMov 033 (regolarizz. provv.uscita). Idem per 021 e 023, per le reversali.
-            //Per quanto riguarda gli annullamenti di regolarizzazioni, la situazione √® speculare.
-            //Quando viene annullata la regolarizzazione di un mandato, ossia in presenza del TipoMov 032 vi √® anche il TipoMov 034. 
+            //Quando viene regolarizzato un mandato, ossia in presenza del TipoMov 031 vi Ë anche il TipoMov 033 (regolarizz. provv.uscita). Idem per 021 e 023, per le reversali.
+            //Per quanto riguarda gli annullamenti di regolarizzazioni, la situazione Ë speculare.
+            //Quando viene annullata la regolarizzazione di un mandato, ossia in presenza del TipoMov 032 vi Ë anche il TipoMov 034. 
             // Idem per 022 e 024, per le reversali.
-            // Nel 031 abbiamo l'info del num.doc., mentre nel 033 abbiamo l'info del num. bolletta. Il legame tra i due √® dato da NRIC.
+            // Nel 031 abbiamo l'info del num.doc., mentre nel 033 abbiamo l'info del num. bolletta. Il legame tra i due Ë dato da NRIC.
             // Quindi, facciamo un ciclo preliminare per elaborare  i record 023, 024, 033, 034 e memorizzare in quattro hashtable NRIC. 
             // Queste verranno interrogate dopo
 
@@ -392,7 +391,7 @@ namespace bankdispositionsetup_importnew {
                     r["NUMQUI"] = s["numdocumento"];
                 }
                 /*
-                // Il TipoMov 016 √® lo storno della disposizione di Uscita. 
+                // Il TipoMov 016 Ë lo storno della disposizione di Uscita. 
                 if (s["tipomovimento"].ToString() == "016") {
                         if(CfgFn.GetNoNullInt32(s["numsub"])>0){
                             // NSUB >0 : identifica lo storno di un mandato
@@ -413,7 +412,7 @@ namespace bankdispositionsetup_importnew {
                     r["NUMQUI"] = DBNull.Value;
                 }
 
-                ////i tipi 23,24, regolarizzazione e annullo bolletta entrata. In numdocumento c'√® il num.bolletta
+                ////i tipi 23,24, regolarizzazione e annullo bolletta entrata. In numdocumento c'Ë il num.bolletta
                 if ((s["tipomovimento"].ToString() == "023") || (s["tipomovimento"].ToString() == "024")
                         ) {                            
                             r["NUMQUI"] = s["numdocumento"];
@@ -537,4 +536,4 @@ namespace bankdispositionsetup_importnew {
         }
         
     }
-}
+}

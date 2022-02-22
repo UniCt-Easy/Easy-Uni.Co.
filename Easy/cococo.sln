@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mainform", "mainform\mainform.csproj", "{E04C2CEF-078B-4B25-904C-6374C88E0EE7}"
 EndProject
@@ -45,6 +45,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_parasubcontract", "parasubcontract\meta_parasubcontract\meta_parasubcontract.csproj", "{25BB958C-B4B4-48D3-A257-F02CE41EA134}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "parasubcontract_default", "parasubcontract\parasubcontract_default\parasubcontract_default.csproj", "{99565E3E-05F4-4ABE-A9C6-6997B153014C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{17D19204-A9CE-4E9F-9C47-56FC4699E4FC} = {17D19204-A9CE-4E9F-9C47-56FC4699E4FC}
+		{25BB958C-B4B4-48D3-A257-F02CE41EA134} = {25BB958C-B4B4-48D3-A257-F02CE41EA134}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SituazioneViewer", "unmanaged\SituazioneViewer\SituazioneViewer.csproj", "{42D2BFEA-1727-4039-A978-5D366E5479D3}"
 EndProject
@@ -161,6 +165,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_payrolltaxcorrige", "payrolltaxcorrige\meta_payrolltaxcorrige\meta_payrolltaxcorrige.csproj", "{8240EE5B-8B71-4DCA-A054-021F72DB310F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "calcolooccasionale", "casualcontract\calcolooccasionale\calcolooccasionale.csproj", "{EF1D2FBE-1425-40E7-94EC-5ABFB69A7CAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_parasubcontractattachment", "parasubcontractattachment\meta_parasubcontractattachment\meta_parasubcontractattachment.csproj", "{B0BF58E0-7CB1-4B81-A746-FEEBF8061F62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "parasubcontractattachment_detail", "parasubcontractattachment\parasubcontractattachment_detail\parasubcontractattachment_detail.csproj", "{11B8FDB0-272F-4DCF-9565-E0AFCC426B5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -488,8 +496,19 @@ Global
 		{EF1D2FBE-1425-40E7-94EC-5ABFB69A7CAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF1D2FBE-1425-40E7-94EC-5ABFB69A7CAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF1D2FBE-1425-40E7-94EC-5ABFB69A7CAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0BF58E0-7CB1-4B81-A746-FEEBF8061F62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0BF58E0-7CB1-4B81-A746-FEEBF8061F62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0BF58E0-7CB1-4B81-A746-FEEBF8061F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0BF58E0-7CB1-4B81-A746-FEEBF8061F62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11B8FDB0-272F-4DCF-9565-E0AFCC426B5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11B8FDB0-272F-4DCF-9565-E0AFCC426B5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11B8FDB0-272F-4DCF-9565-E0AFCC426B5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11B8FDB0-272F-4DCF-9565-E0AFCC426B5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C88C6F0B-ECAD-476A-B702-FD3A096C6CA3}
 	EndGlobalSection
 EndGlobal

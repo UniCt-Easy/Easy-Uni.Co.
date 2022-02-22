@@ -1,0 +1,44 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_seganagstusonpre_aa">Anno accademico</label>
+					<select id="istanza_seganagstusonpre_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="istanza.aa?istanzaseganagstusonpreview.aa" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#istanza_seganagstusonpre_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="istanza_seganagstusonpre_data">Data</label>
+					<input id="istanza_seganagstusonpre_data" type="text" class="form-control" data-tag="istanza.data.g?istanzaseganagstusonpreview.istanza_data.g" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_seganagstusonpre_idstatuskind">Status</label>
+					<select id="istanza_seganagstusonpre_idstatuskind" class="custom-select d-block w-100"  data-source-name="statuskind" data-value-member="idstatuskind" data-display-member="title" data-custom-control="combo" data-tag="istanza.idstatuskind?istanzaseganagstusonpreview.istanza_idstatuskind" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_seganagstusonpre_protanno">Anno di protocollo</label>
+					<input id="istanza_seganagstusonpre_protanno" type="text" class="form-control" data-tag="istanza.protanno?istanzaseganagstusonpreview.istanza_protanno" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_seganagstusonpre_protnumero">Numero di protocollo</label>
+					<input id="istanza_seganagstusonpre_protnumero" type="text" class="form-control" data-tag="istanza.protnumero?istanzaseganagstusonpreview.istanza_protnumero" data-subentity  data-mandatory />
+				</div>
+			</div>
+ <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-stamp mr-1" ></i>Protocolla
+    </button>
+</form>
+
+</div>
+<!--footer-->

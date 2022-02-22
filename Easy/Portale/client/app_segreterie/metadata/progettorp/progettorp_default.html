@@ -1,0 +1,55 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabprogettorp_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabprogettorp_default_0"><i class="fa fa-chart-area mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogettorp_default_1" class="nav-link" data-toggle="pill" data-target="#tabprogettorp_default_1"><i class="fa fa-money-check-alt mr-1"></i>Costi</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabprogettorp_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#progettorp_default_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="progettorp_default_start">Data di inizio</label>
+					<input id="progettorp_default_start" type="text" class="form-control" data-tag="progettorp.start"  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#progettorp_default_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="progettorp_default_stop">Data di fine</label>
+					<input id="progettorp_default_stop" type="text" class="form-control" data-tag="progettorp.stop"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettorp_default_datefilter">Filtra i costi per:</label>
+					<div class="custom-control custom-radio">
+						<input id="progettorp_default_datefilterC" type="radio" name="progettorp_default_datefilter" class="custom-control-input" data-tag="progettorp.datefilter:C"  ><label for="progettorp_default_datefilterC"> Data contabile</label>
+						<input id="progettorp_default_datefilterL" type="radio" name="progettorp_default_datefilter" class="custom-control-input" data-tag="progettorp.datefilter:L"  ><label for="progettorp_default_datefilterL"> Data liquidazione</label>
+						<input id="progettorp_default_datefilterM" type="radio" name="progettorp_default_datefilter" class="custom-control-input" data-tag="progettorp.datefilter:M"  ><label for="progettorp_default_datefilterM"> Data mandato</label>
+						<input id="progettorp_default_datefilterT" type="radio" name="progettorp_default_datefilter" class="custom-control-input" data-tag="progettorp.datefilter:T"  ><label for="progettorp_default_datefilterT"> Data trasmissione</label>
+						<input id="progettorp_default_datefilterQ" type="radio" name="progettorp_default_datefilter" class="custom-control-input" data-tag="progettorp.datefilter:Q"  ><label for="progettorp_default_datefilterQ"> Data quietanza</label>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabprogettorp_default_1" role="tabpanel">
+				<div class="gridx" id="grid_getprogettocostoview_default" data-tag="getprogettocostoview.default.default" data-custom-control="gridx" data-mdlgroupedcolumns="progettotipocosto_title;raggruppamento;workpackage_title" data-mdltotnotvisible data-mdlaggregatecolumns="amount"  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

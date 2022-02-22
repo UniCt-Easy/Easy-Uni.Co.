@@ -80,6 +80,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ep_functions">
+      <HintPath>..\..\unmanaged\ep_functions\bin\Debug\ep_functions.dll</HintPath>
+    </Reference>
+    <Reference Include="gestioneclassificazioni">
+      <HintPath>..\..\unmanaged\gestioneclassificazioni\bin\Debug\gestioneclassificazioni.dll</HintPath>
+    </Reference>
     <Reference Include="MagicLibrary">
       <Name>MagicLibrary</Name>
       <HintPath>..\..\dll\MagicLibrary.DLL</HintPath>

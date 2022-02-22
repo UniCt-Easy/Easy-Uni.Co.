@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -26,7 +25,7 @@ using System.Windows.Forms;
 using metadatalibrary;
 
 namespace no_table_wizanagrafiche {
-    public partial class FrmNoTable_wizanagrafiche : Form {
+    public partial class FrmNoTable_wizanagrafiche : MetaDataForm {
 
         string instregclass =
 "UPDATE registryclass set active='N'\r\n "+
@@ -74,7 +73,7 @@ namespace no_table_wizanagrafiche {
             if ((newTab < 0) || (newTab > tabController.TabPages.Count)) return;
             if (!CustomChangeTab(oldTab, newTab)) return;
             if (newTab == tabController.TabPages.Count) {
-                if (MessageBox.Show(this, "Si desidera eseguire ancora la procedura",
+                if (show(this, "Si desidera eseguire ancora la procedura",
                     "Conferma", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                     newTab = 1;
                     ResetWizard();
@@ -496,11 +495,11 @@ namespace no_table_wizanagrafiche {
             int NUM_STD = Conn.RUN_SELECT_COUNT("registryclass",
                             "(idregistryclass in ('21','22','23','24')AND(active='S'))", false);
             if (NUM_STD != 0 && NUM_STD != 4) {
-                MessageBox.Show("Le tipologie presenti non sono compatibili con questa procedura");
+                show("Le tipologie presenti non sono compatibili con questa procedura");
                 return false;
             }
             if (NUM_STD == 0) {
-                if (MessageBox.Show(this, "Mancano in questa anagrafica le tipologie standard. " +
+                if (show(this, "Mancano in questa anagrafica le tipologie standard. " +
                             "Procedendo saranno installate. Si intende procedere?", "Avviso",
                             MessageBoxButtons.OKCancel) != DialogResult.OK) return false;
                 Conn.DO_SYS_CMD(instregclass, false);                
@@ -508,7 +507,7 @@ namespace no_table_wizanagrafiche {
             NUM_STD = Conn.RUN_SELECT_COUNT("registryclass",
                             "(idregistryclass in ('21','22','23','24')AND(active='S'))", false);
             if (NUM_STD != 4) {
-                MessageBox.Show("Problemi nell'installazione delle tipologie standard");
+                show("Problemi nell'installazione delle tipologie standard");
                 return false;
             }
             int NUM_UNKNREG = Conn.RUN_SELECT_COUNT("registry",
@@ -516,7 +515,7 @@ namespace no_table_wizanagrafiche {
                               "'07','08','09','10','OO','21','22','23','24'))", false);
 
             if (NUM_UNKNREG > 0) {
-                MessageBox.Show("Ci sono anagrafiche classificate con tipologie sconosciute." +
+                show("Ci sono anagrafiche classificate con tipologie sconosciute." +
                     "E' necessario correggerle prima di procedere.");
                 return false;
             }
@@ -524,7 +523,7 @@ namespace no_table_wizanagrafiche {
             int NUM_BADREG = Conn.RUN_SELECT_COUNT("registry",
                 "(idregistryclass not in ('21','22','23','24'))", false);
             if (NUM_BADREG > 0) {
-                if(MessageBox.Show("Ci sono anagrafiche classificate con tipologie non standard."+
+                if(show("Ci sono anagrafiche classificate con tipologie non standard."+
                     "Procedendo saranno riclassificati in automatico con tipologie standard."+
                     "Si intende procedere?", "Avviso",
                     MessageBoxButtons.OKCancel) != DialogResult.OK) return false;
@@ -533,7 +532,7 @@ namespace no_table_wizanagrafiche {
             NUM_BADREG = Conn.RUN_SELECT_COUNT("registry",
                "(idregistryclass not in ('21','22','23','24'))", false);
             if (NUM_BADREG > 0) {
-                MessageBox.Show("Sono rimaste anagrafiche non classificate con tipologie standard."+
+                show("Sono rimaste anagrafiche non classificate con tipologie standard."+
                     "Questo è un problema non risolvibile in automatico.");
                 return false;
             }
@@ -604,11 +603,11 @@ namespace no_table_wizanagrafiche {
             if (sqlupdate.IndexOf("<combo>") >= 0) {
                 ComboBox C = combo[passo];
                 if (C == null) {
-                    MessageBox.Show("Errore");
+                    show("Errore");
                     return;
                 }
                 if (C.SelectedIndex<=0) {
-                    MessageBox.Show("E' necessario selezionare prima la tipologia corretta.");
+                    show("E' necessario selezionare prima la tipologia corretta.");
                     return;
                 }
 
@@ -617,7 +616,7 @@ namespace no_table_wizanagrafiche {
             }
             string filter = getFilterReg();
             if (filter == null) {
-                MessageBox.Show("E' necessario selezionare prima le anagrafiche da modificare.");
+                show("E' necessario selezionare prima le anagrafiche da modificare.");
                 return;
             }
             sqlupdate += " WHERE " + filter;
@@ -699,7 +698,11 @@ namespace no_table_wizanagrafiche {
         private void btnRefresh_Click(object sender, EventArgs e) {
             ShowPage(tabController.SelectedIndex);
         }
+
+        private void tabController_SelectionChanged(object sender, EventArgs e) {
+
+        }
     }
 
        
-}
+}

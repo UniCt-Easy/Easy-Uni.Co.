@@ -1,0 +1,1007 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.besmart.it/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.besmart.it/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.besmart.it/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="GetFlussiRiconciliazioneTest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dataInizio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dataFine" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFlussiRiconciliazioneTestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFlussiRiconciliazioneTestResult" type="tns:FlussiRiconciliazioneResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FlussiRiconciliazioneResponse">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseResponse">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Flussi" type="tns:ArrayOfFlussoRendicontazioneSpc" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BaseResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="NewToken" nillable="true" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="ResponseType" type="tns:ResponseTypeEnum" />
+          <s:element minOccurs="0" maxOccurs="1" name="Messages" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ResponseTypeEnum">
+        <s:restriction base="s:string">
+          <s:enumeration value="SuccessResponse" />
+          <s:enumeration value="Error" />
+          <s:enumeration value="ErrorWrongVersion" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfFlussoRendicontazioneSpc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FlussoRendicontazioneSpc" nillable="true" type="tns:FlussoRendicontazioneSpc" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FlussoRendicontazioneSpc">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:EventoBaseSpc">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="PSP" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IdentificativoFlusso" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TRN" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="DataRegolamento" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Mittente" type="tns:IstitutoMittente" />
+              <s:element minOccurs="0" maxOccurs="1" name="Ricevente" type="tns:SoggettoVersanteSpc" />
+              <s:element minOccurs="1" maxOccurs="1" name="NumeroTotalePagamenti" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfFlussoRendicontazioneSpcPagamentoItem" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="EventoBaseSpc">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:EventoBase">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="VersionNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Dominio" type="tns:DominioSpc" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="EventoBase">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CommonBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="EventoStrategy" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="CustomValues" type="tns:ArrayOfEventoBaseValue" />
+              <s:element minOccurs="0" maxOccurs="1" name="ExternalDebtId" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ExternalPaymentDate" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="NonValidoPerAns" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="EventiCollegati" type="tns:ArrayOfEventoBase" />
+              <s:element minOccurs="0" maxOccurs="1" name="Preambolo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Chiusura" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ContenutoInformativo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="HashCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BaseTrace" type="tns:BaseTrace" />
+              <s:element minOccurs="0" maxOccurs="1" name="DataEventoOriginale" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="ImporterInternalCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="AllegatoFirmato" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="IDImporter" nillable="true" type="s1:guid" />
+              <s:element minOccurs="0" maxOccurs="1" name="ImporterOperationID" nillable="true" type="s1:guid" />
+              <s:element minOccurs="1" maxOccurs="1" name="VersionID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="EventoID" nillable="true" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="EventOwner" type="s1:guid" />
+              <s:element minOccurs="1" maxOccurs="1" name="DataEvento" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="DataInizioValidita" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="DataFineValidita" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="LinkedEvent" nillable="true" type="s1:guid" />
+              <s:element minOccurs="0" maxOccurs="1" name="LinkedEvent2" nillable="true" type="s1:guid" />
+              <s:element minOccurs="0" maxOccurs="1" default="false" name="AnnullaEffetti" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" default="false" name="Imported" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" default="false" name="ComputedDataEvento" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" default="" name="NoteEvento" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" default="" name="UserLogon" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="DescrizioneTipologia" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="DescrizioneEvento" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="EventContext" nillable="true" type="tns:EventoContextEnum" />
+              <s:element minOccurs="0" maxOccurs="1" name="Attaches" type="tns:ArrayOfAttachData" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProtocolloEsterno" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="CommonBaseObject" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UID" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Denominazione" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Denominazione_EN" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FlussoRendicontazioneSpcPagamentoItem">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CommonBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="IUV" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IdentificativoUnivocoRiscossione" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Importo" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="DataPagamento" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="Esito" type="tns:FlussoRendicontazioneSpcPagamentoEsitoEnum" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="FlussoRendicontazioneSpcPagamentoEsitoEnum">
+        <s:restriction base="s:string">
+          <s:enumeration value="PagamentoEseguito" />
+          <s:enumeration value="PagamentoRevocato" />
+          <s:enumeration value="PagamentoEseguitoInAssenzaRPT" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="Regione">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CommonBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Codice" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Provincia">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CommonBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Codice" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CodiceRegione" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Regione" type="tns:Regione" />
+              <s:element minOccurs="0" maxOccurs="1" name="Sigla" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Comune">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CommonBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Cessato" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="DataIstituzione" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="DataCessazione" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Codice" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CodiceISTAT" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Provincia" type="tns:Provincia" />
+              <s:element minOccurs="0" maxOccurs="1" default="" name="Alpha2" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" default="" name="Alpha3" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" default="" name="Cap" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ComuneFuoriVocabolario" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="ISO3166" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Indirizzo">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CommonBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Comune" type="tns:Comune" />
+              <s:element minOccurs="0" maxOccurs="1" default="" name="Dug" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" default="" name="DescrizioneIndirizzo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" default="" name="Civico" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" default="" name="Edificio" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" default="" name="Scala" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" default="" name="Interno" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" default="" name="Piano" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" default="" name="DescrizioneUbicazione" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" default="" name="Localita" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" default="" name="Cap" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="AnagraficaVersanteSpc">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CommonBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="IndirizzoVersante" type="tns:Indirizzo" />
+              <s:element minOccurs="0" maxOccurs="1" name="EmailVersante" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="IdentificativoUnivocoVersante">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CommonBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="TipoIdentificativoUnivocoSpc" type="tns:TipoIdentificativoUnivocoSpc" />
+              <s:element minOccurs="0" maxOccurs="1" name="CodiceIdentificativoUnivoco" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="TipoIdentificativoUnivocoSpc">
+        <s:restriction base="s:string">
+          <s:enumeration value="F" />
+          <s:enumeration value="G" />
+          <s:enumeration value="A" />
+          <s:enumeration value="B" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="SoggettoVersanteSpc">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CommonBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="IdentificativoUnivocoVersante" type="tns:IdentificativoUnivocoVersante" />
+              <s:element minOccurs="0" maxOccurs="1" name="AnagraficaVersante" type="tns:AnagraficaVersanteSpc" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="IstitutoMittente">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:SoggettoVersanteSpc">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="codiceBicBancaDiRiversamento" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="DominioSpc">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CommonBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="IdentificativoDominio" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IdentificativoStazioneRichiedente" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="AttachData">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CommonBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Codice" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="AllegatoFirmato" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="FileSize" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="DataCreazioneFile" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="DataUltimaModificaFile" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="PathFile" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="FullPathFile" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="LinkedLabel" nillable="true" type="s1:guid" />
+              <s:element minOccurs="0" maxOccurs="1" name="Obbligatorio" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="ModelloScelto" type="s:boolean" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfEventoBaseValue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EventoBaseValue" nillable="true" type="tns:EventoBaseValue" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EventoBaseValue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FieldName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FieldValue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FieldValueBool" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="FieldValueDecimal" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="FieldValueDateTime" nillable="true" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfEventoBase">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EventoBase" nillable="true" type="tns:EventoBase" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BaseTrace">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MachineName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LocalName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Program" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RemoteName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RemoteIP" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StackTrace" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="EventoContextEnum">
+        <s:restriction base="s:string">
+          <s:enumeration value="AmministrativoContabile" />
+          <s:enumeration value="Carriera" />
+          <s:enumeration value="Anagrafica" />
+          <s:enumeration value="DatiPersonali" />
+          <s:enumeration value="DatiSensibili" />
+          <s:enumeration value="DatiIsee" />
+          <s:enumeration value="Commissioni" />
+          <s:enumeration value="OperativoCarriera" />
+          <s:enumeration value="OperativoVerbalizzazioneCarriera" />
+          <s:enumeration value="TestIngresso" />
+          <s:enumeration value="Titoli" />
+          <s:enumeration value="Corrispondenza" />
+          <s:enumeration value="DirittoStudio" />
+          <s:enumeration value="CarrieraMobilitaInternazionale" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfAttachData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AttachData" nillable="true" type="tns:AttachData" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfFlussoRendicontazioneSpcPagamentoItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FlussoRendicontazioneSpcPagamentoItem" nillable="true" type="tns:FlussoRendicontazioneSpcPagamentoItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetFlussiRiconciliazione">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="tns:FlussiRiconciliazioneRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FlussiRiconciliazioneRequest">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseRequest">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="DataInizio" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="DataFine" nillable="true" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BaseRequest">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="RequestToken" nillable="true" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientVersion" type="tns:Version" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lingua" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Version" />
+      <s:element name="GetFlussiRiconciliazioneResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFlussiRiconciliazioneResult" type="tns:FlussiRiconciliazioneResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogonUserTest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="logonName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogonUserTestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LogonUserTestResult" type="tns:LogonResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="LogonResponse">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseResponse" />
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="LogonUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="tns:LogonRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="LogonRequest">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseRequest">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="LogonUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LogonUserResult" type="tns:LogonResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllCorsiTest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="tipoCorso" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllCorsiTestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllCorsiTestResult" type="tns:ArrayOfEasyCoopCorso" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfEasyCoopCorso">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="easyCoopCorso" nillable="true" type="tns:easyCoopCorso" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="easyCoopCorso">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CommonBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="CodiceCorso" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CodiceStruttura" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="AnnoRegolamento" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="CodiceCurriculum" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CodiceSede" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TipologiaCorso" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetAllCorsi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="listaTipi" type="tns:ArrayOfManifestoTypeEnum" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfManifestoTypeEnum">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ManifestoTypeEnum" type="tns:ManifestoTypeEnum" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ManifestoTypeEnum">
+        <s:restriction base="s:string">
+          <s:enumeration value="CorsoDiStudio" />
+          <s:enumeration value="Master" />
+          <s:enumeration value="ScuolaSpecializzazione" />
+          <s:enumeration value="Dottorato" />
+          <s:enumeration value="MasterSecondoLivello" />
+          <s:enumeration value="DipolomaUniversitario" />
+          <s:enumeration value="ScuolaFormazione" />
+          <s:enumeration value="TFA" />
+          <s:enumeration value="CorsoSpecializzazione" />
+          <s:enumeration value="PAS" />
+          <s:enumeration value="EsameDiStato" />
+          <s:enumeration value="ProvaSelettivaTFA" />
+          <s:enumeration value="CorsoAggiornamentoProfessionale" />
+          <s:enumeration value="ProvaSelettivaTFAParteSeconda" />
+          <s:enumeration value="CorsoAccademia" />
+          <s:enumeration value="CorsoSpeciale" />
+          <s:enumeration value="CorsoPerfezionamento" />
+          <s:enumeration value="ScuolaDirettaFiniSpeciali" />
+          <s:enumeration value="Bando" />
+          <s:enumeration value="CorsoAltaFormazioneProfessionale" />
+          <s:enumeration value="CorsiSingoli" />
+          <s:enumeration value="CorsiSingoliERASMUS" />
+          <s:enumeration value="CorsiSingoliOspitiStranieri" />
+          <s:enumeration value="CorsoSpecializzazioneSostegno" />
+          <s:enumeration value="CorsoSpecialeContemporaneaIscrizione" />
+          <s:enumeration value="CorsoAbilitazione" />
+          <s:enumeration value="CorsoFormazione" />
+          <s:enumeration value="DiplomaMusicologia" />
+          <s:enumeration value="SISSIS" />
+          <s:enumeration value="ScuolaSuperiore" />
+          <s:enumeration value="PercorsoVerificaRequisitiFit" />
+          <s:enumeration value="CorsoIntensivoFormazioneConDiploma" />
+          <s:enumeration value="CorsoIntensivoFormazioneAttestazione" />
+          <s:enumeration value="CorsoPreparazione" />
+          <s:enumeration value="ECDL" />
+          <s:enumeration value="CertificazioneLinguistica" />
+          <s:enumeration value="MediatoriLinguisticiTriennale" />
+          <s:enumeration value="DiplomaSpecializzazioneBiennale" />
+          <s:enumeration value="DiplomaAccademicoPrimoLivello" />
+          <s:enumeration value="DiplomaAccademicoSecondoLivello" />
+          <s:enumeration value="DiplomaAccademicoQuadriennale" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetAllCorsiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllCorsiResult" type="tns:ArrayOfEasyCoopCorso" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllTipiVersamento">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllTipiVersamentoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllTipiVersamentoResult" type="tns:ArrayOfTipoVersamento" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTipoVersamento">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TipoVersamento" nillable="true" type="tns:TipoVersamento" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TipoVersamento">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CommonBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ConsentiCdsFittizio" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="CdsTypes" type="tns:ArrayOfTipoVersamentoCdsType" />
+              <s:element minOccurs="0" maxOccurs="1" name="Codice" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CodiceInterno" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Versamento" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TipoBeneficiario" type="tns:TipoBeneficiario" />
+              <s:element minOccurs="1" maxOccurs="1" name="Rimborsabile" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="Conguagliabile" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="pagoPAIbanBic" type="tns:IbanBicBeneficiarioPagoPA" />
+              <s:element minOccurs="0" maxOccurs="1" name="Deleted" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="Cbill" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="LogoVersamento" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfTipoVersamentoCdsType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TipoVersamentoCdsType" nillable="true" type="tns:TipoVersamentoCdsType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TipoVersamentoCdsType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Tipologia" type="tns:ManifestoTypeEnum" />
+          <s:element minOccurs="0" maxOccurs="1" name="DurataLegale" type="tns:ArrayOfInt" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="TipoBeneficiario">
+        <s:restriction base="s:string">
+          <s:enumeration value="Ateneo" />
+          <s:enumeration value="Regione" />
+          <s:enumeration value="Erario" />
+          <s:enumeration value="Altro" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="IbanBicBeneficiarioPagoPA">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CommonBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Default" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="Beneficiario" type="tns:SimpleObject" />
+              <s:element minOccurs="0" maxOccurs="1" name="Iban" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Bic" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IbanAppoggio" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BicAppoggio" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="DatiSpecificiRiscossione" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SimpleObject">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CommonBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ClassName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ParentUid" nillable="true" type="s1:guid" />
+              <s:element minOccurs="0" maxOccurs="1" name="Codice" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="FlussiRiconciliazioneResponse" nillable="true" type="tns:FlussiRiconciliazioneResponse" />
+      <s:element name="LogonResponse" nillable="true" type="tns:LogonResponse" />
+      <s:element name="ArrayOfEasyCoopCorso" nillable="true" type="tns:ArrayOfEasyCoopCorso" />
+      <s:element name="ArrayOfTipoVersamento" nillable="true" type="tns:ArrayOfTipoVersamento" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetFlussiRiconciliazioneTestSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFlussiRiconciliazioneTest" />
+  </wsdl:message>
+  <wsdl:message name="GetFlussiRiconciliazioneTestSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFlussiRiconciliazioneTestResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFlussiRiconciliazioneSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFlussiRiconciliazione" />
+  </wsdl:message>
+  <wsdl:message name="GetFlussiRiconciliazioneSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFlussiRiconciliazioneResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogonUserTestSoapIn">
+    <wsdl:part name="parameters" element="tns:LogonUserTest" />
+  </wsdl:message>
+  <wsdl:message name="LogonUserTestSoapOut">
+    <wsdl:part name="parameters" element="tns:LogonUserTestResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogonUserSoapIn">
+    <wsdl:part name="parameters" element="tns:LogonUser" />
+  </wsdl:message>
+  <wsdl:message name="LogonUserSoapOut">
+    <wsdl:part name="parameters" element="tns:LogonUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCorsiTestSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllCorsiTest" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCorsiTestSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllCorsiTestResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCorsiSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllCorsi" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCorsiSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllCorsiResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTipiVersamentoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllTipiVersamento" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTipiVersamentoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllTipiVersamentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFlussiRiconciliazioneTestHttpGetIn">
+    <wsdl:part name="dataInizio" type="s:string" />
+    <wsdl:part name="dataFine" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetFlussiRiconciliazioneTestHttpGetOut">
+    <wsdl:part name="Body" element="tns:FlussiRiconciliazioneResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogonUserTestHttpGetIn">
+    <wsdl:part name="logonName" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LogonUserTestHttpGetOut">
+    <wsdl:part name="Body" element="tns:LogonResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCorsiTestHttpGetIn">
+    <wsdl:part name="tipoCorso" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCorsiTestHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfEasyCoopCorso" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTipiVersamentoHttpGetIn" />
+  <wsdl:message name="GetAllTipiVersamentoHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfTipoVersamento" />
+  </wsdl:message>
+  <wsdl:message name="GetFlussiRiconciliazioneTestHttpPostIn">
+    <wsdl:part name="dataInizio" type="s:string" />
+    <wsdl:part name="dataFine" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetFlussiRiconciliazioneTestHttpPostOut">
+    <wsdl:part name="Body" element="tns:FlussiRiconciliazioneResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogonUserTestHttpPostIn">
+    <wsdl:part name="logonName" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LogonUserTestHttpPostOut">
+    <wsdl:part name="Body" element="tns:LogonResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCorsiTestHttpPostIn">
+    <wsdl:part name="tipoCorso" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCorsiTestHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfEasyCoopCorso" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTipiVersamentoHttpPostIn" />
+  <wsdl:message name="GetAllTipiVersamentoHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfTipoVersamento" />
+  </wsdl:message>
+  <wsdl:portType name="gompPerEasySoap">
+    <wsdl:operation name="GetFlussiRiconciliazioneTest">
+      <wsdl:input message="tns:GetFlussiRiconciliazioneTestSoapIn" />
+      <wsdl:output message="tns:GetFlussiRiconciliazioneTestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFlussiRiconciliazione">
+      <wsdl:input message="tns:GetFlussiRiconciliazioneSoapIn" />
+      <wsdl:output message="tns:GetFlussiRiconciliazioneSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogonUserTest">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Servizio di autenticazione</wsdl:documentation>
+      <wsdl:input message="tns:LogonUserTestSoapIn" />
+      <wsdl:output message="tns:LogonUserTestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogonUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Servizio di autenticazione</wsdl:documentation>
+      <wsdl:input message="tns:LogonUserSoapIn" />
+      <wsdl:output message="tns:LogonUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCorsiTest">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce la lista dei corsi presenti in Ateneo</wsdl:documentation>
+      <wsdl:input message="tns:GetAllCorsiTestSoapIn" />
+      <wsdl:output message="tns:GetAllCorsiTestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCorsi">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce la lista dei corsi presenti in Ateneo</wsdl:documentation>
+      <wsdl:input message="tns:GetAllCorsiSoapIn" />
+      <wsdl:output message="tns:GetAllCorsiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTipiVersamento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce la lista delle tipologie di versamento</wsdl:documentation>
+      <wsdl:input message="tns:GetAllTipiVersamentoSoapIn" />
+      <wsdl:output message="tns:GetAllTipiVersamentoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="gompPerEasyHttpGet">
+    <wsdl:operation name="GetFlussiRiconciliazioneTest">
+      <wsdl:input message="tns:GetFlussiRiconciliazioneTestHttpGetIn" />
+      <wsdl:output message="tns:GetFlussiRiconciliazioneTestHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogonUserTest">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Servizio di autenticazione</wsdl:documentation>
+      <wsdl:input message="tns:LogonUserTestHttpGetIn" />
+      <wsdl:output message="tns:LogonUserTestHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCorsiTest">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce la lista dei corsi presenti in Ateneo</wsdl:documentation>
+      <wsdl:input message="tns:GetAllCorsiTestHttpGetIn" />
+      <wsdl:output message="tns:GetAllCorsiTestHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTipiVersamento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce la lista delle tipologie di versamento</wsdl:documentation>
+      <wsdl:input message="tns:GetAllTipiVersamentoHttpGetIn" />
+      <wsdl:output message="tns:GetAllTipiVersamentoHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="gompPerEasyHttpPost">
+    <wsdl:operation name="GetFlussiRiconciliazioneTest">
+      <wsdl:input message="tns:GetFlussiRiconciliazioneTestHttpPostIn" />
+      <wsdl:output message="tns:GetFlussiRiconciliazioneTestHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogonUserTest">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Servizio di autenticazione</wsdl:documentation>
+      <wsdl:input message="tns:LogonUserTestHttpPostIn" />
+      <wsdl:output message="tns:LogonUserTestHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCorsiTest">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce la lista dei corsi presenti in Ateneo</wsdl:documentation>
+      <wsdl:input message="tns:GetAllCorsiTestHttpPostIn" />
+      <wsdl:output message="tns:GetAllCorsiTestHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTipiVersamento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce la lista delle tipologie di versamento</wsdl:documentation>
+      <wsdl:input message="tns:GetAllTipiVersamentoHttpPostIn" />
+      <wsdl:output message="tns:GetAllTipiVersamentoHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="gompPerEasySoap" type="tns:gompPerEasySoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetFlussiRiconciliazioneTest">
+      <soap:operation soapAction="http://www.besmart.it/GetFlussiRiconciliazioneTest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFlussiRiconciliazione">
+      <soap:operation soapAction="http://www.besmart.it/GetFlussiRiconciliazione" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogonUserTest">
+      <soap:operation soapAction="http://www.besmart.it/LogonUserTest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogonUser">
+      <soap:operation soapAction="http://www.besmart.it/LogonUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCorsiTest">
+      <soap:operation soapAction="http://www.besmart.it/GetAllCorsiTest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCorsi">
+      <soap:operation soapAction="http://www.besmart.it/GetAllCorsi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTipiVersamento">
+      <soap:operation soapAction="http://www.besmart.it/GetAllTipiVersamento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="gompPerEasySoap12" type="tns:gompPerEasySoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetFlussiRiconciliazioneTest">
+      <soap12:operation soapAction="http://www.besmart.it/GetFlussiRiconciliazioneTest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFlussiRiconciliazione">
+      <soap12:operation soapAction="http://www.besmart.it/GetFlussiRiconciliazione" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogonUserTest">
+      <soap12:operation soapAction="http://www.besmart.it/LogonUserTest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogonUser">
+      <soap12:operation soapAction="http://www.besmart.it/LogonUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCorsiTest">
+      <soap12:operation soapAction="http://www.besmart.it/GetAllCorsiTest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCorsi">
+      <soap12:operation soapAction="http://www.besmart.it/GetAllCorsi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTipiVersamento">
+      <soap12:operation soapAction="http://www.besmart.it/GetAllTipiVersamento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="gompPerEasyHttpGet" type="tns:gompPerEasyHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetFlussiRiconciliazioneTest">
+      <http:operation location="/GetFlussiRiconciliazioneTest" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogonUserTest">
+      <http:operation location="/LogonUserTest" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCorsiTest">
+      <http:operation location="/GetAllCorsiTest" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTipiVersamento">
+      <http:operation location="/GetAllTipiVersamento" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="gompPerEasyHttpPost" type="tns:gompPerEasyHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetFlussiRiconciliazioneTest">
+      <http:operation location="/GetFlussiRiconciliazioneTest" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogonUserTest">
+      <http:operation location="/LogonUserTest" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCorsiTest">
+      <http:operation location="/GetAllCorsiTest" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTipiVersamento">
+      <http:operation location="/GetAllTipiVersamento" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="gompPerEasy">
+    <wsdl:port name="gompPerEasySoap" binding="tns:gompPerEasySoap">
+      <soap:address location="https://unitus-ws.gomp.it/Contabilita/easy/gompPerEasy.asmx" />
+    </wsdl:port>
+    <wsdl:port name="gompPerEasySoap12" binding="tns:gompPerEasySoap12">
+      <soap12:address location="https://unitus-ws.gomp.it/Contabilita/easy/gompPerEasy.asmx" />
+    </wsdl:port>
+    <wsdl:port name="gompPerEasyHttpGet" binding="tns:gompPerEasyHttpGet">
+      <http:address location="https://unitus-ws.gomp.it/Contabilita/easy/gompPerEasy.asmx" />
+    </wsdl:port>
+    <wsdl:port name="gompPerEasyHttpPost" binding="tns:gompPerEasyHttpPost">
+      <http:address location="https://unitus-ws.gomp.it/Contabilita/easy/gompPerEasy.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

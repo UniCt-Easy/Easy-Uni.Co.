@@ -1,0 +1,33 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pianostudiostatus_default_title">Stato</label>
+					<input id="pianostudiostatus_default_title" type="text" class="form-control" data-tag="pianostudiostatus.title?pianostudiostatusdefaultview.title" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pianostudiostatus_default_description">Descrizione</label>
+					<input id="pianostudiostatus_default_description" type="text" class="form-control" data-tag="pianostudiostatus.description?pianostudiostatusdefaultview.pianostudiostatus_description" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pianostudiostatus_default_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="pianostudiostatus_default_activeSi" type="radio" name="pianostudiostatus_default_active" class="custom-control-input" data-tag="pianostudiostatus.active:S?pianostudiostatusdefaultview.pianostudiostatus_active:Si" data-subentity  data-mandatory ><label for="pianostudiostatus_default_activeSi"> Si</label>
+						<input id="pianostudiostatus_default_activeNo" type="radio" name="pianostudiostatus_default_active" class="custom-control-input" data-tag="pianostudiostatus.active:N?pianostudiostatusdefaultview.pianostudiostatus_active:No" data-subentity  data-mandatory ><label for="pianostudiostatus_default_activeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pianostudiostatus_default_sortcode">Sortcode</label>
+					<input id="pianostudiostatus_default_sortcode" type="text" class="form-control" data-tag="pianostudiostatus.sortcode?pianostudiostatusdefaultview.pianostudiostatus_sortcode" data-subentity  data-mandatory />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

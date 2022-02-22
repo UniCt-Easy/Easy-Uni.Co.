@@ -1,0 +1,40 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabperfindicatore_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabperfindicatore_default_0"><i class="fa fa-hand-pointer mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabperfindicatore_default_1" class="nav-link" data-toggle="pill" data-target="#tabperfindicatore_default_1"><i class="fa fa-angle-double-up mr-1"></i>Soglie</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabperfindicatore_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfindicatore_default_title">Titolo</label>
+					<input id="perfindicatore_default_title" type="text" class="form-control" data-tag="perfindicatore.title?perfindicatoredefaultview.title" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelperfindicatore_default_idperfindicatorekind" >Indica spesso l’origine dell’indicatore, come ad esempio “Good Practices”, “Nucleo di valutazione”,ecc.</div>
+					<label class="col-form-label col-md-12" for="perfindicatore_default_idperfindicatorekind">Tipo indicatore</label>
+					<select id="perfindicatore_default_idperfindicatorekind" class="custom-select d-block w-100"  data-source-name="perfindicatorekind" data-value-member="idperfindicatorekind" data-display-member="title" data-custom-control="combo" data-tag="perfindicatore.idperfindicatorekind?perfindicatoredefaultview.perfindicatore_idperfindicatorekind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="perfindicatore_default_description">Descrizione</label>
+					<textarea class="textarea form-control" id="perfindicatore_default_description" type="text"  rows="4" data-tag="perfindicatore.description?perfindicatoredefaultview.perfindicatore_description" data-subentity  data-mandatory></textarea>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabperfindicatore_default_1" role="tabpanel">
+				<div class="gridx" id="grid_perfindicatoresoglia_default" data-tag="perfindicatoresoglia.default.default" data-custom-control="gridx" data-mdlbuttonedit  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

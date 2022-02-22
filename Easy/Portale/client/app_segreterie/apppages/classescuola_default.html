@@ -1,0 +1,79 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabclassescuola_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabclassescuola_default_0"><i class="fa fa-sitemap mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabclassescuola_default_3" class="nav-link" data-toggle="pill" data-target="#tabclassescuola_default_3"><i class="fa fa-layer-group mr-1"></i>Caratteristiche della scuola / classe di laurea</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabclassescuola_default_1" class="nav-link" data-toggle="pill" data-target="#tabclassescuola_default_1"><i class="fa fa-dot-circle mr-1"></i>Obiettivi formativi</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabclassescuola_default_2" class="nav-link" data-toggle="pill" data-target="#tabclassescuola_default_2"><i class="fa fa-user-tie mr-1"></i>Prospettive occupazionali</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabclassescuola_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuola_default_title">Denominazione</label>
+					<input id="classescuola_default_title" type="text" class="form-control" data-tag="classescuola.title?classescuoladefaultview.classescuola_title" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuola_default_sigla">Sigla</label>
+					<input id="classescuola_default_sigla" type="text" class="form-control" data-tag="classescuola.sigla?classescuoladefaultview.sigla" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuola_default_idcorsostudionorma">Normativa</label>
+					<div>
+						<input id="classescuola_default_idcorsostudionorma" name="classescuola_default_idcorsostudionorma" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="corsostudionormadefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuola_default_idclassescuolakind">Tipologia</label>
+					<select id="classescuola_default_idclassescuolakind" class="custom-select d-block w-100"  data-source-name="classescuolakinddefaultview" data-value-member="idclassescuolakind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="classescuola.idclassescuolakind?classescuoladefaultview.classescuola_idclassescuolakind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuola_default_idclassescuolaarea">Area</label>
+					<div>
+						<input id="classescuola_default_idclassescuolaarea" name="classescuola_default_idclassescuolaarea" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="classescuolaarea.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuola_default_indicecineca">Identificativo CINECA</label>
+					<input id="classescuola_default_indicecineca" type="text" class="form-control" data-tag="classescuola.indicecineca?classescuoladefaultview.classescuola_indicecineca" data-subentity  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabclassescuola_default_3" role="tabpanel">
+				<div class="gridx" id="grid_classescuolacaratteristica_classe" data-tag="classescuolacaratteristica.classe.classe" data-custom-control="gridx" data-mdlgroupedcolumns="!idtipoattform_tipoattform_title;!idtipoattform_tipoattform_description" data-mdltotnotvisible  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="obblig,S,Si;obblig,N,No;profess,S,Si;profess,N,No;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabclassescuola_default_1" role="tabpanel">
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="classescuola_default_obbform">Obiettivi formativi</label>
+					<textarea class="textarea form-control" id="classescuola_default_obbform" type="text"  rows="20" data-tag="classescuola.obbform?classescuoladefaultview.classescuola_obbform" data-subentity  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabclassescuola_default_2" role="tabpanel">
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="classescuola_default_prospocc">Prospettive occupazionali</label>
+					<textarea class="textarea form-control" id="classescuola_default_prospocc" type="text"  rows="20" data-tag="classescuola.prospocc?classescuoladefaultview.classescuola_prospocc" data-subentity  />
+				</div>
+			</div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

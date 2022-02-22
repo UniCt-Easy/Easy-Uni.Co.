@@ -1,0 +1,59 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabaccordoscambiomi_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabaccordoscambiomi_seg_0"><i class="fa fa-handshake mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabaccordoscambiomi_seg_1" class="nav-link" data-toggle="pill" data-target="#tabaccordoscambiomi_seg_1"><i class="fa fa-hands-helping mr-1"></i>Dettaglio dell’accordo per le aziende</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabaccordoscambiomi_seg_2" class="nav-link" data-toggle="pill" data-target="#tabaccordoscambiomi_seg_2"><i class="fa fa-handshake mr-1"></i>Dettaglio dell’accordo per gli istituti</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabaccordoscambiomi_seg_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="accordoscambiomi_seg_title">Titolo</label>
+					<textarea class="textarea form-control" id="accordoscambiomi_seg_title" type="text"  rows="4" data-tag="accordoscambiomi.title?accordoscambiomisegview.title" data-subentity  data-mandatory></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="accordoscambiomi_seg_description">Descrizione</label>
+					<textarea class="textarea form-control" id="accordoscambiomi_seg_description" type="text"  rows="4" data-tag="accordoscambiomi.description?accordoscambiomisegview.accordoscambiomi_description" data-subentity></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="accordoscambiomi_seg_idprogrammami">Programma di mobilità internazionale</label>
+					<div>
+						<input id="accordoscambiomi_seg_idprogrammami" name="accordoscambiomi_seg_idprogrammami" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="programmami.acronimo" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="accordoscambiomi_seg_aa_start">Anno accademico di inizio</label>
+					<select id="accordoscambiomi_seg_aa_start" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="accordoscambiomi.aa_start?accordoscambiomisegview.aa_start" data-subentity  data-mandatory  > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="accordoscambiomi_seg_aa_stop">Anno accademico di fine</label>
+					<select id="accordoscambiomi_seg_aa_stop" class="custom-select d-block w-100"  data-source-name="annoaccademico_alias1" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="accordoscambiomi.aa_stop?accordoscambiomisegview.aa_stop" data-subentity   > </select>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabaccordoscambiomi_seg_1" role="tabpanel">
+				<div class="gridx" id="grid_accordoscambiomidettaz_seg" data-tag="accordoscambiomidettaz.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabaccordoscambiomi_seg_2" role="tabpanel">
+				<div class="gridx" id="grid_accordoscambiomidett_seg" data-tag="accordoscambiomidett.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

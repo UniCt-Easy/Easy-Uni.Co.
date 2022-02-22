@@ -1,0 +1,36 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#ratadef_sconti_decorrenza").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="ratadef_sconti_decorrenza">Decorrenza</label>
+					<input id="ratadef_sconti_decorrenza" type="text" class="form-control" data-tag="ratadef.decorrenza.g?ratadefscontiview.ratadef_decorrenza.g" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="ratadef_sconti_idratakind">Tipologia</label>
+					<select id="ratadef_sconti_idratakind" class="custom-select d-block w-100"  data-source-name="ratakinddefaultview" data-value-member="idratakind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="ratadef.idratakind?ratadefscontiview.idratakind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#ratadef_sconti_scadenza").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="ratadef_sconti_scadenza">Scadenza</label>
+					<input id="ratadef_sconti_scadenza" type="text" class="form-control" data-tag="ratadef.scadenza.g?ratadefscontiview.ratadef_scadenza.g" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_accordoscambiomidettaz_seg" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_accordoscambiomidettaz_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="geo_nation" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idnation" type="xs:int" />
+              <xs:element name="lang" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cefr" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcefr" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cefrlanglevel" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idaccordoscambiomi" type="xs:int" minOccurs="0" />
+              <xs:element name="idaccordoscambiomidett" type="xs:int" minOccurs="0" />
+              <xs:element name="idaccordoscambiomidettaz" type="xs:int" minOccurs="0" />
+              <xs:element name="idaccordoscambiomidettlangkind" type="xs:int" />
+              <xs:element name="idcefr_compasc" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefr_complett" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefr_parlinter" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefr_parlprod" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefr_scritto" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefrlanglevel" type="xs:int" />
+              <xs:element name="idiscrizionebmi" type="xs:int" minOccurs="0" />
+              <xs:element name="idlearningagrstud" type="xs:int" minOccurs="0" />
+              <xs:element name="idlearningagrtrainer" type="xs:int" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idcefr_compasc_cefr_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idcefr_complett_cefr_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idcefr_parlinter_cefr_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idcefr_parlprod_cefr_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idcefr_scritto_cefr_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idnation_geo_nation_lang" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registryaziendeview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idateco" type="xs:int" minOccurs="0" />
+              <xs:element name="idcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idnace" type="xs:string" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idnaturagiur" type="xs:int" minOccurs="0" />
+              <xs:element name="idnumerodip" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
+              <xs:element name="residence" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accordoscambiomidettaz" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idaccordoscambiomi" type="xs:int" />
+              <xs:element name="idaccordoscambiomidettaz" type="xs:int" />
+              <xs:element name="idreg_aziende" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="numstud" type="xs:int" minOccurs="0" />
+              <xs:element name="stipula" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_nation" />
+      <xs:field xpath="mstns:idnation" />
+    </xs:unique>
+    <xs:unique name="cefr_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:cefr" />
+      <xs:field xpath="mstns:idcefr" />
+    </xs:unique>
+    <xs:unique name="cefrlanglevel_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:cefrlanglevel" />
+      <xs:field xpath="mstns:idcefrlanglevel" />
+    </xs:unique>
+    <xs:unique name="registryaziendeview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registryaziendeview" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="accordoscambiomidettaz_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accordoscambiomidettaz" />
+      <xs:field xpath="mstns:idaccordoscambiomi" />
+      <xs:field xpath="mstns:idaccordoscambiomidettaz" />
+      <xs:field xpath="mstns:idreg_aziende" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_cefrlanglevel_accordoscambiomidettaz_idaccordoscambiomi-idaccordoscambiomidettaz" msdata:parent="accordoscambiomidettaz" msdata:child="cefrlanglevel" msdata:parentkey="idaccordoscambiomi idaccordoscambiomidettaz" msdata:childkey="idaccordoscambiomi idaccordoscambiomidettaz" />
+      <msdata:Relationship name="FK_cefrlanglevel_geo_nation_idnation" msdata:parent="geo_nation" msdata:child="cefrlanglevel" msdata:parentkey="idnation" msdata:childkey="idnation" />
+      <msdata:Relationship name="FK_cefrlanglevel_cefr_idcefr_scritto" msdata:parent="cefr" msdata:child="cefrlanglevel" msdata:parentkey="idcefr" msdata:childkey="idcefr_scritto" />
+      <msdata:Relationship name="FK_cefrlanglevel_cefr_idcefr_parlprod" msdata:parent="cefr" msdata:child="cefrlanglevel" msdata:parentkey="idcefr" msdata:childkey="idcefr_parlprod" />
+      <msdata:Relationship name="FK_cefrlanglevel_cefr_idcefr_parlinter" msdata:parent="cefr" msdata:child="cefrlanglevel" msdata:parentkey="idcefr" msdata:childkey="idcefr_parlinter" />
+      <msdata:Relationship name="FK_cefrlanglevel_cefr_idcefr_complett" msdata:parent="cefr" msdata:child="cefrlanglevel" msdata:parentkey="idcefr" msdata:childkey="idcefr_complett" />
+      <msdata:Relationship name="FK_cefrlanglevel_cefr_idcefr_compasc" msdata:parent="cefr" msdata:child="cefrlanglevel" msdata:parentkey="idcefr" msdata:childkey="idcefr_compasc" />
+      <msdata:Relationship name="FK_accordoscambiomidettaz_registryaziendeview_idreg_aziende" msdata:parent="registryaziendeview" msdata:child="accordoscambiomidettaz" msdata:parentkey="idreg" msdata:childkey="idreg_aziende" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

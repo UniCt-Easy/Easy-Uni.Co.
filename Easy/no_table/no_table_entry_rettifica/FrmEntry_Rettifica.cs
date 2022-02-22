@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -28,7 +27,7 @@ using ep_functions;
 using funzioni_configurazione;
 
 namespace no_table_entry_rettifica {
-    public partial class Frmno_table_entry_rettifica : Form {
+    public partial class Frmno_table_entry_rettifica : MetaDataForm {
         MetaData Meta;
         DataTable tPlAccount;
         DataTable tAccount;
@@ -43,7 +42,7 @@ namespace no_table_entry_rettifica {
         private int identrykindToGenerate = 0;
         MetaData m;
         private EP_Manager ep;
-       
+        bool risconta_ammortamenti_futuri = false;
 
         public void MetaData_AfterLink() {
             Meta = MetaData.GetMetaData(this);
@@ -52,16 +51,24 @@ namespace no_table_entry_rettifica {
             QHS = Conn.GetQueryHelper();
             tPlAccount = DataAccess.CreateTableByName(Conn, "placcount", "idplaccount, placcpart");
             tAccount = DataAccess.CreateTableByName(Conn, "account", "idacc, idplaccount");
+           
             if (Meta.edit_type == "rettifica_pluriennale") {
                 labelDescrizione.Text = "PROCEDURA ASSESTAMENTO PROGETTI PLURIENNALI a Commessa Completata";
                 btnOperazione.Text = "Inizia assestamento";
                 chkCommerciale.Visible = false;
+                chkRiscontaAmmortamentiFuturi.Visible  = true;
+                int currAyear = (int)Meta.GetSys("esercizio");
+                object risconta_ammortamenti_futuriObj = Conn.DO_READ_VALUE("config", QHS.CmpEq("ayear", currAyear), "risconta_ammortamenti_futuri");
+                if (risconta_ammortamenti_futuriObj == DBNull.Value) risconta_ammortamenti_futuriObj = "N";
+                risconta_ammortamenti_futuri = risconta_ammortamenti_futuriObj.ToString().ToUpper() == "S";
+                chkRiscontaAmmortamentiFuturi.Checked  = risconta_ammortamenti_futuri;
                 identrykindToGenerate = 8;
             }
             if (Meta.edit_type == "rettifica_pluriennale_percentuale") {
                 labelDescrizione.Text = "PROCEDURA ASSESTAMENTO PROGETTI PLURIENNALI a percentuale di completamento";
                 btnOperazione.Text = "Inizia assestamento";
                 chkCommerciale.Visible = false;
+                 chkRiscontaAmmortamentiFuturi.Visible  = false;
                 identrykindToGenerate = 13;
             }
             if (Meta.edit_type == "rettifica") {
@@ -69,7 +76,11 @@ namespace no_table_entry_rettifica {
                     "PROCEDURA CHE RETTIFICA I COSTI/RICAVI CON COMPETENZA OLTRE L'ESERCIZIO CORRENTE";
                 btnOperazione.Text = "Inizia Rettifica";
                 identrykindToGenerate = 3;
+                chkRiscontaAmmortamentiFuturi.Visible  = false;
             }
+            //task 15894, momentaneamente disattivo la gestione degli ammortamenti futuri 
+            chkRiscontaAmmortamentiFuturi.Checked = false; //per ora lo rendo non checkato per tutti
+            chkRiscontaAmmortamentiFuturi.Visible = false; //per ora lo rendo invisibile per tutti
             m = Meta.Dispatcher.Get("upbcommessa");
             ep = new EP_Manager(m, null, null, null, null, null, null, null, null, "upbcommessa");
         }
@@ -96,64 +107,104 @@ namespace no_table_entry_rettifica {
                 AnnoCommerciale = chkCommerciale.Checked;
 
                 if (!doRettifica(tEntryDetail)) {
-                    MessageBox.Show(this, "Errore nel processo di rettifica dei risconti", "Errore");
+                    show(this, "Errore nel processo di rettifica dei risconti", "Errore");
                 }
             }
-            if (Meta.edit_type == "rettifica_pluriennale") {        
-                //      Assestamento Commessa Completata
-                DataTable tEntryDetail = ottieniDettagliAssestamentoCommessaCompletata();
-                if (tEntryDetail == null) {
-                    MessageBox.Show(this, "Errore nel calcolo scritture pluriennali aperti di tipo Commessa Completata",
-                        "Errore");
-                }
-                else {
-                    string noRows = "Progetti pluriennali ancora aperti: nessun importo da rettificare";
-                    if (tEntryDetail.Rows.Count == 0) {
-                        MessageBox.Show(this, noRows,
-                            "Avvertimento");
-                    }
-                    else {
-                        labelFase.Text = "Elaborazione progetti pluriennali ancora aperti";
-                        if (!DoAssestamentoCommessaCompletata(tEntryDetail, noRows,false)) {
-                            MessageBox.Show(this, "Errore nel processo di rettifica per i progetti pluriennali ancora aperti", "Errore");
-                        }
-                    }
-                }
-                tEntryDetail = ottieniRateiApertiProgettiInChiusura();
-                if (tEntryDetail == null) {
-                    MessageBox.Show(this, "Errore nel calcolo scritture pluriennali aperti", "Errore");
-                }
-                else {
-                    string noRows = "Progetti pluriennali in chiusura: nessun importo da rettificare";
-                    if (tEntryDetail.Rows.Count == 0) {
-                        MessageBox.Show(this, noRows, "Avvertimento");
-                    }
-                    else {
-                        labelFase.Text = "Elaborazione progetti pluriennali in chiusura";
-                        if (!DoAssestamentoCommessaCompletata(tEntryDetail, noRows,true)) {
-                            MessageBox.Show(this,
-                                "Errore nel processo di rettifica per i progetti pluriennali in chiusura", "Errore");
-                        }
-                    }
-                }
+            if (Meta.edit_type == "rettifica_pluriennale") {
+				//      Assestamento Commessa Completata: progetti pluriennali ancora aperti
+				DataTable tEntryDetail = ottieniDettagliAssestamentoCommessaCompletata();
+				if (tEntryDetail == null)
+				{
+					show(this, "Errore nel calcolo scritture pluriennali aperti di tipo Commessa Completata", "Errore");
+				}
+				else
+				{
+					string noRows = "Progetti pluriennali ancora aperti: nessun importo da rettificare";
+					if (tEntryDetail.Rows.Count == 0)
+					{
+						show(this, noRows,
+							"Avvertimento");
+					}
+					else
+					{
+						labelFase.Text = "Elaborazione progetti pluriennali ancora aperti";
 
 
+						if (!DoAssestamentoCommessaCompletata(tEntryDetail, noRows, false))
+						{
+							show(this, "Errore nel processo di rettifica per i progetti pluriennali ancora aperti", "Errore");
+						}
+					}
+				}
+				tEntryDetail = ottieniRateiApertiProgettiInChiusura();
+				if (tEntryDetail == null)
+				{
+					show(this, "Errore nel calcolo scritture pluriennali aperti", "Errore");
+				}
+				else
+				{
+					string noRows = "Progetti pluriennali in chiusura: nessun importo da rettificare";
+					if (tEntryDetail.Rows.Count == 0)
+					{
+						show(this, noRows, "Avvertimento");
+					}
+					else
+					{
+						labelFase.Text = "Elaborazione progetti pluriennali in chiusura";
+						if (!DoAssestamentoCommessaCompletata(tEntryDetail, noRows, true))
+						{
+							show(this,
+								"Errore nel processo di rettifica per i progetti pluriennali in chiusura", "Errore");
+						}
+
+					}
+				}
+				//tEntryDetail = new DataTable();
+                if (chkRiscontaAmmortamentiFuturi.Checked){
+                        tEntryDetail = ottieniProgettiInChiusuraNoRateiAperti();
+                        if (tEntryDetail == null) {
+                            show(this, "Errore nel calcolo scritture pluriennali per progetti in Scadenza", "Errore");
+                        }
+                        else {
+                            string noRows = "Progetti pluriennali in chiusura - risconti su ammortamenti futuri: nessun importo da rettificare";
+                            ottieniAmmmortamentiFuturiUPB();
+                            if ((tEntryDetail.Rows.Count == 0) || (hAmmortamentiFuturi.Count==0)) {
+                                show(this, noRows, "Avvertimento");
+                            }
+                            else {
+                                labelFase.Text = "Elaborazione progetti pluriennali in chiusura: risconti su ammortamenti futuri";
+
+                                if (!DoAssestamentoCommessaCompletata(tEntryDetail, noRows,true)) {
+                                    show(this,
+                                        "Errore nel processo di rettifica per i progetti pluriennali in chiusura", "Errore");
+                                }
+
+                            }
+                        }
+                }
+                else{
+                     string noRows = "Progetti pluriennali in chiusura - risconti su ammortamenti futuri: si è scelto di non rettificare " +
+                                     "(vedere Configurazione annuale EP di Ratei e Risconti)";
+                     //show(this, noRows, "Avvertimento");
+                    }
+                labelFase.Text = "Elaborazione scritture Assestamento pluriennali a Commessa Completata";
+                DoElaboraScrittureAssestamentoCommessaCompletata();
                 btnOperazione.Enabled = false;
             }
             if (Meta.edit_type == "rettifica_pluriennale_percentuale") {       //a percentuale di completamento
                 DataTable tEntryDetail = ottieniDettagliScritturaProgettiPluriennaliPercentuale();
                 string noRows = "Progetti pluriennali ancora aperti: nessun importo da rettificare";
                 if (tEntryDetail == null) {
-                    MessageBox.Show(this, "Errore nel calcolo scritture pluriennali aperti a percentuale di completamento",
+                    show(this, "Errore nel calcolo scritture pluriennali aperti a percentuale di completamento",
                         "Errore");
                 }
                 else {
                     if (tEntryDetail.Rows.Count == 0) {
-                        MessageBox.Show(this, noRows,"Avvertimento");
+                        show(this, noRows,"Avvertimento");
                     }
                     else {
                         if (!doRettificaPluriennalePercentuale(tEntryDetail,noRows)) {
-                            MessageBox.Show(this,
+                            show(this,
                                 "Errore nel processo di rettifica per i progetti pluriennali ancora aperti", "Errore");
                         }
                     }
@@ -185,7 +236,7 @@ namespace no_table_entry_rettifica {
 
             DataTable tEntryDetail = DataAccess.SQLRunner(Conn, queryED,false,600);
             if (tEntryDetail == null) {
-                MessageBox.Show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
+                show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
                 return null;
             }
 
@@ -204,7 +255,7 @@ namespace no_table_entry_rettifica {
 
             DataTable T = Conn.SQLRunner(sqlCmd,false,600);
             if ((T != null) && (T.Rows.Count > 0)) {
-                if (MessageBox.Show("Le scritture di Rettifica relative all''esercizio corrente risultano già generate. Si desidera proseguire comunque?", "Avviso",
+                if (show("Le scritture di Rettifica relative all''esercizio corrente risultano già generate. Si desidera proseguire comunque?", "Avviso",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return false;
             }
@@ -213,12 +264,12 @@ namespace no_table_entry_rettifica {
 
         private bool doRettifica(DataTable tEntryDetailSource) {
             if (tEntryDetailSource == null) {
-                MessageBox.Show(this, "La tabella dei dettagli scritture non è definita", "Errore");
+                show(this, "La tabella dei dettagli scritture non è definita", "Errore");
                 return false;
             }
 
             if (tEntryDetailSource.Rows.Count == 0) {
-                MessageBox.Show(this, "Nessun risconto da effettuare", "Avvertimento");
+                show(this, "Nessun risconto da effettuare", "Avvertimento");
                 return true;
             }
 
@@ -263,13 +314,13 @@ namespace no_table_entry_rettifica {
 
             object idacc_riscontoA = Conn.DO_READ_VALUE("config", QHS.CmpEq("ayear", currYear), campoRiscontoAttivo);
             if ((idacc_riscontoA == null) || (idacc_riscontoA == DBNull.Value)) {
-                MessageBox.Show(this, "Attenzione non è stato specificato il conto del risconto attivo", "Errore");
+                show(this, "Attenzione non è stato specificato il conto del risconto attivo", "Errore");
                 return false;
             }
 
             object idacc_riscontoP = Conn.DO_READ_VALUE("config", QHS.CmpEq("ayear", currYear), campoRiscontoPassivo);
             if ((idacc_riscontoP == null) || (idacc_riscontoP == DBNull.Value)) {
-                MessageBox.Show(this, "Attenzione non è stato specificato il conto del risconto passivo", "Errore");
+                show(this, "Attenzione non è stato specificato il conto del risconto passivo", "Errore");
                 return false;
             }
 
@@ -374,14 +425,14 @@ namespace no_table_entry_rettifica {
             }
 
             if (ds.Tables["entrydetail"].Rows.Count == 0) {
-                MessageBox.Show(this, "Nessun risconto da effettuare", "Avvertimento");
+                show(this, "Nessun risconto da effettuare", "Avvertimento");
                 return true;
             }
 
             FrmEntryPreSave frm = new FrmEntryPreSave(ds.Tables["entrydetail"], Meta.Conn, AnnoCommerciale,tEntryDetailSource);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
-                MessageBox.Show(this, "Operazione Annullata!");
+                show(this, "Operazione Annullata!");
                 return true;
             }
             PostData Post = MEntry.Get_PostData();
@@ -390,10 +441,10 @@ namespace no_table_entry_rettifica {
             if (Post.DO_POST()) {
                 DataRow rEntryPosted = ds.Tables["entry"].Rows[0];
                 EditRelatedEntryByKey(rEntryPosted);
-                MessageBox.Show(this, "Integrazione dei residui completata con successo!");
+                show(this, "Integrazione dei residui completata con successo!");
             }
             else {
-                MessageBox.Show(this, "Errore nel salvataggio della scrittura di integrazione!", "Errore");
+                show(this, "Errore nel salvataggio della scrittura di integrazione!", "Errore");
             }
 
             return true;
@@ -475,7 +526,7 @@ namespace no_table_entry_rettifica {
             string checkfilter = QHS.MCmp(rEntry, new string[] { "yentry", "nentry" });
             ToMeta.ContextFilter = checkfilter;
             Form F = null;
-            if (Meta.LinkedForm != null) F = Meta.LinkedForm.ParentForm;
+            if (Meta.linkedForm != null) F = Meta.linkedForm.ParentForm;
             bool result = ToMeta.Edit(F, "default", false);
             string listtype = ToMeta.DefaultListType;
             DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
@@ -492,7 +543,8 @@ namespace no_table_entry_rettifica {
                     " from entrydetail ed " +
                     " join account A on ED.idacc=A.idacc " +
                     " WHERE " +
-                    " A.flagaccountusage & 128 <> 0 " +  //ricavo
+                    " (A.flagaccountusage & 128 <> 0) " +  //ricavo
+                    " AND (A.flagaccountusage & 524288 = 0) " +  // Escludi da calcolo Commessa completata . Task 15404
                     " AND " + filter +  //scritture di quest'anno o tutte le prec. a seconda del par. di input
                     " AND ED.idupb= " + QHS.quote(idupb) +
                     " group by  ed.idreg, ed.idacc,ed.idaccmotive"+ strIdepacc ;//ed.idepacc,
@@ -500,20 +552,20 @@ namespace no_table_entry_rettifica {
             return t;
         }
 
-        DataTable ottieniCostiUPB(object idupb) {
-            int currAyear = (int)Meta.GetSys("esercizio");
-            string strYear = QHS.quote(currAyear);
-            string query = "select  sum(ed.amount) as amount,  ed.idreg " +//,ed.idepexp,ed.idacc,
-                    " from entrydetail ed " +
-                    " join account A on ED.idacc=A.idacc " +
-                    " WHERE " +
-                    " A.flagaccountusage & 64 <> 0 " +  //costi
-                    " AND ED.yentry= " + strYear +  //scritture di quest'anno
-                    " AND ED.idupb= " + QHS.quote(idupb) +
-                    " group by  ed.idreg"; //,ed.idepexp,ed.idacc
-            DataTable t = Conn.SQLRunner(query, false,600);
-            return t;
-        }
+        //DataTable ottieniCostiUPB(object idupb) {
+        //    int currAyear = (int)Meta.GetSys("esercizio");
+        //    string strYear = QHS.quote(currAyear);
+        //    string query = "select  sum(ed.amount) as amount,  ed.idreg " +//,ed.idepexp,ed.idacc,
+        //            " from entrydetail ed " +
+        //            " join account A on ED.idacc=A.idacc " +
+        //            " WHERE " +
+        //            " A.flagaccountusage & 64 <> 0 " +  //costi
+        //            " AND ED.yentry= " + strYear +  //scritture di quest'anno
+        //            " AND ED.idupb= " + QHS.quote(idupb) +
+        //            " group by  ed.idreg"; //,ed.idepexp,ed.idacc
+        //    DataTable t = Conn.SQLRunner(query, false,600);
+        //    return t;
+        //}
 
 
         void ripartisciSommaInBaseARicavi(decimal somma, DataTable ricavi) {
@@ -543,13 +595,14 @@ namespace no_table_entry_rettifica {
             int currAyear = (int)Meta.GetSys("esercizio");
             string strYear = QHS.quote(currAyear);
 
-            string query = "select  -sum(ed.amount) as accruals ,year(U.stop) as yearstop, year(U.start) as yearstart,ed.idupb,ed.idacc as idacc_accruals,  " +
+            string query = "select  U.idupb, -sum(ed.amount) as accruals ,year(U.stop) as yearstop, year(U.start) as yearstart,ed.idacc as idacc_accruals,  " +
                 "EU.idacc_deferredcost, 	EU.idaccmotive_deferredcost, EU.idacc_revenue,EU.idaccmotive_revenue,U.idepupbkind,U.title,U.codeupb ," +
                 "EU.idacc_cost,EU.idaccmotive_cost,EU.idacc_accruals, EU.idaccmotive_accruals " +//, ed.idepacced.idepexp, commentato con task 11624
                     " from entrydetail ed " +
                     " join entry e (nolock) on e.yentry=ed.yentry and e.nentry=ed.nentry "+
                     " join account A on ED.idacc=A.idacc " +
-                    " join UPB U on ED.idupb=U.idupb " +
+                    " join UPB UPB_associati on ED.idupb = UPB_associati.idupb " +
+                    " join UPB U on U.idupb=ISNULL(UPB_associati.idupb_capofila,UPB_associati.idupb) " +
                     " join epupbkindyear EU on EU.idepupbkind = U.idepupbkind " +
                     " WHERE " +
                     " ED.yentry= " + strYear +  //scritture di quest'anno
@@ -558,9 +611,11 @@ namespace no_table_entry_rettifica {
                     " and EU.ayear =" + strYear+    // prende la configurazione tipo UPB di quest'anno
                     " AND year(U.stop) = " + strYear + // UPB in scadenza quest'anno
                     " AND EU.adjustmentkind='C'  "+        
-                    " group by ed.idupb, ed.idacc, EU.idacc_cost,EU.idaccmotive_cost,"+
+                    " group by U.idupb, ed.idacc, EU.idacc_cost,EU.idaccmotive_cost,"+
                      "EU.idacc_deferredcost, 	EU.idaccmotive_deferredcost, EU.idacc_revenue,EU.idaccmotive_revenue," +
-                    " EU.idacc_accruals, EU.idacc_deferredcost,EU.idaccmotive_accruals,year(U.stop),year(U.start),U.idepupbkind,U.title,U.codeupb   "; // ed.idepacc,ed.idepexp,
+                    " EU.idacc_accruals, EU.idacc_deferredcost,EU.idaccmotive_accruals,year(U.stop),year(U.start),U.idepupbkind,U.title,U.codeupb   " +
+                " having " +
+                " -sum(case when A.idacc = EU.idacc_accruals then ED.amount else 0 end) <> 0"; // RATEO DIVERSO DA ZERO; // ed.idepacc,ed.idepexp,
             DataTable t = Conn.SQLRunner(query, false,600);
             return t;
         }
@@ -569,7 +624,7 @@ namespace no_table_entry_rettifica {
             string strYear = QHS.quote(currAyear);
             string query =
                 "select U.idupb,  " +
-                "-sum(case when A.flagaccountusage & 64 <> 0 then ED.amount else 0 end) as cost," +
+                "-sum(case when A.flagaccountusage & (64+131072) <> 0 then ED.amount else 0 end) as cost," +
                 "sum(case when A.flagaccountusage & 128 <> 0 then ED.amount else 0 end) as revenue," +
                 "sum(case when A.flagaccountusage & 2048 <> 0 then ED.amount else 0 end) as reserve," +
                 "-sum(case when A.idacc = EU.idacc_accruals then ED.amount else 0 end) as accruals," +
@@ -578,10 +633,11 @@ namespace no_table_entry_rettifica {
                 "year(U.stop) as yearstop, year(U.start) as yearstart,   EU.adjustmentkind,U.idepupbkind,U.codeupb,U.title " +
                 "from entrydetail ed (nolock) " +
                 " join entry e (nolock) on e.yentry=ed.yentry and e.nentry=ed.nentry "+
-                "join upb u (nolock) on ed.idupb = u.idupb " +
+                " join UPB UPB_associati (nolock)  on ed.idupb = UPB_associati.idupb " +
+                " join UPB U (nolock)  on U.idupb=ISNULL(UPB_associati.idupb_capofila,UPB_associati.idupb) " +
                 "join epupbkindyear EU (nolock)  on EU.idepupbkind = U.idepupbkind " +
                 "join account A (nolock) on A.idacc = ed.idacc " +
-                " where " +
+                " where (A.flagaccountusage & 524288 = 0 ) and " +  // Escludi da calcolo Commessa completata . Task 15404
                 QHS.AppAnd(QHS.NullOrLe("year(U.start)", currAyear),
                             QHS.CmpGt("year(U.stop)", currAyear), QHS.CmpEq("EU.ayear", currAyear),
                     QHS.FieldNotIn("e.identrykind",new object[] {8,11,12} ),
@@ -594,6 +650,45 @@ namespace no_table_entry_rettifica {
             DataTable tPluri = DataAccess.SQLRunner(Meta.Conn, query,false,600);
             return tPluri;
         }
+
+
+          private DataTable ottieniProgettiInChiusuraNoRateiAperti() {
+            int currAyear = (int)Meta.GetSys("esercizio");
+            string strYear = QHS.quote(currAyear);
+            string query =
+                "select U.idupb,   U.codeupb, " +
+                "-sum(case when A.flagaccountusage & (64+131072) <> 0 then ED.amount else 0 end) as cost," +
+                "sum(case when A.flagaccountusage & 128 <> 0 then ED.amount else 0 end) as revenue," +
+                "sum(case when A.flagaccountusage & 2048 <> 0 then ED.amount else 0 end) as reserve," +
+                "-sum(case when A.idacc = EU.idacc_accruals then ED.amount else 0 end) as accruals," +
+                "EU.idacc_cost, EU.idacc_revenue, 	EU.idacc_deferredcost,EU.idacc_accruals," +
+                "EU.idaccmotive_cost, EU.idaccmotive_revenue, 	EU.idaccmotive_deferredcost,EU.idaccmotive_accruals," +
+                "year(U.stop) as yearstop, year(U.start) as yearstart,   EU.adjustmentkind,U.idepupbkind,U.codeupb,U.title " +
+                "from entrydetail ed (nolock) " +
+                " join entry e (nolock) on e.yentry=ed.yentry and e.nentry=ed.nentry "+
+                " join UPB UPB_associati (nolock)  on ed.idupb = UPB_associati.idupb " +
+                " join UPB U (nolock)  on U.idupb=ISNULL(UPB_associati.idupb_capofila,UPB_associati.idupb) " +
+                "join epupbkindyear EU (nolock)  on EU.idepupbkind = U.idepupbkind " +
+                "join account A (nolock) on A.idacc = ed.idacc " +
+                " where (A.flagaccountusage & 524288 = 0 ) and " +  // Escludi da calcolo Commessa completata . Task 15404
+                QHS.AppAnd(QHS.NullOrLe("year(U.start)", currAyear),
+                           QHS.CmpEq("year(U.stop)", currAyear), QHS.CmpEq("EU.ayear", currAyear),
+                QHS.FieldNotIn("e.identrykind",new object[] {8,11,12} ),
+                QHS.CmpEq("EU.adjustmentkind", "C"), QHS.CmpEq("ED.yentry", currAyear)) + 
+               
+                " group by U.idupb,EU.idacc_cost, EU.idacc_revenue, 	EU.idacc_deferredcost,EU.idacc_accruals, " +
+                " EU.idaccmotive_cost, EU.idaccmotive_revenue, 	EU.idaccmotive_deferredcost,EU.idaccmotive_accruals," +
+                " EU.adjustmentkind,year(U.stop),year(U.start),U.idepupbkind,U.codeupb,U.title  " +
+                " having " +
+                " sum(case when A.flagaccountusage & (64+131072) <> 0 then ED.amount else 0 end)  < "  + // COSTI < RICAVI
+                " sum(case when A.flagaccountusage & 128 <> 0 then ED.amount else 0 end) and " +
+                " -sum(case when A.idacc = EU.idacc_accruals then ED.amount else 0 end) = 0"; // RATEO PARI A ZERO
+            
+
+            DataTable tPluri = DataAccess.SQLRunner(Meta.Conn, query,false,600);
+            return tPluri;
+        }
+
 
         private DataTable ottieniDettagliScritturaProgettiPluriennaliPercentuale() {
             int currAyear = (int)Meta.GetSys("esercizio");
@@ -637,7 +732,7 @@ namespace no_table_entry_rettifica {
         **/
         // tEntryDetailSource: idupb, cost,revenue,accruals,idacc_cost,idacc_revenue,idacc_deferredcost,idacc_accruals,yearstop
         private bool DoAssestamentoCommessaCompletata(DataTable tEntryDetailSource,string messageNoRows,bool chiusura) {
-
+            risconta_ammortamenti_futuri = false;
             DataTable tCommessaCompletata = Conn.RUN_SELECT("upbcommessa","*",null,QHS.CmpEq("ayear",Conn.GetEsercizio()),null,false);
             DataTable tEntry = DataAccess.CreateTableByName(Meta.Conn, "entry", "*");
             DataTable tEntryDetail = DataAccess.CreateTableByName(Meta.Conn, "entrydetail", "*");
@@ -646,8 +741,6 @@ namespace no_table_entry_rettifica {
             tEntryDetail.Columns.Add("!riserve", typeof(decimal));
             tEntryDetail.Columns.Add("!rateoattivo", typeof(decimal));            
             tEntryDetail.Columns.Add("!scadenza", typeof(int));
-
-         
 
             Dictionary<string, DataRow> hCommessa = new Dictionary<string, DataRow>();
             foreach (DataRow r in tCommessaCompletata.Rows) hCommessa[r["idupb"].ToString()] = r;
@@ -661,7 +754,8 @@ namespace no_table_entry_rettifica {
                     new DataColumn[] { tEntryDetail.Columns["yentry"], tEntryDetail.Columns["nentry"] }, false);
 
             int currYear = (int)Meta.GetSys("esercizio");
-
+            //object risconta_ammortamenti_futuriObj = Conn.DO_READ_VALUE("config", QHS.CmpEq("ayear", currYear), "risconta_ammortamenti_futuri");
+            
             MetaData MEntry = MetaData.GetMetaData(this, "entry");
             MetaData MUpbCommessa = MetaData.GetMetaData(this, "upbcommessa");
             MUpbCommessa.SetDefaults(ds.Tables["upbcommessa"]);
@@ -695,7 +789,7 @@ namespace no_table_entry_rettifica {
             RowChange.ClearMaxCache(ds.Tables["entry"]);
             RowChange.SetOptimized(ds.Tables["entrydetail"], true);
             RowChange.ClearMaxCache(ds.Tables["entrydetail"]);
-
+           
 
             MetaData MEntryDetail = MetaData.GetMetaData(this, "entrydetail");
             MEntryDetail.SetDefaults(ds.Tables["entrydetail"]);
@@ -707,6 +801,7 @@ namespace no_table_entry_rettifica {
                 progBar.Update();
                 Application.DoEvents();
                 string idupb = Curr["idupb"].ToString();
+                
                 DataRow rCommessa;
                 if (hCommessa.ContainsKey(idupb)) {
                     rCommessa = hCommessa[idupb];
@@ -714,8 +809,6 @@ namespace no_table_entry_rettifica {
                 else {
                     MetaData.SetDefault(ds.Tables["upbcommessa"], "idupb", idupb);
                     rCommessa = MUpbCommessa.Get_New_Row(null, ds.Tables["upbcommessa"]);
-           
-
                     hCommessa[idupb] = rCommessa;
                 }
                          
@@ -740,8 +833,9 @@ namespace no_table_entry_rettifica {
                     rCommessa["cost"] = Curr["cost"];
                     rCommessa["reserve"] = Curr["reserve"];
                 }
-
-
+                if (rCommessa.Table.Columns.Contains("assetamortization")) {
+                    rCommessa["assetamortization"] = 0;
+                }
 
                 // Dettaglio COSTO - RICAVO (Non ho il problema di controllare l'esistenza di una riga pregressa
                 // perché per come è costruita la tabella le righe sono tutte diverse tra di loro
@@ -754,25 +848,39 @@ namespace no_table_entry_rettifica {
 
                 if (annoFine) {
                     #region anno fine
-
+               
+                 
                     decimal rateo = CfgFn.GetNoNullDecimal(Curr["accruals"]);
-                    if (rateo == 0) continue;
-
-                    if (Curr[campoCosto] == DBNull.Value) {
-                        string codeupb = "(non trovato)";
-                        object c = Conn.DO_READ_VALUE("upb", QHS.CmpEq("idupb", Curr["idupb"]), "codeupb");
-                        if (c != null) codeupb = c.ToString();
-                        MessageBox.Show(this, "Campo Costo non trovato per upb " + codeupb, "Errore");
-                        return false;
+                    decimal importo_risconto = 0;
+                    if ((rateo == 0) && (risconta_ammortamenti_futuri))  {
+                        // Se siamo nelle condizioni (Ricavi > Costi) e siamo in presenza di ammortamenti futuri cespiti
+                       if( DoGeneraRiscontiUPBsuAmmmortamentiFuturi(Curr, rEntry, ds, out importo_risconto )){
+                            if (rCommessa.Table.Columns.Contains("assetamortization"))
+                            {
+                                rCommessa["assetamortization"] = importo_risconto;
+                            }
+                            rCommessa["revenue"] = Curr["revenue"];
+                            rCommessa["cost"] = Curr["cost"];
+                       }
                     }
 
-                    if (Curr[campoRateoAttivo] == DBNull.Value) {
-                        string codeupb = "(non trovato)";
-                        object c = Conn.DO_READ_VALUE("upb", QHS.CmpEq("idupb", Curr["idupb"]), "codeupb");
-                        if (c != null) codeupb = c.ToString();
-                        MessageBox.Show(this, "Campo Rateo Attivo non trovato per upb " + codeupb, "Errore");
-                        return false; 
-                    }
+                    if ((rateo != 0)){
+                        // gestisce il rateo aperto rateo >0)
+                        if (Curr[campoCosto] == DBNull.Value) {
+                            string codeupb = "(non trovato)";
+                            object c = Conn.DO_READ_VALUE("upb", QHS.CmpEq("idupb", Curr["idupb"]), "codeupb");
+                            if (c != null) codeupb = c.ToString();
+                            show(this, "Campo Costo non trovato per upb " + codeupb, "Errore");
+                            return false;
+                        }
+
+                        if (Curr[campoRateoAttivo] == DBNull.Value) {
+                            string codeupb = "(non trovato)";
+                            object c = Conn.DO_READ_VALUE("upb", QHS.CmpEq("idupb", Curr["idupb"]), "codeupb");
+                            if (c != null) codeupb = c.ToString();
+                            show(this, "Campo Rateo Attivo non trovato per upb " + codeupb, "Errore");
+                            return false; 
+                        }
 
 
                     //genera scrittura COSTO A RATEO ATTIVO  
@@ -812,7 +920,7 @@ namespace no_table_entry_rettifica {
                     rDetail["competencystop"] = DBNull.Value;
 
                     #endregion
-
+                    }
                 }
                 else {
 
@@ -838,20 +946,20 @@ namespace no_table_entry_rettifica {
                         //                  idem il rateo ma il rateo attivo ove assente prendere il rateo di config
                         decimal importoRateo = costi - (ricavi + riserve);
 
-                        DataTable tCosti = ottieniCostiUPB(Curr["idupb"]); //amount / idacc / idreg
-                        ripartisciSommaInBaseARicavi(importoRateo, tCosti);
+                        //DataTable tCosti = ottieniCostiUPB(Curr["idupb"]); //raggruppa su idreg
+                        //ripartisciSommaInBaseARicavi(importoRateo, tCosti);
 
-                        foreach (DataRow r in tCosti.Select()) {
+                        //foreach (DataRow r in tCosti.Select()) {
 
                             var idacc = Curr[campoRateoAttivo]; // r["idacc"];
-                            var amount = CfgFn.GetNoNullDecimal(r["amount"]);
-                            var idreg = r["idreg"];
+                            var amount = importoRateo;// CfgFn.GetNoNullDecimal(r["amount"]);
+                            var idreg = DBNull.Value; // r["idreg"];
 
                             if (Curr[campoRicavo] == DBNull.Value) {
                                 string codeupb = "(non trovato)";
                                 object c = Conn.DO_READ_VALUE("upb", QHS.CmpEq("idupb", Curr["idupb"]), "codeupb");
                                 if (c != null) codeupb = c.ToString();
-                                MessageBox.Show(this, "Campo Ricavo non trovato per upb " + codeupb, "Errore");
+                                show(this, "Campo Ricavo non trovato per upb " + codeupb, "Errore");
                                 return false;
                             }
 
@@ -859,7 +967,7 @@ namespace no_table_entry_rettifica {
                                 string codeupb = "(non trovato)";
                                 object c = Conn.DO_READ_VALUE("upb", QHS.CmpEq("idupb", Curr["idupb"]), "codeupb");
                                 if (c != null) codeupb = c.ToString();
-                                MessageBox.Show(this, "Campo Rateo Attivo non trovato per upb " + codeupb, "Errore");
+                                show(this, "Campo Rateo Attivo non trovato per upb " + codeupb, "Errore");
                                 return false;
                             }
 
@@ -897,7 +1005,7 @@ namespace no_table_entry_rettifica {
                             //rEntryDetailCR["idaccmotive"] = Curr["idaccmotive"];
                             rDetail["competencystart"] = DBNull.Value;
                             rDetail["competencystop"] = DBNull.Value;
-                        }
+                       // }
                     }
                     else {
                         //se i costi sono inferiori ai ricavi
@@ -912,20 +1020,22 @@ namespace no_table_entry_rettifica {
                         //  Ossia detto RIS = somma ricavi dell'anno - somma costi dell'anno, ed Rt la somma dei ricavi dell'anno,
                         //    i vari importi da riscontare ripartiti per ricavo saranno pari a RIS *(ricavo / Rt)
 
+                        // Ho ripristinato questa parte [task 15184] che era stata commentata con la versione SVN 15362.
                         DataTable tRicavi = ottieniRicaviUPB(Curr["idupb"], false,false); //amount / idacc / idreg
                         ripartisciSommaInBaseARicavi(importo_risconto, tRicavi);
                         foreach (DataRow r in tRicavi.Select()) {
-                            var idacc = r["idacc"];
-                            var idaccmotive = r["idaccmotive"];
-                            var amount = CfgFn.GetNoNullDecimal(r["amount"]);
-                            var idreg = r["idreg"];
+                                                       
+                            var idacc =  r["idacc"]; //Curr[campoRicavo]; 
+                            var idaccmotive = r["idaccmotive"];//Curr[causaleRicavo]; 
+                            var amount = CfgFn.GetNoNullDecimal(r["amount"]);//importo_risconto; 
+                            var idreg = r["idreg"]; //DBNull.Value; 
                             if (amount == 0) continue;
 
                             if (idacc == DBNull.Value) {
                                 string codeupb = "(non trovato)";
                                 object c = Conn.DO_READ_VALUE("upb", QHS.CmpEq("idupb", Curr["idupb"]), "codeupb");
                                 if (c != null) codeupb = c.ToString();
-                                MessageBox.Show(this, "Campo Ricavo non trovato per upb " + codeupb, "Errore");
+                                show(this, "Campo Ricavo non trovato per upb " + codeupb, "Errore");
                                 return false;
                             }
 
@@ -933,7 +1043,7 @@ namespace no_table_entry_rettifica {
                                 string codeupb = "(non trovato)";
                                 object c = Conn.DO_READ_VALUE("upb", QHS.CmpEq("idupb", Curr["idupb"]), "codeupb");
                                 if (c != null) codeupb = c.ToString();
-                                MessageBox.Show(this, "Campo Risconto Passivo non trovato per upb " + codeupb, "Errore");
+                                show(this, "Campo Risconto Passivo non trovato per upb " + codeupb, "Errore");
                                 return false;
                             }
 
@@ -959,7 +1069,7 @@ namespace no_table_entry_rettifica {
                             rDetail["amount"] = amount;
                             rDetail["idacc"] = Curr[campoRiscontoPassivo];
                             //rDetail["idepacc"] = r["idepacc"];    commento per task 11624
-                            rDetail["idreg"] = DBNull.Value;
+                            rDetail["idreg"] = idreg; ;// DBNull.Value;
                             rDetail["idupb"] = Curr["idupb"];
                             rDetail["idaccmotive"] = Curr[causaleRiscontoPassivo];
                             //rDetail["idsor1"] = Curr["idsor1"];
@@ -975,37 +1085,58 @@ namespace no_table_entry_rettifica {
                     #endregion
 
                 }
-
+                // cancello la riga di UPB commessa in mancanza di dati affinchè non sia salvata su DB
+                if ((CfgFn.GetNoNullDecimal( rCommessa["accruals"] ) == 0) &&
+                    (CfgFn.GetNoNullDecimal( rCommessa["cost"] ) == 0) &&
+                    (CfgFn.GetNoNullDecimal( rCommessa["revenue"] ) == 0) &&
+                    (CfgFn.GetNoNullDecimal( rCommessa["reserve"] ) == 0) &&
+                    (CfgFn.GetNoNullDecimal( rCommessa["assetamortization"] ) == 0)){
+                    hCommessa.Remove(idupb.ToString());
+                    rCommessa.Delete();
+               }
             }
 
-            if (ds.Tables["entrydetail"].Rows.Count == 0 && tCommessaCompletata.Rows.Count==0) {
-                MessageBox.Show(this, messageNoRows,@"Avviso");
+            if (ds.Tables["entrydetail"].Rows.Count == 0 && hCommessa.Values.Count==0) {
+                show(this, messageNoRows,@"Avviso");
                 return true;
             }
             FrmEntryPreSavePluriennale frm = new FrmEntryPreSavePluriennale(ds.Tables["entrydetail"], Meta.Conn);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
-                MessageBox.Show(this, @"Operazione Annullata!");
+                show(this, @"Operazione Annullata!");
                 return true;
             }
             tEntryDetail.Clear();
             tEntry.Clear();
 
+     
             PostData Post = MUpbCommessa.Get_PostData();
             Post.InitClass(ds, Meta.Conn);
             if (Post.DO_POST()) {
-                MessageBox.Show(this, "Dati di assestamento salvati.");
+                show(this, "Dati di assestamento salvati.");
             }
             else {
-                MessageBox.Show(this, "Errore nel salvataggio della scrittura di assestamento!", "Errore");
+                show(this, "Errore nel salvataggio dei dati di assestamento!", "Errore");
             }
+            
+            
+            return true;
+        }
 
+        bool DoElaboraScrittureAssestamentoCommessaCompletata(){
+            DataTable tCommessaCompletata = Conn.RUN_SELECT("upbcommessa","*",null,QHS.CmpEq("ayear",Conn.GetEsercizio()),null,false);
+           
+            DataSet ds = new DataSet();
+            ds.Tables.Add(tCommessaCompletata);
+ 
             int n = tCommessaCompletata.Rows.Count;
             progBar.Maximum = n;
             progBar.Value = 0;
-            foreach (DataRow r in tCommessaCompletata.Rows) {               
+            bool anyError = false;
+            foreach (DataRow r in tCommessaCompletata.Rows) {
+	            string idupb = r["idupb"].ToString();
                 txtCurrent.Text = $@"UPB {r["codeupb"]} {r["title"]}";
-                rigeneraScrittura(r);
+                if (!rigeneraScrittura(r)) anyError=true;
                 progBar.Increment(1);
                 progBar.Update();
                 Application.DoEvents();
@@ -1013,12 +1144,142 @@ namespace no_table_entry_rettifica {
             txtCurrent.Text = "";
             progBar.Value = 0;
             progBar.Update();
-
-            MessageBox.Show(this, "Generazione scritture completata.");
+            if (anyError) {
+	            show(this, "Generazione scritture completata con ERRORI.");
+            }
+            else {
+	            show(this, "Generazione scritture completata.");
+            }
             return true;
+        }       
+
+         Dictionary<string, DataRow> hAmmortamentiFuturi = new Dictionary<string, DataRow>();
+
+            
+         private void ottieniAmmmortamentiFuturiUPB( ) {
+            DataTable tAmmortamentiFuturi = new DataTable();
+
+            DataSet Out = Meta.Conn.CallSP("calcola_ammortamenti_futuri_cespiti",
+                new Object[2] {Meta.GetSys("esercizio"),
+                                Meta.GetSys("datacontabile")
+							  }, false, 600
+                );
+
+            if (Out == null) return;
+            if (Out.Tables.Count == 0) {
+                return;
+            }
+            tAmmortamentiFuturi = Out.Tables[0];
+
+            // Lancio sp calcolo ammortamenti futuri
+            foreach (DataRow r in tAmmortamentiFuturi.Rows) hAmmortamentiFuturi[r["idupb"].ToString()] = r;
+           
         }
 
-        void rigeneraScrittura(DataRow curr) {
+        private bool DoGeneraRiscontiUPBsuAmmmortamentiFuturi (DataRow Curr,DataRow rEntry, DataSet ds , out decimal riscontocalcolato) {
+            riscontocalcolato = 0;
+            string idupb = Curr["idupb"].ToString();
+            string codeupb = Curr["codeupb"].ToString();
+            if (!hAmmortamentiFuturi.ContainsKey(idupb)) return false; 
+
+            // Questo metodo vale solo per UPB in chiusura (in corso d'anno) a commessa completata ed effettua un calcolo opzionale.
+            // Se vi sono ammortamenti futuri genera risconti sulla base degli ammortamenti futuri
+            // Questo vale SOLO per le UPB i cui RICAVI sono superiori ai COSTI. 
+            // Questo calcolo è opzionale, diversamente gli UPB in questione 
+            // genereranno utile o perdita, se non hanno ratei aperti.
+   
+            int currYear = (int)Meta.GetSys("esercizio");
+          
+                
+            decimal costi = CfgFn.GetNoNullDecimal(Curr["cost"]);
+            decimal ricavi = CfgFn.GetNoNullDecimal(Curr["revenue"]);
+              
+            // Dettaglio COSTO - RICAVO (Non ho il problema di controllare l'esistenza di una riga pregressa
+            // perché per come è costruita la tabella le righe sono tutte diverse tra di loro
+            MetaData.SetDefault(ds.Tables["entrydetail"], "yentry", currYear);
+            MetaData.SetDefault(ds.Tables["entrydetail"], "nentry", rEntry["nentry"]);
+
+            bool annoFine = (CfgFn.GetNoNullInt32(Curr["yearstop"]) == currYear);
+             
+            DataRow rDetail = null;
+            MetaData MEntryDetail = MetaData.GetMetaData(this, "entrydetail");
+            MEntryDetail.SetDefaults(ds.Tables["entrydetail"]);
+                 
+            //se i costi sono inferiori ai ricavi
+        
+            if ((ricavi - costi)<= 0) return false;
+            DataRow RAmmortamentiFuturi= hAmmortamentiFuturi[idupb];
+            decimal importo_ammortamenti  = CfgFn.GetNoNullDecimal(RAmmortamentiFuturi["amm_futuricespiti"]); // importo positivo
+            if (importo_ammortamenti == 0) return false;
+            decimal importo_risconto = 0;
+            
+            if ((ricavi - costi)<= importo_ammortamenti) importo_risconto = ricavi;
+            else importo_risconto = importo_ammortamenti; 
+
+            if (importo_risconto == 0) return false;
+
+            //genera ulteriori dettagli scrittura  RICAVI A RISCONTI PASSIVI
+            //in questo caso vanno utilizzati i conti di ricavo, in proporzione
+            //invece come conto di risconto passivo, quello dell'upb
+ 
+            string campoRiscontoPassivo = "idacc_deferredcost";
+ 
+            string causaleRiscontoPassivo = "idaccmotive_deferredcost";
+
+            DataTable tRicavi = ottieniRicaviUPB(Curr["idupb"], false,false); //amount / idacc / idreg
+            ripartisciSommaInBaseARicavi(importo_risconto, tRicavi);
+            foreach (DataRow r in tRicavi.Select()) {
+                                                       
+                    var idacc =  r["idacc"]; //Curr[campoRicavo]; 
+                    var idaccmotive = r["idaccmotive"];//Curr[causaleRicavo]; 
+                    var amount = CfgFn.GetNoNullDecimal(r["amount"]);//importo_risconto; 
+                    var idreg = r["idreg"]; //DBNull.Value; 
+                    if (amount == 0) continue;
+
+                    if (idacc == DBNull.Value) {
+                        show(this, "Campo Ricavo non trovato per upb " + codeupb, "Errore");
+                        return false;
+                    }
+
+                    if (Curr[campoRiscontoPassivo] == DBNull.Value) {
+                        show(this, "Campo Risconto Passivo non trovato per upb " + codeupb, "Errore");
+                        return false;
+                    }
+
+                    rDetail = MEntryDetail.Get_New_Row(rEntry, ds.Tables["entrydetail"]);
+                    rDetail["!scadenza"] = CfgFn.GetNoNullInt32(Curr["yearstop"]);
+                    rDetail["!ricavi"] = CfgFn.RoundValuta( ricavi*(amount/importo_risconto));
+                    rDetail["!costi"] = CfgFn.RoundValuta(costi*(amount/importo_risconto));
+
+                    rDetail["amount"] = -amount;
+                    rDetail["idacc"] = idacc; //Curr[campoRicavo];
+                    //rDetail["idepacc"] = r["idepacc"];    commento per task 11624
+                    rDetail["idreg"] = idreg; //DBNull.Value;
+                    rDetail["idupb"] = Curr["idupb"];
+                    rDetail["idaccmotive"] = idaccmotive;
+                    rDetail["competencystart"] = DBNull.Value;
+                    rDetail["competencystop"] = DBNull.Value;
+                    rDetail["description"] = "Risconto su ammortamenti futuri cespiti";
+                    rDetail = MEntryDetail.Get_New_Row(rEntry, ds.Tables["entrydetail"]);
+                    rDetail["amount"] = amount;
+                    rDetail["idacc"] = Curr[campoRiscontoPassivo];
+                //rDetail["idepacc"] = r["idepacc"];    commento per task 11624
+                    rDetail["idreg"] = idreg;// DBNull.Value;
+                    rDetail["idupb"] = Curr["idupb"];
+                    rDetail["idaccmotive"] = Curr[causaleRiscontoPassivo];
+                    rDetail["competencystart"] = DBNull.Value;
+                    rDetail["competencystop"] = DBNull.Value;
+                    rDetail["description"] = "Risconto su ammortamenti futuri cespiti";
+                }
+             riscontocalcolato = importo_risconto;
+             return true;
+    
+            }
+
+    
+
+
+        bool rigeneraScrittura(DataRow curr) {
             try { 
                 
                 m.DS = curr.Table.DataSet;             
@@ -1027,10 +1288,11 @@ namespace no_table_entry_rettifica {
                 ep.etichetteAbilitate = false;
                 ep.autoIgnore = true;
                 ep.chiediMovimentiParent = false;
+                ep.mostraDatiSalvati = false;
                 ep.beforePost();
                 ep.afterPost(false);
                 if (!ep.ultimaGenerazioneRiuscita) {
-                    return;
+	                return false;
                 }
             }
             catch (Exception e) {
@@ -1038,8 +1300,10 @@ namespace no_table_entry_rettifica {
                     $"Errore generando la scrittura per {txtCurrent.Text}, tabella {curr.Table.TableName} nella riga di chiave {QHC.CmpKey(curr)}";
                 Meta.LogError(msg, e);
                 QueryCreator.ShowException(msg, e);
+                return false;
             }
 
+            return true;
         }
 
 
@@ -1232,13 +1496,13 @@ namespace no_table_entry_rettifica {
             }
 
             if (ds.Tables["entrydetail"].Rows.Count == 0) {
-                MessageBox.Show(this, messageNoRows, "Avviso");
+                show(this, messageNoRows, "Avviso");
                 return true;
             }
             FrmEntryPreSavePluriennale frm = new FrmEntryPreSavePluriennale(ds.Tables["entrydetail"], Meta.Conn);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
-                MessageBox.Show(this, "Operazione Annullata!");
+                show(this, "Operazione Annullata!");
                 return true;
             }
             PostData Post = MEntry.Get_PostData();
@@ -1247,13 +1511,13 @@ namespace no_table_entry_rettifica {
             if (Post.DO_POST()) {
                 DataRow rEntryPosted = ds.Tables["entry"].Rows[0];
                 EditRelatedEntryByKey(rEntryPosted);
-                MessageBox.Show(this, "Assestamento completato con successo!");
+                show(this, "Assestamento completato con successo!");
             }
             else {
-                MessageBox.Show(this, "Errore nel salvataggio della scrittura di assestamento!", "Errore");
+                show(this, "Errore nel salvataggio della scrittura di assestamento!", "Errore");
             }
 
             return true;
         }
-    }
-}
+	}
+}

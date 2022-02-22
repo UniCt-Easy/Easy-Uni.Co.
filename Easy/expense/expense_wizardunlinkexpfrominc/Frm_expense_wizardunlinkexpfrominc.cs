@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -29,7 +28,7 @@ namespace expense_wizardunlinkexpfrominc {//spesawizardelimina//
 	/// <summary>
 	/// Summary description for .
 	/// </summary>
-	public class Frm_expense_wizardunlinkexpfrominc : System.Windows.Forms.Form {
+	public class Frm_expense_wizardunlinkexpfrominc : MetaDataForm {
 		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.Button btnNext;
 		private System.Windows.Forms.Button btnBack;
@@ -1324,7 +1323,7 @@ namespace expense_wizardunlinkexpfrominc {//spesawizardelimina//
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Tag = "maincancel";
-            this.btnCancel.Text = "Cancel";
+            this.btnCancel.Text = "Annulla";
             // 
             // btnNext
             // 
@@ -1483,7 +1482,7 @@ namespace expense_wizardunlinkexpfrominc {//spesawizardelimina//
 			if (newTab== tabScollega.TabPages.Count-1)
 				btnNext.Text="Scollega.";
 			else
-				btnNext.Text="Next >";
+				btnNext.Text="Avanti >";
 			Text = CustomTitle+ " (Pagina "+(newTab+1)+" di "+tabScollega.TabPages.Count+")";
 		}
 		void StandardChangeTab(int step){
@@ -1576,8 +1575,23 @@ namespace expense_wizardunlinkexpfrominc {//spesawizardelimina//
             if (Meta.GetSys("manage_prestazioni") != null)
                 IsAdmin = (Meta.GetSys("manage_prestazioni").ToString() == "S");
             
+            bool isStipendi = false;
+            if (Meta.GetUsr("stipendi") != null) {
+	            isStipendi = Meta.GetUsr("stipendi").ToString().ToUpper() == "'S'";
+            }
+
             if (!IsAdmin) {
-                MyFilter = QHS.AppAnd(MyFilter, "(autokind is null)");
+	            if (isStipendi) {
+		            MyFilter = QHS.AppAnd(MyFilter,
+			            QHS.DoPar(
+				            QHS.AppOr(QHS.IsNull("autokind"),QHS.CmpEq("autokind", 30), QHS.CmpEq("autokind", 31))
+			            )
+		            );
+	            }
+	            else {
+		            MyFilter = QHS.AppAnd(MyFilter, QHS.IsNull("autokind"));
+	            }
+                
             }
 
             return MyFilter;
@@ -1604,9 +1618,23 @@ namespace expense_wizardunlinkexpfrominc {//spesawizardelimina//
             if (Meta.GetSys("manage_prestazioni") != null)
                  IsAdmin = (Meta.GetSys("manage_prestazioni").ToString() == "S");
 
+            bool isStipendi = false;
+            if (Meta.GetUsr("stipendi") != null) {
+	            isStipendi = Meta.GetUsr("stipendi").ToString().ToUpper() == "'S'";
+            }
+
             if (!IsAdmin) {
-                object idAutokind = Meta.Conn.DO_READ_VALUE("autokind", QHS.CmpEq("code", "GENER"), "idautokind");
-                MyFilter = QHS.AppAnd(MyFilter, QHS.CmpEq("autokind", idAutokind));
+	            object idAutokindGener = Conn.DO_READ_VALUE("autokind", QHS.CmpEq("code", "GENER"), "idautokind"); //3
+	            if (isStipendi) {
+		            MyFilter = QHS.AppAnd(MyFilter,
+			            QHS.DoPar(
+				            QHS.AppOr(QHS.CmpEq("autokind", 30), QHS.CmpEq("autokind", 31), QHS.CmpEq("autokind", idAutokindGener))
+			            )
+		            );
+	            }
+	            else {
+		            MyFilter = QHS.AppAnd(MyFilter, QHS.CmpEq("autokind", idAutokindGener));
+	            }
             }
 
             return MyFilter;
@@ -1795,4 +1823,4 @@ namespace expense_wizardunlinkexpfrominc {//spesawizardelimina//
             HelpForm.SetDataGrid(grdEntrata, DS.Tables["incomelastview"]);
         }
 	}
-}
+}

@@ -1,23 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-Ôªøusing System;
+using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -46,6 +44,7 @@ public partial class mandatedetail_default_new02 : MetaPage {
 
     double tasso_cambio = 1;
     object codiceresponsabile = DBNull.Value;
+    private string newcomputesorting = "N";
 
     /// <summary>
     /// Filtro calcolato in base al tipo documento collegabile o meno al tipo fattura (aliquote=0 o tutte)
@@ -79,8 +78,7 @@ public partial class mandatedetail_default_new02 : MetaPage {
             //grpValoreUnitInValutaText = "Valore totale in valuta (non impostata)";
             tasso_cambio = 1;
             codiceresponsabile = DBNull.Value;
-        }
-        else {
+        } else {
             //grpValoreUnitInValuta.Text = "Valore totale in valuta  (" + h["nomevaluta"].ToString() + ")";
             tasso_cambio = Convert.ToDouble(h["cambio"]);
             codiceresponsabile = h["codiceresponsabile"];
@@ -100,12 +98,14 @@ public partial class mandatedetail_default_new02 : MetaPage {
         if (codiceresponsabile != DBNull.Value)
             GetData.SetStaticFilter(DS.upb, filter_total);
 
-
+        // Filtro sull'eserczio corrente
+        //string filter_yearview = QHS.CmpEq("ayear", Conn.GetSys("esercizio"));
+        //GetData.SetStaticFilter(DS.upbyearview, filter_yearview);
 
         if (firsttime) {
 
-            //Filtriamo gli upb con lo stesso tipo attivit√† del Tipo contratto passivo.
-            //Le upb con tipoattivit√† 'qualsiasi' verranno sempre mostrate
+            //Filtriamo gli upb con lo stesso tipo attivit‡ del Tipo contratto passivo.
+            //Le upb con tipoattivit‡ 'qualsiasi' verranno sempre mostrate
             //Filtriamo anche i tipi Aliquota Iva
             int flagactivity = 0;
             if (MandateKind.Rows.Count > 0) {
@@ -155,7 +155,67 @@ public partial class mandatedetail_default_new02 : MetaPage {
                 GetData.SetStaticFilter(DS.ivakind, statfilterivakind);
         }
 
+        DataAccess.SetTableForReading(DS.sorting1, "sorting");
+        DataAccess.SetTableForReading(DS.sorting2, "sorting");
+        DataAccess.SetTableForReading(DS.sorting3, "sorting");
+
+        DataTable tExpSetup = Conn.RUN_SELECT("config", "*", null, QHS.CmpEq("ayear", Conn.GetSys("esercizio")), null, null, true);
+        if ((tExpSetup != null) && (tExpSetup.Rows.Count > 0)) {
+            DataRow R = tExpSetup.Rows[0];
+            object idsorkind1 = R["idsortingkind1"];
+            object idsorkind2 = R["idsortingkind2"];
+            object idsorkind3 = R["idsortingkind3"];
+            SetGBoxClass(1, idsorkind1);
+            SetGBoxClass(2, idsorkind2);
+            SetGBoxClass(3, idsorkind3);
+            if (idsorkind1 == DBNull.Value && idsorkind2 == DBNull.Value && idsorkind3 == DBNull.Value) {
+                PanelAnalitico.Visible = false;// tabControl2.TabPages.Remove(tabAnalitico);
+            }
+        }
+
         Register_fn_TotImponibile();
+    }
+
+
+    void SetGBoxClass(int num, object sortingkind) {
+        string nums = num.ToString();
+        hwPanel gbox = new hwPanel();
+        hwButton btncodice = new hwButton();
+        //HtmlGenericControl gboxlabel = new HtmlGenericControl();
+
+        switch (num) {
+            case 1:
+                gbox = gboxclass1;
+                btncodice = btnCodice1;
+                //gboxlabel = gboxlblgboxclass1;
+                break;
+            case 2:
+                gbox = gboxclass2;
+                btncodice = btnCodice2;
+                //gboxlabel = gboxlblgboxclass2;
+                break;
+            case 3:
+                gbox = gboxclass3;
+                btncodice = btnCodice3;
+                //gboxlabel = gboxlblgboxclass3;
+                break;
+        }
+
+
+        if (sortingkind == DBNull.Value) {
+            gbox.Enabled = false;
+        } else {
+            string filter = QHS.CmpEq("idsorkind", sortingkind);
+            GetData.SetStaticFilter(DS.Tables["sorting" + nums], filter);
+
+            string title = Conn.DO_READ_VALUE("sortingkind", filter, "description").ToString();
+            //gboxlabel.InnerText = title;
+            gbox.GroupingText = title;
+            gbox.Tag = "AutoManage.txtCodice" + nums + ".tree." + filter;
+            btncodice.Tag = "manage.sorting" + nums + ".tree." + filter;
+            DS.Tables["sorting" + nums].ExtendedProperties[ExtraParams] = filter;
+
+        }
     }
 
     private void ImpostaTageFiltriUPB(int mandatedetailFlagactivity, object idupbToinclude) {
@@ -170,10 +230,9 @@ public partial class mandatedetail_default_new02 : MetaPage {
         GetData.SetStaticFilter(DS.upb, filteradd);
 
         if (upbfilter != "") {
-            btnUpb.Tag = "choose.upb.default." + filteractive;
-        }
-        else {
-            btnUpb.Tag = "manage.upb.tree";
+            btnUpb.Tag = "choose.upbyearview.daticontabilimin." + filteractive;
+        } else {
+            btnUpb.Tag = "manage.upbyearview.tree";
         }
         if (PanelUpb.Tag != null)
             PanelUpb.Tag = "AutoChoose.txtCodiceUPB.default." + filteractive;
@@ -197,7 +256,7 @@ public partial class mandatedetail_default_new02 : MetaPage {
         return tasso_cambio;
     }
 
-    
+
     public void FiltraSelezioneListino() {
         ApplicationState APS = ApplicationState.GetApplicationState(this);
         MetaData M = APS.Dispatcher.Get("listino");
@@ -210,7 +269,7 @@ public partial class mandatedetail_default_new02 : MetaPage {
     public void SelezionaListino(string idlistclass, string Description) {
         DataRow Curr = DS.mandatedetail.Rows[0];
         string filter = QHS.DoPar(QHS.AppOr(QHS.IsNull("validitystop"), QHS.CmpGe("validitystop", Conn.Security.GetSys("datacontabile"))));
-        if (idlistclass!="") filter = QHS.AppAnd(filter, QHS.CmpEq("idlistclass", idlistclass));
+        if (idlistclass != "") filter = QHS.AppAnd(filter, QHS.CmpEq("idlistclass", idlistclass));
         filter = QHS.AppAnd(filter, QHS.NullOrEq("active", "S"));
         filter = QHS.AppAnd(filter, QHS.BitSet("flagvisiblekind", 1)); //bit 1: visibile nei c. passivi. BitSet confronta con <> 0
 
@@ -258,50 +317,54 @@ public partial class mandatedetail_default_new02 : MetaPage {
             FiltraSelezioneListino();
         }
         if (command == "elencaListino") {
-            SelezionaListino("","");
+            SelezionaListino("", "");
         }
         if (command == "clientConfirmUpdating") {
             AggiornaDatiInBaseAUpb();
         }
     }
 
- 
-      void AggiornaDatiInBaseAUpb() {
+
+    void AggiornaDatiInBaseAUpb() {
         DataRow Curr = DS.mandatedetail.Rows[0];
         string filterUPB = QHS.CmpEq("idupb", Curr["idupb"]);
         object flagactivityUPB = Conn.DO_READ_VALUE("upb", filterUPB, "flagactivity");
 
         if ((Curr["flagactivity"].ToString() != flagactivityUPB.ToString())
             && (flagactivityUPB.ToString() == "1" || flagactivityUPB.ToString() == "2")) {
-                bool do_update = ShowClientMessage("Cambio il Tipo attivit√† in base all'UPB selezionato?", "Attenzione", System.Windows.Forms.MessageBoxButtons.OKCancel);
-                if (!do_update)
-                    return;
+            bool do_update = ShowClientMessage("Cambio il Tipo attivit‡ in base all'UPB selezionato?", "Attenzione", System.Windows.Forms.MessageBoxButtons.OKCancel);
+            if (!do_update)
+                return;
 
-                Curr["flagactivity"] = flagactivityUPB;
-                if (flagactivityUPB.ToString() == "1")
-                    rdbIstituzionale.Checked = true;
-                if (flagactivityUPB.ToString() == "2")
-                    rdbCommerciale.Checked = true;            
+            Curr["flagactivity"] = flagactivityUPB;
+            if (flagactivityUPB.ToString() == "1")
+                rdbIstituzionale.Checked = true;
+            if (flagactivityUPB.ToString() == "2")
+                rdbCommerciale.Checked = true;
 
         }
     }
 
     void ImpostaAttivita() {
-           CommFun.DoMainCommand("clientConfirmUpdating");
+        CommFun.DoMainCommand("clientConfirmUpdating");
     }
 
     public override void AfterRowSelect(DataTable T, DataRow R) {
         DataRow Curr = DS.mandatedetail.Rows[0];
-        if (T.TableName == "upb") {
+        if ((T.TableName == "upb")||(T.TableName== "upbyearview")) {
             if (R != null) {
                 ImpostaAttivita();
-                if (R["cupcode"].ToString() == "")
+                if (R["cupcode"].ToString() == "") {
+                    cupcode.Text = "";
                     return;
+                }
                 cupcode.Text = R["cupcode"].ToString();
                 Curr["cupcode"] = R["cupcode"];
                 UpdateQuantity(CfgFn.GetNoNullInt32(Curr["unitsforpackage"]));
                 return;
-
+            }
+            else {
+                cupcode.Text = "";
             }
         }
 
@@ -346,8 +409,18 @@ public partial class mandatedetail_default_new02 : MetaPage {
                 object idaccmotive = Conn.DO_READ_VALUE("listclass", QHS.CmpEq("idlistclass", R["idlistclass"]), "idaccmotive");
                 Curr["idaccmotive"] = idaccmotive;
                 ImpostaNaturadiSpesa(idaccmotive);
+				object calcoloDoc = Conn.DO_READ_VALUE("siopekind", QHS.CmpEq("ayear", Conn.GetSys("esercizio")), "newcomputesorting");
+				if (calcoloDoc != null && calcoloDoc != DBNull.Value)
+					newcomputesorting = calcoloDoc.ToString().ToUpper();
 
-                this.CommFun.FreshForm(false, false);
+				if (newcomputesorting.Equals("S")) {
+					DataRow[] rClass = getSiopeForAccmotive(idaccmotive);
+					if (rClass != null && rClass.Length == 1) {
+						Curr["idsor_siope"] = rClass[0]["idsor"];
+					}
+				}
+
+				this.CommFun.FreshForm(false, false);
             }
         }
 
@@ -367,6 +440,20 @@ public partial class mandatedetail_default_new02 : MetaPage {
             }
         }
 
+    }
+
+    public DataRow[] getSiopeForAccmotive(object idaccmotive) {
+        if (idaccmotive == null || idaccmotive==DBNull.Value) {
+            //Ho cancellato la causale, azzero il siope.
+            return null;
+        }        
+        object idsorkindS = Conn.DO_READ_VALUE("sortingkind", QHS.CmpEq("codesorkind", "SIOPE_U_18"), "idsorkind");
+        string filterClassEsistenti = QHS.AppAnd(QHS.CmpEq("idsorkind", idsorkindS), QHS.CmpEq("idaccmotive", idaccmotive));
+        DataTable tAccmotivesortingview = Conn.RUN_SELECT("accmotivesortingview", "idsor", null, filterClassEsistenti, null, false);
+        if (tAccmotivesortingview.Rows.Count>0) 
+            return tAccmotivesortingview.Select();
+
+        return null;   
     }
 
     private void ImpostaNaturadiSpesa(object idaccmotive) {
@@ -429,11 +516,11 @@ public partial class mandatedetail_default_new02 : MetaPage {
         if (rdbQualsiasi.Checked)
             return basefilteriva; //nessun filtro
         if (rdbCommerciale.Checked)
-            return QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 1));  //tipo attivit√† commerciale 
+            return QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 1));  //tipo attivit‡ commerciale 
         if (rdbIstituzionale.Checked)
-            return QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 0));  //tipo attivit√† istituzionale
+            return QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 0));  //tipo attivit‡ istituzionale
         if (rdbPromiscua.Checked)
-            return QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 2));  //tipo attivit√† promiscua/altro
+            return QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 2));  //tipo attivit‡ promiscua/altro
         return basefilteriva;
     }
 
@@ -441,11 +528,11 @@ public partial class mandatedetail_default_new02 : MetaPage {
         if (rdbQualsiasi.Checked)
             return 4; //nessun filtro
         if (rdbCommerciale.Checked)
-            return 2;  //tipo attivit√† commerciale 
+            return 2;  //tipo attivit‡ commerciale 
         if (rdbIstituzionale.Checked)
-            return 1;  //tipo attivit√† istituzionale
+            return 1;  //tipo attivit‡ istituzionale
         if (rdbPromiscua.Checked)
-            return 3;  //tipo attivit√† promiscua/altro
+            return 3;  //tipo attivit‡ promiscua/altro
         return 4;
     }
 
@@ -470,8 +557,8 @@ public partial class mandatedetail_default_new02 : MetaPage {
         taxabletotal.FunctionName = "CalcTaxableTotal(" + HelpMetaWeb.JscriptString(tassocambio()) + ");";
         taxabletotal.DependsOn(taxabletotval);
 
-        taxabletotal.AddPostFormatEvent();////necessaria perch√©  taxabletotal non ha tag
-        taxabletotval.AddPostFormatEvent();////necessaria perch√©  taxabletotval non ha tag
+        taxabletotal.AddPostFormatEvent();////necessaria perchÈ  taxabletotal non ha tag
+        taxabletotval.AddPostFormatEvent();////necessaria perchÈ  taxabletotval non ha tag
 
         //rimane da fare: double impindeducEUR = CfgFn.RoundValuta(ivaEUR * percindeduc);
 
@@ -625,4 +712,3 @@ public partial class mandatedetail_default_new02 : MetaPage {
 
     }
 }
-

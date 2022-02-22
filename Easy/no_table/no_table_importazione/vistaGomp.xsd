@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaGomp" targetNamespace="http://tempuri.org/vistaGomp.xsd" xmlns:mstns="http://tempuri.org/vistaGomp.xsd" xmlns="http://tempuri.org/vistaGomp.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaGomp" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="stip_gomp">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstip_gomp" type="xs:int" />
+              <xs:element name="codicecausale" type="xs:string" />
+              <xs:element name="annoregolamento" type="xs:int" />
+              <xs:element name="fuoricorso" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotiverevenue" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="idfinmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotiveundotax" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotiveundotaxpost" type="xs:string" minOccurs="0" />
+              <xs:element name="tipologiacorso" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivecost" type="xs:string" minOccurs="0" />
+              <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="idestimkind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:stip_gomp" />
+      <xs:field xpath="mstns:idstip_gomp" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

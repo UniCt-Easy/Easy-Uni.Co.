@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_f24ep_dati]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_f24ep_dati]
 GO
@@ -6,21 +23,22 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
- 
+ --setuser'amm'
+ --	exec exp_f24ep_dati 43
 CREATE procedure exp_f24ep_dati(@idf24ep int) as
 begin
  
 	create table #tributi (
 		tiporiga char(1),
-		codicetributo varchar(4),
+		codicetributo varchar(10),
 		descrtributo varchar(400),
 		tipoente varchar(4),
 		rifA varchar(10),
 		rifB  varchar(10)
 	)
-
+	
  
-	--exec exp_f24ep 16
+	--exec exp_f24ep 43
 	declare @ayear int
 	declare @taxpay_start datetime
 	declare @taxpay_stop  datetime
@@ -37,55 +55,52 @@ begin
 	
 	insert into #tributi values ('S','384E','Addizionale comunale Irpef trattenuta dai sostituti d’imposta 
 											-saldo','CCCC','00MM','AAAA') -- Addizionale comunale Irpef trattenuta dai sostituti d’imposta -saldo  
-	insert into #tributi values ('S','385E','Addizionale comunale Irpef trattenuta dai 
-											sostituti d’imposta- acconto','CCCC','00MM','AAAA') -- Addizionale comunale Irpef trattenuta dai sostituti d’imposta- acconto 
-	insert into #tributi values ('S','891E','Sanzioni per ravvedimento su Addizionale comunale Irpef 
-											trattenuta dai sostituti d’imposta','CCCC',  null,'AAAA') -- Sanzioni per ravvedimento su Addizionale comunale Irpef trattenuta dai sostituti d’imposta 
+	insert into #tributi values ('S','385E','Addizionale comunale Irpef trattenuta dai sostituti d’imposta- acconto',
+											'CCCC','00MM','AAAA') -- Addizionale comunale Irpef trattenuta dai sostituti d’imposta- acconto 
+	insert into #tributi values ('S','891E','Sanzioni per ravvedimento su Addizionale comunale Irpef trattenuta dai sostituti d’imposta',
+											'CCCC',  null,'AAAA') -- Sanzioni per ravvedimento su Addizionale comunale Irpef trattenuta dai sostituti d’imposta 
 	--insert into #tributi values ('382E',  'EE','00MM','AAAA') -- Addizionale comunale Irpef trattenuta dai sostituti d’imposta  su emolumenti corrisposti nell’anno solare 2007–saldo  	
 	--insert into #tributi values ('383E',  'EE','00MM','AAAA') -- Addizionale comunale Irpef trattenuta dai sostituti d’imposta su emolumenti corrisposti nell’anno solare 2007- acconto    
 	
 	insert into #tributi values ('R','380E', 'IRAP', 'RR','00MM','AAAA') -- IRAP  	
-	insert into #tributi values ('R','381E', 'Addizionale regionale Irpef trattenuta 
-											 dai sostituti d’imposta', 'RR','00MM','AAAA') -- Addizionale regionale Irpef trattenuta dai sostituti d’imposta  
+	insert into #tributi values ('R','381E', 'Addizionale regionale Irpef trattenuta dai sostituti d’imposta', 
+											'RR','00MM','AAAA') -- Addizionale regionale Irpef trattenuta dai sostituti d’imposta  
+
 	insert into #tributi values ('R','892E', 'Sanzioni per ravvedimento su IRAP', 'RR',  null,'AAAA') -- Sanzioni per ravvedimento su IRAP 
-	insert into #tributi values ('R','893E', 'Sanzioni per ravvedimento Addizionale 
-											  regionale Irpef trattenuta dai sostituti d’imposta', 'RR',  null,'AAAA') -- Sanzioni per ravvedimento Addizionale regionale Irpef trattenuta dai sostituti d’imposta  
-	insert into #tributi values ('F','100E', 'Ritenute sui redditi da lavoro 
-											  dipendente ed assimilati',  null,'00MM','AAAA') -- Ritenute sui redditi da lavoro dipendente ed assimilati  
-	insert into #tributi values ('F','104E', 'Ritenute sui redditi da lavoro autonomo', null,'00MM','AAAA') -- Ritenute sui redditi da lavoro autonomo  
-	insert into #tributi values ('F','105E', 'Ritenute sulle indennità di 
-											  esproprio, occupazione , etc. - articolo 11, legge 413/91', null,'00MM','AAAA') -- Ritenute sulle indennità di esproprio, occupazione , etc. - articolo 11, legge 413/91  
-	insert into #tributi values ('F','106E', 'Ritenute sui contributi corrisposti 
-											  alle imprese - articolo 28 D.P.R. 600/73', null,'00MM','AAAA') -- Ritenute sui contributi corrisposti alle imprese - articolo 28 D.P.R. 600/73 
+	insert into #tributi values ('R','893E', 'Sanzioni per ravvedimento Addizionale regionale Irpef trattenuta dai sostituti d’imposta', 
+											'RR',  null,'AAAA') -- Sanzioni per ravvedimento Addizionale regionale Irpef trattenuta dai sostituti d’imposta  
+	insert into #tributi values ('F','100E', 'Ritenute sui redditi da lavoro dipendente ed assimilati',  
+											null,'00MM','AAAA') -- Ritenute sui redditi da lavoro dipendente ed assimilati  
+	insert into #tributi values ('F','104E', 'Ritenute sui redditi da lavoro autonomo', 
+											null,'00MM','AAAA') -- Ritenute sui redditi da lavoro autonomo  
+	insert into #tributi values ('F','105E', 'Ritenute sulle indennità di esproprio, occupazione , etc. - articolo 11, legge 413/91', 
+											null,'00MM','AAAA') -- Ritenute sulle indennità di esproprio, occupazione , etc. - articolo 11, legge 413/91  
+	insert into #tributi values ('F','106E', 'Ritenute sui contributi corrisposti alle imprese - articolo 28 D.P.R. 600/73', null,'00MM','AAAA') -- Ritenute sui contributi corrisposti alle imprese - articolo 28 D.P.R. 600/73 
 	insert into #tributi values ('F','107E', 'Altre ritenute alla fonte', null,'00MM','AAAA') -- Altre ritenute alla fonte  
 	insert into #tributi values ('F','890E', 'Sanzioni per ravvedimento su ritenute erariali', null,  null,'AAAA') -- Sanzioni per ravvedimento su ritenute erariali 
 	insert into #tributi values ('F','112E', 'Ritenuta alla fonte su somme pignorate', null,'00MM','AAAA') -- Ritenuta alla fonte su somme pignorate 
 
-	insert into #tributi values ('I','C10', 'Contributi dovuti per soggetti non titolari 
-											di pensione (diretta o indiretta), e non titolari 
-											di ulteriori contemporanei rapporti assicurativi. ',  null,  'MMAAAA',null) -- Sanzioni per ravvedimento su ritenute erariali 
-	insert into #tributi values ('I','CXX', 'Contributi dovuti per soggetti titolari 
-											di pensione (diretta o indiretta) e/o di ulteriori
-											contemporanei rapporti assicurativi. ', null,  'MMAAAA',null) -- Sanzioni per ravvedimento su ritenute erariali 
+	insert into #tributi values ('I','C10', 'Contributi dovuti per soggetti non titolari di pensione (diretta o indiretta), e non titolari di ulteriori contemporanei rapporti assicurativi. ',  
+											null,  'MMAAAA',null) -- Sanzioni per ravvedimento su ritenute erariali 
+	insert into #tributi values ('I','CXX', 'Contributi dovuti per soggetti titolari di pensione (diretta o indiretta) e/o di ulteriori contemporanei rapporti assicurativi. ', 
+											null,  'MMAAAA',null) -- Sanzioni per ravvedimento su ritenute erariali 
 	insert into #tributi values ('Q','P101', 'CASSA C.P.T.S. - CONTRIBUTI OBBLIGATORI',  null,  'MMAAAA','MMAAAA') -- CASSA C.P.T.S. - CONTRIBUTI OBBLIGATORI
 	insert into #tributi values ('Q','P909', 'CASSA UNICA DEL CREDITO - CREDITO', null,  'MMAAAA','MMAAAA') -- P909 CASSA UNICA DEL CREDITO - CREDITO
 
-	insert into #tributi values ('F','150E', 'SOMME A TITOLO DI IMPOSTE ERARIALI 
-											  RIMBORSATE DAL SOSTITUTO D''IMPOSTA 
-											  A SEGUITO DI ASSISTENZA FISCALE - ART.15, C.1,LETT.A)', null,  null,'AAAA') --SOMME A TITOLO DI IMPOSTE ERARIALI RIMBORSATE DAL SOSTITUTO D''IMPOSTA A SEGUITO DI ASSISTENZA FISCALE - ART.15, C.1,LETT.A)
+	insert into #tributi values ('F','150E', 'SOMME A TITOLO DI IMPOSTE ERARIALI RIMBORSATE DAL SOSTITUTO D''IMPOSTA A SEGUITO DI ASSISTENZA FISCALE - ART.15, C.1,LETT.A)', 
+												null,  null,'AAAA') --SOMME A TITOLO DI IMPOSTE ERARIALI RIMBORSATE DAL SOSTITUTO D''IMPOSTA A SEGUITO DI ASSISTENZA FISCALE - ART.15, C.1,LETT.A)
 	insert into #tributi values ('F','134E', 'IRPEF A SALDO TRATTENUTA DAL
 											 SOSTITUTO D''IMPOSTA',  null, '00MM','AAAA') --IRPEF A SALDO TRATTENUTA DAL SOSTITUTO D''IMPOSTA
-	insert into #tributi values ('F','126E', 'ADDIZIONALE REGIONALE ALL''IRPEF TRATTENUTA 
-											 DAL SOSTITUTO D''IMPOSTA A SEGUITO
-											 DI ASSISTENZA FISCALE',  null, '00MM','AAAA') --ADDIZIONALE REGIONALE ALL''IRPEF TRATTENUTA DAL SOSTITUTO D''IMPOSTA A SEGUITO DI ASSISTENZA FISCALE
-	insert into #tributi values ('R','153E', 'SOMME A TITOLO DI ADDIZIONALE REGIONALE
-											 ALL''IRPEF RIMBORSATE DAL SOSTITUTO D''IMPOSTA
-											 A SEGUITO DI ASSISTENZA FISCALE - ART. 15, COMMA1,
-											 LETT.A)D.LGS. N. 175/2014',  'RR', null, 'AAAA') --SOMME A TITOLO DI ADDIZIONALE REGIONALE ALL''IRPEF RIMBORSATE DAL SOSTITUTO D''IMPOSTA A SEGUITO DI ASSISTENZA FISCALE - ART. 15, COMMA1,LETT.A)D.LGS. N. 175/2014
-	insert into #tributi values ('S','127E', 'ADDIZIONALE COMUNALE ALL''IRPEF TRATTENUTA 
-											 DAL SOSTITUTO D''IMPOSTA MOD. 730- ACCONTO – ',  'CCCC','00MM','AAAA') --ADDIZIONALE COMUNALE ALL''IRPEF TRATTENUTA DAL SOSTITUTO D''IMPOSTA MOD. 730- ACCONTO –
-	insert into #tributi values ('S','128E', 'ADDIZIONALE COMUNALE ALL''IRPEF TRATTENUTA 
-											 DAL SOSTITUTO D''IMPOSTA MOD. 730 -',  'CCCC','00MM','AAAA') --ADDIZIONALE COMUNALE ALL''IRPEF TRATTENUTA DAL SOSTITUTO D''IMPOSTA MOD. 730
+	insert into #tributi values ('F','126E', 'ADDIZIONALE REGIONALE ALL''IRPEF TRATTENUTA DAL SOSTITUTO D''IMPOSTA A SEGUITO DI ASSISTENZA FISCALE',  
+											'RR', null,'AAAA') --ADDIZIONALE REGIONALE ALL''IRPEF TRATTENUTA DAL SOSTITUTO D''IMPOSTA A SEGUITO DI ASSISTENZA FISCALE
+	insert into #tributi values ('R','153E', 'SOMME A TITOLO DI ADDIZIONALE REGIONALE ALL''IRPEF RIMBORSATE DAL SOSTITUTO D''IMPOSTA A SEGUITO DI ASSISTENZA FISCALE - ART. 15, COMMA1, LETT.A)D.LGS. N. 175/2014',  
+											'RR', null, 'AAAA') 
+			
+			--SOMME A TITOLO DI ADDIZIONALE REGIONALE ALL''IRPEF RIMBORSATE DAL SOSTITUTO D''IMPOSTA A SEGUITO DI ASSISTENZA FISCALE - ART. 15, COMMA1,LETT.A)D.LGS. N. 175/2014
+	insert into #tributi values ('S','127E', 'ADDIZIONALE COMUNALE ALL''IRPEF TRATTENUTA DAL SOSTITUTO D''IMPOSTA MOD. 730- ACCONTO – ',  
+											'CCCC','00MM','AAAA') --ADDIZIONALE COMUNALE ALL''IRPEF TRATTENUTA DAL SOSTITUTO D''IMPOSTA MOD. 730- ACCONTO –
+	insert into #tributi values ('S','128E', 'ADDIZIONALE COMUNALE ALL''IRPEF TRATTENUTA DAL SOSTITUTO D''IMPOSTA MOD. 730 -',  
+											'CCCC','00MM','AAAA') --ADDIZIONALE COMUNALE ALL''IRPEF TRATTENUTA DAL SOSTITUTO D''IMPOSTA MOD. 730
 
 	insert into #tributi values ('S','154E', 'SOMME A TITOLO DI ADDIZIONALE 
 											  COMUNALE ALL''IRPEF RIMBORSATE DAL SOSTITUTO 
@@ -104,6 +119,37 @@ begin
 	insert into #tributi values ( 'F','156E', 'Ritenute sui redditi da lavoro autonomo', null,'00MM','AAAA') -- Ritenute sui redditi da lavoro autonomo  	
 	insert into #tributi values ( 'F','155E', 'Ritenute sui redditi da lavoro dipendente ed assimilati', null,'00MM','AAAA') -- Ritenute sui redditi da lavoro dipendente ed assimilati  
 	insert into #tributi values ( 'F','165E', 'Bonus fiscale', null,'00MM','AAAA') -- Bonus fiscale 
+
+
+	insert into #tributi values ('F','601E','VERSAMENTO IVA MENSILE GENNAIO', null, null,'AAA')--	"VERSAMENTO IVA MENSILE GENNAIO"
+	insert into #tributi values ('F','602E','VERSAMENTO IVA MENSILE FEBBRAIO', null, null,'AAA')--	"VERSAMENTO IVA MENSILE FEBBRAIO"
+	insert into #tributi values ('F','603E','VERSAMENTO IVA MENSILE MARZO', null, null,'AAA')--	"VERSAMENTO IVA MENSILE MARZO"
+	insert into #tributi values ('F','604E','VERSAMENTO IVA MENSILE APRILE', null, null,'AAA')--	"VERSAMENTO IVA MENSILE APRILE"
+	insert into #tributi values ('F','605E','VERSAMENTO IVA MENSILE MAGGIO', null, null,'AAA')--	"VERSAMENTO IVA MENSILE MAGGIO"
+	insert into #tributi values ('F','606E','VERSAMENTO IVA MENSILE GIUGNO', null, null,'AAA')--	"VERSAMENTO IVA MENSILE GIUGNO"
+	insert into #tributi values ('F','607E','VERSAMENTO IVA MENSILE LUGLIO', null, null,'AAA')--	"VERSAMENTO IVA MENSILE LUGLIO"
+	insert into #tributi values ('F','608E','VERSAMENTO IVA MENSILE AGOSTO', null, null,'AAA')--	"VERSAMENTO IVA MENSILE AGOSTO"
+	insert into #tributi values ('F','609E','VERSAMENTO IVA MENSILE SETTEMBRE', null, null,'AAA')--	"VERSAMENTO IVA MENSILE SETTEMBRE"
+	insert into #tributi values ('F','610E','VERSAMENTO IVA MENSILE OTTOBRE', null, null,'AAA')--	"VERSAMENTO IVA MENSILE OTTOBRE"
+	insert into #tributi values ('F','611E','VERSAMENTO IVA MENSILE NOVEMBRE', null, null,'AAA')--	"VERSAMENTO IVA MENSILE NOVEMBRE"
+	insert into #tributi values ('F','612E','VERSAMENTO IVA MENSILE DICEMBRE', null, null,'AAA')--	"VERSAMENTO IVA MENSILE DICEMBRE"
+
+	insert into #tributi values ('F','613E','VERSAMENTO ACCONTO PER IVA MENSILE', null, null,'AAAA')--	VERSAMENTO IVA MENSILE DICEMBRE
+	insert into #tributi values ('F','614E','VERSAMENTO IVA TRIMESTRALE 1 TRIMESTRE',null, null,'AAAA')--	VERSAMENTO IVA TRIMESTRALE 1 TRIMESTRE
+	insert into #tributi values ('F','615E','VERSAMENTO IVA TRIMESTRALE 2 TRIMESTRE',null, null,'AAAA')--	VERSAMENTO IVA TRIMESTRALE 2 TRIMESTRE
+	insert into #tributi values ('F','616E','VERSAMENTO IVA TRIMESTRALE 3 TRIMESTRE', null,null,'AAAA')--	VERSAMENTO IVA TRIMESTRALE 3 TRIMESTRE
+	insert into #tributi values ('F','617E','VERSAMENTO IVA TRIMESTRALE 4 TRIMESTRE ',null, null,'AAAA')--	VERSAMENTO IVA TRIMESTRALE 4 TRIMESTRE 
+	insert into #tributi values ('F','618E','VERSAMENTO IVA ACCONTO ',null,null,'AAAA')--	VERSAMENTO IVA ACCONTO  
+	insert into #tributi values ('F','619E','VERSAMENTO IVA SULLA BASE DELLA DICHIARAZIONE ANNUALE', null,null,'AAAA')--	VERSAMENTO IVA SULLA BASE DELLA DICHIARAZIONE ANNUALE
+	insert into #tributi values ('F','620E','SPLIT ISTITUZIONALE', null,'00MM','AAAA')--	SPLIT ISTITUZIONALE
+	insert into #tributi values ('F','621E','SPLIT COMMERCIALE', null,'00MM','AAAA')--	SPLIT COMMERCIALE
+	insert into #tributi values ('F','622E','INTRA 12','00MM', null,'AAAA')--	INTRA 12	
+
+
+	insert into #tributi values ('F','801E','SANZIONE PECUNIARIA IVA',null,'00MM','AAAA')--	SANZIONE PECUNIARIA IVA
+	insert into #tributi values ('F','901E','REGOLARIZZAZIONE OPERAZIONI IN CASO DI MANCATA/ IRREGOLARE FATTURAZ.',null, '00MM','AAAA')--	REGOLARIZZAZIONE OPERAZIONI IN CASO DI MANCATA/ IRREGOLARE FATTURAZ.
+
+
 	--declare @annodichiarazione int
 	--set @annodichiarazione = 2008
 	
@@ -112,7 +158,7 @@ begin
 	create table #f24 (
 		tiporecord char(1), -- M o V
 		tiporiga char(1),
-		codicetributo varchar(4),
+		codicetributo varchar(10),
 		codice  varchar(10), -- ex codice ente
 		descrente varchar(200),
 		estremi varchar(17),
@@ -150,7 +196,7 @@ begin
 		return
 	end
 
-	declare @codiceTributo varchar(4)
+	declare @codiceTributo varchar(10)
 	declare @importoADebito decimal(19,2)
 	declare @importoACredito decimal(19,2)
 	declare @tiporiga char(1)
@@ -240,19 +286,12 @@ begin
 		isnull(expensetax.ayear,year(paymenttransmission.transmissiondate))
 		--expensetax.ayear
 		from taxpay 
-		join expensetax 
-			on expensetax.ytaxpay = taxpay.ytaxpay
-			and expensetax.ntaxpay = taxpay.ntaxpay
-		join tax on  tax.taxcode = expensetax.taxcode
-		join expense
-			on expense.idexp = expensetax.idexp
-		join expenselast 
-			on expenselast.idexp = expense.idexp
-		join payment 
-			on payment.kpay = expenselast.kpay
-		join paymenttransmission 
-			on paymenttransmission.kpaymenttransmission = 
-			payment.kpaymenttransmission
+		join expensetax				on expensetax.ytaxpay = taxpay.ytaxpay	and expensetax.ntaxpay = taxpay.ntaxpay
+		join tax					on  tax.taxcode = expensetax.taxcode
+		join expense				on expense.idexp = expensetax.idexp
+		join expenselast			on expenselast.idexp = expense.idexp
+		join payment				on payment.kpay = expenselast.kpay
+		join paymenttransmission 	on paymenttransmission.kpaymenttransmission = 	payment.kpaymenttransmission
 		where taxpay.idf24ep = @idf24ep
 		--group by expensetax.taxcode, taxpay.taxcode, tax.taxcode, expensetax.idcity,
 		--expensetax.idfiscaltaxregion,expensetax.idexp, taxpay.ytaxpay, taxpay.ntaxpay,
@@ -282,20 +321,12 @@ begin
 	 isnull(expensetaxcorrige.ayear,year(paymenttransmission.transmissiondate))
 	 --expensetax.ayear
 	 FROM taxpay 
-	 JOIN expensetaxcorrige 
-		ON expensetaxcorrige.ytaxpay = taxpay.ytaxpay
-		AND expensetaxcorrige.ntaxpay = taxpay.ntaxpay
-	 JOIN tax 
-		ON expensetaxcorrige.taxcode = tax.taxcode
-	 JOIN expense
-		ON expense.idexp = expensetaxcorrige.idexp
-	 JOIN expenselast 
-		ON expenselast.idexp = expense.idexp
-	 JOIN payment 
-		ON payment.kpay = expenselast.kpay
-	 JOIN paymenttransmission 
-		ON paymenttransmission.kpaymenttransmission = 
-		payment.kpaymenttransmission
+	 JOIN expensetaxcorrige				ON expensetaxcorrige.ytaxpay = taxpay.ytaxpay	AND expensetaxcorrige.ntaxpay = taxpay.ntaxpay
+	 JOIN tax							ON expensetaxcorrige.taxcode = tax.taxcode
+	 JOIN expense						ON expense.idexp = expensetaxcorrige.idexp
+	 JOIN expenselast					ON expenselast.idexp = expense.idexp
+	 JOIN payment						ON payment.kpay = expenselast.kpay
+	 JOIN paymenttransmission			ON paymenttransmission.kpaymenttransmission = 	payment.kpaymenttransmission
 	 WHERE taxpay.idf24ep = @idf24ep
 	 --group by expensetaxcorrige.taxcode, taxpay.taxcode,tax.taxcode, expensetaxcorrige.idcity,
 	 --expensetaxcorrige.idfiscaltaxregion,expensetaxcorrige.idexp, taxpay.ytaxpay, taxpay.ntaxpay,
@@ -316,8 +347,7 @@ begin
 		importoacredito = 0,
 		f24epsanction.ayear
 		FROM   f24epsanction 
-		JOIN   f24epsanctionkind  
-		ON f24epsanction.idsanction = f24epsanctionkind.idsanction
+		JOIN   f24epsanctionkind			ON f24epsanction.idsanction = f24epsanctionkind.idsanction
 		WHERE  f24epsanction.idf24ep = @idf24ep
 
 		UPDATE #versamenti  SET fiscaltaxcode = 
@@ -437,13 +467,121 @@ begin
 		Ltrim(Rtrim(Upper(code))),
 		Upper(tiporiga)
 		FROM   expenseclawback 
-		JOIN   expense 
-		  ON   expenseclawback.idexp = expense.idexp 
-		JOIN   registry 
-		  ON   registry.idreg = expense.idreg  -- 
+		JOIN   expense				  ON   expenseclawback.idexp = expense.idexp 
+		JOIN   registry				  ON   registry.idreg = expense.idreg  -- 
 	   WHERE   expenseclawback.idf24ep = @idf24ep
 		
- 
+ -- Liquidazione IVA
+	CREATE TABLE #ivapay(
+		rif_month int,
+		rif_year int,
+		totaliva_comm_aDebito  decimal(19,2),--601E	602E	603E	604E	605E	606E	607E	608E	609E	610E	611E	612E
+		totaliva_comm_aCredito  decimal(19,2),
+		totaliva_splitcomm  decimal(19,2),	--621E
+		totalsplitist_aDebito decimal(19,2),	--620E
+		totalintra12_aCredito decimal(19,2),	--622E
+		totalintra12_aDebito decimal(19,2),	--622E
+		totaliva_comm_aDebito_acc  decimal(19,2),	totaliva_comm_aCredito_acc  decimal(19,2), -- 618E
+		fiscaltaxcode varchar(10)
+	)
+	
+
+
+	INSERT INTO  #ivapay(
+		rif_month,
+		rif_year,
+		totaliva_comm_aDebito,	totaliva_comm_aCredito,
+		totalsplitist_aDebito,
+		totalintra12_aDebito, totalintra12_aCredito
+		)
+	select 
+		month(ivapay.start),
+		ivapay.yivapay,
+		isnull(totaldebit,0), isnull(totalcredit,0),
+		isnull(totaldebitsplit,0),
+		isnull(totaldebit12,0) ,	isnull(totalcredit12,0)
+		from ivapay 
+		where ivapay.idf24ep = @idf24ep and paymentkind='C'
+
+	INSERT INTO  #ivapay(
+		rif_month,
+		rif_year,
+		totaliva_splitcomm 
+		)
+	select 
+		month(ivapay.start),
+		ivapay.yivapay,
+		--Reg. Acquisti: iva totale - iva a credito
+		isnull(ivapaydetailview.ivatotal,0) - (isnull(ivanet,0) + isnull(ivanetdeferred,0) )
+		from ivapay 
+		join ivapaydetailview
+			on ivapay.yivapay = ivapaydetailview.yivapay and ivapay.nivapay = ivapaydetailview.nivapay
+		where ivapay.idf24ep = @idf24ep
+		and ivapaydetailview.registerclass ='A'
+		and paymentkind='C'
+		and isnull(ivapaydetailview.ivatotal,0) - (isnull(ivanet,0) + isnull(ivanetdeferred,0) ) >0
+
+	update #ivapay set totaliva_comm_aCredito = isnull(totaliva_comm_aCredito,0) - isnull(totaliva_splitcomm,0)
+	-- Inserisce l'Acconto
+		INSERT INTO  #ivapay(
+		rif_month,
+		rif_year,
+		totaliva_comm_aDebito_acc,	totaliva_comm_aCredito_acc
+	)
+	select 
+		month(ivapay.start),
+		ivapay.yivapay,
+		isnull(totaldebit,0), isnull(totalcredit,0)
+		from ivapay 
+		where ivapay.idf24ep = @idf24ep and paymentkind='A'
+
+	insert into #f24 (tiporecord, tiporiga,codicetributo,/* codice, estremi, riferimentoA,*/ riferimentoB, importoADebito,importoACredito)
+	select 'V', 'F',  
+		case rif_month	
+				when 1 then '601E'	when 2 then '602E' when 3 then '603E' when 4	then '604E' when 5 then '605E' when 6 then '606E' 
+				when 7 then '607E'	when 8 then '608E' when 9 then '609E' when 10	then '610E' when 11 then '611E' when 12 then '612E' 
+		end,
+		convert(varchar(4),rif_year),
+		totaliva_comm_aDebito,	totaliva_comm_aCredito
+	from #ivapay
+
+	insert into #f24 (tiporecord, tiporiga,codicetributo,/* codice, estremi, riferimentoA,*/ riferimentoB, importoADebito,importoACredito)
+	select 'V', 'F',  
+		'620E',
+		convert(varchar(4),rif_year),
+		totalsplitist_aDebito,	null
+	from #ivapay
+	where isnull(totalsplitist_aDebito,0) >0
+
+	insert into #f24 (tiporecord, tiporiga,codicetributo,/* codice, estremi, riferimentoA,*/ riferimentoB, importoADebito,importoACredito)
+	select 'V', 'F',  
+		'621E',
+		convert(varchar(4),rif_year),
+		totaliva_splitcomm, null
+	from #ivapay
+	 where isnull(totaliva_splitcomm,0)>0
+
+	insert into #f24 (tiporecord, tiporiga,codicetributo,/* codice, estremi, riferimentoA,*/ riferimentoB, importoADebito,importoACredito)
+	select 'V', 'F',  
+		'622E',
+		convert(varchar(4),rif_year),
+		totalintra12_aDebito, totalintra12_aCredito
+	from #ivapay
+	where isnull(totalintra12_aDebito,0)>0 or isnull(totalintra12_aDebito,0)>0
+
+	
+	
+	
+	insert into #f24 (tiporecord, tiporiga,codicetributo,/* codice, estremi, riferimentoA,*/ riferimentoB, importoADebito,importoACredito)
+	select 'V', 'F',  
+		'618E',
+		convert(varchar(4),rif_year),
+		isnull(totaliva_comm_aDebito_acc,0),	isnull(totaliva_comm_aCredito_acc,0)
+	from #ivapay
+	where isnull(totaliva_comm_aDebito_acc,0) > 0 or isnull(totaliva_comm_aCredito_acc,0)>0
+
+
+
 	--select 2,* from #versamenti
 	--select * from #versamenti
 	--drop table #versamenti

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -26,10 +25,13 @@ using System.Windows.Forms;
 using metadatalibrary;
 using System.Globalization;
 using funzioni_configurazione;
+using ep_functions;
 
 namespace assetunload_generauto {
-    public partial class FrmAssetUnload_generauto : Form {
+    public partial class FrmAssetUnload_generauto : MetaDataForm {
         private object CodiceTipoBuono = null;
+        private object idreg = null;
+        private object idmot = null;
         private bool flag_bene = true;
         private bool flag_parte = true;
         private MetaData Meta;
@@ -41,14 +43,14 @@ namespace assetunload_generauto {
         private MetaData Mentrataview;
         private int codicefase;
         private object m_DataRatifica = DBNull.Value;
-
+        private EP_Manager EPM;
 
         public FrmAssetUnload_generauto() {
             InitializeComponent();
             GetData.SetSorting(DS.incomeview, "ymov DESC,nmov DESC");
             QueryCreator.SetTableForPosting(DS.assetpieceview, "asset");
             TempTable = new DataTable("temptable");
-            cboTipo.DataSource = DS.assetunloadkindview;
+            cboTipo.DataSource = DS.assetunloadkind;
             cboTipo.DisplayMember = "description";
             cboTipo.ValueMember = "idassetunloadkind";
 
@@ -76,6 +78,7 @@ namespace assetunload_generauto {
             //Tip.SetToolTip(btnAddAll,"Cliccare qui per collegare al buono sia gli scarichi cespiti che gli scarichi parti");
             Tip.SetToolTip(btnAddBene, "Cliccare qui per scaricare i cespiti e gli eumenti di valore selezionati");
             Tip.SetToolTip(btnSuccessivo, "Cliccare qui per passare al buono successivo");
+            EPM = new EP_Manager(Meta, null, null, null, null, null, null, null, null, "assetunload");
         }
 
         public void MetaData_AfterClear() {
@@ -83,10 +86,13 @@ namespace assetunload_generauto {
             Text = "Generazione automatica buoni di scarico";
         }
 
+        public void MetaData_BeforeFill() {
+            GetData.DenyClear(DS.assetpieceview);
+        }
         public void MetaData_AfterActivation() {
             codicefase = MetaData.MaxFromColumn(DS.incomephase, "nphase");
             if (DS.config.Rows.Count == 0) {
-                MessageBox.Show("La configurazione del PATRIMONIO non è stata definita per l'esercizio corrente!", "Attenzione",
+                show("La configurazione del PATRIMONIO non è stata definita per l'esercizio corrente!", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Warning = true;
                 return;
@@ -94,7 +100,7 @@ namespace assetunload_generauto {
             DataRow r = DS.Tables["config"].Rows[0];
             string flagnumerazione = r["asset_flagnumbering"].ToString().ToUpper();
             if (flagnumerazione == "" || flagnumerazione == "N") {
-                MessageBox.Show("Non è stato definito il tipo di numerazione per la configurazione " +
+                show("Non è stato definito il tipo di numerazione per la configurazione " +
                     "del PATRIMONIO per l'esercizio corrente", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Warning = true;
@@ -104,10 +110,22 @@ namespace assetunload_generauto {
             flagcreddeb = (assetload_flag & 1) == 1;
             flagcausale = (assetload_flag & 2) == 2;
             if (flagcausale == false && flagcreddeb == false) {
-                MessageBox.Show("Non è stata definita la configurazione dei buoni " +
+                show("Non è stata definita la configurazione dei buoni " +
                     "di carico / scarico per l'esercizio corrente.\rI buoni eventualmente " +
                     "generati verranno creati senza creditore e causale.\r\r",
                     "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            if(flagcreddeb) {
+                txtCredDeb.ReadOnly = false;
+            }
+            else {
+                txtCredDeb.ReadOnly = true;
+            }
+            if (flagcausale) {
+                cboCausale.Enabled = true;
+            }
+            else {
+                cboCausale.Enabled = false;
             }
             AbilitaBottoni(false);
             AbilitaBottoniOperazioni(false);
@@ -128,8 +146,15 @@ namespace assetunload_generauto {
             btnGeneraTutto.Enabled = enable && (flag_bene || flag_parte);
         }
 
+        public void MetaData_BeforePost() {
+            EPM.beforePost();
+        }
+
+        public void MetaData_AfterPost() {
+            EPM.afterPost();
+        }
         public void MetaData_AfterRowSelect(DataTable T, DataRow R) {
-            if (T.TableName == "assetunloadkindview") {
+            if (T.TableName == "assetunloadkind") {
                 CodiceTipoBuono = (R == null ? null : R["idassetunloadkind"]);
                 flag_bene = (R != null && R["idassetunloadkind"].ToString() != "");
                 flag_parte = (R != null && R["idassetunloadkind"].ToString() != "");
@@ -138,6 +163,17 @@ namespace assetunload_generauto {
                 //abilitato se è abilitata almeno una voce
                 rdoAll.Enabled = (flag_bene || flag_parte);
             }
+            if (T.TableName == "registry") {
+                idreg = (R == null ? DBNull.Value : R["idreg"]);
+                if (Meta.InsertMode && Meta.DrawStateIsDone) {
+                    DataRow Curr = DS.assetunload.Rows[0];
+                    Curr["idreg"] = R["idreg"];
+                }
+            }
+            if (T.TableName == "assetunloadmotive") {
+                idmot = (R == null ? DBNull.Value : R["idmot"]);
+            }
+
         }
 
         void visualizzaMessaggio() {
@@ -153,7 +189,7 @@ namespace assetunload_generauto {
                     messaggio += "aumenti di valore da elaborare";
                 }
             }
-            MessageBox.Show(messaggio);
+            show(messaggio);
         }
 
         private string GetInventoryFilter(QueryHelper QH, object codInventario) {
@@ -191,7 +227,7 @@ namespace assetunload_generauto {
         private void CollegaRigheADocumento(bool quiet) {
             if ((TempTable == null) || (TempTable.Rows.Count == 0)) {
                 if (!quiet) visualizzaMessaggio();
-                //MessageBox.Show("Non ci sono scarichi cespiti e/o parti da elaborare");
+                //show("Non ci sono scarichi cespiti e/o parti da elaborare");
                 AbilitaBottoniOperazioni(false);
                 AbilitaBottoni(false);
                 //cboTipo.Enabled=true;
@@ -201,19 +237,19 @@ namespace assetunload_generauto {
             }
 
             string fCodTipoBuono = QHS.CmpEq("idassetunloadkind", cboTipo.SelectedValue);
-            DataRow[] codiceinventarioRow = DS.assetunloadkindview.Select(fCodTipoBuono);
+            DataRow[] codiceinventarioRow = DS.assetunloadkind.Select(fCodTipoBuono);
             object codInventario = DBNull.Value;
             if ((codiceinventarioRow != null) && (codiceinventarioRow.Length > 0)) {
                 codInventario = codiceinventarioRow[0]["idinventory"];
             }
 
 
-            string condizioniaggiuntive = "";
-            if (TempTable.Columns["xxx"] != null) {
-                // Considera o meno il filtro su Inventario in base a flagmixed di inventory
-                condizioniaggiuntive = QHS.AppAnd(condizioniaggiuntive,GetInventoryFilter(QHS,codInventario));
-                
-            }
+            string condizioniaggiuntive = GetInventoryFilter(QHS, codInventario);
+            // Considera o meno il filtro su Inventario in base a flagmixed di inventory
+            //if (TempTable.Columns["xxx"] != null) {
+            //    // Considera o meno il filtro su Inventario in base a flagmixed di inventory
+            //    condizioniaggiuntive = QHS.AppAnd(condizioniaggiuntive,GetInventoryFilter(QHS,codInventario));
+            //}
 
             if (TempTable.TableName != "dummy") {
                 DataRow CurrRow = TempTable.Rows[0];
@@ -236,6 +272,8 @@ namespace assetunload_generauto {
 
             DS.assetpieceview.Clear();
             MetaData.SetDefault(DS.assetunload, "idassetunloadkind", CodiceTipoBuono);
+            MetaData.SetDefault(DS.assetunload, "idreg", idreg);
+            MetaData.SetDefault(DS.assetunload, "idmot", idmot);
             MetaData.SetDefault(DS.assetunload, "dataratifica", m_DataRatifica);
             Meta.EditNew();
             string sort = "idassetunloadkind ASC, yassetunload ASC, nassetunload ASC";
@@ -247,7 +285,7 @@ namespace assetunload_generauto {
             //DataAccess.RUN_SELECT_INTO_TABLE(Conn,DS.scaricoparteinventarioview, sort,filter,null,false);
 
             if (rdoAll.Checked || rdoBene.Checked || rdoParte.Checked) {
-                DataAccess.RUN_SELECT_INTO_TABLE(Conn, DS.assetpieceview, sort, filter, null, false);
+                DataAccess.RUN_SELECT_INTO_TABLE(Conn, DS.assetpieceview, sort, filter, null , false);
             }
 
             MetaData.FreshForm(this, false);
@@ -258,7 +296,7 @@ namespace assetunload_generauto {
             AbilitaBottoniOperazioni(false); //true
             CheckBottoniBene();
             CheckBottoneTutto();
-            ControlloRatifica();
+            //ControlloRatifica();
             //			if (TempTable.TableName=="dummy") TempTable=null;
         }
         private void CheckBottoniBene() {
@@ -287,7 +325,8 @@ namespace assetunload_generauto {
             }
 
             while ((TempTable != null) && (TempTable.Rows.Count > 0)) {
-                AccettaDocumento(/*link*/);
+                bool esito = AccettaDocumento(/*link*/);
+                if (!esito) break;
                 CollegaRigheADocumento(true);
             }
             AbilitaBottoni(false);
@@ -338,19 +377,21 @@ namespace assetunload_generauto {
             string SelectClause, FromClause, WhereClause;
             string fCodTipoBuono = "(idassetunloadkind = " + QueryCreator.quotedstrvalue(cboTipo.SelectedValue, true) + ")";
 
-            DataRow[] codiceinventarioRow = DS.assetunloadkindview.Select(fCodTipoBuono);
+            DataRow[] codiceinventarioRow = DS.assetunloadkind.Select(fCodTipoBuono);
             object codInventario = DBNull.Value;
             if ((codiceinventarioRow != null) && (codiceinventarioRow.Length > 0)) {
                 codInventario = codiceinventarioRow[0]["idinventory"] ;
             }
 
-            ParteSelect = "";
+            //ParteSelect = "'tipobuono' as xxx";
             ParteSelect = "idinventory";
             ParteWhere = QHS.AppAnd(QHS.BitSet("flag", 0), QHS.IsNull("idassetunloadkind"),
                         QHS.IsNull("yassetunload"), QHS.IsNull("nassetunload"));
 
             //PARTE NUOVA, sul bit "pronto per lo scarico"
-            ParteWhere = QHS.AppAnd(ParteWhere, QHS.BitSet("flag", 1));
+            //Per questo flag andrebbe messo un check come viene fatto nel wizard "Agiunta guidata" nel form Buono scarico
+            //E solo se sta spuntato il check applica il filtro, altrimenti non lo deve applicare.
+            //ParteWhere = QHS.AppAnd(ParteWhere, QHS.BitSet("flag", 1));
 
             if (codInventario != DBNull.Value) {
                 // considero se devo filtrare per inventario 
@@ -374,15 +415,15 @@ namespace assetunload_generauto {
                 case "P": ParteWhere = QHS.AppAnd(ParteWhere, QHS.CmpGt("idpiece", 1)); break;
             }
 
-            if (flagcreddeb) {
-                ParteSelect = MyAppend(ParteSelect, "idreg");
-            }
-            if (flagcausale) {
-                ParteSelect = MyAppend(ParteSelect, "idmot");
-            }
+            //if (flagcreddeb) {
+            //    ParteSelect = MyAppend(ParteSelect, "idreg");
+            //}
+            //if (flagcausale) {
+            //    ParteSelect = MyAppend(ParteSelect, "idmot");
+            //}
             if ((flagcreddeb == false) && (flagcausale == false)) {
-                ParteSelect = MyAppend(ParteSelect, "idreg");
-                ParteSelect = MyAppend(ParteSelect, "idmot");
+                //ParteSelect = MyAppend(ParteSelect, "idreg");
+                //ParteSelect = MyAppend(ParteSelect, "idmot");
             }
 
             return SelectClause + ParteSelect + FromClause + ParteFrom +
@@ -408,18 +449,18 @@ namespace assetunload_generauto {
             //string query=GetTempQuery("B")+" UNION "+GetTempQuery("P");
             string GroupByClause = " GROUP BY ";
             string OrderByClause = " ORDER BY ";
-            string ParteGroupBy = "idinventory";
+            string ParteGroupBy = "idinventory, inventory";
             string ParteOrderBy = "";
             bool config = false;
             if (flagcreddeb ) {
-                ParteGroupBy = MyAppend(ParteGroupBy, "idreg");
-                ParteOrderBy = MyAppend(ParteOrderBy, "idreg ASC");
-                config = true;
+                //ParteGroupBy = MyAppend(ParteGroupBy, "idreg");
+                //ParteOrderBy = MyAppend(ParteOrderBy, "idreg ASC");
+                //config = true;
             }
             if (flagcausale ) {
-                ParteGroupBy = MyAppend(ParteGroupBy, "idmot");
-                ParteOrderBy = MyAppend(ParteOrderBy, "idmot ASC");
-                config = true;
+                //ParteGroupBy = MyAppend(ParteGroupBy, "idmot");
+                //ParteOrderBy = MyAppend(ParteOrderBy, "idmot ASC");
+                //config = true;
             }
             if (!config) {
                 //GroupByClause="";
@@ -450,27 +491,33 @@ namespace assetunload_generauto {
         }
 
 
-        private DataRow GetDetailRow(DataGrid G, int index) {
+        private DataRow GetDetailRow(DataGrid G, int index, string key) {
             string TableName = G.DataMember.ToString();
             DataSet MyDS = (DataSet)G.DataSource;
             DataTable MyTable = MyDS.Tables[TableName];
-            string filter = QHS.AppAnd(QHS.CmpEq("idasset", G[index, 0]),
-                            QHS.CmpEq("idpiece", G[index, 1]));
+            var keyidasset =key.Split(',')[0];
+            var keyidpiece = key.Split(',')[1];
+            //string filter = QHS.AppAnd(QHS.CmpEq("idasset", G[index, 2]),
+            //                QHS.CmpEq("idpiece", G[index, 3]));
+            string filter = QHC.AppAnd(QHC.CmpEq(keyidasset, G[index, 0].ToString()), QHC.CmpEq(keyidpiece, G[index, 1].ToString()));
             DataRow[] selectresult = MyTable.Select(filter);
             return selectresult[0];
         }
-        private void CollegaTipoDoc(DataGrid G, int count) {
+        private void CollegaTipoDoc(DataGrid G, int count, string key) {
             bool messaggiovisualizzato = false;
 
             DataRow R = DS.assetunload.Rows[0];
             object idbuono = R["idassetunload"];
+            show("Insieme al cespiti selezionati saranno scaricati anche i relativi ACCESSORI",
+            "Avviso");
+
             for (int i = 0; i < count; i++) {
                 if (G.IsSelected(i)) {
-                    DataRow CurrRow = GetDetailRow(G, i);
+                    DataRow CurrRow = GetDetailRow(G, i, key);
                     CurrRow["idassetunload"] = idbuono;
 
-                    string filterpiece = QHS.AppAnd(QHS.CmpEq("idasset", CurrRow["idasset"]),
-                                     QHS.CmpGt("idpiece", 1), QHS.IsNull("idassetunload"), QHS.BitSet("flag", 0));
+                    string filterpiece = QHC.AppAnd(QHC.CmpEq("idasset", CurrRow["idasset"]),
+                                     QHC.CmpGt("idpiece", 1), QHC.IsNull("idassetunload"), QHC.BitSet("flag", 0));
                     DataTable DaCollegare = Meta.Conn.RUN_SELECT("assetpieceview",
                                             "*", null, filterpiece, null, true);
 
@@ -482,7 +529,7 @@ namespace assetunload_generauto {
                         //Se presente viene ricollegato
                         if (Found[0]["idassetunload"] == DBNull.Value) {
                             Found[0]["idassetunload"] = CurrRow["idassetunload"];
-                            messaggiovisualizzato = true;
+                            //messaggiovisualizzato = true;
                         }
                     }
                     else { //se non presente, viene aggiunto
@@ -491,30 +538,37 @@ namespace assetunload_generauto {
                             NewR[C.ColumnName] = CurrRow[C.ColumnName];
                         }
                         DS.assetpieceview.Rows.Add(NewR);
+                        //Meta.MarkTableAsNotEntityChild(DS.assetpieceview);
                         NewR.AcceptChanges();
                         NewR["idassetunload"] = CurrRow["idassetunload"];
-                        messaggiovisualizzato = true;
+                        //messaggiovisualizzato = true;
                     }
                     foreach (DataRow Riga in DS.assetpieceview.Select(filterpiece)) {
                         Riga.BeginEdit();
+                        //Meta.MarkTableAsNotEntityChild(DS.assetpieceview);
                         Riga["idassetunload"] = CurrRow["idassetunload"];
                         Riga.EndEdit();
-                        messaggiovisualizzato = true;
+                        //messaggiovisualizzato = true;
                     }
 
-                    Meta.MarkTableAsNotEntityChild(DS.assetpieceview);
+                    //Meta.MarkTableAsNotEntityChild(DS.assetpieceview);
                 }
-                if (messaggiovisualizzato) {
-                    MessageBox.Show("Insieme al cespiti selezionati saranno scaricati anche i relativi AUMENTI DI VALORE",
-                    "Avviso");
-                }
-                Meta.FreshForm();
+                //if (messaggiovisualizzato) {
+                //    show("Insieme al cespiti selezionati saranno scaricati anche i relativi AUMENTI DI VALORE",
+                //    "Avviso");
+                //    messaggiovisualizzato = false;
+                //}
             }
-
+            Meta.MarkTableAsNotEntityChild(DS.assetpieceview);
+            Meta.FreshForm();
         }
-        private void AccettaDocumento(/*string link*/) {
+        private bool AccettaDocumento(/*string link*/) {
+            bool success = true;
             int rowsBene = DS.assetpieceview.Rows.Count;
-
+            if (rowsBene == 0) {
+                success = false;
+                return success;
+            }
             //			switch(link) {
             //				case "1":
             //					if (flag_bene) CollegaTipoDoc(dgrCaricoBene, rowsBene, "numscaricobene");
@@ -523,7 +577,7 @@ namespace assetunload_generauto {
             //					if (flag_parte) CollegaTipoDoc(dgrCaricoParte, rowsParte, "numscaricoparte");
             //					break;
             //				default:
-            if (flag_bene||flag_parte) CollegaTipoDoc(dgrCaricoBene, rowsBene);
+            if (flag_bene||flag_parte) CollegaTipoDoc(dgrCaricoBene, rowsBene, "idasset, idpiece");
             //					break;
             //			}
 
@@ -531,13 +585,31 @@ namespace assetunload_generauto {
             if (!DS.HasChanges() && (TempTable != null)) {
                 TempTable.Rows.RemoveAt(0);
                 TempTable.AcceptChanges();
+                success = true;
+            }
+            else {
+                success = false;
+                return success;
             }
             AbilitaBottoni(false);
             //btnGeneraTutto.Enabled=(TempTable!=null && TempTable.Rows.Count>0);
+            return success;
         }
         private void btnInizia_Click(object sender, System.EventArgs e) {
             if (CodiceTipoBuono == null || CodiceTipoBuono.ToString() == "") {
-                MessageBox.Show("Selezionare il tipo buono di scarico", "Attenzione",
+                show("Selezionare il tipo buono di scarico", "Attenzione",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            //Vengono chiesti se la config. lo prevede.
+            //if (flagcreddeb && txtCredDeb.Text == "") {
+            //    show("Selezionare il Cessionario", "Attenzione",
+            //        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    return;
+            //}
+
+            if (flagcausale && cboCausale.SelectedIndex <= 0) {
+                show("Selezionare la Causale", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
@@ -588,25 +660,25 @@ namespace assetunload_generauto {
                 TempTable.AcceptChanges();
             }
         }
-        private void ControlloRatifica() {
-            if (Meta.IsEmpty) return;
-            DataRow[] rows = DS.assetunloadincome.Select(null, null, DataViewRowState.CurrentRows);
-            ParseDate(txtDataRatifica);
-            string dataratifica = txtDataRatifica.Text;
-            if (dataratifica == "" && rows.Length == 0) {
-                AbilitaRatifica(true);
-            }
-            else {
-                if (dataratifica != "") {
-                    AbilitaRatificaCampo(true);
-                    AbilitaRatificaGrid(false);
-                }
-                if (rows.Length > 0) {
-                    AbilitaRatificaCampo(false);
-                    AbilitaRatificaGrid(true);
-                }
-            }
-        }
+        //private void ControlloRatifica() {
+        //    if (Meta.IsEmpty) return;
+        //    DataRow[] rows = DS.assetunloadincome.Select(null, null, DataViewRowState.CurrentRows);
+        //    ParseDate(txtDataRatifica);
+        //    string dataratifica = txtDataRatifica.Text;
+        //    if (dataratifica == "" && rows.Length == 0) {
+        //        AbilitaRatifica(true);
+        //    }
+        //    else {
+        //        if (dataratifica != "") {
+        //            AbilitaRatificaCampo(true);
+        //            AbilitaRatificaGrid(false);
+        //        }
+        //        if (rows.Length > 0) {
+        //            AbilitaRatificaCampo(false);
+        //            AbilitaRatificaGrid(true);
+        //        }
+        //    }
+        //}
         private string GetMovimentoFilter() {
             object codicecreddeb = DS.assetunload.Rows[0]["idreg"];
             object eserccorrente = Conn.GetSys("esercizio");
@@ -644,9 +716,10 @@ namespace assetunload_generauto {
             if (R == null) return;
             MetaData M = MetaData.GetMetaData(this, "assetunloadincome");
             ImpostaValoriDaEntrata(DS.assetunloadincome, R);
+            ImpostaDataRatifica(R);
             M.SetDefaults(DS.assetunloadincome);
             M.Get_New_Row(DS.assetunload.Rows[0], DS.assetunloadincome);
-            ControlloRatifica();
+            //ControlloRatifica();
         }
         private void btnScollegaMov_Click(object sender, System.EventArgs e) {
             DataRow R;
@@ -654,11 +727,33 @@ namespace assetunload_generauto {
             if (!Meta.myHelpForm.GetCurrentRow(gridRatifica, out T, out R)) return;
             if (R == null) return;
             R.Delete();
-            ControlloRatifica();
+            //ControlloRatifica();
+        }
+        private void ImpostaDataRatifica(DataRow R) {
+            Meta.GetFormData(true);
+            // Calcola la data di competenza per l'incasso selezionato
+            object compDate = R["competencydate"];
+            if (compDate == DBNull.Value) return;
+            string tag = HelpForm.GetStandardTag(txtDataRatifica.Tag);
+            if (DS.assetunload.Rows[0]["ratificationdate"] == DBNull.Value) {
+                DS.assetunload.Rows[0]["ratificationdate"] = compDate;
+                txtDataRatifica.Text = HelpForm.StringValue(compDate, tag);
+            }
+            else {
+                if (!(DS.assetunload.Rows[0]["ratificationdate"].Equals(compDate))) {
+                    if (show("Sostituire la data ratifica con la data di competenza " + HelpForm.StringValue(compDate, tag) +
+                                        " del movimento selezionato?",
+                    "Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                        DS.assetunload.Rows[0]["ratificationdate"] = compDate;
+                        txtDataRatifica.Text = HelpForm.StringValue(compDate, tag);
+                    }
+                }
+            }
+            MetaData.FreshForm(this, false);
         }
         private void btnSi_Click(object sender, System.EventArgs e) {
-            AccettaDocumento(/*"3"*/);
-            AbilitaBottoniOperazioni(true);
+            bool res = AccettaDocumento(/*"3"*/);
+            if (res) AbilitaBottoniOperazioni(true);
         }
         private void btnNo_Click(object sender, System.EventArgs e) {
             abilitaDisabilitaGenerazione(false);
@@ -701,7 +796,12 @@ namespace assetunload_generauto {
 			if (i > 0) AbilitaBottoniCreaBuono(true);
 		}
 
-		
-	}
+        private void txtDataRatifica_Leave(object sender, EventArgs e) {
+            ParseDate(txtDataRatifica);
+            if (m_DataRatifica != DBNull.Value) {
+                DS.assetunload.Rows[0]["ratificationdate"] = m_DataRatifica;
+            }
+        }
+    }
     
-}
+}

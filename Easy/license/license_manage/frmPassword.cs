@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -22,13 +21,14 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using checkflags;//checkflags
+using metadatalibrary;
 
 namespace license_manage//licenzausomanage//
 {
 	/// <summary>
 	/// Summary description for frmPassword.
 	/// </summary>
-	public class Frm_Password : System.Windows.Forms.Form
+	public class Frm_Password : MetaDataForm
 	{
 		private System.Windows.Forms.Button btnAnnulla;
 		private System.Windows.Forms.Button btnOK;
@@ -136,7 +136,7 @@ namespace license_manage//licenzausomanage//
 			//MessageBox.Show(check2);
 			string check= CheckFlags.GetCheck(txtPwd.Text);
 			if (check!="0x4C4AD48720B7475B3B24155DB41CCBCB518EF4F6") {
-				MessageBox.Show("Password errata", "Password",
+				show("Password errata", "Password",
 					MessageBoxButtons.OK, MessageBoxIcon.Information);
 				txtPwd.SelectAll();
 				txtPwd.Focus();
@@ -146,4 +146,3 @@ namespace license_manage//licenzausomanage//
 		}
 	}
 }
-

@@ -1,0 +1,27 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#prenotappello_appello_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="prenotappello_appello_data">Data</label>
+					<input id="prenotappello_appello_data" type="text" class="form-control" data-tag="prenotappello.data.g"  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="prenotappello_appello_idreg">Studente</label>
+					<div>
+						<input id="prenotappello_appello_idreg" name="prenotappello_appello_idreg" type="text" data-listtype="studenti"  class="form-control" data-minchar="2" data-tag="registrystudentiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

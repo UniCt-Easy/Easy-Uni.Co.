@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,110 +26,65 @@ using System.Runtime.Serialization;
 namespace income_wizardinvoicedetailnoestimate {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Movimento di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable income 		=> Tables["income"];
 
-	///<summary>
-	///Contabilizzazione contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomeinvoice 		=> Tables["incomeinvoice"];
 
-	///<summary>
-	///Fattura
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoice 		=> Tables["invoice"];
 
-	///<summary>
-	///Tipo di documento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicekind 		=> Tables["invoicekind"];
 
-	///<summary>
-	///Dettaglio documento IVA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicedetail 		=> Tables["invoicedetail"];
 
-	///<summary>
-	///Elenco aliquote
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable ivakind 		=> Tables["ivakind"];
 
-	///<summary>
-	///Informazioni annuali su mov. di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomeyear 		=> Tables["incomeyear"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
-	///<summary>
-	///Bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable fin 		=> Tables["fin"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
-	///<summary>
-	///Fasi di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomephase 		=> Tables["incomephase"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable tipomovimento 		=> Tables["tipomovimento"];
 
-	///<summary>
-	///Movimento di entrata - Dettaglio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomelast 		=> Tables["incomelast"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable config 		=> Tables["config"];
 
-	///<summary>
-	///Partita pendente
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable bill 		=> Tables["bill"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable billview 		=> Tables["billview"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable account 		=> Tables["account"];
 
-	///<summary>
-	///dettagli di una fattura inseriti in liquidazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicedetaildeferred 		=> Tables["invoicedetaildeferred"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable incomesorted 		=> Tables["incomesorted"];
 
 	#endregion
 
@@ -524,6 +478,8 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tregistry.Columns.Add(C);
 	tregistry.Columns.Add( new DataColumn("txt", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("ccp", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("flagbankitaliaproceeds", typeof(string)));
 	Tables.Add(tregistry);
 	tregistry.PrimaryKey =  new DataColumn[]{tregistry.Columns["idreg"]};
 
@@ -920,6 +876,59 @@ private void initClass() {
 	tinvoicedetaildeferred.PrimaryKey =  new DataColumn[]{tinvoicedetaildeferred.Columns["idinvkind"], tinvoicedetaildeferred.Columns["yinv"], tinvoicedetaildeferred.Columns["ninv"], tinvoicedetaildeferred.Columns["rownum"], tinvoicedetaildeferred.Columns["yivapay"], tinvoicedetaildeferred.Columns["nivapay"], tinvoicedetaildeferred.Columns["idivaregisterkind"]};
 
 
+	//////////////////// INCOMESORTED /////////////////////////////////
+	var tincomesorted= new DataTable("incomesorted");
+	C= new DataColumn("idinc", typeof(int));
+	C.AllowDBNull=false;
+	tincomesorted.Columns.Add(C);
+	C= new DataColumn("idsor", typeof(int));
+	C.AllowDBNull=false;
+	tincomesorted.Columns.Add(C);
+	C= new DataColumn("idsubclass", typeof(short));
+	C.AllowDBNull=false;
+	tincomesorted.Columns.Add(C);
+	tincomesorted.Columns.Add( new DataColumn("amount", typeof(decimal)));
+	tincomesorted.Columns.Add( new DataColumn("ayear", typeof(short)));
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tincomesorted.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tincomesorted.Columns.Add(C);
+	tincomesorted.Columns.Add( new DataColumn("description", typeof(string)));
+	tincomesorted.Columns.Add( new DataColumn("flagnodate", typeof(string)));
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tincomesorted.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tincomesorted.Columns.Add(C);
+	tincomesorted.Columns.Add( new DataColumn("paridsor", typeof(int)));
+	tincomesorted.Columns.Add( new DataColumn("paridsubclass", typeof(short)));
+	tincomesorted.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	tincomesorted.Columns.Add( new DataColumn("start", typeof(DateTime)));
+	tincomesorted.Columns.Add( new DataColumn("stop", typeof(DateTime)));
+	tincomesorted.Columns.Add( new DataColumn("tobecontinued", typeof(string)));
+	tincomesorted.Columns.Add( new DataColumn("txt", typeof(string)));
+	tincomesorted.Columns.Add( new DataColumn("valuen1", typeof(decimal)));
+	tincomesorted.Columns.Add( new DataColumn("valuen2", typeof(decimal)));
+	tincomesorted.Columns.Add( new DataColumn("valuen3", typeof(decimal)));
+	tincomesorted.Columns.Add( new DataColumn("valuen4", typeof(decimal)));
+	tincomesorted.Columns.Add( new DataColumn("valuen5", typeof(decimal)));
+	tincomesorted.Columns.Add( new DataColumn("values1", typeof(string)));
+	tincomesorted.Columns.Add( new DataColumn("values2", typeof(string)));
+	tincomesorted.Columns.Add( new DataColumn("values3", typeof(string)));
+	tincomesorted.Columns.Add( new DataColumn("values4", typeof(string)));
+	tincomesorted.Columns.Add( new DataColumn("values5", typeof(string)));
+	tincomesorted.Columns.Add( new DataColumn("valuev1", typeof(decimal)));
+	tincomesorted.Columns.Add( new DataColumn("valuev2", typeof(decimal)));
+	tincomesorted.Columns.Add( new DataColumn("valuev3", typeof(decimal)));
+	tincomesorted.Columns.Add( new DataColumn("valuev4", typeof(decimal)));
+	tincomesorted.Columns.Add( new DataColumn("valuev5", typeof(decimal)));
+	Tables.Add(tincomesorted);
+	tincomesorted.PrimaryKey =  new DataColumn[]{tincomesorted.Columns["idinc"], tincomesorted.Columns["idsor"], tincomesorted.Columns["idsubclass"]};
+
+
 	#endregion
 
 
@@ -988,9 +997,12 @@ private void initClass() {
 	cChild = new []{income.Columns["idreg"]};
 	Relations.Add(new DataRelation("registry_income",cPar,cChild,false));
 
+	cPar = new []{income.Columns["idinc"]};
+	cChild = new []{incomesorted.Columns["idinc"]};
+	Relations.Add(new DataRelation("income_incomesorted",cPar,cChild,false));
+
 	#endregion
 
 }
 }
 }
-

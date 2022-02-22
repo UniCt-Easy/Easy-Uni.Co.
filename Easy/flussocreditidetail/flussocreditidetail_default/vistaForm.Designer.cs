@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -30,13 +29,14 @@ using meta_upb;
 using meta_sorting;
 using meta_ivakind;
 using meta_list;
+using meta_flussocrediti;
 using metadatalibrary;
 // ReSharper disable InconsistentNaming
 // ReSharper disable UnusedMember.Global
 namespace flussocreditidetail_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -117,6 +117,15 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable upb_iva 		=> (MetaTable)Tables["upb_iva"];
 
+	///<summary>
+	///Crediti da comunicare al nodo pagamenti o simili, anche usata per i crediti che ci vengono comunicati dalle segreterie studenti
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public flussocreditiTable flussocrediti 		=> (flussocreditiTable)Tables["flussocrediti"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable finmotive_iva_income 		=> (MetaTable)Tables["finmotive_iva_income"];
+
 	#endregion
 
 
@@ -150,7 +159,7 @@ private void initClass() {
 
 	//////////////////// FLUSSOCREDITIDETAIL /////////////////////////////////
 	var tflussocreditidetail= new flussocreditidetailTable();
-	tflussocreditidetail.addBaseColumns("idflusso","iddetail","cu","ct","lu","lt","importoversamento","idestimkind","yestim","nestim","rownum","idinvkind","yinv","ninv","invrownum","competencystart","competencystop","description","idaccmotivecredit","idaccmotiverevenue","idaccmotiveundotax","idaccmotiveundotaxpost","idfinmotive","idreg","iduniqueformcode","idupb","nform","stop","expirationdate","cf","iuv","annulment","idunivoco","codiceavviso","idsor1","idsor2","idsor3","tax","barcodevalue","barcodeimage","qrcodevalue","qrcodeimage","idivakind","number","p_iva","annotations","idlist","idupb_iva","flag");
+	tflussocreditidetail.addBaseColumns("idflusso","iddetail","cu","ct","lu","lt","importoversamento","idestimkind","yestim","nestim","rownum","idinvkind","yinv","ninv","invrownum","competencystart","competencystop","description","idaccmotivecredit","idaccmotiverevenue","idaccmotiveundotax","idaccmotiveundotaxpost","idfinmotive","idreg","iduniqueformcode","idupb","nform","stop","expirationdate","cf","iuv","annulment","idunivoco","codiceavviso","idsor1","idsor2","idsor3","tax","barcodevalue","barcodeimage","qrcodevalue","qrcodeimage","idivakind","number","p_iva","annotations","idlist","idupb_iva","flag","codicetassonomia","flag_showcase","idfinmotive_iva");
 	Tables.Add(tflussocreditidetail);
 	tflussocreditidetail.defineKey("idflusso", "iddetail");
 
@@ -346,6 +355,26 @@ private void initClass() {
 	Tables.Add(tupb_iva);
 	tupb_iva.defineKey("idupb");
 
+	//////////////////// FLUSSOCREDITI /////////////////////////////////
+	var tflussocrediti= new flussocreditiTable();
+	tflussocrediti.addBaseColumns("idflusso","cu","ct","lu","lt","datacreazioneflusso","flusso","istransmitted","idsor01","idsor02","idsor03","idsor04","idsor05","filename","progday","docdate","idestimkind");
+	Tables.Add(tflussocrediti);
+	tflussocrediti.defineKey("idflusso");
+
+	//////////////////// FINMOTIVE_IVA_INCOME /////////////////////////////////
+	var tfinmotive_iva_income= new MetaTable("finmotive_iva_income");
+	tfinmotive_iva_income.defineColumn("idfinmotive", typeof(string),false);
+	tfinmotive_iva_income.defineColumn("active", typeof(string),false);
+	tfinmotive_iva_income.defineColumn("codemotive", typeof(string),false);
+	tfinmotive_iva_income.defineColumn("paridfinmotive", typeof(string));
+	tfinmotive_iva_income.defineColumn("title", typeof(string),false);
+	tfinmotive_iva_income.defineColumn("lt", typeof(DateTime));
+	tfinmotive_iva_income.defineColumn("lu", typeof(string));
+	tfinmotive_iva_income.defineColumn("ct", typeof(DateTime));
+	tfinmotive_iva_income.defineColumn("cu", typeof(string));
+	Tables.Add(tfinmotive_iva_income);
+	tfinmotive_iva_income.defineKey("idfinmotive");
+
 	#endregion
 
 
@@ -389,9 +418,13 @@ private void initClass() {
 	cChild = new []{flussocreditidetail.Columns["idupb_iva"]};
 	Relations.Add(new DataRelation("upb_iva_flussocreditidetail",cPar,cChild,false));
 
+	this.defineRelation("flussocrediti_flussocreditidetail","flussocrediti","flussocreditidetail","idflusso");
+	cPar = new []{finmotive_iva_income.Columns["idfinmotive"]};
+	cChild = new []{flussocreditidetail.Columns["idfinmotive_iva"]};
+	Relations.Add(new DataRelation("finmotive_iva_income_flussocreditidetail",cPar,cChild,false));
+
 	#endregion
 
 }
 }
 }
-

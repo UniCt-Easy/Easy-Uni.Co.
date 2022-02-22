@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -34,7 +33,7 @@ namespace emens_default//DenunceRetributiveMensili//
 	/// <summary>
 	/// Summary description for FrmDenunceRetributiveMensili.
 	/// </summary>
-	public class Frm_emens_default : System.Windows.Forms.Form
+	public class Frm_emens_default : MetaDataForm
 	{
 		private XmlTextWriter writer;
 		public vistaForm DS;
@@ -70,7 +69,7 @@ namespace emens_default//DenunceRetributiveMensili//
 		private System.Windows.Forms.DataGrid dgRitenuta;
 		private System.Windows.Forms.Label lblAvviso;
 		public VistaEmens dsEmens;
-		private System.Windows.Forms.OpenFileDialog openFileDialog1;
+		private System.Windows.Forms.OpenFileDialog _openFileDialog1;
 		private string filter_eserc="";
 		
 		/// <summary>
@@ -82,6 +81,8 @@ namespace emens_default//DenunceRetributiveMensili//
         DataTable T_unified = new DataTable("T_unified");
         private Button btnGeneraUniEmens;
         string unif_suffix = "";
+        public IOpenFileDialog openFileDialog1;
+
 		public Frm_emens_default()
 		{
 			InitializeComponent();
@@ -102,6 +103,7 @@ namespace emens_default//DenunceRetributiveMensili//
 			dsEmens.Emens.Columns["Al"].Caption = "Al";
 			dsEmens.Emens.Columns["CodCalamita"].Caption = "";
             dsEmens.Emens.Columns["CodCertificazione"].Caption = "";
+            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
 		}
 
 		/// <summary>
@@ -159,7 +161,7 @@ namespace emens_default//DenunceRetributiveMensili//
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.lblAvviso = new System.Windows.Forms.Label();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.txtUnified = new System.Windows.Forms.TextBox();
             this.btnGeneraUniEmens = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
@@ -585,9 +587,9 @@ namespace emens_default//DenunceRetributiveMensili//
 				{
                     if (meta.edit_type != "unified")
                     {
-                        MessageBox.Show("Ci sono ritenute applicate e non liquidate", "Informazioni", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        show("Ci sono ritenute applicate e non liquidate", "Informazioni", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         MetaData Metataxpay = MetaData.GetMetaData(this, "taxpay");
-                        Metataxpay.Edit(meta.LinkedForm.ParentForm, "ritenutedapagare", true);
+                        Metataxpay.Edit(meta.linkedForm.ParentForm, "ritenutedapagare", true);
 
                         return;
                     }
@@ -729,7 +731,7 @@ namespace emens_default//DenunceRetributiveMensili//
                 new object[] { DBNull.Value, yearnumber, startmonth, stopmonth, unified }, -1, out errMsg);
             if (errMsg != null)
             {
-                MessageBox.Show(this, errMsg);
+                show(this, errMsg);
                 return false;
             }
 
@@ -742,12 +744,12 @@ namespace emens_default//DenunceRetributiveMensili//
                 DataRow[] R = dsCheck.Tables[0].Select("severity = 'S'");
                 if (R.Length > 0)
                 {
-                    MessageBox.Show(this, "Sono stati riscontrati degli errori bloccanti, l'E-Mens non verrà generato!\nCorreggere prima tali errori");
+                    show(this, "Sono stati riscontrati degli errori bloccanti, l'E-Mens non verrà generato!\nCorreggere prima tali errori");
                     return false;
                 }
                 else
                 {
-                    MessageBox.Show(this, "Sono stati riscontrati degli errori non bloccanti, l'E-Mens verrà comunque generato ma potrebbe essere comunicati dati non corretti");
+                    show(this, "Sono stati riscontrati degli errori non bloccanti, l'E-Mens verrà comunque generato ma potrebbe essere comunicati dati non corretti");
                 }
             }
             return true;
@@ -775,7 +777,7 @@ namespace emens_default//DenunceRetributiveMensili//
             bool eseguiGenerazione = messaggio1 == "";
             if (!eseguiGenerazione)
             {
-                MessageBox.Show(this, "Inserire " + messaggio1.Substring(1));
+                show(this, "Inserire " + messaggio1.Substring(1));
                 return;
             }
             // Controllo che siano presenti i dati non editabili nel form
@@ -788,7 +790,7 @@ namespace emens_default//DenunceRetributiveMensili//
             eseguiGenerazione = messaggio2 == "";
             if (!eseguiGenerazione)
             {
-                MessageBox.Show(this, "Inserire una nuova denuncia, l'attuale non può essere utilizzata in quanto mancano i seguenti dati:\n" + messaggio2.Substring(1));
+                show(this, "Inserire una nuova denuncia, l'attuale non può essere utilizzata in quanto mancano i seguenti dati:\n" + messaggio2.Substring(1));
                 return;
             }
 
@@ -806,7 +808,7 @@ namespace emens_default//DenunceRetributiveMensili//
 								 DS.emens.Rows[0]["stopmonth"]},
                 -1, out errMsg);
             if (errMsg != null){
-                MessageBox.Show(this, errMsg);
+                show(this, errMsg);
                 return;
             }
             StringWriter sw = new StringWriter();
@@ -847,7 +849,7 @@ namespace emens_default//DenunceRetributiveMensili//
                     ref paramValues, -1, out errMsg);
 
                 if (errMsg != null){
-                    MessageBox.Show(this, errMsg);
+                    show(this, errMsg);
                     writer.Close();
                     return;
                 }
@@ -866,7 +868,7 @@ namespace emens_default//DenunceRetributiveMensili//
                //     ref paramValues_poscontr, -1, out errMsg);
 
                // if (errMsg != null){
-               //     MessageBox.Show(this, errMsg);
+               //     show(this, errMsg);
                //     writer.Close();
                //     return;
                // }
@@ -877,7 +879,7 @@ namespace emens_default//DenunceRetributiveMensili//
                     continue;
                 }
                 int countCollaborazioni = dsListaCollaboratori.Tables[0].Rows.Count;// + dsDatiPosContributiva.Tables[0].Rows.Count;
-                MessageBox.Show(this,
+                show(this,
                                 "Trovate " + countCollaborazioni.ToString() + " collaborazioni per il mese di " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(meseDenuncia) + ".",
                                 "Informazioni");
                 writer.WriteStartElement("Azienda");
@@ -891,7 +893,7 @@ namespace emens_default//DenunceRetributiveMensili//
                 //    writer.WriteAttributeString("Composizione", "CP");
                 //    string agencynumber = meta.Conn.DO_READ_VALUE("config", QHS.CmpEq("ayear", rAzienda["annodenuncia"]), "agencynumber").ToString();
                 //    if (agencynumber.Length<10) {
-                //        MessageBox.Show(this, "Inserire la Matricola aziendale INPS(10 caratteri numerici) in Configurazione Annuale-Compensi.");
+                //        show(this, "Inserire la Matricola aziendale INPS(10 caratteri numerici) in Configurazione Annuale-Compensi.");
                 //        return;
                 //    }
                 //    if (agencynumber.Length > 10) {
@@ -1022,7 +1024,7 @@ namespace emens_default//DenunceRetributiveMensili//
                         }
                         errore += "\n\n L'E-mens verrà comunque generato.";
                         if (counterr != 0)
-                            MessageBox.Show(this, errore, "Informazioni", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            show(this, errore, "Informazioni", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
                     foreach (DataRow rCollaboratore in dsListaCollaboratori.Tables[0].Rows){
@@ -1054,7 +1056,7 @@ namespace emens_default//DenunceRetributiveMensili//
             writer.Close();
 
             if (numCollaboratori + numLavorSpettacolo  == 0) {
-                MessageBox.Show(this, "Nel periodo indicato non ci sono ritenute INPS, pertanto l'E-Mens generato non sarà valido."
+                show(this, "Nel periodo indicato non ci sono ritenute INPS, pertanto l'E-Mens generato non sarà valido."
                     + "\nAnno: " + DS.emens.Rows[0]["yearnumber"]
                     + "\nMese inizio: " + DS.emens.Rows[0]["startmonth"]
                     + "\nMese fine: " + DS.emens.Rows[0]["stopmonth"]);
@@ -1090,14 +1092,14 @@ namespace emens_default//DenunceRetributiveMensili//
 			txtNomeFile.Text = openFileDialog1.FileName;
 			try
 			{
-				System.Diagnostics.Process.Start(txtNomeFile.Text);
+				runProcess(txtNomeFile.Text, true);
 				document.Load(txtNomeFile.Text);
 			}
 			catch(Exception ex)
 			{
 				string messaggio = "Non riesco ad aprire il file: " + txtNomeFile.Text +
 					"\nErrore: " + ex.Message;
-				MessageBox.Show(this,messaggio);
+				show(this,messaggio);
 				return;
 			}
 			dsEmens.Emens.Clear();
@@ -1250,7 +1252,7 @@ namespace emens_default//DenunceRetributiveMensili//
 				return dateTime.ToString("MMMM yyyy");
 			} 
 			catch {
-				MessageBox.Show("Data "+nodo.InnerText+ " non in formato yyyy-MM.");
+				show("Data "+nodo.InnerText+ " non in formato yyyy-MM.");
 				return "";
 			}
 		}
@@ -1263,7 +1265,7 @@ namespace emens_default//DenunceRetributiveMensili//
 				return dateTime.ToShortDateString();
 			}
 			catch {
-				MessageBox.Show("Data "+nodo.InnerText+ " non in formato yyyy-MM-dd");
+				show("Data "+nodo.InnerText+ " non in formato yyyy-MM-dd");
 				return "";
 			}
 		}
@@ -1291,7 +1293,7 @@ namespace emens_default//DenunceRetributiveMensili//
 				return p.ToString("p");
 			}
 			catch {
-				MessageBox.Show("Percentuale "+nodo.InnerText+ " non riconosciuta");				
+				show("Percentuale "+nodo.InnerText+ " non riconosciuta");				
 				return "";
 			}
 		}
@@ -1304,7 +1306,7 @@ namespace emens_default//DenunceRetributiveMensili//
 				return p.ToString("c");
 			}
 			catch {
-				MessageBox.Show("Importo "+nodo.InnerText+ " non riconosciuto");				
+				show("Importo "+nodo.InnerText+ " non riconosciuto");				
 				return "";
 			}
 		}
@@ -1349,4 +1351,3 @@ namespace emens_default//DenunceRetributiveMensili//
         }
 	}
 }
-

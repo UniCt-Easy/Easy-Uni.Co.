@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_appfielddetail_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_appfielddetail_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="appfielddetail_alias1" msprop:TableForReading="appfielddetail" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="afteractivationprefill" type="xs:string" minOccurs="0" />
+              <xs:element name="afterrowselectprefill" type="xs:string" minOccurs="0" />
+              <xs:element name="calculatedfieldfunction" type="xs:string" minOccurs="0" />
+              <xs:element name="charnumber" type="xs:int" minOccurs="0" />
+              <xs:element name="columnname" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultvalue" type="xs:string" minOccurs="0" />
+              <xs:element name="eventtext" type="xs:string" minOccurs="0" />
+              <xs:element name="eventtype" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedropdown" type="xs:string" minOccurs="0" />
+              <xs:element name="forcekey" type="xs:string" minOccurs="0" />
+              <xs:element name="hidden" type="xs:string" minOccurs="0" />
+              <xs:element name="idappfielddetail" type="xs:int" />
+              <xs:element name="idappfielddetail_sortmember" type="xs:int" minOccurs="0" />
+              <xs:element name="idapppages" type="xs:int" />
+              <xs:element name="idapptab" type="xs:int" minOccurs="0" />
+              <xs:element name="ischeckbox" type="xs:string" />
+              <xs:element name="islinkingobj" type="xs:string" minOccurs="0" />
+              <xs:element name="isnullable" type="xs:string" minOccurs="0" />
+              <xs:element name="listtype" type="xs:string" minOccurs="0" />
+              <xs:element name="master" type="xs:string" minOccurs="0" />
+              <xs:element name="max" type="xs:int" minOccurs="0" />
+              <xs:element name="min" type="xs:int" minOccurs="0" />
+              <xs:element name="position" type="xs:int" minOccurs="0" />
+              <xs:element name="radiovalues" type="xs:string" minOccurs="0" />
+              <xs:element name="readonlyfield" type="xs:string" minOccurs="0" />
+              <xs:element name="specialcontrol" type="xs:string" minOccurs="0" />
+              <xs:element name="sqltype" type="xs:string" minOccurs="0" />
+              <xs:element name="tablefilter" type="xs:string" minOccurs="0" />
+              <xs:element name="testvalue" type="xs:string" minOccurs="0" />
+              <xs:element name="text" type="xs:string" minOccurs="0" />
+              <xs:element name="textarea" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="uniqueonrow" type="xs:string" />
+              <xs:element name="val1" type="xs:int" minOccurs="0" />
+              <xs:element name="val2" type="xs:int" minOccurs="0" />
+              <xs:element name="visible" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sqltype" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="datasettype" type="xs:string" minOccurs="0" />
+              <xs:element name="sqltype" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="apptab" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="header" type="xs:string" minOccurs="0" />
+              <xs:element name="icon" type="xs:string" minOccurs="0" />
+              <xs:element name="idapppages" type="xs:int" />
+              <xs:element name="idapptab" type="xs:int" />
+              <xs:element name="position" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="appfielddetail" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="afteractivationprefill" type="xs:string" minOccurs="0" />
+              <xs:element name="afterrowselectprefill" type="xs:string" minOccurs="0" />
+              <xs:element name="calculatedfieldfunction" type="xs:string" minOccurs="0" />
+              <xs:element name="charnumber" type="xs:int" minOccurs="0" />
+              <xs:element name="columnname" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultvalue" type="xs:string" minOccurs="0" />
+              <xs:element name="eventtext" type="xs:string" minOccurs="0" />
+              <xs:element name="eventtype" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedropdown" type="xs:string" minOccurs="0" />
+              <xs:element name="forcekey" type="xs:string" minOccurs="0" />
+              <xs:element name="hidden" type="xs:string" minOccurs="0" />
+              <xs:element name="idappfielddetail" type="xs:int" />
+              <xs:element name="idappfielddetail_sortmember" type="xs:int" minOccurs="0" />
+              <xs:element name="idapppages" type="xs:int" />
+              <xs:element name="idapptab" type="xs:int" minOccurs="0" />
+              <xs:element name="ischeckbox" type="xs:string" />
+              <xs:element name="islinkingobj" type="xs:string" minOccurs="0" />
+              <xs:element name="isnullable" type="xs:string" minOccurs="0" />
+              <xs:element name="listtype" type="xs:string" minOccurs="0" />
+              <xs:element name="master" type="xs:string" minOccurs="0" />
+              <xs:element name="max" type="xs:int" minOccurs="0" />
+              <xs:element name="min" type="xs:int" minOccurs="0" />
+              <xs:element name="position" type="xs:int" minOccurs="0" />
+              <xs:element name="radiovalues" type="xs:string" minOccurs="0" />
+              <xs:element name="readonlyfield" type="xs:string" minOccurs="0" />
+              <xs:element name="specialcontrol" type="xs:string" minOccurs="0" />
+              <xs:element name="sqltype" type="xs:string" minOccurs="0" />
+              <xs:element name="tablefilter" type="xs:string" minOccurs="0" />
+              <xs:element name="testvalue" type="xs:string" minOccurs="0" />
+              <xs:element name="text" type="xs:string" minOccurs="0" />
+              <xs:element name="textarea" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="uniqueonrow" type="xs:string" />
+              <xs:element name="val1" type="xs:int" minOccurs="0" />
+              <xs:element name="val2" type="xs:int" minOccurs="0" />
+              <xs:element name="visible" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:appfielddetail_alias1" />
+      <xs:field xpath="mstns:idappfielddetail" />
+      <xs:field xpath="mstns:idapppages" />
+    </xs:unique>
+    <xs:unique name="sqltype_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sqltype" />
+      <xs:field xpath="mstns:sqltype" />
+    </xs:unique>
+    <xs:unique name="apptab_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:apptab" />
+      <xs:field xpath="mstns:idapppages" />
+      <xs:field xpath="mstns:idapptab" />
+    </xs:unique>
+    <xs:unique name="appfielddetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:appfielddetail" />
+      <xs:field xpath="mstns:idappfielddetail" />
+      <xs:field xpath="mstns:idapppages" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_appfielddetail_appfielddetail_alias1_idappfielddetail_sortmember" msdata:parent="appfielddetail_alias1" msdata:child="appfielddetail" msdata:parentkey="idappfielddetail" msdata:childkey="idappfielddetail_sortmember" />
+      <msdata:Relationship name="FK_appfielddetail_sqltype_sqltype" msdata:parent="sqltype" msdata:child="appfielddetail" msdata:parentkey="sqltype" msdata:childkey="sqltype" />
+      <msdata:Relationship name="FK_appfielddetail_apptab_idapptab" msdata:parent="apptab" msdata:child="appfielddetail" msdata:parentkey="idapptab" msdata:childkey="idapptab" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

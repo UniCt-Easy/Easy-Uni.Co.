@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,7 +26,7 @@ using metadatalibrary;
 using metaeasylibrary;
 
 namespace no_table_travasa_varinizialibudget {
-    public partial class Frm_travasa_varinizialibudget : Form {
+    public partial class Frm_travasa_varinizialibudget : MetaDataForm {
         MetaData Meta;
         DataAccess Conn;
         private int esercizio;
@@ -47,13 +46,13 @@ namespace no_table_travasa_varinizialibudget {
         private void btnOK_Click(object sender, EventArgs e) {
             object datadiriferimento = HelpForm.GetObjectFromString(typeof(DateTime), txtData.Text, "x.y");
             if ((datadiriferimento == null) || (datadiriferimento == DBNull.Value)) {
-                MessageBox.Show(this, "La data immessa non √® valida, procedura interrotta", "Errore");
+                show(this, "La data immessa non Ë valida, procedura interrotta", "Errore");
                 return;
             }
 
             string errMess =Conn.BeginTransaction(IsolationLevel.ReadCommitted);
             if (errMess != null) {
-                MessageBox.Show("C'√® gi√† una transazione attiva, attendere il completamento dell'altra operazione in corso", "Errore");
+                show("C'Ë gi‡ una transazione attiva, attendere il completamento dell'altra operazione in corso", "Errore");
                 return;
             }
 
@@ -62,24 +61,19 @@ namespace no_table_travasa_varinizialibudget {
                 600, out errMess);
             if (errMess != null) {
                 Conn.RollBack();
-                MessageBox.Show(this, "Errore nella chiamata della procedura che trasferisce le variazioni iniziali di Budget nel Budget del Conto." +
-                     "La transazione √® stata interrotta\r\rContattare il servizio assistenza"
+                show(this, "Errore nella chiamata della procedura che trasferisce le variazioni iniziali di Budget nel Budget del Conto." +
+                     "La transazione Ë stata interrotta\r\rContattare il servizio assistenza"
                     + "\r\rDettaglio dell'errore :\r\r" + errMess, "Errore");
                
                 return;
             }
             string msg =Conn.Commit();
             if (msg == null) {
-                MessageBox.Show(this, "Variazioni iniziali trasferite nel Budget del Conto.", "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                show(this, "Variazioni iniziali trasferite nel Budget del Conto.", "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else {
-                MessageBox.Show(this, "Errore nel salvataggio dei dati.\r\n" + msg, "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                show(this, "Errore nel salvataggio dei dati.\r\n" + msg, "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
-           
-
-
-
         }
 
         private void txtData_TextChanged(object sender, EventArgs e) {
@@ -91,4 +85,3 @@ namespace no_table_travasa_varinizialibudget {
         }
     }
 }
-

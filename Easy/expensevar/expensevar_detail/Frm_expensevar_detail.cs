@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -30,7 +29,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
     /// <summary>
     /// Summary description for frmVariazioneSpesaDettaglio.
     /// </summary>
-    public class Frm_expensevar_detail : System.Windows.Forms.Form {
+    public class Frm_expensevar_detail : MetaDataForm {
         private System.Windows.Forms.GroupBox grpImporto;
         private System.Windows.Forms.RadioButton rdbAumento;
         private System.Windows.Forms.RadioButton rdbDiminuzione;
@@ -1455,7 +1454,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
 
             MetaData MetaUnd = MetaData.GetMetaData(this, "underwriting");
             MetaUnd.DS = new DataSet();
-            MetaUnd.LinkedForm = this;
+            MetaUnd.linkedForm = this;
             MetaUnd.FilterLocked = true;
             DataRow Und = MetaUnd.SelectOne("default", filteridunderwriting, "underwritingview", null);
             if (Und == null) return;
@@ -1942,7 +1941,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
             //ComunicaInfoARighePadre(filter, CurrCausaleIva);
             CalcolaImportoInBaseADettagliFattura();
             if ((DS.invoicedetail_iva_nc.Rows.Count == 0) && (DS.invoicedetail_taxable_nc.Rows.Count == 0)) {
-                MessageBox.Show("Non sono stati trovati dettagli coerenti con UPB e Causale selezionati.");
+                show("Non sono stati trovati dettagli coerenti con UPB e Causale selezionati.");
                 return;
             }
 
@@ -2003,7 +2002,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
                 decimal R_imposta = CfgFn.GetNoNullDecimal(R["tax"]);
                 decimal R_sconto = CfgFn.Round(CfgFn.GetNoNullDecimal(R["discount"]), 6);
                 imponibile += CfgFn.RoundValuta((R_imponibile * R_quantita * (1 - R_sconto)) * tassocambio);
-                imposta += CfgFn.RoundValuta(R_imposta * tassocambio);
+                imposta += CfgFn.RoundValuta(R_imposta);
             }
 
             decimal totale = 0;
@@ -2157,7 +2156,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
         private void btnAddDettInvoice_Click(object sender, EventArgs e) {
 
             if (!verificaDocIvaSelezionato()) {
-                MessageBox.Show(this, "Bisogna selezionare la nota di credito");
+                show(this, "Bisogna selezionare la nota di credito");
                 return;
             }
 
@@ -2165,7 +2164,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
             MetaData.GetFormData(this,true);
             CurrCausaleIva= GetCausaleIva();
             if (CurrCausaleIva == 0) {
-                MessageBox.Show("Occorre selezionare prima la causale", "Avviso");
+                show("Occorre selezionare prima la causale", "Avviso");
                 return;
             }
             string MyFilter = CalculateFilterForInvoiceDetailLinking(true);
@@ -2190,7 +2189,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
         private void btnRemoveDettInvoice_Click(object sender, EventArgs e) {
             Meta.GetFormData(true);
             if (!verificaDocIvaSelezionato()) {
-                MessageBox.Show(this, "Bisogna selezionare la nota di credito");
+                show(this, "Bisogna selezionare la nota di credito");
                 return;
             }
             MetaData.Unlink_Grid(dgrDettagliFattura);
@@ -2207,7 +2206,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
 
             DataRow Curr = DS.expensevar.Rows[0];
             if (!verificaDocIvaSelezionato()) {
-                MessageBox.Show(this, "Bisogna selezionare la nota di credito");
+                show(this, "Bisogna selezionare la nota di credito");
                 return;
             }
             
@@ -2219,7 +2218,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
                 ToLink=DS.invoicedetail_iva_nc;
             }
             if (ToLink == null) {
-                MessageBox.Show("E' necessario selezionare prima la causale");
+                show("E' necessario selezionare prima la causale");
                 return;
             }
             string MyFilter = CalculateFilterForInvoiceDetailLinking(false);
@@ -2237,4 +2236,4 @@ namespace expensevar_detail { //variazionespesadettaglio//
             CalcolaImportoInBaseADettagliFattura();		
         }
     }
-}
+}

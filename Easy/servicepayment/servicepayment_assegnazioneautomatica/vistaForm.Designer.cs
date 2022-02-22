@@ -1,88 +1,89 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.Runtime.Serialization;
 #pragma warning disable 1591
 using meta_serviceregistry;
 using metadatalibrary;
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace servicepayment_assegnazioneautomatica {
-[Serializable()][DesignerCategoryAttribute("code")][System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-[System.Xml.Serialization.XmlRootAttribute("dsmeta")][System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-public partial class dsmeta: DataSet {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public class dsmeta: DataSet {
 
 	#region Table members declaration
 	///<summary>
 	///Assegnazione Automatica del Pagamento
 	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public MetaTable servicepayment 		{get { return (MetaTable)Tables["servicepayment"];}}
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable servicepayment 		=> (MetaTable)Tables["servicepayment"];
+
 	///<summary>
 	///Banca dati degli Incarichi - Anagrafe Prestazioni e Pubblicazione sito web istituzionale
 	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public serviceregistryTable serviceregistry 		{get { return (serviceregistryTable )Tables["serviceregistry"];}}
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public serviceregistryTable serviceregistry 		=> (serviceregistryTable)Tables["serviceregistry"];
+
 	#endregion
 
 
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
-	public new DataTableCollection Tables {get {return base.Tables;}}
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
 
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
-	public new DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
 
-[DebuggerNonUserCodeAttribute()]
+[DebuggerNonUserCode]
 public dsmeta(){
 	BeginInit();
-	InitClass();
+	initClass();
 	EndInit();
 }
-[DebuggerNonUserCodeAttribute()]
+[DebuggerNonUserCode]
 protected dsmeta (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
-[DebuggerNonUserCodeAttribute()]
-private void InitClass() {
+[DebuggerNonUserCode]
+private void initClass() {
 	DataSetName = "dsmeta";
 	Prefix = "";
 	Namespace = "http://tempuri.org/dsmeta.xsd";
-	EnforceConstraints = false;
 
 	#region create DataTables
-	MetaTable T;
 	//////////////////// SERVICEPAYMENT /////////////////////////////////
-	T= new MetaTable("servicepayment");
-	T.defineColumn("yservreg", typeof(Int32),false);
-	T.defineColumn("nservreg", typeof(Int32),false);
-	T.defineColumn("ypay", typeof(Int32),false);
-	T.defineColumn("semesterpay", typeof(Int32),false);
-	T.defineColumn("payedamount", typeof(Decimal));
-	T.defineColumn("is_delivered", typeof(String));
-	T.defineColumn("is_changed", typeof(String));
-	T.defineColumn("ct", typeof(DateTime),false);
-	T.defineColumn("cu", typeof(String),false);
-	T.defineColumn("lt", typeof(DateTime),false);
-	T.defineColumn("lu", typeof(String),false);
-	T.defineColumn("is_blocked", typeof(String));
-	Tables.Add(T);
-	T.defineKey("yservreg", "nservreg", "ypay", "semesterpay");
+	var tservicepayment= new MetaTable("servicepayment");
+	tservicepayment.defineColumn("yservreg", typeof(int),false);
+	tservicepayment.defineColumn("nservreg", typeof(int),false);
+	tservicepayment.defineColumn("ypay", typeof(int),false);
+	tservicepayment.defineColumn("semesterpay", typeof(int),false);
+	tservicepayment.defineColumn("payedamount", typeof(decimal));
+	tservicepayment.defineColumn("is_delivered", typeof(string));
+	tservicepayment.defineColumn("is_changed", typeof(string));
+	tservicepayment.defineColumn("ct", typeof(DateTime),false);
+	tservicepayment.defineColumn("cu", typeof(string),false);
+	tservicepayment.defineColumn("lt", typeof(DateTime),false);
+	tservicepayment.defineColumn("lu", typeof(string),false);
+	tservicepayment.defineColumn("is_blocked", typeof(string));
+	Tables.Add(tservicepayment);
+	tservicepayment.defineKey("yservreg", "nservreg", "ypay", "semesterpay");
 
 	//////////////////// SERVICEREGISTRY /////////////////////////////////
 	var tserviceregistry= new serviceregistryTable();
@@ -94,12 +95,9 @@ private void InitClass() {
 
 
 	#region DataRelation creation
-	DataColumn []CPar;
-	DataColumn []CChild;
 	this.defineRelation("serviceregistry_servicepayment","serviceregistry","servicepayment","yservreg","nservreg");
 	#endregion
 
 }
 }
 }
-

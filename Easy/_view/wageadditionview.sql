@@ -1,7 +1,26 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA wageadditionview
 IF EXISTS(select * from sysobjects where id = object_id(N'[wageadditionview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [wageadditionview]
 GO
+
+--setuser 'amm'
  -- clear_table_info'wageadditionview'
 CREATE VIEW [wageadditionview]
 (
@@ -59,7 +78,9 @@ CREATE VIEW [wageadditionview]
 	txt,
 	completed,
 	idrelated,
-	idsor_siope
+	idsor_siope,
+	iddalia_dipartimento,iddalia_funzionale,
+	flagexcludefromcertificate
 )
 AS SELECT 
 	ICD.ayear,
@@ -116,36 +137,22 @@ AS SELECT
 	CD.txt,
 	CD.completed,
 	'wageadd§'+ convert(varchar(10),CD.ycon) + '§'+ convert(varchar(10),CD.ncon) ,
-	CD.idsor_siope
+	CD.idsor_siope,
+	CD.iddalia_dipartimento,CD.iddalia_funzionale,
+	CD.flagexcludefromcertificate
 FROM wageaddition CD
-JOIN wageadditionyear ICD
-	ON CD.ycon = ICD.ycon
-	AND CD.ncon = ICD.ncon
-JOIN registry
-	ON registry.idreg = CD.idreg
-JOIN service
-	ON service.idser = CD.idser
-LEFT OUTER JOIN upb
-	ON upb.idupb=CD.idupb
-LEFT OUTER JOIN positionworkcontract QR
-	ON QR.idposition = ICD.idposition
-	AND QR.ayear = ICD.ayear
-LEFT OUTER JOIN contractlength DR
-	ON DR.idcontractlength = ICD.idcontractlength
-	AND DR.ayear = ICD.ayear
-LEFT OUTER JOIN workingtime ORAP
-	ON ORAP.idworkingtime = ICD.idworkingtime
-	AND ORAP.ayear = ICD.ayear
-LEFT OUTER JOIN accmotive AM
-	ON AM.idaccmotive = CD.idaccmotive
-LEFT OUTER JOIN accmotive DB
-	ON DB.idaccmotive =  CD.idaccmotivedebit
-LEFT OUTER JOIN accmotive CRG
-	ON CRG.idaccmotive = CD.idaccmotivedebit_crg
-LEFT OUTER JOIN registry RD
-	ON RD.idreg = CD.idreg_distrained
-LEFT OUTER JOIN dalia_position DP
-	ON DP.iddaliaposition = CD.iddaliaposition
+JOIN wageadditionyear ICD		ON CD.ycon = ICD.ycon	AND CD.ncon = ICD.ncon
+JOIN registry					ON registry.idreg = CD.idreg
+JOIN service					ON service.idser = CD.idser
+LEFT OUTER JOIN upb				ON upb.idupb=CD.idupb
+LEFT OUTER JOIN positionworkcontract QR	ON QR.idposition = ICD.idposition	AND QR.ayear = ICD.ayear
+LEFT OUTER JOIN contractlength DR		ON DR.idcontractlength = ICD.idcontractlength	AND DR.ayear = ICD.ayear
+LEFT OUTER JOIN workingtime ORAP		ON ORAP.idworkingtime = ICD.idworkingtime	AND ORAP.ayear = ICD.ayear
+LEFT OUTER JOIN accmotive AM			ON AM.idaccmotive = CD.idaccmotive
+LEFT OUTER JOIN accmotive DB			ON DB.idaccmotive =  CD.idaccmotivedebit
+LEFT OUTER JOIN accmotive CRG			ON CRG.idaccmotive = CD.idaccmotivedebit_crg
+LEFT OUTER JOIN registry RD				ON RD.idreg = CD.idreg_distrained
+LEFT OUTER JOIN dalia_position DP		ON DP.iddaliaposition = CD.iddaliaposition
 
 
 GO

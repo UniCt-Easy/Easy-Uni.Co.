@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_partitependenti]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 
 drop procedure [exp_partitependenti]
@@ -27,10 +44,9 @@ CREATE PROCEDURE [exp_partitependenti]
  AS
 
 BEGIN
-
+-- setuser'amministrazione'
 /* Modifica apportata da Gianni per aggiungere la colonna del Tesoriere  15-10-2014 */
---exec exp_partitependenti 2014, {d '2014-06-30'}, 'D', null, 'S'
-
+--exec exp_partitependenti 2019, {d '2019-12-31'}, 'D', null, 'S'
 
 CREATE TABLE #partitependenti(
 
@@ -146,10 +162,11 @@ JOIN bill on bill.ybill=bt.ybilltran and
      bill.billkind=bt.kind
 
 WHERE bt.ybilltran = @ayear
- AND  #partitependenti.billkind = bill.billkind
-AND  #partitependenti.nbill =  bill.nbill 
+ AND  #partitependenti.billkind = bt.kind
+ AND #partitependenti.ybill = bt.ybilltran
+AND  #partitependenti.nbill =  bt.nbill 
 AND  bill.billkind = @kind
-AND  bt.adate <= @date OR bt.adate is null
+AND  (bt.adate <= @date OR bt.adate is null)
 AND active = 'S'
 )
 

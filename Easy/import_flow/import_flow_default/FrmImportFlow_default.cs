@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -28,27 +27,14 @@ using funzioni_configurazione;
 using ep_functions;
 
 namespace import_flow_default {
-    public partial class FrmImportFlow_default : Form {
-        public FrmImportFlow_default() {
-            InitializeComponent();
-            tabController.HideTabsMode =
-                Crownwood.Magic.Controls.TabControl.HideTabsModes.HideAlways;
-
-        }
+    public partial class FrmImportFlow_default : MetaDataForm {
+        public IOpenFileDialog openInputFileDlg;
         string CustomTitle;
         MetaData Meta;
         MetaData MetaIncomeSorted;
         MetaData MetaExpenseSorted;
         MetaData MetaPayment;
         MetaData MetaProceeds;
-
-        void FormInit() {
-            CustomTitle = "Importazione flusso movimenti.";
-            //Selects first tab
-            DisplayTabs(0);
-            Meta.Name = Text;
-        }
-
         CQueryHelper QHC;
         QueryHelper QHS;
         int esercizio;
@@ -60,6 +46,21 @@ namespace import_flow_default {
         DataTable TrattamentoBollo;
         DataTable Cassiere;
 
+
+        public FrmImportFlow_default() {
+            InitializeComponent();
+            tabController.HideTabsMode =
+                Crownwood.Magic.Controls.TabControl.HideTabsModes.HideAlways;
+            openInputFileDlg = createOpenFileDialog(_openInputFileDlg);
+        }        
+
+        void FormInit() {
+            CustomTitle = "Importazione flusso movimenti.";
+            //Selects first tab
+            DisplayTabs(0);
+            Meta.Name = Text;
+        }
+        
         public void MetaData_AfterLink() {
             Meta = MetaData.GetMetaData(this);
             QHC = new CQueryHelper();
@@ -103,7 +104,7 @@ namespace import_flow_default {
                 }
             }
             if (idtreasurer_default == DBNull.Value) {
-                MessageBox.Show("Non Ã¨ stato configurato il tesoriere predefinito.", "Errore");
+                show("Non è stato configurato il tesoriere predefinito.", "Errore");
             }
             TrattamentoBollo = Conn.RUN_SELECT("stamphandling", "*", null, null, null, true);
             if (TrattamentoBollo.Select(QHC.CmpEq("flagdefault", "S")).Length == 1) {
@@ -115,7 +116,7 @@ namespace import_flow_default {
                 }
             }
             if (idstamphandling_default == DBNull.Value) {
-                MessageBox.Show("Non Ã¨ stato configurato il trattamento bollo predefinito.", "Errore");
+                show("Non è stato configurato il trattamento bollo predefinito.", "Errore");
             }
             ExcelMenu = new ContextMenu();
             ExcelMenu.MenuItems.Add("Excel", new EventHandler(Excel_Click));
@@ -273,7 +274,7 @@ namespace import_flow_default {
 
         /// <summary>
         /// Crea una corrispondenza tra la idimportflow e il numero di riga che corrisponde a quell'id
-        /// Quindi dato il codice ID iflow[ID]= i dove importflow.Rows[i] Ã¨ la riga avente idimporflow=ID
+        /// Quindi dato il codice ID iflow[ID]= i dove importflow.Rows[i] è la riga avente idimporflow=ID
         /// </summary>
         Dictionary<string, int> iflow = new Dictionary<string, int>();
         void FillIFlow() {
@@ -380,7 +381,7 @@ namespace import_flow_default {
                 GoodData = false;
             }
             else {
-                lblMessaggi.Text = "La tabella del flusso Ã¨ ben configurata, si puÃ² procedere alla creazione " +
+                lblMessaggi.Text = "La tabella del flusso è ben configurata, si può procedere alla creazione " +
                     "dei movimenti finanziari.";
                 GoodData = true;
             }
@@ -643,7 +644,14 @@ namespace import_flow_default {
                     MetaData.SetDefault(DS.expensesorted, "idexp", rMov["idexp"]);
                     DataRow s = MetaExpenseSorted.Get_New_Row(rMov, DS.expensesorted);
                     s["amount"] = amount;
-
+                    //Se i vale 1 llora sta valorizzando il siope ( idsor1 nella nphase 3)
+                    string idupb = rImportView["sel_idupb"].ToString();
+                    if ((i == 1)&& UpbUsed.ContainsKey(idupb)) {
+                        DataRow rUpb = UpbUsed[idupb];
+                        if (rUpb == null) continue;
+                        s["values1"] = rUpb["uesiopecode"];
+                        s["values2"] = rUpb["cofogmpcode"];
+                    }
                 }
                 else {
                     MetaData.SetDefault(DS.incomesorted, "idsor", idsor);
@@ -776,7 +784,7 @@ namespace import_flow_default {
                 string E_S = r["E_S"].ToString().ToUpper();
                 int idlinkedmov = getIdMov(linkedid.ToString());
                 if (idlinkedmov==0){
-                    MessageBox.Show("Movimento collegato alla riga di codice "+linkedid.ToString()+
+                    show("Movimento collegato alla riga di codice "+linkedid.ToString()+
                         " non trovato.");
                     continue;
                 }
@@ -787,7 +795,7 @@ namespace import_flow_default {
                         rLast["autokind"] = 14;
                     }
                     else {
-                        MessageBox.Show("Non Ã¨ possibile collegare la riga di codice "+
+                        show("Non è possibile collegare la riga di codice "+
                             r["idimportflow"].ToString()+" alla riga "+
                             idlinkedmov+ " trattandosi di due entrate.");
                     }
@@ -823,6 +831,30 @@ namespace import_flow_default {
             if (a.ToString() == "") return b;
             return a;
         }
+        static DataTable callSp(DataAccess Conn, List<string> idUpbList) {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("DECLARE @lista AS string_list;");
+            int currblockLen = 0;
+            foreach (string id in idUpbList) {
+                if (currblockLen == 0) {
+                    sb.Append($"insert into @lista values ('{id}')");
+                }
+                else {
+                    sb.Append($",('{id}')");
+                }
+
+                currblockLen++;
+                if (currblockLen == 20) {
+                    sb.AppendLine(";");
+                    currblockLen = 0;
+                }
+            }
+            if (currblockLen > 0) sb.AppendLine(";");
+            sb.AppendLine($"exec  get_upb_info @lista");
+            return Conn.SQLRunner(sb.ToString());
+        }
+        Dictionary<string, DataRow> UpbUsed = new Dictionary<string, DataRow>();
+
         bool GeneraMovimenti(string IoE) {
 
             string tMain = (IoE == "I") ? "income" : "expense";
@@ -894,6 +926,26 @@ namespace import_flow_default {
             Dictionary<int, DataRow> manrev = new Dictionary<int, DataRow>();
             Dictionary<int, DataRow> eletrasm = new Dictionary<int, DataRow>();
             
+            var listaUpbMancanti = new List<string>();
+
+            for (int i = 0; i < importflow.Rows.Count; i++) {
+                DataRow R = importflow.Rows[i];
+                object idUpbObj = R["sel_idupb"];
+                string idupb = idUpbObj.ToString();
+                if (!UpbUsed.ContainsKey(idupb)) {
+                    UpbUsed[idupb] = null;
+                    listaUpbMancanti.Add(idupb);
+                }
+            }
+            if (listaUpbMancanti.Count > 0) {
+                DataTable T = callSp(Meta.Conn, new List<string>(listaUpbMancanti));
+                if (T != null && T.Columns.Contains("codeupb")) {
+                    foreach (DataRow row in T.Rows) {
+                        string idupb = row["idupb"].ToString();
+                        UpbUsed[idupb] = row;
+                    }
+                }
+            }
 
             for (int i = 0; i < importflow.Rows.Count; i++) {
                 DataRow rv = importflow.Rows[i];
@@ -915,7 +967,7 @@ namespace import_flow_default {
 
                     DataRow NewMovRow = MetaM.Get_New_Row(null, Mov);
 
-                    //Imposta il movimento parent tramite il livsupid. Il movimento parent Ã¨ quello generato nella fase precedente
+                    //Imposta il movimento parent tramite il livsupid. Il movimento parent è quello generato nella fase precedente
                     NewMovRow[idParMovField] = parentidmov;
 
                     parentidmov = NewMovRow[idMovField];
@@ -946,7 +998,7 @@ namespace import_flow_default {
                         DataRow NewLastRow = MetaL.Get_New_Row(NewMovRow, DS.Tables[tMainLast]);
                         if (IoE == "E") {
 
-                            //aggiungere le informazioni della modalitÃ  di pagamento
+                            //aggiungere le informazioni della modalità di pagamento
                             NewLastRow["idregistrypaymethod"] = rv["idregistrypaymethod"];
                             NewLastRow["idpaymethod"] = rv["idpaymethod"];
                             NewLastRow["iban"] = rv["iban"];
@@ -1621,4 +1673,3 @@ namespace import_flow_default {
 
     }
 }
-

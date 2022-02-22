@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_apptable_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_apptable_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="apptablerule" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="code" type="xs:string" />
+              <xs:element name="del" type="xs:string" />
+              <xs:element name="idapptable" type="xs:int" />
+              <xs:element name="idapptablerule" type="xs:int" />
+              <xs:element name="ins" type="xs:string" />
+              <xs:element name="message" type="xs:string" />
+              <xs:element name="post" type="xs:string" />
+              <xs:element name="sql" type="xs:string" />
+              <xs:element name="upd" type="xs:string" />
+              <xs:element name="warning" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="apptable" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="customgetnewrow" type="xs:string" minOccurs="0" />
+              <xs:element name="idapptable" type="xs:int" />
+              <xs:element name="protocol" type="xs:string" minOccurs="0" />
+              <xs:element name="tablename" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:apptablerule" />
+      <xs:field xpath="mstns:idapptable" />
+      <xs:field xpath="mstns:idapptablerule" />
+    </xs:unique>
+    <xs:unique name="apptable_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:apptable" />
+      <xs:field xpath="mstns:idapptable" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_apptablerule_apptable_idapptable" msdata:parent="apptable" msdata:child="apptablerule" msdata:parentkey="idapptable" msdata:childkey="idapptable" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

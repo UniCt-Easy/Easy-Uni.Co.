@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -28,7 +27,7 @@ namespace ivaregisterkind_default {//tiporegistroiva//
 	/// <summary>
 	/// Summary description for frmtiporegistroiva.
 	/// </summary>
-	public class Frm_ivaregisterkind_default : System.Windows.Forms.Form {
+	public class Frm_ivaregisterkind_default : MetaDataForm {
 		private System.Windows.Forms.ImageList images;
 		public System.Windows.Forms.Panel MetaDataDetail;
 		private System.Windows.Forms.Label label2;
@@ -375,11 +374,11 @@ namespace ivaregisterkind_default {//tiporegistroiva//
             if (DS.HasChanges()) return;
             DataRow R = HelpForm.GetLastSelected(DS.ivaregisterkind);
 
-            if (MessageBox.Show("Copiare tutte le informazioni del tipo registro di codice " +
+            if (show("Copiare tutte le informazioni del tipo registro di codice " +
                     R["codeivaregisterkind"].ToString() + " su tutti i dipartimenti?", "Attenzione", MessageBoxButtons.YesNo) !=
                     DialogResult.Yes) return;
 
             Meta.Conn.CallSP("copyrow_ivaregisterkind", new object[1] { R["idivaregisterkind"] });
         }
 	}
-}
+}

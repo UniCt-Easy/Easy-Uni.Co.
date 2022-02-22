@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -22,6 +21,8 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using metadatalibrary;
 #pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_sdi_acquisto {
 public class sdi_acquistoRow: MetaRow  {
 	public sdi_acquistoRow(DataRowBuilder rb) : base(rb) {} 
@@ -30,114 +31,114 @@ public class sdi_acquistoRow: MetaRow  {
 	///<summary>
 	///Num.File
 	///</summary>
-	public Int32? idsdi_acquisto{ 
-		get {if (this["idsdi_acquisto"]==DBNull.Value)return null; return  (Int32?)this["idsdi_acquisto"];}
-		set {if (value==null) this["idsdi_acquisto"]= DBNull.Value; else this["idsdi_acquisto"]= value;}
+	public Int32 idsdi_acquisto{ 
+		get {return  (Int32)this["idsdi_acquisto"];}
+		set {this["idsdi_acquisto"]= value;}
 	}
 	public object idsdi_acquistoValue { 
 		get{ return this["idsdi_acquisto"];}
-		set {if (value==null|| value==DBNull.Value) this["idsdi_acquisto"]= DBNull.Value; else this["idsdi_acquisto"]= value;}
+		set {this["idsdi_acquisto"]= value;}
 	}
-	public Int32? idsdi_acquistoOriginal { 
-		get {if (this["idsdi_acquisto",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsdi_acquisto",DataRowVersion.Original];}
+	public Int32 idsdi_acquistoOriginal { 
+		get {return  (Int32)this["idsdi_acquisto",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Nome file
 	///</summary>
 	public String filename{ 
-		get {if (this["filename"]==DBNull.Value)return null; return  (String)this["filename"];}
-		set {if (value==null) this["filename"]= DBNull.Value; else this["filename"]= value;}
+		get {return  (String)this["filename"];}
+		set {this["filename"]= value;}
 	}
 	public object filenameValue { 
 		get{ return this["filename"];}
-		set {if (value==null|| value==DBNull.Value) this["filename"]= DBNull.Value; else this["filename"]= value;}
+		set {this["filename"]= value;}
 	}
 	public String filenameOriginal { 
-		get {if (this["filename",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["filename",DataRowVersion.Original];}
+		get {return  (String)this["filename",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Nome File supporto
 	///</summary>
 	public String zipfilename{ 
-		get {if (this["zipfilename"]==DBNull.Value)return null; return  (String)this["zipfilename"];}
-		set {if (value==null) this["zipfilename"]= DBNull.Value; else this["zipfilename"]= value;}
+		get {return  (String)this["zipfilename"];}
+		set {this["zipfilename"]= value;}
 	}
 	public object zipfilenameValue { 
 		get{ return this["zipfilename"];}
-		set {if (value==null|| value==DBNull.Value) this["zipfilename"]= DBNull.Value; else this["zipfilename"]= value;}
+		set {this["zipfilename"]= value;}
 	}
 	public String zipfilenameOriginal { 
-		get {if (this["zipfilename",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["zipfilename",DataRowVersion.Original];}
+		get {return  (String)this["zipfilename",DataRowVersion.Original];}
 	}
 	///<summary>
 	///data contabile
 	///</summary>
-	public DateTime? adate{ 
-		get {if (this["adate"]==DBNull.Value)return null; return  (DateTime?)this["adate"];}
-		set {if (value==null) this["adate"]= DBNull.Value; else this["adate"]= value;}
+	public DateTime adate{ 
+		get {return  (DateTime)this["adate"];}
+		set {this["adate"]= value;}
 	}
 	public object adateValue { 
 		get{ return this["adate"];}
-		set {if (value==null|| value==DBNull.Value) this["adate"]= DBNull.Value; else this["adate"]= value;}
+		set {this["adate"]= value;}
 	}
-	public DateTime? adateOriginal { 
-		get {if (this["adate",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["adate",DataRowVersion.Original];}
+	public DateTime adateOriginal { 
+		get {return  (DateTime)this["adate",DataRowVersion.Original];}
 	}
 	///<summary>
 	///xml fattura
 	///</summary>
 	public String xml{ 
-		get {if (this["xml"]==DBNull.Value)return null; return  (String)this["xml"];}
-		set {if (value==null) this["xml"]= DBNull.Value; else this["xml"]= value;}
+		get {return  (String)this["xml"];}
+		set {this["xml"]= value;}
 	}
 	public object xmlValue { 
 		get{ return this["xml"];}
-		set {if (value==null|| value==DBNull.Value) this["xml"]= DBNull.Value; else this["xml"]= value;}
+		set {this["xml"]= value;}
 	}
 	public String xmlOriginal { 
-		get {if (this["xml",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["xml",DataRowVersion.Original];}
+		get {return  (String)this["xml",DataRowVersion.Original];}
 	}
 	///<summary>
 	///data ultima modifica
 	///</summary>
-	public DateTime? lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
-		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
+	public DateTime lt{ 
+		get {return  (DateTime)this["lt"];}
+		set {this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
-		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
+		set {this["lt"]= value;}
 	}
-	public DateTime? ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
+	public DateTime ltOriginal { 
+		get {return  (DateTime)this["lt",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome ultimo utente modifica
 	///</summary>
 	public String lu{ 
-		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
-		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		get {return  (String)this["lu"];}
+		set {this["lu"]= value;}
 	}
 	public object luValue { 
 		get{ return this["lu"];}
-		set {if (value==null|| value==DBNull.Value) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		set {this["lu"]= value;}
 	}
 	public String luOriginal { 
-		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
+		get {return  (String)this["lu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///identificativo assegnato dall'SDI
 	///</summary>
-	public Int32? identificativo_sdi{ 
-		get {if (this["identificativo_sdi"]==DBNull.Value)return null; return  (Int32?)this["identificativo_sdi"];}
+	public Int64? identificativo_sdi{ 
+		get {if (this["identificativo_sdi"]==DBNull.Value)return null; return  (Int64?)this["identificativo_sdi"];}
 		set {if (value==null) this["identificativo_sdi"]= DBNull.Value; else this["identificativo_sdi"]= value;}
 	}
 	public object identificativo_sdiValue { 
 		get{ return this["identificativo_sdi"];}
 		set {if (value==null|| value==DBNull.Value) this["identificativo_sdi"]= DBNull.Value; else this["identificativo_sdi"]= value;}
 	}
-	public Int32? identificativo_sdiOriginal { 
-		get {if (this["identificativo_sdi",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["identificativo_sdi",DataRowVersion.Original];}
+	public Int64? identificativo_sdiOriginal { 
+		get {if (this["identificativo_sdi",DataRowVersion.Original]==DBNull.Value)return null; return  (Int64?)this["identificativo_sdi",DataRowVersion.Original];}
 	}
 	///<summary>
 	///file xml metadati
@@ -234,30 +235,30 @@ public class sdi_acquistoRow: MetaRow  {
 	///	 5: Da protocollare (casua problemi tecnici col servizio)
 	///	 6: Da protocollare (inserita via web)
 	///</summary>
-	public Int16? idsdi_status{ 
-		get {if (this["idsdi_status"]==DBNull.Value)return null; return  (Int16?)this["idsdi_status"];}
-		set {if (value==null) this["idsdi_status"]= DBNull.Value; else this["idsdi_status"]= value;}
+	public Int16 idsdi_status{ 
+		get {return  (Int16)this["idsdi_status"];}
+		set {this["idsdi_status"]= value;}
 	}
 	public object idsdi_statusValue { 
 		get{ return this["idsdi_status"];}
-		set {if (value==null|| value==DBNull.Value) this["idsdi_status"]= DBNull.Value; else this["idsdi_status"]= value;}
+		set {this["idsdi_status"]= value;}
 	}
-	public Int16? idsdi_statusOriginal { 
-		get {if (this["idsdi_status",DataRowVersion.Original]==DBNull.Value)return null; return  (Int16?)this["idsdi_status",DataRowVersion.Original];}
+	public Int16 idsdi_statusOriginal { 
+		get {return  (Int16)this["idsdi_status",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Posizione della fattura di acquisto all'interno del file xml
 	///</summary>
-	public Int32? position{ 
-		get {if (this["position"]==DBNull.Value)return null; return  (Int32?)this["position"];}
-		set {if (value==null) this["position"]= DBNull.Value; else this["position"]= value;}
+	public Int32 position{ 
+		get {return  (Int32)this["position"];}
+		set {this["position"]= value;}
 	}
 	public object positionValue { 
 		get{ return this["position"];}
-		set {if (value==null|| value==DBNull.Value) this["position"]= DBNull.Value; else this["position"]= value;}
+		set {this["position"]= value;}
 	}
-	public Int32? positionOriginal { 
-		get {if (this["position",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["position",DataRowVersion.Original];}
+	public Int32 positionOriginal { 
+		get {return  (Int32)this["position",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Numero progressivo per comunicazione esito committente, fa parte del nome file esito committente inviato
@@ -573,6 +574,11 @@ public class sdi_acquistoRow: MetaRow  {
 	public String tipodocumentoOriginal { 
 		get {if (this["tipodocumento",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["tipodocumento",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Non creare fattura
+	///	 N: Creare fattura (caso normale)
+	///	 S: Non creare fattura
+	///</summary>
 	public String notcreacontabilita{ 
 		get {if (this["notcreacontabilita"]==DBNull.Value)return null; return  (String)this["notcreacontabilita"];}
 		set {if (value==null) this["notcreacontabilita"]= DBNull.Value; else this["notcreacontabilita"]= value;}
@@ -584,6 +590,9 @@ public class sdi_acquistoRow: MetaRow  {
 	public String notcreacontabilitaOriginal { 
 		get {if (this["notcreacontabilita",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["notcreacontabilita",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Motivo per cui non va creata una fattura in contabilit√†
+	///</summary>
 	public String notcreacontabilitareason{ 
 		get {if (this["notcreacontabilitareason"]==DBNull.Value)return null; return  (String)this["notcreacontabilitareason"];}
 		set {if (value==null) this["notcreacontabilitareason"]= DBNull.Value; else this["notcreacontabilitareason"]= value;}
@@ -595,6 +604,17 @@ public class sdi_acquistoRow: MetaRow  {
 	public String notcreacontabilitareasonOriginal { 
 		get {if (this["notcreacontabilitareason",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["notcreacontabilitareason",DataRowVersion.Original];}
 	}
+	public DateTime? data_ricezione{ 
+		get {if (this["data_ricezione"]==DBNull.Value)return null; return  (DateTime?)this["data_ricezione"];}
+		set {if (value==null) this["data_ricezione"]= DBNull.Value; else this["data_ricezione"]= value;}
+	}
+	public object data_ricezioneValue { 
+		get{ return this["data_ricezione"];}
+		set {if (value==null|| value==DBNull.Value) this["data_ricezione"]= DBNull.Value; else this["data_ricezione"]= value;}
+	}
+	public DateTime? data_ricezioneOriginal { 
+		get {if (this["data_ricezione",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["data_ricezione",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -604,48 +624,48 @@ public class sdi_acquistoRow: MetaRow  {
 public class sdi_acquistoTable : MetaTableBase<sdi_acquistoRow> {
 	public sdi_acquistoTable() : base("sdi_acquisto"){
 		baseColumns = new Dictionary<string, DataColumn>(){
-			{"idsdi_acquisto",createColumn("idsdi_acquisto",typeof(Int32),false,false)},
-			{"filename",createColumn("filename",typeof(String),false,false)},
-			{"zipfilename",createColumn("zipfilename",typeof(String),false,false)},
+			{"idsdi_acquisto",createColumn("idsdi_acquisto",typeof(int),false,false)},
+			{"filename",createColumn("filename",typeof(string),false,false)},
+			{"zipfilename",createColumn("zipfilename",typeof(string),false,false)},
 			{"adate",createColumn("adate",typeof(DateTime),false,false)},
-			{"xml",createColumn("xml",typeof(String),false,false)},
+			{"xml",createColumn("xml",typeof(string),false,false)},
 			{"lt",createColumn("lt",typeof(DateTime),false,false)},
-			{"lu",createColumn("lu",typeof(String),false,false)},
-			{"identificativo_sdi",createColumn("identificativo_sdi",typeof(Int32),true,false)},
-			{"mt",createColumn("mt",typeof(String),true,false)},
-			{"ec",createColumn("ec",typeof(String),true,false)},
-			{"ec_sent",createColumn("ec_sent",typeof(String),true,false)},
-			{"se",createColumn("se",typeof(String),true,false)},
-			{"dt",createColumn("dt",typeof(String),true,false)},
-			{"flag_unseen",createColumn("flag_unseen",typeof(Int32),true,false)},
-			{"idsdi_status",createColumn("idsdi_status",typeof(Int16),false,false)},
-			{"position",createColumn("position",typeof(Int32),false,false)},
-			{"ec_number",createColumn("ec_number",typeof(Int32),true,false)},
-			{"title",createColumn("title",typeof(String),true,false)},
-			{"description",createColumn("description",typeof(String),true,false)},
-			{"ninvoice",createColumn("ninvoice",typeof(String),true,false)},
-			{"riferimento_amministrazione",createColumn("riferimento_amministrazione",typeof(String),true,false)},
-			{"codice_ipa",createColumn("codice_ipa",typeof(String),true,false)},
-			{"total",createColumn("total",typeof(Decimal),true,false)},
-			{"discount_amount",createColumn("discount_amount",typeof(Decimal),true,false)},
+			{"lu",createColumn("lu",typeof(string),false,false)},
+			{"identificativo_sdi",createColumn("identificativo_sdi",typeof(long),true,false)},
+			{"mt",createColumn("mt",typeof(string),true,false)},
+			{"ec",createColumn("ec",typeof(string),true,false)},
+			{"ec_sent",createColumn("ec_sent",typeof(string),true,false)},
+			{"se",createColumn("se",typeof(string),true,false)},
+			{"dt",createColumn("dt",typeof(string),true,false)},
+			{"flag_unseen",createColumn("flag_unseen",typeof(int),true,false)},
+			{"idsdi_status",createColumn("idsdi_status",typeof(short),false,false)},
+			{"position",createColumn("position",typeof(int),false,false)},
+			{"ec_number",createColumn("ec_number",typeof(int),true,false)},
+			{"title",createColumn("title",typeof(string),true,false)},
+			{"description",createColumn("description",typeof(string),true,false)},
+			{"ninvoice",createColumn("ninvoice",typeof(string),true,false)},
+			{"riferimento_amministrazione",createColumn("riferimento_amministrazione",typeof(string),true,false)},
+			{"codice_ipa",createColumn("codice_ipa",typeof(string),true,false)},
+			{"total",createColumn("total",typeof(decimal),true,false)},
+			{"discount_amount",createColumn("discount_amount",typeof(decimal),true,false)},
 			{"protocoldate",createColumn("protocoldate",typeof(DateTime),true,false)},
-			{"arrivalprotocolnum",createColumn("arrivalprotocolnum",typeof(String),true,false)},
-			{"rejectreason",createColumn("rejectreason",typeof(String),true,false)},
-			{"ec_prot",createColumn("ec_prot",typeof(String),true,false)},
-			{"mt_prot",createColumn("mt_prot",typeof(String),true,false)},
-			{"se_prot",createColumn("se_prot",typeof(String),true,false)},
-			{"dt_prot",createColumn("dt_prot",typeof(String),true,false)},
-			{"utente_accettata",createColumn("utente_accettata",typeof(String),true,false)},
-			{"utente_rifiutata",createColumn("utente_rifiutata",typeof(String),true,false)},
+			{"arrivalprotocolnum",createColumn("arrivalprotocolnum",typeof(string),true,false)},
+			{"rejectreason",createColumn("rejectreason",typeof(string),true,false)},
+			{"ec_prot",createColumn("ec_prot",typeof(string),true,false)},
+			{"mt_prot",createColumn("mt_prot",typeof(string),true,false)},
+			{"se_prot",createColumn("se_prot",typeof(string),true,false)},
+			{"dt_prot",createColumn("dt_prot",typeof(string),true,false)},
+			{"utente_accettata",createColumn("utente_accettata",typeof(string),true,false)},
+			{"utente_rifiutata",createColumn("utente_rifiutata",typeof(string),true,false)},
 			{"data_accettata",createColumn("data_accettata",typeof(DateTime),true,false)},
 			{"data_rifiutata",createColumn("data_rifiutata",typeof(DateTime),true,false)},
-			{"protocol_error",createColumn("protocol_error",typeof(String),true,false)},
-			{"total_easy",createColumn("total_easy",typeof(Decimal),true,false)},
-			{"tipodocumento",createColumn("tipodocumento",typeof(String),true,false)},
-			{"notcreacontabilita",createColumn("notcreacontabilita",typeof(String),true,false)},
-			{"notcreacontabilitareason",createColumn("notcreacontabilitareason",typeof(String),true,false)},
+			{"protocol_error",createColumn("protocol_error",typeof(string),true,false)},
+			{"total_easy",createColumn("total_easy",typeof(decimal),true,false)},
+			{"tipodocumento",createColumn("tipodocumento",typeof(string),true,false)},
+			{"notcreacontabilita",createColumn("notcreacontabilita",typeof(string),true,false)},
+			{"notcreacontabilitareason",createColumn("notcreacontabilitareason",typeof(string),true,false)},
+			{"data_ricezione",createColumn("data_ricezione",typeof(DateTime),true,false)},
 		};
 	}
 }
 }
-

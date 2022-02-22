@@ -73,6 +73,8 @@
               <xs:element name="ftpport" type="xs:int" minOccurs="0" />
               <xs:element name="ftpdir" type="xs:string" minOccurs="0" />
               <xs:element name="tramite_bt_code" type="xs:string" minOccurs="0" />
+              <xs:element name="tramite_agency_code" type="xs:string" minOccurs="0" />
+              <xs:element name="agency_istat_code" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

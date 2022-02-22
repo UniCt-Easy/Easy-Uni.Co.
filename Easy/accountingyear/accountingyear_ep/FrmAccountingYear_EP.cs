@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -27,7 +26,7 @@ using metadatalibrary;
 using funzioni_configurazione;
 
 namespace accountingyear_ep {
-    public partial class FrmAccountingYear_EP : Form {
+    public partial class FrmAccountingYear_EP : MetaDataForm {
         int esercizio;
         MetaData Meta;
 
@@ -75,10 +74,10 @@ namespace accountingyear_ep {
 
             Post.InitClass(DS, Meta.Conn);
             if (!Post.DO_POST()) {
-                MessageBox.Show(this, "Errore durante la chiusura dell'esercizio" + esercizio);
+                show(this, "Errore durante la chiusura dell'esercizio" + esercizio);
             }
             else {
-                MessageBox.Show(this, "Esercizio " + esercizio + " chiuso correttamente");
+                show(this, "Esercizio " + esercizio + " chiuso correttamente");
             }
             this.Close();
         }
@@ -88,10 +87,10 @@ namespace accountingyear_ep {
             DataSet dsOut = DataAccess.CallSP(Meta.Conn, "closeyear_reopenayear", new object[] { esercizio, "E" }, true, 60000);
 
             if (dsOut == null) {
-                MessageBox.Show(this, "Errore nella S.P. di riapertura dell'esercizio " + esercizio);
+                show(this, "Errore nella S.P. di riapertura dell'esercizio " + esercizio);
             }
             else {
-                MessageBox.Show(this, "Esercizio " + esercizio + " riaperto correttamente");
+                show(this, "Esercizio " + esercizio + " riaperto correttamente");
             }
             this.Close();
         }
@@ -111,4 +110,4 @@ namespace accountingyear_ep {
             MetaData.DoMainCommand(this, "maindosearch.ep");
         }
     }
-}
+}

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -29,7 +28,7 @@ using funzioni_configurazione;
 using metaeasylibrary;
 
 namespace no_table_entry_integrazione {
-    public partial class Frmno_table_entry_integrazione : Form {
+    public partial class Frmno_table_entry_integrazione : MetaDataForm {
         MetaData Meta;
         
         
@@ -73,7 +72,7 @@ namespace no_table_entry_integrazione {
             if (tEntryDetail == null) return;
 
             if (!doIntegrazione(tEntryDetail)) {
-                MessageBox.Show(this, "Errore nel processo di integrazione dei risconti", "Errore");
+                show(this, "Errore nel processo di integrazione dei risconti", "Errore");
             }
         }
         private bool doVerify () {
@@ -83,7 +82,7 @@ namespace no_table_entry_integrazione {
             int nrows = Meta.Conn.RUN_SELECT_COUNT("entry", filter, false);
             
             if (nrows>0) {
-                if (MessageBox.Show("Le scritture di Integrazione relative all''esercizio corrente risultano già generate. Si desidera proseguire comunque?", "Avviso",
+                if (show("Le scritture di Integrazione relative all''esercizio corrente risultano già generate. Si desidera proseguire comunque?", "Avviso",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return false;
             }
@@ -92,12 +91,12 @@ namespace no_table_entry_integrazione {
 
         private bool doIntegrazione(DataTable tEntryDetailSource) {
             if (tEntryDetailSource == null) {
-                MessageBox.Show(this, "La tabella dei dettagli scritture non è definita", "Errore");
+                show(this, "La tabella dei dettagli scritture non è definita", "Errore");
                 return false;
             }
 
             if (tEntryDetailSource.Rows.Count == 0) {
-                MessageBox.Show(this, "La tabella dei dettagli scritture risulta vuota", "Avvertimento");
+                show(this, "La tabella dei dettagli scritture risulta vuota", "Avvertimento");
                 return true;
             }
 
@@ -161,13 +160,13 @@ namespace no_table_entry_integrazione {
 
             object idacc_riscontoA = Meta.Conn.DO_READ_VALUE("config", QHS.CmpEq("ayear", currYear), campoRiscontoAttivo);
             if ((idacc_riscontoA == null) || (idacc_riscontoA == DBNull.Value)) {
-                MessageBox.Show(this, "Attenzione non è stato specificato il conto del risconto attivo", "Errore");
+                show(this, "Attenzione non è stato specificato il conto del risconto attivo", "Errore");
                 return false;
             }
 
             object idacc_riscontoP = Meta.Conn.DO_READ_VALUE("config", QHS.CmpEq("ayear", currYear), campoRiscontoPassivo);
             if ((idacc_riscontoP == null) || (idacc_riscontoP == DBNull.Value)) {
-                MessageBox.Show(this, "Attenzione non è stato specificato il conto del risconto passivo", "Errore");
+                show(this, "Attenzione non è stato specificato il conto del risconto passivo", "Errore");
                 return false;
             }
 
@@ -183,12 +182,13 @@ namespace no_table_entry_integrazione {
                 object idAcc = curr["idacc"];
                 object newIdAcc = attualizzaAccount(idAcc);
                 if (newIdAcc == DBNull.Value || newIdAcc == null) {
-                    MessageBox.Show("Non sono riuscito ad attualizzare il conto di codice " +
+                    show("Non sono riuscito ad attualizzare il conto di codice " +
                                     conn.DO_READ_VALUE("account", QHS.CmpEq("idacc", idAcc), "codeacc"), "Errore");
                     continue;
                 }
-                object idRateoAttivo = attualizzaAccount(curr["idacc_accruals"]); // getRateoAttivo(Curr["idupb"].ToString());
-                if (identrykind == 8 && newIdAcc.Equals(idRateoAttivo)) {
+
+                int usage = CfgFn.GetNoNullInt32(curr["flagaccountusage"]);
+                if ((usage & 1) != 0) {
                     upbRateoAttivo[curr["idupb"].ToString()] = true;
                 }
             }
@@ -205,7 +205,7 @@ namespace no_table_entry_integrazione {
                 object idAcc = curr["idacc"];
                 object newIdAcc = attualizzaAccount(idAcc);
                 if (newIdAcc == DBNull.Value||newIdAcc==null) {
-                    MessageBox.Show("Non sono riuscito ad attualizzare il conto di codice " +
+                    show("Non sono riuscito ad attualizzare il conto di codice " +
                                     conn.DO_READ_VALUE("account", QHS.CmpEq("idacc", idAcc), "codeacc"), "Errore");
                     continue;
                 }
@@ -233,32 +233,31 @@ namespace no_table_entry_integrazione {
                 //if (idRateoAttivo == DBNull.Value || idRateoAttivo == null) {
                 //    //string codiceUpb =
                 //    //    conn.DO_READ_VALUE("upb", "codeupb", QHS.CmpEq("idupb", Curr["idupb"])).ToString();
-                //    //MessageBox.Show("Conto di rateo attivo non configurato per l'UPB di codice " + codiceUpb,
+                //    //show("Conto di rateo attivo non configurato per l'UPB di codice " + codiceUpb,
                 //    //    "Errore");
                 //    continue;
                 //}
 
                 int flagaccountusage = CfgFn.GetNoNullInt32(curr["flagaccountusage"]);
                 //per le tipo 8 (Assestamento Commessa Completata) prende solo i risconti
-                //if ((identrykind == 8) && ((flagaccountusage & 12)==0)) continue; 
+                //if ((identrykind == 8) && ((flagaccountusage & 12)==0)) continue;  //16/10 Emilia , task 14422
 
                 //per le tipo 3  (Risconto Rettifica)  salta i conti di risconto
-                if ((identrykind==3) && (newIdAcc.Equals(idacc_riscontoA)) || (newIdAcc.Equals(idRiscontoPassivo))) continue;
+                if ((identrykind==3) && (newIdAcc.Equals(idacc_riscontoA) || newIdAcc.Equals(idRiscontoPassivo))) continue;
 
                 //per le tipo 8 (Assestamento Commessa Completata) salta i conti di rateo attivo
-                //if (identrykind == 8 && newIdAcc.Equals(idRateoAttivo)) continue;
+                if (identrykind == 8 && newIdAcc.Equals(idRateoAttivo)) continue; //16/10 Emilia , task 14422
 
-                //per le tipo 8 (Assestamento Commessa Completata) salta quelle che non sono di ricavo in dare
-                if ((identrykind == 8) && ((placcpart != "R"))) continue; //||(importoDettaglio>0) task  11249 non filtro più dare o avere
-
+                //per le tipo 8 (Assestamento Commessa Completata) salta quelle che non sono di (parte conto economico) ricavo 
+                if ((identrykind == 8) && (placcpart != "R")) continue; //||(importoDettaglio>0) task  11249 non filtro più dare o avere
 
                 //per le tipo 13 (Assestamento Percentuale di Completamento) salta quelle che non sono di ricavo in avere
-                if ((identrykind == 13) && ((placcpart != "R") || (importoDettaglio < 0))) continue;
+                if ((identrykind == 13) && ((placcpart != "R") )) continue; //|| (importoDettaglio < 0)  commento sotto indicaz. di Emilia 16/10 , task 14422
 
                 
                 if ((identrykind == 13) && (placcpart == "C")) {
                     string codeacc = conn.DO_READ_VALUE("account", QHS.CmpEq("idacc", idAcc), "codeacc").ToString();
-                    MessageBox.Show("Il conto di codice " +codeacc +
+                    show("Il conto di codice " +codeacc +
                                     " non è un conto di ricavo ma è presente in una scrittura di tipo:\n\r"+
                                     "Assestamento Percentuale di Completamento"
                                    , "Errore");
@@ -299,25 +298,6 @@ namespace no_table_entry_integrazione {
                     rEntryDetailCR[field] = curr[field];
                 }
 
-                //EP.EffettuaScrittura(idepcontext, importoRisconto, idAcc, Curr["idreg"], Curr["idupb"],
-                //    jan01, Curr["competencystop"], null, Curr["idaccmotive"]);
-               
-                //// Dettaglio RISCONTO               
-                //string filter = costruisciFiltro(riscontoChoosen, Curr);
-                //if (tEntryDetail.Select(filter).Length > 0) {
-                //    DataRow rFound = tEntryDetail.Select(filter)[0];
-                //    rFound["amount"] = CfgFn.GetNoNullDecimal(rFound["amount"]) + importoDettaglio;
-                //}
-                //else {
-                //    DataRow rEntryDetailRis = MEntryDetail.Get_New_Row(rEntry, ds.Tables["entrydetail"]);
-                //    rEntryDetailRis["amount"] = importoDettaglio;
-                //    rEntryDetailRis["idacc"] = idaccountAvere;
-                //    foreach (string field in new string[] {"idreg", "idupb", "idepexp", "idepacc", "idsor1", "idsor2", "idsor3",
-                //    "idaccmotive", "competencystart", "competencystop"}) {
-                //        rEntryDetailRis[field] = Curr[field];
-                //    }
-                //}
-
                 DataRow rEntryDetailRis = MEntryDetail.Get_New_Row(rEntry, ds.Tables["entrydetail"]);
                 rEntryDetailRis["amount"] = importoDettaglio;
                 rEntryDetailRis["idacc"] = idaccountAvere;
@@ -334,13 +314,13 @@ namespace no_table_entry_integrazione {
                 }
             }
             if (ds.Tables["entry"].Rows.Count == 0) {
-                MessageBox.Show(this, "Nessuna operazione da integrare.", "Avviso");
+                show(this, "Nessuna operazione da integrare.", "Avviso");
                 return true;
             }
             FrmEntryPreSave frm = new FrmEntryPreSave(ds.Tables["entrydetail"], Meta.Conn,tEntryDetailSource);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
-                MessageBox.Show(this, "Operazione Annullata!","Avviso");
+                show(this, "Operazione Annullata!","Avviso");
                 return true;
             }
 
@@ -350,10 +330,10 @@ namespace no_table_entry_integrazione {
             if (Post.DO_POST()) {
                 DataRow rEntryPosted = ds.Tables["entry"].Rows[0];
                 EditRelatedEntryByKey(rEntryPosted);
-                MessageBox.Show(this, "Integrazione dei residui completata con successo!");
+                show(this, "Integrazione dei residui completata con successo!");
             }
             else {
-                MessageBox.Show(this, "Errore nel salvataggio della scrittura di integrazione!", "Errore");
+                show(this, "Errore nel salvataggio della scrittura di integrazione!", "Errore");
             }
             return true;
         }
@@ -371,7 +351,7 @@ namespace no_table_entry_integrazione {
             string checkfilter = QHS.MCmp(rEntry, new string[] { "yentry", "nentry" });
             ToMeta.ContextFilter = checkfilter;
             Form F = null;
-            if (Meta.LinkedForm != null) F = Meta.LinkedForm.ParentForm;
+            if (Meta.linkedForm != null) F = Meta.linkedForm.ParentForm;
             bool result = ToMeta.Edit(F, "default", false);
             string listtype = ToMeta.DefaultListType;
             DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
@@ -411,7 +391,7 @@ namespace no_table_entry_integrazione {
 
             DataTable tEntryDetail = DataAccess.SQLRunner(Meta.Conn, queryED);
             if (tEntryDetail == null) {
-                MessageBox.Show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
+                show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
                 return null;
             }
 
@@ -432,4 +412,4 @@ namespace no_table_entry_integrazione {
 
         }
     }
-}
+}

@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="stip_voce" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstipvoce" type="xs:int" />
+              <xs:element name="codicevoce" type="xs:string" minOccurs="0" />
+              <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="stip_tassa" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstiptassa" type="xs:int" />
+              <xs:element name="codicetassa" type="xs:string" minOccurs="0" />
+              <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="stip_corsolaurea" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstipcorsolaurea" type="xs:int" />
+              <xs:element name="codicecorsolaurea" type="xs:string" minOccurs="0" />
+              <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="anno" type="xs:int" minOccurs="0" />
+              <xs:element name="dipartimento" type="xs:string" minOccurs="0" />
+              <xs:element name="percorso" type="xs:string" minOccurs="0" />
+              <xs:element name="sede" type="xs:string" minOccurs="0" />
+              <xs:element name="codicedipartimento" type="xs:string" minOccurs="0" />
+              <xs:element name="codicepercorso" type="xs:string" minOccurs="0" />
+              <xs:element name="codicesede" type="xs:string" minOccurs="0" />
+              <xs:element name="descrizionecorsolaurea" type="xs:string" minOccurs="0" />
+              <xs:element name="codicecausale" type="xs:string" minOccurs="0" />
+              <xs:element name="causale" type="xs:string" minOccurs="0" />
+              <xs:element name="idstiptassa" type="xs:int" minOccurs="0" />
+              <xs:element name="idstipvoce" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="upb" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="assured" type="xs:string" minOccurs="0" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="expiration" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="granted" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+              <xs:element name="previousappropriation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousassessment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="requested" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="cupcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="flagactivity" type="xs:short" minOccurs="0" />
+              <xs:element name="flagkind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="newcodeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cigcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idepupbkind" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sorting1" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="sortcode" type="xs:string" />
+              <xs:element name="paridsor" type="xs:int" minOccurs="0" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="defaultN1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultS1" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS2" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS3" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS4" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS5" type="xs:string" minOccurs="0" />
+              <xs:element name="flagnodate" type="xs:string" minOccurs="0" />
+              <xs:element name="movkind" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultv1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sorting3" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="sortcode" type="xs:string" />
+              <xs:element name="paridsor" type="xs:int" minOccurs="0" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="defaultN1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultS1" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS2" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS3" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS4" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS5" type="xs:string" minOccurs="0" />
+              <xs:element name="flagnodate" type="xs:string" minOccurs="0" />
+              <xs:element name="movkind" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultv1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sorting2" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="sortcode" type="xs:string" />
+              <xs:element name="paridsor" type="xs:int" minOccurs="0" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="defaultN1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultS1" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS2" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS3" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS4" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS5" type="xs:string" minOccurs="0" />
+              <xs:element name="flagnodate" type="xs:string" minOccurs="0" />
+              <xs:element name="movkind" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultv1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:stip_voce" />
+      <xs:field xpath="mstns:idstipvoce" />
+    </xs:unique>
+    <xs:unique name="stip_tassa_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:stip_tassa" />
+      <xs:field xpath="mstns:idstiptassa" />
+    </xs:unique>
+    <xs:unique name="stip_corsolaurea_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:stip_corsolaurea" />
+      <xs:field xpath="mstns:idstipcorsolaurea" />
+    </xs:unique>
+    <xs:unique name="upb_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upb" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="sorting1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sorting1" />
+      <xs:field xpath="mstns:idsor" />
+    </xs:unique>
+    <xs:unique name="sorting3_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sorting3" />
+      <xs:field xpath="mstns:idsor" />
+    </xs:unique>
+    <xs:unique name="sorting2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sorting2" />
+      <xs:field xpath="mstns:idsor" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="upb_stip_corsolaurea" msdata:parent="upb" msdata:child="stip_corsolaurea" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="stip_voce_stip_corsolaurea" msdata:parent="stip_voce" msdata:child="stip_corsolaurea" msdata:parentkey="idstipvoce" msdata:childkey="idstipvoce" />
+      <msdata:Relationship name="stip_tassa_stip_corsolaurea" msdata:parent="stip_tassa" msdata:child="stip_corsolaurea" msdata:parentkey="idstiptassa" msdata:childkey="idstiptassa" />
+      <msdata:Relationship name="sorting1_stip_corsolaurea" msdata:parent="sorting1" msdata:child="stip_corsolaurea" msdata:parentkey="idsor" msdata:childkey="idsor1" />
+      <msdata:Relationship name="sorting2_stip_corsolaurea" msdata:parent="sorting2" msdata:child="stip_corsolaurea" msdata:parentkey="idsor" msdata:childkey="idsor2" />
+      <msdata:Relationship name="sorting3_stip_corsolaurea" msdata:parent="sorting3" msdata:child="stip_corsolaurea" msdata:parentkey="idsor" msdata:childkey="idsor3" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

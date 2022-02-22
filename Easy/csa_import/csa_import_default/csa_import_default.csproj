@@ -221,10 +221,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\mainform\mainform.csproj">
-      <Project>{e04c2cef-078b-4b25-904c-6374c88e0ee7}</Project>
-      <Name>mainform</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\ep_functions\ep_functions.csproj">
       <Project>{13E495EF-B62D-494E-AEC7-E06E7826DCE6}</Project>
       <Name>ep_functions</Name>

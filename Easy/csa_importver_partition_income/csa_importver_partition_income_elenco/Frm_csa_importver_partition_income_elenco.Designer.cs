@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿namespace csa_importver_partition_income_elenco {
+
+namespace csa_importver_partition_income_elenco {
     partial class Frm_csa_importver_partition_income_elenco {
         /// <summary>
         /// Required designer variable.
@@ -58,6 +57,8 @@
             this.gBoxCompetenza = new System.Windows.Forms.GroupBox();
             this.txtCompetenza = new System.Windows.Forms.TextBox();
             this.gBoxDatiCSA = new System.Windows.Forms.GroupBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -279,6 +280,8 @@
             // 
             this.gBoxDatiCSA.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.gBoxDatiCSA.Controls.Add(this.textBox2);
+            this.gBoxDatiCSA.Controls.Add(this.label2);
             this.gBoxDatiCSA.Controls.Add(this.textBox4);
             this.gBoxDatiCSA.Controls.Add(this.label4);
             this.gBoxDatiCSA.Controls.Add(this.label5);
@@ -295,19 +298,38 @@
             this.gBoxDatiCSA.TabIndex = 47;
             this.gBoxDatiCSA.TabStop = false;
             // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(403, 75);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox2.Size = new System.Drawing.Size(167, 20);
+            this.textBox2.TabIndex = 10;
+            this.textBox2.TabStop = false;
+            this.textBox2.Tag = "csa_importver.matricola?csa_importver_partition_incomeview.matricola";
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(403, 58);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(103, 16);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Matricola:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // textBox4
             // 
             this.textBox4.Location = new System.Drawing.Point(184, 75);
             this.textBox4.Name = "textBox4";
             this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox4.Size = new System.Drawing.Size(350, 20);
+            this.textBox4.Size = new System.Drawing.Size(201, 20);
             this.textBox4.TabIndex = 6;
             this.textBox4.TabStop = false;
             this.textBox4.Tag = "csa_importver.vocecsaunified?csa_importver_partition_incomeview.vocecsaunified";
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(195, 58);
+            this.label4.Location = new System.Drawing.Point(185, 58);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(190, 16);
             this.label4.TabIndex = 5;
@@ -328,10 +350,10 @@
             this.txtEnteCsa.Location = new System.Drawing.Point(185, 33);
             this.txtEnteCsa.Name = "txtEnteCsa";
             this.txtEnteCsa.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtEnteCsa.Size = new System.Drawing.Size(171, 20);
+            this.txtEnteCsa.Size = new System.Drawing.Size(200, 20);
             this.txtEnteCsa.TabIndex = 2;
             this.txtEnteCsa.TabStop = false;
-            this.txtEnteCsa.Tag = "csa_importver.ente?csa_importver_partition_incomeview.ente";
+            this.txtEnteCsa.Tag = "csa_importver.ente?csa_importver_partition_incomeview.registry_agency";
             // 
             // txtVoceCsa
             // 
@@ -354,7 +376,7 @@
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(360, 16);
+            this.label6.Location = new System.Drawing.Point(400, 16);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(127, 16);
             this.label6.TabIndex = 0;
@@ -363,7 +385,7 @@
             // 
             // txtRuoloCsa
             // 
-            this.txtRuoloCsa.Location = new System.Drawing.Point(364, 33);
+            this.txtRuoloCsa.Location = new System.Drawing.Point(404, 33);
             this.txtRuoloCsa.Name = "txtRuoloCsa";
             this.txtRuoloCsa.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtRuoloCsa.Size = new System.Drawing.Size(170, 20);
@@ -454,6 +476,7 @@
             // 
             this.txtEsercImport.Location = new System.Drawing.Point(68, 15);
             this.txtEsercImport.Name = "txtEsercImport";
+            this.txtEsercImport.ReadOnly = true;
             this.txtEsercImport.Size = new System.Drawing.Size(56, 20);
             this.txtEsercImport.TabIndex = 1;
             this.txtEsercImport.Tag = "csa_import.yimport.year?csa_importver_partition_incomeview.yimport.year";
@@ -745,5 +768,7 @@
         private System.Windows.Forms.TextBox txtCredDeb;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtAnagrafica;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label2;
     }
-    }
+    }

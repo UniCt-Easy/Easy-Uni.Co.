@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
@@ -45,10 +44,10 @@ namespace meta_webpaymentdetail {
                 int nPos = 1;
 
                 DescribeAColumn(T, "!list", "Articolo", "list.description", nPos++);
-                DescribeAColumn(T, "number", "Quantit√†", nPos++);
+                DescribeAColumn(T, "number", "Quantit‡", nPos++);
 
-				DescribeAColumn(T, "price", "Imponibile", nPos++);
-				DescribeAColumn(T, "tax", "Iva", nPos++);
+				DescribeAColumn(T, "price", "Imponibile unitario", nPos++);
+				DescribeAColumn(T, "tax", "Iva totale", nPos++);
 				DescribeAColumn(T, "!totale","Totale", nPos++);
 
 				DescribeAColumn(T, "!store", "Magazzino", "store.description", nPos++);
@@ -56,8 +55,12 @@ namespace meta_webpaymentdetail {
 				ComputeRowsAs(T, ListingType);
 			}
         }
+        public override void SetDefaults(DataTable PrimaryTable) {
+            base.SetDefaults(PrimaryTable);
+            SetDefault(PrimaryTable, "flag_showcase", 0);
+            }
 
-		public override void CalculateFields(DataRow R, string list_type) {
+        public override void CalculateFields(DataRow R, string list_type) {
 			if (list_type == "list") {
 				decimal imponibile=CfgFn.GetNoNullDecimal(R["price"]);
 				decimal imposta=CfgFn.GetNoNullDecimal(R["tax"]);
@@ -77,7 +80,7 @@ namespace meta_webpaymentdetail {
 
         }
         public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable ToMerge) {
-            if (ListingType == "list") {
+            if (ListingType == "default") {
                 return base.SelectOne(ListingType, filter, "webpaymentdetailview", ToMerge);
             }
             return base.SelectOne(ListingType, filter, searchtable, ToMerge);
@@ -85,8 +88,10 @@ namespace meta_webpaymentdetail {
 
 
         protected override Form GetForm(string FormName) {
-            DefaultListType = "default";
-            if (FormName == "default") return MetaData.GetFormByDllName("webpaymentdetail_default");
+            //DefaultListType = "default";
+            if (FormName == "single") {
+                return MetaData.GetFormByDllName("webpaymentdetail_single");
+            }
             return null;
         }
 
@@ -94,24 +99,24 @@ namespace meta_webpaymentdetail {
             if (!base.IsValid(R, out errmess, out errfield)) return false;
 
             if (CfgFn.GetNoNullInt32(R["idlist"]) == 0) {
-                errmess = "Il campo 'Articolo' √® obbligatorio";
+                errmess = "Il campo 'Articolo' Ë obbligatorio";
                 errfield = "idlist";
                 return false;
             }
 
             if (CfgFn.GetNoNullDecimal(R["number"]) == 0) {
-                errmess = "Il campo 'Quantit√†' √® obbligatorio";
+                errmess = "Il campo 'Quantit‡' Ë obbligatorio";
                 errfield = "number";
                 return false;
             }
             if (CfgFn.GetNoNullDecimal(R["price"]) == 0) {
-                errmess = "Il campo 'Prezzo unitario' non pu√≤ essere zero";
+                errmess = "Il campo 'Prezzo unitario' non puÚ essere zero";
                 errfield = "price";
                 return false;
             }
 
             if (CfgFn.GetNoNullDecimal(R["number"]) < 0) {
-                errmess = "Il campo 'Quantit√†' dev'essere positivo";
+                errmess = "Il campo 'Quantit‡' dev'essere positivo";
                 errfield = "number";
                 return false;
             }
@@ -120,4 +125,3 @@ namespace meta_webpaymentdetail {
 
     }
 }
-

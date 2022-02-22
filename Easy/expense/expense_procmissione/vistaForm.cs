@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -56,108 +55,57 @@ using metadatalibrary;
 namespace expense_procmissione {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public expenseTable expense 		=> (expenseTable)Tables["expense"];
 
-	///<summary>
-	///Dettaglio Recuperi
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expenseclawback 		=> (MetaTable)Tables["expenseclawback"];
 
-	///<summary>
-	///Tipi di recupero
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable clawback 		=> (MetaTable)Tables["clawback"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable registry 		=> (registryTable)Tables["registry"];
 
-	///<summary>
-	///Modalit√† pagamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registrypaymethod 		=> (MetaTable)Tables["registrypaymethod"];
 
-	///<summary>
-	///Dettaglio Ritenute
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expensetax 		=> (MetaTable)Tables["expensetax"];
 
-	///<summary>
-	///Fasi di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expensephase 		=> (MetaTable)Tables["expensephase"];
 
-	///<summary>
-	///Responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public managerTable manager 		=> (managerTable)Tables["manager"];
 
-	///<summary>
-	///Classificazione Movimenti di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public expensesortedTable expensesorted 		=> (expensesortedTable)Tables["expensesorted"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting 		=> (sortingTable)Tables["sorting"];
 
-	///<summary>
-	///Tipo di Rilevanza analitica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingkindTable sortingkind 		=> (sortingkindTable)Tables["sortingkind"];
 
-	///<summary>
-	///Modalit√† di pagamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable paymethod 		=> (MetaTable)Tables["paymethod"];
 
-	///<summary>
-	///Documento di pagamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public paymentTable payment 		=> (paymentTable)Tables["payment"];
 
-	///<summary>
-	///Tesoriere
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public treasurerTable treasurer 		=> (treasurerTable)Tables["treasurer"];
 
-	///<summary>
-	///Trattamento del bollo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable stamphandling 		=> (MetaTable)Tables["stamphandling"];
 
-	///<summary>
-	///Contabilizzazione missione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expenseitineration 		=> (MetaTable)Tables["expenseitineration"];
 
-	///<summary>
-	///Missione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public itinerationTable itineration 		=> (itinerationTable)Tables["itineration"];
 
@@ -167,132 +115,69 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable tipomovimento 		=> (MetaTable)Tables["tipomovimento"];
 
-	///<summary>
-	///Contabilizzazione Contratto passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expensemandate 		=> (MetaTable)Tables["expensemandate"];
 
-	///<summary>
-	///Fasi di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable incomephase 		=> (MetaTable)Tables["incomephase"];
 
-	///<summary>
-	///Fattura
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public invoiceTable invoice 		=> (invoiceTable)Tables["invoice"];
 
-	///<summary>
-	///Tipo di documento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public invoicekindTable invoicekind 		=> (invoicekindTable)Tables["invoicekind"];
 
-	///<summary>
-	///Contabilizzazione fattura acquisto
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expenseinvoice 		=> (MetaTable)Tables["expenseinvoice"];
 
-	///<summary>
-	///Contabilizzazione cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expensepayroll 		=> (MetaTable)Tables["expensepayroll"];
 
-	///<summary>
-	///Cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public payrollTable payroll 		=> (payrollTable)Tables["payroll"];
 
-	///<summary>
-	///Ritenuta Cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable payrolltax 		=> (MetaTable)Tables["payrolltax"];
 
-	///<summary>
-	///Contabilizzazione contratto occasionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expensecasualcontract 		=> (MetaTable)Tables["expensecasualcontract"];
 
-	///<summary>
-	///Contabilizzazione parcella professionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expenseprofservice 		=> (MetaTable)Tables["expenseprofservice"];
 
-	///<summary>
-	///Pagamento Prestazione Occasionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public casualcontractTable casualcontract 		=> (casualcontractTable)Tables["casualcontract"];
 
-	///<summary>
-	///Ritenuta su parcella professionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable profservicetax 		=> (MetaTable)Tables["profservicetax"];
 
-	///<summary>
-	///Parcella Professionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public profserviceTable profservice 		=> (profserviceTable)Tables["profservice"];
 
-	///<summary>
-	///Tipo Prestazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public serviceTable service 		=> (serviceTable)Tables["service"];
 
-	///<summary>
-	///Contabilizzazione compenso dipendente
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expensewageaddition 		=> (MetaTable)Tables["expensewageaddition"];
 
-	///<summary>
-	///Altri Compensi
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public wageadditionTable wageaddition 		=> (wageadditionTable)Tables["wageaddition"];
 
-	///<summary>
-	///Ritenute
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable wageadditiontax 		=> (MetaTable)Tables["wageadditiontax"];
 
-	///<summary>
-	///Informazioni annuali su movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public expenseyearTable expenseyear 		=> (expenseyearTable)Tables["expenseyear"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public upbTable upb 		=> (upbTable)Tables["upb"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public finviewTable finview 		=> (finviewTable)Tables["finview"];
 
-	///<summary>
-	///Contratto Passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public mandateTable mandate 		=> (mandateTable)Tables["mandate"];
 
-	///<summary>
-	///Tipo contratto passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public mandatekindTable mandatekind 		=> (mandatekindTable)Tables["mandatekind"];
 
@@ -302,9 +187,6 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable clawback_expense 		=> (MetaTable)Tables["clawback_expense"];
 
-	///<summary>
-	///Partita pendente
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public billTable bill 		=> (billTable)Tables["bill"];
 
@@ -320,78 +202,42 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable mandatedetail_taxable 		=> (MetaTable)Tables["mandatedetail_taxable"];
 
-	///<summary>
-	///Variazione movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public expensevarTable expensevar 		=> (expensevarTable)Tables["expensevar"];
 
-	///<summary>
-	///Movimento di spesa - Dettaglio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public expenselastTable expenselast 		=> (expenselastTable)Tables["expenselast"];
 
-	///<summary>
-	///Tipi di ritenuta
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable tax 		=> (MetaTable)Tables["tax"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable billview 		=> (MetaTable)Tables["billview"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public configTable config 		=> (configTable)Tables["config"];
 
-	///<summary>
-	///Dettaglio Correzioni Ritenute
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expensetaxcorrige 		=> (MetaTable)Tables["expensetaxcorrige"];
 
-	///<summary>
-	///Comuni
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public geo_cityTable geo_city 		=> (geo_cityTable)Tables["geo_city"];
 
-	///<summary>
-	///Regione per applicazione imposta regionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable fiscaltaxregion 		=> (MetaTable)Tables["fiscaltaxregion"];
 
-	///<summary>
-	///Dettaglio Riepilogo Ritenute
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expensetaxofficial 		=> (MetaTable)Tables["expensetaxofficial"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account 		=> (accountTable)Tables["account"];
 
-	///<summary>
-	///Finanziamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public underwritingTable underwriting 		=> (underwritingTable)Tables["underwriting"];
 
-	///<summary>
-	///Finanziamento fase Prenotazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable underwritingappropriation 		=> (MetaTable)Tables["underwritingappropriation"];
 
-	///<summary>
-	///Finanziamento fase Liquidazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable underwritingpayment 		=> (MetaTable)Tables["underwritingpayment"];
 
@@ -407,17 +253,20 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable monthname1 		=> (MetaTable)Tables["monthname1"];
 
-	///<summary>
-	///Sospeso passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expensebill 		=> (MetaTable)Tables["expensebill"];
 
-	///<summary>
-	///Trattamento delle spese
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable chargehandling 		=> (MetaTable)Tables["chargehandling"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable income_linked 		=> (MetaTable)Tables["income_linked"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable expenselastmandatedetail 		=> (MetaTable)Tables["expenselastmandatedetail"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable mandatedetail_pagamenti 		=> (MetaTable)Tables["mandatedetail_pagamenti"];
 
 	#endregion
 
@@ -446,7 +295,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// EXPENSE /////////////////////////////////
 	var texpense= new expenseTable();
-	texpense.addBaseColumns("adate","ct","cu","description","doc","docdate","expiration","idreg","lt","lu","nmov","rtf","txt","ymov","idclawback","idman","nphase","idexp","parentidexp","idpayment","idformerexpense","autokind","autocode","cupcode","cigcode");
+	texpense.addBaseColumns("adate","ct","cu","description","doc","docdate","expiration","idreg","lt","lu","nmov","rtf","txt","ymov","idclawback","idman","nphase","idexp","parentidexp","idpayment","idformerexpense","autokind","autocode","cupcode","cigcode","idinc_linked","flag");
 	Tables.Add(texpense);
 	texpense.defineKey("idexp");
 
@@ -523,6 +372,7 @@ private void initClass() {
 	tregistrypaymethod.defineColumn("flag", typeof(int));
 	tregistrypaymethod.defineColumn("idchargehandling", typeof(int));
 	tregistrypaymethod.defineColumn("requested_doc", typeof(int));
+	tregistrypaymethod.defineColumn("ccdedicato_stop", typeof(DateTime));
 	Tables.Add(tregistrypaymethod);
 	tregistrypaymethod.defineKey("idreg", "idregistrypaymethod");
 
@@ -590,13 +440,13 @@ private void initClass() {
 
 	//////////////////// SORTING /////////////////////////////////
 	var tsorting= new sortingTable();
-	tsorting.addBaseColumns("idsorkind","idsor","sortcode","paridsor","nlevel","description","txt","rtf","cu","ct","lu","lt","defaultn1","defaultn2","defaultn3","defaultn4","defaultn5","defaults1","defaults2","defaults3","defaults4","defaults5","flagnodate","movkind");
+	tsorting.addBaseColumns("idsorkind","idsor","sortcode","paridsor","nlevel","description","txt","rtf","cu","ct","lu","lt","defaultn1","defaultn2","defaultn3","defaultn4","defaultn5","defaults1","defaults2","defaults3","defaults4","defaults5","flagnodate","movkind","idsor01","idsor02","idsor03","idsor04","idsor05");
 	Tables.Add(tsorting);
 	tsorting.defineKey("idsor");
 
 	//////////////////// SORTINGKIND /////////////////////////////////
 	var tsortingkind= new sortingkindTable();
-	tsortingkind.addBaseColumns("active","ct","cu","description","flagdate","forcedN1","forcedN2","forcedN3","forcedN4","forcedN5","forcedS1","forcedS2","forcedS3","forcedS4","forcedS5","forcedv1","forcedv2","forcedv3","forcedv4","forcedv5","labelfordate","labeln1","labeln2","labeln3","labeln4","labeln5","labels1","labels2","labels3","labels4","labels5","labelv1","labelv2","labelv3","labelv4","labelv5","lockedN1","lockedN2","lockedN3","lockedN4","lockedN5","lockedS1","lockedS2","lockedS3","lockedS4","lockedS5","lockedv1","lockedv2","lockedv3","lockedv4","lockedv5","lt","lu","nodatelabel","totalexpression","nphaseexpense","nphaseincome","codesorkind","idsorkind","flag");
+	tsortingkind.addBaseColumns("active","ct","cu","description","flagdate","forcedN1","forcedN2","forcedN3","forcedN4","forcedN5","forcedS1","forcedS2","forcedS3","forcedS4","forcedS5","forcedv1","forcedv2","forcedv3","forcedv4","forcedv5","labelfordate","labeln1","labeln2","labeln3","labeln4","labeln5","labels1","labels2","labels3","labels4","labels5","labelv1","labelv2","labelv3","labelv4","labelv5","lockedN1","lockedN2","lockedN3","lockedN4","lockedN5","lockedS1","lockedS2","lockedS3","lockedS4","lockedS5","lockedv1","lockedv2","lockedv3","lockedv4","lockedv5","lt","lu","nodatelabel","totalexpression","nphaseexpense","nphaseincome","codesorkind","idsorkind","flag","allowedS1","allowedS2","allowedS3","allowedS4","allowedS5");
 	tsortingkind.defineColumn("!importo", typeof(decimal));
 	Tables.Add(tsortingkind);
 	tsortingkind.defineKey("idsorkind");
@@ -756,7 +606,7 @@ private void initClass() {
 
 	//////////////////// PAYROLL /////////////////////////////////
 	var tpayroll= new payrollTable();
-	tpayroll.addBaseColumns("idpayroll","fiscalyear","npayroll","flagbalance","disbursementdate","idresidence","workingdays","feegross","flagcomputed","idcon","currentrounding","lu","lt","cu","ct","enabletaxrelief","start","stop","netfee");
+	tpayroll.addBaseColumns("idpayroll","fiscalyear","npayroll","flagbalance","disbursementdate","idresidence","workingdays","feegross","flagcomputed","idcon","currentrounding","lu","lt","cu","ct","enabletaxrelief","start","stop","netfee","idupb");
 	Tables.Add(tpayroll);
 	tpayroll.defineKey("idpayroll");
 
@@ -921,7 +771,7 @@ private void initClass() {
 
 	//////////////////// MANDATE /////////////////////////////////
 	var tmandate= new mandateTable();
-	tmandate.addBaseColumns("idmankind","yman","nman","idreg","registryreference","description","idman","deliveryexpiration","deliveryaddress","paymentexpiring","idexpirationkind","idcurrency","exchangerate","doc","docdate","adate","officiallyprinted","cu","ct","lu","lt","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","applierannotations","idmandatestatus","cigcode","idsor01","idsor02","idsor03","idsor04","idsor05","requested_doc");
+	tmandate.addBaseColumns("idmankind","yman","nman","idreg","registryreference","description","idman","deliveryexpiration","deliveryaddress","paymentexpiring","idexpirationkind","idcurrency","exchangerate","doc","docdate","adate","officiallyprinted","cu","ct","lu","lt","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","applierannotations","idmandatestatus","cigcode","idsor01","idsor02","idsor03","idsor04","idsor05","requested_doc","flagbit");
 	Tables.Add(tmandate);
 	tmandate.defineKey("idmankind", "yman", "nman");
 
@@ -1250,7 +1100,7 @@ private void initClass() {
 
 	//////////////////// EXPENSELAST /////////////////////////////////
 	var texpenselast= new expenselastTable();
-	texpenselast.addBaseColumns("idexp","cc","cin","flag","iban","idbank","idcab","iddeputy","idpaymethod","idser","ivaamount","kpay","paymentdescr","servicestart","servicestop","nbill","idpay","idregistrypaymethod","refexternaldoc","cu","ct","lu","lt","idaccdebit","biccode","paymethod_flag","paymethod_allowdeputy","extracode","idchargehandling");
+	texpenselast.addBaseColumns("idexp","cc","cin","flag","iban","idbank","idcab","iddeputy","idpaymethod","idser","ivaamount","kpay","paymentdescr","servicestart","servicestop","nbill","idpay","idregistrypaymethod","refexternaldoc","cu","ct","lu","lt","idaccdebit","biccode","paymethod_flag","paymethod_allowdeputy","extracode","idchargehandling","pagopanoticenum");
 	Tables.Add(texpenselast);
 	texpenselast.defineKey("idexp");
 
@@ -1489,6 +1339,125 @@ private void initClass() {
 	Tables.Add(tchargehandling);
 	tchargehandling.defineKey("idchargehandling");
 
+	//////////////////// INCOME_LINKED /////////////////////////////////
+	var tincome_linked= new MetaTable("income_linked");
+	tincome_linked.defineColumn("adate", typeof(DateTime),false);
+	tincome_linked.defineColumn("ct", typeof(DateTime),false);
+	tincome_linked.defineColumn("cu", typeof(string),false);
+	tincome_linked.defineColumn("description", typeof(string),false);
+	tincome_linked.defineColumn("doc", typeof(string));
+	tincome_linked.defineColumn("docdate", typeof(DateTime));
+	tincome_linked.defineColumn("expiration", typeof(DateTime));
+	tincome_linked.defineColumn("idreg", typeof(int));
+	tincome_linked.defineColumn("lt", typeof(DateTime),false);
+	tincome_linked.defineColumn("lu", typeof(string),false);
+	tincome_linked.defineColumn("nmov", typeof(int),false);
+	tincome_linked.defineColumn("rtf", typeof(Byte[]));
+	tincome_linked.defineColumn("txt", typeof(string));
+	tincome_linked.defineColumn("ymov", typeof(short),false);
+	tincome_linked.defineColumn("idpayment", typeof(int));
+	tincome_linked.defineColumn("idinc", typeof(int),false);
+	tincome_linked.defineColumn("parentidinc", typeof(int));
+	tincome_linked.defineColumn("nphase", typeof(byte),false);
+	tincome_linked.defineColumn("idman", typeof(int));
+	tincome_linked.defineColumn("autokind", typeof(byte));
+	tincome_linked.defineColumn("autocode", typeof(int));
+	tincome_linked.defineColumn("cupcode", typeof(string));
+	tincome_linked.defineColumn("idunderwriting", typeof(int));
+	tincome_linked.defineColumn("external_reference", typeof(string));
+	Tables.Add(tincome_linked);
+	tincome_linked.defineKey("idinc");
+
+	//////////////////// EXPENSELASTMANDATEDETAIL /////////////////////////////////
+	var texpenselastmandatedetail= new MetaTable("expenselastmandatedetail");
+	texpenselastmandatedetail.defineColumn("idexp", typeof(int),false);
+	texpenselastmandatedetail.defineColumn("idmankind", typeof(string),false);
+	texpenselastmandatedetail.defineColumn("yman", typeof(short),false);
+	texpenselastmandatedetail.defineColumn("nman", typeof(int),false);
+	texpenselastmandatedetail.defineColumn("rownum", typeof(int),false);
+	texpenselastmandatedetail.defineColumn("amount", typeof(decimal),false);
+	texpenselastmandatedetail.defineColumn("lt", typeof(DateTime),false);
+	texpenselastmandatedetail.defineColumn("lu", typeof(string),false);
+	texpenselastmandatedetail.defineColumn("ct", typeof(DateTime),false);
+	texpenselastmandatedetail.defineColumn("cu", typeof(string),false);
+	texpenselastmandatedetail.defineColumn("originalamount", typeof(decimal));
+	texpenselastmandatedetail.defineColumn("!mankind", typeof(string));
+	texpenselastmandatedetail.defineColumn("!description", typeof(string));
+	Tables.Add(texpenselastmandatedetail);
+	texpenselastmandatedetail.defineKey("idexp", "idmankind", "yman", "nman", "rownum");
+
+	//////////////////// MANDATEDETAIL_PAGAMENTI /////////////////////////////////
+	var tmandatedetail_pagamenti= new MetaTable("mandatedetail_pagamenti");
+	tmandatedetail_pagamenti.defineColumn("idmankind", typeof(string),false);
+	tmandatedetail_pagamenti.defineColumn("nman", typeof(int),false);
+	tmandatedetail_pagamenti.defineColumn("rownum", typeof(int),false);
+	tmandatedetail_pagamenti.defineColumn("yman", typeof(short),false);
+	tmandatedetail_pagamenti.defineColumn("annotations", typeof(string));
+	tmandatedetail_pagamenti.defineColumn("assetkind", typeof(string),false);
+	tmandatedetail_pagamenti.defineColumn("competencystart", typeof(DateTime));
+	tmandatedetail_pagamenti.defineColumn("competencystop", typeof(DateTime));
+	tmandatedetail_pagamenti.defineColumn("ct", typeof(DateTime),false);
+	tmandatedetail_pagamenti.defineColumn("cu", typeof(string),false);
+	tmandatedetail_pagamenti.defineColumn("detaildescription", typeof(string));
+	tmandatedetail_pagamenti.defineColumn("discount", typeof(double));
+	tmandatedetail_pagamenti.defineColumn("idupb", typeof(string));
+	tmandatedetail_pagamenti.defineColumn("lt", typeof(DateTime),false);
+	tmandatedetail_pagamenti.defineColumn("lu", typeof(string),false);
+	tmandatedetail_pagamenti.defineColumn("ninvoiced", typeof(decimal));
+	tmandatedetail_pagamenti.defineColumn("number", typeof(decimal));
+	tmandatedetail_pagamenti.defineColumn("start", typeof(DateTime));
+	tmandatedetail_pagamenti.defineColumn("stop", typeof(DateTime));
+	tmandatedetail_pagamenti.defineColumn("tax", typeof(decimal));
+	tmandatedetail_pagamenti.defineColumn("taxable", typeof(decimal));
+	tmandatedetail_pagamenti.defineColumn("taxrate", typeof(double));
+	tmandatedetail_pagamenti.defineColumn("toinvoice", typeof(string));
+	tmandatedetail_pagamenti.defineColumn("flagmixed", typeof(string));
+	tmandatedetail_pagamenti.defineColumn("idaccmotive", typeof(string));
+	tmandatedetail_pagamenti.defineColumn("unabatable", typeof(decimal));
+	tmandatedetail_pagamenti.defineColumn("idgroup", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("idreg", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("idexp_taxable", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("idexp_iva", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("idinv", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("idivakind", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("idsor1", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("idsor2", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("idsor3", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("idaccmotiveannulment", typeof(string));
+	tmandatedetail_pagamenti.defineColumn("flagactivity", typeof(short));
+	tmandatedetail_pagamenti.defineColumn("va3type", typeof(string));
+	tmandatedetail_pagamenti.defineColumn("applierannotations", typeof(string));
+	tmandatedetail_pagamenti.defineColumn("ivanotes", typeof(string));
+	tmandatedetail_pagamenti.defineColumn("idlist", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("idunit", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("idpackage", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("unitsforpackage", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("npackage", typeof(decimal));
+	tmandatedetail_pagamenti.defineColumn("cupcode", typeof(string));
+	tmandatedetail_pagamenti.defineColumn("cigcode", typeof(string));
+	tmandatedetail_pagamenti.defineColumn("flagto_unload", typeof(string));
+	tmandatedetail_pagamenti.defineColumn("epkind", typeof(string));
+	tmandatedetail_pagamenti.defineColumn("rownum_origin", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("contractamount", typeof(decimal));
+	tmandatedetail_pagamenti.defineColumn("idavcp", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("idavcp_choice", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("avcp_startcontract", typeof(DateTime));
+	tmandatedetail_pagamenti.defineColumn("avcp_stopcontract", typeof(DateTime));
+	tmandatedetail_pagamenti.defineColumn("avcp_description", typeof(string));
+	tmandatedetail_pagamenti.defineColumn("idpccdebitmotive", typeof(string));
+	tmandatedetail_pagamenti.defineColumn("idpccdebitstatus", typeof(string));
+	tmandatedetail_pagamenti.defineColumn("idcostpartition", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("expensekind", typeof(string));
+	tmandatedetail_pagamenti.defineColumn("idepexp", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("idepacc", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("idlocation", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("idupb_iva", typeof(string));
+	tmandatedetail_pagamenti.defineColumn("idsor_siope", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("idepexp_pre", typeof(int));
+	tmandatedetail_pagamenti.defineColumn("rownum_main", typeof(int));
+	Tables.Add(tmandatedetail_pagamenti);
+	tmandatedetail_pagamenti.defineKey("idmankind", "nman", "rownum", "yman");
+
 	#endregion
 
 
@@ -1588,9 +1557,16 @@ private void initClass() {
 	this.defineRelation("managerexpense","manager","expense","idman");
 	this.defineRelation("expensephaseexpense","expensephase","expense","nphase");
 	this.defineRelation("clawback_expenseexpense","clawback_expense","expense","idclawback");
+	cPar = new []{income_linked.Columns["idinc"]};
+	cChild = new []{expense.Columns["idinc_linked"]};
+	Relations.Add(new DataRelation("income_expense",cPar,cChild,false));
+
+	this.defineRelation("expense_expenselastmandatedetail","expense","expenselastmandatedetail","idexp");
+	this.defineRelation("mandatedetail_taxable_expenselastmandatedetail","mandatedetail_taxable","expenselastmandatedetail","idmankind","yman","nman","rownum");
+	this.defineRelation("mandatekind_expenselastmandatedetail","mandatekind","expenselastmandatedetail","idmankind");
+	this.defineRelation("mandatedetail_pagamenti_expenselastmandatedetail","mandatedetail_pagamenti","expenselastmandatedetail","idmankind","nman","rownum","yman");
 	#endregion
 
 }
 }
 }
-

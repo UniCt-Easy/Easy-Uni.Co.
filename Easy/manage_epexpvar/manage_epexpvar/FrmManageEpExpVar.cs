@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,7 +26,7 @@ using metadatalibrary;
 using funzioni_configurazione;
 
 namespace manage_epexpvar {
-    public partial class FrmManageEpExpVar : Form {
+    public partial class FrmManageEpExpVar : MetaDataForm {
         DataTable tVar;
 
         DataSet DS;
@@ -183,15 +182,15 @@ namespace manage_epexpvar {
                 R["amount"] = new_mov - old_mov;
             }
 
-            //Cancellazione vecchie classificazioni di annullamento (Ã¨ una finezza)
+            //Cancellazione vecchie classificazioni di annullamento (è una finezza)
             foreach (DataRow rSor in tSor.Select()) {
                 if (rSor.RowState != DataRowState.Unchanged) continue;
                 int idepexp = CfgFn.GetNoNullInt32(rSor["idepexp"]);
                 decimal old_class = CfgFn.GetNoNullDecimal(rSor["amount"]);
                 decimal old_mov = GetOldAmountForIdEpExp(idepexp);
                 decimal new_mov = GetCurrAmountForIdEpExp(idepexp);
-                if (old_mov != 0 ) continue; //Se il vecchio movimento Ã¨ zero,
-                if (old_class != -new_mov) continue; //e la vecchia classificazione Ã¨ pari a  - (movimento),
+                if (old_mov != 0 ) continue; //Se il vecchio movimento è zero,
+                if (old_class != -new_mov) continue; //e la vecchia classificazione è pari a  - (movimento),
 
                 rSor.Delete(); //LA  CANCELLA!
 
@@ -250,7 +249,7 @@ namespace manage_epexpvar {
             MetaData.SetDefault(dsMov.Tables["epexpsorting"], "kind", "V");
             DataRow R = M.Get_New_Row(Parent, SourceTable);
             if (R == null) {
-                MessageBox.Show(this, "La tabella " + SourceTable.TableName +
+                show(this, "La tabella " + SourceTable.TableName +
                     " contiene dati non validi. Contattare il servizio di assistenza.");
                 return null;
             }
@@ -259,7 +258,7 @@ namespace manage_epexpvar {
 
             M.Edit(this, edit_type, true);
 
-            if (!M.EntityChanged) {
+            if (!M.entityChanged) {
                 R.Delete();
                 R = null;
             }
@@ -386,10 +385,10 @@ namespace manage_epexpvar {
             M.SetSource(R);
 
             M.Edit(this, edit_type, true);
-            if (M.EntityChanged) {
+            if (M.entityChanged) {
                 newRow = M.NewSourceRow;
             }
-            return M.EntityChanged;
+            return M.entityChanged;
         }
 
         public DataRow InsertDataRow(string IoE, string edit_type, DataTable SourceTable, DataRow Parent,
@@ -400,7 +399,7 @@ namespace manage_epexpvar {
             MetaData.SetDefault(SourceTable, "amount", amount);
             DataRow R = M.Get_New_Row(Parent, SourceTable);
             if (R == null) {
-                MessageBox.Show(this, "La tabella " + SourceTable.TableName +
+                show(this, "La tabella " + SourceTable.TableName +
                     " contiene dati non validi. Contattare il servizio di assistenza.");
                 return null;
             }
@@ -409,7 +408,7 @@ namespace manage_epexpvar {
 
             M.Edit(this, edit_type, true);
 
-            if (!M.EntityChanged) {
+            if (!M.entityChanged) {
                 R.Delete();
                 R = null;
             }
@@ -557,4 +556,3 @@ namespace manage_epexpvar {
         }
     }
 }
-

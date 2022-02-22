@@ -1,10 +1,27 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA accountvardetailview
 IF EXISTS(select * from sysobjects where id = object_id(N'[accountvardetailview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [accountvardetailview]
 GO
-
+--setuser'amministrazione'
 -- clear_table_info'accountvardetailview'
--- select  * from accountvardetailview
+-- select  * from accountvardetailview where title is not null
 CREATE      VIEW accountvardetailview
 (
 	yvar,
@@ -62,7 +79,12 @@ CREATE      VIEW accountvardetailview
 	sortcode_investmentbudget,
 	idenactment,
 	enactmentnumber,
-	prevcassa
+	prevcassa,
+	idinv,
+	codeinv,
+	inventorytree,
+	idman,
+	title
 )
 AS SELECT
 	accountvardetail.yvar,
@@ -95,11 +117,11 @@ AS SELECT
 	accountvarstatus.description,
 	accountvar.variationkind,
 	variationkind.description,
-	accountvar.idsor01,
-	accountvar.idsor02,
-	accountvar.idsor03,
-	accountvar.idsor04,
-	accountvar.idsor05,
+	upb.idsor01,
+	upb.idsor02,
+	upb.idsor03,
+	upb.idsor04,
+	upb.idsor05,
 	accountvardetail.annotation,
 	accountvar.adate,
 	accountvardetail.idsor1,
@@ -125,11 +147,17 @@ AS SELECT
 	SI.idsor,SI.sortcode,
 	accountvar.idenactment,
 	accountenactment.nenactment,
-	accountvardetail.prevcassa
+	accountvardetail.prevcassa,
+	inventorytree.idinv,
+	inventorytree.codeinv,
+	inventorytree.description,
+	accountvar.idman,
+	epupbkind.title
 FROM accountvardetail
 JOIN accountvar with (nolock)			ON accountvardetail.yvar = accountvar.yvar	AND accountvardetail.nvar = accountvar.nvar
 JOIN account with (nolock)			ON accountvardetail.idacc = account.idacc
-JOIN upb with (nolock)				ON accountvardetail.idupb = upb.idupb
+JOIN upb with (nolock)				ON accountvardetail.idupb = upb.idupb 
+LEFT OUTER JOIN epupbkind on upb.idepupbkind = epupbkind.idepupbkind
 JOIN accountvarstatus with (nolock)	ON accountvarstatus.idaccountvarstatus = accountvar.idaccountvarstatus
 JOIN variationkind with (nolock)	ON variationkind.idvariationkind = accountvar.variationkind
 LEFT OUTER JOIN patrimony		    ON account.idpatrimony=patrimony.idpatrimony
@@ -141,7 +169,7 @@ left outer join costpartition		on costpartition.idcostpartition = accountvardeta
 LEFT OUTER JOIN sorting SE	(NOLOCK)	ON account.idsor_economicbudget = SE.idsor
 LEFT OUTER JOIN sorting SI	(NOLOCK)	ON account.idsor_investmentbudget = SI.idsor
 LEFT OUTER JOIN accountenactment with (nolock)	ON accountenactment.idenactment = accountvar.idenactment
-
+LEFT OUTER JOIN inventorytree with (nolock) 	ON inventorytree.idinv = accountvardetail.idinv
 
 GO
 

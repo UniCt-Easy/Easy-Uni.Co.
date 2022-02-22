@@ -127,6 +127,7 @@
     </Content>
     <None Include="vistaForm.xsc">
       <DependentUpon>vistaForm.xsd</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
     <None Include="vistaForm.xss">
       <DependentUpon>vistaForm.xsd</DependentUpon>

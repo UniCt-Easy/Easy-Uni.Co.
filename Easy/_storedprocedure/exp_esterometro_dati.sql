@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_esterometro_dati]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_esterometro_dati]
 GO
@@ -16,8 +33,8 @@ CREATE procedure exp_esterometro_dati(
 begin
 -- setuser 'amm'
 --setuser 'amministrazione'
--- exec exp_esterometro_dati 2016, 1,'A'
-
+-- exec exp_esterometro_dati 2019, 2, 6,'A'
+--exp_esterometro_dati 2019,null,6,A
 create table #documento(
 	invoicekind varchar(150),
 	idinvkind int,
@@ -32,7 +49,7 @@ create table #documento(
 	IdFiscaleIvaCodiceDip  varchar(30),
 	DenominazioneDip  varchar(80),
 	indirizzoDip varchar(60),
-	capDip varchar(5),
+	capDip varchar(5), -- deve essere 5, lo pongo a 10 per consentire l'esportazione. Cmq, la sp di check elencherà le anagrafiche con lunghezza cap errata
 	comuneDip varchar(60),
 	provinciaDip varchar(2),
 	nazioneDip varchar(2),
@@ -46,7 +63,7 @@ create table #documento(
 	
 	indirizzoAnagrafica varchar(60),
 	comuneAnagrafica varchar(60),
-	capAnagrafica varchar(5),
+	capAnagrafica varchar(10), -- deve essere 5, lo pongo a 10 per consentire l'esportazione. Cmq, la sp di check elencherà le anagrafiche con lunghezza cap errata
 	provinciaAnagrafica  varchar(2),
 	nazioneAnagrafica  varchar(2),
 	Tipodocumento varchar(50),

@@ -20,27 +20,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="provision">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idprovision" type="xs:int" />
-              <xs:element name="description" type="xs:string" minOccurs="0" />
-              <xs:element name="idreg" type="xs:int" minOccurs="0" />
-              <xs:element name="idepexp" type="xs:int" minOccurs="0" />
-              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="cu" type="xs:string" minOccurs="0" />
-              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="lu" type="xs:string" minOccurs="0" />
-              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
-              <xs:element name="active" type="xs:string" minOccurs="0" />
-              <xs:element name="adate" type="xs:dateTime" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="accmotiveapplied">
           <xs:complexType>
             <xs:sequence>
@@ -68,10 +47,6 @@
       <xs:field xpath="mstns:idprovision" />
       <xs:field xpath="mstns:rownum" />
     </xs:unique>
-    <xs:unique name="provision_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:provision" />
-      <xs:field xpath="mstns:idprovision" />
-    </xs:unique>
     <xs:unique name="accmotiveapplied_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:accmotiveapplied" />
       <xs:field xpath="mstns:idaccmotive" />
@@ -79,7 +54,6 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="provision_provisiondetail" msdata:parent="provision" msdata:child="provisiondetail" msdata:parentkey="idprovision" msdata:childkey="idprovision" />
       <msdata:Relationship name="accmotiveapplied_provisiondetail" msdata:parent="accmotiveapplied" msdata:child="provisiondetail" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotive" />
     </xs:appinfo>
   </xs:annotation>

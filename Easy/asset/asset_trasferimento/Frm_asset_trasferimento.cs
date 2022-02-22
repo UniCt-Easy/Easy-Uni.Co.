@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -30,7 +29,7 @@ namespace asset_trasferimento//beneinv_trasferimento//
 	/// <summary>
 	/// Summary description for frmbeneinv_trasferimento.
 	/// </summary>
-	public class Frm_asset_trasferimento : System.Windows.Forms.Form
+	public class Frm_asset_trasferimento : MetaDataForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -178,782 +177,782 @@ namespace asset_trasferimento//beneinv_trasferimento//
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.DS = new asset_trasferimento.vistaForm();
-            this.tabController = new Crownwood.Magic.Controls.TabControl();
-            this.tabPageInizio = new Crownwood.Magic.Controls.TabPage();
-            this.lblFase1 = new System.Windows.Forms.Label();
-            this.tabPage1 = new Crownwood.Magic.Controls.TabPage();
-            this.label18 = new System.Windows.Forms.Label();
-            this.cboConsegnatario = new System.Windows.Forms.ComboBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.cmbInventario = new System.Windows.Forms.ComboBox();
-            this.grpUbic = new System.Windows.Forms.GroupBox();
-            this.txtIdUbic1 = new System.Windows.Forms.TextBox();
-            this.txtDescUbic1 = new System.Windows.Forms.TextBox();
-            this.txtCodUbic1 = new System.Windows.Forms.TextBox();
-            this.btnUbic1 = new System.Windows.Forms.Button();
-            this.cboResp = new System.Windows.Forms.ComboBox();
-            this.txt_numinv_a = new System.Windows.Forms.TextBox();
-            this.txt_numinv_da = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txt_numcarico_a = new System.Windows.Forms.TextBox();
-            this.txt_numcarico_da = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txt_idbene_a = new System.Windows.Forms.TextBox();
-            this.txt_idbene_da = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblFase2 = new System.Windows.Forms.Label();
-            this.tabPage2 = new Crownwood.Magic.Controls.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cmbConsegnatario = new System.Windows.Forms.ComboBox();
-            this.rdbStorico = new System.Windows.Forms.RadioButton();
-            this.rdbSostituisci = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cmbResponsabile = new System.Windows.Forms.ComboBox();
-            this.txtDataTrasferimento = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.grpResp = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtCodUbicazione = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtdesc = new System.Windows.Forms.TextBox();
-            this.txtIdUbicazione = new System.Windows.Forms.TextBox();
-            this.btnUbic = new System.Windows.Forms.Button();
-            this.lblFase3 = new System.Windows.Forms.Label();
-            this.tabPage2bis = new Crownwood.Magic.Controls.TabPage();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.gridCespiti = new System.Windows.Forms.DataGrid();
-            this.btnSelezionaTutto = new System.Windows.Forms.Button();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.tabPage3 = new Crownwood.Magic.Controls.TabPage();
-            this.lblFase4 = new System.Windows.Forms.Label();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnNext = new System.Windows.Forms.Button();
-            this.btnBack = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            this.tabController.SuspendLayout();
-            this.tabPageInizio.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.grpUbic.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.grpResp.SuspendLayout();
-            this.tabPage2bis.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridCespiti)).BeginInit();
-            this.tabPage3.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.EnforceConstraints = false;
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // tabController
-            // 
-            this.tabController.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabController.IDEPixelArea = true;
-            this.tabController.Location = new System.Drawing.Point(0, 0);
-            this.tabController.Name = "tabController";
-            this.tabController.SelectedIndex = 0;
-            this.tabController.SelectedTab = this.tabPageInizio;
-            this.tabController.Size = new System.Drawing.Size(715, 468);
-            this.tabController.TabIndex = 1;
-            this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
+			this.DS = new asset_trasferimento.vistaForm();
+			this.tabController = new Crownwood.Magic.Controls.TabControl();
+			this.tabPageInizio = new Crownwood.Magic.Controls.TabPage();
+			this.lblFase1 = new System.Windows.Forms.Label();
+			this.tabPage1 = new Crownwood.Magic.Controls.TabPage();
+			this.label18 = new System.Windows.Forms.Label();
+			this.cboConsegnatario = new System.Windows.Forms.ComboBox();
+			this.label16 = new System.Windows.Forms.Label();
+			this.label15 = new System.Windows.Forms.Label();
+			this.label14 = new System.Windows.Forms.Label();
+			this.label12 = new System.Windows.Forms.Label();
+			this.label11 = new System.Windows.Forms.Label();
+			this.label13 = new System.Windows.Forms.Label();
+			this.cmbInventario = new System.Windows.Forms.ComboBox();
+			this.grpUbic = new System.Windows.Forms.GroupBox();
+			this.txtIdUbic1 = new System.Windows.Forms.TextBox();
+			this.txtDescUbic1 = new System.Windows.Forms.TextBox();
+			this.txtCodUbic1 = new System.Windows.Forms.TextBox();
+			this.btnUbic1 = new System.Windows.Forms.Button();
+			this.cboResp = new System.Windows.Forms.ComboBox();
+			this.txt_numinv_a = new System.Windows.Forms.TextBox();
+			this.txt_numinv_da = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
+			this.txt_numcarico_a = new System.Windows.Forms.TextBox();
+			this.txt_numcarico_da = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.label4 = new System.Windows.Forms.Label();
+			this.txt_idbene_a = new System.Windows.Forms.TextBox();
+			this.txt_idbene_da = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
+			this.lblFase2 = new System.Windows.Forms.Label();
+			this.tabPage2 = new Crownwood.Magic.Controls.TabPage();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.cmbConsegnatario = new System.Windows.Forms.ComboBox();
+			this.rdbStorico = new System.Windows.Forms.RadioButton();
+			this.rdbSostituisci = new System.Windows.Forms.RadioButton();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.cmbResponsabile = new System.Windows.Forms.ComboBox();
+			this.txtDataTrasferimento = new System.Windows.Forms.TextBox();
+			this.label9 = new System.Windows.Forms.Label();
+			this.grpResp = new System.Windows.Forms.GroupBox();
+			this.label8 = new System.Windows.Forms.Label();
+			this.txtCodUbicazione = new System.Windows.Forms.TextBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.txtdesc = new System.Windows.Forms.TextBox();
+			this.txtIdUbicazione = new System.Windows.Forms.TextBox();
+			this.btnUbic = new System.Windows.Forms.Button();
+			this.lblFase3 = new System.Windows.Forms.Label();
+			this.tabPage2bis = new Crownwood.Magic.Controls.TabPage();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.gridCespiti = new System.Windows.Forms.DataGrid();
+			this.btnSelezionaTutto = new System.Windows.Forms.Button();
+			this.label17 = new System.Windows.Forms.Label();
+			this.label10 = new System.Windows.Forms.Label();
+			this.tabPage3 = new Crownwood.Magic.Controls.TabPage();
+			this.lblFase4 = new System.Windows.Forms.Label();
+			this.btnCancel = new System.Windows.Forms.Button();
+			this.btnNext = new System.Windows.Forms.Button();
+			this.btnBack = new System.Windows.Forms.Button();
+			this.panel1 = new System.Windows.Forms.Panel();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.tabController.SuspendLayout();
+			this.tabPageInizio.SuspendLayout();
+			this.tabPage1.SuspendLayout();
+			this.grpUbic.SuspendLayout();
+			this.tabPage2.SuspendLayout();
+			this.groupBox2.SuspendLayout();
+			this.groupBox1.SuspendLayout();
+			this.grpResp.SuspendLayout();
+			this.tabPage2bis.SuspendLayout();
+			this.groupBox3.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.gridCespiti)).BeginInit();
+			this.tabPage3.SuspendLayout();
+			this.panel1.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// tabController
+			// 
+			this.tabController.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tabController.IDEPixelArea = true;
+			this.tabController.Location = new System.Drawing.Point(0, 0);
+			this.tabController.Name = "tabController";
+			this.tabController.SelectedIndex = 0;
+			this.tabController.SelectedTab = this.tabPageInizio;
+			this.tabController.Size = new System.Drawing.Size(715, 468);
+			this.tabController.TabIndex = 1;
+			this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
             this.tabPageInizio,
             this.tabPage1,
             this.tabPage2,
             this.tabPage2bis,
             this.tabPage3});
-            this.tabController.SelectionChanged += new System.EventHandler(this.tabController_SelectionChanged);
-            // 
-            // tabPageInizio
-            // 
-            this.tabPageInizio.Controls.Add(this.lblFase1);
-            this.tabPageInizio.Location = new System.Drawing.Point(0, 0);
-            this.tabPageInizio.Name = "tabPageInizio";
-            this.tabPageInizio.Size = new System.Drawing.Size(715, 443);
-            this.tabPageInizio.TabIndex = 6;
-            this.tabPageInizio.Title = "Inizio";
-            // 
-            // lblFase1
-            // 
-            this.lblFase1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.tabController.SelectionChanged += new System.EventHandler(this.tabController_SelectionChanged);
+			// 
+			// tabPageInizio
+			// 
+			this.tabPageInizio.Controls.Add(this.lblFase1);
+			this.tabPageInizio.Location = new System.Drawing.Point(0, 0);
+			this.tabPageInizio.Name = "tabPageInizio";
+			this.tabPageInizio.Size = new System.Drawing.Size(715, 443);
+			this.tabPageInizio.TabIndex = 6;
+			this.tabPageInizio.Title = "Inizio";
+			// 
+			// lblFase1
+			// 
+			this.lblFase1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFase1.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
-            this.lblFase1.Location = new System.Drawing.Point(8, 16);
-            this.lblFase1.Name = "lblFase1";
-            this.lblFase1.Size = new System.Drawing.Size(699, 356);
-            this.lblFase1.TabIndex = 0;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.label18);
-            this.tabPage1.Controls.Add(this.cboConsegnatario);
-            this.tabPage1.Controls.Add(this.label16);
-            this.tabPage1.Controls.Add(this.label15);
-            this.tabPage1.Controls.Add(this.label14);
-            this.tabPage1.Controls.Add(this.label12);
-            this.tabPage1.Controls.Add(this.label11);
-            this.tabPage1.Controls.Add(this.label13);
-            this.tabPage1.Controls.Add(this.cmbInventario);
-            this.tabPage1.Controls.Add(this.grpUbic);
-            this.tabPage1.Controls.Add(this.cboResp);
-            this.tabPage1.Controls.Add(this.txt_numinv_a);
-            this.tabPage1.Controls.Add(this.txt_numinv_da);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.label6);
-            this.tabPage1.Controls.Add(this.txt_numcarico_a);
-            this.tabPage1.Controls.Add(this.txt_numcarico_da);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.txt_idbene_a);
-            this.tabPage1.Controls.Add(this.txt_idbene_da);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.lblFase2);
-            this.tabPage1.Location = new System.Drawing.Point(0, 0);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Selected = false;
-            this.tabPage1.Size = new System.Drawing.Size(715, 443);
-            this.tabPage1.TabIndex = 3;
-            this.tabPage1.Title = "Page1";
-            this.tabPage1.Visible = false;
-            // 
-            // label18
-            // 
-            this.label18.Location = new System.Drawing.Point(24, 380);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(136, 33);
-            this.label18.TabIndex = 29;
-            this.label18.Text = "Subconsegnatario attuale";
-            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cboConsegnatario
-            // 
-            this.cboConsegnatario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.lblFase1.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+			this.lblFase1.Location = new System.Drawing.Point(8, 16);
+			this.lblFase1.Name = "lblFase1";
+			this.lblFase1.Size = new System.Drawing.Size(699, 356);
+			this.lblFase1.TabIndex = 0;
+			// 
+			// tabPage1
+			// 
+			this.tabPage1.Controls.Add(this.label18);
+			this.tabPage1.Controls.Add(this.cboConsegnatario);
+			this.tabPage1.Controls.Add(this.label16);
+			this.tabPage1.Controls.Add(this.label15);
+			this.tabPage1.Controls.Add(this.label14);
+			this.tabPage1.Controls.Add(this.label12);
+			this.tabPage1.Controls.Add(this.label11);
+			this.tabPage1.Controls.Add(this.label13);
+			this.tabPage1.Controls.Add(this.cmbInventario);
+			this.tabPage1.Controls.Add(this.grpUbic);
+			this.tabPage1.Controls.Add(this.cboResp);
+			this.tabPage1.Controls.Add(this.txt_numinv_a);
+			this.tabPage1.Controls.Add(this.txt_numinv_da);
+			this.tabPage1.Controls.Add(this.label5);
+			this.tabPage1.Controls.Add(this.label6);
+			this.tabPage1.Controls.Add(this.txt_numcarico_a);
+			this.tabPage1.Controls.Add(this.txt_numcarico_da);
+			this.tabPage1.Controls.Add(this.label3);
+			this.tabPage1.Controls.Add(this.label4);
+			this.tabPage1.Controls.Add(this.txt_idbene_a);
+			this.tabPage1.Controls.Add(this.txt_idbene_da);
+			this.tabPage1.Controls.Add(this.label2);
+			this.tabPage1.Controls.Add(this.label1);
+			this.tabPage1.Controls.Add(this.lblFase2);
+			this.tabPage1.Location = new System.Drawing.Point(0, 0);
+			this.tabPage1.Name = "tabPage1";
+			this.tabPage1.Selected = false;
+			this.tabPage1.Size = new System.Drawing.Size(715, 443);
+			this.tabPage1.TabIndex = 3;
+			this.tabPage1.Title = "Page1";
+			this.tabPage1.Visible = false;
+			// 
+			// label18
+			// 
+			this.label18.Location = new System.Drawing.Point(24, 380);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(136, 33);
+			this.label18.TabIndex = 29;
+			this.label18.Text = "Subconsegnatario attuale";
+			this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// cboConsegnatario
+			// 
+			this.cboConsegnatario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboConsegnatario.DataSource = this.DS.managerconsegnatario;
-            this.cboConsegnatario.DisplayMember = "title";
-            this.cboConsegnatario.Location = new System.Drawing.Point(176, 380);
-            this.cboConsegnatario.MaxDropDownItems = 25;
-            this.cboConsegnatario.Name = "cboConsegnatario";
-            this.cboConsegnatario.Size = new System.Drawing.Size(523, 23);
-            this.cboConsegnatario.TabIndex = 28;
-            this.cboConsegnatario.ValueMember = "idman";
-            this.cboConsegnatario.SelectedIndexChanged += new System.EventHandler(this.cboConsegnatario_SelectedIndexChanged);
-            // 
-            // label16
-            // 
-            this.label16.Location = new System.Drawing.Point(13, 288);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(152, 23);
-            this.label16.TabIndex = 27;
-            this.label16.Text = "Inventario";
-            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label15
-            // 
-            this.label15.Location = new System.Drawing.Point(13, 256);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(152, 23);
-            this.label15.TabIndex = 26;
-            this.label15.Text = "Numero carico cespite";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label14
-            // 
-            this.label14.Location = new System.Drawing.Point(13, 224);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(152, 23);
-            this.label14.TabIndex = 25;
-            this.label14.Text = "Identificativo cespite";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label12
-            // 
-            this.label12.Location = new System.Drawing.Point(29, 192);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(136, 23);
-            this.label12.TabIndex = 24;
-            this.label12.Text = "Responsabile attuale";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label11
-            // 
-            this.label11.Location = new System.Drawing.Point(61, 144);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(100, 23);
-            this.label11.TabIndex = 23;
-            this.label11.Text = "Ubicazione attuale";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label13
-            // 
-            this.label13.Location = new System.Drawing.Point(173, 296);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(40, 16);
-            this.label13.TabIndex = 22;
-            this.label13.Text = "Tipo";
-            // 
-            // cmbInventario
-            // 
-            this.cmbInventario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cboConsegnatario.DataSource = this.DS.managerconsegnatario;
+			this.cboConsegnatario.DisplayMember = "title";
+			this.cboConsegnatario.Location = new System.Drawing.Point(176, 380);
+			this.cboConsegnatario.MaxDropDownItems = 25;
+			this.cboConsegnatario.Name = "cboConsegnatario";
+			this.cboConsegnatario.Size = new System.Drawing.Size(523, 23);
+			this.cboConsegnatario.TabIndex = 28;
+			this.cboConsegnatario.ValueMember = "idman";
+			this.cboConsegnatario.SelectedIndexChanged += new System.EventHandler(this.cboConsegnatario_SelectedIndexChanged);
+			// 
+			// label16
+			// 
+			this.label16.Location = new System.Drawing.Point(13, 288);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(152, 23);
+			this.label16.TabIndex = 27;
+			this.label16.Text = "Inventario";
+			this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label15
+			// 
+			this.label15.Location = new System.Drawing.Point(13, 256);
+			this.label15.Name = "label15";
+			this.label15.Size = new System.Drawing.Size(152, 23);
+			this.label15.TabIndex = 26;
+			this.label15.Text = "Numero carico cespite";
+			this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label14
+			// 
+			this.label14.Location = new System.Drawing.Point(13, 224);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(152, 23);
+			this.label14.TabIndex = 25;
+			this.label14.Text = "Identificativo cespite";
+			this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label12
+			// 
+			this.label12.Location = new System.Drawing.Point(29, 192);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(136, 23);
+			this.label12.TabIndex = 24;
+			this.label12.Text = "Responsabile attuale";
+			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label11
+			// 
+			this.label11.Location = new System.Drawing.Point(61, 144);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(100, 23);
+			this.label11.TabIndex = 23;
+			this.label11.Text = "Ubicazione attuale";
+			this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label13
+			// 
+			this.label13.Location = new System.Drawing.Point(173, 296);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(40, 16);
+			this.label13.TabIndex = 22;
+			this.label13.Text = "Tipo";
+			// 
+			// cmbInventario
+			// 
+			this.cmbInventario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbInventario.DataSource = this.DS.inventory;
-            this.cmbInventario.DisplayMember = "description";
-            this.cmbInventario.Location = new System.Drawing.Point(221, 288);
-            this.cmbInventario.MaxDropDownItems = 25;
-            this.cmbInventario.Name = "cmbInventario";
-            this.cmbInventario.Size = new System.Drawing.Size(483, 23);
-            this.cmbInventario.TabIndex = 12;
-            this.cmbInventario.ValueMember = "idinventory";
-            this.cmbInventario.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
-            this.cmbInventario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
-            // 
-            // grpUbic
-            // 
-            this.grpUbic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbInventario.DataSource = this.DS.inventory;
+			this.cmbInventario.DisplayMember = "description";
+			this.cmbInventario.Location = new System.Drawing.Point(221, 288);
+			this.cmbInventario.MaxDropDownItems = 25;
+			this.cmbInventario.Name = "cmbInventario";
+			this.cmbInventario.Size = new System.Drawing.Size(483, 23);
+			this.cmbInventario.TabIndex = 12;
+			this.cmbInventario.ValueMember = "idinventory";
+			this.cmbInventario.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
+			this.cmbInventario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
+			// 
+			// grpUbic
+			// 
+			this.grpUbic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpUbic.Controls.Add(this.txtIdUbic1);
-            this.grpUbic.Controls.Add(this.txtDescUbic1);
-            this.grpUbic.Controls.Add(this.txtCodUbic1);
-            this.grpUbic.Controls.Add(this.btnUbic1);
-            this.grpUbic.Location = new System.Drawing.Point(181, 59);
-            this.grpUbic.Name = "grpUbic";
-            this.grpUbic.Size = new System.Drawing.Size(523, 125);
-            this.grpUbic.TabIndex = 2;
-            this.grpUbic.TabStop = false;
-            this.grpUbic.Tag = "AutoChoose.txtCodUbic1.tree";
-            // 
-            // txtIdUbic1
-            // 
-            this.txtIdUbic1.Location = new System.Drawing.Point(120, 24);
-            this.txtIdUbic1.Name = "txtIdUbic1";
-            this.txtIdUbic1.Size = new System.Drawing.Size(80, 23);
-            this.txtIdUbic1.TabIndex = 7;
-            this.txtIdUbic1.Tag = "locationview_alias.idlocation";
-            this.txtIdUbic1.Visible = false;
-            // 
-            // txtDescUbic1
-            // 
-            this.txtDescUbic1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.grpUbic.Controls.Add(this.txtIdUbic1);
+			this.grpUbic.Controls.Add(this.txtDescUbic1);
+			this.grpUbic.Controls.Add(this.txtCodUbic1);
+			this.grpUbic.Controls.Add(this.btnUbic1);
+			this.grpUbic.Location = new System.Drawing.Point(181, 59);
+			this.grpUbic.Name = "grpUbic";
+			this.grpUbic.Size = new System.Drawing.Size(523, 125);
+			this.grpUbic.TabIndex = 2;
+			this.grpUbic.TabStop = false;
+			this.grpUbic.Tag = "AutoChoose.txtCodUbic1.tree";
+			// 
+			// txtIdUbic1
+			// 
+			this.txtIdUbic1.Location = new System.Drawing.Point(120, 24);
+			this.txtIdUbic1.Name = "txtIdUbic1";
+			this.txtIdUbic1.Size = new System.Drawing.Size(80, 23);
+			this.txtIdUbic1.TabIndex = 7;
+			this.txtIdUbic1.Tag = "locationview_alias.idlocation";
+			this.txtIdUbic1.Visible = false;
+			// 
+			// txtDescUbic1
+			// 
+			this.txtDescUbic1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescUbic1.Location = new System.Drawing.Point(96, 26);
-            this.txtDescUbic1.Multiline = true;
-            this.txtDescUbic1.Name = "txtDescUbic1";
-            this.txtDescUbic1.ReadOnly = true;
-            this.txtDescUbic1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescUbic1.Size = new System.Drawing.Size(419, 68);
-            this.txtDescUbic1.TabIndex = 6;
-            this.txtDescUbic1.Tag = "locationview_alias.description";
-            // 
-            // txtCodUbic1
-            // 
-            this.txtCodUbic1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDescUbic1.Location = new System.Drawing.Point(96, 26);
+			this.txtDescUbic1.Multiline = true;
+			this.txtDescUbic1.Name = "txtDescUbic1";
+			this.txtDescUbic1.ReadOnly = true;
+			this.txtDescUbic1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtDescUbic1.Size = new System.Drawing.Size(419, 68);
+			this.txtDescUbic1.TabIndex = 6;
+			this.txtDescUbic1.Tag = "locationview_alias.description";
+			// 
+			// txtCodUbic1
+			// 
+			this.txtCodUbic1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCodUbic1.Location = new System.Drawing.Point(6, 96);
-            this.txtCodUbic1.Name = "txtCodUbic1";
-            this.txtCodUbic1.Size = new System.Drawing.Size(509, 23);
-            this.txtCodUbic1.TabIndex = 5;
-            this.txtCodUbic1.Tag = "locationview_alias.locationcode";
-            // 
-            // btnUbic1
-            // 
-            this.btnUbic1.Location = new System.Drawing.Point(6, 67);
-            this.btnUbic1.Name = "btnUbic1";
-            this.btnUbic1.Size = new System.Drawing.Size(80, 23);
-            this.btnUbic1.TabIndex = 1;
-            this.btnUbic1.Tag = "manage.locationview_alias.tree";
-            this.btnUbic1.Text = "Ubicazione";
-            // 
-            // cboResp
-            // 
-            this.cboResp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtCodUbic1.Location = new System.Drawing.Point(6, 96);
+			this.txtCodUbic1.Name = "txtCodUbic1";
+			this.txtCodUbic1.Size = new System.Drawing.Size(509, 23);
+			this.txtCodUbic1.TabIndex = 5;
+			this.txtCodUbic1.Tag = "locationview_alias.locationcode";
+			// 
+			// btnUbic1
+			// 
+			this.btnUbic1.Location = new System.Drawing.Point(6, 67);
+			this.btnUbic1.Name = "btnUbic1";
+			this.btnUbic1.Size = new System.Drawing.Size(80, 23);
+			this.btnUbic1.TabIndex = 1;
+			this.btnUbic1.Tag = "manage.locationview_alias.tree";
+			this.btnUbic1.Text = "Ubicazione";
+			// 
+			// cboResp
+			// 
+			this.cboResp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboResp.DataSource = this.DS.manager;
-            this.cboResp.DisplayMember = "title";
-            this.cboResp.Location = new System.Drawing.Point(181, 192);
-            this.cboResp.MaxDropDownItems = 25;
-            this.cboResp.Name = "cboResp";
-            this.cboResp.Size = new System.Drawing.Size(523, 23);
-            this.cboResp.TabIndex = 4;
-            this.cboResp.ValueMember = "idman";
-            this.cboResp.SelectedIndexChanged += new System.EventHandler(this.cboResp_SelectedIndexChanged);
-            this.cboResp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
-            this.cboResp.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
-            // 
-            // txt_numinv_a
-            // 
-            this.txt_numinv_a.Location = new System.Drawing.Point(333, 320);
-            this.txt_numinv_a.Name = "txt_numinv_a";
-            this.txt_numinv_a.Size = new System.Drawing.Size(56, 23);
-            this.txt_numinv_a.TabIndex = 14;
-            this.txt_numinv_a.Leave += new System.EventHandler(this.LeaveInt);
-            // 
-            // txt_numinv_da
-            // 
-            this.txt_numinv_da.Location = new System.Drawing.Point(221, 320);
-            this.txt_numinv_da.Name = "txt_numinv_da";
-            this.txt_numinv_da.Size = new System.Drawing.Size(56, 23);
-            this.txt_numinv_da.TabIndex = 13;
-            this.txt_numinv_da.Leave += new System.EventHandler(this.LeaveInt);
-            // 
-            // label5
-            // 
-            this.label5.Location = new System.Drawing.Point(309, 320);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(20, 16);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "a";
-            // 
-            // label6
-            // 
-            this.label6.Location = new System.Drawing.Point(181, 320);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(32, 16);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "Da";
-            // 
-            // txt_numcarico_a
-            // 
-            this.txt_numcarico_a.Location = new System.Drawing.Point(333, 256);
-            this.txt_numcarico_a.Name = "txt_numcarico_a";
-            this.txt_numcarico_a.Size = new System.Drawing.Size(56, 23);
-            this.txt_numcarico_a.TabIndex = 10;
-            this.txt_numcarico_a.Leave += new System.EventHandler(this.LeaveInt);
-            // 
-            // txt_numcarico_da
-            // 
-            this.txt_numcarico_da.Location = new System.Drawing.Point(221, 256);
-            this.txt_numcarico_da.Name = "txt_numcarico_da";
-            this.txt_numcarico_da.Size = new System.Drawing.Size(56, 23);
-            this.txt_numcarico_da.TabIndex = 9;
-            this.txt_numcarico_da.Leave += new System.EventHandler(this.LeaveInt);
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(309, 256);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(20, 16);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "a";
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(181, 256);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(32, 16);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Da";
-            // 
-            // txt_idbene_a
-            // 
-            this.txt_idbene_a.Location = new System.Drawing.Point(333, 224);
-            this.txt_idbene_a.Name = "txt_idbene_a";
-            this.txt_idbene_a.Size = new System.Drawing.Size(56, 23);
-            this.txt_idbene_a.TabIndex = 7;
-            this.txt_idbene_a.Leave += new System.EventHandler(this.LeaveInt);
-            // 
-            // txt_idbene_da
-            // 
-            this.txt_idbene_da.Location = new System.Drawing.Point(221, 224);
-            this.txt_idbene_da.Name = "txt_idbene_da";
-            this.txt_idbene_da.Size = new System.Drawing.Size(56, 23);
-            this.txt_idbene_da.TabIndex = 6;
-            this.txt_idbene_da.Leave += new System.EventHandler(this.LeaveInt);
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(309, 224);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(20, 16);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "a";
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(181, 224);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 16);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Da";
-            // 
-            // lblFase2
-            // 
-            this.lblFase2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cboResp.DataSource = this.DS.manager;
+			this.cboResp.DisplayMember = "title";
+			this.cboResp.Location = new System.Drawing.Point(181, 192);
+			this.cboResp.MaxDropDownItems = 25;
+			this.cboResp.Name = "cboResp";
+			this.cboResp.Size = new System.Drawing.Size(523, 23);
+			this.cboResp.TabIndex = 4;
+			this.cboResp.ValueMember = "idman";
+			this.cboResp.SelectedIndexChanged += new System.EventHandler(this.cboResp_SelectedIndexChanged);
+			this.cboResp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
+			this.cboResp.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
+			// 
+			// txt_numinv_a
+			// 
+			this.txt_numinv_a.Location = new System.Drawing.Point(333, 320);
+			this.txt_numinv_a.Name = "txt_numinv_a";
+			this.txt_numinv_a.Size = new System.Drawing.Size(56, 23);
+			this.txt_numinv_a.TabIndex = 14;
+			this.txt_numinv_a.Leave += new System.EventHandler(this.LeaveInt);
+			// 
+			// txt_numinv_da
+			// 
+			this.txt_numinv_da.Location = new System.Drawing.Point(221, 320);
+			this.txt_numinv_da.Name = "txt_numinv_da";
+			this.txt_numinv_da.Size = new System.Drawing.Size(56, 23);
+			this.txt_numinv_da.TabIndex = 13;
+			this.txt_numinv_da.Leave += new System.EventHandler(this.LeaveInt);
+			// 
+			// label5
+			// 
+			this.label5.Location = new System.Drawing.Point(309, 320);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(20, 16);
+			this.label5.TabIndex = 15;
+			this.label5.Text = "a";
+			// 
+			// label6
+			// 
+			this.label6.Location = new System.Drawing.Point(181, 320);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(32, 16);
+			this.label6.TabIndex = 14;
+			this.label6.Text = "Da";
+			// 
+			// txt_numcarico_a
+			// 
+			this.txt_numcarico_a.Location = new System.Drawing.Point(333, 256);
+			this.txt_numcarico_a.Name = "txt_numcarico_a";
+			this.txt_numcarico_a.Size = new System.Drawing.Size(56, 23);
+			this.txt_numcarico_a.TabIndex = 10;
+			this.txt_numcarico_a.Leave += new System.EventHandler(this.LeaveInt);
+			// 
+			// txt_numcarico_da
+			// 
+			this.txt_numcarico_da.Location = new System.Drawing.Point(221, 256);
+			this.txt_numcarico_da.Name = "txt_numcarico_da";
+			this.txt_numcarico_da.Size = new System.Drawing.Size(56, 23);
+			this.txt_numcarico_da.TabIndex = 9;
+			this.txt_numcarico_da.Leave += new System.EventHandler(this.LeaveInt);
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(309, 256);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(20, 16);
+			this.label3.TabIndex = 11;
+			this.label3.Text = "a";
+			// 
+			// label4
+			// 
+			this.label4.Location = new System.Drawing.Point(181, 256);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(32, 16);
+			this.label4.TabIndex = 10;
+			this.label4.Text = "Da";
+			// 
+			// txt_idbene_a
+			// 
+			this.txt_idbene_a.Location = new System.Drawing.Point(333, 224);
+			this.txt_idbene_a.Name = "txt_idbene_a";
+			this.txt_idbene_a.Size = new System.Drawing.Size(56, 23);
+			this.txt_idbene_a.TabIndex = 7;
+			this.txt_idbene_a.Leave += new System.EventHandler(this.LeaveInt);
+			// 
+			// txt_idbene_da
+			// 
+			this.txt_idbene_da.Location = new System.Drawing.Point(221, 224);
+			this.txt_idbene_da.Name = "txt_idbene_da";
+			this.txt_idbene_da.Size = new System.Drawing.Size(56, 23);
+			this.txt_idbene_da.TabIndex = 6;
+			this.txt_idbene_da.Leave += new System.EventHandler(this.LeaveInt);
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(309, 224);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(20, 16);
+			this.label2.TabIndex = 7;
+			this.label2.Text = "a";
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(181, 224);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(32, 16);
+			this.label1.TabIndex = 6;
+			this.label1.Text = "Da";
+			// 
+			// lblFase2
+			// 
+			this.lblFase2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFase2.Location = new System.Drawing.Point(16, 8);
-            this.lblFase2.Name = "lblFase2";
-            this.lblFase2.Size = new System.Drawing.Size(683, 48);
-            this.lblFase2.TabIndex = 0;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.rdbStorico);
-            this.tabPage2.Controls.Add(this.rdbSostituisci);
-            this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Controls.Add(this.txtDataTrasferimento);
-            this.tabPage2.Controls.Add(this.label9);
-            this.tabPage2.Controls.Add(this.grpResp);
-            this.tabPage2.Controls.Add(this.lblFase3);
-            this.tabPage2.Location = new System.Drawing.Point(0, 0);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Selected = false;
-            this.tabPage2.Size = new System.Drawing.Size(715, 443);
-            this.tabPage2.TabIndex = 4;
-            this.tabPage2.Title = "Page2";
-            this.tabPage2.Visible = false;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.lblFase2.Location = new System.Drawing.Point(16, 8);
+			this.lblFase2.Name = "lblFase2";
+			this.lblFase2.Size = new System.Drawing.Size(683, 48);
+			this.lblFase2.TabIndex = 0;
+			// 
+			// tabPage2
+			// 
+			this.tabPage2.Controls.Add(this.groupBox2);
+			this.tabPage2.Controls.Add(this.rdbStorico);
+			this.tabPage2.Controls.Add(this.rdbSostituisci);
+			this.tabPage2.Controls.Add(this.groupBox1);
+			this.tabPage2.Controls.Add(this.txtDataTrasferimento);
+			this.tabPage2.Controls.Add(this.label9);
+			this.tabPage2.Controls.Add(this.grpResp);
+			this.tabPage2.Controls.Add(this.lblFase3);
+			this.tabPage2.Location = new System.Drawing.Point(0, 0);
+			this.tabPage2.Name = "tabPage2";
+			this.tabPage2.Selected = false;
+			this.tabPage2.Size = new System.Drawing.Size(715, 443);
+			this.tabPage2.TabIndex = 4;
+			this.tabPage2.Title = "Page2";
+			this.tabPage2.Visible = false;
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.cmbConsegnatario);
-            this.groupBox2.Location = new System.Drawing.Point(16, 300);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(693, 50);
-            this.groupBox2.TabIndex = 10;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Selezionare il nuovo Subconsegnatario ( o lasciare vuoto per non variare il Subco" +
+			this.groupBox2.Controls.Add(this.cmbConsegnatario);
+			this.groupBox2.Location = new System.Drawing.Point(16, 300);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(693, 50);
+			this.groupBox2.TabIndex = 10;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Selezionare il nuovo Subconsegnatario ( o lasciare vuoto per non variare il Subco" +
     "nsegnatario)";
-            // 
-            // cmbConsegnatario
-            // 
-            this.cmbConsegnatario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			// 
+			// cmbConsegnatario
+			// 
+			this.cmbConsegnatario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbConsegnatario.DataSource = this.DS.managerconsegnatario1;
-            this.cmbConsegnatario.DisplayMember = "title";
-            this.cmbConsegnatario.Location = new System.Drawing.Point(8, 18);
-            this.cmbConsegnatario.MaxDropDownItems = 25;
-            this.cmbConsegnatario.Name = "cmbConsegnatario";
-            this.cmbConsegnatario.Size = new System.Drawing.Size(677, 23);
-            this.cmbConsegnatario.TabIndex = 0;
-            this.cmbConsegnatario.ValueMember = "idman";
-            this.cmbConsegnatario.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
-            this.cmbConsegnatario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
-            // 
-            // rdbStorico
-            // 
-            this.rdbStorico.Checked = true;
-            this.rdbStorico.Location = new System.Drawing.Point(16, 359);
-            this.rdbStorico.Name = "rdbStorico";
-            this.rdbStorico.Size = new System.Drawing.Size(264, 24);
-            this.rdbStorico.TabIndex = 9;
-            this.rdbStorico.TabStop = true;
-            this.rdbStorico.Text = "Preserva la storicità del cespite";
-            // 
-            // rdbSostituisci
-            // 
-            this.rdbSostituisci.Location = new System.Drawing.Point(304, 367);
-            this.rdbSostituisci.Name = "rdbSostituisci";
-            this.rdbSostituisci.Size = new System.Drawing.Size(232, 24);
-            this.rdbSostituisci.TabIndex = 8;
-            this.rdbSostituisci.Text = "Sostituisci le informazioni  originali";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbConsegnatario.DataSource = this.DS.managerconsegnatario1;
+			this.cmbConsegnatario.DisplayMember = "title";
+			this.cmbConsegnatario.Location = new System.Drawing.Point(8, 18);
+			this.cmbConsegnatario.MaxDropDownItems = 25;
+			this.cmbConsegnatario.Name = "cmbConsegnatario";
+			this.cmbConsegnatario.Size = new System.Drawing.Size(677, 23);
+			this.cmbConsegnatario.TabIndex = 0;
+			this.cmbConsegnatario.ValueMember = "idman";
+			this.cmbConsegnatario.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
+			this.cmbConsegnatario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
+			// 
+			// rdbStorico
+			// 
+			this.rdbStorico.Checked = true;
+			this.rdbStorico.Location = new System.Drawing.Point(16, 359);
+			this.rdbStorico.Name = "rdbStorico";
+			this.rdbStorico.Size = new System.Drawing.Size(264, 24);
+			this.rdbStorico.TabIndex = 9;
+			this.rdbStorico.TabStop = true;
+			this.rdbStorico.Text = "Preserva la storicità del cespite";
+			// 
+			// rdbSostituisci
+			// 
+			this.rdbSostituisci.Location = new System.Drawing.Point(304, 367);
+			this.rdbSostituisci.Name = "rdbSostituisci";
+			this.rdbSostituisci.Size = new System.Drawing.Size(232, 24);
+			this.rdbSostituisci.TabIndex = 8;
+			this.rdbSostituisci.Text = "Sostituisci le informazioni  originali";
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.cmbResponsabile);
-            this.groupBox1.Location = new System.Drawing.Point(16, 249);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(693, 50);
-            this.groupBox1.TabIndex = 7;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Selezionare il nuovo responsabile ( o lasciare vuoto per non variare il responsab" +
+			this.groupBox1.Controls.Add(this.cmbResponsabile);
+			this.groupBox1.Location = new System.Drawing.Point(16, 249);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(693, 50);
+			this.groupBox1.TabIndex = 7;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Selezionare il nuovo responsabile ( o lasciare vuoto per non variare il responsab" +
     "ile)";
-            // 
-            // cmbResponsabile
-            // 
-            this.cmbResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			// 
+			// cmbResponsabile
+			// 
+			this.cmbResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbResponsabile.DataSource = this.DS.manager1;
-            this.cmbResponsabile.DisplayMember = "title";
-            this.cmbResponsabile.Location = new System.Drawing.Point(8, 18);
-            this.cmbResponsabile.MaxDropDownItems = 25;
-            this.cmbResponsabile.Name = "cmbResponsabile";
-            this.cmbResponsabile.Size = new System.Drawing.Size(677, 23);
-            this.cmbResponsabile.TabIndex = 0;
-            this.cmbResponsabile.ValueMember = "idman";
-            this.cmbResponsabile.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
-            this.cmbResponsabile.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
-            // 
-            // txtDataTrasferimento
-            // 
-            this.txtDataTrasferimento.Location = new System.Drawing.Point(24, 402);
-            this.txtDataTrasferimento.Name = "txtDataTrasferimento";
-            this.txtDataTrasferimento.Size = new System.Drawing.Size(100, 23);
-            this.txtDataTrasferimento.TabIndex = 6;
-            // 
-            // label9
-            // 
-            this.label9.Location = new System.Drawing.Point(24, 386);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(176, 16);
-            this.label9.TabIndex = 5;
-            this.label9.Text = "Data di trasferimento";
-            // 
-            // grpResp
-            // 
-            this.grpResp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbResponsabile.DataSource = this.DS.manager1;
+			this.cmbResponsabile.DisplayMember = "title";
+			this.cmbResponsabile.Location = new System.Drawing.Point(8, 18);
+			this.cmbResponsabile.MaxDropDownItems = 25;
+			this.cmbResponsabile.Name = "cmbResponsabile";
+			this.cmbResponsabile.Size = new System.Drawing.Size(677, 23);
+			this.cmbResponsabile.TabIndex = 0;
+			this.cmbResponsabile.ValueMember = "idman";
+			this.cmbResponsabile.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_KeyDown);
+			this.cmbResponsabile.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmb_KeyPress);
+			// 
+			// txtDataTrasferimento
+			// 
+			this.txtDataTrasferimento.Location = new System.Drawing.Point(24, 402);
+			this.txtDataTrasferimento.Name = "txtDataTrasferimento";
+			this.txtDataTrasferimento.Size = new System.Drawing.Size(100, 23);
+			this.txtDataTrasferimento.TabIndex = 6;
+			// 
+			// label9
+			// 
+			this.label9.Location = new System.Drawing.Point(24, 386);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(176, 16);
+			this.label9.TabIndex = 5;
+			this.label9.Text = "Data di trasferimento";
+			// 
+			// grpResp
+			// 
+			this.grpResp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpResp.Controls.Add(this.label8);
-            this.grpResp.Controls.Add(this.txtCodUbicazione);
-            this.grpResp.Controls.Add(this.label7);
-            this.grpResp.Controls.Add(this.txtdesc);
-            this.grpResp.Controls.Add(this.txtIdUbicazione);
-            this.grpResp.Controls.Add(this.btnUbic);
-            this.grpResp.Location = new System.Drawing.Point(16, 88);
-            this.grpResp.Name = "grpResp";
-            this.grpResp.Size = new System.Drawing.Size(691, 155);
-            this.grpResp.TabIndex = 4;
-            this.grpResp.TabStop = false;
-            this.grpResp.Tag = "AutoChoose.txtCodUbicazione.tree";
-            this.grpResp.Text = "Selezionare la nuova ubicazione (o lasciare vuoto per non variare l\'ubicazione de" +
+			this.grpResp.Controls.Add(this.label8);
+			this.grpResp.Controls.Add(this.txtCodUbicazione);
+			this.grpResp.Controls.Add(this.label7);
+			this.grpResp.Controls.Add(this.txtdesc);
+			this.grpResp.Controls.Add(this.txtIdUbicazione);
+			this.grpResp.Controls.Add(this.btnUbic);
+			this.grpResp.Location = new System.Drawing.Point(16, 88);
+			this.grpResp.Name = "grpResp";
+			this.grpResp.Size = new System.Drawing.Size(691, 155);
+			this.grpResp.TabIndex = 4;
+			this.grpResp.TabStop = false;
+			this.grpResp.Tag = "AutoChoose.txtCodUbicazione.tree";
+			this.grpResp.Text = "Selezionare la nuova ubicazione (o lasciare vuoto per non variare l\'ubicazione de" +
     "i cespiti selezionati)";
-            // 
-            // label8
-            // 
-            this.label8.Location = new System.Drawing.Point(13, 89);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(48, 16);
-            this.label8.TabIndex = 5;
-            this.label8.Text = "Codice";
-            // 
-            // txtCodUbicazione
-            // 
-            this.txtCodUbicazione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			// 
+			// label8
+			// 
+			this.label8.Location = new System.Drawing.Point(13, 89);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(48, 16);
+			this.label8.TabIndex = 5;
+			this.label8.Text = "Codice";
+			// 
+			// txtCodUbicazione
+			// 
+			this.txtCodUbicazione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCodUbicazione.Location = new System.Drawing.Point(11, 117);
-            this.txtCodUbicazione.Name = "txtCodUbicazione";
-            this.txtCodUbicazione.Size = new System.Drawing.Size(674, 23);
-            this.txtCodUbicazione.TabIndex = 4;
-            this.txtCodUbicazione.Tag = "locationview.locationcode";
-            // 
-            // label7
-            // 
-            this.label7.Location = new System.Drawing.Point(16, 60);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(80, 16);
-            this.label7.TabIndex = 3;
-            this.label7.Text = "Identificativo";
-            this.label7.Visible = false;
-            // 
-            // txtdesc
-            // 
-            this.txtdesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtCodUbicazione.Location = new System.Drawing.Point(11, 117);
+			this.txtCodUbicazione.Name = "txtCodUbicazione";
+			this.txtCodUbicazione.Size = new System.Drawing.Size(674, 23);
+			this.txtCodUbicazione.TabIndex = 4;
+			this.txtCodUbicazione.Tag = "locationview.locationcode";
+			// 
+			// label7
+			// 
+			this.label7.Location = new System.Drawing.Point(16, 60);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(80, 16);
+			this.label7.TabIndex = 3;
+			this.label7.Text = "Identificativo";
+			this.label7.Visible = false;
+			// 
+			// txtdesc
+			// 
+			this.txtdesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtdesc.Location = new System.Drawing.Point(118, 24);
-            this.txtdesc.Multiline = true;
-            this.txtdesc.Name = "txtdesc";
-            this.txtdesc.ReadOnly = true;
-            this.txtdesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtdesc.Size = new System.Drawing.Size(567, 81);
-            this.txtdesc.TabIndex = 2;
-            this.txtdesc.Tag = "locationview.description";
-            // 
-            // txtIdUbicazione
-            // 
-            this.txtIdUbicazione.Location = new System.Drawing.Point(6, 53);
-            this.txtIdUbicazione.Name = "txtIdUbicazione";
-            this.txtIdUbicazione.ReadOnly = true;
-            this.txtIdUbicazione.Size = new System.Drawing.Size(112, 23);
-            this.txtIdUbicazione.TabIndex = 1;
-            this.txtIdUbicazione.Tag = "locationview.idlocation";
-            this.txtIdUbicazione.Visible = false;
-            // 
-            // btnUbic
-            // 
-            this.btnUbic.Location = new System.Drawing.Point(16, 24);
-            this.btnUbic.Name = "btnUbic";
-            this.btnUbic.Size = new System.Drawing.Size(80, 23);
-            this.btnUbic.TabIndex = 0;
-            this.btnUbic.Tag = "manage.locationview.tree";
-            this.btnUbic.Text = "Ubicazione";
-            // 
-            // lblFase3
-            // 
-            this.lblFase3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtdesc.Location = new System.Drawing.Point(118, 24);
+			this.txtdesc.Multiline = true;
+			this.txtdesc.Name = "txtdesc";
+			this.txtdesc.ReadOnly = true;
+			this.txtdesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtdesc.Size = new System.Drawing.Size(567, 81);
+			this.txtdesc.TabIndex = 2;
+			this.txtdesc.Tag = "locationview.description";
+			// 
+			// txtIdUbicazione
+			// 
+			this.txtIdUbicazione.Location = new System.Drawing.Point(6, 53);
+			this.txtIdUbicazione.Name = "txtIdUbicazione";
+			this.txtIdUbicazione.ReadOnly = true;
+			this.txtIdUbicazione.Size = new System.Drawing.Size(112, 23);
+			this.txtIdUbicazione.TabIndex = 1;
+			this.txtIdUbicazione.Tag = "locationview.idlocation";
+			this.txtIdUbicazione.Visible = false;
+			// 
+			// btnUbic
+			// 
+			this.btnUbic.Location = new System.Drawing.Point(16, 24);
+			this.btnUbic.Name = "btnUbic";
+			this.btnUbic.Size = new System.Drawing.Size(80, 23);
+			this.btnUbic.TabIndex = 0;
+			this.btnUbic.Tag = "manage.locationview.tree";
+			this.btnUbic.Text = "Ubicazione";
+			// 
+			// lblFase3
+			// 
+			this.lblFase3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFase3.Location = new System.Drawing.Point(24, 16);
-            this.lblFase3.Name = "lblFase3";
-            this.lblFase3.Size = new System.Drawing.Size(683, 56);
-            this.lblFase3.TabIndex = 3;
-            // 
-            // tabPage2bis
-            // 
-            this.tabPage2bis.Controls.Add(this.groupBox3);
-            this.tabPage2bis.Controls.Add(this.btnSelezionaTutto);
-            this.tabPage2bis.Controls.Add(this.label17);
-            this.tabPage2bis.Controls.Add(this.label10);
-            this.tabPage2bis.Location = new System.Drawing.Point(0, 0);
-            this.tabPage2bis.Name = "tabPage2bis";
-            this.tabPage2bis.Selected = false;
-            this.tabPage2bis.Size = new System.Drawing.Size(715, 443);
-            this.tabPage2bis.TabIndex = 7;
-            this.tabPage2bis.Title = "Page 2bis";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.lblFase3.Location = new System.Drawing.Point(24, 16);
+			this.lblFase3.Name = "lblFase3";
+			this.lblFase3.Size = new System.Drawing.Size(683, 56);
+			this.lblFase3.TabIndex = 3;
+			// 
+			// tabPage2bis
+			// 
+			this.tabPage2bis.Controls.Add(this.groupBox3);
+			this.tabPage2bis.Controls.Add(this.btnSelezionaTutto);
+			this.tabPage2bis.Controls.Add(this.label17);
+			this.tabPage2bis.Controls.Add(this.label10);
+			this.tabPage2bis.Location = new System.Drawing.Point(0, 0);
+			this.tabPage2bis.Name = "tabPage2bis";
+			this.tabPage2bis.Selected = false;
+			this.tabPage2bis.Size = new System.Drawing.Size(715, 443);
+			this.tabPage2bis.TabIndex = 7;
+			this.tabPage2bis.Title = "Page 2bis";
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.gridCespiti);
-            this.groupBox3.Location = new System.Drawing.Point(11, 67);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(701, 373);
-            this.groupBox3.TabIndex = 29;
-            this.groupBox3.TabStop = false;
-            // 
-            // gridCespiti
-            // 
-            this.gridCespiti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox3.Controls.Add(this.gridCespiti);
+			this.groupBox3.Location = new System.Drawing.Point(11, 67);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(701, 373);
+			this.groupBox3.TabIndex = 29;
+			this.groupBox3.TabStop = false;
+			// 
+			// gridCespiti
+			// 
+			this.gridCespiti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridCespiti.DataMember = "";
-            this.gridCespiti.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.gridCespiti.Location = new System.Drawing.Point(6, 22);
-            this.gridCespiti.Name = "gridCespiti";
-            this.gridCespiti.Size = new System.Drawing.Size(689, 342);
-            this.gridCespiti.TabIndex = 0;
-            this.gridCespiti.Tag = "assetview.default";
-            // 
-            // btnSelezionaTutto
-            // 
-            this.btnSelezionaTutto.Location = new System.Drawing.Point(8, 16);
-            this.btnSelezionaTutto.Name = "btnSelezionaTutto";
-            this.btnSelezionaTutto.Size = new System.Drawing.Size(88, 23);
-            this.btnSelezionaTutto.TabIndex = 28;
-            this.btnSelezionaTutto.Text = "Seleziona tutto";
-            this.btnSelezionaTutto.Click += new System.EventHandler(this.btnSelezionaTutto_Click);
-            // 
-            // label17
-            // 
-            this.label17.Location = new System.Drawing.Point(112, 16);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(456, 32);
-            this.label17.TabIndex = 27;
-            this.label17.Text = "Tenere premuto il tasto CTRL o MAIUSC e contemporaneamente cliccare con il mouse " +
+			this.gridCespiti.DataMember = "";
+			this.gridCespiti.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.gridCespiti.Location = new System.Drawing.Point(6, 22);
+			this.gridCespiti.Name = "gridCespiti";
+			this.gridCespiti.Size = new System.Drawing.Size(689, 342);
+			this.gridCespiti.TabIndex = 0;
+			this.gridCespiti.Tag = "assetview.default";
+			// 
+			// btnSelezionaTutto
+			// 
+			this.btnSelezionaTutto.Location = new System.Drawing.Point(8, 16);
+			this.btnSelezionaTutto.Name = "btnSelezionaTutto";
+			this.btnSelezionaTutto.Size = new System.Drawing.Size(88, 23);
+			this.btnSelezionaTutto.TabIndex = 28;
+			this.btnSelezionaTutto.Text = "Seleziona tutto";
+			this.btnSelezionaTutto.Click += new System.EventHandler(this.btnSelezionaTutto_Click);
+			// 
+			// label17
+			// 
+			this.label17.Location = new System.Drawing.Point(112, 16);
+			this.label17.Name = "label17";
+			this.label17.Size = new System.Drawing.Size(456, 32);
+			this.label17.TabIndex = 27;
+			this.label17.Text = "Tenere premuto il tasto CTRL o MAIUSC e contemporaneamente cliccare con il mouse " +
     "per selezionare più cespiti da trasferire";
-            // 
-            // label10
-            // 
-            this.label10.Location = new System.Drawing.Point(8, 48);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(440, 16);
-            this.label10.TabIndex = 1;
-            this.label10.Text = "Verranno elaborati i seguenti cespiti:";
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			// 
+			// label10
+			// 
+			this.label10.Location = new System.Drawing.Point(8, 48);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(440, 16);
+			this.label10.TabIndex = 1;
+			this.label10.Text = "Verranno elaborati i seguenti cespiti:";
+			// 
+			// tabPage3
+			// 
+			this.tabPage3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabPage3.Controls.Add(this.lblFase4);
-            this.tabPage3.Location = new System.Drawing.Point(0, 0);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Selected = false;
-            this.tabPage3.Size = new System.Drawing.Size(715, 443);
-            this.tabPage3.TabIndex = 5;
-            this.tabPage3.Title = "Page3";
-            this.tabPage3.Visible = false;
-            // 
-            // lblFase4
-            // 
-            this.lblFase4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.tabPage3.Controls.Add(this.lblFase4);
+			this.tabPage3.Location = new System.Drawing.Point(0, 0);
+			this.tabPage3.Name = "tabPage3";
+			this.tabPage3.Selected = false;
+			this.tabPage3.Size = new System.Drawing.Size(715, 443);
+			this.tabPage3.TabIndex = 5;
+			this.tabPage3.Title = "Page3";
+			this.tabPage3.Visible = false;
+			// 
+			// lblFase4
+			// 
+			this.lblFase4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFase4.Location = new System.Drawing.Point(3, 11);
-            this.lblFase4.Name = "lblFase4";
-            this.lblFase4.Size = new System.Drawing.Size(691, 208);
-            this.lblFase4.TabIndex = 2;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(641, 486);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 12;
-            this.btnCancel.Text = "Annulla";
-            // 
-            // btnNext
-            // 
-            this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNext.Location = new System.Drawing.Point(537, 486);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(75, 23);
-            this.btnNext.TabIndex = 11;
-            this.btnNext.Text = "Avanti >";
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
-            // btnBack
-            // 
-            this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBack.Location = new System.Drawing.Point(457, 486);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(75, 23);
-            this.btnBack.TabIndex = 10;
-            this.btnBack.Text = "< Indietro";
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.lblFase4.Location = new System.Drawing.Point(3, 11);
+			this.lblFase4.Name = "lblFase4";
+			this.lblFase4.Size = new System.Drawing.Size(691, 208);
+			this.lblFase4.TabIndex = 2;
+			// 
+			// btnCancel
+			// 
+			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.btnCancel.Location = new System.Drawing.Point(641, 486);
+			this.btnCancel.Name = "btnCancel";
+			this.btnCancel.Size = new System.Drawing.Size(75, 23);
+			this.btnCancel.TabIndex = 12;
+			this.btnCancel.Text = "Annulla";
+			// 
+			// btnNext
+			// 
+			this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnNext.Location = new System.Drawing.Point(537, 486);
+			this.btnNext.Name = "btnNext";
+			this.btnNext.Size = new System.Drawing.Size(75, 23);
+			this.btnNext.TabIndex = 11;
+			this.btnNext.Text = "Avanti >";
+			this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+			// 
+			// btnBack
+			// 
+			this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnBack.Location = new System.Drawing.Point(457, 486);
+			this.btnBack.Name = "btnBack";
+			this.btnBack.Size = new System.Drawing.Size(75, 23);
+			this.btnBack.TabIndex = 10;
+			this.btnBack.Text = "< Indietro";
+			this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+			// 
+			// panel1
+			// 
+			this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.tabController);
-            this.panel1.Location = new System.Drawing.Point(2, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(715, 468);
-            this.panel1.TabIndex = 13;
-            // 
-            // Frm_asset_trasferimento
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(729, 523);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnNext);
-            this.Controls.Add(this.btnBack);
-            this.Name = "Frm_asset_trasferimento";
-            this.Text = "frmbeneinv_trasferimento";
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.tabController.ResumeLayout(false);
-            this.tabPageInizio.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.grpUbic.ResumeLayout(false);
-            this.grpUbic.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.grpResp.ResumeLayout(false);
-            this.grpResp.PerformLayout();
-            this.tabPage2bis.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridCespiti)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.ResumeLayout(false);
+			this.panel1.Controls.Add(this.tabController);
+			this.panel1.Location = new System.Drawing.Point(2, 12);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(715, 468);
+			this.panel1.TabIndex = 13;
+			// 
+			// Frm_asset_trasferimento
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(729, 523);
+			this.Controls.Add(this.panel1);
+			this.Controls.Add(this.btnCancel);
+			this.Controls.Add(this.btnNext);
+			this.Controls.Add(this.btnBack);
+			this.Name = "Frm_asset_trasferimento";
+			this.Text = "frmbeneinv_trasferimento";
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.tabController.ResumeLayout(false);
+			this.tabPageInizio.ResumeLayout(false);
+			this.tabPage1.ResumeLayout(false);
+			this.tabPage1.PerformLayout();
+			this.grpUbic.ResumeLayout(false);
+			this.grpUbic.PerformLayout();
+			this.tabPage2.ResumeLayout(false);
+			this.tabPage2.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox1.ResumeLayout(false);
+			this.grpResp.ResumeLayout(false);
+			this.grpResp.PerformLayout();
+			this.tabPage2bis.ResumeLayout(false);
+			this.groupBox3.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.gridCespiti)).EndInit();
+			this.tabPage3.ResumeLayout(false);
+			this.panel1.ResumeLayout(false);
+			this.ResumeLayout(false);
 
 		}
 		#endregion
@@ -1002,7 +1001,7 @@ namespace asset_trasferimento//beneinv_trasferimento//
 				if (rdbStorico.Checked){
 					object T = HelpForm.GetObjectFromString(typeof(DateTime), 
 						txtDataTrasferimento.Text,"x.y");
-					if (T==DBNull.Value){
+					if (T==DBNull.Value || T==null){
 						ShowMsg("Attenzione, non è stata selezionata una data di trasferimento");
 						return false;
 					}
@@ -1323,7 +1322,7 @@ namespace asset_trasferimento//beneinv_trasferimento//
 				"modalità prescelta. Continuare?";
 			}
 
-			if (MessageBox.Show(msg,"Attenzione",
+			if (show(msg,"Attenzione",
 				MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question)!=DialogResult.Yes)
 				return false;
 			
@@ -1422,7 +1421,7 @@ namespace asset_trasferimento//beneinv_trasferimento//
 			}
 			if (Filtro==""){
                 Filtro = QHS.CmpEq("idpiece", 1);
-				return (MessageBox.Show(
+				return (show(
 					"Non è stato selezionato alcun filtro. Saranno trasferiti TUTTI i cespiti del patrimonio. Conferma?",
 					"Conferma",MessageBoxButtons.OKCancel)==DialogResult.OK);
 			}
@@ -1435,7 +1434,7 @@ namespace asset_trasferimento//beneinv_trasferimento//
 
 		
 		private void ShowMsg(string msg) {
-			MessageBox.Show(msg,"Attenzione",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+			show(msg,"Attenzione",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 		}
 
 
@@ -1497,4 +1496,3 @@ namespace asset_trasferimento//beneinv_trasferimento//
 
 	}
 }
-

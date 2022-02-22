@@ -12,32 +12,48 @@
     <Shape ID="DesignTable:ddt_in_motive" ZOrder="12" X="191" Y="32" Height="147" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="160" />
     <Shape ID="DesignTable:store" ZOrder="9" X="825" Y="289" Height="147" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="143" />
     <Shape ID="DesignTable:mandatekind" ZOrder="7" X="834" Y="512" Height="215" Width="157" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="211" />
-    <Shape ID="DesignTable:ivakind" ZOrder="5" X="718" Y="799" Height="215" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="227" />
-    <Shape ID="DesignTable:storeload_motive" ZOrder="3" X="794" Y="29" Height="113" Width="165" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="125" />
-    <Shape ID="DesignTable:listview" ZOrder="2" X="240" Y="687" Height="215" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="270" />
+    <Shape ID="DesignTable:storeload_motive" ZOrder="5" X="794" Y="29" Height="113" Width="165" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="125" />
+    <Shape ID="DesignTable:listview" ZOrder="4" X="240" Y="687" Height="215" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="270" />
+    <Shape ID="DesignTable:invoicekind" ZOrder="2" X="1256" Y="144" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
   </Shapes>
   <Connectors>
-    <Connector ID="DesignRelation:store_ddt_in" ZOrder="8" LineWidth="11">
+    <Connector ID="DesignRelation:FK_listview_stock" ZOrder="3" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>825</X>
-          <Y>303</Y>
+          <X>373</X>
+          <Y>687</Y>
         </Point>
         <Point>
-          <X>656</X>
-          <Y>303</Y>
+          <X>373</X>
+          <Y>654</Y>
+        </Point>
+        <Point>
+          <X>513</X>
+          <Y>654</Y>
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:ddt_in_motive_ddt_in" ZOrder="11" LineWidth="11">
+    <Connector ID="DesignRelation:FK_mandatekind_stock" ZOrder="6" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>341</X>
-          <Y>179</Y>
+          <X>834</X>
+          <Y>618</Y>
         </Point>
         <Point>
-          <X>506</X>
-          <Y>179</Y>
+          <X>663</X>
+          <Y>618</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
+    <Connector ID="DesignRelation:ddt_in_stock" ZOrder="10" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>598</X>
+          <Y>400</Y>
+        </Point>
+        <Point>
+          <X>598</X>
+          <Y>456</Y>
         </Point>
       </RoutePoints>
     </Connector>
@@ -57,59 +73,43 @@
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:ddt_in_stock" ZOrder="10" LineWidth="11">
+    <Connector ID="DesignRelation:ddt_in_motive_ddt_in" ZOrder="11" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>598</X>
-          <Y>400</Y>
+          <X>341</X>
+          <Y>179</Y>
         </Point>
         <Point>
-          <X>598</X>
-          <Y>456</Y>
+          <X>506</X>
+          <Y>179</Y>
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:FK_mandatekind_stock" ZOrder="6" LineWidth="11">
+    <Connector ID="DesignRelation:store_ddt_in" ZOrder="8" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>834</X>
-          <Y>618</Y>
+          <X>825</X>
+          <Y>303</Y>
+        </Point>
+        <Point>
+          <X>656</X>
+          <Y>303</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
+    <Connector ID="DesignRelation:invoicekind_stock" ZOrder="1" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>1273</X>
+          <Y>234</Y>
+        </Point>
+        <Point>
+          <X>1273</X>
+          <Y>473</Y>
         </Point>
         <Point>
           <X>663</X>
-          <Y>618</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
-    <Connector ID="DesignRelation:FK_ivakind_stock" ZOrder="4" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>718</X>
-          <Y>800</Y>
-        </Point>
-        <Point>
-          <X>646</X>
-          <Y>800</Y>
-        </Point>
-        <Point>
-          <X>646</X>
-          <Y>671</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
-    <Connector ID="DesignRelation:FK_listview_stock" ZOrder="1" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>373</X>
-          <Y>687</Y>
-        </Point>
-        <Point>
-          <X>373</X>
-          <Y>654</Y>
-        </Point>
-        <Point>
-          <X>513</X>
-          <Y>654</Y>
+          <Y>473</Y>
         </Point>
       </RoutePoints>
     </Connector>

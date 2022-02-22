@@ -1,23 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-ï»¿using System;
+using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -57,7 +55,7 @@ namespace EasyWebReport {
             labError.Text = "";
             string user = DepConn.GetSys("user").ToString();
             if (!CheckPassword(old,DepConn)) {
-                labError.Text="La vecchia password inserita non Ã¨ corretta";
+                labError.Text="La vecchia password inserita non è corretta";
                 labError.Visible = true;
                 return false;
             }
@@ -118,8 +116,8 @@ namespace EasyWebReport {
                             DepConn.GetSys("server").ToString(), DepConn.GetSys("database").ToString(),
                             user, oldpwd, DateTime.Now.Year, DateTime.Now);
             Try.Open();
-            if (Try.OpenError) {
-                 labError.Text =   "La vecchia password inserita non Ã¨ corretta!";
+            if (Try.openError) {
+                 labError.Text =   "La vecchia password inserita non è corretta!";
                 labError.Visible = true;
                 Try.Destroy();
                 return false;
@@ -148,7 +146,7 @@ namespace EasyWebReport {
                 return true;
             }
             else {
-                labError.Text= "Non Ã¨ stato possibile cambiare la password";
+                labError.Text= "Non è stato possibile cambiare la password";
                 labError.Visible = true;
             }
             return false;
@@ -170,4 +168,3 @@ namespace EasyWebReport {
         }
     }
 }
-

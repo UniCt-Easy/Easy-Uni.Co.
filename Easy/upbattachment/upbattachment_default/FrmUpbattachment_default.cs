@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -25,12 +24,16 @@ using System.Text;
 using System.Windows.Forms;
 using metadatalibrary;
 using System.IO;
+using funzioni_configurazione;
 
 namespace upbattachment_default {
-    public partial class Frmupbattachment_default : Form {
+    public partial class Frmupbattachment_default : MetaDataForm {
         MetaData Meta;
+        public IOpenFileDialog openFileDialog1;
+
         public Frmupbattachment_default() {
             InitializeComponent();
+            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
         }
 
         public void MetaData_AfterLink() {
@@ -49,6 +52,14 @@ namespace upbattachment_default {
             DataRow Curr = DS.upbattachment.Rows[0];
             openFileDialog1.Title = "Seleziona l'allegato";
             if (openFileDialog1.ShowDialog(this) != DialogResult.OK) return;
+            
+            string estensione = Path.GetExtension(openFileDialog1.FileName);
+
+			if (CfgFn.ExtensionDenied(estensione)) {
+				show("Impossibile caricare questo tipo di file");
+				return;
+			}
+            
             FileStream FS = new FileStream(openFileDialog1.FileName, FileMode.Open, FileAccess.Read);
             int n = (int)FS.Length;
             if (n == 0) {
@@ -90,11 +101,23 @@ namespace upbattachment_default {
             string fname = Curr["filename"].ToString();
             string estensione = Path.GetExtension(fname).Trim();
 
+            bool extensionDenied = CfgFn.ExtensionDenied(estensione);
+
+			if (extensionDenied) {
+				show("Impossibile aprire questo tipo di file");
+				return;
+			}
+			if (!CfgFn.ExtensionAllowed(estensione)) {
+				DialogResult dr = show("Si sta aprendo un file con estensione " + estensione +". Sei sicuro di voler aprire questo file?", "Attenzione!", MessageBoxButtons.YesNo);
+				if (dr == DialogResult.No) 
+					return;
+			}
+
             string sw = Path.Combine(FilePath, prefix + oggi.ToString() + estensione);
             try {
                 ScriviFile(sw, ByteArray, offset);
 
-                System.Diagnostics.Process.Start(sw);
+                runProcess(sw, true);
             }
             catch (Exception E) {
                 QueryCreator.ShowException(E);
@@ -118,4 +141,4 @@ namespace upbattachment_default {
             catch { }
         }
     }
-}
+}

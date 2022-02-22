@@ -117,17 +117,11 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
-    <Reference Include="meta_assetload">
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_assetload</Name>
-      <HintPath>..\meta_assetload\bin\Debug\meta_assetload.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="meta_assetloadkind">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_assetloadkind</Name>
       <HintPath>..\..\assetloadkind\meta_assetloadkind\bin\Debug\meta_assetloadkind.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions">
       <SpecificVersion>False</SpecificVersion>
@@ -201,6 +195,10 @@
       <Project>{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}</Project>
       <Name>funzioni_configurazione</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\meta_assetload\meta_assetload.csproj">
+      <Project>{b96bcbfe-3aee-49d2-a304-2046c0b89947}</Project>
+      <Name>meta_assetload</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

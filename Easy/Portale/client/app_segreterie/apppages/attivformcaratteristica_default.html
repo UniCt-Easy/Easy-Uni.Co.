@@ -1,0 +1,64 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabattivformcaratteristica_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabattivformcaratteristica_default_0"><i class="fa fa-layer-group mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabattivformcaratteristica_default_1" class="nav-link" data-toggle="pill" data-target="#tabattivformcaratteristica_default_1"><i class="fa fa-clock mr-1"></i>Ore</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabattivformcaratteristica_default_0" role="tabpanel">
+					<input hidden id="attivformcaratteristica_default_json" type="text" class="form-control" data-tag="attivformcaratteristica.json" />
+					<input hidden id="attivformcaratteristica_default_title" type="text" class="form-control" data-tag="attivformcaratteristica.title" />
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivformcaratteristica_default_cf">Crediti</label>
+					<input id="attivformcaratteristica_default_cf" type="text" class="form-control" data-tag="attivformcaratteristica.cf.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="attivformcaratteristica_default_idtipoattform">Tipo di attività formativa</label>
+					<select id="attivformcaratteristica_default_idtipoattform" class="custom-select d-block w-100"  data-source-name="tipoattform" data-value-member="idtipoattform" data-display-member="title" data-custom-control="combo" data-tag="attivformcaratteristica.idtipoattform"   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivformcaratteristica_default_idambitoareadisc">Ambito o area disciplinare</label>
+					<div>
+						<input id="attivformcaratteristica_default_idambitoareadisc" name="attivformcaratteristica_default_idambitoareadisc" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="ambitoareadiscdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivformcaratteristica_default_idsasdgruppo">Gruppo</label>
+					<select id="attivformcaratteristica_default_idsasdgruppo" class="custom-select d-block w-100"  data-source-name="sasdgruppodefaultview" data-value-member="idsasdgruppo" data-display-member="dropdown_title" data-custom-control="combo" data-tag="attivformcaratteristica.idsasdgruppo"   data-master="tipoattformdefaultview"> </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivformcaratteristica_default_idsasd">SASD</label>
+					<div>
+						<input id="attivformcaratteristica_default_idsasd" name="attivformcaratteristica_default_idsasd" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sasddefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivformcaratteristica_default_profess">Professionalizzante</label>
+					<div class="custom-control custom-radio">
+						<input id="attivformcaratteristica_default_professSi" type="radio" name="attivformcaratteristica_default_profess" class="custom-control-input" data-tag="attivformcaratteristica.profess:S"  data-mandatory ><label for="attivformcaratteristica_default_professSi"> Si</label>
+						<input id="attivformcaratteristica_default_professNo" type="radio" name="attivformcaratteristica_default_profess" class="custom-control-input" data-tag="attivformcaratteristica.profess:N"  data-mandatory ><label for="attivformcaratteristica_default_professNo"> No</label>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabattivformcaratteristica_default_1" role="tabpanel">
+				<div class="gridx" id="grid_attivformcaratteristicaora_default" data-tag="attivformcaratteristicaora.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

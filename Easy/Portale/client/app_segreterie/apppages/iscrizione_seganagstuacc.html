@@ -1,0 +1,43 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="iscrizione_seganagstuacc_aa">Anno accademico</label>
+					<select id="iscrizione_seganagstuacc_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="iscrizione.aa?iscrizioneseganagstuaccview.aa" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#iscrizione_seganagstuacc_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="iscrizione_seganagstuacc_data">Data</label>
+					<input id="iscrizione_seganagstuacc_data" type="text" class="form-control" data-tag="iscrizione.data.g?iscrizioneseganagstuaccview.iscrizione_data.g" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="iscrizione_seganagstuacc_iddidprog">Prova di accesso</label>
+					<div>
+						<input id="iscrizione_seganagstuacc_iddidprog" name="iscrizione_seganagstuacc_iddidprog" type="text" data-listtype="ingresso"  class="form-control" data-minchar="2" data-tag="didprogingressoview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="iscrizione_seganagstuacc_matricola">Matricola</label>
+					<input id="iscrizione_seganagstuacc_matricola" type="text" class="form-control" data-tag="iscrizione.matricola?iscrizioneseganagstuaccview.iscrizione_matricola" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabeliscrizione_seganagstuacc_XXsostenimento" >Sostenimenti</div>
+				<div class="gridx" id="grid_sostenimento_alias2_seganagstuacc" data-tag="sostenimento_alias2.seganagstuacc.seganagstuacc" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlconditionallookup="votolode,S,Si;votolode,N,No;" ></div>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

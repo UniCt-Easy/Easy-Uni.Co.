@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -32,7 +31,6 @@ namespace generaSQL {//GeneraSQL//
 	/// Summary description for /*Rana:GeneraSQL.*/
 	/// </summary>
 	public class GeneraSQL {
-
 		/// <summary>
 		/// Generazione codice Create Table
 		/// </summary>
@@ -68,7 +66,7 @@ namespace generaSQL {//GeneraSQL//
 		/// <param name="TableName">nome tabella</param>
 		private static string SQLTableExists(bool isDbo, string TableName, bool IsTable) {
 			string dbo = isDbo ? "[dbo]." : "";
-			string s= isDbo? "--[DBO]--\r\n":"";
+			string s = ""; //isDbo? "--[DBO]--\r\n":"";
 			if (IsTable) {
 				s += "-- CREAZIONE TABELLA " + TableName + " --\r\n";
 				s += "IF NOT EXISTS(select * from sysobjects where id = object_id(N'"+dbo+"[" 
@@ -683,7 +681,7 @@ namespace generaSQL {//GeneraSQL//
 		//		}
 
 		/// <summary>
-		/// Genera script sql struttura e dati
+		/// Genera script sql struttura e dati, attenzione qui le tabelle sono tutte dbo o non dbo
 		/// </summary>
 		/// <param name="DS">dataset</param>
 		/// <param name="SQLOutputFile">output file name</param>
@@ -696,10 +694,56 @@ namespace generaSQL {//GeneraSQL//
 		public static void GeneraStrutturaEDati(/*bool dbo, */DataAccess dataAccess, DataSet DS, string SQLOutputFile, 
 			bool append,
 			UpdateType updateType, DataGenerationType dataGenerationType, bool IsTable/*, bool ConvertCRLFData*/) {
-			StreamWriter writer = new StreamWriter(SQLOutputFile, append, System.Text.Encoding.Default);
-			DO_GENERATE(/*dbo, */dataAccess, DS, writer, updateType, dataGenerationType, IsTable/*, ConvertCRLFData*/);
+			StreamWriter writer = new StreamWriter(SQLOutputFile, append, System.Text.Encoding.Default);        
+           
+            DO_GENERATE(/*dbo, */dataAccess, DS, writer, updateType, dataGenerationType, IsTable/*, ConvertCRLFData*/);
 			writer.Close();
+		}
+        
 
+		public static void GeneraStrutturaEDatiSplitted(/*bool dbo, */DataAccess dataAccess, DataSet DS, string SQLOutputFileNonDBO,  string SQLOutputFileDBO,
+			bool append,
+			UpdateType updateType, DataGenerationType dataGenerationType, bool IsTable/*, bool ConvertCRLFData*/) {
+			
+            StreamWriter writerNonDBO = null;
+			bool someDBO = false;
+			foreach (DataTable t in DS.Tables) {
+				string query = "select user_name(objectproperty(object_id("
+				               + QueryCreator.quotedstrvalue(t.TableName, true)
+				               + "),'OwnerId'))";
+
+				string dbo =  dataAccess.SQLRunner(query).Rows[0][0].ToString();
+				if (dbo == "dbo") {
+					someDBO = true;
+				}
+			}
+
+			
+			if (!someDBO) {
+				writerNonDBO = new StreamWriter(SQLOutputFileNonDBO, append, System.Text.Encoding.Default);
+				DO_GENERATE( dataAccess, DS, writerNonDBO, updateType, dataGenerationType,IsTable );
+			}
+			else {
+                //La tabella è dbo
+                if (dataGenerationType != DataGenerationType.onlyData) {
+	                writerNonDBO = new StreamWriter(SQLOutputFileNonDBO, append, System.Text.Encoding.Default);
+                }
+
+				bool fileEmpty = true;
+				if (File.Exists(SQLOutputFileDBO)) {
+                    var fInfo = new FileInfo(SQLOutputFileDBO);
+                    if (fInfo.Length > 0) fileEmpty = false;
+				}     
+
+				StreamWriter writerDBO = new StreamWriter(SQLOutputFileDBO, append, System.Text.Encoding.Default);
+				if(fileEmpty) writerDBO.WriteLine("--[DBO]--");
+
+				DO_GENERATE_SPLITTED( dataAccess, DS, writerNonDBO, writerDBO,  updateType, dataGenerationType,IsTable );
+				writerDBO.Close();
+			}
+
+			writerNonDBO?.Close();
+            
 		}
 
 		public static void GeneraStrutturaEDati(/*bool dbo, */DataAccess dataAccess, DataSet DS, TextWriter writer, 
@@ -707,17 +751,68 @@ namespace generaSQL {//GeneraSQL//
 			DO_GENERATE(/*dbo, */dataAccess, DS, writer, updateType, dataGenerationType, IsTable/*, ConvertCRLFData*/);
 		}
 
-		
-		public  static void DO_GENERATE(/*bool isDbo, */DataAccess dataAccess, DataSet DS, TextWriter writer,
+		public static void DO_GENERATE_SPLITTED( /*bool isDbo, */ DataAccess dataAccess, DataSet DS,
+			TextWriter writerNonDBO, TextWriter writerDBO,
 			UpdateType updateType, DataGenerationType dataGenerationType, bool IsTable) {
+			bool dboWritten = false;
+			bool nonDboWritten = false;
+			foreach (DataTable T in DS.Tables) {
+				string query = "select user_name(objectproperty(object_id("
+				               + QueryCreator.quotedstrvalue(T.TableName, true)
+				               + "),'OwnerId'))";
+
+				string dbo = dataAccess.SQLRunner(query).Rows[0][0].ToString();
+				bool isDbo = dbo == "dbo";
+				if (dataGenerationType != DataGenerationType.onlyData) {
+					if (isDbo) {
+						GeneraStrutturaPura(isDbo, dataAccess, T, writerDBO, IsTable);
+						dboWritten = true;
+						GeneraColTypesStruttura(isDbo, dataAccess, T, writerNonDBO, IsTable);
+						nonDboWritten = true;
+					}
+					else {
+						GeneraStruttura(isDbo, dataAccess, T, writerNonDBO, IsTable);
+						nonDboWritten = true;
+					}
+				}
+
+				//			bool ConvertCRLFData = false;
+				if (dataGenerationType != DataGenerationType.onlyStructure) {
+					if (isDbo) {
+						GetSQLData(T, updateType, writerDBO);
+						dboWritten = true;
+					}
+					else {
+						GetSQLData(T, updateType, writerNonDBO);
+						nonDboWritten = true;
+					}
+				}
+
+				
+			}
+
+			if (dboWritten) {
+				writerDBO.Write("-- FINE GENERAZIONE SCRIPT --\r\n\r\n");
+				writerDBO.Flush();
+			}
+			if (nonDboWritten) {
+				writerNonDBO.Write("-- FINE GENERAZIONE SCRIPT --\r\n\r\n");
+				writerNonDBO.Flush();
+
+			}
+
+		}
+
+		public  static void DO_GENERATE(/*bool isDbo, */DataAccess dataAccess, DataSet DS, TextWriter writer,
+			UpdateType updateType, DataGenerationType dataGenerationType, bool IsTable) {            
+               
 			foreach (DataTable T in DS.Tables) {
 				string query = "select user_name(objectproperty(object_id("
 					+ QueryCreator.quotedstrvalue(T.TableName, true)
 					+ "),'OwnerId'))";
 
 				string dbo = dataAccess.SQLRunner(query).Rows[0][0].ToString();
-
-				bool isDbo = dbo=="dbo";
+				bool isDbo = dbo=="dbo";             
 				if (dataGenerationType != DataGenerationType.onlyData) {
 					GeneraStruttura(isDbo, dataAccess, T, writer, IsTable);
 				}
@@ -732,22 +827,36 @@ namespace generaSQL {//GeneraSQL//
 			writer.Flush();
 		}
 
-		public static void GeneraStruttura(bool isDbo, DataAccess dataAccess, DataTable T, TextWriter writer, 
+		public static void GeneraStrutturaPura(bool isDbo, DataAccess dataAccess, DataTable T, TextWriter writer, 
 			bool IsTable/*, bool ConvertCRLFData*/) {
 			string[,] cols;
+			string[] key;
 			string sqltable = GetSQLTable(isDbo, dataAccess, T, out cols, IsTable);
-            writer.Write(sqltable);
-            if (IsTable) {
+			writer.Write(sqltable);
+			if (IsTable) {
 				GetSQLColumnExists(writer, isDbo, dataAccess, T, cols, false);
 			}
-            string indexes = null;
-            if (IsTable) indexes = GetSQLIndexes(dataAccess, T);
-            if (indexes != null) writer.Write(indexes);
-            string sqlcolumntypes = GetSQLColumnTypes(T, cols);
-			string sqlcustomobject = GetSQLCustomObject(T, IsTable);
-			writer.Write(sqlcolumntypes);
-			writer.Write(sqlcustomobject);
+			string indexes = null;
+			if (IsTable) indexes = GetSQLIndexes(dataAccess, T);
+			if (indexes != null) writer.Write(indexes);
 			writer.Flush();
+		}
+
+		public static void GeneraColTypesStruttura(bool isDbo, DataAccess dataAccess, DataTable T, TextWriter writer,
+			bool IsTable /*, bool ConvertCRLFData*/) {
+			string[] key;
+			string[,] cols = GetColumnsInfo(dataAccess, T, out key);
+			string sqlcolumntypes = GetSQLColumnTypes(T, cols);
+			string sqlcustomobject = GetSQLCustomObject(T, IsTable);
+			writer.Write(sqlcolumntypes); 
+            writer.Write(sqlcustomobject);
+			writer.Flush();
+		}
+
+		public static void GeneraStruttura(bool isDbo, DataAccess dataAccess, DataTable T, TextWriter writer, 
+			bool IsTable/*, bool ConvertCRLFData*/) {
+			GeneraStrutturaPura(isDbo, dataAccess, T, writer, IsTable);
+			GeneraColTypesStruttura(isDbo, dataAccess, T, writer, IsTable);
 		}
 
 		public static void GeneraStrutturaCambiandoChiave(DataAccess dataAccess, TextReader sr, TextWriter writer) {
@@ -879,7 +988,7 @@ namespace generaSQL {//GeneraSQL//
 
             Conn.RUN_SELECT_INTO_TABLE(TSorKind, null, filter, null, true);
             if ((TSorKind == null) || (TSorKind.Rows.Count == 0)) {
-                MessageBox.Show("Nessuna riga trovata con il filtro " + filter);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata con il filtro " + filter);
                 return false;
             }
             StreamWriter writer = new StreamWriter(SqlOutputFile, false, System.Text.Encoding.Default);
@@ -1038,7 +1147,7 @@ namespace generaSQL {//GeneraSQL//
                             }
                             else {
                                 if (ParID[Sor["paridsor"].ToString()]==null){
-                                    MessageBox.Show("Riga parent di " + Sor["idsor"].ToString() +
+                                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Riga parent di " + Sor["idsor"].ToString() +
                                         " non trovata in sorting.");
                                     writer.Close();
                                     return false;
@@ -1083,7 +1192,7 @@ namespace generaSQL {//GeneraSQL//
 
             Conn.RUN_SELECT_INTO_TABLE(tStart, null, filter, null, true);
             if ((tStart == null) || (tStart.Rows.Count == 0)) {
-                MessageBox.Show("Nessuna riga trovata con il filtro " + filter);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata con il filtro " + filter);
                 return false;
             }
 
@@ -1215,7 +1324,7 @@ namespace generaSQL {//GeneraSQL//
 
             Conn.RUN_SELECT_INTO_TABLE(tStart, null, filter, null, true);
             if ((tStart == null) || (tStart.Rows.Count == 0)) {
-                MessageBox.Show("Nessuna riga trovata con il filtro " + filter);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata con il filtro " + filter);
                 return false;
             }
 
@@ -1340,7 +1449,7 @@ namespace generaSQL {//GeneraSQL//
 
             DataAccess.RUN_SELECT_INTO_TABLE(Conn, TInvTree, null, filter, null, true);
             if ((TInvTree == null) || (TInvTree.Rows.Count == 0)) {
-                MessageBox.Show("Nessuna riga trovata con il filtro " + filter);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata con il filtro " + filter);
                 return false;
             }
             StreamWriter writer = new StreamWriter(SqlOutputFile, false, System.Text.Encoding.Default);
@@ -1441,7 +1550,7 @@ namespace generaSQL {//GeneraSQL//
 
             DataAccess.RUN_SELECT_INTO_TABLE(Conn, TABI, null, filter, null, true);
             if ((TABI == null) || (TABI.Rows.Count == 0)) {
-                MessageBox.Show("Nessuna banca trovata con il filtro " + filter);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna banca trovata con il filtro " + filter);
                 return false;
             }
             StreamWriter writer = new StreamWriter(SqlOutputFile, false, System.Text.Encoding.Default);
@@ -1566,7 +1675,7 @@ namespace generaSQL {//GeneraSQL//
             DataTable tcurrency = DataAccess.CreateTableByName(Conn, "currency", "*");
             DataAccess.RUN_SELECT_INTO_TABLE(Conn, tcurrency, null, filter, null, true);
             if ((tcurrency == null) || (tcurrency.Rows.Count == 0)) {
-                MessageBox.Show("Nessuna riga trovata con il filtro " + filter);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata con il filtro " + filter);
                 return false;
             }
             DataSet DS = new DataSet();
@@ -1633,7 +1742,7 @@ namespace generaSQL {//GeneraSQL//
 
             DataAccess.RUN_SELECT_INTO_TABLE(Conn, tservice, null, filter, null, true);
             if ((tservice == null) || (tservice.Rows.Count == 0)) {
-                MessageBox.Show("Nessuna riga trovata con il filtro " + filter);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata con il filtro " + filter);
                 return false;
             }
 
@@ -1804,7 +1913,7 @@ namespace generaSQL {//GeneraSQL//
 
             DataTable Sample = Conn.RUN_SELECT("sortingtranslation", "*", null, filter, null, false);
             if (Sample.Rows.Count==0){
-                MessageBox.Show("La query non ha restituito alcuna riga");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("La query non ha restituito alcuna riga");
                 return false;
             }
             DataRow RSample=Sample.Rows[0];            
@@ -2036,7 +2145,7 @@ namespace generaSQL {//GeneraSQL//
 
             DataAccess.RUN_SELECT_INTO_TABLE(Conn, TSorKind, null, filterKind, null, true);
             if ((TSorKind == null) || (TSorKind.Rows.Count == 0)){
-                MessageBox.Show("Nessuna riga trovata con il filtro " + filterKind);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata con il filtro " + filterKind);
                 return false;
             }
             StreamWriter writer = new StreamWriter(SqlOutputFile, false, System.Text.Encoding.Default);
@@ -2109,7 +2218,7 @@ namespace generaSQL {//GeneraSQL//
             Conn.RUN_SELECT_INTO_TABLE(tStart, null, filter, null, true);
             if ((tStart == null) || (tStart.Rows.Count == 0))
             {
-                MessageBox.Show("Nessuna riga trovata con il filtro " + filter);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata con il filtro " + filter);
                 return false;
             }
 
@@ -2234,4 +2343,3 @@ namespace generaSQL {//GeneraSQL//
         #endregion
     }
 }
-

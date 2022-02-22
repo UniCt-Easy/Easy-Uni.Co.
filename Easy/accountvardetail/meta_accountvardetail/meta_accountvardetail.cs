@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Windows.Forms;
@@ -68,14 +67,18 @@ namespace meta_accountvardetail {
 		}
 		
 		public override void CalculateFields(System.Data.DataRow R, string listtype) {
+			if (R == null) return;
 			decimal amount = CfgFn.GetNoNullDecimal(R["amount"]);
-			if (amount >= 0) {
-				R["!aumento"] = amount;
+			if (R.Table.Columns.Contains("!aumento") && R.Table.Columns.Contains("!diminuzione")) {
+				if (amount >= 0) {
+					R["!aumento"] = amount;
+				}
+				else {
+					R["!diminuzione"] = -amount;
+				}
 			}
-			else {
-				R["!diminuzione"] = -amount;
-			}
-            if ((listtype == "default")|| (listtype == "listaweb")) {
+
+			if ((listtype == "default")|| (listtype == "listaweb")) {
                 object underwritingkind = R["underwritingkind"];
                 object underwritingkind_desc = DBNull.Value;
 
@@ -103,8 +106,10 @@ namespace meta_accountvardetail {
 					DescribeAColumn(T, C.ColumnName, "", -1);	 
 				}
 				int nPos = 1;
-				DescribeAColumn(T, "!codeacc", "Conto", "account.codeacc", nPos++);
-                DescribeAColumn(T, "!codeupb", "Upb", "upb.codeupb", nPos++);
+                DescribeAColumn(T, "rownum", "Num. Dettaglio", nPos++);
+				DescribeAColumn(T, "!codeacc", "Cod. Conto", "account.codeacc", nPos++);
+				DescribeAColumn(T, "!account", "Conto", "account.title", nPos++);
+				DescribeAColumn(T, "!codeupb", "Upb", "upb.codeupb", nPos++);
                 DescribeAColumn(T, "description", "Descr. Dett.", nPos++);
                 DescribeAColumn(T, "!aumento", "Aumento", nPos++);
 				DescribeAColumn(T, "!diminuzione", "Diminuzione", nPos++);
@@ -209,4 +214,4 @@ namespace meta_accountvardetail {
 				return base.SelectOne(ListingType, filter, "accountvardetail", Exclude);
 		}	
 	}
-}
+}

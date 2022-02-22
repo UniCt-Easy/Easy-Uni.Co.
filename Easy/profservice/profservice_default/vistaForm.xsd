@@ -133,6 +133,9 @@
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
               <xs:element name="requested_doc" type="xs:int" minOccurs="0" />
               <xs:element name="iddaliarecruitmentmotive" type="xs:int" minOccurs="0" />
+              <xs:element name="iddalia_dipartimento" type="xs:int" minOccurs="0" />
+              <xs:element name="iddalia_funzionale" type="xs:int" minOccurs="0" />
+              <xs:element name="flagexcludefromcertificate" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -235,6 +238,11 @@
               <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -280,6 +288,11 @@
               <xs:element name="txt" type="xs:string" minOccurs="0" />
               <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
               <xs:element name="cu" type="xs:string" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
@@ -336,6 +349,11 @@
               <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -372,6 +390,11 @@
               <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -590,6 +613,11 @@
               <xs:element name="nlevel" type="xs:unsignedByte" />
               <xs:element name="start" type="xs:short" minOccurs="0" />
               <xs:element name="stop" type="xs:short" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -627,6 +655,11 @@
               <xs:element name="paridsor" type="xs:int" minOccurs="0" />
               <xs:element name="nlevel" type="xs:unsignedByte" />
               <xs:element name="start" type="xs:short" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="stop" type="xs:short" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -665,6 +698,11 @@
               <xs:element name="paridsor" type="xs:int" minOccurs="0" />
               <xs:element name="nlevel" type="xs:unsignedByte" />
               <xs:element name="start" type="xs:short" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="stop" type="xs:short" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -703,6 +741,11 @@
               <xs:element name="paridsor" type="xs:int" minOccurs="0" />
               <xs:element name="nlevel" type="xs:unsignedByte" />
               <xs:element name="start" type="xs:short" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="stop" type="xs:short" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -741,6 +784,11 @@
               <xs:element name="paridsor" type="xs:int" minOccurs="0" />
               <xs:element name="nlevel" type="xs:unsignedByte" />
               <xs:element name="start" type="xs:short" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="stop" type="xs:short" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -840,6 +888,11 @@
               <xs:element name="defaults4" type="xs:string" minOccurs="0" />
               <xs:element name="defaults5" type="xs:string" minOccurs="0" />
               <xs:element name="flagnodate" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="movkind" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -962,6 +1015,11 @@
               <xs:element name="nlevel" type="xs:unsignedByte" />
               <xs:element name="start" type="xs:short" minOccurs="0" />
               <xs:element name="stop" type="xs:short" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="email" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -976,6 +1034,65 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="dalia_funzionale">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddalia_funzionale" type="xs:int" />
+              <xs:element name="codefunz" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="dalia_dipartimento">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddalia_dipartimento" type="xs:int" />
+              <xs:element name="codedip" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="profserviceattachment">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ycon" type="xs:int" />
+              <xs:element name="ncon" type="xs:int" />
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_serviceattachmentkind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="serviceattachmentkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idattachmentkind" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idser" type="xs:int" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="flagforced" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1126,6 +1243,24 @@
       <xs:selector xpath=".//mstns:dalia_recruitmentmotive" />
       <xs:field xpath="mstns:iddaliarecruitmentmotive" />
     </xs:unique>
+    <xs:unique name="dalia_funzionale_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:dalia_funzionale" />
+      <xs:field xpath="mstns:iddalia_funzionale" />
+    </xs:unique>
+    <xs:unique name="dalia_dipartimento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:dalia_dipartimento" />
+      <xs:field xpath="mstns:iddalia_dipartimento" />
+    </xs:unique>
+    <xs:unique name="profserviceattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:profserviceattachment" />
+      <xs:field xpath="mstns:ycon" />
+      <xs:field xpath="mstns:ncon" />
+      <xs:field xpath="mstns:idattachment" />
+    </xs:unique>
+    <xs:unique name="serviceattachmentkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:serviceattachmentkind" />
+      <xs:field xpath="mstns:idattachmentkind" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -1160,6 +1295,10 @@
       <msdata:Relationship name="taxprofservicetax" msdata:parent="tax" msdata:child="profservicetax" msdata:parentkey="taxcode" msdata:childkey="taxcode" />
       <msdata:Relationship name="profservice_invoicedetail" msdata:parent="profservice" msdata:child="invoicedetail" msdata:parentkey="ycon ncon" msdata:childkey="ycon ncon" />
       <msdata:Relationship name="dalia_recruitmentmotive_profservice" msdata:parent="dalia_recruitmentmotive" msdata:child="profservice" msdata:parentkey="iddaliarecruitmentmotive" msdata:childkey="iddaliarecruitmentmotive" />
+      <msdata:Relationship name="dalia_funzionale_profservice" msdata:parent="dalia_funzionale" msdata:child="profservice" msdata:parentkey="iddalia_funzionale" msdata:childkey="iddalia_funzionale" />
+      <msdata:Relationship name="dalia_dipartimento_profservice" msdata:parent="dalia_dipartimento" msdata:child="profservice" msdata:parentkey="iddalia_dipartimento" msdata:childkey="iddalia_dipartimento" />
+      <msdata:Relationship name="profservice_profserviceattachment" msdata:parent="profservice" msdata:child="profserviceattachment" msdata:parentkey="ycon ncon" msdata:childkey="ycon ncon" />
+      <msdata:Relationship name="serviceattachmentkind_profserviceattachment" msdata:parent="serviceattachmentkind" msdata:child="profserviceattachment" msdata:parentkey="idattachmentkind" msdata:childkey="idattachmentkind" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

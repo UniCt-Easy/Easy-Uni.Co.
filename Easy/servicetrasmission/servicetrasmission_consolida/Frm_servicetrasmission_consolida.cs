@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -32,15 +31,17 @@ using System.Globalization;
 
 
 namespace servicetrasmission_consolida{
-    public partial class Frm_servicetrasmission_consolida : Form{
+    public partial class Frm_servicetrasmission_consolida : MetaDataForm {
         MetaData Meta;
         private XmlTextWriter writer;
         public DataTable tServiceRegistry ;
         public DataTable tServicePayment;
-
+        public IOpenFileDialog openFileDialog1;
+        
         public Frm_servicetrasmission_consolida()
         {
             InitializeComponent();
+            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
         }
         CQueryHelper QHC;
         QueryHelper QHS;
@@ -65,7 +66,7 @@ namespace servicetrasmission_consolida{
 
         private void btnConsolida_Click(object sender, EventArgs e){
             if ((chkyear.Checked) && (txtEsercizio.Text == "")){
-                MessageBox.Show(this, "indicare l'Esercizio");
+                show(this, "indicare l'Esercizio");
                 return;
             }
             GeneraFile("c");
@@ -73,7 +74,7 @@ namespace servicetrasmission_consolida{
 
         private void btnConsolidaDipendenti_Click(object sender, EventArgs e){
             if ((chkyear.Checked) && (txtEsercizio.Text == "")){
-                MessageBox.Show(this, "indicare l'Esercizio");
+                show(this, "indicare l'Esercizio");
                 return;
             }
             GeneraFile("d");
@@ -82,7 +83,7 @@ namespace servicetrasmission_consolida{
         private DataTable chiamaSP(string sp, object[] parametri){
             DataSet ds = Meta.Conn.CallSP(sp, parametri);
             if ((ds == null) || (ds.Tables.Count == 0)){
-                MessageBox.Show(this, "Errore nella chiamata " + sp);
+                show(this, "Errore nella chiamata " + sp);
                 return null;
             }
             return ds.Tables[0];
@@ -205,9 +206,9 @@ namespace servicetrasmission_consolida{
 
 
             if (tServiceRegistry.Rows.Count == 0){
-                MessageBox.Show(this, "Non ci sono Incarichi da trasmettere");
+                show(this, "Non ci sono Incarichi da trasmettere");
                 if (tServicePayment.Rows.Count == 0){
-                    MessageBox.Show(this, "Non ci sono Pagamenti da trasmettere");
+                    show(this, "Non ci sono Pagamenti da trasmettere");
                     return;
                 }
             }
@@ -246,7 +247,7 @@ namespace servicetrasmission_consolida{
             StreamWriter stw = new StreamWriter(saveFileDialog1.OpenFile());
             stw.Write(sw.ToString());
             stw.Close();
-            MessageBox.Show(this, "Operazione Eseguita");
+            show(this, "Operazione Eseguita");
         }
 
         private void InsertConsulenti(){
@@ -513,13 +514,13 @@ namespace servicetrasmission_consolida{
                 XmlAttribute esito = esitoInserimentoIncarichi.GetAttributeNode("esitoFile");
                 if (esito == null)
                 {
-                    MessageBox.Show("Controllare che il file selezionato sia quello di Risposta", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    show("Controllare che il file selezionato sia quello di Risposta", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 if (esito.Value.ToString().ToUpper() == "KO")
                 {
-                    MessageBox.Show(this, "Il file Trasmesso è ERRATO. Correggere i dati inseriti.");
+                    show(this, "Il file Trasmesso è ERRATO. Correggere i dati inseriti.");
                     //TrasmissioneApprovata(document);// riceve il file in input estrae gli id da NuovoIncarico e li scrive nel db
                     foreach (XmlElement esitoNuoviIncarichi in esitoInserimentoIncarichi.GetElementsByTagName("esitoNuoviIncarichi")){
                         if (esitoNuoviIncarichi.FirstChild.Name == "consulente"){
@@ -532,7 +533,7 @@ namespace servicetrasmission_consolida{
                 }
             }
             sw.Close();
-            MessageBox.Show("File salvato in " + filename, "Informazioni", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            show("File salvato in " + filename, "Informazioni", MessageBoxButtons.OK, MessageBoxIcon.Information);
            
         }
 
@@ -830,18 +831,18 @@ namespace servicetrasmission_consolida{
             txtNomeFile.Text = openFileDialog1.FileName;
             try
             {
-                //System.Diagnostics.Process.Start(txtNomeFile.Text);// Consente di visualizzare il File
+                //runProcess(txtNomeFile.Text, true);// Consente di visualizzare il File
                 document.Load(txtNomeFile.Text);
             }
             catch (Exception ex)
             {
                 messaggio = "Non riesco ad aprire il file: " + txtNomeFile.Text +
                     "\nErrore: " + ex.Message;
-                MessageBox.Show(this, messaggio);
+                show(this, messaggio);
                 return;
             }
             ElaboraFileRitorno(document);
 
         }
     }
-}
+}

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -31,14 +30,12 @@ using System.IO;
 using Install;
 
 namespace no_table_unifydip {
-    public partial class Frm_Uniydip : Form {
+    public partial class Frm_Uniydip : MetaDataForm {
         public Frm_Uniydip() {
             InitializeComponent();
             tabController.HideTabsMode =
     Crownwood.Magic.Controls.TabControl.HideTabsModes.HideAlways;
         }
-
-
 
         #region Gestione Tabs
 
@@ -69,7 +66,7 @@ namespace no_table_unifydip {
             if ((newTab < 0) || (newTab > tabController.TabPages.Count)) return;
             if (!CustomChangeTab(oldTab, newTab)) return;
             if (newTab == tabController.TabPages.Count) {
-                if (MessageBox.Show(this, "Si desidera eseguire ancora la procedura",
+                if (show(this, "Si desidera eseguire ancora la procedura",
                     "Conferma", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                     newTab = 1;
                     ResetWizard();
@@ -111,12 +108,12 @@ namespace no_table_unifydip {
 
                 object Ofattore = HelpForm.GetObjectFromString(typeof(int), txtFattore.Text.Trim(), "x.y");
                 if (Ofattore == null || Ofattore == DBNull.Value) {
-                    MessageBox.Show(this, "E' necessario inserire il fattore moltiplicativo","Errore");
+                    show(this, "E' necessario inserire il fattore moltiplicativo","Errore");
                     return false;
                 }
                 fattore = CfgFn.GetNoNullInt32(Ofattore);
                 if (fattore <= 0) {
-                    MessageBox.Show(this, "E' necessario inserire il fattore moltiplicativo", "Errore");
+                    show(this, "E' necessario inserire il fattore moltiplicativo", "Errore");
                     return false;
                 }
 
@@ -155,7 +152,7 @@ namespace no_table_unifydip {
                 if (!Source.Open()) {
                     Source.Destroy();
                     Source = null;
-                    MessageBox.Show(this, "Non è stato possibile collegarsi al dip. di origine " + txtSourceDip.Text.Trim());
+                    show(this, "Non è stato possibile collegarsi al dip. di origine " + txtSourceDip.Text.Trim());
                     return false;
                 }
                 if (!Dest.Open()) {
@@ -165,7 +162,7 @@ namespace no_table_unifydip {
 
                     Dest.Destroy();
                     Dest = null;
-                    MessageBox.Show(this, "Non è stato possibile collegarsi al dip. di destinazione " + txtDipDestinazione.Text.Trim());
+                    show(this, "Non è stato possibile collegarsi al dip. di destinazione " + txtDipDestinazione.Text.Trim());
                     return false;
                 }
 
@@ -1238,17 +1235,11 @@ namespace no_table_unifydip {
                             .ShouldClearDestDB(first_dip)
                 );
 
-
-
             }
-
-
 
             //Per il primo che capita: copiamo l'anagrafica e tabelle correlate
             //NO: le tabelle dbo le copiamo preventivamente
             
-
-
             return CM;
         }
 
@@ -1260,17 +1251,15 @@ namespace no_table_unifydip {
         const int  mille=1000;
         const int cento = 100;
 
-
-
         bool ImportData(bool checkOnly, bool silent) {
             if (CM == null) CM = Get_CopyManager(Source, Dest, fattore,txtSourceDip.Text, chkSuffix.Checked,0);
             //Decidere cosa fare con le disposizioni di pagamento paydisposition, paydispositiondetail
-            if (!silent) MessageBox.Show("CopyManager creato", "Informazione");
+            if (!silent) show("CopyManager creato", "Informazione");
 
             CopyDisplay CD = new CopyDisplay(pBarCurrTab, txtSituazione);
 
             if (CM.CheckAll(CD)) {
-                if (!silent) MessageBox.Show("Verifica effettuata", "Informazione");
+                if (!silent) show("Verifica effettuata", "Informazione");
                 if (!checkOnly) {
                     //if (CM.CopyAll(CD)) {
                     //    CD = new CopyDisplay(pBarCurrTab, txtSituazione);
@@ -1280,7 +1269,7 @@ namespace no_table_unifydip {
                 return true;
             }
             else {
-                MessageBox.Show("Errore nella creazione del CopyManager", "Errore");
+                show("Errore nella creazione del CopyManager", "Errore");
                 return false;
             }
 
@@ -1305,13 +1294,10 @@ namespace no_table_unifydip {
             if (CM == null) return;
             CopyDisplay CD = new CopyDisplay(pBarCurrTab, txtSituazione);
             CM.CopyAll(CD);
-            MessageBox.Show("Copia completata.", "Informazione");
+            show("Copia completata.", "Informazione");
             //btnCopia.Visible = true;
         }
-        
-        
-       
-       
+               
         translator CreateLookupTraslator(string table, string codefield, string keyfield) {
             return CreateLookupTraslator(table, codefield, keyfield, null);
         }
@@ -1461,7 +1447,7 @@ namespace no_table_unifydip {
                 if (!Source.Open()) {
                     Source.Destroy();
                     Source = null;
-                    MessageBox.Show(this, "Non è stato possibile collegarsi al dip. di origine " + txtSourceDip.Text.Trim());
+                    show(this, "Non è stato possibile collegarsi al dip. di origine " + txtSourceDip.Text.Trim());
                     return;
                 }
                 if (!Dest.Open()) {
@@ -1471,7 +1457,7 @@ namespace no_table_unifydip {
 
                     Dest.Destroy();
                     Dest = null;
-                    MessageBox.Show(this, "Non è stato possibile collegarsi al dip. di destinazione " + txtDipDestinazione.Text.Trim());
+                    show(this, "Non è stato possibile collegarsi al dip. di destinazione " + txtDipDestinazione.Text.Trim());
                     return;
                 }
 
@@ -1486,12 +1472,12 @@ namespace no_table_unifydip {
 
 
                 if (!CM.CheckAll(CD)) {
-                    MessageBox.Show("Errore nella creazione del CopyManager", "Errore");
+                    show("Errore nella creazione del CopyManager", "Errore");
                     return;
                 }
                 CD.Comment("Verifica di " + source + " completata\r\n");
                 if (!CM.CopyAll(CD)) {
-                    MessageBox.Show("Errore durante la copia di " + source);
+                    show("Errore durante la copia di " + source);
                     return;
                 }
                 CD.Comment("Abilito gli utenti\r\n");
@@ -1565,36 +1551,12 @@ namespace no_table_unifydip {
                     
             }
 
-
-
-
-
-
-
-
-
-            MessageBox.Show("Copia completata con successo.", "Informazione");
-
+            show("Copia completata con successo.", "Informazione");
 
         }
 
         private void btnFaiTutto_Click(object sender, EventArgs e) {
             EseguiMigrazioneBatch();
-        }
-
-        
-
-        
-    }
-
-   
-  
-
-   
-
-
-    
-
-  
-   
-}
+        }               
+    }   
+}

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -27,10 +26,13 @@ using metadatalibrary;
 using System.Collections;
 
 namespace no_table_alert {
-    public partial class FrmNotable_alert : Form {
+    public partial class FrmNotable_alert : MetaDataForm {
         MetaData Meta;
         QueryHelper QHS;
-        CQueryHelper QHC;
+        CQueryHelper QHC;        
+        Hashtable tags = new Hashtable();
+        bool RUNNED = false;
+        bool elencoVisionato = false;
 
         public FrmNotable_alert() {
             InitializeComponent();
@@ -47,7 +49,7 @@ namespace no_table_alert {
             int altezza = 70;
             QHS = Meta.Conn.GetQueryHelper();
             QHC = new CQueryHelper();
-            string filtroLogin = QHS.CmpEq("login", Meta.GetSys("user"));
+            string filtroLogin = QHS.AppOr(QHS.CmpEq("login", "everyone"), QHS.CmpEq("login", Meta.GetSys("user")));
             Meta.Conn.RUN_SELECT_INTO_TABLE(DS.dbuseralert, null, filtroLogin, null, true);
             string filtroAlert = QHS.AppAnd(
                 QHS.FieldIn("idalert", DS.dbuseralert.Select()),
@@ -104,17 +106,19 @@ namespace no_table_alert {
                     btnQuery.Click += new System.EventHandler(btnQuery_Click);
                     btnQuery.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
 
-                    CheckBox check = new CheckBox();
-                    group.Controls.Add(check);
-                    check.AutoSize = true;
-                    check.Location = new Point(textAvviso.Location.X + textAvviso.Width + 10, 60);
-                    check.ThreeState = false;
-                    check.Text = "Non visualizzare più quest'avviso";
-                    check.CheckedChanged += new System.EventHandler(this.check_CheckedChanged);
-                    string ff = QHC.CmpEq("idalert", r["idalert"]);
-                    tags[check] = ff;
-                    check.Checked = DS.dbuseralert.Select(ff).Length == 0;
-                    check.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
+                    if (r["lu"].ToString() != "sysadmin" && r["cu"].ToString() != "sysadmin") {
+	                    CheckBox check = new CheckBox();
+	                    group.Controls.Add(check);
+	                    check.AutoSize = true;
+	                    check.Location = new Point(textAvviso.Location.X + textAvviso.Width + 10, 60);
+	                    check.ThreeState = false;
+	                    check.Text = "Non visualizzare più quest'avviso";
+	                    check.CheckedChanged += new System.EventHandler(this.check_CheckedChanged);
+	                    string ff = QHC.CmpEq("idalert", r["idalert"]);
+	                    tags[check] = ff;
+	                    check.Checked = DS.dbuseralert.Select(ff).Length == 0;
+	                    check.Anchor = ((AnchorStyles) ((AnchorStyles.Top | AnchorStyles.Right)));
+                    }
 
                     y += altezza + 50;
                 }
@@ -123,13 +127,10 @@ namespace no_table_alert {
             RUNNED=true;
         }
 
-        Hashtable tags = new Hashtable();
-
-        bool RUNNED = false;
         private void btnDettagli_Click(object sender, EventArgs e) {
             Button btnDettagli = (Button)sender;
             DataRow rAlert = (DataRow) btnDettagli.Tag;
-            MessageBox.Show(this, rAlert["alertdetail"].ToString());
+            show(this, rAlert["alertdetail"].ToString());
         }
 
         private void btnQuery_Click(object sender, EventArgs e) {
@@ -139,7 +140,7 @@ namespace no_table_alert {
             if (cmd.Trim() == "") return;
             string sql = Meta.Conn.Compile(cmd, true);
             if (sql.Contains("usr[") || sql.Contains("sys[") || sql=="(1=2)") {
-                MessageBox.Show("Il comando contiene variabili di ambiente non compilate quindi non è eseguibile.",
+                show("Il comando contiene variabili di ambiente non compilate quindi non è eseguibile.",
                     "Avviso");
                 return;
             }
@@ -148,6 +149,7 @@ namespace no_table_alert {
                             rAlert["listtype"].ToString(),
                             rAlert["edittype"].ToString());
             V.Show(this);
+            elencoVisionato = true;
         }
         public void MetaData_AfterClear() {
             Text = "Avvisi";
@@ -175,6 +177,13 @@ namespace no_table_alert {
             pd.InitClass(DS, Meta.Conn);
             bool ok = pd.DO_POST();
         }
+
+        private void formClosing(object sender, FormClosingEventArgs e) {
+            
+            if(!elencoVisionato) {
+                MessageBox.Show("CLICCA SU OTTIENI ELENCO");
+                e.Cancel = true;
+			}
+		}
     }
 }
-

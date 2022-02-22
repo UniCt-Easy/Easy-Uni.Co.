@@ -1,0 +1,29 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="allegatirichiesti_default_title">Titolo</label>
+					<textarea class="textarea form-control" id="allegatirichiesti_default_title" type="text"  rows="4" data-tag="allegatirichiesti.title?allegatirichiestidefaultview.title" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="allegatirichiesti_default_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="allegatirichiesti_default_activeSi" type="radio" name="allegatirichiesti_default_active" class="custom-control-input" data-tag="allegatirichiesti.active:S?allegatirichiestidefaultview.allegatirichiesti_active:Si" data-subentity  data-mandatory ><label for="allegatirichiesti_default_activeSi"> Si</label>
+						<input id="allegatirichiesti_default_activeNo" type="radio" name="allegatirichiesti_default_active" class="custom-control-input" data-tag="allegatirichiesti.active:N?allegatirichiestidefaultview.allegatirichiesti_active:No" data-subentity  data-mandatory ><label for="allegatirichiesti_default_activeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="allegatirichiesti_default_sortcode">Codice identificativo</label>
+					<input id="allegatirichiesti_default_sortcode" type="text" class="form-control" data-tag="allegatirichiesti.sortcode?allegatirichiestidefaultview.allegatirichiesti_sortcode" data-subentity  data-mandatory />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

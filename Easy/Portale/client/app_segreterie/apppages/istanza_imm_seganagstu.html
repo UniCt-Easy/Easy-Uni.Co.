@@ -1,0 +1,110 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_imm_seganagstu_aa">Anno accademico</label>
+					<select id="istanza_imm_seganagstu_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="istanza.aa?istanzaimm_seganagstuview.aa" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#istanza_imm_seganagstu_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="istanza_imm_seganagstu_data">Data</label>
+					<input id="istanza_imm_seganagstu_data" type="text" class="form-control" data-tag="istanza.data.g?istanzaimm_seganagstuview.data.g" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="istanza_imm_seganagstu_iddidprog">Didattica programmata</label>
+					<div>
+						<input id="istanza_imm_seganagstu_iddidprog" name="istanza_imm_seganagstu_iddidprog" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_imm_seganagstu_iddidprogcurr">Curriculum</label>
+					<select id="istanza_imm_seganagstu_iddidprogcurr" class="custom-select d-block w-100"  data-source-name="didprogcurr" data-value-member="iddidprogcurr" data-display-member="title" data-custom-control="combo" data-tag="istanza_imm_alias1.iddidprogcurr?istanzaimm_seganagstuview.istanza_imm_iddidprogcurr" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_imm_seganagstu_iddidprogori">Corso e orientamento</label>
+					<select id="istanza_imm_seganagstu_iddidprogori" class="custom-select d-block w-100"  data-source-name="didprogoridefaultview" data-value-member="iddidprogori" data-display-member="dropdown_title" data-custom-control="combo" data-tag="istanza_imm_alias1.iddidprogori?istanzaimm_seganagstuview.istanza_imm_iddidprogori" data-subentity   data-master="didprogcurr"> </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_imm_seganagstu_parttime">Iscrizione Part-Time</label>
+					<div class="custom-control custom-radio">
+						<input id="istanza_imm_seganagstu_parttimeSi" type="radio" name="istanza_imm_seganagstu_parttime" class="custom-control-input" data-tag="istanza_imm_alias1.parttime:S?istanzaimm_seganagstuview.istanza_imm_parttime:Si" data-subentity  ><label for="istanza_imm_seganagstu_parttimeSi"> Si</label>
+						<input id="istanza_imm_seganagstu_parttimeNo" type="radio" name="istanza_imm_seganagstu_parttime" class="custom-control-input" data-tag="istanza_imm_alias1.parttime:N?istanzaimm_seganagstuview.istanza_imm_parttime:No" data-subentity  ><label for="istanza_imm_seganagstu_parttimeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_imm_seganagstu_idstatuskind">Status</label>
+					<select id="istanza_imm_seganagstu_idstatuskind" class="custom-select d-block w-100"  data-source-name="statuskind" data-value-member="idstatuskind" data-display-member="title" data-custom-control="combo" data-tag="istanza.idstatuskind?istanzaimm_seganagstuview.istanza_idstatuskind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="istanza_imm_seganagstu_motivrit">Motivazioni del ritardo nel richiedere l'istanza</label>
+					<textarea class="textarea form-control" id="istanza_imm_seganagstu_motivrit" type="text"  rows="4" data-tag="istanza_imm_alias1.motivrit?istanzaimm_seganagstuview.istanza_imm_motivrit" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelistanza_seganagstu_XXnullaosta_imm" >Nullaosta</div>
+				<div class="gridx" id="grid_nullaosta_imm_alias1_seganagstu" data-tag="nullaosta_alias1.imm_seganagstu.imm_seganagstu" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="parttime,S,Si;parttime,N,No;" ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelistanza_seganagstu_XXdiniego" >Diniego</div>
+				<div class="gridx" id="grid_diniego_alias1_seganagstu" data-tag="diniego_alias1.seganagstu.seganagstu" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelistanza_seganagstusonpre_XXistanza" >Istanze collegate</div>
+				<div class="gridx" id="grid_istanza_alias14_seganagstusonpre" data-tag="istanza_alias14.seganagstusonpre.seganagstusonpre" data-custom-control="gridx" data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelistanza_seg_XXistanzadichiar" >Dichiarazioni collegate</div>
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_istanzadichiar_iddichiar" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_istanzadichiar_iddichiar" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Dichiarazioni collegate
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_istanzadichiar_seg" data-tag="istanzadichiar.seg.seg" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_imm_seganagstu_protnumero">Numero di protocollo</label>
+					<input id="istanza_imm_seganagstu_protnumero" type="text" class="form-control" data-tag="istanza.protnumero?istanzaimm_seganagstuview.istanza_protnumero" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_imm_seganagstu_protanno">Anno di protocollo</label>
+					<input id="istanza_imm_seganagstu_protanno" type="text" class="form-control" data-tag="istanza.protanno?istanzaimm_seganagstuview.istanza_protanno" data-subentity  data-mandatory />
+				</div>
+			</div>
+ <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-stamp mr-1" ></i>Protocolla
+    </button>
+</form>
+
+</div>
+<!--footer-->

@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -28,7 +27,7 @@ using funzioni_configurazione;
 using System.Collections;
 
 namespace expense_ct_stornocompetenzaclass {
-    public partial class Frm_expense_ct_stornocompetenzaclass :Form {
+    public partial class Frm_expense_ct_stornocompetenzaclass :MetaDataForm {
         MetaData Meta;
         DataAccess Conn;
         public Frm_expense_ct_stornocompetenzaclass() {
@@ -167,7 +166,7 @@ namespace expense_ct_stornocompetenzaclass {
         }
 
         //Restituisce il tipo classificazione di fase 4 , associata a @idsorkind, ossia al tipo classificazione di fase 1.
-        /* Al momento la situazione delle classificazioni Ã¨ la seguente:
+        /* Al momento la situazione delle classificazioni è la seguente:
          *7	    COAN_U	    COAN Impegni
          *8	    COAN_U3	    COAN Liquidazioni
          *11	07U_MIUR	MIUR 2007 Spese
@@ -257,7 +256,7 @@ namespace expense_ct_stornocompetenzaclass {
             rExpVar["autokind"] = 29;// Storno disponibile Impegno Provenienza Competenza(Catania)
             rExpVar["adate"] = Meta.GetSys("datacontabile");
 
-            //Ottengo un DataTable con gli importi di classificazione raggruppati per codice, cosÃ¬ non considero la class. parziali
+            //Ottengo un DataTable con gli importi di classificazione raggruppati per codice, così non considero la class. parziali
             int esercizio = (int)Meta.GetSys("esercizio");
             string queryF1 = "select es1.idsor, s1.sortcode, s1.idsorkind, sum(es1.amount) as amountsorted "
            + " from expenseview "
@@ -405,7 +404,7 @@ namespace expense_ct_stornocompetenzaclass {
                 object nomefase = Conn.DO_READ_VALUE("expensephase", QHS.CmpEq("nphase", Meta.GetSys("appropriationphase")), "description");
                 string mess = "Operazione Eseguita con successo.\r\n"
                         + "E' stato creato il movimento " + nomefase.ToString() + " Eserc." + Curr["ymov"] + " N." + rNewExp["nmov"] + ".";
-                MessageBox.Show(mess);
+                show(mess);
                 btnEsegui.Visible = false;
                 btnAnnulla.Text = "Chiudi";
             }
@@ -528,11 +527,11 @@ namespace expense_ct_stornocompetenzaclass {
 
         private void btnEsegui_Click(object sender, EventArgs e) {
             if (idexp_selezionato == null) {
-                MessageBox.Show("Selezionare un movimento.");
+                show("Selezionare un movimento.");
                 return;
             }
             if ((txtCodeUPBnew.Text == "") && (txtCodiceBilancioNew.Text == "")) {
-                MessageBox.Show("Indicare una U.P.B o una voce di Bilancio");
+               show("Indicare una U.P.B o una voce di Bilancio");
                 return;
             }
             doStorno();
@@ -542,9 +541,8 @@ namespace expense_ct_stornocompetenzaclass {
             //Controlla che l'importo indicato, sia compreso tra 0 e il disponibile.
             importoassegnato = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal), txtImportoDaStornare.Text, "x.y.c"));
             if ((importoassegnato > disponibile) || (importoassegnato <= 0)) {
-                MessageBox.Show("L'importo da stornare deve essere compreso tra 0 il disponibile del movimento scelto.");
+                show("L'importo da stornare deve essere compreso tra 0 il disponibile del movimento scelto.");
             }
         }
     }
 }
-

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -38,14 +37,16 @@ namespace meta_showcase
             Name = "Vetrina";
         }
 
-        public override DataRow Get_New_Row(DataRow ParentRow, DataTable T)
-        {
+        public override DataRow Get_New_Row(DataRow ParentRow, DataTable T){
             RowChange.MarkAsAutoincrement(T.Columns["idshowcase"], null, null, 0);
             DataRow R=base.Get_New_Row(ParentRow, T);
             return R;
 
         }
-
+        public override void SetDefaults(DataTable PrimaryTable) {
+            base.SetDefaults(PrimaryTable);
+            SetDefault(PrimaryTable, "flagldapvisibility", 0);
+            }
         public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable ToMerge)
         {
             if (ListingType == "default")
@@ -91,6 +92,13 @@ namespace meta_showcase
                 errfield = "idstore";
                 return false;
             }
+
+            if (CfgFn.GetNoNullInt32(R["paymentexpiring"]) == 0) {
+                errmess = "Il campo N. giorni scadenza è obbligatorio";
+                errfield = "paymentexpiring";
+                return false;
+			}
+
             return true;
         }
 
@@ -114,4 +122,3 @@ namespace meta_showcase
         }   
     }
 }
-

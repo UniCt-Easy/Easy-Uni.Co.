@@ -1,9 +1,27 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA estimatedetailview
 IF EXISTS(select * from sysobjects where id = object_id(N'[estimatedetailview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [estimatedetailview]
 GO
 
  --setuser 'amministrazione'
+ --setuser 'amm'
  -- clear_table_info 'estimatedetailview'
 --select * from estimatedetailview
 CREATE  VIEW [estimatedetailview]
@@ -73,8 +91,10 @@ CREATE  VIEW [estimatedetailview]
 	nepacc,
 	idlist,
 	intcode, list,
+	idtassonomia,codicetassonomia,
 	cigcode,
 	idfinmotive,
+	idfinmotive_iva,
 	iduniqueformcode,
 	idflussocrediti,
 	idflussocreditidetail,
@@ -85,7 +105,10 @@ CREATE  VIEW [estimatedetailview]
 	flagbankitaliaproceeds,
 	idepacc_pre,
 	yepacc_pre,
-	nepacc_pre
+	nepacc_pre,
+	adate,
+	rownum_main,
+	cupcode
 	)
 	AS SELECT
 	estimatedetail.idestimkind,
@@ -156,8 +179,10 @@ CREATE  VIEW [estimatedetailview]
 	epacc.nepacc,
 	estimatedetail.idlist,
 	list.intcode, list.description,
-		isnull(estimatedetail.cigcode,estimate.cigcode),
-			estimatedetail.idfinmotive,
+	tassonomia_pagopa.idtassonomia,tassonomia_pagopa.causale,
+	isnull(estimatedetail.cigcode,estimate.cigcode),
+	estimatedetail.idfinmotive,
+	estimatedetail.idfinmotive_iva,
 	estimatedetail.iduniqueformcode,
 	(select min(idflusso) from flussocreditidetail where flussocreditidetail.idestimkind = estimatedetail.idestimkind and flussocreditidetail.yestim = estimatedetail.yestim 
 	 and flussocreditidetail.nestim = estimatedetail.nestim and flussocreditidetail.rownum = estimatedetail.rownum and flussocreditidetail.annulment is null and flussocreditidetail.stop is null),
@@ -170,7 +195,10 @@ CREATE  VIEW [estimatedetailview]
 	registry.flagbankitaliaproceeds,
 	estimatedetail.idepacc_pre,
 	epacc_pre.yepacc,
-	epacc_pre.nepacc
+	epacc_pre.nepacc,
+	estimate.adate,
+	estimatedetail.rownum_main,
+	estimatedetail.cupcode
 FROM estimatedetail WITH (NOLOCK)
 JOIN estimatekind WITH (NOLOCK)				ON estimatekind.idestimkind = estimatedetail.idestimkind
 JOIN estimate WITH (NOLOCK)					ON estimate.yestim = estimatedetail.yestim
@@ -187,8 +215,9 @@ LEFT OUTER JOIN sorting sorting1 WITH (NOLOCK)		ON sorting1.idsor = estimatedeta
 LEFT OUTER JOIN sorting sorting2 WITH (NOLOCK)		ON sorting2.idsor = estimatedetail.idsor2
 LEFT OUTER JOIN sorting sorting3 WITH (NOLOCK)		ON sorting3.idsor = estimatedetail.idsor3
 LEFT OUTER JOIN  epacc								ON estimatedetail.idepacc= epacc.idepacc
-LEFT OUTER JOIN  epacc	epacc_pre					ON estimatedetail.idepacc= epacc_pre.idepacc
+LEFT OUTER JOIN  epacc	epacc_pre					ON estimatedetail.idepacc_pre= epacc_pre.idepacc
 LEFT OUTER JOIN list with (nolock)					ON list.idlist = estimatedetail.idlist
+LEFT OUTER JOIN tassonomia_pagopa with (nolock)					ON list.idtassonomia = tassonomia_pagopa.idtassonomia
 
 GO
  

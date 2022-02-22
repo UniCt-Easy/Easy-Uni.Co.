@@ -1,0 +1,130 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabcorsostudio_dotmas_0" class="nav-link active show" data-toggle="pill" data-target="#tabcorsostudio_dotmas_0"><i class="fa fa-graduation-cap mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabcorsostudio_dotmas_2" class="nav-link" data-toggle="pill" data-target="#tabcorsostudio_dotmas_2"><i class="fa fa-file-signature mr-1"></i>Iscrizioni</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabcorsostudio_dotmas_3" class="nav-link" data-toggle="pill" data-target="#tabcorsostudio_dotmas_3"><i class="fa fa-user-check mr-1"></i>Prove</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabcorsostudio_dotmas_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_dotmas_title">Denominazione</label>
+					<input id="corsostudio_dotmas_title" type="text" class="form-control" data-tag="corsostudio.title?corsostudiodotmasview.title" data-subentity  />
+					<input hidden id="didprog_dotmas_title" type="text" class="form-control" data-tag="didprog.title" />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_dotmas_title_en">Denominazione (EN)</label>
+					<input id="corsostudio_dotmas_title_en" type="text" class="form-control" data-tag="corsostudio.title_en?corsostudiodotmasview.corsostudio_title_en" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_dotmas_aa">Anno accademico</label>
+					<select id="didprog_dotmas_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="didprog.aa?corsostudiodotmasview.didprog_aa" data-subentity   > </select>
+					<input hidden id="didprog_dotmas_title_en" type="text" class="form-control" data-tag="didprog.title_en" />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_dotmas_codice">Codice</label>
+					<input id="corsostudio_dotmas_codice" type="text" class="form-control" data-tag="corsostudio.codice?corsostudiodotmasview.corsostudio_codice" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_dotmas_idstruttura">Struttura di riferimento</label>
+					<div>
+						<input id="corsostudio_dotmas_idstruttura" name="corsostudio_dotmas_idstruttura" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="strutturadefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+					<input hidden id="didprog_dotmas_iddidprogsuddannokind" type="text" class="form-control" data-tag="didprog.iddidprogsuddannokind" />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_dotmas_idgraduatoria">Graduatoria</label>
+					<div>
+						<input id="didprog_dotmas_idgraduatoria" name="didprog_dotmas_idgraduatoria" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="graduatoria.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_dotmas_idsede">Sede</label>
+					<div>
+						<input id="didprog_dotmas_idsede" name="didprog_dotmas_idsede" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sededefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_dotmas_idnation_lang">Lingua di erogazione</label>
+					<div>
+						<input id="didprog_dotmas_idnation_lang" name="didprog_dotmas_idnation_lang" type="text" data-listtype="lingue"  class="form-control" data-minchar="2" data-tag="geo_nation.lang" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_dotmas_idnation_langvis">Lingua di visualizzazione</label>
+					<div>
+						<input id="didprog_dotmas_idnation_langvis" name="didprog_dotmas_idnation_langvis" type="text" data-listtype="lingue"  class="form-control" data-minchar="2" data-tag="geo_nation_alias1.lang" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_dotmas_utenzasost">Utenza sostenibile</label>
+					<input id="didprog_dotmas_utenzasost" type="text" class="form-control" data-tag="didprog.utenzasost?corsostudiodotmasview.didprog_utenzasost" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_dotmas_website">Sito WEB del corso</label>
+					<input id="didprog_dotmas_website" type="text" class="form-control" data-tag="didprog.website?corsostudiodotmasview.didprog_website" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#didprog_dotmas_startiscrizioni").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="didprog_dotmas_startiscrizioni">Data di inizio delle iscrizioni</label>
+					<input id="didprog_dotmas_startiscrizioni" type="text" class="form-control" data-tag="didprog.startiscrizioni.g?corsostudiodotmasview.didprog_startiscrizioni.g" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#didprog_dotmas_stopiscrizioni").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="didprog_dotmas_stopiscrizioni">Data di fine delle Iscrizioni</label>
+					<input id="didprog_dotmas_stopiscrizioni" type="text" class="form-control" data-tag="didprog.stopiscrizioni.g?corsostudiodotmasview.didprog_stopiscrizioni.g" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_dotmas_immatoltreauth">Consenti l'immatricolazione oltre i termini</label>
+					<div class="custom-control custom-radio">
+						<input id="didprog_dotmas_immatoltreauthSi" type="radio" name="didprog_dotmas_immatoltreauth" class="custom-control-input" data-tag="didprog.immatoltreauth:S?corsostudiodotmasview.didprog_immatoltreauth:Si" data-subentity  ><label for="didprog_dotmas_immatoltreauthSi"> Si</label>
+						<input id="didprog_dotmas_immatoltreauthNo" type="radio" name="didprog_dotmas_immatoltreauth" class="custom-control-input" data-tag="didprog.immatoltreauth:N?corsostudiodotmasview.didprog_immatoltreauth:No" data-subentity  ><label for="didprog_dotmas_immatoltreauthNo"> No</label>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabcorsostudio_dotmas_2" role="tabpanel">
+				<div class="gridx" id="grid_iscrizione_dotmas" data-tag="iscrizione.dotmas.dotmas" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabcorsostudio_dotmas_3" role="tabpanel">
+	<hr>
+		<div class="row">
+			<div class="col-md-12">
+				<div id="calendar37" data-tag="prova.dotmas.dotmas" data-custom-control="calendar"  data-mdltitlecolumnname="title"   data-mdlstartcolumnname="start"   data-mdlstopcolumnname="stop"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdldragdrop ></div>
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[calcola_ammortamento]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [calcola_ammortamento]
 GO
@@ -28,7 +45,7 @@ CREATE PROCEDURE [calcola_ammortamento]
  AS
  BEGIN
  SET @reval = 0
--- setuser 'amm'
+-- setuser 'amministrazione'
 -- se l'ammortamento calcolato è tale da rendere il valore corrente viene considerata una base per l'ammortamento opportunamente ridotta
 -- in modo da far si che l'aliquota di ammortamento per la base di ammortamento vada ad azzerare il valore residuo del cespite
 IF (ISNULL(@actualvalue,0) = 0) RETURN 0
@@ -105,7 +122,7 @@ IF
  
 -- Caso in cui il cespite ha valorizzata la quota di ammortamento direttamente sul cespite
 -- Applico direttamente quella a prescindere da quella configurata nella classificazione inventariale.
- 
+ -- A. Ammortamenti annuali
  IF (@trovato = 'N')
 		BEGIN
 		SELECT  @trovato = 'S', --caso 2
@@ -119,6 +136,33 @@ IF
 		LEFT OUTER JOIN assetunload AU				ON AU.idassetunload = B.idassetunload	
 		WHERE  (tr.flag & 2 <> 0) --ufficiale
 			AND ((tr.flag&8) <> 0) -- ammortamenti
+			AND (tr.flag & 1 = 0 ) --Ammortamenti annuali
+			AND ISNULL(tr.active,'S')= 'S'
+			AND (b.flag & 1 <> 0)
+			AND (YEAR(assetload.ratificationdate)<=@ayear OR   ((c.flag & 1 = 0) AND (c.flag & 2 <> 0)) )
+			AND (AU.adate is null OR YEAR(AU.adate)>@ayear )
+			AND b.idasset = @idasset AND b.idpiece = @idpiece
+
+		END
+ -- B. Ammortamenti mensili
+ IF (@trovato = 'N')
+		BEGIN
+		SELECT  @trovato = 'S', --caso 2
+			@idinventoryamortization = tr.idinventoryamortization,
+			@amortizationquota = ISNULL(b.amortizationquota, 0) /12 *
+								CASE 
+									WHEN DATEPART(YEAR,b.lifestart) = @ayear THEN DATEPART(MONTH,@dec_31) - DATEPART(MONTH,b.lifestart) + 1
+									WHEN DATEPART(YEAR,b.lifestart) < @ayear THEN 12
+								END
+		FROM asset b
+		JOIN assetacquire c							ON b.nassetacquire = C.nassetacquire
+		JOIN assetview_current ac					ON ac.idasset = b.idasset and ac.idpiece=b.idpiece
+		JOIN inventoryamortization tr				ON tr.idinventoryamortization = b.idinventoryamortization  -- <<<<
+		LEFT OUTER JOIN assetload					ON assetload.idassetload = c.idassetload			
+		LEFT OUTER JOIN assetunload AU				ON AU.idassetunload = B.idassetunload	
+		WHERE  (tr.flag & 2 <> 0) --ufficiale
+			AND ((tr.flag&8) <> 0) -- ammortamenti
+			AND (tr.flag & 1 <> 0 ) --Ammortamenti mensili
 			AND ISNULL(tr.active,'S')= 'S'
 			AND (b.flag & 1 <> 0)
 			AND (YEAR(assetload.ratificationdate)<=@ayear OR   ((c.flag & 1 = 0) AND (c.flag & 2 <> 0)) )

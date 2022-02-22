@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 --setuser 'amministrazione'
 
 -- CREAZIONE VISTA csa_importver_varresidualview
@@ -28,8 +45,9 @@ GO
 			JOIN  incomelast ON income.idinc = incomelast.idinc  
 			JOIN  incomevar ON incomevar.idinc = incomelast.idinc  
 			JOIN  registry as registry_agency ON registry_agency.idreg = income.idreg 
+			left outer join income enew on enew.parentidinc=income.parentidinc and enew.ymov=income.ymov+1 and enew.autokind=31
 			--    tipo movimento automatismo versamento CSA
-			WHERE incomevar.autokind  = 32
+			WHERE incomevar.autokind  = 32  and enew.idinc is null
 UNION ALL
 SELECT		'Spesa', null, expense.idexp, null,expense.parentidexp,expense.ymov, expense.nmov,expense.nphase, expense.idpayment, expenseyear.ayear, expenseyear.idfin, expenseyear.idupb, expense.idman,expensevar.amount,
 			null,expenselast.idaccdebit,expense.idreg, registry_agency.title,expense.description,
@@ -42,7 +60,8 @@ SELECT		'Spesa', null, expense.idexp, null,expense.parentidexp,expense.ymov, exp
 			JOIN  expenselast ON expense.idexp = expenselast.idexp  
 			JOIN  expensevar ON expensevar.idexp = expenselast.idexp  
 			JOIN  registry as registry_agency ON registry_agency.idreg = expense.idreg 
+			left outer join expense enew on enew.parentidexp=expense.parentidexp and enew.ymov=expense.ymov+1 and enew.autokind=31
 			-- tipo movimento automatismo versamento CSA
-			WHERE expensevar.autokind  = 32
+			WHERE expensevar.autokind  = 32 and enew.idexp is null
  
   

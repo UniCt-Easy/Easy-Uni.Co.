@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -33,15 +32,15 @@ public class upbRow: MetaRow  {
 	///id voce upb (tabella upb)
 	///</summary>
 	public String idupb{ 
-		get {if (this["idupb"]==DBNull.Value)return null; return  (String)this["idupb"];}
-		set {if (value==null) this["idupb"]= DBNull.Value; else this["idupb"]= value;}
+		get {return  (String)this["idupb"];}
+		set {this["idupb"]= value;}
 	}
 	public object idupbValue { 
 		get{ return this["idupb"];}
-		set {if (value==null|| value==DBNull.Value) this["idupb"]= DBNull.Value; else this["idupb"]= value;}
+		set {this["idupb"]= value;}
 	}
 	public String idupbOriginal { 
-		get {if (this["idupb",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idupb",DataRowVersion.Original];}
+		get {return  (String)this["idupb",DataRowVersion.Original];}
 	}
 	///<summary>
 	///attivo
@@ -77,43 +76,43 @@ public class upbRow: MetaRow  {
 	///codice upb
 	///</summary>
 	public String codeupb{ 
-		get {if (this["codeupb"]==DBNull.Value)return null; return  (String)this["codeupb"];}
-		set {if (value==null) this["codeupb"]= DBNull.Value; else this["codeupb"]= value;}
+		get {return  (String)this["codeupb"];}
+		set {this["codeupb"]= value;}
 	}
 	public object codeupbValue { 
 		get{ return this["codeupb"];}
-		set {if (value==null|| value==DBNull.Value) this["codeupb"]= DBNull.Value; else this["codeupb"]= value;}
+		set {this["codeupb"]= value;}
 	}
 	public String codeupbOriginal { 
-		get {if (this["codeupb",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codeupb",DataRowVersion.Original];}
+		get {return  (String)this["codeupb",DataRowVersion.Original];}
 	}
 	///<summary>
 	///data creazione
 	///</summary>
-	public DateTime? ct{ 
-		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
-		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
+	public DateTime ct{ 
+		get {return  (DateTime)this["ct"];}
+		set {this["ct"]= value;}
 	}
 	public object ctValue { 
 		get{ return this["ct"];}
-		set {if (value==null|| value==DBNull.Value) this["ct"]= DBNull.Value; else this["ct"]= value;}
+		set {this["ct"]= value;}
 	}
-	public DateTime? ctOriginal { 
-		get {if (this["ct",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["ct",DataRowVersion.Original];}
+	public DateTime ctOriginal { 
+		get {return  (DateTime)this["ct",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome utente creazione
 	///</summary>
 	public String cu{ 
-		get {if (this["cu"]==DBNull.Value)return null; return  (String)this["cu"];}
-		set {if (value==null) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		get {return  (String)this["cu"];}
+		set {this["cu"]= value;}
 	}
 	public object cuValue { 
 		get{ return this["cu"];}
-		set {if (value==null|| value==DBNull.Value) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		set {this["cu"]= value;}
 	}
 	public String cuOriginal { 
-		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
+		get {return  (String)this["cu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///scadenza
@@ -146,30 +145,30 @@ public class upbRow: MetaRow  {
 	///<summary>
 	///data ultima modifica
 	///</summary>
-	public DateTime? lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
-		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
+	public DateTime lt{ 
+		get {return  (DateTime)this["lt"];}
+		set {this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
-		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
+		set {this["lt"]= value;}
 	}
-	public DateTime? ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
+	public DateTime ltOriginal { 
+		get {return  (DateTime)this["lt",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome ultimo utente modifica
 	///</summary>
 	public String lu{ 
-		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
-		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		get {return  (String)this["lu"];}
+		set {this["lu"]= value;}
 	}
 	public object luValue { 
 		get{ return this["lu"];}
-		set {if (value==null|| value==DBNull.Value) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		set {this["lu"]= value;}
 	}
 	public String luOriginal { 
-		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
+		get {return  (String)this["lu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///chiave parent U.P.B. (tabella upb) 
@@ -217,15 +216,15 @@ public class upbRow: MetaRow  {
 	///Ordine di stampa
 	///</summary>
 	public String printingorder{ 
-		get {if (this["printingorder"]==DBNull.Value)return null; return  (String)this["printingorder"];}
-		set {if (value==null) this["printingorder"]= DBNull.Value; else this["printingorder"]= value;}
+		get {return  (String)this["printingorder"];}
+		set {this["printingorder"]= value;}
 	}
 	public object printingorderValue { 
 		get{ return this["printingorder"];}
-		set {if (value==null|| value==DBNull.Value) this["printingorder"]= DBNull.Value; else this["printingorder"]= value;}
+		set {this["printingorder"]= value;}
 	}
 	public String printingorderOriginal { 
-		get {if (this["printingorder",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["printingorder",DataRowVersion.Original];}
+		get {return  (String)this["printingorder",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Finanziamento richiesto
@@ -259,15 +258,15 @@ public class upbRow: MetaRow  {
 	///Denominazione
 	///</summary>
 	public String title{ 
-		get {if (this["title"]==DBNull.Value)return null; return  (String)this["title"];}
-		set {if (value==null) this["title"]= DBNull.Value; else this["title"]= value;}
+		get {return  (String)this["title"];}
+		set {this["title"]= value;}
 	}
 	public object titleValue { 
 		get{ return this["title"];}
-		set {if (value==null|| value==DBNull.Value) this["title"]= DBNull.Value; else this["title"]= value;}
+		set {this["title"]= value;}
 	}
 	public String titleOriginal { 
-		get {if (this["title",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["title",DataRowVersion.Original];}
+		get {return  (String)this["title",DataRowVersion.Original];}
 	}
 	///<summary>
 	///note testuali
@@ -524,6 +523,17 @@ public class upbRow: MetaRow  {
 	public Int32? flagOriginal { 
 		get {if (this["flag",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["flag",DataRowVersion.Original];}
 	}
+	public String idupb_capofila{ 
+		get {if (this["idupb_capofila"]==DBNull.Value)return null; return  (String)this["idupb_capofila"];}
+		set {if (value==null) this["idupb_capofila"]= DBNull.Value; else this["idupb_capofila"]= value;}
+	}
+	public object idupb_capofilaValue { 
+		get{ return this["idupb_capofila"];}
+		set {if (value==null|| value==DBNull.Value) this["idupb_capofila"]= DBNull.Value; else this["idupb_capofila"]= value;}
+	}
+	public String idupb_capofilaOriginal { 
+		get {if (this["idupb_capofila",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idupb_capofila",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -568,8 +578,8 @@ public class upbTable : MetaTableBase<upbRow> {
 			{"cigcode",createColumn("cigcode",typeof(string),true,false)},
 			{"idepupbkind",createColumn("idepupbkind",typeof(int),true,false)},
 			{"flag",createColumn("flag",typeof(int),true,false)},
+			{"idupb_capofila",createColumn("idupb_capofila",typeof(string),true,false)},
 		};
 	}
 }
 }
-

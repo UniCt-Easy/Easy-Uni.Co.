@@ -1,0 +1,131 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabconvalida_segistpass_0" class="nav-link active show" data-toggle="pill" data-target="#tabconvalida_segistpass_0"><i class="fa fa-dot-circle-o mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabconvalida_segistpass_1" class="nav-link" data-toggle="pill" data-target="#tabconvalida_segistpass_1"><i class="fa fa-sign-out-alt mr-1"></i>Convalidanti</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabconvalida_segistpass_2" class="nav-link" data-toggle="pill" data-target="#tabconvalida_segistpass_2"><i class="fa fa-sign-in-alt mr-1"></i>Convalidati</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabconvalida_segistpass_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segistpass_cf">Crediti formativi</label>
+					<input id="convalida_segistpass_cf" type="text" class="form-control" data-tag="convalida.cf.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segistpass_cfintegrazione">Crediti formativi di integrazione</label>
+					<input id="convalida_segistpass_cfintegrazione" type="text" class="form-control" data-tag="convalida.cfintegrazione.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#convalida_segistpass_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="convalida_segistpass_data">Data</label>
+					<input id="convalida_segistpass_data" type="text" class="form-control" data-tag="convalida.data.g"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segistpass_iddichiar">Dichiarazione da convalidare</label>
+					<div>
+						<input id="convalida_segistpass_iddichiar" name="convalida_segistpass_iddichiar" type="text" data-listtype="altre_seg"  class="form-control" data-minchar="2" data-tag="dichiaraltre_segview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segistpass_iddidprog">Didattica programmata</label>
+					<div>
+						<input id="convalida_segistpass_iddidprog" name="convalida_segistpass_iddidprog" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segistpass_idiscrizione">Iscrizione</label>
+					<div>
+						<input id="convalida_segistpass_idiscrizione" name="convalida_segistpass_idiscrizione" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="iscrizionedefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segistpass_idiscrizione_from">Iscrizione da cui convalidare i sostenimenti</label>
+					<div>
+						<input id="convalida_segistpass_idiscrizione_from" name="convalida_segistpass_idiscrizione_from" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="iscrizionedefaultview_alias1.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segistpass_idiscrizionebmi">Iscrizione al bando di mobilità internazionale</label>
+					<div>
+						<input id="convalida_segistpass_idiscrizionebmi" name="convalida_segistpass_idiscrizionebmi" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="iscrizionebmisegview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segistpass_idistanza">Istanza</label>
+					<div>
+						<input id="convalida_segistpass_idistanza" name="convalida_segistpass_idistanza" type="text" data-listtype="abbr_seg"  class="form-control" data-minchar="2" data-tag="istanzaabbr_segview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segistpass_idlearningagrstud">learning agreement for studies</label>
+					<div>
+						<input id="convalida_segistpass_idlearningagrstud" name="convalida_segistpass_idlearningagrstud" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="learningagrstudsegview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segistpass_idlearningagrtrainer">Learning agreement for traineersheep</label>
+					<div>
+						<input id="convalida_segistpass_idlearningagrtrainer" name="convalida_segistpass_idlearningagrtrainer" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="learningagrtrainersegview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segistpass_idpratica">pratica di convalida</label>
+					<div>
+						<input id="convalida_segistpass_idpratica" name="convalida_segistpass_idpratica" type="text" data-listtype="seganagstu"  class="form-control" data-minchar="2" data-tag="praticaseganagstuview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segistpass_voto">Voto</label>
+					<input id="convalida_segistpass_voto" type="text" class="form-control" data-tag="convalida.voto.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segistpass_votolode">Lode</label>
+					<div class="custom-control custom-radio">
+						<input id="convalida_segistpass_votolodeSi" type="radio" name="convalida_segistpass_votolode" class="custom-control-input" data-tag="convalida.votolode:S"  ><label for="convalida_segistpass_votolodeSi"> Si</label>
+						<input id="convalida_segistpass_votolodeNo" type="radio" name="convalida_segistpass_votolode" class="custom-control-input" data-tag="convalida.votolode:N"  ><label for="convalida_segistpass_votolodeNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segistpass_votosu">Su</label>
+					<input id="convalida_segistpass_votosu" type="text" class="form-control" data-tag="convalida.votosu"  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabconvalida_segistpass_1" role="tabpanel">
+				<div class="gridx" id="grid_convalidante_segistpass" data-tag="convalidante.segistpass.segistpass" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="changes,S,Si;changes,N,No;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabconvalida_segistpass_2" role="tabpanel">
+				<div class="gridx" id="grid_convalidato_segistpass" data-tag="convalidato.segistpass.segistpass" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

@@ -21,7 +21,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\output\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LiveUpdate, Version=1.10.60.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\unmanaged\LiveUpdate\bin\Debug\LiveUpdate.dll</HintPath>
+    </Reference>
     <Reference Include="metadatalibrary">
       <HintPath>..\..\..\dll\metadatalibrary.dll</HintPath>
     </Reference>
@@ -45,6 +49,22 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.XML" />
+    <Reference Include="Xceed.Compression.Formats.v5.6, Version=5.6.14475.14160, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\dll\Xceed.Compression.Formats.v5.6.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Compression.v5.6, Version=5.6.14475.14160, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\dll\Xceed.Compression.v5.6.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.FileSystem.v5.6, Version=5.6.14475.14160, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\dll\Xceed.FileSystem.v5.6.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Zip.v5.6, Version=5.6.14475.14160, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\dll\Xceed.Zip.v5.6.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">

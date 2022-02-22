@@ -167,6 +167,12 @@
       <Name>meta_income</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="meta_tassonomia_pagopa">
+      <HintPath>..\..\tassonomia_pagopa\meta_tassonomia_pagopa\bin\Debug\meta_tassonomia_pagopa.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_tassonomia_pagopa</Name>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs">

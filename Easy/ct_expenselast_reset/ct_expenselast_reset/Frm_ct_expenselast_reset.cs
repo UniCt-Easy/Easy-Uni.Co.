@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,7 +28,7 @@ using funzioni_configurazione;
 using System.Collections;
 
 namespace ct_expenselast_reset {
-    public partial class Frm_ct_expenselast_reset : Form {
+    public partial class Frm_ct_expenselast_reset : MetaDataForm {
         MetaData Meta;
         QueryHelper QHS;
         CQueryHelper QHC;
@@ -144,9 +143,9 @@ namespace ct_expenselast_reset {
             Tmovimenti.Columns["registry"].Caption = "Anagrafica";
             Tmovimenti.Columns["codeupb"].Caption = "CodiceUPB";
             Tmovimenti.Columns["codefin"].Caption = "CodiceBilancio";
-            Tmovimenti.Columns["description"].Caption = "Descrizione";
-            Tmovimenti.Columns["kpay"].Caption = "codice mandato";
-
+            Tmovimenti.Columns["description"].Caption = "Descrizione";           
+            Tmovimenti.Columns["kpay"].Caption = "";
+            Tmovimenti.Columns["npay"].Caption = "numero mandato";
 
             Tmovimenti.AcceptChanges();
             gridDettagli.DataSource = null;
@@ -224,7 +223,7 @@ namespace ct_expenselast_reset {
         private void btnAzzera_Click(object sender, EventArgs e) {
             DataRow[] Mov_SelectedRows = GetGridSelectedRows(gridDettagli);
             if ((Mov_SelectedRows == null) || (Mov_SelectedRows.Length == 0)) {
-                MessageBox.Show("Non Ã¨ stato selezionato alcun movimento da annullare.");
+                show("Non è stato selezionato alcun movimento da annullare.");
                 return;
             }
             Azzera(Mov_SelectedRows);
@@ -235,7 +234,7 @@ namespace ct_expenselast_reset {
                 Conn.RUN_SELECT("accountingyear", "*", null, QHS.CmpEq("ayear", esercizio), null, true);
 
             if (EsercizioTable.Rows.Count == 0) {
-                MessageBox.Show("L'esercizio " + esercizio + " non Ã¨ stato creato.");
+                show("L'esercizio " + esercizio + " non è stato creato.");
                 return false;
             }
             return true;
@@ -266,7 +265,7 @@ namespace ct_expenselast_reset {
 
             DateTime newDate = new DateTime(newEsercizio, 1, 1);
             if (!CambioDataConsentita(Conn, newDate)) {
-                MessageBox.Show("L'utente non ha diritto ad agire nell'esercizio " + newEsercizio, "Errore");
+                show("L'utente non ha diritto ad agire nell'esercizio " + newEsercizio, "Errore");
                 return null;
             }
             Easy_DataAccess newConn = (Easy_DataAccess) Conn.Duplicate();
@@ -326,7 +325,7 @@ namespace ct_expenselast_reset {
             if (res) {
                
                 string mess = "Operazione Eseguita con successo.";
-                MessageBox.Show(mess);
+                show(mess);
                 btnAzzera.Visible = false;
                 btnAnnulla.Text = "Chiudi";
             }
@@ -336,6 +335,7 @@ namespace ct_expenselast_reset {
                 DS.expensesorted.Clear();
                 DS.expenseyear.Clear();
                 DS.expenselast.Clear();
+                DS.payment.Clear();
                 return;
             }
         }
@@ -424,10 +424,10 @@ namespace ct_expenselast_reset {
             rExpVar["yvar"] = Meta.GetSys("esercizio");
             rExpVar["description"] = "Azzeramento mandato";
             rExpVar["amount"] = -CfgFn.GetNoNullDecimal(R["curramount"]);
-            rExpVar["autokind"] = 11;// non c'Ã¨ un autokind particolare in questo caso
+            rExpVar["autokind"] = 11;// non c'è un autokind particolare in questo caso
             rExpVar["adate"] = Meta.GetSys("datacontabile");
 
-            //Ottengo un DataTable con gli importi di classificazione raggruppati per codice, cosÃ¬ non considero la class. parziali
+            //Ottengo un DataTable con gli importi di classificazione raggruppati per codice, così non considero la class. parziali
             int esercizio = (int)Meta.GetSys("esercizio");
             string queryF4 = " select es1.idsor, s1.sortcode, s1.idsorkind, es1.amount, s2.idsor as idsorparent, EL.idparent as idexpparent"
                              + " from expense "
@@ -481,7 +481,7 @@ namespace ct_expenselast_reset {
             }
             object newidfin = Calcola_newidfin(R["codefin"]);
             if (newidfin == null) {
-                MessageBox.Show($"Nell'anno {Conn.GetEsercizio()} non Ã¨ stata trovata una voce di bilancio mappata alla voce di "+
+                show($"Nell'anno {Conn.GetEsercizio()} non è stata trovata una voce di bilancio mappata alla voce di "+
                     $" codice {R["codefin"]} dell'anno precedente","Errore");
                 return false;
             }
@@ -536,4 +536,3 @@ namespace ct_expenselast_reset {
 
     }
 }
-

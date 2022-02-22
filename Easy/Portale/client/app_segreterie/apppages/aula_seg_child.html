@@ -1,0 +1,88 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_seg_child_title">Denominazione</label>
+					<input id="aula_seg_child_title" type="text" class="form-control" data-tag="aula.title?aulaseg_childview.title" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_seg_child_code">Codice</label>
+					<input id="aula_seg_child_code" type="text" class="form-control" data-tag="aula.code?aulaseg_childview.aula_code" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_seg_child_idstruttura">Struttura didattica di afferenza</label>
+					<div>
+						<input id="aula_seg_child_idstruttura" name="aula_seg_child_idstruttura" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="strutturadefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_seg_child_capienza">Capienza</label>
+					<input id="aula_seg_child_capienza" type="text" class="form-control" data-tag="aula.capienza?aulaseg_childview.aula_capienza" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_seg_child_capienzadis">Capienza disabili</label>
+					<input id="aula_seg_child_capienzadis" type="text" class="form-control" data-tag="aula.capienzadis?aulaseg_childview.aula_capienzadis" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_seg_child_idaulakind">Tipologia</label>
+					<select id="aula_seg_child_idaulakind" class="custom-select d-block w-100"  data-source-name="aulakinddefaultview" data-value-member="idaulakind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="aula.idaulakind?aulaseg_childview.aula_idaulakind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="aula_seg_child_dotazioni">Dotazioni</label>
+					<textarea class="textarea form-control" id="aula_seg_child_dotazioni" type="text"  rows="4" data-tag="aula.dotazioni?aulaseg_childview.aula_dotazioni" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_seg_child_address">Indirizzo</label>
+					<input id="aula_seg_child_address" type="text" class="form-control" data-tag="aula.address?aulaseg_childview.aula_address" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_seg_child_location">Località</label>
+					<input id="aula_seg_child_location" type="text" class="form-control" data-tag="aula.location?aulaseg_childview.aula_location" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_seg_child_cap">CAP</label>
+					<input id="aula_seg_child_cap" type="text" class="form-control" data-tag="aula.cap?aulaseg_childview.aula_cap" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_seg_child_idcity">Città</label>
+					<div>
+						<input id="aula_seg_child_idcity" name="aula_seg_child_idcity" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_seg_child_idnation">Nazione</label>
+					<div>
+						<input id="aula_seg_child_idnation" name="aula_seg_child_idnation" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_nation.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_seg_child_latitude">latitudine</label>
+					<input id="aula_seg_child_latitude" type="text" class="form-control" data-tag="aula.latitude.fixed.7?aulaseg_childview.aula_latitude" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aula_seg_child_longitude">Longitudine</label>
+					<input id="aula_seg_child_longitude" type="text" class="form-control" data-tag="aula.longitude.fixed.7?aulaseg_childview.aula_longitude" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿namespace assetunload_generauto {
+
+namespace assetunload_generauto {
     partial class FrmAssetUnload_generauto {
         /// <summary>
         /// Variabile di progettazione necessaria.
@@ -75,6 +74,7 @@
             this.rdoAll = new System.Windows.Forms.RadioButton();
             this.rdoBene = new System.Windows.Forms.RadioButton();
             this.cboTipo = new System.Windows.Forms.ComboBox();
+            this.DS = new assetunload_generauto.vistaForm();
             this.grpScaricoBene = new System.Windows.Forms.GroupBox();
             this.btnDeselBene = new System.Windows.Forms.Button();
             this.btnAddBene = new System.Windows.Forms.Button();
@@ -82,12 +82,11 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.txtEsercizio = new System.Windows.Forms.TextBox();
             this.grpCausale = new System.Windows.Forms.GroupBox();
-            this.txtCausale = new System.Windows.Forms.TextBox();
+            this.cboCausale = new System.Windows.Forms.ComboBox();
             this.grpCred = new System.Windows.Forms.GroupBox();
             this.txtCredDeb = new System.Windows.Forms.TextBox();
             this.btnChiudi = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.DS = new assetunload_generauto.vistaForm();
             this.Tip = new System.Windows.Forms.ToolTip(this.components);
             this.grpElabora.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -97,16 +96,17 @@
             this.groupBox2.SuspendLayout();
             this.grpDocumento.SuspendLayout();
             this.grpIncludi.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.grpScaricoBene.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgrCaricoBene)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.grpCausale.SuspendLayout();
             this.grpCred.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.SuspendLayout();
             // 
             // grpElabora
             // 
+            this.grpElabora.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.grpElabora.Controls.Add(this.btnNo);
             this.grpElabora.Controls.Add(this.btnSi);
             this.grpElabora.Controls.Add(this.btnGeneraTutto);
@@ -137,7 +137,6 @@
             // 
             // btnGeneraTutto
             // 
-            this.btnGeneraTutto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGeneraTutto.Enabled = false;
             this.btnGeneraTutto.Location = new System.Drawing.Point(8, 48);
             this.btnGeneraTutto.Name = "btnGeneraTutto";
@@ -247,9 +246,9 @@
             // 
             // gridRatifica
             // 
-            this.gridRatifica.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridRatifica.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gridRatifica.CaptionVisible = false;
             this.gridRatifica.DataMember = "";
             this.gridRatifica.HeaderForeColor = System.Drawing.SystemColors.ControlText;
@@ -275,6 +274,7 @@
             this.txtDataRatifica.Size = new System.Drawing.Size(80, 20);
             this.txtDataRatifica.TabIndex = 178;
             this.txtDataRatifica.Tag = "assetunload.ratificationdate";
+            this.txtDataRatifica.Leave += new System.EventHandler(this.txtDataRatifica_Leave);
             // 
             // btnCollegaMov
             // 
@@ -384,7 +384,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(72, 24);
             this.button4.TabIndex = 177;
-            this.button4.Tag = "manage.assetunloadkind.default";
+            this.button4.Tag = "choose.assetunloadkind.default";
             this.button4.Text = "Tipo buono";
             // 
             // rdoParte
@@ -397,6 +397,7 @@
             // 
             // btnInizia
             // 
+            this.btnInizia.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInizia.Location = new System.Drawing.Point(632, 8);
             this.btnInizia.Name = "btnInizia";
             this.btnInizia.Size = new System.Drawing.Size(88, 24);
@@ -424,8 +425,9 @@
             // 
             // cboTipo
             // 
-            this.cboTipo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboTipo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboTipo.DataSource = this.DS.assetunloadkind;
             this.cboTipo.DisplayMember = "description";
             this.cboTipo.Location = new System.Drawing.Point(392, 8);
             this.cboTipo.Name = "cboTipo";
@@ -434,10 +436,16 @@
             this.cboTipo.Tag = "assetunload.idassetunloadkind";
             this.cboTipo.ValueMember = "idassetunloadkind";
             // 
+            // DS
+            // 
+            this.DS.DataSetName = "vistaForm";
+            this.DS.EnforceConstraints = false;
+            // 
             // grpScaricoBene
             // 
-            this.grpScaricoBene.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.grpScaricoBene.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpScaricoBene.Controls.Add(this.btnDeselBene);
             this.grpScaricoBene.Controls.Add(this.btnAddBene);
             this.grpScaricoBene.Controls.Add(this.dgrCaricoBene);
@@ -471,9 +479,9 @@
             // 
             // dgrCaricoBene
             // 
-            this.dgrCaricoBene.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgrCaricoBene.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgrCaricoBene.CaptionVisible = false;
             this.dgrCaricoBene.DataMember = "";
             this.dgrCaricoBene.HeaderForeColor = System.Drawing.SystemColors.ControlText;
@@ -482,7 +490,7 @@
             this.dgrCaricoBene.Size = new System.Drawing.Size(616, 246);
             this.dgrCaricoBene.TabIndex = 3;
             this.dgrCaricoBene.TabStop = false;
-            this.dgrCaricoBene.Tag = "assetpieceview.buonoscarico";
+            this.dgrCaricoBene.Tag = "assetpieceview.buonoscaricoautomatico";
             this.dgrCaricoBene.Paint += new System.Windows.Forms.PaintEventHandler(this.dgrCaricoBene_Paint);
             // 
             // groupBox5
@@ -506,7 +514,7 @@
             // 
             // grpCausale
             // 
-            this.grpCausale.Controls.Add(this.txtCausale);
+            this.grpCausale.Controls.Add(this.cboCausale);
             this.grpCausale.Location = new System.Drawing.Point(8, 139);
             this.grpCausale.Name = "grpCausale";
             this.grpCausale.Size = new System.Drawing.Size(320, 48);
@@ -515,17 +523,18 @@
             this.grpCausale.Tag = "";
             this.grpCausale.Text = "Causale di scarico";
             // 
-            // txtCausale
+            // cboCausale
             // 
-            this.txtCausale.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCausale.Location = new System.Drawing.Point(8, 16);
-            this.txtCausale.Name = "txtCausale";
-            this.txtCausale.ReadOnly = true;
-            this.txtCausale.Size = new System.Drawing.Size(304, 20);
-            this.txtCausale.TabIndex = 2;
-            this.txtCausale.Tag = "assetunloadmotive.description";
+            this.cboCausale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboCausale.DataSource = this.DS.assetunloadmotive;
+            this.cboCausale.DisplayMember = "description";
+            this.cboCausale.Location = new System.Drawing.Point(11, 19);
+            this.cboCausale.Name = "cboCausale";
+            this.cboCausale.Size = new System.Drawing.Size(303, 21);
+            this.cboCausale.TabIndex = 49;
+            this.cboCausale.Tag = "assetunload.idmot.(active=\'S\')";
+            this.cboCausale.ValueMember = "idmot";
             // 
             // grpCred
             // 
@@ -540,18 +549,18 @@
             // 
             // txtCredDeb
             // 
-            this.txtCredDeb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCredDeb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCredDeb.Location = new System.Drawing.Point(8, 16);
             this.txtCredDeb.Name = "txtCredDeb";
-            this.txtCredDeb.ReadOnly = true;
             this.txtCredDeb.Size = new System.Drawing.Size(304, 20);
             this.txtCredDeb.TabIndex = 1;
             this.txtCredDeb.Tag = "registry.title?assetunloadview.title";
             // 
             // btnChiudi
             // 
+            this.btnChiudi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChiudi.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnChiudi.Location = new System.Drawing.Point(640, 91);
             this.btnChiudi.Name = "btnChiudi";
@@ -568,11 +577,6 @@
             this.label4.TabIndex = 126;
             this.label4.Text = "Descrizione";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // FrmAssetUnload_generauto
             // 
@@ -609,15 +613,14 @@
             this.grpDocumento.ResumeLayout(false);
             this.grpDocumento.PerformLayout();
             this.grpIncludi.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
             this.grpScaricoBene.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgrCaricoBene)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.grpCausale.ResumeLayout(false);
-            this.grpCausale.PerformLayout();
             this.grpCred.ResumeLayout(false);
             this.grpCred.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -665,12 +668,12 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TextBox txtEsercizio;
         private System.Windows.Forms.GroupBox grpCausale;
-        private System.Windows.Forms.TextBox txtCausale;
         private System.Windows.Forms.GroupBox grpCred;
         private System.Windows.Forms.TextBox txtCredDeb;
         private System.Windows.Forms.Button btnChiudi;
         private System.Windows.Forms.Label label4;
         public vistaForm DS;
         private System.Windows.Forms.ToolTip Tip;
+        private System.Windows.Forms.ComboBox cboCausale;
     }
-}
+}

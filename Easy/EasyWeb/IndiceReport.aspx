@@ -10,7 +10,7 @@
     
 
         <cc1:hwPanel id="MenuPanel"   runat="server" >
-            <cc1:hwButton ID="HwMenuButton" style="display:none;" runat="server" OnClick="HwMenuButton_Click" />
+            <cc1:hwButton ID="HwMenuButton" style="display:none;" runat="server" class="btn btn-primary" OnClick="HwMenuButton_Click" />
         </cc1:hwPanel>
 	</div>	
 	

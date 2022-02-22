@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -80,20 +79,8 @@ namespace meta_expensepayrollview {//meta_cedolinomovspesaview//
 					DescribeAColumn(T, "curramount", "Imp.Corrente",nPos++);
 					DescribeAColumn(T, "available", "Disponibile",nPos++);
 					DescribeAColumn(T, "adate", "Data Contabile",nPos++);
-					DescribeAColumn(T, "ypay", "Eserc.Mand.",nPos++);
-					DescribeAColumn(T, "npay", "Num.Mand.",nPos++);
                     DescribeAColumn(T, "idexp", ".idexp", -1);
                     DescribeAColumn(T, "ayearstartamount", "Imp.Esercizio", -1);
-                    DescribeAColumn(T, "idregistrypaymethod", ".#", -1);
-                    DescribeAColumn(T, "idpaymethod", ".Cod. Mod.Pag.", -1);
-                    DescribeAColumn(T, "cin", ".Cin", -1);
-                    DescribeAColumn(T, "idbank", ".Cod.ABI", -1);
-                    DescribeAColumn(T, "idcab", ".CAB", -1);
-                    DescribeAColumn(T, "cc", ".Conto", -1);
-                    DescribeAColumn(T, "paymentdescr", ".Desc.Pag.", -1);
-                    DescribeAColumn(T, "codeser", ".Cod. Prestazione", -1);
-                    DescribeAColumn(T, "service", ".Prestazione", -1);
-                    DescribeAColumn(T, "ivaamount", ".Iva", -1);
                     DescribeAColumn(T, "autokind", ".Tipo Auto", -1);
                     DescribeAColumn(T, "flagarrear", ".Competenza", -1);
                     DescribeAColumn(T, "expiration", ".Data Scadenza", -1);
@@ -115,8 +102,6 @@ namespace meta_expensepayrollview {//meta_cedolinomovspesaview//
 					DescribeAColumn(T, "upb", "Denom. U.P.B.",nPos++);
 					DescribeAColumn(T, "registry", "Percipiente",nPos++);
 					DescribeAColumn(T, "manager", "Responsabile",nPos++);
-					DescribeAColumn(T, "ypay", "Eserc.Mand.",nPos++);
-					DescribeAColumn(T, "npay", "Num.Mand.",nPos++);
 					DescribeAColumn(T, "doc", "Documento",nPos++);
 					DescribeAColumn(T, "docdate", "Data Doc.",nPos++);
 					DescribeAColumn(T, "description", "Descrizione",nPos++);
@@ -130,4 +115,4 @@ namespace meta_expensepayrollview {//meta_cedolinomovspesaview//
 			}
 		}
 	}
-}
+}

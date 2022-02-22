@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_electronicinvoicecheck]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_electronicinvoicecheck]
 GO
@@ -12,7 +29,7 @@ GO
 CREATE procedure exp_electronicinvoicecheck(@yelectronicinvoice smallint, @nelectronicinvoice int) as
 begin
 -- exec exp_electronicinvoicecheck 2015, 1
-CREATE TABLE #error (message varchar(400))
+CREATE TABLE #error (message varchar(4000))
 
 INSERT INTO #error(message)
 select 'Inserire il Codice Fiscale di ' +agencyname +' in Informazioni Ente'
@@ -126,20 +143,16 @@ and E.doc is null and ID.cigcode is not null
 INSERT INTO #error(message)
 select 'Per l''anagrafica: '+ R.title+' Il primo carattere della Partita IVA è numerico. I primi due caratteri dovrebbero rappresentano il paese ( IT, DE, ES …..) ed i restanti (fino ad un massimo di 28) il codice vero e proprio.'
 from electronicinvoice E 
-join registry R
-	on E.idreg = R.idreg
-join residence RR
-	on RR.idresidence = R.residence
+join registry R		on E.idreg = R.idreg
+join residence RR	on RR.idresidence = R.residence
 where E.nelectronicinvoice = @nelectronicinvoice and E.yelectronicinvoice = @yelectronicinvoice
 	and RR.coderesidence = 'J' and ASCII(SUBSTRING(R.p_iva,1,1)) BETWEEN 48 AND 57 -- 0..9
 	
 INSERT INTO #error(message)
 select 'Per l''anagrafica: '+ R.title+' Il primo carattere del CF estero/Passaporto è numerico. I primi due caratteri dovrebbero rappresentano il paese ( IT, DE, ES …..) ed i restanti (fino ad un massimo di 28) il codice vero e proprio.'
 from electronicinvoice E 
-join registry R
-	on E.idreg = R.idreg
-join residence RR
-	on RR.idresidence = R.residence
+join registry R		on E.idreg = R.idreg
+join residence RR	on RR.idresidence = R.residence
 where E.nelectronicinvoice = @nelectronicinvoice and E.yelectronicinvoice = @yelectronicinvoice
 	and  RR.coderesidence = 'X' and ASCII(SUBSTRING(R.foreigncf,1,1)) BETWEEN 48 AND 57 -- 0..9
 
@@ -147,10 +160,8 @@ where E.nelectronicinvoice = @nelectronicinvoice and E.yelectronicinvoice = @yel
 INSERT INTO #error(message)
 select 'Per l''anagrafica: '+ R.title+' non è stato specificato nè Codice Fiscale nè Partita IVA.'
 from electronicinvoice E 
-join registry R
-	on E.idreg = R.idreg
-join residence RR
-	on RR.idresidence = R.residence
+join registry R		on E.idreg = R.idreg
+join residence RR	on RR.idresidence = R.residence
 where E.nelectronicinvoice = @nelectronicinvoice and E.yelectronicinvoice = @yelectronicinvoice
 	and R.p_iva is null
 	and R.cf is null
@@ -185,7 +196,7 @@ CREATE TABLE #SedeCliente
 	cap varchar(15),		
 	province varchar(2),
 	nation varchar(2)
-)
+	)
 
 INSERT INTO #SedeCliente(idaddresskind, idreg, address,	location, cap, province, nation)
 SELECT 
@@ -193,8 +204,8 @@ SELECT
 	idreg, 
 	substring(address,1,60),
 	SUBSTRING(isnull(geo_city.title, registryaddress.location), 1, 60),
-	registryaddress.cap,
-	geo_country.province,
+	case when geo_city.idcity is null then '00000' else registryaddress.cap end,
+	case when geo_nation_agency.value is null then geo_country.province else 'EE' end,
 	ISNULL(geo_nation_agency.value,'IT')
 FROM registryaddress
 LEFT OUTER JOIN geo_city				ON geo_city.idcity = registryaddress.idcity
@@ -247,7 +258,7 @@ Begin
 	select 'Per l''anagrafica: '+ @registry +' non è stato specificato un Comune valido.'
 End
 
-if(select count(*) from #SedeCliente where cap is null)>0
+if(select count(*) from #SedeCliente where cap is null and province is null)>0
 Begin
 	INSERT INTO #error(message)
 	select 'Per l''anagrafica: '+ @registry +' non è stato specificato un CAP valido.'

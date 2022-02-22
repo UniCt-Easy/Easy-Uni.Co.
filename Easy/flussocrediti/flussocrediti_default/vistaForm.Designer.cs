@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -36,108 +35,57 @@ using metadatalibrary;
 namespace flussocrediti_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Crediti da comunicare al nodo pagamenti o simili, anche usata per i crediti che ci vengono comunicati dalle segreterie studenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public flussocreditiTable flussocrediti 		=> (flussocreditiTable)Tables["flussocrediti"];
 
-	///<summary>
-	///Dettaglio flusso crediti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public flussocreditidetailTable flussocreditidetail_ca 		=> (flussocreditidetailTable)Tables["flussocreditidetail_ca"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting05 		=> (sortingTable)Tables["sorting05"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting02 		=> (sortingTable)Tables["sorting02"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting03 		=> (sortingTable)Tables["sorting03"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting04 		=> (sortingTable)Tables["sorting04"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting01 		=> (sortingTable)Tables["sorting01"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public configTable config 		=> (configTable)Tables["config"];
 
-	///<summary>
-	///Dettaglio contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public estimatedetailTable estimatedetail 		=> (estimatedetailTable)Tables["estimatedetail"];
 
-	///<summary>
-	///Dettaglio documento IVA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public invoicedetailTable invoicedetail 		=> (invoicedetailTable)Tables["invoicedetail"];
 
-	///<summary>
-	///Dettaglio flusso crediti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public flussocreditidetailTable flussocreditidetail_fatt 		=> (flussocreditidetailTable)Tables["flussocreditidetail_fatt"];
 
-	///<summary>
-	///Tipo di Contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public estimatekindTable estimatekind 		=> (estimatekindTable)Tables["estimatekind"];
 
-	///<summary>
-	///Tipo di documento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public invoicekindTable invoicekind 		=> (invoicekindTable)Tables["invoicekind"];
 
-	///<summary>
-	///Tipo di Contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public estimatekindTable estimatekind1 		=> (estimatekindTable)Tables["estimatekind1"];
 
-	///<summary>
-	///Dettaglio flusso crediti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public flussocreditidetailTable flussocreditidetail_unlinked 		=> (flussocreditidetailTable)Tables["flussocreditidetail_unlinked"];
 
-	///<summary>
-	///Tipo di Contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public estimatekindTable estimatekind2 		=> (estimatekindTable)Tables["estimatekind2"];
 
-	///<summary>
-	///Tipo di documento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public invoicekindTable invoicekind1 		=> (invoicekindTable)Tables["invoicekind1"];
 
@@ -175,7 +123,7 @@ private void initClass() {
 	//////////////////// FLUSSOCREDITIDETAIL_CA /////////////////////////////////
 	var tflussocreditidetail_ca= new flussocreditidetailTable();
 	tflussocreditidetail_ca.TableName = "flussocreditidetail_ca";
-	tflussocreditidetail_ca.addBaseColumns("idflusso","iddetail","cu","ct","lu","lt","importoversamento","idestimkind","yestim","nestim","rownum","idinvkind","yinv","ninv","invrownum","competencystart","competencystop","description","idaccmotivecredit","idaccmotiverevenue","idaccmotiveundotax","idaccmotiveundotaxpost","idfinmotive","idreg","iduniqueformcode","idupb","nform","stop","expirationdate","barcodevalue","barcodeimage","qrcodevalue","qrcodeimage","cf","iuv","annulment","idunivoco","codiceavviso","idsor1","idsor2","idsor3","idivakind","tax","number","p_iva","annotations","flag");
+	tflussocreditidetail_ca.addBaseColumns("idflusso","iddetail","cu","ct","lu","lt","importoversamento","idestimkind","yestim","nestim","rownum","idinvkind","yinv","ninv","invrownum","competencystart","competencystop","description","idaccmotivecredit","idaccmotiverevenue","idaccmotiveundotax","idaccmotiveundotaxpost","idfinmotive","idreg","iduniqueformcode","idupb","nform","stop","expirationdate","barcodevalue","barcodeimage","qrcodevalue","qrcodeimage","cf","iuv","annulment","idunivoco","codiceavviso","idsor1","idsor2","idsor3","idivakind","tax","number","p_iva","annotations","flag","idlist","codicetassonomia","flag_showcase","idfinmotive_iva","idupb_iva");
 	tflussocreditidetail_ca.defineColumn("!estimkind", typeof(string));
 	tflussocreditidetail_ca.defineColumn("!cliente", typeof(string));
 	tflussocreditidetail_ca.ExtendedProperties["TableForPosting"]="flussocreditidetail";
@@ -225,26 +173,26 @@ private void initClass() {
 
 	//////////////////// CONFIG /////////////////////////////////
 	var tconfig= new configTable();
-	tconfig.addBaseColumns("ayear","agencycode","appname","appropriationphasecode","assessmentphasecode","asset_flagnumbering","asset_flagrestart","assetload_flag","boxpartitiontitle","finvarofficial_default","casualcontract_flagrestart","ct","cu","currpartitiontitle","deferredexpensephase","deferredincomephase","electronicimport","electronictrasmission","expense_expiringdays","expensephase","flagautopayment","flagautoproceeds","flagcredit","flagepexp","flagfruitful","flagpayment","flagproceeds","flagrefund","foreignhours","idacc_accruedcost","idacc_accruedrevenue","idacc_customer","idacc_deferredcost","idacc_deferredcredit","idacc_deferreddebit","idacc_deferredrevenue","idacc_ivapayment","idacc_ivarefund","idacc_patrimony","idacc_pl","idacc_supplier","idaccmotive_admincar","idaccmotive_foot","idaccmotive_owncar","idclawback","idfinexpense","idfinexpensesurplus","idfinincomesurplus","idfinivapayment","idfinivarefund","idregauto","importappname","income_expiringdays","incomephase","linktoinvoice","lt","lu","minpayment","minrefund","motivelen","motiveprefix","motiveseparator","payment_finlevel","payment_flag","payment_flagautoprintdate","paymentagency","prevpartitiontitle","proceeds_finlevel","proceeds_flag","proceeds_flagautoprintdate","profservice_flagrestart","refundagency","wageaddition_flagrestart","idivapayperiodicity","idsortingkind1","idsortingkind2","idsortingkind3","fin_kind","taxvaliditykind","flag_paymentamount","automanagekind","flag_autodocnumbering","flagbank_grouping","cashvaliditykind","wageimportappname","balancekind","idpaymethodabi","idpaymethodnoabi","iban_f24","cudactivitycode","startivabalance","flagivapaybyrow","idacc_unabatable","idacc_unabatable_refund","invoice_flagregister","default_idfinvarstatus","flagivaregphase","mainflagpayment","mainflagrefund","mainidfinivapayment","mainidfinivarefund","mainminpayment","mainminrefund","mainpaymentagency","mainrefundagency","mainflagivaregphase","mainstartivabalance","mainidacc_unabatable","mainidacc_unabatable_refund","idacc_mainivapayment","idacc_mainivapayment_internal","idacc_mainivarefund","idacc_mainivarefund_internal","flagva3","flagrefund12","flagpayment12","refundagency12","paymentagency12","idfinivarefund12","idfinivapayment12","minrefund12","minpayment12","idacc_ivapayment12","idacc_ivarefund12","idacc_mainivarefund12","idacc_mainivapayment12","idacc_mainivapayment_internal12","idacc_mainivarefund_internal12","startivabalance12","mainrefundagency12","mainpaymentagency12","mainflagrefund12","mainflagpayment12","mainidfinivarefund12","mainidfinivapayment12","mainminrefund12","mainminpayment12","mainstartivabalance12","idreg_csa","finvar_warnmail","flagdirectcsaclawback","idacc_revenue_gross_csa","idfinincome_gross_csa","idsor1_stock","idsor2_stock","idsor3_stock","idinpscenter","idivapayperiodicity_instit","idfin_store","flagpcashautopayment","flagpcashautoproceeds","email","lcard","booking_on_invoice","itineration_directauth","email_f24","csa_flaggroupby_income","csa_flaggroupby_expense","csa_flaglinktoexp","idsiopeincome_csa","idacc_invoicetoemit","idacc_invoicetoreceive","epannualthreeshold","flagbalance_csa","flagiva_immediate_or_deferred","flagenabletransmission","idpccdebitstatus","flagsplitpayment","startivabalancesplit","paymentagencysplit","idfinivapaymentsplit","flagpaymentsplit","idacc_unabatable_split","idacc_ivapaymentsplit","agencynumber","femode","idacc_economic_result","idacc_previous_economic_result","idacc_bankpaydoc","idacc_bankprodoc","csa_flagtransmissionlinking","idaccmotive_forwarder","idivakind_forwarder");
+	tconfig.addBaseColumns("ayear","agencycode","appname","appropriationphasecode","assessmentphasecode","asset_flagnumbering","asset_flagrestart","assetload_flag","boxpartitiontitle","finvarofficial_default","casualcontract_flagrestart","ct","cu","currpartitiontitle","deferredexpensephase","deferredincomephase","electronicimport","electronictrasmission","expense_expiringdays","expensephase","flagautopayment","flagautoproceeds","flagcredit","flagepexp","flagfruitful","flagpayment","flagproceeds","flagrefund","foreignhours","idacc_accruedcost","idacc_accruedrevenue","idacc_customer","idacc_deferredcost","idacc_deferredcredit","idacc_deferreddebit","idacc_deferredrevenue","idacc_ivapayment","idacc_ivarefund","idacc_patrimony","idacc_pl","idacc_supplier","idaccmotive_admincar","idaccmotive_foot","idaccmotive_owncar","idclawback","idfinexpense","idfinexpensesurplus","idfinincomesurplus","idfinivapayment","idfinivarefund","idregauto","importappname","income_expiringdays","incomephase","linktoinvoice","lt","lu","minpayment","minrefund","motivelen","motiveprefix","motiveseparator","payment_finlevel","payment_flag","payment_flagautoprintdate","paymentagency","prevpartitiontitle","proceeds_finlevel","proceeds_flag","proceeds_flagautoprintdate","profservice_flagrestart","refundagency","wageaddition_flagrestart","idivapayperiodicity","idsortingkind1","idsortingkind2","idsortingkind3","fin_kind","taxvaliditykind","flag_paymentamount","automanagekind","flag_autodocnumbering","flagbank_grouping","cashvaliditykind","wageimportappname","balancekind","idpaymethodabi","idpaymethodnoabi","iban_f24","cudactivitycode","startivabalance","flagivapaybyrow","idacc_unabatable","idacc_unabatable_refund","invoice_flagregister","default_idfinvarstatus","flagivaregphase","mainflagpayment","mainflagrefund","mainidfinivapayment","mainidfinivarefund","mainminpayment","mainminrefund","mainpaymentagency","mainrefundagency","mainflagivaregphase","mainstartivabalance","mainidacc_unabatable","mainidacc_unabatable_refund","idacc_mainivapayment","idacc_mainivapayment_internal","idacc_mainivarefund","idacc_mainivarefund_internal","flagva3","flagrefund12","flagpayment12","refundagency12","paymentagency12","idfinivarefund12","idfinivapayment12","minrefund12","minpayment12","idacc_ivapayment12","idacc_ivarefund12","idacc_mainivarefund12","idacc_mainivapayment12","idacc_mainivapayment_internal12","idacc_mainivarefund_internal12","startivabalance12","mainrefundagency12","mainpaymentagency12","mainflagrefund12","mainflagpayment12","mainidfinivarefund12","mainidfinivapayment12","mainminrefund12","mainminpayment12","mainstartivabalance12","idreg_csa","finvar_warnmail","flagdirectcsaclawback","idacc_revenue_gross_csa","idfinincome_gross_csa","idsor1_stock","idsor2_stock","idsor3_stock","idinpscenter","idivapayperiodicity_instit","idfin_store","flagpcashautopayment","flagpcashautoproceeds","email","lcard","booking_on_invoice","itineration_directauth","email_f24","csa_flaggroupby_income","csa_flaggroupby_expense","csa_flaglinktoexp","idsiopeincome_csa","idacc_invoicetoemit","idacc_invoicetoreceive","epannualthreeshold","flagbalance_csa","flagiva_immediate_or_deferred","flagenabletransmission","idpccdebitstatus","flagsplitpayment","startivabalancesplit","paymentagencysplit","idfinivapaymentsplit","flagpaymentsplit","idacc_unabatable_split","idacc_ivapaymentsplit","agencynumber","femode","idacc_economic_result","idacc_previous_economic_result","idacc_bankpaydoc","idacc_bankprodoc","csa_flagtransmissionlinking","idaccmotive_forwarder","idivakind_forwarder","idacc_unabatable_estera");
 	Tables.Add(tconfig);
 	tconfig.defineKey("ayear");
 
 	//////////////////// ESTIMATEDETAIL /////////////////////////////////
 	var testimatedetail= new estimatedetailTable();
-	testimatedetail.addBaseColumns("idestimkind","yestim","nestim","rownum","annotations","ct","cu","detaildescription","discount","idupb","lt","lu","ninvoiced","number","start","stop","tax","taxable","taxrate","toinvoice","idaccmotive","idreg","idgroup","competencystart","competencystop","idinc_taxable","idinc_iva","idivakind","idsor1","idsor2","idsor3","idaccmotiveannulment","epkind","idrevenuepartition","idepacc","idupb_iva","idlist","cigcode","idfinmotive","iduniqueformcode","flag","proceedsexpiring");
+	testimatedetail.addBaseColumns("idestimkind","yestim","nestim","rownum","annotations","ct","cu","detaildescription","discount","idupb","lt","lu","ninvoiced","number","start","stop","tax","taxable","taxrate","toinvoice","idaccmotive","idreg","idgroup","competencystart","competencystop","idinc_taxable","idinc_iva","idivakind","idsor1","idsor2","idsor3","idaccmotiveannulment","epkind","idrevenuepartition","idepacc","idupb_iva","idlist","cigcode","idfinmotive","iduniqueformcode","flag","proceedsexpiring","idtassonomia","idfinmotive_iva");
 	Tables.Add(testimatedetail);
 	testimatedetail.defineKey("idestimkind", "yestim", "nestim", "rownum");
 
 	//////////////////// INVOICEDETAIL /////////////////////////////////
 	var tinvoicedetail= new invoicedetailTable();
-	tinvoicedetail.addBaseColumns("ninv","rownum","yinv","annotations","competencystart","paymentcompetency","competencystop","ct","cu","detaildescription","discount","idaccmotive","idmankind","idupb","lt","lu","manrownum","nman","number","tax","taxable","unabatable","yman","idestimkind","estimrownum","nestim","yestim","idgroup","idexp_taxable","idexp_iva","idinc_taxable","idinc_iva","ninv_main","yinv_main","idivakind","idinvkind","idsor1","idsor2","idsor3","idintrastatcode","idintrastatmeasure","weight","va3type","intrastatoperationkind","idintrastatservice","idintrastatsupplymethod","idlist","idunit","idpackage","unitsforpackage","npackage","flag","exception12","intra12operationkind","move12","idupb_iva","idinvkind_main","leasing","usedmodesospesometro","resetresidualmandate","idfetransfer","fereferencerule","cupcode","cigcode","idpccdebitstatus","idpccdebitmotive","idcostpartition","expensekind","rounding","idepexp","idepacc","flagbit","idfinmotive","iduniqueformcode");
+	tinvoicedetail.addBaseColumns("ninv","rownum","yinv","annotations","competencystart","paymentcompetency","competencystop","ct","cu","detaildescription","discount","idaccmotive","idmankind","idupb","lt","lu","manrownum","nman","number","tax","taxable","unabatable","yman","idestimkind","estimrownum","nestim","yestim","idgroup","idexp_taxable","idexp_iva","idinc_taxable","idinc_iva","ninv_main","yinv_main","idivakind","idinvkind","idsor1","idsor2","idsor3","idintrastatcode","idintrastatmeasure","weight","va3type","intrastatoperationkind","idintrastatservice","idintrastatsupplymethod","idlist","idunit","idpackage","unitsforpackage","npackage","flag","exception12","intra12operationkind","move12","idupb_iva","idinvkind_main","leasing","usedmodesospesometro","resetresidualmandate","idfetransfer","fereferencerule","cupcode","cigcode","idpccdebitstatus","idpccdebitmotive","idcostpartition","expensekind","rounding","idepexp","idepacc","flagbit","idfinmotive","iduniqueformcode","idtassonomia","idfinmotive_iva");
 	Tables.Add(tinvoicedetail);
 	tinvoicedetail.defineKey("ninv", "rownum", "yinv", "idinvkind");
 
 	//////////////////// FLUSSOCREDITIDETAIL_FATT /////////////////////////////////
 	var tflussocreditidetail_fatt= new flussocreditidetailTable();
 	tflussocreditidetail_fatt.TableName = "flussocreditidetail_fatt";
-	tflussocreditidetail_fatt.addBaseColumns("idflusso","iddetail","cu","ct","lu","lt","importoversamento","idestimkind","yestim","nestim","rownum","idinvkind","yinv","ninv","invrownum","competencystart","competencystop","description","idaccmotivecredit","idaccmotiverevenue","idaccmotiveundotax","idaccmotiveundotaxpost","idfinmotive","idreg","iduniqueformcode","idupb","nform","stop","expirationdate","barcodevalue","barcodeimage","qrcodevalue","qrcodeimage","cf","iuv","annulment","idunivoco","codiceavviso","idsor1","idsor2","idsor3","idivakind","tax","number","p_iva","annotations","flag");
+	tflussocreditidetail_fatt.addBaseColumns("idflusso","iddetail","cu","ct","lu","lt","importoversamento","idestimkind","yestim","nestim","rownum","idinvkind","yinv","ninv","invrownum","competencystart","competencystop","description","idaccmotivecredit","idaccmotiverevenue","idaccmotiveundotax","idaccmotiveundotaxpost","idfinmotive","idreg","iduniqueformcode","idupb","nform","stop","expirationdate","barcodevalue","barcodeimage","qrcodevalue","qrcodeimage","cf","iuv","annulment","idunivoco","codiceavviso","idsor1","idsor2","idsor3","idivakind","tax","number","p_iva","annotations","flag","idlist","codicetassonomia","flag_showcase","idfinmotive_iva","idupb_iva");
 	tflussocreditidetail_fatt.defineColumn("!invkind", typeof(string));
 	tflussocreditidetail_fatt.defineColumn("!cliente", typeof(string));
 	tflussocreditidetail_fatt.ExtendedProperties["TableForPosting"]="flussocreditidetail";
@@ -275,7 +223,7 @@ private void initClass() {
 	//////////////////// FLUSSOCREDITIDETAIL_UNLINKED /////////////////////////////////
 	var tflussocreditidetail_unlinked= new flussocreditidetailTable();
 	tflussocreditidetail_unlinked.TableName = "flussocreditidetail_unlinked";
-	tflussocreditidetail_unlinked.addBaseColumns("idflusso","iddetail","cu","ct","lu","lt","importoversamento","idestimkind","yestim","nestim","rownum","idinvkind","yinv","ninv","invrownum","competencystart","competencystop","description","idaccmotivecredit","idaccmotiverevenue","idaccmotiveundotax","idaccmotiveundotaxpost","idfinmotive","idreg","iduniqueformcode","idupb","nform","stop","expirationdate","barcodevalue","barcodeimage","qrcodevalue","qrcodeimage","cf","iuv","idunivoco","codiceavviso","annulment","idsor1","idsor2","idsor3","idivakind","tax","number","p_iva","annotations","flag");
+	tflussocreditidetail_unlinked.addBaseColumns("idflusso","iddetail","cu","ct","lu","lt","importoversamento","idestimkind","yestim","nestim","rownum","idinvkind","yinv","ninv","invrownum","competencystart","competencystop","description","idaccmotivecredit","idaccmotiverevenue","idaccmotiveundotax","idaccmotiveundotaxpost","idfinmotive","idreg","iduniqueformcode","idupb","nform","stop","expirationdate","barcodevalue","barcodeimage","qrcodevalue","qrcodeimage","cf","iuv","idunivoco","codiceavviso","annulment","idsor1","idsor2","idsor3","idivakind","tax","number","p_iva","annotations","flag","idlist","codicetassonomia","flag_showcase","idfinmotive_iva","idupb_iva");
 	tflussocreditidetail_unlinked.defineColumn("!invkind", typeof(string));
 	tflussocreditidetail_unlinked.defineColumn("!cliente", typeof(string));
 	tflussocreditidetail_unlinked.ExtendedProperties["TableForPosting"]="flussocreditidetail";
@@ -339,4 +287,3 @@ private void initClass() {
 }
 }
 }
-

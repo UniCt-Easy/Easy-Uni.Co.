@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -39,93 +38,54 @@ using metadatalibrary;
 namespace proceeds_reversalemultipla {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Documento di incasso
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public proceedsTable proceeds 		=> (proceedsTable)Tables["proceeds"];
 
-	///<summary>
-	///Bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public finTable fin 		=> (finTable)Tables["fin"];
 
-	///<summary>
-	///Responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public managerTable manager 		=> (managerTable)Tables["manager"];
 
-	///<summary>
-	///Tesoriere
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public treasurerTable treasurer 		=> (treasurerTable)Tables["treasurer"];
 
-	///<summary>
-	///Distinta di trasmissione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public proceedstransmissionTable proceedstransmission 		=> (proceedstransmissionTable)Tables["proceedstransmission"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable registry 		=> (registryTable)Tables["registry"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable incomelastview 		=> (MetaTable)Tables["incomelastview"];
 
-	///<summary>
-	///Fasi di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable incomephase 		=> (MetaTable)Tables["incomephase"];
 
-	///<summary>
-	///Variazione movimento di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public incomevarTable incomevar 		=> (incomevarTable)Tables["incomevar"];
 
-	///<summary>
-	///Movimento bancario
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public banktransactionTable banktransaction 		=> (banktransactionTable)Tables["banktransaction"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable proceeds_bankview 		=> (MetaTable)Tables["proceeds_bankview"];
 
-	///<summary>
-	///Tipo di Rilevanza analitica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingkindTable sortingkind 		=> (sortingkindTable)Tables["sortingkind"];
 
-	///<summary>
-	///Classificazione Movimenti di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public incomesortedTable incomesorted 		=> (incomesortedTable)Tables["incomesorted"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public configTable config 		=> (configTable)Tables["config"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable income1 		=> (MetaTable)Tables["income1"];
 
-	///<summary>
-	///Trattamento del bollo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable stamphandling 		=> (MetaTable)Tables["stamphandling"];
 
@@ -143,6 +103,9 @@ public class dsmeta: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sorting05 		=> (MetaTable)Tables["sorting05"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable incomelastestimatedetail 		=> (MetaTable)Tables["incomelastestimatedetail"];
 
 	#endregion
 
@@ -297,6 +260,7 @@ private void initClass() {
 	tproceeds_bankview.defineColumn("cu", typeof(string),false);
 	tproceeds_bankview.defineColumn("lt", typeof(DateTime),false);
 	tproceeds_bankview.defineColumn("lu", typeof(string),false);
+	tproceeds_bankview.defineColumn("nmov", typeof(int));
 	Tables.Add(tproceeds_bankview);
 	tproceeds_bankview.defineKey("kpro", "idpro");
 
@@ -543,6 +507,22 @@ private void initClass() {
 	Tables.Add(tsorting05);
 	tsorting05.defineKey("idsor");
 
+	//////////////////// INCOMELASTESTIMATEDETAIL /////////////////////////////////
+	var tincomelastestimatedetail= new MetaTable("incomelastestimatedetail");
+	tincomelastestimatedetail.defineColumn("idinc", typeof(int),false);
+	tincomelastestimatedetail.defineColumn("idestimkind", typeof(string),false);
+	tincomelastestimatedetail.defineColumn("yestim", typeof(short),false);
+	tincomelastestimatedetail.defineColumn("nestim", typeof(int),false);
+	tincomelastestimatedetail.defineColumn("rownum", typeof(int),false);
+	tincomelastestimatedetail.defineColumn("amount", typeof(decimal),false);
+	tincomelastestimatedetail.defineColumn("ct", typeof(DateTime),false);
+	tincomelastestimatedetail.defineColumn("cu", typeof(string),false);
+	tincomelastestimatedetail.defineColumn("lt", typeof(DateTime),false);
+	tincomelastestimatedetail.defineColumn("lu", typeof(string),false);
+	tincomelastestimatedetail.defineColumn("originalamount", typeof(decimal));
+	Tables.Add(tincomelastestimatedetail);
+	tincomelastestimatedetail.defineKey("idinc", "idestimkind", "yestim", "nestim", "rownum");
+
 	#endregion
 
 
@@ -579,9 +559,9 @@ private void initClass() {
 	this.defineRelation("managerproceeds","manager","proceeds","idman");
 	this.defineRelation("proceedstransmissionproceeds","proceedstransmission","proceeds","kproceedstransmission");
 	this.defineRelation("FK_stamphandling_proceeds","stamphandling","proceeds","idstamphandling");
+	this.defineRelation("incomelastview_incomelastestimatedetail","incomelastview","incomelastestimatedetail","idinc");
 	#endregion
 
 }
 }
 }
-

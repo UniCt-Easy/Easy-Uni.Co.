@@ -1,0 +1,70 @@
+﻿<div class="p-2 custom_lng_div" data-langkey="pageheader776" >Questa interfaccia va utilizzata per definire dei gruppi di diritti per gli utenti e poi per associarli a gruppi di utenti.</div>
+
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		<!--tabString-->
+	</ul>
+	<form>
+	<div class="row">
+		<div class="col-md-4" style="background-color: white; align-self:flex-start">
+			<div id="menuweb_upb" data-tag="flowchart.segamm" data-custom-control="tree"></div>
+		</div>
+		<div class="col-md-8"  style="background-color: white; align-self:flex-start">
+		<ul class="nav nav-tabs">
+				<li class="nav-item">
+		<a href="#tabflowchart_segamm_0" class="nav-link active show" data-toggle="pill" data-target="#tabflowchart_segamm_0"><i class="fa fa-user-tag mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabflowchart_segamm_1" class="nav-link" data-toggle="pill" data-target="#tabflowchart_segamm_1"><i class="fa fa-user-plus mr-1"></i>Variabili di sicurezza</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabflowchart_segamm_2" class="nav-link" data-toggle="pill" data-target="#tabflowchart_segamm_2"><i class="fa fa-user mr-1"></i>Utenti del nodo di sicurezza</a>
+	</li>
+
+		</ul>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabflowchart_segamm_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="flowchart_segamm_idflowchart">Identificativo</label>
+					<input id="flowchart_segamm_idflowchart" type="text" class="form-control" data-tag="flowchart.idflowchart?flowchartsegammview.idflowchart" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="flowchart_segamm_ayear">Anno esercizio</label>
+					<input id="flowchart_segamm_ayear" type="text" class="form-control" data-tag="flowchart.ayear?flowchartsegammview.flowchart_ayear" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="flowchart_segamm_title">Titolo</label>
+					<input id="flowchart_segamm_title" type="text" class="form-control" data-tag="flowchart.title?flowchartsegammview.title" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="flowchart_segamm_codeflowchart">Codice</label>
+					<input id="flowchart_segamm_codeflowchart" type="text" class="form-control" data-tag="flowchart.codeflowchart?flowchartsegammview.flowchart_codeflowchart" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="flowchart_segamm_paridflowchart">Nodo padre</label>
+					<div>
+						<input id="flowchart_segamm_paridflowchart" name="flowchart_segamm_paridflowchart" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="flowchartsegview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabflowchart_segamm_1" role="tabpanel">
+		<div id="grid_flowchartrestrictedfunction_seg" data-tag="restrictedfunction.seg.seg" data-custom-control="checklist"  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabflowchart_segamm_2" role="tabpanel">
+	<div class="custom_lng_div" data-langkey="tablabelflowchart_segamm_2" >Pagina per eseguire la ricerca e associare gli utenti a questo nodo di sicurezza</div>
+				<div class="gridx" id="grid_flowchartuser_seg" data-tag="flowchartuser.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+</div>
+<!--footer-->

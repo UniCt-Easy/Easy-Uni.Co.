@@ -1,43 +1,34 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="vistaform" targetNamespace="http://tempuri.org/vistaform.xsd" xmlns:mstns="http://tempuri.org/vistaform.xsd" xmlns="http://tempuri.org/vistaform.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
-  <xs:annotation>
-    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-        <Connections />
-        <Tables />
-        <Sources />
-      </DataSource>
-    </xs:appinfo>
-  </xs:annotation>
-  <xs:element name="vistaform" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="vistaform" msprop:Generator_UserDSName="vistaform">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaform" targetNamespace="http://tempuri.org/vistaform.xsd" xmlns:mstns="http://tempuri.org/vistaform.xsd" xmlns="http://tempuri.org/vistaform.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaform" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="sync" msprop:Generator_TableClassName="syncDataTable" msprop:Generator_TableVarName="tablesync" msprop:Generator_TablePropName="sync" msprop:Generator_RowDeletingName="syncRowDeleting" msprop:Generator_RowChangingName="syncRowChanging" msprop:Generator_RowEvHandlerName="syncRowChangeEventHandler" msprop:Generator_RowDeletedName="syncRowDeleted" msprop:Generator_UserTableName="sync" msprop:Generator_RowChangedName="syncRowChanged" msprop:Generator_RowEvArgName="syncRowChangeEvent" msprop:Generator_RowClassName="syncRow">
+        <xs:element name="sync">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
-              <xs:element name="indirizzo" msprop:Generator_ColumnVarNameInTable="columnindirizzo" msprop:Generator_ColumnPropNameInRow="indirizzo" msprop:Generator_ColumnPropNameInTable="indirizzoColumn" msprop:Generator_UserColumnName="indirizzo" type="xs:string" minOccurs="0" />
-              <xs:element name="port" msprop:Generator_ColumnVarNameInTable="columnport" msprop:Generator_ColumnPropNameInRow="port" msprop:Generator_ColumnPropNameInTable="portColumn" msprop:Generator_UserColumnName="port" type="xs:string" minOccurs="0" />
-              <xs:element name="descrizione" msprop:Generator_ColumnVarNameInTable="columndescrizione" msprop:Generator_ColumnPropNameInRow="descrizione" msprop:Generator_ColumnPropNameInTable="descrizioneColumn" msprop:Generator_UserColumnName="descrizione" type="xs:string" minOccurs="0" />
-              <xs:element name="user" msprop:Generator_ColumnVarNameInTable="columnuser" msprop:Generator_ColumnPropNameInRow="user" msprop:Generator_ColumnPropNameInTable="userColumn" msprop:Generator_UserColumnName="user" type="xs:string" minOccurs="0" />
-              <xs:element name="pwd" msprop:Generator_ColumnVarNameInTable="columnpwd" msprop:Generator_ColumnPropNameInRow="pwd" msprop:Generator_ColumnPropNameInTable="pwdColumn" msprop:Generator_UserColumnName="pwd" type="xs:string" minOccurs="0" />
-              <xs:element name="active" msprop:Generator_ColumnVarNameInTable="columnactive" msprop:Generator_ColumnPropNameInRow="active" msprop:Generator_ColumnPropNameInTable="activeColumn" msprop:Generator_UserColumnName="active" type="xs:string" minOccurs="0" />
+              <xs:element name="id" type="xs:int" />
+              <xs:element name="indirizzo" type="xs:string" minOccurs="0" />
+              <xs:element name="port" type="xs:string" minOccurs="0" />
+              <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="user" type="xs:string" minOccurs="0" />
+              <xs:element name="pwd" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="master" msprop:Generator_TableClassName="masterDataTable" msprop:Generator_TableVarName="tablemaster" msprop:Generator_TablePropName="master" msprop:Generator_RowDeletingName="masterRowDeleting" msprop:Generator_RowChangingName="masterRowChanging" msprop:Generator_RowEvHandlerName="masterRowChangeEventHandler" msprop:Generator_RowDeletedName="masterRowDeleted" msprop:Generator_UserTableName="master" msprop:Generator_RowChangedName="masterRowChanged" msprop:Generator_RowEvArgName="masterRowChangeEvent" msprop:Generator_RowClassName="masterRow">
+        <xs:element name="master">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="indirizzo" msprop:Generator_ColumnVarNameInTable="columnindirizzo" msprop:Generator_ColumnPropNameInRow="indirizzo" msprop:Generator_ColumnPropNameInTable="indirizzoColumn" msprop:Generator_UserColumnName="indirizzo" type="xs:string" minOccurs="0" />
-              <xs:element name="user" msprop:Generator_ColumnVarNameInTable="columnuser" msprop:Generator_ColumnPropNameInRow="user" msprop:Generator_ColumnPropNameInTable="userColumn" msprop:Generator_UserColumnName="user" type="xs:string" minOccurs="0" />
-              <xs:element name="pwd" msprop:Generator_ColumnVarNameInTable="columnpwd" msprop:Generator_ColumnPropNameInRow="pwd" msprop:Generator_ColumnPropNameInTable="pwdColumn" msprop:Generator_UserColumnName="pwd" type="xs:string" minOccurs="0" />
-              <xs:element name="flaglocale" msprop:Generator_ColumnVarNameInTable="columnflaglocale" msprop:Generator_ColumnPropNameInRow="flaglocale" msprop:Generator_ColumnPropNameInTable="flaglocaleColumn" msprop:Generator_UserColumnName="flaglocale" type="xs:string" minOccurs="0" />
+              <xs:element name="indirizzo" type="xs:string" minOccurs="0" />
+              <xs:element name="user" type="xs:string" minOccurs="0" />
+              <xs:element name="pwd" type="xs:string" minOccurs="0" />
+              <xs:element name="flaglocale" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:choice>
     </xs:complexType>
-    <xs:unique name="vistaKey1" msdata:PrimaryKey="true">
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:sync" />
       <xs:field xpath="mstns:id" />
     </xs:unique>

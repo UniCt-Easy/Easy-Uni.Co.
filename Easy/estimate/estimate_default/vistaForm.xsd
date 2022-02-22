@@ -42,6 +42,8 @@
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="external_reference" type="xs:string" minOccurs="0" />
               <xs:element name="cigcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idnso_vendita" type="xs:int" minOccurs="0" />
+              <xs:element name="idnocigmotive" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -99,6 +101,10 @@
               <xs:element name="proceedsexpiring" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
               <xs:element name="idepacc_pre" type="xs:int" minOccurs="0" />
+              <xs:element name="rownum_main" type="xs:int" minOccurs="0" />
+              <xs:element name="idtassonomia" type="xs:int" minOccurs="0" />
+              <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="cupcode" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -154,6 +160,7 @@
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="idivakind_forced" type="xs:int" minOccurs="0" />
               <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="riferimento_amministrazione" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -239,6 +246,9 @@
               <xs:element name="idinc_taxable" type="xs:int" minOccurs="0" />
               <xs:element name="idgroup" type="xs:int" minOccurs="0" />
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
+              <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="idlist" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -790,6 +800,10 @@
               <xs:element name="proceedsexpiring" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
               <xs:element name="idepacc_pre" type="xs:int" minOccurs="0" />
+              <xs:element name="rownum_main" type="xs:int" minOccurs="0" />
+              <xs:element name="idtassonomia" type="xs:int" minOccurs="0" />
+              <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="cupcode" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -825,6 +839,121 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_attachmentkind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="estimateattachmentkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idattachmentkind" type="xs:int" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="nso_status">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idnso_status" type="xs:short" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="listingorder" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="nso_vendita">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idnso_vendita" type="xs:int" />
+              <xs:element name="filename" type="xs:string" />
+              <xs:element name="zipfilename" type="xs:string" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="xml" type="xs:string" />
+              <xs:element name="identificativo_nso" type="xs:long" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="dt" type="xs:string" minOccurs="0" />
+              <xs:element name="dt_prot" type="xs:string" minOccurs="0" />
+              <xs:element name="ec" type="xs:string" minOccurs="0" />
+              <xs:element name="ec_prot" type="xs:string" minOccurs="0" />
+              <xs:element name="mt" type="xs:string" minOccurs="0" />
+              <xs:element name="mt_prot" type="xs:string" minOccurs="0" />
+              <xs:element name="se" type="xs:string" minOccurs="0" />
+              <xs:element name="se_prot" type="xs:string" minOccurs="0" />
+              <xs:element name="ec_sent" type="xs:string" minOccurs="0" />
+              <xs:element name="ec_number" type="xs:int" minOccurs="0" />
+              <xs:element name="position" type="xs:int" />
+              <xs:element name="idnso_status" type="xs:short" />
+              <xs:element name="flag_unseen" type="xs:int" minOccurs="0" />
+              <xs:element name="codice_ipa" type="xs:string" minOccurs="0" />
+              <xs:element name="protocoldate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="arrivalprotocolnum" type="xs:string" minOccurs="0" />
+              <xs:element name="rejectreason" type="xs:string" minOccurs="0" />
+              <xs:element name="riferimento_amministrazione" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="data_ricezione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="tipo_risposta" type="xs:string" minOccurs="0" />
+              <xs:element name="data_risposta" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="tipo_riscontro" type="xs:string" minOccurs="0" />
+              <xs:element name="data_riscontro" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="protocol_error" type="xs:string" minOccurs="0" />
+              <xs:element name="tipodocumento" type="xs:string" minOccurs="0" />
+              <xs:element name="signedxml" type="xs:string" minOccurs="0" />
+              <xs:element name="signedxmlfilename" type="xs:string" minOccurs="0" />
+              <xs:element name="utente_accettata" type="xs:string" minOccurs="0" />
+              <xs:element name="utente_rifiutata" type="xs:string" minOccurs="0" />
+              <xs:element name="data_accettata" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="data_rifiutata" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="order_id" type="xs:string" />
+              <xs:element name="order_idemittente" type="xs:string" minOccurs="0" />
+              <xs:element name="order_data_scadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="order_tipo" type="xs:int" />
+              <xs:element name="contratto_id" type="xs:string" minOccurs="0" />
+              <xs:element name="codice_identificativo_gara" type="xs:string" minOccurs="0" />
+              <xs:element name="total" type="xs:decimal" minOccurs="0" />
+              <xs:element name="tax_total" type="xs:decimal" minOccurs="0" />
+              <xs:element name="buyer_id" type="xs:string" minOccurs="0" />
+              <xs:element name="buyer_name" type="xs:string" minOccurs="0" />
+              <xs:element name="buyer_taxid" type="xs:string" minOccurs="0" />
+              <xs:element name="email_nso" type="xs:string" minOccurs="0" />
+              <xs:element name="idnso_deliverystatus" type="xs:short" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="nocigmotive">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idnocigmotive" type="xs:int" />
+              <xs:element name="codenocigmotive" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idnocigmotiveNSO" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="nso_deliverystatus">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idnso_deliverystatus" type="xs:short" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="listingorder" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -961,6 +1090,26 @@
       <xs:field xpath="mstns:nestim" />
       <xs:field xpath="mstns:idattachment" />
     </xs:unique>
+    <xs:unique name="estimateattachmentkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:estimateattachmentkind" />
+      <xs:field xpath="mstns:idattachmentkind" />
+    </xs:unique>
+    <xs:unique name="nso_status_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:nso_status" />
+      <xs:field xpath="mstns:idnso_status" />
+    </xs:unique>
+    <xs:unique name="nso_vendita_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:nso_vendita" />
+      <xs:field xpath="mstns:idnso_vendita" />
+    </xs:unique>
+    <xs:unique name="nocigmotive_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:nocigmotive" />
+      <xs:field xpath="mstns:idnocigmotive" />
+    </xs:unique>
+    <xs:unique name="nso_deliverystatus_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:nso_deliverystatus" />
+      <xs:field xpath="mstns:idnso_deliverystatus" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -985,6 +1134,11 @@
       <msdata:Relationship name="sorting05_estimate" msdata:parent="sorting05" msdata:child="estimate" msdata:parentkey="idsor" msdata:childkey="idsor05" />
       <msdata:Relationship name="sorting04_estimate" msdata:parent="sorting04" msdata:child="estimate" msdata:parentkey="idsor" msdata:childkey="idsor04" />
       <msdata:Relationship name="estimate_estimateattachment" msdata:parent="estimate" msdata:child="estimateattachment" msdata:parentkey="idestimkind nestim yestim" msdata:childkey="idestimkind nestim yestim" />
+      <msdata:Relationship name="estimateattachmentkind_estimateattachment" msdata:parent="estimateattachmentkind" msdata:child="estimateattachment" msdata:parentkey="idattachmentkind" msdata:childkey="idattachmentkind" />
+      <msdata:Relationship name="nso_vendita_estimate" msdata:parent="nso_vendita" msdata:child="estimate" msdata:parentkey="idnso_vendita" msdata:childkey="idnso_vendita" />
+      <msdata:Relationship name="nso_status_nso_vendita" msdata:parent="nso_status" msdata:child="nso_vendita" msdata:parentkey="idnso_status" msdata:childkey="idnso_status" />
+      <msdata:Relationship name="nocigmotive_estimate" msdata:parent="nocigmotive" msdata:child="estimate" msdata:parentkey="idnocigmotive" msdata:childkey="idnocigmotive" />
+      <msdata:Relationship name="nso_deliverystatus_nso_vendita" msdata:parent="nso_deliverystatus" msdata:child="nso_vendita" msdata:parentkey="idnso_deliverystatus" msdata:childkey="idnso_deliverystatus" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

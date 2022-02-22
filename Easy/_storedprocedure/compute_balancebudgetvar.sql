@@ -1,11 +1,29 @@
 
-if OBJECTPROPERTY(object_id('compute_balancebudgetvar'), 'IsProcedure') = 1
-	drop procedure compute_balancebudgetvar
-go
--- compute_balancebudgetvar 2018,'31-12-2018','N','N'
--- compute_balancebudgetvar 2017,'31-12-2017','N','N'
---setuser 'amministrazione'
---setuser 'amm'
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[compute_balancebudgetvar]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [compute_balancebudgetvar]
+GO
+
+
+SET QUOTED_IDENTIFIER ON 
+GO
+SET ANSI_NULLS ON 
+GO
  
 CREATE      PROCEDURE [compute_balancebudgetvar]
 (
@@ -68,8 +86,10 @@ SELECT
 	join account A on AY.idacc=A.idacc 
 	JOIN upb  ON upb.idupb = AY.idupb  
 	join accountlookup AL  	on AL.oldidacc = A.idacc
+	JOIN epupbkind ON Upb.idepupbkind = epupbkind.idepupbkind
 	WHERE AY.ayear= @ayear
-		and Upb.idepupbkind is not null
+		--and Upb.idepupbkind is not null /* VINCOLATO */
+		and (epupbkind.flag &1 = 0) /* VINCOLATO */
 		and (A.flagaccountusage & (64+128+256))<>0  and (A.flagaccountusage & 131072)=0  /*costi, immobilizzazioni e accantonamenti*/
 		AND (@idsor01 IS NULL OR upb.idsor01 = @idsor01) 
 		AND (@idsor02 IS NULL OR upb.idsor02 = @idsor02) 
@@ -93,9 +113,11 @@ SELECT
 	join account A on AVD.idacc=A.idacc 
 	JOIN upb  ON upb.idupb = AVD.idupb  
 	join accountlookup AL  	on AL.oldidacc = A.idacc
+	JOIN epupbkind ON Upb.idepupbkind = epupbkind.idepupbkind
 	WHERE AV.yvar= @ayear
 		and AV.adate <= @adate 
-		and Upb.idepupbkind is not null
+		--and Upb.idepupbkind is not null /* VINCOLATO */
+		and (epupbkind.flag &1 = 0) /* VINCOLATO */
 		and AV.idaccountvarstatus=5 
 		and av.variationkind<>5
 		and (A.flagaccountusage & (64+128+256))<>0  and (A.flagaccountusage & 131072)=0  /*costi, immobilizzazioni e accantonamenti*/
@@ -124,9 +146,10 @@ SELECT EY.idupb, substring(AL.newidacc,1,@lenaccount),
 	JOIN epexp E		ON E.idepexp = EY.idepexp
 	join account A		on EY.idacc=A.idacc 
 	join accountlookup AL  	on AL.oldidacc = EY.idacc
+	left outer JOIN epupbkind ON Upb.idepupbkind = epupbkind.idepupbkind
 	WHERE E.nphase = 1 AND EY.ayear = @ayear
 		AND E.adate <= @adate
-		and Upb.idepupbkind is  null
+		and (Upb.idepupbkind is  null  or (epupbkind.flag &1 <> 0) )/* LIBERO */
 		and (A.flagaccountusage & (64+128+256))<>0  and (A.flagaccountusage & 131072)=0  /*costi, immobilizzazioni e accantonamenti*/
 		AND (@idsor01 IS NULL OR upb.idsor01 = @idsor01) 
 		AND (@idsor02 IS NULL OR upb.idsor02 = @idsor02) 
@@ -153,9 +176,10 @@ SELECT EY.idupb, substring(AL.newidacc,1,@lenaccount),
 	JOIN epexp E		ON E.idepexp = EY.idepexp
 	join account A		on EY.idacc=A.idacc 
 	join accountlookup AL  	on AL.oldidacc = EY.idacc
+	left outer JOIN epupbkind ON Upb.idepupbkind = epupbkind.idepupbkind
 	WHERE E.nphase = 1 AND EY.ayear = @ayear
 		AND EV.yvar=@ayear  AND EV.adate <= @adate
-		and UPB.idepupbkind is  null
+		and (Upb.idepupbkind is  null  or (epupbkind.flag &1 <> 0) )/* LIBERO */
 		and (A.flagaccountusage & (64+128+256))<>0  and (A.flagaccountusage & 131072)=0  /*costi, immobilizzazioni e accantonamenti*/
 		AND (@idsor01 IS NULL OR upb.idsor01 = @idsor01) 
 		AND (@idsor02 IS NULL OR upb.idsor02 = @idsor02) 
@@ -182,9 +206,10 @@ FROM epaccyear AY
 	JOIN epacc AA			ON AA.idepacc = AY.idepacc
 	join account A		on AY.idacc=A.idacc 
 	join accountlookup AL  	on AL.oldidacc = AY.idacc
+	left outer JOIN epupbkind ON Upb.idepupbkind = epupbkind.idepupbkind
 WHERE   AA.nphase = 1 AND AY.ayear = @ayear
 		AND AA.adate <= @adate
-		and UPB.idepupbkind is  null
+		and (Upb.idepupbkind is  null  or (epupbkind.flag &1 <> 0) )/* LIBERO */
 		AND (@idsor01 IS NULL OR upb.idsor01 = @idsor01) 
 		AND (@idsor02 IS NULL OR upb.idsor02 = @idsor02) 
 		AND (@idsor03 IS NULL OR upb.idsor03 = @idsor03) 
@@ -210,9 +235,10 @@ SELECT EY.idupb,substring(AL.newidacc,1,@lenaccount),
 	JOIN epacc E		ON E.idepacc = EY.idepacc	
 	join account A		on EY.idacc=A.idacc 
 	join accountlookup AL  	on AL.oldidacc = EY.idacc
+	left outer JOIN epupbkind ON Upb.idepupbkind = epupbkind.idepupbkind
 	WHERE E.nphase = 1 AND EY.ayear = @ayear
 		AND EV.yvar=@ayear  AND EV.adate <= @adate
-		and UPB.idepupbkind is  null
+		and (Upb.idepupbkind is  null  or (epupbkind.flag &1 <> 0) )/* LIBERO */
 		and (A.flagaccountusage & (64+128+256))<>0  and (A.flagaccountusage & 131072)=0  /*costi, immobilizzazioni e accantonamenti*/
 		AND (@idsor01 IS NULL OR upb.idsor01 = @idsor01) 
 		AND (@idsor02 IS NULL OR upb.idsor02 = @idsor02) 
@@ -338,6 +364,13 @@ set @day1 =  CONVERT(date, '01-01-' + CONVERT(char(4), @nextayear), 105)
 		JOIN account A on A.idacc = T.idacc
 		--where  (A.flagaccountusage & 64+128+256+4096)<>0 -- DA VALUTARE
 	GROUP BY  T.idacc, T.idupb
+			HAVING
+		(isnull(sum(T.prev),0)  +  isnull(sum(T.prev2),0) +  isnull(sum(T.pre_mov),0)+  isnull(sum(T.pre_mov2),0) 
+								-  isnull(sum(T.scritture),0) - isnull(sum(T.variazioni_esistenti),0) ) <> 0 OR
+		(isnull(sum(prev3),0)	+  isnull(sum(T.pre_mov3),0)- isnull(sum(T.variazioni_esistenti2),0)  ) <> 0 OR
+		(isnull(sum(prev4),0)	+  isnull(sum(T.pre_mov4),0)- isnull(sum(T.variazioni_esistenti3),0)  ) <> 0 OR
+		(isnull(sum(prev5),0)	+  isnull(sum(T.pre_mov5),0)- isnull(sum(T.variazioni_esistenti4),0)  ) <> 0 OR
+		( 0 - isnull(sum(T.variazioni_esistenti5),0)  ) <> 0  
 End
 
 
@@ -356,6 +389,7 @@ Begin
 	A.title as 'Conto',
 	U.codeupb as 'Codice UPB',
 	U.title as 'UPB',
+	case when epupbkind.flag&1<>0 then'S' else 'N' end as'Considera preimpegni di budget per assestamento',
 	isnull(sum(T.prev),0) as 'Previsione corrente',
 	isnull(sum(T.prev2),0) as 'Previsione corrente anno +2',
 	isnull(sum(T.prev3),0) as 'Previsione corrente anno +3',
@@ -372,20 +406,20 @@ Begin
 	isnull(sum(T.variazioni_esistenti3),0) as 'Variazioni esistenti anno +3',
 	isnull(sum(T.variazioni_esistenti4),0) as 'Variazioni esistenti anno +4',
 	isnull(sum(T.variazioni_esistenti5),0) as 'Variazioni esistenti anno +5',
-	 isnull(sum(T.prev),0)  + isnull(sum(T.prev2),0) +  isnull(sum(T.pre_mov),0)+  isnull(sum(T.pre_mov2),0) 
-								- isnull(sum(T.scritture),0) - isnull(sum(T.variazioni_esistenti),0) as 'assestamento',				
-					  sum(prev3)-isnull(sum(T.variazioni_esistenti2),0)  as 'assestamento anno +2',
-					  sum(prev4)-isnull(sum(T.variazioni_esistenti3),0) as 'assestamento anno +3',
-					  sum(prev5)-isnull(sum(T.variazioni_esistenti4),0) as 'assestamento anno +4', 
-					  0-isnull(sum(T.variazioni_esistenti5),0) as 'assestamento anno +5'
-
-
+	isnull(sum(T.prev),0)  + isnull(sum(T.prev2),0) +  isnull(sum(T.pre_mov),0)+  isnull(sum(T.pre_mov2),0) 
+	- isnull(sum(T.scritture),0) - isnull(sum(T.variazioni_esistenti),0) as 'assestamento',				
+	isnull(sum(prev3),0)-isnull(sum(T.variazioni_esistenti2),0)  as 'assestamento anno +2',
+	isnull(sum(prev4),0)-isnull(sum(T.variazioni_esistenti3),0) as 'assestamento anno +3',
+	isnull(sum(prev5),0)-isnull(sum(T.variazioni_esistenti4),0) as 'assestamento anno +4', 
+	0-isnull(sum(T.variazioni_esistenti5),0) as 'assestamento anno +5'
 	 FROM #situazione_upb_account T 
 		JOIN account A on A.idacc = T.idacc
 		join UPB U		on T.idupb = U.idupb
-	GROUP BY T.idacc, T.idupb,	A.codeacc, A.codeacc, A.title,	U.codeupb, U.title
+		left outer JOIN epupbkind ON U.idepupbkind = epupbkind.idepupbkind
+	GROUP BY T.idacc, T.idupb,	A.codeacc, A.codeacc, A.title,	U.codeupb, U.title,epupbkind.flag
 End
 
 
 END
 
+GO

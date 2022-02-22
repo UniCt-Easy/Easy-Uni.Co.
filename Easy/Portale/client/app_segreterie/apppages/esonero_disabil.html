@@ -1,0 +1,71 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_disabil_aa">Anno accademico</label>
+					<select id="esonero_disabil_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="esonero.aa?esonerodisabilview.aa" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_disabil_default_percmax">Percentuale massima</label>
+					<input id="esonero_disabil_default_percmax" type="text" class="form-control" data-tag="esonero_disabil.percmax.fixed.2?esonerodisabilview.esonero_disabil_percmax" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_disabil_title">Denominazione</label>
+					<input id="esonero_disabil_title" type="text" class="form-control" data-tag="esonero.title?esonerodisabilview.title" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_disabil_default_percmin">Percentuale minima</label>
+					<input id="esonero_disabil_default_percmin" type="text" class="form-control" data-tag="esonero_disabil.percmin.fixed.2?esonerodisabilview.esonero_disabil_percmin" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_disabil_description">Descrizione</label>
+					<input id="esonero_disabil_description" type="text" class="form-control" data-tag="esonero.description?esonerodisabilview.esonero_description" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_disabil_applunavolta">Applicabile una sola volta</label>
+					<div class="custom-control custom-radio">
+						<input id="esonero_disabil_applunavoltaSi" type="radio" name="esonero_disabil_applunavolta" class="custom-control-input" data-tag="esonero.applunavolta:S?esonerodisabilview.esonero_applunavolta:Si" data-subentity  ><label for="esonero_disabil_applunavoltaSi"> Si</label>
+						<input id="esonero_disabil_applunavoltaNo" type="radio" name="esonero_disabil_applunavolta" class="custom-control-input" data-tag="esonero.applunavolta:N?esonerodisabilview.esonero_applunavolta:No" data-subentity  ><label for="esonero_disabil_applunavoltaNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_disabil_idcostoscontodef">Sconto</label>
+					<div>
+						<input id="esonero_disabil_idcostoscontodef" name="esonero_disabil_idcostoscontodef" type="text" data-listtype="sconti"  class="form-control" data-minchar="2" data-tag="costoscontodefscontiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_disabil_idesoneroanskind">Codice ANS</label>
+					<select id="esonero_disabil_idesoneroanskind" class="custom-select d-block w-100"  data-source-name="esoneroanskind" data-value-member="idesoneroanskind" data-display-member="title" data-custom-control="combo" data-tag="esonero.idesoneroanskind?esonerodisabilview.esonero_idesoneroanskind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_disabil_retroattivo">Retroattivo</label>
+					<div class="custom-control custom-radio">
+						<input id="esonero_disabil_retroattivoSi" type="radio" name="esonero_disabil_retroattivo" class="custom-control-input" data-tag="esonero.retroattivo:S?esonerodisabilview.esonero_retroattivo:Si" data-subentity  ><label for="esonero_disabil_retroattivoSi"> Si</label>
+						<input id="esonero_disabil_retroattivoNo" type="radio" name="esonero_disabil_retroattivo" class="custom-control-input" data-tag="esonero.retroattivo:N?esonerodisabilview.esonero_retroattivo:No" data-subentity  ><label for="esonero_disabil_retroattivoNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_disabil_soloconisee">Applicabile solo con ISEE</label>
+					<div class="custom-control custom-radio">
+						<input id="esonero_disabil_soloconiseeSi" type="radio" name="esonero_disabil_soloconisee" class="custom-control-input" data-tag="esonero.soloconisee:S?esonerodisabilview.esonero_soloconisee:Si" data-subentity  ><label for="esonero_disabil_soloconiseeSi"> Si</label>
+						<input id="esonero_disabil_soloconiseeNo" type="radio" name="esonero_disabil_soloconisee" class="custom-control-input" data-tag="esonero.soloconisee:N?esonerodisabilview.esonero_soloconisee:No" data-subentity  ><label for="esonero_disabil_soloconiseeNo"> No</label>
+					</div>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

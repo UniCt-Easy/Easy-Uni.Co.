@@ -81,16 +81,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\CrystalDecisions.Shared.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\CrystalDecisions.Windows.Forms.dll</HintPath>
     </Reference>
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>
@@ -136,6 +136,10 @@
       <Project>{972DC45A-A441-45F5-BA48-1E4B499A02B7}</Project>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
+      <Project>{c0dacf4d-2f3e-44d6-a718-7c9821a1bdcd}</Project>
+      <Name>funzioni_configurazione</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\utility\utility.csproj">
       <Name>utility</Name>
       <Project>{0E8D2FD1-710C-4B75-9779-EC6CFD2ECC62}</Project>
@@ -156,12 +160,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DSParam.xsd</DependentUpon>
     </Compile>
-    <Compile Include="FrmReportingServices.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmReportingServices.Designer.cs">
-      <DependentUpon>FrmReportingServices.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmReportParameter.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,7 +178,7 @@
       <DependentUpon>ReportVista.xsd</DependentUpon>
     </Compile>
     <Content Include="DSParam.xsd">
-      <Generator>MSDataSetGenerator</Generator>
+      <Generator>HDSGene</Generator>
       <LastGenOutput>DSParam.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
@@ -207,9 +205,6 @@
     <None Include="ReportVista.xsx">
       <DependentUpon>ReportVista.xsd</DependentUpon>
     </None>
-    <EmbeddedResource Include="FrmReportingServices.resx">
-      <DependentUpon>FrmReportingServices.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmReportParameter.resx">
       <DependentUpon>frmReportParameter.cs</DependentUpon>
       <SubType>Designer</SubType>

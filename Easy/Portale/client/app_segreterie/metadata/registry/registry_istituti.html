@@ -1,0 +1,142 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabregistry_istituti_istituti_0" class="nav-link active show" data-toggle="pill" data-target="#tabregistry_istituti_istituti_0"><i class="fa fa-university mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_istituti_istituti_2" class="nav-link" data-toggle="pill" data-target="#tabregistry_istituti_istituti_2"><i class="fa fa-stopwatch mr-1"></i>Sospensione delle attività</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_istituti_istituti_3" class="nav-link" data-toggle="pill" data-target="#tabregistry_istituti_istituti_3"><i class="fa fa-at mr-1"></i>Recapiti</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_istituti_istituti_4" class="nav-link" data-toggle="pill" data-target="#tabregistry_istituti_istituti_4"><i class="fa fa-city mr-1"></i>Sedi</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_istituti_istituti_1" class="nav-link" data-toggle="pill" data-target="#tabregistry_istituti_istituti_1"><i class="fa fa-clipboard-list mr-1"></i>Altri Dati</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_istituti_istituti_5" class="nav-link" data-toggle="pill" data-target="#tabregistry_istituti_istituti_5"><i class="fa fa-map-marked-alt mr-1"></i>Indirizzi</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabregistry_istituti_istituti_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_title">Denominazione</label>
+					<input id="registry_istituti_title" type="text" class="form-control" data-tag="registry.title?registryistitutiview.title" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="registry_istituti_default_title_en">Denominazione (ENG)</label>
+					<input id="registry_istituti_default_title_en" type="text" class="form-control" data-tag="registry_istituti.title_en?registryistitutiview.registry_istituti_title_en" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_default_codicemiur">Codice MIUR</label>
+					<input id="registry_istituti_default_codicemiur" type="text" class="form-control" data-tag="registry_istituti.codicemiur?registryistitutiview.registry_istituti_codicemiur" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_default_codiceustat">Codice USTAT</label>
+					<input id="registry_istituti_default_codiceustat" type="text" class="form-control" data-tag="registry_istituti.codiceustat?registryistitutiview.registry_istituti_codiceustat" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_default_comune">Comune</label>
+					<input id="registry_istituti_default_comune" type="text" class="form-control" data-tag="registry_istituti.comune?registryistitutiview.registry_istituti_comune" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_default_idistitutokind">Tipologia</label>
+					<select id="registry_istituti_default_idistitutokind" class="custom-select d-block w-100"  data-source-name="istitutokind" data-value-member="idistitutokind" data-display-member="tipoistituto" data-custom-control="combo" data-tag="registry_istituti.idistitutokind?registryistitutiview.registry_istituti_idistitutokind" data-subentity  data-mandatory  > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_default_nome">Denominazione breve</label>
+					<input id="registry_istituti_default_nome" type="text" class="form-control" data-tag="registry_istituti.nome?registryistitutiview.registry_istituti_nome" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_default_sortcode">Sortcode</label>
+					<input id="registry_istituti_default_sortcode" type="text" class="form-control" data-tag="registry_istituti.sortcode?registryistitutiview.registry_istituti_sortcode" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_idcity">Comune</label>
+					<div>
+						<input id="registry_istituti_idcity" name="registry_istituti_idcity" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_location">Località</label>
+					<input id="registry_istituti_location" type="text" class="form-control" data-tag="registry.location?registryistitutiview.registry_location" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_cf">Codice fiscale</label>
+					<input id="registry_istituti_cf" type="text" class="form-control" data-tag="registry.cf?registryistitutiview.registry_cf" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_p_iva">Partita iva</label>
+					<input id="registry_istituti_p_iva" type="text" class="form-control" data-tag="registry.p_iva?registryistitutiview.registry_p_iva" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_multi_cf">Consenti duplicazione CF/P. IVA (S/N)</label>
+					<div class="custom-control custom-radio">
+						<input id="registry_istituti_multi_cfSi" type="radio" name="registry_istituti_multi_cf" class="custom-control-input" data-tag="registry.multi_cf:S?registryistitutiview.registry_multi_cf:Si" data-subentity  ><label for="registry_istituti_multi_cfSi"> Si</label>
+						<input id="registry_istituti_multi_cfNo" type="radio" name="registry_istituti_multi_cf" class="custom-control-input" data-tag="registry.multi_cf:N?registryistitutiview.registry_multi_cf:No" data-subentity  ><label for="registry_istituti_multi_cfNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_active">attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="registry_istituti_activeSi" type="radio" name="registry_istituti_active" class="custom-control-input" data-tag="registry.active:S?registryistitutiview.registry_active:Si" data-subentity  data-mandatory ><label for="registry_istituti_activeSi"> Si</label>
+						<input id="registry_istituti_activeNo" type="radio" name="registry_istituti_active" class="custom-control-input" data-tag="registry.active:N?registryistitutiview.registry_active:No" data-subentity  data-mandatory ><label for="registry_istituti_activeNo"> No</label>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_istituti_istituti_2" role="tabpanel">
+				<div class="gridx" id="grid_sospensione_default" data-tag="sospensione.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_istituti_istituti_3" role="tabpanel">
+				<div class="gridx" id="grid_registryreference_seg" data-tag="registryreference.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="flagdefault,S,Si;flagdefault,N,No;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_istituti_istituti_4" role="tabpanel">
+				<div class="gridx" id="grid_sede_seg_child" data-tag="sede.seg_child.seg_child" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_istituti_istituti_1" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_ipa_fe">Codice Univoco Ufficio di PCC o Codice Univoco Ufficio di IPA, prelevato dal sito www.indicepa.gov.it.</label>
+					<input id="registry_istituti_ipa_fe" type="text" class="form-control" data-tag="registry.ipa_fe?registryistitutiview.registry_ipa_fe" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_ccp">Conto corrente postale di Riscossione</label>
+					<input id="registry_istituti_ccp" type="text" class="form-control" data-tag="registry.ccp?registryistitutiview.registry_ccp" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_annotation">Annotazioni</label>
+					<input id="registry_istituti_annotation" type="text" class="form-control" data-tag="registry.annotation?registryistitutiview.registry_annotation" data-subentity  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_istituti_istituti_5" role="tabpanel">
+				<div class="gridx" id="grid_registryaddress_seg" data-tag="registryaddress.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="active,S,Si;active,N,No;flagforeign,S,Si;flagforeign,N,No;" ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

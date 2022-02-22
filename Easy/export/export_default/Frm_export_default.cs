@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -26,14 +25,15 @@ using metaeasylibrary;
 using System.Data;
 using System.Windows.Forms;
 using System.Reflection;
-
+using funzioni_configurazione;
+using System.IO;
 
 namespace export_default//ExportForm//
 {
 	/// <summary>
 	/// Summary description for frmExport.
 	/// </summary>
-	public class frmExport : System.Windows.Forms.Form
+	public class frmExport : MetaDataForm
 	{
 		public DataSet DS;
 		private vistaForm ExportVista;
@@ -54,6 +54,7 @@ namespace export_default//ExportForm//
 		const string DummyPrimaryKey = "DummyPrimaryKeyField";
         const string DummyField = "reportname";
         private CheckBox chkClose;
+		private Button btnGuidaMht;
 		MetaData Meta;
 		enum appfmts {_dateshort=13, _datetimeshort, _datelong, _datetimelong, 
 			_time, _timestamp, _datetimeansi, _dateansi, _datedbf, _general, 
@@ -96,71 +97,83 @@ namespace export_default//ExportForm//
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.DS = new System.Data.DataSet();
-            this.ExportVista = new export_default.vistaForm();
-            this.btnAnnulla = new System.Windows.Forms.Button();
-            this.btnStampa = new System.Windows.Forms.Button();
-            this.chkClose = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ExportVista)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // ExportVista
-            // 
-            this.ExportVista.DataSetName = "vistaFormBuild";
-            this.ExportVista.EnforceConstraints = false;
-            this.ExportVista.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // btnAnnulla
-            // 
-            this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnAnnulla.Location = new System.Drawing.Point(628, 219);
-            this.btnAnnulla.Name = "btnAnnulla";
-            this.btnAnnulla.Size = new System.Drawing.Size(104, 23);
-            this.btnAnnulla.TabIndex = 0;
-            this.btnAnnulla.Text = "Annulla";
-            this.btnAnnulla.Click += new System.EventHandler(this.btnAnnulla_Click);
-            // 
-            // btnStampa
-            // 
-            this.btnStampa.Location = new System.Drawing.Point(628, 12);
-            this.btnStampa.Name = "btnStampa";
-            this.btnStampa.Size = new System.Drawing.Size(104, 23);
-            this.btnStampa.TabIndex = 1;
-            this.btnStampa.Text = "Esporta";
-            this.btnStampa.Click += new System.EventHandler(this.btnStampa_Click);
-            // 
-            // chkClose
-            // 
-            this.chkClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkClose.Checked = true;
-            this.chkClose.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkClose.Location = new System.Drawing.Point(628, 41);
-            this.chkClose.Name = "chkClose";
-            this.chkClose.Size = new System.Drawing.Size(106, 53);
-            this.chkClose.TabIndex = 2;
-            this.chkClose.Text = "Chiudi finestra dopo l\'operazione";
-            this.chkClose.UseVisualStyleBackColor = true;
-            // 
-            // frmExport
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(744, 493);
-            this.Controls.Add(this.chkClose);
-            this.Controls.Add(this.btnAnnulla);
-            this.Controls.Add(this.btnStampa);
-            this.Name = "frmExport";
-            this.Text = "frmExport";
-            this.Closing += new System.ComponentModel.CancelEventHandler(this.frmExport_Closing);
-            this.Validating += new System.ComponentModel.CancelEventHandler(this.frmExport_Validating);
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ExportVista)).EndInit();
-            this.ResumeLayout(false);
+			this.DS = new System.Data.DataSet();
+			this.ExportVista = new export_default.vistaForm();
+			this.btnAnnulla = new System.Windows.Forms.Button();
+			this.btnStampa = new System.Windows.Forms.Button();
+			this.chkClose = new System.Windows.Forms.CheckBox();
+			this.btnGuidaMht = new System.Windows.Forms.Button();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.ExportVista)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// ExportVista
+			// 
+			this.ExportVista.DataSetName = "vistaFormBuild";
+			this.ExportVista.EnforceConstraints = false;
+			this.ExportVista.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// btnAnnulla
+			// 
+			this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.btnAnnulla.Location = new System.Drawing.Point(628, 219);
+			this.btnAnnulla.Name = "btnAnnulla";
+			this.btnAnnulla.Size = new System.Drawing.Size(104, 23);
+			this.btnAnnulla.TabIndex = 0;
+			this.btnAnnulla.Text = "Annulla";
+			this.btnAnnulla.Click += new System.EventHandler(this.btnAnnulla_Click);
+			// 
+			// btnStampa
+			// 
+			this.btnStampa.Location = new System.Drawing.Point(628, 12);
+			this.btnStampa.Name = "btnStampa";
+			this.btnStampa.Size = new System.Drawing.Size(104, 23);
+			this.btnStampa.TabIndex = 1;
+			this.btnStampa.Text = "Esporta";
+			this.btnStampa.Click += new System.EventHandler(this.btnStampa_Click);
+			// 
+			// chkClose
+			// 
+			this.chkClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.chkClose.Checked = true;
+			this.chkClose.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.chkClose.Location = new System.Drawing.Point(628, 41);
+			this.chkClose.Name = "chkClose";
+			this.chkClose.Size = new System.Drawing.Size(106, 53);
+			this.chkClose.TabIndex = 2;
+			this.chkClose.Text = "Chiudi finestra dopo l\'operazione";
+			this.chkClose.UseVisualStyleBackColor = true;
+			// 
+			// btnGuidaMht
+			// 
+			this.btnGuidaMht.Location = new System.Drawing.Point(628, 191);
+			this.btnGuidaMht.Name = "btnGuidaMht";
+			this.btnGuidaMht.Size = new System.Drawing.Size(103, 23);
+			this.btnGuidaMht.TabIndex = 3;
+			this.btnGuidaMht.Text = "Help";
+			this.btnGuidaMht.UseVisualStyleBackColor = true;
+			this.btnGuidaMht.Click += new System.EventHandler(this.btnGuidaMht_Click);
+			// 
+			// frmExport
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(744, 493);
+			this.Controls.Add(this.btnGuidaMht);
+			this.Controls.Add(this.chkClose);
+			this.Controls.Add(this.btnAnnulla);
+			this.Controls.Add(this.btnStampa);
+			this.Name = "frmExport";
+			this.Text = "frmExport";
+			this.Closing += new System.ComponentModel.CancelEventHandler(this.frmExport_Closing);
+			this.Validating += new System.ComponentModel.CancelEventHandler(this.frmExport_Validating);
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.ExportVista)).EndInit();
+			this.ResumeLayout(false);
 
 		}
 		#endregion
@@ -388,7 +401,7 @@ namespace export_default//ExportForm//
             grp.Name = "gb" + Param["paramname"].ToString();
             descr = myDA.Compile(descr, true);
             grp.Text = descr;
-            if (descr == "") grp.Enabled = false;
+            if (descr ==null || descr=="" || descr=="null") grp.Enabled=false;
             this.Controls.Add(grp);
             //la riduzione di VPosition serve per l'allineamento con l'help
             grp.Location = new Point(HPosition, VPosition - 4);
@@ -531,7 +544,7 @@ namespace export_default//ExportForm//
             }//Fine foreach
 
             //Ridefinisce la lunghezza del form
-            int myheigth = VPosition + 120;
+            int myheigth = VPosition + 120 +btnGuidaMht.Height;
             if (myheigth < 312) myheigth = 312;
             this.Height = myheigth;
 
@@ -599,6 +612,7 @@ namespace export_default//ExportForm//
                     string selectiontype = selRow["selectiontype"].ToString();
                     string fieldname = selRow["fieldname"].ToString();
                     string filter = myDA.Compile(selRow["filter"].ToString(), true);
+                    if (filter == "(idsorkind='null')") return false; //filter = "(idsorkind is null)";
                     string filterapp = filter;
                     AddCustomTableToDS(selRow, paramname, IsAlias);
                     if (IsAlias) parenttable += AliasCount;
@@ -746,6 +760,9 @@ namespace export_default//ExportForm//
             string Filter = customRow["filter"].ToString().Trim();
             if (Filter != "") {
                 Filter = myDA.Compile(Filter, true);
+                if (Filter == "(idsorkind='null')") {
+                    Filter = "(idsorkind is null)";
+                }
                 GetData.SetStaticFilter(ParentTable, Filter);
             }
             string Extra = customRow["extraparameter"].ToString();
@@ -899,16 +916,26 @@ namespace export_default//ExportForm//
 
 		public void MetaData_AfterLink() {
 			Meta = MetaData.GetMetaData(this);
-            Meta.CanInsert = false;
-            Meta.CanInsertCopy = false;
-            Meta.CanSave = false;
-            Meta.SearchEnabled = false;
-            Meta.CanCancel = false;
+			Meta.CanInsert=false;
+			Meta.CanInsertCopy=false;
+			Meta.CanSave=false;
+			Meta.SearchEnabled=false;
+			Meta.CanCancel=false;
+			Meta.mainRefreshEnabled = false;
+
             QHC = new CQueryHelper();
             QHS = Meta.Conn.GetQueryHelper();
-		}
+            MostraNascontiBtnGuida();
+        }
 
-		private void btnAnnulla_Click(object sender, System.EventArgs e) {
+        public void MostraNascontiBtnGuida() {
+            string currdir = AppDomain.CurrentDomain.BaseDirectory;
+            string filename = ExportName + ".mht";
+            string fullPath = currdir + filename;
+            if (!File.Exists(filename)) btnGuidaMht.Visible = false;
+            else btnGuidaMht.Visible = true;
+        }
+        private void btnAnnulla_Click(object sender, System.EventArgs e) {
 			DS.AcceptChanges();
 			this.Close();
 			this.Dispose();
@@ -957,18 +984,18 @@ namespace export_default//ExportForm//
                 string className = s[1];
                 Assembly a = System.Reflection.Assembly.Load(assemblyName);
                 if (a == null) {
-                    MessageBox.Show("Dll " + assemblyName + " non trovata");
+                    show("Dll " + assemblyName + " non trovata");
                     return;
                 }
                 System.Type T = a.GetType(assemblyName+"."+className, false, true);
                 if (T == null) {
-                    MessageBox.Show("Classe " + className + " non trovata nella DLL " + assemblyName);
+                    show("Classe " + className + " non trovata nella DLL " + assemblyName);
                     return;
                 }
                 object O = System.Activator.CreateInstance(T);
                 MethodInfo M = T.GetMethod("Execute");
                 if (M == null) {
-                    MessageBox.Show("Metodo Execute non trovato nella classe " + className + " della DLL " + assemblyName);
+                    show("Metodo Execute non trovato nella classe " + className + " della DLL " + assemblyName);
                     return;
                 }
                 DataTable TT = M.Invoke(O, new object[] { Meta.Conn, HashParams }) as DataTable;
@@ -977,7 +1004,7 @@ namespace export_default//ExportForm//
                     Out.Tables.Add(TT);
                 }
                 else {
-                    MessageBox.Show("La funzione " + className + " è stata valutata e non ha restituito alcun risultato.");
+                    show("La funzione " + className + " è stata valutata e non ha restituito alcun risultato.");
                     if (Modal)
                         DialogResult = DialogResult.OK;
                     else
@@ -990,7 +1017,7 @@ namespace export_default//ExportForm//
                 Out = Meta.Conn.CallSP(ExportName, ReportParams, false, timeout);
             }
 			if ((Out==null) ||( Out.Tables.Count==0)){
-				MessageBox.Show("La stored procedure "+ExportName+
+				show("La stored procedure "+ExportName+
 					" è stata valutata e non ha restituito alcun risultato.");					
 				if (Modal) 
 					DialogResult = DialogResult.OK;
@@ -999,7 +1026,7 @@ namespace export_default//ExportForm//
 				return;
 			}
 			if (Out.Tables[0].Rows.Count==0){
-				MessageBox.Show("La stored procedure "+ExportName+
+				show("La stored procedure "+ExportName+
 					" è stata valutata e non ha restituito alcun risultato.");					
 				if (Modal) 
 					DialogResult = DialogResult.OK;
@@ -1084,7 +1111,7 @@ namespace export_default//ExportForm//
         {
             if (! myDA.CanPrint(Params))
             {
-                MessageBox.Show("La stampa con questi parametri non è consentita dalle regole di sicurezza");
+                show("La stampa con questi parametri non è consentita dalle regole di sicurezza");
                 return false;
             }
             //Controlla la selezione null di bilancio/responsabile/upb
@@ -1096,7 +1123,7 @@ namespace export_default//ExportForm//
                     if ((Params["idfin"].ToString() == "") || (Params["idfin"].ToString() == "%"))
                     {
                         if (!responsabile_presente(Params)) {
-                            MessageBox.Show("E' necessario scegliere una voce di bilancio (regola di sicurezza).");
+                            show("E' necessario scegliere una voce di bilancio (regola di sicurezza).");
                             return false;
                         }
                     }
@@ -1109,7 +1136,7 @@ namespace export_default//ExportForm//
                         TableFin.Rows.Add(RFin);
                         if (!Meta.CanSelect(RFin))
                         {
-                            MessageBox.Show("La voce di bilancio non poteva essere scelta  (regola di sicurezza)");					
+                            show("La voce di bilancio non poteva essere scelta  (regola di sicurezza)");					
                             return false;
                         }
                     }
@@ -1120,7 +1147,7 @@ namespace export_default//ExportForm//
                     if ((Params["codefin"].ToString() == "") || (Params["codefin"].ToString() == "%"))
                     {
                         if (!responsabile_presente(Params)) {
-                            MessageBox.Show("E' necessario scegliere una voce di bilancio (regola di sicurezza)");
+                            show("E' necessario scegliere una voce di bilancio (regola di sicurezza)");
 
                             return false;
                         }
@@ -1136,7 +1163,7 @@ namespace export_default//ExportForm//
                     if ((Params["idupb"].ToString() == "") || (Params["idupb"].ToString() == "%"))
                     {
                         if (!responsabile_presente(Params)) {
-                            MessageBox.Show("E' necessario scegliere un UPB (regola di sicurezza)");
+                            show("E' necessario scegliere un UPB (regola di sicurezza)");
                             return false;
                         }
                     }
@@ -1149,7 +1176,7 @@ namespace export_default//ExportForm//
                         TableUpb.Rows.Add(RUpb);
                         if (!Meta.CanSelect(RUpb))
                         {
-                            MessageBox.Show("L'upb non poteva essere scelto (regola di sicurezza)");
+                            show("L'upb non poteva essere scelto (regola di sicurezza)");
                             return false;
                         }
                     }
@@ -1159,7 +1186,7 @@ namespace export_default//ExportForm//
                     if ((Params["codeupb"].ToString() == "") || (Params["codeupb"].ToString() == "%"))
                     {
                         if (!responsabile_presente(Params)) {
-                            MessageBox.Show("E' necessario scegliere un UPB (regola di sicurezza)");
+                            show("E' necessario scegliere un UPB (regola di sicurezza)");
                             return false;
                         }
                     }
@@ -1173,7 +1200,7 @@ namespace export_default//ExportForm//
                 {
                     if ((Params["idman"].ToString() == "") || (Params["idman"].ToString() == "%"))
                     {
-                       MessageBox.Show("E' necessario scegliere un responsabile (regola di sicurezza)");
+                       show("E' necessario scegliere un responsabile (regola di sicurezza)");
                         return false;
                     }
                 }
@@ -1186,7 +1213,7 @@ namespace export_default//ExportForm//
                 {
                     if ((Params["idestimkind"].ToString() == "") || (Params["idestimkind"].ToString() == "%"))
                     {
-                       MessageBox.Show("E' necessario scegliere un tipo contratto attivo (regola di sicurezza)");
+                       show("E' necessario scegliere un tipo contratto attivo (regola di sicurezza)");
                         return false;
                     }
                 }
@@ -1199,7 +1226,7 @@ namespace export_default//ExportForm//
                 {
                     if ((Params["idmankind"].ToString() == "") || (Params["idmankind"].ToString() == "%"))
                     {
-                        MessageBox.Show("E' necessario scegliere un tipo contratto passivo (regola di sicurezza)");
+                        show("E' necessario scegliere un tipo contratto passivo (regola di sicurezza)");
                         return false;
                     }
                 }
@@ -1212,7 +1239,7 @@ namespace export_default//ExportForm//
                 {
                     if ((Params["idpettycash"].ToString() == "") || (Params["idpettycash"].ToString() == "%"))
                     {
-                        MessageBox.Show( "E' necessario scegliere un tipo fondo economale (regola di sicurezza)");
+                        show( "E' necessario scegliere un tipo fondo economale (regola di sicurezza)");
                         return false;
                     }
                 }
@@ -1225,7 +1252,7 @@ namespace export_default//ExportForm//
                 {
                     if ((Params["idinvkind"].ToString() == "") || (Params["idinvkind"].ToString() == "%"))
                     {
-                        MessageBox.Show( "E' necessario scegliere un tipo documento IVA (regola di sicurezza)");
+                        show( "E' necessario scegliere un tipo documento IVA (regola di sicurezza)");
                         return false;
                     }
                 }
@@ -1233,8 +1260,15 @@ namespace export_default//ExportForm//
             return true;
        }
 
+		private void btnGuidaMht_Click(object sender, EventArgs e) {
+            string currdir = AppDomain.CurrentDomain.BaseDirectory;
+            string filename = ExportName + ".mht";
+            string fullPath = currdir + filename;
+            if (!File.Exists(filename)) return;
+            Help.ShowHelp(this, filename);
+        }
 	}
-    public class GestioneClass {
+	public class GestioneClass {
         public static bool UsesAttribues(DataAccess Conn) {
             foreach (string s in new string[] { "idsortingkind01", "idsortingkind02", "idsortingkind03",
                             "idsortingkind04", "idsortingkind05" }) {
@@ -1306,13 +1340,14 @@ namespace export_default//ExportForm//
             string field_getsys_sortkind = "idsortingkind" + NtoS;
             object idsorkind = Conn.GetSys(field_getsys_sortkind);
 
-            if (idsorkind == null || idsorkind == DBNull.Value) {
+            if (idsorkind == null || idsorkind.ToString()=="null" || idsorkind == DBNull.Value) {
                 allowSelection = false;
                 allowNull = true;
                 defaultValue = DBNull.Value;
                 return;
             }
 
+            idsorkind = CfgFn.GetNoNullInt32(idsorkind);
             filterkind = QHS.CmpEq("idsorkind", idsorkind);
 
 
@@ -1398,4 +1433,3 @@ namespace export_default//ExportForm//
         }
     }
 }
-

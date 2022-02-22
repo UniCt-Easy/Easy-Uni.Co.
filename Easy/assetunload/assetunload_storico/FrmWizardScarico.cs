@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -24,13 +23,14 @@ using System.Windows.Forms;
 using metadatalibrary;
 using System.Data;
 using funzioni_configurazione;
+using q= metadatalibrary.MetaExpression;
 
 namespace assetunload_storico
 {
 	/// <summary>
 	/// Summary description for FrmWizardScarico.
 	/// </summary>
-	public class FrmWizardScarico : System.Windows.Forms.Form
+	public class FrmWizardScarico : MetaDataForm
 	{
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.CheckBox chkIncludiAsset;
@@ -804,7 +804,7 @@ namespace assetunload_storico
                 Filtro = QHS.AppAnd(Filtro, QHS.BitSet("flag", 1));
             }
             if (Filtro == "") {
-				if (MessageBox.Show("Non è stato selezionato alcun filtro. Conferma?",
+				if (show("Non è stato selezionato alcun filtro. Conferma?",
 					"Conferma",MessageBoxButtons.OKCancel)!=DialogResult.OK) return false;
 			}
 			if (!chkIncludiAsset.Checked && chkIncludiAumenti.Checked){
@@ -822,14 +822,28 @@ namespace assetunload_storico
 													   AssetPiece.Columns["idpiece"]};
 
 
-			string elencoidasset= QueryCreator.ColumnValues(AssetPiece, QHS.CmpEq("idpiece", 1),"idasset",true);
-			if (elencoidasset!="" && elencoidasset!=null){
-                
-				string filtroasset= QHS.AppAnd(QHS.FieldInList("idasset", elencoidasset),
-                    QHS.IsNull("idassetunload"), QHS.CmpGt("idpiece", 1));
-
-				Conn.RUN_SELECT_INTO_TABLE(AssetPiece,null,filtroasset,null,false);
+			
+			//Completa con la lettura degli accessori 
+			var mainAsset = AssetPiece._Filter(q.eq("idasset", 1));
+			if (mainAsset.Length > 100) {
+				foreach (var r in mainAsset) {
+                    Conn.selectIntoTable(AssetPiece,q.eq("idasset",r["idasset"])&
+														q.isNull("idassetunload")& 
+														q.gt("idpiece",1));
+				}
 			}
+			else {
+				string elencoidasset= QueryCreator.ColumnValues(AssetPiece, QHS.CmpEq("idpiece", 1),"idasset",true);
+
+				if (elencoidasset!="" && elencoidasset!=null){
+                
+					string filtroasset= QHS.AppAnd(QHS.FieldInList("idasset", elencoidasset),
+						QHS.IsNull("idassetunload"), QHS.CmpGt("idpiece", 1));
+
+					Conn.RUN_SELECT_INTO_TABLE(AssetPiece,null,filtroasset,null,false);
+				}
+			}
+            
 
 
 			MetaData MAP= Meta.Dispatcher.Get("assetpieceview");
@@ -1033,4 +1047,3 @@ namespace assetunload_storico
 
 	}
 }
-

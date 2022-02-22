@@ -1,20 +1,30 @@
-<?xml version="1.0"?>
-<xs:schema id="vista" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
-  <xs:element name="vista" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="vista" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="vista" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False" msprop:Generator_DataSetName="vista" msprop:Generator_UserDSName="vista">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="epupbkind">
+        <xs:element name="epupbkind" msprop:Generator_TableClassName="epupbkindDataTable" msprop:Generator_TableVarName="tableepupbkind" msprop:Generator_TablePropName="epupbkind" msprop:Generator_RowDeletingName="epupbkindRowDeleting" msprop:Generator_RowChangingName="epupbkindRowChanging" msprop:Generator_RowEvHandlerName="epupbkindRowChangeEventHandler" msprop:Generator_RowDeletedName="epupbkindRowDeleted" msprop:Generator_UserTableName="epupbkind" msprop:Generator_RowChangedName="epupbkindRowChanged" msprop:Generator_RowEvArgName="epupbkindRowChangeEvent" msprop:Generator_RowClassName="epupbkindRow">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="idepupbkind" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
-              <xs:element name="description" type="xs:string" minOccurs="0" />
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="cu" type="xs:string" minOccurs="0" />
-              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="lu" type="xs:string" minOccurs="0" />
-              <xs:element name="active" type="xs:string" />
-              <xs:element name="isresource" type="xs:string" minOccurs="0" />
+              <xs:element name="idepupbkind" msprop:Generator_ColumnVarNameInTable="columnidepupbkind" msprop:Generator_ColumnPropNameInRow="idepupbkind" msprop:Generator_ColumnPropNameInTable="idepupbkindColumn" msprop:Generator_UserColumnName="idepupbkind" type="xs:int" />
+              <xs:element name="title" msprop:Generator_ColumnVarNameInTable="columntitle" msprop:Generator_ColumnPropNameInRow="title" msprop:Generator_ColumnPropNameInTable="titleColumn" msprop:Generator_UserColumnName="title" type="xs:string" />
+              <xs:element name="description" msprop:Generator_ColumnVarNameInTable="columndescription" msprop:Generator_ColumnPropNameInRow="description" msprop:Generator_ColumnPropNameInTable="descriptionColumn" msprop:Generator_UserColumnName="description" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" msprop:Generator_ColumnVarNameInTable="columnct" msprop:Generator_ColumnPropNameInRow="ct" msprop:Generator_ColumnPropNameInTable="ctColumn" msprop:Generator_UserColumnName="ct" type="xs:dateTime" />
+              <xs:element name="cu" msprop:Generator_ColumnVarNameInTable="columncu" msprop:Generator_ColumnPropNameInRow="cu" msprop:Generator_ColumnPropNameInTable="cuColumn" msprop:Generator_UserColumnName="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" msprop:Generator_ColumnVarNameInTable="columnlt" msprop:Generator_ColumnPropNameInRow="lt" msprop:Generator_ColumnPropNameInTable="ltColumn" msprop:Generator_UserColumnName="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" msprop:Generator_ColumnVarNameInTable="columnlu" msprop:Generator_ColumnPropNameInRow="lu" msprop:Generator_ColumnPropNameInTable="luColumn" msprop:Generator_UserColumnName="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="active" msprop:Generator_ColumnVarNameInTable="columnactive" msprop:Generator_ColumnPropNameInRow="active" msprop:Generator_ColumnPropNameInTable="activeColumn" msprop:Generator_UserColumnName="active" type="xs:string" />
+              <xs:element name="isresource" msprop:Generator_ColumnVarNameInTable="columnisresource" msprop:Generator_ColumnPropNameInRow="isresource" msprop:Generator_ColumnPropNameInTable="isresourceColumn" msprop:Generator_UserColumnName="isresource" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" msprop:Generator_ColumnVarNameInTable="columnflag" msprop:Generator_ColumnPropNameInRow="flag" msprop:Generator_ColumnPropNameInTable="flagColumn" msprop:Generator_UserColumnName="flag" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

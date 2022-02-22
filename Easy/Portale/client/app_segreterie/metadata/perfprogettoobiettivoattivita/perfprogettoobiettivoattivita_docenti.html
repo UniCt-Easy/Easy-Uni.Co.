@@ -1,0 +1,84 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfprogettoobiettivoattivita_docenti_idperfprogetto">Progetto Strategico</label>
+					<div>
+						<input id="perfprogettoobiettivoattivita_docenti_idperfprogetto" name="perfprogettoobiettivoattivita_docenti_idperfprogetto" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="perfprogettodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfprogettoobiettivoattivita_docenti_idperfprogettoobiettivo">Obiettivo strategico</label>
+					<select id="perfprogettoobiettivoattivita_docenti_idperfprogettoobiettivo" class="custom-select d-block w-100"  data-source-name="perfprogettoobiettivo" data-value-member="idperfprogettoobiettivo" data-display-member="title" data-custom-control="combo" data-tag="perfprogettoobiettivoattivita.idperfprogettoobiettivo?perfprogettoobiettivoattivitadocentiview.idperfprogettoobiettivo" data-subentity  data-mandatory  > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfprogettoobiettivoattivita_docenti_paridperfprogettoobiettivoattivita">Attività madre</label>
+					<select id="perfprogettoobiettivoattivita_docenti_paridperfprogettoobiettivoattivita" class="custom-select d-block w-100"  data-source-name="perfprogettoobiettivoattivitadocentiview_alias1" data-value-member="idperfprogettoobiettivoattivita" data-display-member="dropdown_title" data-custom-control="combo" data-tag="perfprogettoobiettivoattivita.paridperfprogettoobiettivoattivita?perfprogettoobiettivoattivitadocentiview.perfprogettoobiettivoattivita_paridperfprogettoobiettivoattivita" data-subentity   data-master="perfprogettoobiettivo"> </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfprogettoobiettivoattivita_docenti_title">Titolo</label>
+					<input id="perfprogettoobiettivoattivita_docenti_title" type="text" class="form-control" data-tag="perfprogettoobiettivoattivita.title?perfprogettoobiettivoattivitadocentiview.title" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="perfprogettoobiettivoattivita_docenti_description">Descrizione</label>
+					<textarea class="textarea form-control" id="perfprogettoobiettivoattivita_docenti_description" type="text"  rows="4" data-tag="perfprogettoobiettivoattivita.description?perfprogettoobiettivoattivitadocentiview.perfprogettoobiettivoattivita_description" data-subentity  ></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#perfprogettoobiettivoattivita_docenti_datainizioprevista").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="perfprogettoobiettivoattivita_docenti_datainizioprevista">Data inizio prevista</label>
+					<input id="perfprogettoobiettivoattivita_docenti_datainizioprevista" type="text" class="form-control" data-tag="perfprogettoobiettivoattivita.datainizioprevista.g?perfprogettoobiettivoattivitadocentiview.perfprogettoobiettivoattivita_datainizioprevista.g" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#perfprogettoobiettivoattivita_docenti_datafineprevista").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="perfprogettoobiettivoattivita_docenti_datafineprevista">Data fine prevista</label>
+					<input id="perfprogettoobiettivoattivita_docenti_datafineprevista" type="text" class="form-control" data-tag="perfprogettoobiettivoattivita.datafineprevista.g?perfprogettoobiettivoattivitadocentiview.perfprogettoobiettivoattivita_datafineprevista.g" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#perfprogettoobiettivoattivita_docenti_datainizioeffettiva").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="perfprogettoobiettivoattivita_docenti_datainizioeffettiva">Data inizio effettiva</label>
+					<input id="perfprogettoobiettivoattivita_docenti_datainizioeffettiva" type="text" class="form-control" data-tag="perfprogettoobiettivoattivita.datainizioeffettiva.g?perfprogettoobiettivoattivitadocentiview.perfprogettoobiettivoattivita_datainizioeffettiva.g" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#perfprogettoobiettivoattivita_docenti_datafineeffettiva").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="perfprogettoobiettivoattivita_docenti_datafineeffettiva">Data fine effettiva</label>
+					<input id="perfprogettoobiettivoattivita_docenti_datafineeffettiva" type="text" class="form-control" data-tag="perfprogettoobiettivoattivita.datafineeffettiva.g?perfprogettoobiettivoattivitadocentiview.perfprogettoobiettivoattivita_datafineeffettiva.g" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfprogettoobiettivoattivita_docenti_completamento">Percentuale di completamento</label>
+					<input id="perfprogettoobiettivoattivita_docenti_completamento" type="text" class="form-control" data-tag="perfprogettoobiettivoattivita.completamento.fixed.2?perfprogettoobiettivoattivitadocentiview.perfprogettoobiettivoattivita_completamento" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

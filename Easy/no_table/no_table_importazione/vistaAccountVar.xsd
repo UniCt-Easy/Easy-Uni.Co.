@@ -74,6 +74,8 @@
               <xs:element name="idacc_special" type="xs:string" minOccurs="0" />
               <xs:element name="flagenablebudgetprev" type="xs:string" minOccurs="0" />
               <xs:element name="flagaccountusage" type="xs:int" minOccurs="0" />
+              <xs:element name="economicbudget_sign" type="xs:string" minOccurs="0" />
+              <xs:element name="investmentbudget_sign" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -104,6 +106,7 @@
               <xs:element name="txt" type="xs:string" minOccurs="0" />
               <xs:element name="variationkind" type="xs:int" />
               <xs:element name="idenactment" type="xs:int" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -131,6 +134,29 @@
               <xs:element name="idsor3" type="xs:int" minOccurs="0" />
               <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
               <xs:element name="underwritingkind" type="xs:string" minOccurs="0" />
+              <xs:element name="idinv" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inventorytree">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codeinv" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotiveunload" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotiveload" type="xs:string" minOccurs="0" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="idinv" type="xs:int" />
+              <xs:element name="paridinv" type="xs:int" minOccurs="0" />
+              <xs:element name="lookupcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivediscount" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivetransfer" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -154,6 +180,10 @@
       <xs:field xpath="mstns:nvar" />
       <xs:field xpath="mstns:yvar" />
       <xs:field xpath="mstns:rownum" />
+    </xs:unique>
+    <xs:unique name="inventorytree_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inventorytree" />
+      <xs:field xpath="mstns:idinv" />
     </xs:unique>
   </xs:element>
   <xs:annotation>

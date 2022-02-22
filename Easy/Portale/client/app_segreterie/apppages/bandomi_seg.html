@@ -1,0 +1,385 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabbandomi_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabbandomi_seg_0"><i class="fa fa-phone-square-alt mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabbandomi_seg_1" class="nav-link" data-toggle="pill" data-target="#tabbandomi_seg_1"><i class="fa fa-file-signature mr-1"></i>Corsi a cui si può iscrivere uno studente incoming</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabbandomi_seg_2" class="nav-link" data-toggle="pill" data-target="#tabbandomi_seg_2"><i class="fa fa-file-signature mr-1"></i>Corsi  a cui deve essere iscritto uno studente outgoing</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabbandomi_seg_3" class="nav-link" data-toggle="pill" data-target="#tabbandomi_seg_3"><i class="fa fa-step-forward mr-1"></i>insegnamenti che lo studente deve aver sostenuto per partecipare</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabbandomi_seg_4" class="nav-link" data-toggle="pill" data-target="#tabbandomi_seg_4"><i class="fa fa-book-reader mr-1"></i>Elenco degli insegnamenti che lo studente può scegliere nei learning agreement</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabbandomi_seg_5" class="nav-link" data-toggle="pill" data-target="#tabbandomi_seg_5"><i class="fa fa-university mr-1"></i>Elenco delle strutture da cui possono partire gli studenti outgoing</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabbandomi_seg_6" class="nav-link" data-toggle="pill" data-target="#tabbandomi_seg_6"><i class="fa fa-university mr-1"></i>Elenco delle strutture ai quali corsi gli studenti incoming possono iscriversi</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabbandomi_seg_7" class="nav-link" data-toggle="pill" data-target="#tabbandomi_seg_7"><i class="fa fa-university mr-1"></i>Elenco degli istituti esteri coinvolti</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabbandomi_seg_8" class="nav-link" data-toggle="pill" data-target="#tabbandomi_seg_8"><i class="fa fa-paperclip mr-1"></i>Allegati richiesti</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabbandomi_seg_9" class="nav-link" data-toggle="pill" data-target="#tabbandomi_seg_9"><i class="fa fa-list mr-1"></i>Requisiti richiesti</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabbandomi_seg_10" class="nav-link" data-toggle="pill" data-target="#tabbandomi_seg_10"><i class="fa fa-user-edit mr-1"></i>Iscrizioni ai bandi</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabbandomi_seg_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandomi_seg_aa">Anno Accademico</label>
+					<select id="bandomi_seg_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="bandomi.aa?bandomisegview.aa" data-subentity  data-mandatory  > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="bandomi_seg_title">Titolo del bando</label>
+					<textarea class="textarea form-control" id="bandomi_seg_title" type="text"  rows="4" data-tag="bandomi.title?bandomisegview.title" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandomi_seg_cfminimi">Crediti formativi minimi per l'accesso</label>
+					<input id="bandomi_seg_cfminimi" type="text" class="form-control" data-tag="bandomi.cfminimi.fixed.2?bandomisegview.bandomi_cfminimi" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandomi_seg_codice">Codice identificativo</label>
+					<input id="bandomi_seg_codice" type="text" class="form-control" data-tag="bandomi.codice?bandomisegview.bandomi_codice" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#bandomi_seg_datariferimentorequisiti").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="bandomi_seg_datariferimentorequisiti">Data di riferimento per il calcolo dei requisiti</label>
+					<input id="bandomi_seg_datariferimentorequisiti" type="text" class="form-control" data-tag="bandomi.datariferimentorequisiti?bandomisegview.bandomi_datariferimentorequisiti" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandomi_seg_durata">Durata</label>
+					<input id="bandomi_seg_durata" type="text" class="form-control" data-tag="bandomi.durata?bandomisegview.bandomi_durata" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandomi_seg_idprogrammami">Programma per la mobilità di riferimento</label>
+					<select id="bandomi_seg_idprogrammami" class="custom-select d-block w-100"  data-source-name="programmami" data-value-member="idprogrammami" data-display-member="acronimo" data-custom-control="combo" data-tag="bandomi.idprogrammami?bandomisegview.bandomi_idprogrammami" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandomi_seg_idaccordoscambiomi">Accordo di scambio per la mobilità internazionale</label>
+					<select id="bandomi_seg_idaccordoscambiomi" class="custom-select d-block w-100"  data-source-name="accordoscambiomisegview" data-value-member="idaccordoscambiomi" data-display-member="dropdown_title" data-custom-control="combo" data-tag="bandomi.idaccordoscambiomi?bandomisegview.bandomi_idaccordoscambiomi" data-subentity  data-mandatory  data-master="programmami"> </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandomi_seg_idassicurazione">Assicurazione</label>
+					<div>
+						<input id="bandomi_seg_idassicurazione" name="bandomi_seg_idassicurazione" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="assicurazionedefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandomi_seg_idbandomobilitaintkind">Tipologia</label>
+					<select id="bandomi_seg_idbandomobilitaintkind" class="custom-select d-block w-100"  data-source-name="bandomobilitaintkinddefaultview" data-value-member="idbandomobilitaintkind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="bandomi.idbandomobilitaintkind?bandomisegview.bandomi_idbandomobilitaintkind" data-subentity  data-mandatory  > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandomi_seg_idduratakind">Durata</label>
+					<select id="bandomi_seg_idduratakind" class="custom-select d-block w-100"  data-source-name="duratakinddefaultview" data-value-member="idduratakind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="bandomi.idduratakind?bandomisegview.bandomi_idduratakind" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandomi_seg_idgraduatoria">Graduatoria</label>
+					<div>
+						<input id="bandomi_seg_idgraduatoria" name="bandomi_seg_idgraduatoria" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="graduatoria.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandomi_seg_idresidence">Residenza</label>
+					<div>
+						<input id="bandomi_seg_idresidence" name="bandomi_seg_idresidence" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="residence.description" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandomi_seg_idstruttura">Struttura di riferimento</label>
+					<div>
+						<input id="bandomi_seg_idstruttura" name="bandomi_seg_idstruttura" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="strutturadefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandomi_seg_iscrittonellanno">Solo per iscritti nell'anno</label>
+					<div class="custom-control custom-radio">
+						<input id="bandomi_seg_iscrittonellannoSi" type="radio" name="bandomi_seg_iscrittonellanno" class="custom-control-input" data-tag="bandomi.iscrittonellanno:S?bandomisegview.bandomi_iscrittonellanno:Si" data-subentity  ><label for="bandomi_seg_iscrittonellannoSi"> Si</label>
+						<input id="bandomi_seg_iscrittonellannoNo" type="radio" name="bandomi_seg_iscrittonellanno" class="custom-control-input" data-tag="bandomi.iscrittonellanno:N?bandomisegview.bandomi_iscrittonellanno:No" data-subentity  ><label for="bandomi_seg_iscrittonellannoNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandomi_seg_maxpreferenze">Numero massimo di preferenze</label>
+					<input id="bandomi_seg_maxpreferenze" type="text" class="form-control" data-tag="bandomi.maxpreferenze?bandomisegview.bandomi_maxpreferenze" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandomi_seg_mediaminima">Mendia minima</label>
+					<input id="bandomi_seg_mediaminima" type="text" class="form-control" data-tag="bandomi.mediaminima.fixed.2?bandomisegview.bandomi_mediaminima" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandomi_seg_nessundebito">Nessun debito formativo</label>
+					<div class="custom-control custom-radio">
+						<input id="bandomi_seg_nessundebitoSi" type="radio" name="bandomi_seg_nessundebito" class="custom-control-input" data-tag="bandomi.nessundebito:S?bandomisegview.bandomi_nessundebito:Si" data-subentity  ><label for="bandomi_seg_nessundebitoSi"> Si</label>
+						<input id="bandomi_seg_nessundebitoNo" type="radio" name="bandomi_seg_nessundebito" class="custom-control-input" data-tag="bandomi.nessundebito:N?bandomisegview.bandomi_nessundebito:No" data-subentity  ><label for="bandomi_seg_nessundebitoNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandomi_seg_numeroesamiminimo">Numero minimo di esami</label>
+					<input id="bandomi_seg_numeroesamiminimo" type="text" class="form-control" data-tag="bandomi.numeroesamiminimo?bandomisegview.bandomi_numeroesamiminimo" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#bandomi_seg_startcandidature").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="bandomi_seg_startcandidature">Data di inizio delle candidature</label>
+					<input id="bandomi_seg_startcandidature" type="text" class="form-control" data-tag="bandomi.startcandidature.g?bandomisegview.bandomi_startcandidature.g" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#bandomi_seg_startgraduatoria").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="bandomi_seg_startgraduatoria">Data di inizio della graduatoria</label>
+					<input id="bandomi_seg_startgraduatoria" type="text" class="form-control" data-tag="bandomi.startgraduatoria.g?bandomisegview.bandomi_startgraduatoria.g" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#bandomi_seg_startpermanenza").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="bandomi_seg_startpermanenza">Data di inizio del periodo all'estero</label>
+					<input id="bandomi_seg_startpermanenza" type="text" class="form-control" data-tag="bandomi.startpermanenza?bandomisegview.bandomi_startpermanenza" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#bandomi_seg_startpresentazione").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="bandomi_seg_startpresentazione">Data di inizio delle presentazioni dei Learning Agreement</label>
+					<input id="bandomi_seg_startpresentazione" type="text" class="form-control" data-tag="bandomi.startpresentazione.g?bandomisegview.bandomi_startpresentazione.g" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#bandomi_seg_stopcadidature").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="bandomi_seg_stopcadidature">Data di fine di presentazione delle candidature</label>
+					<input id="bandomi_seg_stopcadidature" type="text" class="form-control" data-tag="bandomi.stopcadidature.g?bandomisegview.bandomi_stopcadidature.g" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#bandomi_seg_stopgraduatoria").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="bandomi_seg_stopgraduatoria">Data di fine della graduatoria</label>
+					<input id="bandomi_seg_stopgraduatoria" type="text" class="form-control" data-tag="bandomi.stopgraduatoria.g?bandomisegview.bandomi_stopgraduatoria.g" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#bandomi_seg_stoppermanenza").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="bandomi_seg_stoppermanenza">Data di fine di permanenza all'estero</label>
+					<input id="bandomi_seg_stoppermanenza" type="text" class="form-control" data-tag="bandomi.stoppermanenza?bandomisegview.bandomi_stoppermanenza" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#bandomi_seg_stoppresentazione").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="bandomi_seg_stoppresentazione">Data di fine delle presentazioni dei Learning Agreement</label>
+					<input id="bandomi_seg_stoppresentazione" type="text" class="form-control" data-tag="bandomi.stoppresentazione.g?bandomisegview.bandomi_stoppresentazione.g" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="bandomi_seg_testodomanda">Testo della intestazione della domanda di ammissione</label>
+					<textarea class="textarea form-control" id="bandomi_seg_testodomanda" type="text"  rows="4" data-tag="bandomi.testodomanda?bandomisegview.bandomi_testodomanda" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="bandomi_seg_titolodomanda">Titolo della domanda di ammissione</label>
+					<textarea class="textarea form-control" id="bandomi_seg_titolodomanda" type="text"  rows="4" data-tag="bandomi.titolodomanda?bandomisegview.bandomi_titolodomanda" data-subentity  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabbandomi_seg_1" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_bandomididprogto_iddidprog" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_bandomididprogto_iddidprog" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Corsi a cui si può iscrivere uno studente incoming
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_bandomididprogto_seg" data-tag="bandomididprogto.seg.seg" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+	</div>
+	<div class="tab-pane fade" id="tabbandomi_seg_2" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_bandomididprogfrom_iddidprog" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_bandomididprogfrom_iddidprog" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Corsi  a cui deve essere iscritto uno studente outgoing
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_bandomididprogfrom_seg" data-tag="bandomididprogfrom.seg.seg" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+	</div>
+	<div class="tab-pane fade" id="tabbandomi_seg_3" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_bandomipropedeut_idinsegn" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_bandomipropedeut_idinsegn" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi insegnamenti che lo studente deve aver sostenuto per partecipare
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_bandomipropedeut_seg" data-tag="bandomipropedeut.seg.seg" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+	</div>
+	<div class="tab-pane fade" id="tabbandomi_seg_4" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_bandomiinsegn_idinsegn" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_bandomiinsegn_idinsegn" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Elenco degli insegnamenti che lo studente può scegliere nei learning agreement
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_bandomiinsegn_seg" data-tag="bandomiinsegn.seg.seg" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+	</div>
+	<div class="tab-pane fade" id="tabbandomi_seg_5" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_bandomistrutturefrom_idstruttura" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_bandomistrutturefrom_idstruttura" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Elenco delle strutture da cui possono partire gli studenti outgoing
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_bandomistrutturefrom_seg" data-tag="bandomistrutturefrom.seg.seg" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+	</div>
+	<div class="tab-pane fade" id="tabbandomi_seg_6" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_bandomistruttureto_idstruttura" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_bandomistruttureto_idstruttura" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Elenco delle strutture ai quali corsi gli studenti incoming possono iscriversi
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_bandomistruttureto_seg" data-tag="bandomistruttureto.seg.seg" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+	</div>
+	<div class="tab-pane fade" id="tabbandomi_seg_7" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_bandomiistitutiesteri_idreg_istitutiesteri" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_bandomiistitutiesteri_idreg_istitutiesteri" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Elenco degli istituti esteri coinvolti
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_bandomiistitutiesteri_seg" data-tag="bandomiistitutiesteri.seg.seg" data-custom-control="gridx" data-mdlbuttondelete data-mdlconditionallookup="!idreg_registry_active,S,Si;!idreg_registry_active,N,No;"  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabbandomi_seg_8" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_bandomiallegati_idbandomiallegati" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_bandomiallegati_idbandomiallegati" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Allegati richiesti
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_bandomiallegati_seg" data-tag="bandomiallegati.seg.seg" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+	</div>
+	<div class="tab-pane fade" id="tabbandomi_seg_9" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_bandomirequisito_idrequisito" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_bandomirequisito_idrequisito" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Requisiti richiesti
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_bandomirequisito_seg" data-tag="bandomirequisito.seg.seg" data-custom-control="gridx" data-mdlbuttondelete data-mdlconditionallookup="!idrequisito_requisito_active,S,Si;!idrequisito_requisito_active,N,No;"  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabbandomi_seg_10" role="tabpanel">
+				<div class="gridx" id="grid_iscrizionebmi_seg" data-tag="iscrizionebmi.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

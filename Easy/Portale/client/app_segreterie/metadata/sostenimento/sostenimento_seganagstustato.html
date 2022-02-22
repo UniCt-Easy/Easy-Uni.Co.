@@ -1,0 +1,72 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#sostenimento_seganagstustato_data").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="sostenimento_seganagstustato_data">Data</label>
+					<input id="sostenimento_seganagstustato_data" type="text" class="form-control" data-tag="sostenimento.data?sostenimentoseganagstustatoview.sostenimento_data" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="sostenimento_seganagstustato_domande">Domande</label>
+					<textarea class="textarea form-control" id="sostenimento_seganagstustato_domande" type="text"  rows="4" data-tag="sostenimento.domande?sostenimentoseganagstustatoview.sostenimento_domande" data-subentity></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_seganagstustato_idprova">Prova</label>
+					<select id="sostenimento_seganagstustato_idprova" class="custom-select d-block w-100"  data-source-name="provastatoview" data-value-member="idprova" data-display-member="dropdown_title" data-custom-control="combo" data-tag="sostenimento.idprova?sostenimentoseganagstustatoview.idprova" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_seganagstustato_idreg">Studente</label>
+					<div>
+						<input id="sostenimento_seganagstustato_idreg" name="sostenimento_seganagstustato_idreg" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="registrydefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_seganagstustato_idsostenimentoesito">Esito</label>
+					<select id="sostenimento_seganagstustato_idsostenimentoesito" class="custom-select d-block w-100"  data-source-name="sostenimentoesitodefaultview" data-value-member="idsostenimentoesito" data-display-member="dropdown_title" data-custom-control="combo" data-tag="sostenimento.idsostenimentoesito?sostenimentoseganagstustatoview.sostenimento_idsostenimentoesito" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_seganagstustato_voto">Voto</label>
+					<input id="sostenimento_seganagstustato_voto" type="text" class="form-control" data-tag="sostenimento.voto.fixed.2?sostenimentoseganagstustatoview.sostenimento_voto" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_seganagstustato_votolode">Lode</label>
+					<input id="sostenimento_seganagstustato_votolode" type="checkbox" class="custom-control-input big-checkbox" data-tag="sostenimento.votolode:S:N?sostenimentoseganagstustatoview.sostenimento_votolode:Si:No" data-subentity />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_seganagstustato_votosu">Su</label>
+					<input id="sostenimento_seganagstustato_votosu" type="text" class="form-control" data-tag="sostenimento.votosu?sostenimentoseganagstustatoview.sostenimento_votosu" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_seganagstustato_protnumero">Numero Protocollo</label>
+					<input id="sostenimento_seganagstustato_protnumero" type="text" class="form-control" data-tag="sostenimento.protnumero?sostenimentoseganagstustatoview.sostenimento_protnumero" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_seganagstustato_protanno">Anno protocollo</label>
+					<input id="sostenimento_seganagstustato_protanno" type="text" class="form-control" data-tag="sostenimento.protanno?sostenimentoseganagstustatoview.sostenimento_protanno" data-subentity  />
+				</div>
+			</div>
+ <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-stamp mr-1" ></i>Protocolla
+    </button>
+</form>
+
+</div>
+<!--footer-->

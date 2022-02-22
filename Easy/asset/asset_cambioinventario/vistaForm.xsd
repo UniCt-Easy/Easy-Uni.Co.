@@ -479,6 +479,7 @@
               <xs:element name="idcurrman" type="xs:int" minOccurs="0" />
               <xs:element name="idcurrsubman" type="xs:int" minOccurs="0" />
               <xs:element name="idcurrlocation" type="xs:int" minOccurs="0" />
+              <xs:element name="idinventory" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -710,6 +711,10 @@
               <xs:element name="intcode" type="xs:string" minOccurs="0" />
               <xs:element name="list" type="xs:string" minOccurs="0" />
               <xs:element name="idinventoryamortization" type="xs:int" minOccurs="0" />
+              <xs:element name="idinvkind" type="xs:int" minOccurs="0" />
+              <xs:element name="yinv" type="xs:short" minOccurs="0" />
+              <xs:element name="ninv" type="xs:int" minOccurs="0" />
+              <xs:element name="invrownum" type="xs:int" minOccurs="0" />
               <xs:element name="amortizationquota" type="xs:double" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>

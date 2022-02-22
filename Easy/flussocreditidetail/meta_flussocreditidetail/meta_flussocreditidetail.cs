@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Windows.Forms;
 using System.Data;
 using metaeasylibrary;
@@ -35,6 +34,8 @@ namespace meta_flussocreditidetail {
             ListingTypes.Add("default_ca");
             ListingTypes.Add("default_fatt");
             ListingTypes.Add("default_unlinked");
+            ListingTypes.Add("default_annullati");
+            ListingTypes.Add("default_da_annullare");
             ListingTypes.Add("posting");
         }
 
@@ -77,15 +78,18 @@ namespace meta_flussocreditidetail {
                 DescribeAColumn(T, "ninv", "Num. Fattura", nPos++);
                 DescribeAColumn(T, "invrownum", "Num.Riga Fatt.", nPos++);
                 DescribeAColumn(T, "importoversamento", "Importo", nPos++);
-                DescribeAColumn(T, "number", "quantit√†", nPos++);
+                DescribeAColumn(T, "number", "quantit‡", nPos++);
                 DescribeAColumn(T, "tax", "Iva", nPos++);
                 DescribeAColumn(T, "cf", "CF", nPos++);
                 DescribeAColumn(T, "p_iva", "P.Iva", nPos++);
+                DescribeAColumn(T, "codicetassonomia", "Tassonomia PagoPA", nPos++);
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
+                DescribeAColumn(T, "expirationdate", "Data scadenza", nPos++);
                 DescribeAColumn(T, "annulment", "Data annullamento", nPos++);
 				DescribeAColumn(T, "annotations", "Annotazioni", nPos++);
 
-			}
+
+            }
             if (listtype == "default_ca") {
                 foreach (DataColumn C in T.Columns) {
                     DescribeAColumn(T, C.ColumnName, "", -1);
@@ -97,14 +101,18 @@ namespace meta_flussocreditidetail {
                 DescribeAColumn(T, "nestim", "Num.Contratto", nPos++);
                 DescribeAColumn(T, "rownum", "Num.Riga", nPos++);
                 DescribeAColumn(T, "importoversamento", "Importo", nPos++);
-                DescribeAColumn(T, "number", "quantit√†", nPos++);
+                DescribeAColumn(T, "number", "quantit‡", nPos++);
                 DescribeAColumn(T, "tax", "Iva", nPos++);
                 DescribeAColumn(T, "cf", "CF", nPos++);
                 DescribeAColumn(T, "p_iva", "P.Iva", nPos++);
+                DescribeAColumn(T, "codicetassonomia", "Tassonomia PagoPA", nPos++);
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
+                DescribeAColumn(T, "expirationdate", "Data scadenza", nPos++);
                 DescribeAColumn(T, "annulment", "Data annullamento", nPos++);
+
 				DescribeAColumn(T, "annotations", "Annotazioni", nPos++);
-			}
+
+            }
             if (listtype == "default_unlinked") {
                 foreach (DataColumn C in T.Columns) {
                     DescribeAColumn(T, C.ColumnName, "", -1);
@@ -112,14 +120,47 @@ namespace meta_flussocreditidetail {
                 int nPos = 1;
                 DescribeAColumn(T, "iddetail", "Num.Dettaglio", nPos++);
                 DescribeAColumn(T, "importoversamento", "Importo", nPos++);
-                DescribeAColumn(T, "number", "quantit√†", nPos++);
+                DescribeAColumn(T, "number", "quantit‡", nPos++);
                 DescribeAColumn(T, "tax", "Iva", nPos++);
                 DescribeAColumn(T, "cf", "CF", nPos++);
                 DescribeAColumn(T, "p_iva", "P.Iva", nPos++);
+                DescribeAColumn(T, "codicetassonomia", "Tassonomia PagoPA", nPos++);
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
+                DescribeAColumn(T, "expirationdate", "Data scadenza", nPos++);
+                DescribeAColumn(T, "annotations", "Annotazioni", nPos++);
+
+            }
+             if (listtype == "default_annullati"||listtype == "default_da_annullare") {
+                foreach (DataColumn C in T.Columns) {
+                    DescribeAColumn(T, C.ColumnName, "", -1);
+                }
+                int nPos = 1;
+                DescribeAColumn(T, "idflusso", "Flusso", nPos++);
+                DescribeAColumn(T, "iddetail", "Num.Dettaglio", nPos++);
+                DescribeAColumn(T, "iduniqueformcode", "Codice Bollettino Univoco", nPos++);
+                DescribeAColumn(T, "importoversamento", "Importo", nPos++);
+                DescribeAColumn(T, "number", "quantit‡", nPos++);
+                DescribeAColumn(T, "tax", "Iva", nPos++);
+                DescribeAColumn(T, "cf", "CF", nPos++);
+                DescribeAColumn(T, "p_iva", "P.Iva", nPos++);
+                DescribeAColumn(T, "codicetassonomia", "Tassonomia PagoPA", nPos++);
+                DescribeAColumn(T, "description", "Descrizione", nPos++);
+			    DescribeAColumn(T, "annulment", "Data annullamento", nPos++);
+                DescribeAColumn(T, "stop", "Data fine validit‡", nPos++);
 				DescribeAColumn(T, "annotations", "Annotazioni", nPos++);
+                FilterRows(T);
 			}
         }
+
+         public override bool FilterRow(DataRow R, string list_type) {
+            if (list_type == "default_da_annullare") {
+                if (R["annulment"] != DBNull.Value || R["stop"] != DBNull.Value || R["iduniqueformcode"] == DBNull.Value) return false;
+                return   true;
+            }
+
+            return true;
+        }
+
 
         public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable Exclude) {
             if ((ListingType == "lista")|| (ListingType == "default"))
@@ -145,4 +186,3 @@ namespace meta_flussocreditidetail {
         }
     }
 }
-

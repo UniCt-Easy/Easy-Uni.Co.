@@ -39,6 +39,10 @@
     <Reference Include="metadatalibrary">
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
     </Reference>
+    <Reference Include="metaeasylibrary">
+      <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -97,9 +101,21 @@
       <Name>meta_list</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="meta_flussocrediti">
+      <HintPath>..\..\flussocrediti\meta_flussocrediti\bin\Debug\meta_flussocrediti.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_flussocrediti</Name>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="FrmAnnullaDettaglio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAnnullaDettaglio.Designer.cs">
+      <DependentUpon>FrmAnnullaDettaglio.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frm_flussocreditidetail_default.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,8 +142,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FrmAnnullaDettaglio.resx">
+      <DependentUpon>FrmAnnullaDettaglio.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Frm_flussocreditidetail_default.resx">
       <DependentUpon>Frm_flussocreditidetail_default.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

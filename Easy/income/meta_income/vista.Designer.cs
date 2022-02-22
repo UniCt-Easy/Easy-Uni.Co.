@@ -1,25 +1,28 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using metadatalibrary;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_income {
 public class incomeRow: MetaRow  {
 	public incomeRow(DataRowBuilder rb) : base(rb) {} 
@@ -28,58 +31,58 @@ public class incomeRow: MetaRow  {
 	///<summary>
 	///data contabile
 	///</summary>
-	public DateTime? adate{ 
-		get {if (this["adate"]==DBNull.Value)return null; return  (DateTime?)this["adate"];}
-		set {if (value==null) this["adate"]= DBNull.Value; else this["adate"]= value;}
+	public DateTime adate{ 
+		get {return  (DateTime)this["adate"];}
+		set {this["adate"]= value;}
 	}
 	public object adateValue { 
 		get{ return this["adate"];}
-		set {if (value==null|| value==DBNull.Value) this["adate"]= DBNull.Value; else this["adate"]= value;}
+		set {this["adate"]= value;}
 	}
-	public DateTime? adateOriginal { 
-		get {if (this["adate",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["adate",DataRowVersion.Original];}
+	public DateTime adateOriginal { 
+		get {return  (DateTime)this["adate",DataRowVersion.Original];}
 	}
 	///<summary>
 	///data creazione
 	///</summary>
-	public DateTime? ct{ 
-		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
-		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
+	public DateTime ct{ 
+		get {return  (DateTime)this["ct"];}
+		set {this["ct"]= value;}
 	}
 	public object ctValue { 
 		get{ return this["ct"];}
-		set {if (value==null|| value==DBNull.Value) this["ct"]= DBNull.Value; else this["ct"]= value;}
+		set {this["ct"]= value;}
 	}
-	public DateTime? ctOriginal { 
-		get {if (this["ct",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["ct",DataRowVersion.Original];}
+	public DateTime ctOriginal { 
+		get {return  (DateTime)this["ct",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome utente creazione
 	///</summary>
 	public String cu{ 
-		get {if (this["cu"]==DBNull.Value)return null; return  (String)this["cu"];}
-		set {if (value==null) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		get {return  (String)this["cu"];}
+		set {this["cu"]= value;}
 	}
 	public object cuValue { 
 		get{ return this["cu"];}
-		set {if (value==null|| value==DBNull.Value) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		set {this["cu"]= value;}
 	}
 	public String cuOriginal { 
-		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
+		get {return  (String)this["cu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Descrizione
 	///</summary>
 	public String description{ 
-		get {if (this["description"]==DBNull.Value)return null; return  (String)this["description"];}
-		set {if (value==null) this["description"]= DBNull.Value; else this["description"]= value;}
+		get {return  (String)this["description"];}
+		set {this["description"]= value;}
 	}
 	public object descriptionValue { 
 		get{ return this["description"];}
-		set {if (value==null|| value==DBNull.Value) this["description"]= DBNull.Value; else this["description"]= value;}
+		set {this["description"]= value;}
 	}
 	public String descriptionOriginal { 
-		get {if (this["description",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["description",DataRowVersion.Original];}
+		get {return  (String)this["description",DataRowVersion.Original];}
 	}
 	///<summary>
 	///documento
@@ -140,44 +143,44 @@ public class incomeRow: MetaRow  {
 	///<summary>
 	///data ultima modifica
 	///</summary>
-	public DateTime? lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
-		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
+	public DateTime lt{ 
+		get {return  (DateTime)this["lt"];}
+		set {this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
-		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
+		set {this["lt"]= value;}
 	}
-	public DateTime? ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
+	public DateTime ltOriginal { 
+		get {return  (DateTime)this["lt",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome ultimo utente modifica
 	///</summary>
 	public String lu{ 
-		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
-		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		get {return  (String)this["lu"];}
+		set {this["lu"]= value;}
 	}
 	public object luValue { 
 		get{ return this["lu"];}
-		set {if (value==null|| value==DBNull.Value) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		set {this["lu"]= value;}
 	}
 	public String luOriginal { 
-		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
+		get {return  (String)this["lu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///N.movimento
 	///</summary>
-	public Int32? nmov{ 
-		get {if (this["nmov"]==DBNull.Value)return null; return  (Int32?)this["nmov"];}
-		set {if (value==null) this["nmov"]= DBNull.Value; else this["nmov"]= value;}
+	public Int32 nmov{ 
+		get {return  (Int32)this["nmov"];}
+		set {this["nmov"]= value;}
 	}
 	public object nmovValue { 
 		get{ return this["nmov"];}
-		set {if (value==null|| value==DBNull.Value) this["nmov"]= DBNull.Value; else this["nmov"]= value;}
+		set {this["nmov"]= value;}
 	}
-	public Int32? nmovOriginal { 
-		get {if (this["nmov",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["nmov",DataRowVersion.Original];}
+	public Int32 nmovOriginal { 
+		get {return  (Int32)this["nmov",DataRowVersion.Original];}
 	}
 	///<summary>
 	///allegati
@@ -210,16 +213,16 @@ public class incomeRow: MetaRow  {
 	///<summary>
 	///Anno movimento
 	///</summary>
-	public Int16? ymov{ 
-		get {if (this["ymov"]==DBNull.Value)return null; return  (Int16?)this["ymov"];}
-		set {if (value==null) this["ymov"]= DBNull.Value; else this["ymov"]= value;}
+	public Int16 ymov{ 
+		get {return  (Int16)this["ymov"];}
+		set {this["ymov"]= value;}
 	}
 	public object ymovValue { 
 		get{ return this["ymov"];}
-		set {if (value==null|| value==DBNull.Value) this["ymov"]= DBNull.Value; else this["ymov"]= value;}
+		set {this["ymov"]= value;}
 	}
-	public Int16? ymovOriginal { 
-		get {if (this["ymov",DataRowVersion.Original]==DBNull.Value)return null; return  (Int16?)this["ymov",DataRowVersion.Original];}
+	public Int16 ymovOriginal { 
+		get {return  (Int16)this["ymov",DataRowVersion.Original];}
 	}
 	///<summary>
 	///id mov. spesa collegato (idexp di expense)
@@ -238,16 +241,16 @@ public class incomeRow: MetaRow  {
 	///<summary>
 	///id mov. entrata (tabella income)
 	///</summary>
-	public Int32? idinc{ 
-		get {if (this["idinc"]==DBNull.Value)return null; return  (Int32?)this["idinc"];}
-		set {if (value==null) this["idinc"]= DBNull.Value; else this["idinc"]= value;}
+	public Int32 idinc{ 
+		get {return  (Int32)this["idinc"];}
+		set {this["idinc"]= value;}
 	}
 	public object idincValue { 
 		get{ return this["idinc"];}
-		set {if (value==null|| value==DBNull.Value) this["idinc"]= DBNull.Value; else this["idinc"]= value;}
+		set {this["idinc"]= value;}
 	}
-	public Int32? idincOriginal { 
-		get {if (this["idinc",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idinc",DataRowVersion.Original];}
+	public Int32 idincOriginal { 
+		get {return  (Int32)this["idinc",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Id movimento padre (tabella income)
@@ -266,16 +269,16 @@ public class incomeRow: MetaRow  {
 	///<summary>
 	///N.fase
 	///</summary>
-	public Byte? nphase{ 
-		get {if (this["nphase"]==DBNull.Value)return null; return  (Byte?)this["nphase"];}
-		set {if (value==null) this["nphase"]= DBNull.Value; else this["nphase"]= value;}
+	public Byte nphase{ 
+		get {return  (Byte)this["nphase"];}
+		set {this["nphase"]= value;}
 	}
 	public object nphaseValue { 
 		get{ return this["nphase"];}
-		set {if (value==null|| value==DBNull.Value) this["nphase"]= DBNull.Value; else this["nphase"]= value;}
+		set {this["nphase"]= value;}
 	}
-	public Byte? nphaseOriginal { 
-		get {if (this["nphase",DataRowVersion.Original]==DBNull.Value)return null; return  (Byte?)this["nphase",DataRowVersion.Original];}
+	public Byte nphaseOriginal { 
+		get {return  (Byte)this["nphase",DataRowVersion.Original];}
 	}
 	///<summary>
 	///id responsabile (tabella manager)
@@ -361,6 +364,17 @@ public class incomeRow: MetaRow  {
 	public String external_referenceOriginal { 
 		get {if (this["external_reference",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["external_reference",DataRowVersion.Original];}
 	}
+	public Int32? flag{ 
+		get {if (this["flag"]==DBNull.Value)return null; return  (Int32?)this["flag"];}
+		set {if (value==null) this["flag"]= DBNull.Value; else this["flag"]= value;}
+	}
+	public object flagValue { 
+		get{ return this["flag"];}
+		set {if (value==null|| value==DBNull.Value) this["flag"]= DBNull.Value; else this["flag"]= value;}
+	}
+	public Int32? flagOriginal { 
+		get {if (this["flag",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["flag",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -368,87 +382,34 @@ public class incomeRow: MetaRow  {
 ///Movimento di entrata
 ///</summary>
 public class incomeTable : MetaTableBase<incomeRow> {
-	public incomeTable() : base("income"){}
-	public override void addBaseColumns(params string [] cols){
-		Dictionary<string,bool> definedColums=new Dictionary<string, bool>();
-		foreach(string col in cols) definedColums[col] = true;
-
-		#region add DataColumns
-		if (definedColums.ContainsKey("adate")){ 
-			defineColumn("adate", typeof(System.DateTime),false);
-		}
-		if (definedColums.ContainsKey("ct")){ 
-			defineColumn("ct", typeof(System.DateTime),false);
-		}
-		if (definedColums.ContainsKey("cu")){ 
-			defineColumn("cu", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("description")){ 
-			defineColumn("description", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("doc")){ 
-			defineColumn("doc", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("docdate")){ 
-			defineColumn("docdate", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("expiration")){ 
-			defineColumn("expiration", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("idreg")){ 
-			defineColumn("idreg", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("lt")){ 
-			defineColumn("lt", typeof(System.DateTime),false);
-		}
-		if (definedColums.ContainsKey("lu")){ 
-			defineColumn("lu", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("nmov")){ 
-			defineColumn("nmov", typeof(System.Int32),false);
-		}
-		if (definedColums.ContainsKey("rtf")){ 
-			defineColumn("rtf", typeof(System.Byte[]));
-		}
-		if (definedColums.ContainsKey("txt")){ 
-			defineColumn("txt", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("ymov")){ 
-			defineColumn("ymov", typeof(System.Int16),false);
-		}
-		if (definedColums.ContainsKey("idpayment")){ 
-			defineColumn("idpayment", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idinc")){ 
-			defineColumn("idinc", typeof(System.Int32),false);
-		}
-		if (definedColums.ContainsKey("parentidinc")){ 
-			defineColumn("parentidinc", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("nphase")){ 
-			defineColumn("nphase", typeof(System.Byte),false);
-		}
-		if (definedColums.ContainsKey("idman")){ 
-			defineColumn("idman", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("autokind")){ 
-			defineColumn("autokind", typeof(System.Byte));
-		}
-		if (definedColums.ContainsKey("autocode")){ 
-			defineColumn("autocode", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("cupcode")){ 
-			defineColumn("cupcode", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("idunderwriting")){ 
-			defineColumn("idunderwriting", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("external_reference")){ 
-			defineColumn("external_reference", typeof(System.String));
-		}
-		#endregion
-
+	public incomeTable() : base("income"){
+		baseColumns = new Dictionary<string, DataColumn>(){
+			{"adate",createColumn("adate",typeof(DateTime),false,false)},
+			{"ct",createColumn("ct",typeof(DateTime),false,false)},
+			{"cu",createColumn("cu",typeof(string),false,false)},
+			{"description",createColumn("description",typeof(string),false,false)},
+			{"doc",createColumn("doc",typeof(string),true,false)},
+			{"docdate",createColumn("docdate",typeof(DateTime),true,false)},
+			{"expiration",createColumn("expiration",typeof(DateTime),true,false)},
+			{"idreg",createColumn("idreg",typeof(int),true,false)},
+			{"lt",createColumn("lt",typeof(DateTime),false,false)},
+			{"lu",createColumn("lu",typeof(string),false,false)},
+			{"nmov",createColumn("nmov",typeof(int),false,false)},
+			{"rtf",createColumn("rtf",typeof(Byte[]),true,false)},
+			{"txt",createColumn("txt",typeof(string),true,false)},
+			{"ymov",createColumn("ymov",typeof(short),false,false)},
+			{"idpayment",createColumn("idpayment",typeof(int),true,false)},
+			{"idinc",createColumn("idinc",typeof(int),false,false)},
+			{"parentidinc",createColumn("parentidinc",typeof(int),true,false)},
+			{"nphase",createColumn("nphase",typeof(byte),false,false)},
+			{"idman",createColumn("idman",typeof(int),true,false)},
+			{"autokind",createColumn("autokind",typeof(byte),true,false)},
+			{"autocode",createColumn("autocode",typeof(int),true,false)},
+			{"cupcode",createColumn("cupcode",typeof(string),true,false)},
+			{"idunderwriting",createColumn("idunderwriting",typeof(int),true,false)},
+			{"external_reference",createColumn("external_reference",typeof(string),true,false)},
+			{"flag",createColumn("flag",typeof(int),true,false)},
+		};
 	}
 }
 }
-

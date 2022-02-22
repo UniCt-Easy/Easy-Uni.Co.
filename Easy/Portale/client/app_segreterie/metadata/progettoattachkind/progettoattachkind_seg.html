@@ -1,0 +1,41 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabprogettoattachkind_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabprogettoattachkind_seg_0"><i class="fa fa-paperclip mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogettoattachkind_seg_1" class="nav-link" data-toggle="pill" data-target="#tabprogettoattachkind_seg_1"><i class="fa fa-bezier-curve mr-1"></i>Stati in cui l'allegato è obbligatorio</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabprogettoattachkind_seg_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettoattachkind_seg_title">Denominazione</label>
+					<input id="progettoattachkind_seg_title" type="text" class="form-control" data-tag="progettoattachkind.title"  />
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogettoattachkind_seg_idattach_template" >Allegare il modello che dovrà essere compilato per il progetto.</div>
+					<label class="col-form-label col-md-12" for="progettoattachkind_seg_idattach_template">Modello dell'allegato</label>
+					<div id="progettoattachkind_seg_idattach_template" data-tag="progettoattachkind.idattach_template"  data-custom-control="upload" ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogettoattachkind_seg_linktemplate" >Inserire il link al sito web dove reperire il modello da utilizzare per l'allegato.</div>
+					<label class="col-form-label col-md-12" for="progettoattachkind_seg_linktemplate">Link al modello dell'allegato</label>
+					<input id="progettoattachkind_seg_linktemplate" type="text" class="form-control" data-tag="progettoattachkind.linktemplate"  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabprogettoattachkind_seg_1" role="tabpanel">
+		<div id="grid_progettoattachkindprogettostatuskind_default" data-tag="progettostatuskind.default.default" data-custom-control="checklist"  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

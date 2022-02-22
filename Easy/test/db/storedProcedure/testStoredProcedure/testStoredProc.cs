@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using metadatalibrary;
 using System.Data;
@@ -115,9 +114,9 @@ namespace testStoredProcedure {
             // Act
             // -----------------------------------------------------------------------------------------------------------------
             // Verifica che la congruenza dei parametri della sp con quelli censiti nella tabella exportfunctionparam
-            // Se checkParams = true allora c'√® congruenza fra i params di SQL e tabella exportfunctionparam
+            // Se checkParams = true allora c'Ë congruenza fra i params di SQL e tabella exportfunctionparam
             Boolean checkParams = CheckSpParameter(spName);
-            Assert.IsTrue(checkParams, $"SP: {spName}. Il numero dei parametri non √® coerente.");
+            Assert.IsTrue(checkParams, $"SP: {spName}. Il numero dei parametri non Ë coerente.");
 
             // Recupera i parametri da passare alla sp
             object[] spParams = GetSpParams(spName);
@@ -125,7 +124,7 @@ namespace testStoredProcedure {
             // Lancia le sp da testare 
             DataSet retDS = conn.CallSP(spName, spParams, spTimeOut*60, out spErrMess);
             Assert.IsNull(spErrMess, $"SP: {spName}. Errore: {spErrMess}");
-            Assert.IsNotNull(retDS, $"SP: {spName}. DataSet di ritorno √® null");
+            Assert.IsNotNull(retDS, $"SP: {spName}. DataSet di ritorno Ë null");
 
         }
 
@@ -184,7 +183,7 @@ namespace testStoredProcedure {
                 null, false);
 
             object[] retObj = new object[tParams.Rows.Count];
-                // Definisce l'oggetto che sar√† di valore di ritorno del metodo
+                // Definisce l'oggetto che sar‡ di valore di ritorno del metodo
             int i = 0; // Indice 
             
             // Ordina e scorre la dt riempiendo retObj
@@ -240,7 +239,7 @@ namespace testStoredProcedure {
 
 
                     if (r["hintkind"].ToString().ToUpper() == "STRING") {
-                        // Euristica: Viene verificato il campo hint, se il suo valore √® diverso da null si assegna tale valore
+                        // Euristica: Viene verificato il campo hint, se il suo valore Ë diverso da null si assegna tale valore
                         if (
                             (!(r["hint"].Equals(System.DBNull.Value)))
                             &&
@@ -254,7 +253,7 @@ namespace testStoredProcedure {
 
                 }
 
-                // Euristica: Viene verificata se il campo datasoruce √® valorizzato, in quel caso si recupera 
+                // Euristica: Viene verificata se il campo datasoruce Ë valorizzato, in quel caso si recupera 
                 //            un valore dalla tabella relativamente al campo valuemenber
                 if (!(r["datasource"].Equals(System.DBNull.Value))) {
                     retObj[i] = GetValueFromTable(r["datasource"].ToString(), r["valuemember"].ToString());
@@ -317,7 +316,7 @@ namespace testStoredProcedure {
                 int pos, len; // Posizione e lunghezza della stringa da ricercare
                 int firstPipePos; // Posizione delle prima pipe (|) per la ricerca
 
-                // Caso 1: il contenuto del campo sar√† del tipo "radio.S|S√¨|N|No|I|Non importa"
+                // Caso 1: il contenuto del campo sar‡ del tipo "radio.S|SÏ|N|No|I|Non importa"
                 stringToSearch = "radio.";
                 pos = selCode.IndexOf(stringToSearch);
                 len = stringToSearch.Length;
@@ -327,7 +326,7 @@ namespace testStoredProcedure {
                     return selCode.Substring(pos + len, firstPipePos - pos - len);
                 }
 
-                // Caso 2: il contenuto del campo sar√† del tipo "check.S|N|Sopprimi voci inutilizzate"
+                // Caso 2: il contenuto del campo sar‡ del tipo "check.S|N|Sopprimi voci inutilizzate"
                 stringToSearch = "check.";
                 pos = selCode.IndexOf(stringToSearch);
                 len = stringToSearch.Length;
@@ -337,7 +336,7 @@ namespace testStoredProcedure {
                     return selCode.Substring(pos + len, firstPipePos - pos - len);
                 }
 
-                // Caso 3: il contenuto del campo √® del tipo custom.IDSOR0X dove X = 1..5
+                // Caso 3: il contenuto del campo Ë del tipo custom.IDSOR0X dove X = 1..5
                 stringToSearch = "custom.IDSOR";
                 pos = selCode.IndexOf(stringToSearch);
                 if (pos >= 0) {
@@ -345,7 +344,7 @@ namespace testStoredProcedure {
                     return System.DBNull.Value;
                 }
 
-                // Caso 4: il contenuto del campo √® del tipo custom.
+                // Caso 4: il contenuto del campo Ë del tipo custom.
                 stringToSearch = "custom.";
                 pos = selCode.IndexOf(stringToSearch);
                 len = stringToSearch.Length;
@@ -354,7 +353,7 @@ namespace testStoredProcedure {
                     string tableName = selCode.Substring(stringToSearch.Length);
 
                     // Accede alla tabella per recuperare le info relative ai campi relationfield, filter, tablename
-                    // NB. il campo selectioncode √® chiave primaria in tabella, quindi la DataTable restituita potrebbe
+                    // NB. il campo selectioncode Ë chiave primaria in tabella, quindi la DataTable restituita potrebbe
                     //     avere una sola riga, o al massimo, nessuna riga. 
                     DataTable tCustomSel = conn.RUN_SELECT("customselection", "relationfield, filter, tablename", null,
                         QHS.CmpEq("selectioncode", tableName), null, false);
@@ -363,7 +362,7 @@ namespace testStoredProcedure {
                         // Valorizza il filtro
                         string filterWithValue = conn.Compile(tCustomSel.Rows[0]["filter"].ToString(), true);
 
-                        // Che succede se il filtro non √® valorizzato?
+                        // Che succede se il filtro non Ë valorizzato?
                         string tableNameFilter;
                         string tableFieldFilter;
 
@@ -412,7 +411,7 @@ namespace testStoredProcedure {
                 string select = "SELECT TOP 1 " + fieldName + " FROM " + tableName;
                 DataTable t = conn.SQLRunner(select, false);
 
-                // Verifica la cardinalit√† della dt
+                // Verifica la cardinalit‡ della dt
                 if (t.Rows.Count == 0)
                     return System.DBNull.Value;
                 else
@@ -429,4 +428,3 @@ namespace testStoredProcedure {
     }
 }
 
-

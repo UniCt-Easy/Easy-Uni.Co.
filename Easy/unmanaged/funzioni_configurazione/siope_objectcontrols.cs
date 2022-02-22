@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -63,7 +62,7 @@ namespace funzioni_configurazione {
             DataAccess.SetTableForReading(sorting_siope, "sorting");
             string codesorkind =
                 spese ? "SIOPE_U_18" : "SIOPE_E_18";
-            object idsorkind = conn.DO_READ_VALUE("sortingkind", qhs.CmpEq("codesorkind", codesorkind), "idsorkind");                
+            object idsorkind = CfgFn.GetNoNullInt32( conn.DO_READ_VALUE("sortingkind", qhs.CmpEq("codesorkind", codesorkind), "idsorkind"));                
             GetData.SetStaticFilter(sorting_siope, qhs.CmpEq("idsorkind", idsorkind));
 
 
@@ -164,7 +163,7 @@ namespace funzioni_configurazione {
         /// <summary>
         /// Data una causale EP imposta la  class. siope associata aggiornando anche i txt relativi e riempiendo/svuotando la tabella sorting_siope.
         /// Qualora non ci siano class.siope associate, restituisce DBNull e non fa nulla.
-        /// Se ve n'Ã¨ una sola, la seleziona, se ve ne sono di piÃ¹ le fa scegliere a video
+        /// Se ve n'è una sola, la seleziona, se ve ne sono di più le fa scegliere a video
         /// </summary>
         /// <param name="curr"></param>
         /// <param name="idaccmotive"></param>
@@ -187,7 +186,7 @@ namespace funzioni_configurazione {
             setFilterSiope(rClass);
             if (rClass == null || rClass.Length==0) {
                  //Il messaggio compare solo se si clicca il Button
-                 MessageBox.Show(mainForm,"Nessuna classificazione siope associata alla causale", "Avviso");
+                 MetaFactory.factory.getSingleton<IMessageShower>().Show(mainForm,"Nessuna classificazione siope associata alla causale", "Avviso");
                 //E' dubbio se dovrebbe svuotarlo
                 //fillSiopeControls(null);
                 //fillSortingTable(sorting_siope, null);
@@ -224,7 +223,7 @@ namespace funzioni_configurazione {
                         return rSortingview["idsor"];
                     }
                     if (SceltaNonEffettuata) {
-                        MessageBox.Show(mainForm, "E' necessario selezionare una classificazione siope associata alla causale", "Avviso");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(mainForm, "E' necessario selezionare una classificazione siope associata alla causale", "Avviso");
                     }
                 }
             }
@@ -243,4 +242,3 @@ namespace funzioni_configurazione {
 
     }
 }
-

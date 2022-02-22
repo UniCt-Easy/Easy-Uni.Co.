@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -29,7 +28,7 @@ using ep_functions;
 namespace csa_contracttax_default {
 	/// <summary>
 	/// </summary>
-	public class Frm_csa_contracttax_default : System.Windows.Forms.Form {
+	public class Frm_csa_contracttax_default : MetaDataForm {
 		private System.Windows.Forms.Button OkButton;
         private System.Windows.Forms.Button CancButton;
         public vistaForm DS;
@@ -182,12 +181,12 @@ namespace csa_contracttax_default {
             this.button5 = new System.Windows.Forms.Button();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.gboxRipartizioneUnica = new System.Windows.Forms.GroupBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.dataGrid3 = new System.Windows.Forms.DataGrid();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -206,16 +205,16 @@ namespace csa_contracttax_default {
             this.gboxConto.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.tabPage5.SuspendLayout();
             this.gboxRipartizioneUnica.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid3)).BeginInit();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // OkButton
             // 
             this.OkButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.OkButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.OkButton.Location = new System.Drawing.Point(749, 521);
+            this.OkButton.Location = new System.Drawing.Point(905, 586);
             this.OkButton.Name = "OkButton";
             this.OkButton.Size = new System.Drawing.Size(75, 23);
             this.OkButton.TabIndex = 7;
@@ -226,7 +225,7 @@ namespace csa_contracttax_default {
             // 
             this.CancButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CancButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancButton.Location = new System.Drawing.Point(836, 521);
+            this.CancButton.Location = new System.Drawing.Point(992, 586);
             this.CancButton.Name = "CancButton";
             this.CancButton.Size = new System.Drawing.Size(75, 23);
             this.CancButton.TabIndex = 8;
@@ -277,13 +276,16 @@ namespace csa_contracttax_default {
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(6, 19);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(884, 382);
+            this.tabControl1.Size = new System.Drawing.Size(1031, 459);
             this.tabControl1.TabIndex = 12;
             // 
             // tabPage1
@@ -295,7 +297,7 @@ namespace csa_contracttax_default {
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(876, 356);
+            this.tabPage1.Size = new System.Drawing.Size(1023, 433);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Principale";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -406,7 +408,7 @@ namespace csa_contracttax_default {
             this.grpBilancioVersamento.Controls.Add(this.btnBilancio);
             this.grpBilancioVersamento.Location = new System.Drawing.Point(431, 17);
             this.grpBilancioVersamento.Name = "grpBilancioVersamento";
-            this.grpBilancioVersamento.Size = new System.Drawing.Size(435, 138);
+            this.grpBilancioVersamento.Size = new System.Drawing.Size(582, 138);
             this.grpBilancioVersamento.TabIndex = 2;
             this.grpBilancioVersamento.TabStop = false;
             this.grpBilancioVersamento.Tag = "AutoManage.txtBilancio.trees";
@@ -421,7 +423,7 @@ namespace csa_contracttax_default {
             this.txtDescrBilancio.Name = "txtDescrBilancio";
             this.txtDescrBilancio.ReadOnly = true;
             this.txtDescrBilancio.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescrBilancio.Size = new System.Drawing.Size(308, 90);
+            this.txtDescrBilancio.Size = new System.Drawing.Size(455, 90);
             this.txtDescrBilancio.TabIndex = 2;
             this.txtDescrBilancio.TabStop = false;
             this.txtDescrBilancio.Tag = "fin.title";
@@ -822,12 +824,15 @@ namespace csa_contracttax_default {
             // 
             // tabControl2
             // 
+            this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Location = new System.Drawing.Point(16, 70);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(904, 439);
+            this.tabControl2.Size = new System.Drawing.Size(1051, 510);
             this.tabControl2.TabIndex = 13;
             // 
             // tabPage4
@@ -836,31 +841,23 @@ namespace csa_contracttax_default {
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(896, 568);
+            this.tabPage4.Size = new System.Drawing.Size(1043, 484);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Ripartizione Unica";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.tabControl1);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(896, 413);
-            this.tabPage5.TabIndex = 1;
-            this.tabPage5.Text = "Vecchia Configurazione";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
             // gboxRipartizioneUnica
             // 
+            this.gboxRipartizioneUnica.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gboxRipartizioneUnica.Controls.Add(this.button4);
             this.gboxRipartizioneUnica.Controls.Add(this.button6);
             this.gboxRipartizioneUnica.Controls.Add(this.button7);
             this.gboxRipartizioneUnica.Controls.Add(this.dataGrid3);
             this.gboxRipartizioneUnica.Location = new System.Drawing.Point(6, 21);
             this.gboxRipartizioneUnica.Name = "gboxRipartizioneUnica";
-            this.gboxRipartizioneUnica.Size = new System.Drawing.Size(856, 527);
+            this.gboxRipartizioneUnica.Size = new System.Drawing.Size(1021, 457);
             this.gboxRipartizioneUnica.TabIndex = 26;
             this.gboxRipartizioneUnica.TabStop = false;
             this.gboxRipartizioneUnica.Text = "Ripartizione unica";
@@ -901,16 +898,27 @@ namespace csa_contracttax_default {
             this.dataGrid3.HeaderForeColor = System.Drawing.SystemColors.ControlText;
             this.dataGrid3.Location = new System.Drawing.Point(107, 19);
             this.dataGrid3.Name = "dataGrid3";
-            this.dataGrid3.Size = new System.Drawing.Size(734, 504);
+            this.dataGrid3.Size = new System.Drawing.Size(899, 434);
             this.dataGrid3.TabIndex = 24;
             this.dataGrid3.Tag = "csa_contracttax_partition.default.detail";
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.tabControl1);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(1043, 484);
+            this.tabPage5.TabIndex = 1;
+            this.tabPage5.Text = "Vecchia Configurazione";
+            this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // Frm_csa_contracttax_default
             // 
             this.AcceptButton = this.OkButton;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.CancelButton = this.CancButton;
-            this.ClientSize = new System.Drawing.Size(927, 556);
+            this.ClientSize = new System.Drawing.Size(1083, 621);
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.txtEsercDoc);
             this.Controls.Add(this.labEsercizio);
@@ -943,9 +951,9 @@ namespace csa_contracttax_default {
             this.gboxConto.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
-            this.tabPage5.ResumeLayout(false);
             this.gboxRipartizioneUnica.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid3)).EndInit();
+            this.tabPage5.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1024,7 +1032,7 @@ namespace csa_contracttax_default {
                      (R["idupb"] != DBNull.Value)) {
 
                      if (DispMessage) {
-                         if (MessageBox.Show("Per abilitare la selezione del movimento di spesa è necessario annullare le altre " +
+                         if (show("Per abilitare la selezione del movimento di spesa è necessario annullare le altre " +
                              "attribuzioni su questo contratto. Proseguo?", "Conferma",
                              MessageBoxButtons.OKCancel) != DialogResult.OK) {
                              chkSpesa.Checked = false;
@@ -1049,7 +1057,7 @@ namespace csa_contracttax_default {
 
              if (RR["idexp"] != DBNull.Value) {
                  if (DispMessage) {
-                     if (MessageBox.Show("Per abilitare la selezione delle attribuzioni normali su questo contratto è necessario annullare il collegamento al movimento di spesa " +
+                     if (show("Per abilitare la selezione delle attribuzioni normali su questo contratto è necessario annullare il collegamento al movimento di spesa " +
                          ". Proseguo?", "Conferma",
                          MessageBoxButtons.OKCancel) != DialogResult.OK) {
                          chkSpesa.Checked = true;
@@ -1224,7 +1232,7 @@ namespace csa_contracttax_default {
         }
 
         private void txtNum_Leave (object sender, EventArgs e) {
-            if (Meta.inchiusura || Meta.destroyed) return;
+            if (Meta.formController.isClosing || Meta.destroyed) return;
              if (Meta.IsEmpty || DS.csa_contracttax.Rows.Count==0) return;
              if (txtNum.ReadOnly) return;
              DataRow Curr = DS.csa_contracttax.Rows[0];
@@ -1237,7 +1245,7 @@ namespace csa_contracttax_default {
 
          private void txtEserc_Leave (object sender, EventArgs e) {
              HelpForm.FormatLikeYear(txtEserc);
-            if (Meta.inchiusura || Meta.destroyed) return;
+            if (Meta.formController.isClosing || Meta.destroyed) return;
             if (Meta.IsEmpty || DS.csa_contracttax.Rows.Count == 0) return;
             DataRow Curr = DS.csa_contracttax.Rows[0];
              if (Curr["idexp"] != DBNull.Value) {
@@ -1425,4 +1433,4 @@ namespace csa_contracttax_default {
             btnLinkEpExp_Click(sender, e);
         }
     }
-}
+}

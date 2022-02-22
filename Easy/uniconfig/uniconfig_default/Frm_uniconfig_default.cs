@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -31,7 +30,7 @@ namespace uniconfig_default
 	/// <summary>
 	/// Summary description for frmfasespesa.
 	/// </summary>
-    public class Frm_uniconfig_default : System.Windows.Forms.Form {
+    public class Frm_uniconfig_default : MetaDataForm {
         private System.Windows.Forms.ImageList images;
         public vistaForm DS;
         private Button btnAnnulla;
@@ -39,8 +38,8 @@ namespace uniconfig_default
 		private System.ComponentModel.IContainer components;
         bool CanGoEdit;
         bool CanGoInsert;
-        private TabControl tabControl1;
-        private TabPage tabPage1;
+        private TabControl tabMain;
+        private TabPage tabPageFasi;
         private GroupBox researchagency;
         private RadioButton radioButton2;
         private RadioButton radioButton1;
@@ -54,7 +53,7 @@ namespace uniconfig_default
         private Label label3;
         private ComboBox cmbIncomeRegistry;
         private Label label4;
-        private TabPage tabPage2;
+        private TabPage tabPageAttributi;
         private GroupBox groupBox4;
         private Label lblSorting5;
         private ComboBox comboBox2;
@@ -86,7 +85,7 @@ namespace uniconfig_default
         private RadioButton radioButton4;
         private CheckBox checkBox5;
         private CheckBox checkBox6;
-        private TabPage tabPage3;
+        private TabPage tabPageREA;
         private TextBox textBox2;
         private Label label6;
         private TextBox textBox1;
@@ -100,6 +99,31 @@ namespace uniconfig_default
         private RadioButton radioButton7;
         private RadioButton radioButton9;
         private GroupBox groupBox6;
+		private TabPage tabPagePerla;
+		private TextBox textBox3;
+		private Label label7;
+		private TextBox textBox6;
+		private Label label10;
+		private TextBox textBox5;
+		private Label label9;
+		private TextBox textBox4;
+		private Label label8;
+		private TabPage tabPageWeb;
+		private TextBox txtWebProt;
+		private Label label11;
+		private CheckBox checkBox7;
+		private TabPage tabPageAllegati;
+		private TextBox txtAttachmentMaxSize;
+		private Label label12;
+        private TabPage tabPagePassword;
+        private CheckBox chkRequireUppercase;
+        private CheckBox chkRequireLowercase;
+        private CheckBox chkRequireNonAlphanumeric;
+        private TextBox txtRequiredUniqueChars;
+        private TextBox txtRequiredLength;
+        private Label lblRequiredUniqueChars;
+        private Label lblRequiredLength;
+        private CheckBox chkRequireDigit;
         QueryHelper QHS;
 		public Frm_uniconfig_default()
 		{
@@ -135,8 +159,9 @@ namespace uniconfig_default
             this.images = new System.Windows.Forms.ImageList(this.components);
             this.btnAnnulla = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabMain = new System.Windows.Forms.TabControl();
+            this.tabPageFasi = new System.Windows.Forms.TabPage();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -159,7 +184,7 @@ namespace uniconfig_default
             this.label3 = new System.Windows.Forms.Label();
             this.cmbIncomeRegistry = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPageAttributi = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.chkClass5 = new System.Windows.Forms.CheckBox();
             this.lblSorting5 = new System.Windows.Forms.Label();
@@ -180,7 +205,7 @@ namespace uniconfig_default
             this.chkClass1 = new System.Windows.Forms.CheckBox();
             this.cmbClass1 = new System.Windows.Forms.ComboBox();
             this.lblSorting = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPageREA = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.radioButton7 = new System.Windows.Forms.RadioButton();
             this.radioButton9 = new System.Windows.Forms.RadioButton();
@@ -194,22 +219,50 @@ namespace uniconfig_default
             this.label5 = new System.Windows.Forms.Label();
             this.txtGiornoScad = new System.Windows.Forms.TextBox();
             this.labDay = new System.Windows.Forms.Label();
+            this.tabPagePerla = new System.Windows.Forms.TabPage();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tabPageWeb = new System.Windows.Forms.TabPage();
+            this.txtWebProt = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tabPageAllegati = new System.Windows.Forms.TabPage();
+            this.txtAttachmentMaxSize = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.tabPagePassword = new System.Windows.Forms.TabPage();
+            this.chkRequireDigit = new System.Windows.Forms.CheckBox();
+            this.lblRequiredUniqueChars = new System.Windows.Forms.Label();
+            this.lblRequiredLength = new System.Windows.Forms.Label();
+            this.chkRequireUppercase = new System.Windows.Forms.CheckBox();
+            this.chkRequireLowercase = new System.Windows.Forms.CheckBox();
+            this.chkRequireNonAlphanumeric = new System.Windows.Forms.CheckBox();
+            this.txtRequiredUniqueChars = new System.Windows.Forms.TextBox();
+            this.txtRequiredLength = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabMain.SuspendLayout();
+            this.tabPageFasi.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.researchagency.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabPageAttributi.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox25.SuspendLayout();
             this.groupBox26.SuspendLayout();
             this.groupBox27.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this.tabPageREA.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.tabPagePerla.SuspendLayout();
+            this.tabPageWeb.SuspendLayout();
+            this.tabPageAllegati.SuspendLayout();
+            this.tabPagePassword.SuspendLayout();
             this.SuspendLayout();
             // 
             // DS
@@ -241,9 +294,9 @@ namespace uniconfig_default
             // 
             this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnAnnulla.Location = new System.Drawing.Point(492, 448);
+            this.btnAnnulla.Location = new System.Drawing.Point(602, 587);
             this.btnAnnulla.Name = "btnAnnulla";
-            this.btnAnnulla.Size = new System.Drawing.Size(75, 23);
+            this.btnAnnulla.Size = new System.Drawing.Size(75, 24);
             this.btnAnnulla.TabIndex = 5;
             this.btnAnnulla.Text = "Annulla";
             // 
@@ -251,46 +304,63 @@ namespace uniconfig_default
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(411, 448);
+            this.btnOK.Location = new System.Drawing.Point(522, 587);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.Size = new System.Drawing.Size(75, 24);
             this.btnOK.TabIndex = 4;
             this.btnOK.Tag = "mainsave";
             this.btnOK.Text = "OK";
             // 
-            // tabControl1
+            // tabMain
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tabMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(555, 430);
-            this.tabControl1.TabIndex = 6;
+            this.tabMain.Controls.Add(this.tabPageFasi);
+            this.tabMain.Controls.Add(this.tabPageAttributi);
+            this.tabMain.Controls.Add(this.tabPageREA);
+            this.tabMain.Controls.Add(this.tabPagePerla);
+            this.tabMain.Controls.Add(this.tabPageWeb);
+            this.tabMain.Controls.Add(this.tabPageAllegati);
+            this.tabMain.Controls.Add(this.tabPagePassword);
+            this.tabMain.Location = new System.Drawing.Point(12, 12);
+            this.tabMain.Name = "tabMain";
+            this.tabMain.SelectedIndex = 0;
+            this.tabMain.Size = new System.Drawing.Size(665, 485);
+            this.tabMain.TabIndex = 6;
+            this.tabMain.Tag = "";
             // 
-            // tabPage1
+            // tabPageFasi
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage1.Controls.Add(this.checkBox6);
-            this.tabPage1.Controls.Add(this.checkBox5);
-            this.tabPage1.Controls.Add(this.groupBox5);
-            this.tabPage1.Controls.Add(this.checkBox4);
-            this.tabPage1.Controls.Add(this.checkBox3);
-            this.tabPage1.Controls.Add(this.checkBox2);
-            this.tabPage1.Controls.Add(this.checkBox1);
-            this.tabPage1.Controls.Add(this.researchagency);
-            this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(547, 404);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Fasi";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPageFasi.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageFasi.Controls.Add(this.checkBox7);
+            this.tabPageFasi.Controls.Add(this.checkBox6);
+            this.tabPageFasi.Controls.Add(this.checkBox5);
+            this.tabPageFasi.Controls.Add(this.groupBox5);
+            this.tabPageFasi.Controls.Add(this.checkBox4);
+            this.tabPageFasi.Controls.Add(this.checkBox3);
+            this.tabPageFasi.Controls.Add(this.checkBox2);
+            this.tabPageFasi.Controls.Add(this.checkBox1);
+            this.tabPageFasi.Controls.Add(this.researchagency);
+            this.tabPageFasi.Controls.Add(this.groupBox1);
+            this.tabPageFasi.Controls.Add(this.groupBox2);
+            this.tabPageFasi.Location = new System.Drawing.Point(4, 22);
+            this.tabPageFasi.Name = "tabPageFasi";
+            this.tabPageFasi.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageFasi.Size = new System.Drawing.Size(657, 459);
+            this.tabPageFasi.TabIndex = 0;
+            this.tabPageFasi.Text = "Fasi";
+            this.tabPageFasi.UseVisualStyleBackColor = true;
+            // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Location = new System.Drawing.Point(15, 397);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(297, 17);
+            this.checkBox7.TabIndex = 15;
+            this.checkBox7.Tag = "uniconfig.flag:4";
+            this.checkBox7.Text = "Obbliga abbinamento accertamenti su impegni in p. di giro";
+            this.checkBox7.UseVisualStyleBackColor = true;
             // 
             // checkBox6
             // 
@@ -438,7 +508,7 @@ namespace uniconfig_default
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(12, 91);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(517, 69);
+            this.groupBox1.Size = new System.Drawing.Size(628, 69);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Spesa";
@@ -452,7 +522,7 @@ namespace uniconfig_default
             this.cmbExpenseFin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbExpenseFin.Location = new System.Drawing.Point(200, 40);
             this.cmbExpenseFin.Name = "cmbExpenseFin";
-            this.cmbExpenseFin.Size = new System.Drawing.Size(309, 21);
+            this.cmbExpenseFin.Size = new System.Drawing.Size(420, 21);
             this.cmbExpenseFin.TabIndex = 2;
             this.cmbExpenseFin.Tag = "uniconfig.expensefinphase";
             this.cmbExpenseFin.ValueMember = "nphase";
@@ -475,7 +545,7 @@ namespace uniconfig_default
             this.cmbExpenseRegistry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbExpenseRegistry.Location = new System.Drawing.Point(200, 16);
             this.cmbExpenseRegistry.Name = "cmbExpenseRegistry";
-            this.cmbExpenseRegistry.Size = new System.Drawing.Size(309, 21);
+            this.cmbExpenseRegistry.Size = new System.Drawing.Size(420, 21);
             this.cmbExpenseRegistry.TabIndex = 1;
             this.cmbExpenseRegistry.Tag = "uniconfig.expenseregphase";
             this.cmbExpenseRegistry.ValueMember = "nphase";
@@ -499,7 +569,7 @@ namespace uniconfig_default
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Location = new System.Drawing.Point(12, 15);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(517, 72);
+            this.groupBox2.Size = new System.Drawing.Size(628, 72);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Entrata";
@@ -513,7 +583,7 @@ namespace uniconfig_default
             this.cmbIncomeFin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbIncomeFin.Location = new System.Drawing.Point(200, 40);
             this.cmbIncomeFin.Name = "cmbIncomeFin";
-            this.cmbIncomeFin.Size = new System.Drawing.Size(309, 21);
+            this.cmbIncomeFin.Size = new System.Drawing.Size(420, 21);
             this.cmbIncomeFin.TabIndex = 2;
             this.cmbIncomeFin.Tag = "uniconfig.incomefinphase";
             this.cmbIncomeFin.ValueMember = "nphase";
@@ -536,7 +606,7 @@ namespace uniconfig_default
             this.cmbIncomeRegistry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbIncomeRegistry.Location = new System.Drawing.Point(200, 16);
             this.cmbIncomeRegistry.Name = "cmbIncomeRegistry";
-            this.cmbIncomeRegistry.Size = new System.Drawing.Size(309, 21);
+            this.cmbIncomeRegistry.Size = new System.Drawing.Size(420, 21);
             this.cmbIncomeRegistry.TabIndex = 1;
             this.cmbIncomeRegistry.Tag = "uniconfig.incomeregphase";
             this.cmbIncomeRegistry.ValueMember = "nphase";
@@ -550,21 +620,21 @@ namespace uniconfig_default
             this.label4.Text = "Fase Bilancio Annuale:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // tabPage2
+            // tabPageAttributi
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Controls.Add(this.groupBox25);
-            this.tabPage2.Controls.Add(this.groupBox26);
-            this.tabPage2.Controls.Add(this.groupBox27);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(547, 404);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = " Attributi";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPageAttributi.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageAttributi.Controls.Add(this.groupBox4);
+            this.tabPageAttributi.Controls.Add(this.groupBox3);
+            this.tabPageAttributi.Controls.Add(this.groupBox25);
+            this.tabPageAttributi.Controls.Add(this.groupBox26);
+            this.tabPageAttributi.Controls.Add(this.groupBox27);
+            this.tabPageAttributi.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAttributi.Name = "tabPageAttributi";
+            this.tabPageAttributi.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAttributi.Size = new System.Drawing.Size(657, 459);
+            this.tabPageAttributi.TabIndex = 1;
+            this.tabPageAttributi.Text = " Attributi";
+            this.tabPageAttributi.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
@@ -781,22 +851,22 @@ namespace uniconfig_default
             this.lblSorting.TabIndex = 0;
             this.lblSorting.Text = "Classificazione 1:";
             // 
-            // tabPage3
+            // tabPageREA
             // 
-            this.tabPage3.Controls.Add(this.groupBox7);
-            this.tabPage3.Controls.Add(this.groupBox6);
-            this.tabPage3.Controls.Add(this.textBox2);
-            this.tabPage3.Controls.Add(this.label6);
-            this.tabPage3.Controls.Add(this.textBox1);
-            this.tabPage3.Controls.Add(this.label5);
-            this.tabPage3.Controls.Add(this.txtGiornoScad);
-            this.tabPage3.Controls.Add(this.labDay);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(547, 404);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "REA";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPageREA.Controls.Add(this.groupBox7);
+            this.tabPageREA.Controls.Add(this.groupBox6);
+            this.tabPageREA.Controls.Add(this.textBox2);
+            this.tabPageREA.Controls.Add(this.label6);
+            this.tabPageREA.Controls.Add(this.textBox1);
+            this.tabPageREA.Controls.Add(this.label5);
+            this.tabPageREA.Controls.Add(this.txtGiornoScad);
+            this.tabPageREA.Controls.Add(this.labDay);
+            this.tabPageREA.Location = new System.Drawing.Point(4, 22);
+            this.tabPageREA.Name = "tabPageREA";
+            this.tabPageREA.Size = new System.Drawing.Size(657, 459);
+            this.tabPageREA.TabIndex = 2;
+            this.tabPageREA.Text = "REA";
+            this.tabPageREA.UseVisualStyleBackColor = true;
             // 
             // groupBox7
             // 
@@ -930,13 +1000,253 @@ namespace uniconfig_default
             this.labDay.Text = "Ufficio (provincia):";
             this.labDay.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // tabPagePerla
+            // 
+            this.tabPagePerla.Controls.Add(this.textBox6);
+            this.tabPagePerla.Controls.Add(this.label10);
+            this.tabPagePerla.Controls.Add(this.textBox5);
+            this.tabPagePerla.Controls.Add(this.label9);
+            this.tabPagePerla.Controls.Add(this.textBox4);
+            this.tabPagePerla.Controls.Add(this.label8);
+            this.tabPagePerla.Controls.Add(this.textBox3);
+            this.tabPagePerla.Controls.Add(this.label7);
+            this.tabPagePerla.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePerla.Name = "tabPagePerla";
+            this.tabPagePerla.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePerla.Size = new System.Drawing.Size(657, 459);
+            this.tabPagePerla.TabIndex = 3;
+            this.tabPagePerla.Text = "Perla";
+            this.tabPagePerla.UseVisualStyleBackColor = true;
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(25, 196);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(356, 20);
+            this.textBox6.TabIndex = 7;
+            this.textBox6.Tag = "uniconfig.perla_codiceuopa";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(22, 180);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(68, 13);
+            this.label10.TabIndex = 6;
+            this.label10.Text = "codiceUoIpa";
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(25, 146);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(356, 20);
+            this.textBox5.TabIndex = 5;
+            this.textBox5.Tag = "uniconfig.perla_codiceaoopa";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(22, 130);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(73, 13);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "codiceAooIpa";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(25, 88);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(356, 20);
+            this.textBox4.TabIndex = 3;
+            this.textBox4.Tag = "uniconfig.perla_codicepaipa";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(22, 72);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(67, 13);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "codicePaIpa";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(25, 35);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(356, 20);
+            this.textBox3.TabIndex = 1;
+            this.textBox3.Tag = "uniconfig.perla_codicefiscalepa";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(22, 19);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(85, 13);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "codiceFiscalePa";
+            // 
+            // tabPageWeb
+            // 
+            this.tabPageWeb.Controls.Add(this.txtWebProt);
+            this.tabPageWeb.Controls.Add(this.label11);
+            this.tabPageWeb.Location = new System.Drawing.Point(4, 22);
+            this.tabPageWeb.Name = "tabPageWeb";
+            this.tabPageWeb.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageWeb.Size = new System.Drawing.Size(657, 459);
+            this.tabPageWeb.TabIndex = 4;
+            this.tabPageWeb.Text = "Web";
+            this.tabPageWeb.UseVisualStyleBackColor = true;
+            // 
+            // txtWebProt
+            // 
+            this.txtWebProt.Location = new System.Drawing.Point(9, 30);
+            this.txtWebProt.Name = "txtWebProt";
+            this.txtWebProt.Size = new System.Drawing.Size(511, 20);
+            this.txtWebProt.TabIndex = 1;
+            this.txtWebProt.Tag = "uniconfig.webprotaddress";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 14);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(159, 13);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Indirizzo servizio Protocollo Easy";
+            // 
+            // tabPageAllegati
+            // 
+            this.tabPageAllegati.Controls.Add(this.txtAttachmentMaxSize);
+            this.tabPageAllegati.Controls.Add(this.label12);
+            this.tabPageAllegati.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAllegati.Name = "tabPageAllegati";
+            this.tabPageAllegati.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAllegati.Size = new System.Drawing.Size(657, 459);
+            this.tabPageAllegati.TabIndex = 5;
+            this.tabPageAllegati.Text = "Allegati";
+            this.tabPageAllegati.UseVisualStyleBackColor = true;
+            // 
+            // txtAttachmentMaxSize
+            // 
+            this.txtAttachmentMaxSize.Location = new System.Drawing.Point(242, 17);
+            this.txtAttachmentMaxSize.Name = "txtAttachmentMaxSize";
+            this.txtAttachmentMaxSize.Size = new System.Drawing.Size(49, 20);
+            this.txtAttachmentMaxSize.TabIndex = 1;
+            this.txtAttachmentMaxSize.Tag = "uniconfig.attachment_max_size_mb";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(18, 19);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(196, 13);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "Dimensione massima degli allegati in MB";
+            // 
+            // tabPagePassword
+            // 
+            this.tabPagePassword.Controls.Add(this.chkRequireDigit);
+            this.tabPagePassword.Controls.Add(this.lblRequiredUniqueChars);
+            this.tabPagePassword.Controls.Add(this.lblRequiredLength);
+            this.tabPagePassword.Controls.Add(this.chkRequireUppercase);
+            this.tabPagePassword.Controls.Add(this.chkRequireLowercase);
+            this.tabPagePassword.Controls.Add(this.chkRequireNonAlphanumeric);
+            this.tabPagePassword.Controls.Add(this.txtRequiredUniqueChars);
+            this.tabPagePassword.Controls.Add(this.txtRequiredLength);
+            this.tabPagePassword.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePassword.Name = "tabPagePassword";
+            this.tabPagePassword.Size = new System.Drawing.Size(657, 459);
+            this.tabPagePassword.TabIndex = 6;
+            this.tabPagePassword.Text = "Password";
+            this.tabPagePassword.UseVisualStyleBackColor = true;
+            // 
+            // chkRequireDigit
+            // 
+            this.chkRequireDigit.AutoSize = true;
+            this.chkRequireDigit.Location = new System.Drawing.Point(38, 265);
+            this.chkRequireDigit.Name = "chkRequireDigit";
+            this.chkRequireDigit.Size = new System.Drawing.Size(189, 17);
+            this.chkRequireDigit.TabIndex = 7;
+            this.chkRequireDigit.Tag = "uniconfig.pwd_requiredigit:S:N";
+            this.chkRequireDigit.Text = "Richiedi almeno una cifra (numero)";
+            this.chkRequireDigit.UseVisualStyleBackColor = true;
+            // 
+            // lblRequiredUniqueChars
+            // 
+            this.lblRequiredUniqueChars.AutoSize = true;
+            this.lblRequiredUniqueChars.Location = new System.Drawing.Point(35, 94);
+            this.lblRequiredUniqueChars.Name = "lblRequiredUniqueChars";
+            this.lblRequiredUniqueChars.Size = new System.Drawing.Size(159, 13);
+            this.lblRequiredUniqueChars.TabIndex = 6;
+            this.lblRequiredUniqueChars.Text = "Numero di caratteri unici richiesti";
+            // 
+            // lblRequiredLength
+            // 
+            this.lblRequiredLength.AutoSize = true;
+            this.lblRequiredLength.Location = new System.Drawing.Point(35, 49);
+            this.lblRequiredLength.Name = "lblRequiredLength";
+            this.lblRequiredLength.Size = new System.Drawing.Size(132, 13);
+            this.lblRequiredLength.TabIndex = 5;
+            this.lblRequiredLength.Text = "Lunghezza della password";
+            // 
+            // chkRequireUppercase
+            // 
+            this.chkRequireUppercase.AutoSize = true;
+            this.chkRequireUppercase.Location = new System.Drawing.Point(38, 229);
+            this.chkRequireUppercase.Name = "chkRequireUppercase";
+            this.chkRequireUppercase.Size = new System.Drawing.Size(172, 17);
+            this.chkRequireUppercase.TabIndex = 4;
+            this.chkRequireUppercase.Tag = "uniconfig.pwd_requireuppercase:S:N";
+            this.chkRequireUppercase.Text = "Richiedi almeno una maiuscola";
+            this.chkRequireUppercase.UseVisualStyleBackColor = true;
+            // 
+            // chkRequireLowercase
+            // 
+            this.chkRequireLowercase.AutoSize = true;
+            this.chkRequireLowercase.Location = new System.Drawing.Point(38, 193);
+            this.chkRequireLowercase.Name = "chkRequireLowercase";
+            this.chkRequireLowercase.Size = new System.Drawing.Size(172, 17);
+            this.chkRequireLowercase.TabIndex = 3;
+            this.chkRequireLowercase.Tag = "uniconfig.pwd_requirelowercase:S:N";
+            this.chkRequireLowercase.Text = "Richiedi almeno una minuscola";
+            this.chkRequireLowercase.UseVisualStyleBackColor = true;
+            // 
+            // chkRequireNonAlphanumeric
+            // 
+            this.chkRequireNonAlphanumeric.AutoSize = true;
+            this.chkRequireNonAlphanumeric.Location = new System.Drawing.Point(38, 158);
+            this.chkRequireNonAlphanumeric.Name = "chkRequireNonAlphanumeric";
+            this.chkRequireNonAlphanumeric.Size = new System.Drawing.Size(392, 17);
+            this.chkRequireNonAlphanumeric.TabIndex = 2;
+            this.chkRequireNonAlphanumeric.Tag = "uniconfig.pwd_requirenonalphanumeric:S:N";
+            this.chkRequireNonAlphanumeric.Text = "Richiedi caratteri non alfanumerici (caratteri speciali - per esempio !, \", £, $," +
+    " ...)";
+            this.chkRequireNonAlphanumeric.UseVisualStyleBackColor = true;
+            // 
+            // txtRequiredUniqueChars
+            // 
+            this.txtRequiredUniqueChars.Location = new System.Drawing.Point(200, 91);
+            this.txtRequiredUniqueChars.Name = "txtRequiredUniqueChars";
+            this.txtRequiredUniqueChars.Size = new System.Drawing.Size(100, 20);
+            this.txtRequiredUniqueChars.TabIndex = 1;
+            this.txtRequiredUniqueChars.Tag = "uniconfig.pwd_requireduniquechars";
+            // 
+            // txtRequiredLength
+            // 
+            this.txtRequiredLength.Location = new System.Drawing.Point(200, 46);
+            this.txtRequiredLength.Name = "txtRequiredLength";
+            this.txtRequiredLength.Size = new System.Drawing.Size(100, 20);
+            this.txtRequiredLength.TabIndex = 0;
+            this.txtRequiredLength.Tag = "uniconfig.pwd_requiredlength";
+            // 
             // Frm_uniconfig_default
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.CancelButton = this.btnAnnulla;
-            this.ClientSize = new System.Drawing.Size(578, 482);
-            this.Controls.Add(this.tabControl1);
+            this.ClientSize = new System.Drawing.Size(689, 622);
+            this.Controls.Add(this.tabMain);
             this.Controls.Add(this.btnAnnulla);
             this.Controls.Add(this.btnOK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -945,16 +1255,16 @@ namespace uniconfig_default
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmuniconfigfasi";
             ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tabMain.ResumeLayout(false);
+            this.tabPageFasi.ResumeLayout(false);
+            this.tabPageFasi.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.researchagency.ResumeLayout(false);
             this.researchagency.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
+            this.tabPageAttributi.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -965,12 +1275,20 @@ namespace uniconfig_default
             this.groupBox26.PerformLayout();
             this.groupBox27.ResumeLayout(false);
             this.groupBox27.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            this.tabPageREA.ResumeLayout(false);
+            this.tabPageREA.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            this.tabPagePerla.ResumeLayout(false);
+            this.tabPagePerla.PerformLayout();
+            this.tabPageWeb.ResumeLayout(false);
+            this.tabPageWeb.PerformLayout();
+            this.tabPageAllegati.ResumeLayout(false);
+            this.tabPageAllegati.PerformLayout();
+            this.tabPagePassword.ResumeLayout(false);
+            this.tabPagePassword.PerformLayout();
             this.ResumeLayout(false);
 
 		}
@@ -980,6 +1298,15 @@ namespace uniconfig_default
         public void MetaData_AfterLink () {
 
             Meta = MetaData.GetMetaData(this);
+
+            if (Meta.editType == "pwd_config")
+                foreach(TabPage tp in tabMain.TabPages)
+                    if (tp.Name != "tabPagePassword") tabMain.TabPages.Remove(tp);
+
+            if (Meta.editType == "default")
+                foreach (TabPage tp in tabMain.TabPages)
+                    if (tp.Name == "tabPagePassword") tabMain.TabPages.Remove(tp);
+
             int numrighe = Meta.Conn.RUN_SELECT_COUNT("uniconfig", null, true);
             if (numrighe == 1) {
                 CanGoInsert = false;
@@ -1014,7 +1341,15 @@ namespace uniconfig_default
             HelpForm.SetDenyNull(DS.uniconfig.Columns["sorkind04asfilter"], true);
             HelpForm.SetDenyNull(DS.uniconfig.Columns["sorkind05asfilter"], true);
 
+
             HelpForm.SetDenyNull(DS.uniconfig.Columns["tree_upb_withdescr"], true);
+
+            HelpForm.SetDenyNull(DS.uniconfig.Columns["pwd_requiredlength"], true);
+            HelpForm.SetDenyNull(DS.uniconfig.Columns["pwd_requireduniquechars"], true);
+            HelpForm.SetDenyNull(DS.uniconfig.Columns["pwd_requirenonalphanumeric"], true);
+            HelpForm.SetDenyNull(DS.uniconfig.Columns["pwd_requirelowercase"], true);
+            HelpForm.SetDenyNull(DS.uniconfig.Columns["pwd_requireuppercase"], true);
+            HelpForm.SetDenyNull(DS.uniconfig.Columns["pwd_requiredigit"], true);
 
             DS.incomephase_fin.ExtendedProperties["sort_by"] = "nphase";
             DS.incomephase_registry.ExtendedProperties["sort_by"] = "nphase";
@@ -1045,4 +1380,3 @@ namespace uniconfig_default
         }
     }
 }
-

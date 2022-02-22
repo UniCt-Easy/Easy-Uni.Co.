@@ -1,0 +1,32 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuolakind_default_idclassescuolakind">Sigla</label>
+					<input id="classescuolakind_default_idclassescuolakind" type="text" class="form-control" data-tag="classescuolakind.idclassescuolakind?classescuolakinddefaultview.idclassescuolakind" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuolakind_default_title">Tipologia</label>
+					<input id="classescuolakind_default_title" type="text" class="form-control" data-tag="classescuolakind.title?classescuolakinddefaultview.title" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuolakind_default_idcorsostudiokind">Tipologia di corso</label>
+					<select id="classescuolakind_default_idcorsostudiokind" class="custom-select d-block w-100"  data-source-name="corsostudiokinddefaultview" data-value-member="idcorsostudiokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="classescuolakind.idcorsostudiokind?classescuolakinddefaultview.classescuolakind_idcorsostudiokind" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuolakind_default_idcorsostudiolivello">Livello del corso</label>
+					<div>
+						<input id="classescuolakind_default_idcorsostudiolivello" name="classescuolakind_default_idcorsostudiolivello" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="corsostudiolivellodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

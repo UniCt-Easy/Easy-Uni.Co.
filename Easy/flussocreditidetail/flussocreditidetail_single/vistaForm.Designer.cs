@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -25,7 +24,6 @@ using System.Runtime.Serialization;
 using meta_estimatekind;
 using meta_flussocreditidetail;
 using meta_invoicekind;
-using meta_accmotiveapplied;
 using meta_upb;
 using meta_sorting;
 using meta_ivakind;
@@ -36,7 +34,7 @@ using metadatalibrary;
 namespace flussocreditidetail_single {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -64,16 +62,16 @@ public class dsmeta: DataSet {
 	public MetaTable finmotive_income 		=> (MetaTable)Tables["finmotive_income"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public accmotiveappliedTable accmotiveapplied_credit 		=> (accmotiveappliedTable)Tables["accmotiveapplied_credit"];
+	public MetaTable accmotiveapplied_credit 		=> (MetaTable)Tables["accmotiveapplied_credit"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public accmotiveappliedTable accmotiveapplied_revenue 		=> (accmotiveappliedTable)Tables["accmotiveapplied_revenue"];
+	public MetaTable accmotiveapplied_revenue 		=> (MetaTable)Tables["accmotiveapplied_revenue"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public accmotiveappliedTable accmotiveapplied_undotax 		=> (accmotiveappliedTable)Tables["accmotiveapplied_undotax"];
+	public MetaTable accmotiveapplied_undotax 		=> (MetaTable)Tables["accmotiveapplied_undotax"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public accmotiveappliedTable accmotiveapplied_undotaxpost 		=> (accmotiveappliedTable)Tables["accmotiveapplied_undotaxpost"];
+	public MetaTable accmotiveapplied_undotaxpost 		=> (MetaTable)Tables["accmotiveapplied_undotaxpost"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registrymainview 		=> (MetaTable)Tables["registrymainview"];
@@ -117,6 +115,9 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable upb_iva 		=> (MetaTable)Tables["upb_iva"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable finmotive_iva_income 		=> (MetaTable)Tables["finmotive_iva_income"];
+
 	#endregion
 
 
@@ -150,7 +151,7 @@ private void initClass() {
 
 	//////////////////// FLUSSOCREDITIDETAIL /////////////////////////////////
 	var tflussocreditidetail= new flussocreditidetailTable();
-	tflussocreditidetail.addBaseColumns("idflusso","iddetail","cu","ct","lu","lt","importoversamento","idestimkind","yestim","nestim","rownum","idinvkind","yinv","ninv","invrownum","competencystart","competencystop","description","idaccmotivecredit","idaccmotiverevenue","idaccmotiveundotax","idaccmotiveundotaxpost","idfinmotive","idreg","iduniqueformcode","idupb","nform","stop","expirationdate","cf","iuv","annulment","idunivoco","codiceavviso","idsor1","idsor2","idsor3","tax","barcodevalue","barcodeimage","qrcodevalue","qrcodeimage","idivakind","number","p_iva","annotations","idlist","idupb_iva","flag");
+	tflussocreditidetail.addBaseColumns("idflusso","iddetail","cu","ct","lu","lt","importoversamento","idestimkind","yestim","nestim","rownum","idinvkind","yinv","ninv","invrownum","competencystart","competencystop","description","idaccmotivecredit","idaccmotiverevenue","idaccmotiveundotax","idaccmotiveundotaxpost","idfinmotive","idreg","iduniqueformcode","idupb","nform","stop","expirationdate","cf","iuv","annulment","idunivoco","codiceavviso","idsor1","idsor2","idsor3","tax","barcodevalue","barcodeimage","qrcodevalue","qrcodeimage","idivakind","number","p_iva","annotations","idlist","idupb_iva","flag","codicetassonomia","flag_showcase","idfinmotive_iva");
 	Tables.Add(tflussocreditidetail);
 	tflussocreditidetail.defineKey("idflusso", "iddetail");
 
@@ -176,32 +177,84 @@ private void initClass() {
 	tfinmotive_income.defineKey("idfinmotive");
 
 	//////////////////// ACCMOTIVEAPPLIED_CREDIT /////////////////////////////////
-	var taccmotiveapplied_credit= new accmotiveappliedTable();
-	taccmotiveapplied_credit.TableName = "accmotiveapplied_credit";
-	taccmotiveapplied_credit.addBaseColumns("idaccmotive","paridaccmotive","codemotive","motive","cu","ct","lu","lt","active","idepoperation","epoperation","in_use","flagamm","flagdep","expensekind");
-	taccmotiveapplied_credit.ExtendedProperties["TableForReading"]="accmotiveapplied";
+	var taccmotiveapplied_credit= new MetaTable("accmotiveapplied_credit");
+	taccmotiveapplied_credit.defineColumn("idaccmotive", typeof(string),false);
+	taccmotiveapplied_credit.defineColumn("paridaccmotive", typeof(string));
+	taccmotiveapplied_credit.defineColumn("codemotive", typeof(string),false);
+	taccmotiveapplied_credit.defineColumn("motive", typeof(string),false);
+	taccmotiveapplied_credit.defineColumn("cu", typeof(string),false);
+	taccmotiveapplied_credit.defineColumn("ct", typeof(DateTime),false);
+	taccmotiveapplied_credit.defineColumn("lu", typeof(string),false);
+	taccmotiveapplied_credit.defineColumn("lt", typeof(DateTime),false);
+	taccmotiveapplied_credit.defineColumn("active", typeof(string));
+	taccmotiveapplied_credit.defineColumn("idepoperation", typeof(string));
+	taccmotiveapplied_credit.defineColumn("epoperation", typeof(string));
+	taccmotiveapplied_credit.defineColumn("in_use", typeof(string),false);
+	taccmotiveapplied_credit.defineColumn("flagamm", typeof(string));
+	taccmotiveapplied_credit.defineColumn("flagdep", typeof(string));
+	taccmotiveapplied_credit.defineColumn("expensekind", typeof(string));
 	Tables.Add(taccmotiveapplied_credit);
+	taccmotiveapplied_credit.defineKey("idaccmotive");
 
 	//////////////////// ACCMOTIVEAPPLIED_REVENUE /////////////////////////////////
-	var taccmotiveapplied_revenue= new accmotiveappliedTable();
-	taccmotiveapplied_revenue.TableName = "accmotiveapplied_revenue";
-	taccmotiveapplied_revenue.addBaseColumns("idaccmotive","paridaccmotive","codemotive","motive","cu","ct","lu","lt","active","idepoperation","epoperation","in_use","flagamm","flagdep","expensekind");
-	taccmotiveapplied_revenue.ExtendedProperties["TableForReading"]="accmotiveapplied";
+	var taccmotiveapplied_revenue= new MetaTable("accmotiveapplied_revenue");
+	taccmotiveapplied_revenue.defineColumn("idaccmotive", typeof(string),false);
+	taccmotiveapplied_revenue.defineColumn("paridaccmotive", typeof(string));
+	taccmotiveapplied_revenue.defineColumn("codemotive", typeof(string),false);
+	taccmotiveapplied_revenue.defineColumn("motive", typeof(string),false);
+	taccmotiveapplied_revenue.defineColumn("cu", typeof(string),false);
+	taccmotiveapplied_revenue.defineColumn("ct", typeof(DateTime),false);
+	taccmotiveapplied_revenue.defineColumn("lu", typeof(string),false);
+	taccmotiveapplied_revenue.defineColumn("lt", typeof(DateTime),false);
+	taccmotiveapplied_revenue.defineColumn("active", typeof(string));
+	taccmotiveapplied_revenue.defineColumn("idepoperation", typeof(string));
+	taccmotiveapplied_revenue.defineColumn("epoperation", typeof(string));
+	taccmotiveapplied_revenue.defineColumn("in_use", typeof(string),false);
+	taccmotiveapplied_revenue.defineColumn("flagamm", typeof(string));
+	taccmotiveapplied_revenue.defineColumn("flagdep", typeof(string));
+	taccmotiveapplied_revenue.defineColumn("expensekind", typeof(string));
 	Tables.Add(taccmotiveapplied_revenue);
+	taccmotiveapplied_revenue.defineKey("idaccmotive");
 
 	//////////////////// ACCMOTIVEAPPLIED_UNDOTAX /////////////////////////////////
-	var taccmotiveapplied_undotax= new accmotiveappliedTable();
-	taccmotiveapplied_undotax.TableName = "accmotiveapplied_undotax";
-	taccmotiveapplied_undotax.addBaseColumns("idaccmotive","paridaccmotive","codemotive","motive","cu","ct","lu","lt","active","idepoperation","epoperation","in_use","flagamm","flagdep","expensekind");
-	taccmotiveapplied_undotax.ExtendedProperties["TableForReading"]="accmotiveapplied";
+	var taccmotiveapplied_undotax= new MetaTable("accmotiveapplied_undotax");
+	taccmotiveapplied_undotax.defineColumn("idaccmotive", typeof(string),false);
+	taccmotiveapplied_undotax.defineColumn("paridaccmotive", typeof(string));
+	taccmotiveapplied_undotax.defineColumn("codemotive", typeof(string),false);
+	taccmotiveapplied_undotax.defineColumn("motive", typeof(string),false);
+	taccmotiveapplied_undotax.defineColumn("cu", typeof(string),false);
+	taccmotiveapplied_undotax.defineColumn("ct", typeof(DateTime),false);
+	taccmotiveapplied_undotax.defineColumn("lu", typeof(string),false);
+	taccmotiveapplied_undotax.defineColumn("lt", typeof(DateTime),false);
+	taccmotiveapplied_undotax.defineColumn("active", typeof(string));
+	taccmotiveapplied_undotax.defineColumn("idepoperation", typeof(string));
+	taccmotiveapplied_undotax.defineColumn("epoperation", typeof(string));
+	taccmotiveapplied_undotax.defineColumn("in_use", typeof(string),false);
+	taccmotiveapplied_undotax.defineColumn("flagamm", typeof(string));
+	taccmotiveapplied_undotax.defineColumn("flagdep", typeof(string));
+	taccmotiveapplied_undotax.defineColumn("expensekind", typeof(string));
 	Tables.Add(taccmotiveapplied_undotax);
+	taccmotiveapplied_undotax.defineKey("idaccmotive");
 
 	//////////////////// ACCMOTIVEAPPLIED_UNDOTAXPOST /////////////////////////////////
-	var taccmotiveapplied_undotaxpost= new accmotiveappliedTable();
-	taccmotiveapplied_undotaxpost.TableName = "accmotiveapplied_undotaxpost";
-	taccmotiveapplied_undotaxpost.addBaseColumns("idaccmotive","paridaccmotive","codemotive","motive","cu","ct","lu","lt","active","idepoperation","epoperation","in_use","flagamm","flagdep","expensekind");
-	taccmotiveapplied_undotaxpost.ExtendedProperties["TableForReading"]="accmotiveapplied";
+	var taccmotiveapplied_undotaxpost= new MetaTable("accmotiveapplied_undotaxpost");
+	taccmotiveapplied_undotaxpost.defineColumn("idaccmotive", typeof(string),false);
+	taccmotiveapplied_undotaxpost.defineColumn("paridaccmotive", typeof(string));
+	taccmotiveapplied_undotaxpost.defineColumn("codemotive", typeof(string),false);
+	taccmotiveapplied_undotaxpost.defineColumn("motive", typeof(string),false);
+	taccmotiveapplied_undotaxpost.defineColumn("cu", typeof(string),false);
+	taccmotiveapplied_undotaxpost.defineColumn("ct", typeof(DateTime),false);
+	taccmotiveapplied_undotaxpost.defineColumn("lu", typeof(string),false);
+	taccmotiveapplied_undotaxpost.defineColumn("lt", typeof(DateTime),false);
+	taccmotiveapplied_undotaxpost.defineColumn("active", typeof(string));
+	taccmotiveapplied_undotaxpost.defineColumn("idepoperation", typeof(string));
+	taccmotiveapplied_undotaxpost.defineColumn("epoperation", typeof(string));
+	taccmotiveapplied_undotaxpost.defineColumn("in_use", typeof(string),false);
+	taccmotiveapplied_undotaxpost.defineColumn("flagamm", typeof(string));
+	taccmotiveapplied_undotaxpost.defineColumn("flagdep", typeof(string));
+	taccmotiveapplied_undotaxpost.defineColumn("expensekind", typeof(string));
 	Tables.Add(taccmotiveapplied_undotaxpost);
+	taccmotiveapplied_undotaxpost.defineKey("idaccmotive");
 
 	//////////////////// REGISTRYMAINVIEW /////////////////////////////////
 	var tregistrymainview= new MetaTable("registrymainview");
@@ -342,33 +395,31 @@ private void initClass() {
 	Tables.Add(tupb_iva);
 	tupb_iva.defineKey("idupb");
 
+	//////////////////// FINMOTIVE_IVA_INCOME /////////////////////////////////
+	var tfinmotive_iva_income= new MetaTable("finmotive_iva_income");
+	tfinmotive_iva_income.defineColumn("idfinmotive", typeof(string),false);
+	tfinmotive_iva_income.defineColumn("active", typeof(string),false);
+	tfinmotive_iva_income.defineColumn("codemotive", typeof(string),false);
+	tfinmotive_iva_income.defineColumn("paridfinmotive", typeof(string));
+	tfinmotive_iva_income.defineColumn("title", typeof(string),false);
+	tfinmotive_iva_income.defineColumn("lt", typeof(DateTime));
+	tfinmotive_iva_income.defineColumn("lu", typeof(string));
+	tfinmotive_iva_income.defineColumn("ct", typeof(DateTime));
+	tfinmotive_iva_income.defineColumn("cu", typeof(string));
+	Tables.Add(tfinmotive_iva_income);
+	tfinmotive_iva_income.defineKey("idfinmotive");
+
 	#endregion
 
 
 	#region DataRelation creation
 	this.defineRelation("FK_upb_flussocreditidetail","upb","flussocreditidetail","idupb");
 	this.defineRelation("FK_registrymainview_flussocreditidetail","registrymainview","flussocreditidetail","idreg");
-	var cPar = new []{accmotiveapplied_undotaxpost.Columns["idaccmotive"]};
-	var cChild = new []{flussocreditidetail.Columns["idaccmotiveundotaxpost"]};
-	Relations.Add(new DataRelation("FK_accmotiveapplied_undotaxpost_flussocreditidetail",cPar,cChild,false));
-
-	cPar = new []{accmotiveapplied_undotax.Columns["idaccmotive"]};
-	cChild = new []{flussocreditidetail.Columns["idaccmotiveundotax"]};
-	Relations.Add(new DataRelation("FK_accmotiveapplied_undotax_flussocreditidetail",cPar,cChild,false));
-
-	cPar = new []{accmotiveapplied_revenue.Columns["idaccmotive"]};
-	cChild = new []{flussocreditidetail.Columns["idaccmotiverevenue"]};
-	Relations.Add(new DataRelation("FK_accmotiveapplied_revenue_flussocreditidetail",cPar,cChild,false));
-
-	cPar = new []{accmotiveapplied_credit.Columns["idaccmotive"]};
-	cChild = new []{flussocreditidetail.Columns["idaccmotivecredit"]};
-	Relations.Add(new DataRelation("FK_accmotiveapplied_credit_flussocreditidetail",cPar,cChild,false));
-
 	this.defineRelation("FK_finmotive_income_flussocreditidetail","finmotive_income","flussocreditidetail","idfinmotive");
 	this.defineRelation("FK_invoicekind_flussocreditidetail","invoicekind","flussocreditidetail","idinvkind");
 	this.defineRelation("FK_estimatekind_flussocreditidetail","estimatekind","flussocreditidetail","idestimkind");
-	cPar = new []{sorting3.Columns["idsor"]};
-	cChild = new []{flussocreditidetail.Columns["idsor3"]};
+	var cPar = new []{sorting3.Columns["idsor"]};
+	var cChild = new []{flussocreditidetail.Columns["idsor3"]};
 	Relations.Add(new DataRelation("sorting3_flussocreditidetail",cPar,cChild,false));
 
 	cPar = new []{sorting2.Columns["idsor"]};
@@ -385,9 +436,28 @@ private void initClass() {
 	cChild = new []{flussocreditidetail.Columns["idupb_iva"]};
 	Relations.Add(new DataRelation("upb_iva_flussocreditidetail",cPar,cChild,false));
 
+	cPar = new []{finmotive_iva_income.Columns["idfinmotive"]};
+	cChild = new []{flussocreditidetail.Columns["idfinmotive_iva"]};
+	Relations.Add(new DataRelation("finmotive_iva_income_flussocreditidetail",cPar,cChild,false));
+
+	cPar = new []{accmotiveapplied_undotaxpost.Columns["idaccmotive"]};
+	cChild = new []{flussocreditidetail.Columns["idaccmotiveundotaxpost"]};
+	Relations.Add(new DataRelation("accmotiveapplied_undotaxpost_flussocreditidetail",cPar,cChild,false));
+
+	cPar = new []{accmotiveapplied_credit.Columns["idaccmotive"]};
+	cChild = new []{flussocreditidetail.Columns["idaccmotivecredit"]};
+	Relations.Add(new DataRelation("accmotiveapplied_credit_flussocreditidetail",cPar,cChild,false));
+
+	cPar = new []{accmotiveapplied_undotax.Columns["idaccmotive"]};
+	cChild = new []{flussocreditidetail.Columns["idaccmotiveundotax"]};
+	Relations.Add(new DataRelation("accmotiveapplied_undotax_flussocreditidetail",cPar,cChild,false));
+
+	cPar = new []{accmotiveapplied_revenue.Columns["idaccmotive"]};
+	cChild = new []{flussocreditidetail.Columns["idaccmotiverevenue"]};
+	Relations.Add(new DataRelation("accmotiveapplied_revenue_flussocreditidetail",cPar,cChild,false));
+
 	#endregion
 
 }
 }
 }
-

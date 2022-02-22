@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,7 +26,7 @@ using System.Runtime.Serialization;
 namespace estimate_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -156,6 +155,24 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable estimateattachment 		=> Tables["estimateattachment"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable estimateattachmentkind 		=> Tables["estimateattachmentkind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable nso_status 		=> Tables["nso_status"];
+
+	///<summary>
+	///NSO Ordine di Vendita
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable nso_vendita 		=> Tables["nso_vendita"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable nocigmotive 		=> Tables["nocigmotive"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable nso_deliverystatus 		=> Tables["nso_deliverystatus"];
+
 	#endregion
 
 
@@ -240,6 +257,8 @@ private void initClass() {
 	testimate.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	testimate.Columns.Add( new DataColumn("external_reference", typeof(string)));
 	testimate.Columns.Add( new DataColumn("cigcode", typeof(string)));
+	testimate.Columns.Add( new DataColumn("idnso_vendita", typeof(int)));
+	testimate.Columns.Add( new DataColumn("idnocigmotive", typeof(int)));
 	Tables.Add(testimate);
 	testimate.PrimaryKey =  new DataColumn[]{testimate.Columns["idestimkind"], testimate.Columns["nestim"], testimate.Columns["yestim"]};
 
@@ -313,6 +332,10 @@ private void initClass() {
 	testimatedetail.Columns.Add( new DataColumn("proceedsexpiring", typeof(DateTime)));
 	testimatedetail.Columns.Add( new DataColumn("idsor_siope", typeof(int)));
 	testimatedetail.Columns.Add( new DataColumn("idepacc_pre", typeof(int)));
+	testimatedetail.Columns.Add( new DataColumn("rownum_main", typeof(int)));
+	testimatedetail.Columns.Add( new DataColumn("idtassonomia", typeof(int)));
+	testimatedetail.Columns.Add( new DataColumn("idfinmotive_iva", typeof(string)));
+	testimatedetail.Columns.Add( new DataColumn("cupcode", typeof(string)));
 	Tables.Add(testimatedetail);
 	testimatedetail.PrimaryKey =  new DataColumn[]{testimatedetail.Columns["idestimkind"], testimatedetail.Columns["nestim"], testimatedetail.Columns["rownum"], testimatedetail.Columns["yestim"]};
 
@@ -394,6 +417,7 @@ private void initClass() {
 	testimatekind.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	testimatekind.Columns.Add( new DataColumn("idivakind_forced", typeof(int)));
 	testimatekind.Columns.Add( new DataColumn("flag", typeof(int)));
+	testimatekind.Columns.Add( new DataColumn("riferimento_amministrazione", typeof(string)));
 	Tables.Add(testimatekind);
 	testimatekind.PrimaryKey =  new DataColumn[]{testimatekind.Columns["idestimkind"]};
 
@@ -529,6 +553,9 @@ private void initClass() {
 	tinvoicedetail.Columns.Add( new DataColumn("idinc_taxable", typeof(int)));
 	tinvoicedetail.Columns.Add( new DataColumn("idgroup", typeof(int)));
 	tinvoicedetail.Columns.Add( new DataColumn("idsor_siope", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("idfinmotive_iva", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("idupb_iva", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("idlist", typeof(int)));
 	Tables.Add(tinvoicedetail);
 	tinvoicedetail.PrimaryKey =  new DataColumn[]{tinvoicedetail.Columns["idinvkind"], tinvoicedetail.Columns["ninv"], tinvoicedetail.Columns["rownum"], tinvoicedetail.Columns["yinv"]};
 
@@ -1328,6 +1355,10 @@ private void initClass() {
 	testimatedetailview.Columns.Add( new DataColumn("proceedsexpiring", typeof(DateTime)));
 	testimatedetailview.Columns.Add( new DataColumn("idsor_siope", typeof(int)));
 	testimatedetailview.Columns.Add( new DataColumn("idepacc_pre", typeof(int)));
+	testimatedetailview.Columns.Add( new DataColumn("rownum_main", typeof(int)));
+	testimatedetailview.Columns.Add( new DataColumn("idtassonomia", typeof(int)));
+	testimatedetailview.Columns.Add( new DataColumn("idfinmotive_iva", typeof(string)));
+	testimatedetailview.Columns.Add( new DataColumn("cupcode", typeof(string)));
 	Tables.Add(testimatedetailview);
 	testimatedetailview.PrimaryKey =  new DataColumn[]{testimatedetailview.Columns["idestimkind"], testimatedetailview.Columns["yestim"], testimatedetailview.Columns["nestim"], testimatedetailview.Columns["rownum"]};
 
@@ -1395,8 +1426,189 @@ private void initClass() {
 	testimateattachment.Columns.Add( new DataColumn("lu", typeof(string)));
 	testimateattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
 	testimateattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	testimateattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	testimateattachment.Columns.Add( new DataColumn("!attachmentkind", typeof(string)));
 	Tables.Add(testimateattachment);
 	testimateattachment.PrimaryKey =  new DataColumn[]{testimateattachment.Columns["idestimkind"], testimateattachment.Columns["yestim"], testimateattachment.Columns["nestim"], testimateattachment.Columns["idattachment"]};
+
+
+	//////////////////// ESTIMATEATTACHMENTKIND /////////////////////////////////
+	var testimateattachmentkind= new DataTable("estimateattachmentkind");
+	C= new DataColumn("idattachmentkind", typeof(int));
+	C.AllowDBNull=false;
+	testimateattachmentkind.Columns.Add(C);
+	C= new DataColumn("active", typeof(string));
+	C.AllowDBNull=false;
+	testimateattachmentkind.Columns.Add(C);
+	testimateattachmentkind.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	testimateattachmentkind.Columns.Add( new DataColumn("cu", typeof(string)));
+	testimateattachmentkind.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	testimateattachmentkind.Columns.Add( new DataColumn("lu", typeof(string)));
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	testimateattachmentkind.Columns.Add(C);
+	Tables.Add(testimateattachmentkind);
+	testimateattachmentkind.PrimaryKey =  new DataColumn[]{testimateattachmentkind.Columns["idattachmentkind"]};
+
+
+	//////////////////// NSO_STATUS /////////////////////////////////
+	var tnso_status= new DataTable("nso_status");
+	C= new DataColumn("idnso_status", typeof(short));
+	C.AllowDBNull=false;
+	tnso_status.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tnso_status.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tnso_status.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
+	C.AllowDBNull=false;
+	tnso_status.Columns.Add(C);
+	tnso_status.Columns.Add( new DataColumn("listingorder", typeof(int)));
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tnso_status.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tnso_status.Columns.Add(C);
+	Tables.Add(tnso_status);
+	tnso_status.PrimaryKey =  new DataColumn[]{tnso_status.Columns["idnso_status"]};
+
+
+	//////////////////// NSO_VENDITA /////////////////////////////////
+	var tnso_vendita= new DataTable("nso_vendita");
+	C= new DataColumn("idnso_vendita", typeof(int));
+	C.AllowDBNull=false;
+	tnso_vendita.Columns.Add(C);
+	C= new DataColumn("filename", typeof(string));
+	C.AllowDBNull=false;
+	tnso_vendita.Columns.Add(C);
+	C= new DataColumn("zipfilename", typeof(string));
+	C.AllowDBNull=false;
+	tnso_vendita.Columns.Add(C);
+	C= new DataColumn("adate", typeof(DateTime));
+	C.AllowDBNull=false;
+	tnso_vendita.Columns.Add(C);
+	C= new DataColumn("xml", typeof(string));
+	C.AllowDBNull=false;
+	tnso_vendita.Columns.Add(C);
+	tnso_vendita.Columns.Add( new DataColumn("identificativo_nso", typeof(long)));
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tnso_vendita.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tnso_vendita.Columns.Add(C);
+	tnso_vendita.Columns.Add( new DataColumn("dt", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("dt_prot", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("ec", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("ec_prot", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("mt", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("mt_prot", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("se", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("se_prot", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("ec_sent", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("ec_number", typeof(int)));
+	C= new DataColumn("position", typeof(int));
+	C.AllowDBNull=false;
+	tnso_vendita.Columns.Add(C);
+	C= new DataColumn("idnso_status", typeof(short));
+	C.AllowDBNull=false;
+	tnso_vendita.Columns.Add(C);
+	tnso_vendita.Columns.Add( new DataColumn("flag_unseen", typeof(int)));
+	tnso_vendita.Columns.Add( new DataColumn("codice_ipa", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("protocoldate", typeof(DateTime)));
+	tnso_vendita.Columns.Add( new DataColumn("arrivalprotocolnum", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("rejectreason", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("riferimento_amministrazione", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("description", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("data_ricezione", typeof(DateTime)));
+	tnso_vendita.Columns.Add( new DataColumn("tipo_risposta", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("data_risposta", typeof(DateTime)));
+	tnso_vendita.Columns.Add( new DataColumn("tipo_riscontro", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("data_riscontro", typeof(DateTime)));
+	tnso_vendita.Columns.Add( new DataColumn("protocol_error", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("tipodocumento", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("signedxml", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("signedxmlfilename", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("utente_accettata", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("utente_rifiutata", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("data_accettata", typeof(DateTime)));
+	tnso_vendita.Columns.Add( new DataColumn("data_rifiutata", typeof(DateTime)));
+	C= new DataColumn("order_id", typeof(string));
+	C.AllowDBNull=false;
+	tnso_vendita.Columns.Add(C);
+	tnso_vendita.Columns.Add( new DataColumn("order_idemittente", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("order_data_scadenza", typeof(DateTime)));
+	C= new DataColumn("order_tipo", typeof(int));
+	C.AllowDBNull=false;
+	tnso_vendita.Columns.Add(C);
+	tnso_vendita.Columns.Add( new DataColumn("contratto_id", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("codice_identificativo_gara", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("total", typeof(decimal)));
+	tnso_vendita.Columns.Add( new DataColumn("tax_total", typeof(decimal)));
+	tnso_vendita.Columns.Add( new DataColumn("buyer_id", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("buyer_name", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("buyer_taxid", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("email_nso", typeof(string)));
+	tnso_vendita.Columns.Add( new DataColumn("idnso_deliverystatus", typeof(short)));
+	Tables.Add(tnso_vendita);
+	tnso_vendita.PrimaryKey =  new DataColumn[]{tnso_vendita.Columns["idnso_vendita"]};
+
+
+	//////////////////// NOCIGMOTIVE /////////////////////////////////
+	var tnocigmotive= new DataTable("nocigmotive");
+	C= new DataColumn("idnocigmotive", typeof(int));
+	C.AllowDBNull=false;
+	tnocigmotive.Columns.Add(C);
+	C= new DataColumn("codenocigmotive", typeof(string));
+	C.AllowDBNull=false;
+	tnocigmotive.Columns.Add(C);
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	tnocigmotive.Columns.Add(C);
+	tnocigmotive.Columns.Add( new DataColumn("active", typeof(string)));
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tnocigmotive.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tnocigmotive.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tnocigmotive.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tnocigmotive.Columns.Add(C);
+	tnocigmotive.Columns.Add( new DataColumn("idnocigmotiveNSO", typeof(string)));
+	Tables.Add(tnocigmotive);
+	tnocigmotive.PrimaryKey =  new DataColumn[]{tnocigmotive.Columns["idnocigmotive"]};
+
+
+	//////////////////// NSO_DELIVERYSTATUS /////////////////////////////////
+	var tnso_deliverystatus= new DataTable("nso_deliverystatus");
+	C= new DataColumn("idnso_deliverystatus", typeof(short));
+	C.AllowDBNull=false;
+	tnso_deliverystatus.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tnso_deliverystatus.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tnso_deliverystatus.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
+	C.AllowDBNull=false;
+	tnso_deliverystatus.Columns.Add(C);
+	tnso_deliverystatus.Columns.Add( new DataColumn("listingorder", typeof(int)));
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tnso_deliverystatus.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tnso_deliverystatus.Columns.Add(C);
+	Tables.Add(tnso_deliverystatus);
+	tnso_deliverystatus.PrimaryKey =  new DataColumn[]{tnso_deliverystatus.Columns["idnso_deliverystatus"]};
 
 
 	#endregion
@@ -1487,9 +1699,28 @@ private void initClass() {
 	cChild = new []{estimateattachment.Columns["idestimkind"], estimateattachment.Columns["nestim"], estimateattachment.Columns["yestim"]};
 	Relations.Add(new DataRelation("estimate_estimateattachment",cPar,cChild,false));
 
+	cPar = new []{estimateattachmentkind.Columns["idattachmentkind"]};
+	cChild = new []{estimateattachment.Columns["idattachmentkind"]};
+	Relations.Add(new DataRelation("estimateattachmentkind_estimateattachment",cPar,cChild,false));
+
+	cPar = new []{nso_vendita.Columns["idnso_vendita"]};
+	cChild = new []{estimate.Columns["idnso_vendita"]};
+	Relations.Add(new DataRelation("nso_vendita_estimate",cPar,cChild,false));
+
+	cPar = new []{nso_status.Columns["idnso_status"]};
+	cChild = new []{nso_vendita.Columns["idnso_status"]};
+	Relations.Add(new DataRelation("nso_status_nso_vendita",cPar,cChild,false));
+
+	cPar = new []{nocigmotive.Columns["idnocigmotive"]};
+	cChild = new []{estimate.Columns["idnocigmotive"]};
+	Relations.Add(new DataRelation("nocigmotive_estimate",cPar,cChild,false));
+
+	cPar = new []{nso_deliverystatus.Columns["idnso_deliverystatus"]};
+	cChild = new []{nso_vendita.Columns["idnso_deliverystatus"]};
+	Relations.Add(new DataRelation("nso_deliverystatus_nso_vendita",cPar,cChild,false));
+
 	#endregion
 
 }
 }
 }
-

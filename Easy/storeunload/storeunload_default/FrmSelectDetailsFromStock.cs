@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -29,7 +28,7 @@ using funzioni_configurazione;
 using AskInfo;
 
 namespace storeunload_default {
-    public partial class FrmSelectDetailsFromStock : Form {
+    public partial class FrmSelectDetailsFromStock : MetaDataForm {
         string filtersql;
         MetaData Meta;
         MetaDataDispatcher Disp;
@@ -206,7 +205,7 @@ namespace storeunload_default {
         bool CustomChangeTab(int oldTab, int newTab){
             if ((oldTab == 0) && (newTab == 1)) {
                 if (RStock == null) {
-                    MessageBox.Show("Selezionare la Merce da Scaricare");
+                    show("Selezionare la Merce da Scaricare");
                     return false;
                 }
                 else {
@@ -220,7 +219,7 @@ namespace storeunload_default {
                 decimal number = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(decimal), 
                                                         txtQuantita.Text, "x.y"));
                 if (number > quantita) {
-                    MessageBox.Show("Quantità superiore alla disponibilità consentità. Digitare un valore inferiore");
+                    show("Quantità superiore alla disponibilità consentità. Digitare un valore inferiore");
                     return false;
                 }
                 else {
@@ -411,7 +410,7 @@ namespace storeunload_default {
 
             int rowsfound = Conn.RUN_SELECT_COUNT("stocktotalview", filter, true);
             if (rowsfound == 0) {
-                MessageBox.Show("Nessun elemento trovato");
+                show("Nessun elemento trovato");
                 return null;
             }
 
@@ -507,4 +506,4 @@ namespace storeunload_default {
                 if (TTitle != null) TTitle.Text = "";
             }
         }
-}
+}

@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_driverupb_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_driverupb_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="sorting" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="sortcode" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="driverupbdetail" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddriverupb" type="xs:int" />
+              <xs:element name="iddriverupbdetail" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="quota" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_idreg_registry_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idsor_sorting_sortcode" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idsor_sorting_description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="upbcoanview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="upb_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accountusablecoanview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="accountkind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="accountusable_accountkind" type="xs:string" />
+              <xs:element name="accountusable_ayear" type="xs:int" />
+              <xs:element name="accountusable_codeacc" type="xs:string" />
+              <xs:element name="accountusable_ct" type="xs:dateTime" />
+              <xs:element name="accountusable_cu" type="xs:string" />
+              <xs:element name="accountusable_flagaccountusage" type="xs:int" minOccurs="0" />
+              <xs:element name="accountusable_flagda" type="xs:string" minOccurs="0" />
+              <xs:element name="accountusable_flagregistry" type="xs:string" minOccurs="0" />
+              <xs:element name="accountusable_flagtransitory" type="xs:string" minOccurs="0" />
+              <xs:element name="accountusable_flagupb" type="xs:string" minOccurs="0" />
+              <xs:element name="accountusable_idaccountkind" type="xs:string" minOccurs="0" />
+              <xs:element name="accountusable_lt" type="xs:dateTime" />
+              <xs:element name="accountusable_lu" type="xs:string" />
+              <xs:element name="accountusable_nlevel" type="xs:string" minOccurs="0" />
+              <xs:element name="accountusable_printingorder" type="xs:string" />
+              <xs:element name="accountusableparent_ayear" type="xs:int" minOccurs="0" />
+              <xs:element name="accountusableparent_codeacc" type="xs:string" minOccurs="0" />
+              <xs:element name="accountusableparent_title" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idacc" type="xs:string" />
+              <xs:element name="idpatrimony" type="xs:string" minOccurs="0" />
+              <xs:element name="idplaccount" type="xs:string" minOccurs="0" />
+              <xs:element name="paridacc" type="xs:string" minOccurs="0" />
+              <xs:element name="patrimony_title" type="xs:string" minOccurs="0" />
+              <xs:element name="placcount_title" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="year" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="driverupb" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="_x0021_percentuale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idacc" type="xs:string" />
+              <xs:element name="iddriverupb" type="xs:int" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="year" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sorting" />
+      <xs:field xpath="mstns:idsor" />
+    </xs:unique>
+    <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="driverupbdetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:driverupbdetail" />
+      <xs:field xpath="mstns:iddriverupb" />
+      <xs:field xpath="mstns:iddriverupbdetail" />
+    </xs:unique>
+    <xs:unique name="upbcoanview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upbcoanview" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="accountusablecoanview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accountusablecoanview" />
+      <xs:field xpath="mstns:idacc" />
+    </xs:unique>
+    <xs:unique name="year_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:year" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="driverupb_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:driverupb" />
+      <xs:field xpath="mstns:iddriverupb" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_driverupbdetail_driverupb_iddriverupb" msdata:parent="driverupb" msdata:child="driverupbdetail" msdata:parentkey="iddriverupb" msdata:childkey="iddriverupb" />
+      <msdata:Relationship name="FK_driverupbdetail_sorting_idsor" msdata:parent="sorting" msdata:child="driverupbdetail" msdata:parentkey="idsor" msdata:childkey="idsor" />
+      <msdata:Relationship name="FK_driverupbdetail_registry_idreg" msdata:parent="registry" msdata:child="driverupbdetail" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_driverupb_upbcoanview_idupb" msdata:parent="upbcoanview" msdata:child="driverupb" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="FK_driverupb_accountusablecoanview_idacc" msdata:parent="accountusablecoanview" msdata:child="driverupb" msdata:parentkey="idacc" msdata:childkey="idacc" />
+      <msdata:Relationship name="FK_driverupb_year_year" msdata:parent="year" msdata:child="driverupb" msdata:parentkey="year" msdata:childkey="year" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

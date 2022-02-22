@@ -120,6 +120,10 @@
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="meta_registrypaymethod">
+      <HintPath>..\..\registrypaymethod\meta_registrypaymethod\bin\Debug\meta_registrypaymethod.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -161,12 +165,12 @@
     <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
       <Name>funzioni_configurazione</Name>
       <Project>{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}</Project>
-      <Private>False</Private>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\gestioneclassificazioni\gestioneclassificazioni.csproj">
       <Name>gestioneclassificazioni</Name>
       <Project>{C7F92C58-E58A-4695-AF23-A7B698DEC777}</Project>
-      <Private>False</Private>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\movimentofunctions\movimentofunctions.csproj">
       <Name>movimentofunctions</Name>
@@ -312,6 +316,27 @@
       <HintPath>..\..\geo_city\meta_geo_city\bin\Debug\meta_geo_city.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_geo_city</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_registrypaymethod">
+      <HintPath>..\..\registrypaymethod\meta_registrypaymethod\bin\Debug\meta_registrypaymethod.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_registrypaymethod</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_income">
+      <HintPath>..\..\income\meta_income\bin\Debug\meta_income.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_income</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_expenselast">
+      <HintPath>dll\meta_expenselast.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_expenselastmandatedetail">
+      <HintPath>..\..\expenselastmandatedetail\meta_expenselastmandatedetail\bin\Debug\meta_expenselastmandatedetail.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_expenselastmandatedetail</Name>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

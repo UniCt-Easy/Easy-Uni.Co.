@@ -105,6 +105,9 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataSetForUpdateFromMenu.cs">
+      <DependentUpon>DataSetForUpdateFromMenu.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DataSetForUpdateFromMenu.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

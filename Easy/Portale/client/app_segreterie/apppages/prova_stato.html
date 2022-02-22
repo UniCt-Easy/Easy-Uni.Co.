@@ -1,0 +1,54 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="prova_stato_title">Denominazione</label>
+					<input id="prova_stato_title" type="text" class="form-control" data-tag="prova.title?provastatoview.title" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#prova_stato_start").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="prova_stato_start">Data e ora inizio</label>
+					<input id="prova_stato_start" type="text" class="form-control" data-tag="prova.start.g?provastatoview.prova_start.g" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#prova_stato_stop").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="prova_stato_stop">Data e ora fine</label>
+					<input id="prova_stato_stop" type="text" class="form-control" data-tag="prova.stop.g?provastatoview.prova_stop.g" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="prova_stato_idquestionario">Questionario</label>
+					<div>
+						<input id="prova_stato_idquestionario" name="prova_stato_idquestionario" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="questionariodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="prova_stato_idvalutazionekind">Tipologia di valutazione</label>
+					<select id="prova_stato_idvalutazionekind" class="custom-select d-block w-100"  data-source-name="valutazionekind" data-value-member="idvalutazionekind" data-display-member="title" data-custom-control="combo" data-tag="prova.idvalutazionekind?provastatoview.prova_idvalutazionekind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="prova_stato_programma">Programma</label>
+					<textarea class="textarea form-control" id="prova_stato_programma" type="text"  rows="4" data-tag="prova.programma?provastatoview.prova_programma" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

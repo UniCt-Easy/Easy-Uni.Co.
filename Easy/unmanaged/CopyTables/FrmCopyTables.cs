@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -419,12 +418,12 @@ namespace CopyTables {
                         "select name from sysobjects where  xtype='U' and uid=user_id('dbo') order by name", false);
                     int NNondbo = TNonDBO.Rows.Count;
                     int NDBO = TDBO.Rows.Count;
-                    MessageBox.Show("Trovate " + NDBO.ToString() + " tabelle DBO e " + NNondbo.ToString() +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Trovate " + NDBO.ToString() + " tabelle DBO e " + NNondbo.ToString() +
                             " tabelle NON DBO");
                     Conn.Close();
                 }
                 else {
-                    MessageBox.Show("Non è stato possibile connettersi al db." + Conn.LastError);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è stato possibile connettersi al db." + Conn.LastError);
                 }
             }
             catch (Exception E) {
@@ -449,12 +448,12 @@ namespace CopyTables {
                         "select name from sysobjects where  xtype='U' and uid=user_id('dbo') order by name", false);
                     int NNondbo = TNonDBO.Rows.Count;
                     int NDBO = TDBO.Rows.Count;
-                    MessageBox.Show("Trovate " + NDBO.ToString() + " tabelle DBO e " + NNondbo.ToString() +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Trovate " + NDBO.ToString() + " tabelle DBO e " + NNondbo.ToString() +
                             " tabelle NON DBO");
                     Conn.Close();
                 }
                 else {
-                    MessageBox.Show("Non è stato possibile connettersi al db." + Conn.LastError);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è stato possibile connettersi al db." + Conn.LastError);
                 }
             }
             catch (Exception E) {
@@ -542,7 +541,7 @@ namespace CopyTables {
                     btnCopyDBO.Enabled = true;
                     DestDip.Destroy();
                     SourceDip.Destroy();
-                    MessageBox.Show("Copia non completata","Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Copia non completata","Errore");
                     return;
                 }
             }
@@ -560,7 +559,7 @@ namespace CopyTables {
             pbarAll.Value = 0;
             pBarCurrTab.Value = 0;
 
-            MessageBox.Show("Copia completata con successo");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("Copia completata con successo");
 
         }
         string[] toskip = new string[] {
@@ -600,7 +599,7 @@ namespace CopyTables {
                                 + QueryCreator.quotedstrvalue(tablename, true) + " and xtype='U' and uid=user_id( "
                                 + QueryCreator.quotedstrvalue(dest_owner, true) + ")", false);
             if (Exists.Rows.Count == 0) {
-                MessageBox.Show("Tabella " + tablename +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Tabella " + tablename +
                                         " non trovata nel nuovo dipartimento. Questa tabella sarà saltata. ",
                                         "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return true;
@@ -612,14 +611,14 @@ namespace CopyTables {
             else {
                 int Num = Dest.RUN_SELECT_COUNT(tablename, null, false);
                 if (Num > 0) {
-                    MessageBox.Show("La tabella " + tablename + " sarà saltata perché contiene già " +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("La tabella " + tablename + " sarà saltata perché contiene già " +
                         Num.ToString() + " righe nel db di destinazione.", "Avviso");
                     return true;
                 }
             }
             bool res = CopyTable(T, Dest,dest_owner);
             if (!res) {
-                MessageBox.Show("Errore nella copia della tabella " + tablename);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nella copia della tabella " + tablename);
                 return false;
             }
 
@@ -668,7 +667,7 @@ namespace CopyTables {
                             StreamWriter fsw = new StreamWriter("temp.sql", false, Encoding.Default);
                             fsw.Write(s.ToString());
                             fsw.Close();
-                            MessageBox.Show(this, "Errore durante la copia della tabella " + TT.TableName + "\r\nLo script lanciato si trova nel file 'temp.sql'");
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore durante la copia della tabella " + TT.TableName + "\r\nLo script lanciato si trova nel file 'temp.sql'");
 
                             return false;
                         }
@@ -684,7 +683,7 @@ namespace CopyTables {
                         StreamWriter fsw = new StreamWriter("temp.sql", false, Encoding.Default);
                         fsw.Write(s.ToString());
                         fsw.Close();
-                        MessageBox.Show(this, "Errore durante la copia di " + TT.TableName + "\r\nLo script lanciato si trova nel file 'temp.sql'");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore durante la copia di " + TT.TableName + "\r\nLo script lanciato si trova nel file 'temp.sql'");
 
                         return false;
                     }
@@ -723,4 +722,3 @@ namespace CopyTables {
 
     }
 }
-

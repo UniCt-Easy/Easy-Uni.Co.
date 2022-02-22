@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -28,7 +27,7 @@ using funzioni_configurazione;
 using System.Diagnostics;
 
 namespace no_table_checkpatrimonio {
-    public partial class FrmCheckPatrimonio : Form {
+    public partial class FrmCheckPatrimonio : MetaDataForm {
         DataAccess Conn;
         MetaData Meta;
 
@@ -72,6 +71,10 @@ namespace no_table_checkpatrimonio {
             Meta = MetaData.GetMetaData(this);
             Conn = Meta.Conn;
             DisabilitaFunzioni();
+            Meta.canInsert = false;
+            Meta.canSave = false;
+            Meta.searchEnabled = false;
+            Meta.CanCancel = false;
         }
         public void DisabilitaFunzioni() {
             btnTestF1.Enabled = false;
@@ -89,7 +92,7 @@ namespace no_table_checkpatrimonio {
         public void VisualizzaDati(DataTable T,string explanation) {
             if (T == null) return;
             if (T.Rows.Count == 0) {
-                MessageBox.Show("Nessun elemento trovato");
+                show("Nessun elemento trovato");
                 return;
             }
             int sel = 0;
@@ -124,7 +127,7 @@ namespace no_table_checkpatrimonio {
 
         private void ToExcel(DataTable T) {
             if (T.Rows.Count == 0) {
-                MessageBox.Show("Nessun elemento trovato");
+                show("Nessun elemento trovato");
                 return;
             }
             exportclass.DataTableToExcel(T, true);
@@ -142,7 +145,7 @@ namespace no_table_checkpatrimonio {
         //    MetaData MElenco = MetaData.GetMetaData(this, dataTable);
         //    int rowsfound = Conn.RUN_SELECT_COUNT(dataTable, filter, true);
         //    if (rowsfound == 0) {
-        //        MessageBox.Show("Nessun elemento trovato");
+        //        show("Nessun elemento trovato");
         //        return;
         //    }
 
@@ -155,7 +158,7 @@ namespace no_table_checkpatrimonio {
 
         private void ToCsv(DataTable T) {
             if (T.Rows.Count == 0) {
-                MessageBox.Show("Nessun elemento trovato");
+                show("Nessun elemento trovato");
                 return;
             }
             OpenFileDialog FD = new OpenFileDialog();
@@ -167,7 +170,7 @@ namespace no_table_checkpatrimonio {
             FD.Multiselect = false;
             DialogResult DR = FD.ShowDialog();
             if (DR != DialogResult.OK) {
-                MessageBox.Show("Non è stata scelta la destinazione");
+                show("Non è stata scelta la destinazione");
                 return;
             }
 
@@ -890,4 +893,4 @@ namespace no_table_checkpatrimonio {
     }
 
 
-}
+}

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -31,7 +30,7 @@ namespace invoice_default
 	/// <summary>
 	/// Summary description for frmaskbban.
 	/// </summary>
-	public class frmAskDividi : System.Windows.Forms.Form
+	public class frmAskDividi : MetaDataForm
 	{
 	
 		MetaDataDispatcher Disp;
@@ -1984,7 +1983,7 @@ namespace invoice_default
                 totale1 = CfgFn.RoundValuta(imponibile_try * npackage * (1 - discount) * exchangerate);
                 totale2 = CfgFn.RoundValuta(imponibilecomplementare_try * npackage * (1 - discount) * exchangerate);
 				if (totale1+totale2 == TotaleImponibile) {
-					if (!silent) MessageBox.Show("L'imponibile è stato portato da "+
+					if (!silent) show("L'imponibile è stato portato da "+
                         ImpoStr(imponibiletest)+
                         " a " + ImpoStr(imponibile_try) +
 						" per evitare problemi di incoerenza dei totali.");
@@ -1995,7 +1994,7 @@ namespace invoice_default
                 totale1 = CfgFn.RoundValuta(imponibile_try * npackage * (1 - discount) * exchangerate);
                 totale2 = CfgFn.RoundValuta(imponibilecomplementare_try * npackage * (1 - discount) * exchangerate);
 				if (totale1+totale2 == TotaleImponibile) {
-					if (!silent) MessageBox.Show("L'imponibile è stato portato da "+
+					if (!silent) show("L'imponibile è stato portato da "+
                     ImpoStr(imponibiletest) +
                     " a " + ImpoStr(imponibile_try) +
                   " per evitare problemi di incoerenza dei totali.");
@@ -2003,7 +2002,7 @@ namespace invoice_default
 				}
 				cent+= passo;
 			}
-			MessageBox.Show("Non è stato trovato un imponibile adeguato alle esigenze di divisione");
+			show("Non è stato trovato un imponibile adeguato alle esigenze di divisione");
 			return imponibiletest;
 		}
 
@@ -2285,7 +2284,7 @@ namespace invoice_default
 				totrigaassegnato += totaleriga;
 
                 if ((Tupb.Text.ToString().Trim() == "") && (taxable != 0 || tax != 0)) {
-                    MessageBox.Show("Riga " + suffix + ": selezionare l'UPB");
+                    show("Riga " + suffix + ": selezionare l'UPB");
                     Tupb.Focus();
                     e.Cancel = true;
                     return;
@@ -2308,43 +2307,43 @@ namespace invoice_default
 
 			
 			if (taxableassegnato<importo){
-				MessageBox.Show("L'imponibile del dettaglio originale non è stato interamente suddiviso");
+				show("L'imponibile del dettaglio originale non è stato interamente suddiviso");
 				Info.Clear();
 				e.Cancel = true;
 				return;
 			}
 			if(taxassegnato<importoIva){
-				MessageBox.Show("L'Iva del dettaglio originale non è stata interamente suddivisa");
+				show("L'Iva del dettaglio originale non è stata interamente suddivisa");
 				Info.Clear();
 				e.Cancel = true;
 				return;
 			}
 			if (taxableassegnato<importo){
-				MessageBox.Show("L'imponibile del dettaglio originale è inferiore alla somma dei valori ripartiti");
+				show("L'imponibile del dettaglio originale è inferiore alla somma dei valori ripartiti");
 				Info.Clear();
 				e.Cancel = true;
 				return;
 			}
 			if(totrigaassegnato<(importoTotaleRiga)){
-				MessageBox.Show("Il totale riga del dettaglio originale non è stato interamente suddiviso");
+				show("Il totale riga del dettaglio originale non è stato interamente suddiviso");
 				Info.Clear();
 				e.Cancel = true;
 				return;
 			}
 			if(taxassegnato>importoIva){
-				MessageBox.Show("L'Iva del dettaglio originale è inferiore alla somma dei valori ripartiti");
+				show("L'Iva del dettaglio originale è inferiore alla somma dei valori ripartiti");
 				Info.Clear();
 				e.Cancel = true;
 				return;
 			}
 			if(unabatassegnato<importoIndetraibile){
-				MessageBox.Show("L'Iva Indetraibile del dettaglio originale è inferiore alla somma dei valori ripartiti");
+				show("L'Iva Indetraibile del dettaglio originale è inferiore alla somma dei valori ripartiti");
 				Info.Clear();
 				e.Cancel = true;
 				return;
 			}
 			if(totrigaassegnato>(importoTotaleRiga)){
-				MessageBox.Show("Il totale riga del dettaglio originale è inferiore alla somma dei valori ripartiti");
+				show("Il totale riga del dettaglio originale è inferiore alla somma dei valori ripartiti");
 				Info.Clear();
 				e.Cancel = true;
 				return;
@@ -2365,7 +2364,7 @@ namespace invoice_default
 			try {
 				decimal percent = CfgFn.GetNoNullDecimal( HelpForm.GetObjectFromString(typeof(Decimal),T.Text,"x.y.c"));		
 				if ((percent < 0) || (percent > percentmax)){
-					MessageBox.Show(errmsg,"Avviso");
+					show(errmsg,"Avviso");
 					T.Focus();
 					OK = false;
 				}
@@ -2376,7 +2375,7 @@ namespace invoice_default
   
 			}
 			catch {                
-				MessageBox.Show("E' necessario digitare un numero" ,"Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
+				show("E' necessario digitare un numero" ,"Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
 				return false;
 			}            
 			return OK;
@@ -2398,13 +2397,13 @@ namespace invoice_default
 					OK = true;
 				}
 				else{
-					MessageBox.Show(errmsg,"Avviso");
+					show(errmsg,"Avviso");
 					OK = false;
 				}
   
 			}
 			catch {                
-				MessageBox.Show("E' necessario inserire un numero","Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
+				show("E' necessario inserire un numero","Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
 				return false;
 			}
 			return OK;
@@ -2426,13 +2425,13 @@ namespace invoice_default
 					OK = true;
 				}
 				else{
-					MessageBox.Show(errmsg,"Avviso");
+					show(errmsg,"Avviso");
 					OK = false;
 				}
   
 			}
 			catch {                
-				MessageBox.Show("E' necessario inserire un numero","Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
+				show("E' necessario inserire un numero","Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
 				return false;
 			}
 			return OK;
@@ -2462,13 +2461,13 @@ namespace invoice_default
 					OK = true;
 				}
 				else{
-					MessageBox.Show(errmsg,"Avviso");
+					show(errmsg,"Avviso");
 					OK = false;
 				}
   
 			}
 			catch {                
-				MessageBox.Show("E' necessario inserire un numero","Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
+				show("E' necessario inserire un numero","Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
 				return false;
 			}
 			return OK;
@@ -2800,4 +2799,3 @@ namespace invoice_default
        
 	}
 }
-

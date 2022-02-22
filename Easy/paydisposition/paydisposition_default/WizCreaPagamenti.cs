@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,7 +31,7 @@ using System.Windows.Forms;
 using funzioni_configurazione;//funzioni_configurazione
 
 namespace paydisposition_default {
-	public partial class WizCreaPagamenti :System.Windows.Forms.Form {
+	public partial class WizCreaPagamenti : MetaDataForm {
 		MetaData Meta;
 		DataAccess Conn;
 		string CustomTitle;
@@ -43,17 +42,18 @@ namespace paydisposition_default {
 		int fasespesacont;
 		int faseivaspesa;
 		int esercizio;
+		object motive;
 		CQueryHelper QHC;
 		QueryHelper QHS;
 		DataRow[] RowGridSelected;
 		DataRow ParentExpense;
-		public WizCreaPagamenti(DataRow[] RowSelected,MetaData Meta, DataAccess Conn, DSFinancial DS1) {
+		public WizCreaPagamenti(DataRow[] RowSelected,object motive, MetaData Meta, DataAccess Conn, DSFinancial DS1) {
 			InitializeComponent();
 			this.RowGridSelected = RowSelected;
 			this.Meta = Meta;
 			this.Conn = Conn;
 			this.DS = DS1;
-
+			this.motive = motive;
 			QHS = Conn.GetQueryHelper();
 			QHC = new CQueryHelper();
 
@@ -220,7 +220,7 @@ namespace paydisposition_default {
 		bool GetMovimentoSelezionato() {
 			ClearTablesMovFin();
 			if (txtNumeroMovimento.Text.Trim() == "") {
-				MessageBox.Show("Selezionare un movimento per procedere");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Selezionare un movimento per procedere");
 				DisplayTabs(1);
 				return false;
 			}
@@ -328,13 +328,16 @@ namespace paydisposition_default {
 			E_S.BeginEdit();
 			E_S["ymov"] = esercizio;
 			E_S["adate"] = DataCont;
-			E_S["description"] = "Disposizione a favore di " + Auto["forename"] + " " + Auto["surname"];
+			string description = "";
+			if (Auto["title"].ToString() == ""){
+				description = "Disposizione a favore di " + Auto["forename"] + " " + Auto["surname"];
+			}
+			else {
+				description = "Disposizione a favore di " + Auto["title"];
+			}
+			if (motive != DBNull.Value) description = motive.ToString() +  " "  + description;
+			E_S["description"] = description;
 			E_S["doc"] = "Disp. " + Auto["idpaydisposition"] + "/" + esercizio.ToString() + " - "+ Auto["iddetail"];
-			//string[] fields_to_copy = new string[] {"motive"};
-			//foreach (string field in fields_to_copy) {
-			//	if (Auto.Table.Columns[field] == null) continue;
-			//	if (E_S.Table.Columns.Contains(field)) E_S[field] = Auto[field];
-			//}
 			E_S.EndEdit();
 		}
 		private void fillImputazioneMovimento(  DataRow R, DataRow ImpMov, DataRow RDisp) {
@@ -353,7 +356,7 @@ namespace paydisposition_default {
 			string accountFieldName = "idaccdebit";
 
 			#region riempimento mod. pagamento
-			//aggiungere le informazioni della modalit√† di pagamento
+			//aggiungere le informazioni della modalit‡ di pagamento
 			object idpaymethod = check_tipomodpagamento(DS.paymethod, R);
 			NewLastMov["idpaymethod"] = idpaymethod;//ModPagam["idpaymethod"]; 
 			NewLastMov["iban"] = R["iban"];
@@ -409,6 +412,8 @@ namespace paydisposition_default {
 			if (hashTipoModPagamento == null) {
 				hashTipoModPagamento = new Hashtable();
 				foreach (DataRow RH in PayMethod.Rows) {
+					if ((RH["abi_label"].ToString() == "SEPACREDITTRANSFER") && 
+						(RH["description"].ToString().ToUpper().Contains("BANCO POSTA") )) continue;
 					// Prendo solo un esemplare per ciascun valore di abi_label
 					if (!hashTipoModPagamento.Contains(RH["abi_label"]))
 						hashTipoModPagamento[RH["abi_label"]] = RH;
@@ -464,22 +469,22 @@ namespace paydisposition_default {
 			GestioneAutomatismi ga = new GestioneAutomatismi(this, Meta.Conn, Meta.Dispatcher, DS,
 				faseMax, faseMax, "expense", true);
 			ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
-			ga.GeneraClassificazioniIndirette(ga.DSP, true);
+			//ga.GeneraClassificazioniIndirette(ga.DSP, true);
 
 
 			bool res = ga.GeneraAutomatismiAfterPost(true);
 			if (!res) {
-				MessageBox.Show(this,
-					"Si √® verificato un errore o si √® deciso di non salvare! L'operazione sar√† terminata");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
+					"Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
 				return false;
 			} else {
 				res = ga.doPost(Meta.Dispatcher);
 				if (res) {
-					MessageBox.Show(this, "Salvataggio dei movimenti finanziari avvenuto con successo");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Salvataggio dei movimenti finanziari avvenuto con successo");
 					return true;
 				} else {
-					MessageBox.Show(this,
-						"Si √® verificato un errore o si √® deciso di non salvare! L'operazione sar√† terminata");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
+						"Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
 					return false;
 				}
 			}
@@ -592,4 +597,3 @@ namespace paydisposition_default {
 		}
 	}
 }
-

@@ -1,0 +1,36 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="naturagiur_default_title">Titolo</label>
+					<input id="naturagiur_default_title" type="text" class="form-control" data-tag="naturagiur.title?naturagiurdefaultview.title" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="naturagiur_default_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="naturagiur_default_activeSi" type="radio" name="naturagiur_default_active" class="custom-control-input" data-tag="naturagiur.active:S?naturagiurdefaultview.naturagiur_active:Si" data-subentity  data-mandatory ><label for="naturagiur_default_activeSi"> Si</label>
+						<input id="naturagiur_default_activeNo" type="radio" name="naturagiur_default_active" class="custom-control-input" data-tag="naturagiur.active:N?naturagiurdefaultview.naturagiur_active:No" data-subentity  data-mandatory ><label for="naturagiur_default_activeNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="naturagiur_default_flagforeign">Flagforeign</label>
+					<div class="custom-control custom-radio">
+						<input id="naturagiur_default_flagforeignSi" type="radio" name="naturagiur_default_flagforeign" class="custom-control-input" data-tag="naturagiur.flagforeign:S?naturagiurdefaultview.naturagiur_flagforeign:Si" data-subentity  ><label for="naturagiur_default_flagforeignSi"> Si</label>
+						<input id="naturagiur_default_flagforeignNo" type="radio" name="naturagiur_default_flagforeign" class="custom-control-input" data-tag="naturagiur.flagforeign:N?naturagiurdefaultview.naturagiur_flagforeign:No" data-subentity  ><label for="naturagiur_default_flagforeignNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="naturagiur_default_sortcode">Ordinamento</label>
+					<input id="naturagiur_default_sortcode" type="text" class="form-control" data-tag="naturagiur.sortcode?naturagiurdefaultview.naturagiur_sortcode" data-subentity  data-mandatory />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

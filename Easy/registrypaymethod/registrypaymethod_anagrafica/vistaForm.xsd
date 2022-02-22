@@ -37,6 +37,7 @@
               <xs:element name="ccdedicato_doc" type="xs:base64Binary" minOccurs="0" />
               <xs:element name="ccdedicato_cf" type="xs:base64Binary" minOccurs="0" />
               <xs:element name="requested_doc" type="xs:int" minOccurs="0" />
+              <xs:element name="ccdedicato_stop" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

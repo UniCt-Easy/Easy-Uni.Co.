@@ -1,0 +1,68 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudiocaratteristica_default_cf">Crediti</label>
+					<input id="corsostudiocaratteristica_default_cf" type="text" class="form-control" data-tag="corsostudiocaratteristica.cf.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudiocaratteristica_default_cfmax">Crediti max</label>
+					<input id="corsostudiocaratteristica_default_cfmax" type="text" class="form-control" data-tag="corsostudiocaratteristica.cfmax.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudiocaratteristica_default_cfmin">Crediti min</label>
+					<input id="corsostudiocaratteristica_default_cfmin" type="text" class="form-control" data-tag="corsostudiocaratteristica.cfmin.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="corsostudiocaratteristica_default_idtipoattform">Tipo di attività formativa</label>
+					<select id="corsostudiocaratteristica_default_idtipoattform" class="custom-select d-block w-100"  data-source-name="tipoattformdefaultview" data-value-member="idtipoattform" data-display-member="dropdown_title" data-custom-control="combo" data-tag="corsostudiocaratteristica.idtipoattform"   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudiocaratteristica_default_idambitoareadisc">Ambito o area disciplinare</label>
+					<div>
+						<input id="corsostudiocaratteristica_default_idambitoareadisc" name="corsostudiocaratteristica_default_idambitoareadisc" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="ambitoareadiscdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudiocaratteristica_default_idsasdgruppo">Gruppo</label>
+					<select id="corsostudiocaratteristica_default_idsasdgruppo" class="custom-select d-block w-100"  data-source-name="sasdgruppodefaultview" data-value-member="idsasdgruppo" data-display-member="dropdown_title" data-custom-control="combo" data-tag="corsostudiocaratteristica.idsasdgruppo"   data-master="tipoattformdefaultview"> </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudiocaratteristica_default_idsasd">SASD</label>
+					<div>
+						<input id="corsostudiocaratteristica_default_idsasd" name="corsostudiocaratteristica_default_idsasd" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sasddefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudiocaratteristica_default_obblig">Obbligatorio</label>
+					<div class="custom-control custom-radio">
+						<input id="corsostudiocaratteristica_default_obbligSi" type="radio" name="corsostudiocaratteristica_default_obblig" class="custom-control-input" data-tag="corsostudiocaratteristica.obblig:S"  data-mandatory ><label for="corsostudiocaratteristica_default_obbligSi"> Si</label>
+						<input id="corsostudiocaratteristica_default_obbligNo" type="radio" name="corsostudiocaratteristica_default_obblig" class="custom-control-input" data-tag="corsostudiocaratteristica.obblig:N"  data-mandatory ><label for="corsostudiocaratteristica_default_obbligNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudiocaratteristica_default_profess">Professionalizzante</label>
+					<div class="custom-control custom-radio">
+						<input id="corsostudiocaratteristica_default_professSi" type="radio" name="corsostudiocaratteristica_default_profess" class="custom-control-input" data-tag="corsostudiocaratteristica.profess:S"  data-mandatory ><label for="corsostudiocaratteristica_default_professSi"> Si</label>
+						<input id="corsostudiocaratteristica_default_professNo" type="radio" name="corsostudiocaratteristica_default_profess" class="custom-control-input" data-tag="corsostudiocaratteristica.profess:N"  data-mandatory ><label for="corsostudiocaratteristica_default_professNo"> No</label>
+					</div>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

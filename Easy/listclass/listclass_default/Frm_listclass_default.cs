@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -29,7 +28,7 @@ using metadatalibrary;
 
 
 namespace listclass_default {
-    public partial class Frm_listclass_default : Form {
+    public partial class Frm_listclass_default : MetaDataForm {
         MetaData Meta;
         public Frm_listclass_default() {
             InitializeComponent();
@@ -70,6 +69,7 @@ namespace listclass_default {
             GetData.SetStaticFilter(DS.listclassyear, filterEsercizio2);
             GetData.SetStaticFilter(DS.listclassyearview, filterEsercizio2);
             GetData.SetStaticFilter(DS.intrastatcodeview, filterEsercizio);
+            DataAccess.SetTableForReading(DS.finmotive_iva, "finmotive");
             HelpForm.SetDenyNull(DS.listclass.Columns["flagvisiblekind"], true);
             if (DS.listclass.Rows.Count == 0) {
                 btnInsDettagli.Visible = false;
@@ -97,7 +97,7 @@ namespace listclass_default {
 
         public void MetaData_AfterGetFormData() {
             // In questo modo la libreria riconosce come sub entità di listclass la tabella listclassyear
-            Meta.myHelpForm.ExtraEntities["listclassyear"] = "listclassyear";
+            Meta.myHelpForm.addExtraEntity("listclassyear");
             //if (Meta.InsertMode)
             //{
             //    DataRow Curr = DS.listclass.Rows[0];
@@ -326,4 +326,4 @@ namespace listclass_default {
             setFiltroAcquistiVendite(chkContrattiAttivi.Checked==false);
         }
     }
-}
+}

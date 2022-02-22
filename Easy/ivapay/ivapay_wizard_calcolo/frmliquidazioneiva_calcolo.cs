@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -32,7 +31,7 @@ namespace ivapay_wizard_calcolo {
     /// <summary>
     /// Summary description for frmliquidazioneiva_calcolo.
     /// </summary>
-    public class Frm_ivapay_wizard_calcolo : System.Windows.Forms.Form {
+    public class Frm_ivapay_wizard_calcolo : MetaDataForm {
         public vistaForm DS;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnNext;
@@ -3748,7 +3747,7 @@ namespace ivapay_wizard_calcolo {
         /// </summary>
         private void ShowMsg(string msg, string error) {
             if (error == null || error == "")
-                MessageBox.Show(msg, "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                show(msg, "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             else
                 QueryCreator.ShowError(this, msg, error);
         }
@@ -3955,6 +3954,14 @@ namespace ivapay_wizard_calcolo {
 
         bool ErroriPresenti() {
             object esercizio = Meta.GetSys("esercizio");
+
+            object scadenza = DBNull.Value;
+            scadenza  = HelpForm.GetObjectFromString(typeof(DateTime), txtDataRegolamento.Text, "x.y");
+            if (scadenza == null) {
+	            show(this, "E' necessario selezionare la data regolamento.","Errore");
+	            return true;
+            }
+
             object date_from = HelpForm.GetObjectFromString(typeof(DateTime), txtDal.Text, null);
             object date_to = HelpForm.GetObjectFromString(typeof(DateTime), txtAl.Text, null);
             object kind = DBNull.Value;
@@ -3963,7 +3970,7 @@ namespace ivapay_wizard_calcolo {
             if (DScheck1 != null && DScheck1.Tables.Count > 0) {
                 DataTable Table1 = DScheck1.Tables[0];
                 if (Table1.Rows.Count > 0) {
-                    MessageBox.Show(this, "Ci sono fatture con pagamenti incoerenti. Correggere i dati prima di procedere.");
+                    show(this, "Ci sono fatture con pagamenti incoerenti. Correggere i dati prima di procedere.");
                     exportclass.DataTableToExcel(Table1, true);
                     return true;
                 }
@@ -3973,7 +3980,7 @@ namespace ivapay_wizard_calcolo {
             if (DScheck2 != null && DScheck2.Tables.Count > 0) {
                 DataTable Table2 = DScheck2.Tables[0];
                 if (Table2.Rows.Count > 0) {
-                    MessageBox.Show(this, "Ci sono Note di variazione con pagamenti incoerenti. Correggere i dati prima di procedere.");
+                    show(this, "Ci sono Note di variazione con pagamenti incoerenti. Correggere i dati prima di procedere.");
                     exportclass.DataTableToExcel(Table2, true);
                     return true;
                 }
@@ -3983,7 +3990,7 @@ namespace ivapay_wizard_calcolo {
             if (DScheck3 != null && DScheck3.Tables.Count > 0) {
                 DataTable Table3 = DScheck3.Tables[0];
                 if (Table3.Rows.Count > 0) {
-                    MessageBox.Show(this, "Ci sono pagamenti di fatture con variazioni che non contabilizzano documenti. Correggere i dati prima di procedere.");
+                    show(this, "Ci sono pagamenti di fatture con variazioni che non contabilizzano documenti. Correggere i dati prima di procedere.");
                     exportclass.DataTableToExcel(Table3, true);
                     return true;
                 }
@@ -4001,7 +4008,15 @@ namespace ivapay_wizard_calcolo {
             if (AllDisabled) return false;
             if ((oldTab == 0) && (newTab == 1)) {
                 if (!(chkCommerciale.Checked || chkIstituzionale.Checked || chkIstituzionaleSplit.Checked)) {
-                    MessageBox.Show(this, "Selezionare il Tipo Liquidazione");
+                    show(this, "Selezionare il Tipo Liquidazione");
+                    return false;
+                }
+                int scelta = 0;
+                if (chkCommerciale.Checked) scelta++;
+                if (chkIstituzionale.Checked) scelta++;
+                if (chkIstituzionaleSplit.Checked) scelta++;
+                if (scelta>1) {
+                    show(this, "Selezionare solo un Tipo Liquidazione");
                     return false;
                 }
                 CheckDefault();
@@ -4911,6 +4926,50 @@ namespace ivapay_wizard_calcolo {
             return true;
         }
 
+        DataTable TFattLiq;
+        private void ImpostaCaptionFattureLiq() {
+            TFattLiq = new DataTable("fattureliquidate");
+            TFattLiq.Columns.Add(new DataColumn("invoicekind", typeof(string)));
+            TFattLiq.Columns.Add(new DataColumn("idinvkind", typeof(int)));
+            TFattLiq.Columns.Add(new DataColumn("yinv", typeof(int)));
+            TFattLiq.Columns.Add(new DataColumn("ninv", typeof(int)));
+            TFattLiq.Columns.Add(new DataColumn("doc", typeof(string)));
+            TFattLiq.Columns.Add(new DataColumn("docdate", typeof(DateTime)));
+            TFattLiq.Columns.Add(new DataColumn("adate", typeof(DateTime)));
+            TFattLiq.Columns.Add(new DataColumn("taxable", typeof(decimal)));
+            TFattLiq.Columns.Add(new DataColumn("tax", typeof(decimal)));
+            TFattLiq.Columns.Add(new DataColumn("unabatable", typeof(decimal)));
+            TFattLiq.Columns.Add(new DataColumn("total", typeof(decimal)));
+            TFattLiq.Columns.Add(new DataColumn("description", typeof(string)));
+            TFattLiq.Columns.Add(new DataColumn("registry", typeof(string)));
+            TFattLiq.Columns.Add(new DataColumn("flagvariation", typeof(string)));
+            TFattLiq.Columns.Add(new DataColumn("ivatotalpayed", typeof(decimal)));
+            TFattLiq.Columns.Add(new DataColumn("flagactivity", typeof(string)));
+            TFattLiq.Columns.Add(new DataColumn("flagsplit", typeof(string)));
+            TFattLiq.Columns.Add(new DataColumn("flagintracom", typeof(string)));
+
+            TFattLiq.Columns["idinvkind"].Caption = "";
+            TFattLiq.Columns["invoicekind"].Caption = "Tipo documento";
+            TFattLiq.Columns["yinv"].Caption = "Esercizio";
+            TFattLiq.Columns["ninv"].Caption = "Numero";
+            TFattLiq.Columns["doc"].Caption = "Documento";
+            TFattLiq.Columns["docdate"].Caption = "Data doc.";
+            TFattLiq.Columns["adate"].Caption = "Data registrazione";
+            TFattLiq.Columns["taxable"].Caption = "Imponibile";
+            TFattLiq.Columns["tax"].Caption = "Imposta";
+            TFattLiq.Columns["unabatable"].Caption = "Indetraibile";
+            TFattLiq.Columns["total"].Caption = "Totale (IVA inclusa)";
+            TFattLiq.Columns["description"].Caption = "Descrizione";
+            TFattLiq.Columns["registry"].Caption = "Cliente/Fornitore";
+            TFattLiq.Columns["flagvariation"].Caption = "Nota variaz.";
+            TFattLiq.Columns["ivatotalpayed"].Caption = "IVA liquidata";
+            TFattLiq.Columns["flagactivity"].Caption = "";
+            TFattLiq.Columns["flagsplit"].Caption = "";
+            TFattLiq.Columns["flagintracom"].Caption = "";
+
+            TFattLiq.AcceptChanges();
+        }
+
         /// <summary>
         /// Metodo che scrive i dati in INVOICEDEFERRED.
         /// Attenzione! INVOICEDEFERRED ha cambiato concetto. Vengono memorizzate in tale tabella tutti i documenti IVA
@@ -4925,11 +4984,12 @@ namespace ivapay_wizard_calcolo {
             if (fattureDaInserire.Length == 0) return;
             MetaData MetaInvoiceDeferred = MetaData.GetMetaData(this, "invoicedeferred");
             MetaInvoiceDeferred.SetDefaults(DS.invoicedeferred);
+            // IMPOSTA CAPTION
+            ImpostaCaptionFattureLiq();
             foreach (DataRow rFattura in fattureDaInserire) {
                 int sign = +1;
                 if (rFattura["flagvariation"].ToString().ToUpper() == "S") sign = -sign;
-                if (rFattura["registerclass"].ToString().ToUpper() != rFattura["kind"].ToString().ToUpper())
-                    sign = -sign;
+                if (rFattura["registerclass"].ToString().ToUpper() != rFattura["kind"].ToString().ToUpper())sign = -sign;
                 if (CfgFn.GetNoNullDecimal(rFattura["currivagrosspayed"]) == 0) continue;
                 DataRow rInvDef;
                 string filter = QHC.AppAnd(QHC.CmpEq("idinvkind", rFattura["idinvkind"]),
@@ -4948,7 +5008,39 @@ namespace ivapay_wizard_calcolo {
                     rInvDef["ninv"] = rFattura["ninv"];
                     rInvDef["ivatotalpayed"] = sign*CfgFn.GetNoNullDecimal(rFattura["currivagrosspayed"]);
                 }
+                //Fa la stessa cosa nella tabella Fatture Liquidate 
+                DataRow[] fattliq = TFattLiq.Select(filter);
+                if (fattliq.Length != 0) {
+                    DataRow rFattLiq = fattliq[0];
+                    rFattLiq["ivatotalpayed"] = rInvDef["ivatotalpayed"];
+                }
+                else {
+                    DataRow rFattLiq = TFattLiq.NewRow();
+                    rFattLiq["idinvkind"] = rFattura["idinvkind"];
+                    rFattLiq["yinv"] = rFattura["yinv"];
+                    rFattLiq["ninv"] = rFattura["ninv"];
+                    rFattLiq["ivatotalpayed"] = rInvDef["ivatotalpayed"];
+
+                    rFattLiq["description"] = rFattura["description"];
+                    rFattLiq["invoicekind"] = rFattura["invoicekind"];
+                    rFattLiq["doc"] = rFattura["doc"];
+                    rFattLiq["docdate"] = rFattura["docdate"];
+                    rFattLiq["adate"] = rFattura["adate"];
+                    rFattLiq["registry"] = rFattura["registry"];
+                    rFattLiq["unabatable"] = rFattura["unabatable"];
+                    rFattLiq["tax"] = rFattura["tax"];
+                    rFattLiq["taxable"] = rFattura["taxable"];
+                    rFattLiq["total"] = rFattura["total"];
+
+                    rFattLiq["flagactivity"] = rFattura["flagactivity"];
+                    rFattLiq["flagintracom"] = rFattura["flagintracom"];
+                    rFattLiq["flagsplit"] = rFattura["flagsplit"];
+
+                    TFattLiq.Rows.Add(rFattLiq);
+                }
             }
+
+            TFattLiq.AcceptChanges();
         }
 
         private void creaRigheInvoiceDetailDeferred(DataRow rIvaPay) {
@@ -5420,7 +5512,7 @@ namespace ivapay_wizard_calcolo {
                     TRegistro = Vendite;
                 }
                 if (TRegistro == null) {
-                    MessageBox.Show(
+                    show(
                         $"La fattura {R["codeivaregisterkind"]} n. {R["ninv"]} del {R["yinv"]} non è associata ad alcun registro valido e non sarà considerata.", 
                         "Errore");
                     continue;
@@ -5708,7 +5800,7 @@ namespace ivapay_wizard_calcolo {
 
             int maxfase = GetMaxFaseForSelection(RigheSelezionate, "income");
             if (maxfase < 1) {
-                MessageBox.Show("Non è possibile collegare tutte le righe selezionate ad uno stesso movimento.\n" +
+                show("Non è possibile collegare tutte le righe selezionate ad uno stesso movimento.\n" +
                                 "Le informazioni di U.P.B., bilancio e versante sono troppo diverse tra loro.", "Errore");
                 return;
             }
@@ -5766,7 +5858,7 @@ namespace ivapay_wizard_calcolo {
             string rowfilter;
             int maxfase = GetMaxFaseForSelection(RigheSelezionate, "expense");
             if (maxfase < 1) {
-                MessageBox.Show("Non è possibile collegare tutte le righe selezionate ad uno stesso movimento.\n" +
+                show("Non è possibile collegare tutte le righe selezionate ad uno stesso movimento.\n" +
                                 "Le informazioni di U.P.B., bilancio e versante sono troppo diverse tra loro.", "Errore");
                 return;
             }
@@ -5987,7 +6079,7 @@ namespace ivapay_wizard_calcolo {
                         object codicecreddeb = R["idreg"];
                         DataRow ModPagam = CfgFn.ModalitaPagamentoDefault(Meta.Conn, codicecreddeb);
                         if (ModPagam == null) {
-                            MessageBox.Show(this,
+                            show(this,
                                 "E' necessario che sia definita almeno una modalità di pagamento per il percipiente " +
                                 "\"" + R["registry"].ToString() + "\"\n\n" +
                                 "Dati non salvati", "Errore", MessageBoxButtons.OK);
@@ -6461,8 +6553,42 @@ namespace ivapay_wizard_calcolo {
 
             creaRigheInvoiceDeferred(Rliquidazione);
             creaRigheInvoiceDetailDeferred(Rliquidazione);
-			object scadenza = DBNull.Value;
-			 
+            // Dalle fatture incluse nella liquidazione , estraggo quelle da mostrare in anteprima 
+            // Vanno eliminate le fatture del periodo che non hanno parte rilevante nel calcolo 
+            // ma sono state estratte  comunque per assumerle come liquidate
+			DataTable FattureInAnteprima = new DataTable();
+			FattureInAnteprima = TFattLiq;
+            bool istit = chkIstituzionale.Checked;
+            bool commerciale = chkCommerciale.Checked;
+            bool split = chkIstituzionaleSplit.Checked;
+            foreach (DataRow R in FattureInAnteprima.Select()) {
+                 if ((CfgFn.GetNoNullInt32(R["flagactivity"]) != 1 || R["flagsplit"].ToString().ToUpper() == "S" ||
+                    R["flagintracom"].ToString().ToUpper() == "N" ) && istit) {
+                    // mostro solo le fatture istituzionali e intracom non split payment
+                    R.Delete();
+                    continue;
+                }
+                if ((CfgFn.GetNoNullInt32(R["flagactivity"]) != 1 || R["flagsplit"].ToString().ToUpper() == "N" ||
+                    R["flagintracom"].ToString().ToUpper() == "S") && split){
+                    // mostro solo le fatture istituzionali e split payment non intracom e non extra-ue
+                    R.Delete();
+                    continue;
+                }
+                if (CfgFn.GetNoNullInt32(R["flagactivity"]) == 1 && commerciale) {
+                    // mostro solo le fatture commerciali e promiscue, indipendentemente dal flag split payment
+                    // indipendentemente se in italia, intracom o extra-ue
+                    R.Delete();
+                    continue;
+                }
+            }
+            FattureInAnteprima.AcceptChanges();
+            if (TFattLiq.Rows.Count > 0) {
+                Form Frm = ShowAutomatismi.ShowFattureLiquidate(FattureInAnteprima);
+                DialogResult Res = Frm.ShowDialog();
+                if (Res != DialogResult.OK) return;
+            }
+
+            object scadenza = DBNull.Value;
 
 			scadenza  = HelpForm.GetObjectFromString(typeof(DateTime), txtDataRegolamento.Text, "x.y");
 
@@ -6511,7 +6637,7 @@ namespace ivapay_wizard_calcolo {
 
 			}
             if (VerificaGestioneGirofondi()) {
-                if (MessageBox.Show(
+                if (show(
                     "Genero i girofondi da o verso i dipartimenti a compensazione dell'iva a debito/credito ?",
                     "Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                     GeneraGirofondi();
@@ -6533,7 +6659,7 @@ namespace ivapay_wizard_calcolo {
                 }
                 bool res = ga.GeneraAutomatismiAfterPost(true);
                 if (!res) {
-                    MessageBox.Show(this,
+                    show(this,
                         "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
                     return;
                 }
@@ -6568,10 +6694,9 @@ namespace ivapay_wizard_calcolo {
 
             if (liquidazionecorrente > 0) {
                 foreach (DataRow R in AltriPagamenti.Rows) {
-                    DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.Tables["expense"], null,
-                        QHS.CmpEq("idexp", R["idexp"]), null, true);
+                    DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.Tables["expense"], null,QHS.CmpEq("idexp", R["idexp"]), null, true);
                     DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.Tables["expenseyear"], null,
-                 QHS.AppAnd(QHS.CmpEq("idexp", R["idexp"]), QHS.CmpEq("ayear", Meta.GetSys("esercizio"))), null, true);
+							QHS.AppAnd(QHS.CmpEq("idexp", R["idexp"]), QHS.CmpEq("ayear", Meta.GetSys("esercizio"))), null, true);
                     DataRow[] RowsExpense = DS.Tables["expense"].Select(QHC.CmpEq("idexp", R["idexp"]));
                     if (RowsExpense.Length > 0) {
                         DataRow RowExp = RowsExpense[0];
@@ -6583,10 +6708,9 @@ namespace ivapay_wizard_calcolo {
 
             if (liquidazionecorrente12 > 0) {
                 foreach (DataRow R in AltriPagamentiIntraExtraUe.Rows) {
-                    DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.Tables["expense"], null,
-                        QHS.CmpEq("idexp", R["idexp"]), null, true);
+                    DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.Tables["expense"], null,QHS.CmpEq("idexp", R["idexp"]), null, true);
                     DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.Tables["expenseyear"], null,
-                 QHS.AppAnd(QHS.CmpEq("idexp", R["idexp"]), QHS.CmpEq("ayear", Meta.GetSys("esercizio"))), null, true);
+							QHS.AppAnd(QHS.CmpEq("idexp", R["idexp"]), QHS.CmpEq("ayear", Meta.GetSys("esercizio"))), null, true);
                     DataRow[] RowsExpense = DS.Tables["expense"].Select(QHC.CmpEq("idexp", R["idexp"]));
                     if (RowsExpense.Length > 0) {
                         DataRow RowExp = RowsExpense[0];
@@ -6598,10 +6722,9 @@ namespace ivapay_wizard_calcolo {
 
             if (liquidazionecorrentesplit > 0) {
                 foreach (DataRow R in AltriPagamentiIstituzionaleSplitPayment.Rows) {
-                    DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.Tables["expense"], null,
-                        QHS.CmpEq("idexp", R["idexp"]), null, true);
+                    DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.Tables["expense"], null,QHS.CmpEq("idexp", R["idexp"]), null, true);
                     DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.Tables["expenseyear"], null,
-                      QHS.AppAnd(QHS.CmpEq("idexp", R["idexp"]), QHS.CmpEq("ayear", Meta.GetSys("esercizio"))), null, true);
+							QHS.AppAnd(QHS.CmpEq("idexp", R["idexp"]), QHS.CmpEq("ayear", Meta.GetSys("esercizio"))), null, true);
 
                     DataRow[] RowsExpense = DS.Tables["expense"].Select(QHC.CmpEq("idexp", R["idexp"]));
                     if (RowsExpense.Length > 0) {
@@ -6673,7 +6796,7 @@ namespace ivapay_wizard_calcolo {
             metaMonTr.SetDefaults(DS.moneytransfer);
             object idtres_default = Conn.DO_READ_VALUE("treasurer", QHS.CmpEq("flagdefault", "S"), "idtreasurer");
             if (idtres_default == null) {
-                MessageBox.Show("E' necessario configurare un cassiere predefinito, i girofondi non saranno generati.",
+                show("E' necessario configurare un cassiere predefinito, i girofondi non saranno generati.",
                     "Errore");
                 return;
             }
@@ -6728,7 +6851,7 @@ namespace ivapay_wizard_calcolo {
                 return true;
             }
             catch {
-                MessageBox.Show("E' necessario inserire una data valida");
+                show("E' necessario inserire una data valida");
                 txtDataRegolamento.Focus();
                 return false;
             }
@@ -6886,4 +7009,4 @@ namespace ivapay_wizard_calcolo {
             ScollegaPagamentidaLiquidazione("altriistituzionalesplitpayment");
         }
     }
-}
+}

@@ -1,0 +1,31 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#rendicontaltro_default_data").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="rendicontaltro_default_data">Data</label>
+					<input id="rendicontaltro_default_data" type="text" class="form-control" data-tag="rendicontaltro.data"  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="rendicontaltro_default_idrendicontaltrokind">Tipologia</label>
+					<select id="rendicontaltro_default_idrendicontaltrokind" class="custom-select d-block w-100"  data-source-name="rendicontaltrokinddefaultview" data-value-member="idrendicontaltrokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="rendicontaltro.idrendicontaltrokind"  data-mandatory  > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="rendicontaltro_default_ore">Ore</label>
+					<input id="rendicontaltro_default_ore" type="text" class="form-control" data-tag="rendicontaltro.ore.fixed.2"  data-mandatory />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

@@ -1,0 +1,104 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="cedolino_default_classe">Classe</label>
+					<input id="cedolino_default_classe" type="text" class="form-control" data-tag="cedolino.classe"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="cedolino_default_scatto">Scatto</label>
+					<input id="cedolino_default_scatto" type="text" class="form-control" data-tag="cedolino.scatto"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="cedolino_default_stipendio">Stipendio</label>
+					<input id="cedolino_default_stipendio" type="text" class="form-control" data-tag="cedolino.stipendio.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="cedolino_default_iis">Indennità integrativa speciale</label>
+					<input id="cedolino_default_iis" type="text" class="form-control" data-tag="cedolino.iis.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="cedolino_default_assegno">Assegno aggiuntivo</label>
+					<input id="cedolino_default_assegno" type="text" class="form-control" data-tag="cedolino.assegno.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelcedolino_default_tredicesima" >E’ la somma della dodicesima parte dello stipendio e dell’indennità integrativa speciale.</div>
+					<label class="col-form-label col-md-12" for="cedolino_default_tredicesima">Tredicesima</label>
+					<input id="cedolino_default_tredicesima" type="text" class="form-control" data-tag="cedolino.!tredicesima.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelcedolino_default_lordo" >E' la somma dello stipendio, iis, tredicesima e assegno aggiuntivo.</div>
+					<label class="col-form-label col-md-12" for="cedolino_default_lordo">Retribuzione totale lorda</label>
+					<input id="cedolino_default_lordo" type="text" class="form-control" data-tag="cedolino.lordo.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelcedolino_default_tesoro" >E' il 24,2% della retribuzione totale lorda.	</div>
+					<label class="col-form-label col-md-12" for="cedolino_default_tesoro">Tesoro</label>
+					<input id="cedolino_default_tesoro" type="text" class="form-control" data-tag="cedolino.!tesoro.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelcedolino_default_previdenza" >E’ l’80% delle 13 mensilità dello stipendio più il 48% delle 13 mensilità dell’iis il tutto rivalutato per il 7,1%.</div>
+					<label class="col-form-label col-md-12" for="cedolino_default_previdenza">Opera di previdenza</label>
+					<input id="cedolino_default_previdenza" type="text" class="form-control" data-tag="cedolino.!previdenza.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelcedolino_default_irap" >E' l’8,5% della retribuzione totale lorda.</div>
+					<label class="col-form-label col-md-12" for="cedolino_default_irap">IRAP</label>
+					<input id="cedolino_default_irap" type="text" class="form-control" data-tag="cedolino.irap.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelcedolino_default_totalece" >E’ la somma del tesoro, previdenza e IRAP.</div>
+					<label class="col-form-label col-md-12" for="cedolino_default_totalece">Totale a carico ente</label>
+					<input id="cedolino_default_totalece" type="text" class="form-control" data-tag="cedolino.!totalece.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelcedolino_default_totale" >E’ la somma della retribuzione totale lorda e del totale a carico ente.</div>
+					<label class="col-form-label col-md-12" for="cedolino_default_totale">Totale costo annuo</label>
+					<input id="cedolino_default_totale" type="text" class="form-control" data-tag="cedolino.totale.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="cedolino_default_idmese">Mese</label>
+					<select id="cedolino_default_idmese" class="custom-select d-block w-100"  data-source-name="mese" data-value-member="idmese" data-display-member="title" data-custom-control="combo" data-tag="cedolino.idmese"   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="cedolino_default_year">Anno</label>
+					<div>
+						<input id="cedolino_default_year" name="cedolino_default_year" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="year.year" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#cedolino_default_data").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="cedolino_default_data">Data</label>
+					<input id="cedolino_default_data" type="text" class="form-control" data-tag="cedolino.data"  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

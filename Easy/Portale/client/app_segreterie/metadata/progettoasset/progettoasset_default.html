@@ -1,0 +1,73 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogettoasset_default_idpiece" >E' possibile inserire esclusivamente beni strumentali il cui inventario sia classificato con una delle classificazioni inventariali associate alle voci di costo.</div>
+					<label class="col-form-label col-md-12" for="progettoasset_default_idpiece">Bene strumentale</label>
+					<div>
+						<input id="progettoasset_default_idpiece" name="progettoasset_default_idpiece" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="assetsegview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettoasset_default_costoorario">Costo orario</label>
+					<input id="progettoasset_default_costoorario" type="text" class="form-control" data-tag="progettoasset.costoorario.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettoasset_default_aggiunta">Costo orario aggiuntivo o sostitutivo al costo di ammortamento</label>
+					<div class="custom-control custom-radio">
+						<input id="progettoasset_default_aggiuntaA" type="radio" name="progettoasset_default_aggiunta" class="custom-control-input" data-tag="progettoasset.aggiunta:A"  ><label for="progettoasset_default_aggiuntaA"> Aggiuntivo</label>
+						<input id="progettoasset_default_aggiuntaS" type="radio" name="progettoasset_default_aggiunta" class="custom-control-input" data-tag="progettoasset.aggiunta:S"  ><label for="progettoasset_default_aggiuntaS"> Sostitutivo</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogettoasset_default_altreupb" >Se abilitato consente di inserire anche cespiti acquisiti su UPB che non fanno parte del progetto.</div>
+					<label class="col-form-label col-md-12" for="progettoasset_default_altreupb">Cerca anche cespiti di altre UPB </label>
+					<input id="progettoasset_default_altreupb" type="checkbox" class="custom-control-input big-checkbox" data-tag="progettoasset.!altreupb:S:N" />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettoasset_default_ammortamento">Ammortamento rendicontato</label>
+					<input id="progettoasset_default_ammortamento" type="text" class="form-control" data-tag="progettoasset.!ammortamento"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#progettoasset_default_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="progettoasset_default_start">Data di inizio utilizzo preventivata</label>
+					<input id="progettoasset_default_start" type="text" class="form-control" data-tag="progettoasset.start"  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#progettoasset_default_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="progettoasset_default_stop">Data di fine utilizzo preventivata</label>
+					<input id="progettoasset_default_stop" type="text" class="form-control" data-tag="progettoasset.stop"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettoasset_default_ammortamentopreventivato">Ammortamento preventivato</label>
+					<input id="progettoasset_default_ammortamentopreventivato" type="text" class="form-control" data-tag="progettoasset.ammortamentopreventivato.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettoasset_default_descammortamentopreventivato">Dati ammortamento preventivato</label>
+					<input id="progettoasset_default_descammortamentopreventivato" type="text" class="form-control" data-tag="progettoasset.descammortamentopreventivato"  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

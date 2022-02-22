@@ -1,0 +1,159 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabregistry_amministrativi_amministrativi_personale_0" class="nav-link active show" data-toggle="pill" data-target="#tabregistry_amministrativi_amministrativi_personale_0"><i class="fa fa-user-tie mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_amministrativi_amministrativi_personale_1" class="nav-link" data-toggle="pill" data-target="#tabregistry_amministrativi_amministrativi_personale_1"><i class="fa fa-calendar-day mr-1"></i>Timesheets</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_amministrativi_amministrativi_personale_2" class="nav-link" data-toggle="pill" data-target="#tabregistry_amministrativi_amministrativi_personale_2"><i class="fa fa-stopwatch mr-1"></i>Sospensione delle attività</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_amministrativi_amministrativi_personale_3" class="nav-link" data-toggle="pill" data-target="#tabregistry_amministrativi_amministrativi_personale_3"><i class="fa fa-file-signature mr-1"></i>Contratti</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabregistry_amministrativi_amministrativi_personale_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_amministrativi_personale_idtitle">Titolo</label>
+					<div>
+						<input id="registry_amministrativi_personale_idtitle" name="registry_amministrativi_personale_idtitle" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="title.description" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_amministrativi_personale_forename">Nome</label>
+					<input id="registry_amministrativi_personale_forename" type="text" class="form-control" data-tag="registry.forename?registryamministrativi_personaleview.registry_forename" data-subentity  />
+				</div>
+			</div>
+					<input hidden id="registry_amministrativi_personale_title" type="text" class="form-control" data-tag="registry.title" />
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_amministrativi_personale_surname">Cognome</label>
+					<input id="registry_amministrativi_personale_surname" type="text" class="form-control" data-tag="registry.surname?registryamministrativi_personaleview.registry_surname" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#registry_amministrativi_personale_birthdate").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="registry_amministrativi_personale_birthdate">Data di nascita</label>
+					<input id="registry_amministrativi_personale_birthdate" type="text" class="form-control" data-tag="registry.birthdate?registryamministrativi_personaleview.registry_birthdate" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_amministrativi_personale_idcity">Comune di nascita</label>
+					<div>
+						<input id="registry_amministrativi_personale_idcity" name="registry_amministrativi_personale_idcity" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_amministrativi_personale_idnation">Nazionalità</label>
+					<div>
+						<input id="registry_amministrativi_personale_idnation" name="registry_amministrativi_personale_idnation" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_nation.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_amministrativi_personale_gender">Genere</label>
+					<div class="custom-control custom-radio">
+						<input id="registry_amministrativi_personale_genderM" type="radio" name="registry_amministrativi_personale_gender" class="custom-control-input" data-tag="registry.gender:M?registryamministrativi_personaleview.registry_gender:Maschio" data-subentity  ><label for="registry_amministrativi_personale_genderM"> Maschio</label>
+						<input id="registry_amministrativi_personale_genderF" type="radio" name="registry_amministrativi_personale_gender" class="custom-control-input" data-tag="registry.gender:F?registryamministrativi_personaleview.registry_gender:Femmina" data-subentity  ><label for="registry_amministrativi_personale_genderF"> Femmina</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_amministrativi_personale_cf">Codice fiscale</label>
+					<input id="registry_amministrativi_personale_cf" type="text" class="form-control" data-tag="registry.cf?registryamministrativi_personaleview.registry_cf" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_amministrativi_personale_foreigncf">Codice Fiscale estero</label>
+					<input id="registry_amministrativi_personale_foreigncf" type="text" class="form-control" data-tag="registry.foreigncf?registryamministrativi_personaleview.registry_foreigncf" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_amministrativi_personale_badgecode">Codice bedge</label>
+					<input id="registry_amministrativi_personale_badgecode" type="text" class="form-control" data-tag="registry.badgecode?registryamministrativi_personaleview.registry_badgecode" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_amministrativi_personale_idmaritalstatus">Stato civile</label>
+					<select id="registry_amministrativi_personale_idmaritalstatus" class="custom-select d-block w-100"  data-source-name="maritalstatus" data-value-member="idmaritalstatus" data-display-member="description" data-custom-control="combo" data-tag="registry.idmaritalstatus?registryamministrativi_personaleview.registry_idmaritalstatus" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_amministrativi_personale_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="registry_amministrativi_personale_activeSi" type="radio" name="registry_amministrativi_personale_active" class="custom-control-input" data-tag="registry.active:S?registryamministrativi_personaleview.registry_active:Si" data-subentity  data-mandatory ><label for="registry_amministrativi_personale_activeSi"> Si</label>
+						<input id="registry_amministrativi_personale_activeNo" type="radio" name="registry_amministrativi_personale_active" class="custom-control-input" data-tag="registry.active:N?registryamministrativi_personaleview.registry_active:No" data-subentity  data-mandatory ><label for="registry_amministrativi_personale_activeNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_amministrativi_personale_idregistryclass">Tipologia fiscale</label>
+					<div>
+						<input id="registry_amministrativi_personale_idregistryclass" name="registry_amministrativi_personale_idregistryclass" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="registryclassdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_amministrativi_personale_annotation">Note</label>
+					<input id="registry_amministrativi_personale_annotation" type="text" class="form-control" data-tag="registry.annotation?registryamministrativi_personaleview.registry_annotation" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_amministrativi_personale_idcategory">Categoria protetta</label>
+					<div>
+						<input id="registry_amministrativi_personale_idcategory" name="registry_amministrativi_personale_idcategory" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="category.description" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_amministrativi_personale_idregistrykind">Tipologia rapporto</label>
+					<select id="registry_amministrativi_personale_idregistrykind" class="custom-select d-block w-100"  data-source-name="registrykind" data-value-member="idregistrykind" data-display-member="description" data-custom-control="combo" data-tag="registry.idregistrykind?registryamministrativi_personaleview.registry_idregistrykind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_amministrativi_personale_p_iva">Partita IVA</label>
+					<input id="registry_amministrativi_personale_p_iva" type="text" class="form-control" data-tag="registry.p_iva?registryamministrativi_personaleview.registry_p_iva" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_amministrativi_personale_residence">Residenza</label>
+					<select id="registry_amministrativi_personale_residence" class="custom-select d-block w-100"  data-source-name="residence" data-value-member="idresidence" data-display-member="description" data-custom-control="combo" data-tag="registry.residence?registryamministrativi_personaleview.registry_residence" data-subentity  data-mandatory  > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="registry_amministrativi_personale_cv">Curriculum vitae</label>
+					<textarea class="textarea form-control" id="registry_amministrativi_personale_cv" type="text"  rows="4" data-tag="registry_amministrativi.cv?registryamministrativi_personaleview.registry_amministrativi_cv" data-subentity  ></textarea>
+				</div>
+			</div>
+					<input hidden id="registry_amministrativi_personale_idcontrattokind" type="text" class="form-control" data-tag="registry_amministrativi.idcontrattokind" />
+	</div>
+	<div class="tab-pane fade" id="tabregistry_amministrativi_amministrativi_personale_1" role="tabpanel">
+				<div class="gridx" id="grid_progettotimesheet_default" data-tag="progettotimesheet.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="intestazioneallsheet,S,Si;intestazioneallsheet,N,No;riepilogoanno,S,Si;riepilogoanno,N,No;showactivitiesrow,S,Si;showactivitiesrow,N,No;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_amministrativi_amministrativi_personale_2" role="tabpanel">
+	<hr>
+		<div class="row">
+			<div class="col-md-12">
+				<div id="calendar54" data-tag="sospensione.default.default" data-custom-control="calendar"  data-mdltitlecolumnname="motivo"   data-mdlstartcolumnname="start"   data-mdlstopcolumnname="stop"   data-mdlmaincolor="Gold"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdldragdrop ></div>
+			</div>
+		</div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_amministrativi_amministrativi_personale_3" role="tabpanel">
+				<div class="gridx" id="grid_contratto_amm" data-tag="contratto.amm.amm" data-custom-control="gridx" data-mdlconditionallookup="tempindet,S,Si;tempindet,N,No;" ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

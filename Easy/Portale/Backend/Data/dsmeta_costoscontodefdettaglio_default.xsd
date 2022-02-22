@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_costoscontodefdettaglio_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_costoscontodefdettaglio_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="costoscontodefdettagliokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcostoscontodefdettagliokind" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="costoscontodefdettaglio" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostoscontodef" type="xs:int" />
+              <xs:element name="idcostoscontodefdettaglio" type="xs:int" />
+              <xs:element name="idcostoscontodefdettagliokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idfasciaiseedef" type="xs:int" />
+              <xs:element name="idratadef" type="xs:int" />
+              <xs:element name="importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="parama" type="xs:decimal" minOccurs="0" />
+              <xs:element name="paramb" type="xs:decimal" minOccurs="0" />
+              <xs:element name="paramc" type="xs:decimal" minOccurs="0" />
+              <xs:element name="paramd" type="xs:decimal" minOccurs="0" />
+              <xs:element name="percentuale" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:costoscontodefdettagliokind" />
+      <xs:field xpath="mstns:idcostoscontodefdettagliokind" />
+    </xs:unique>
+    <xs:unique name="costoscontodefdettaglio_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:costoscontodefdettaglio" />
+      <xs:field xpath="mstns:idcostoscontodef" />
+      <xs:field xpath="mstns:idcostoscontodefdettaglio" />
+      <xs:field xpath="mstns:idfasciaiseedef" />
+      <xs:field xpath="mstns:idratadef" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_costoscontodefdettaglio_costoscontodefdettagliokind_idcostoscontodefdettagliokind" msdata:parent="costoscontodefdettagliokind" msdata:child="costoscontodefdettaglio" msdata:parentkey="idcostoscontodefdettagliokind" msdata:childkey="idcostoscontodefdettagliokind" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

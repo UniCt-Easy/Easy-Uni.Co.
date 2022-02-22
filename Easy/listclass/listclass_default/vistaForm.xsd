@@ -29,6 +29,7 @@
               <xs:element name="flagvisiblekind" type="xs:unsignedByte" minOccurs="0" />
               <xs:element name="idfinmotive" type="xs:string" minOccurs="0" />
               <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -227,6 +228,21 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="finmotive_iva">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfinmotive" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="codemotive" type="xs:string" />
+              <xs:element name="paridfinmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -279,6 +295,10 @@
       <xs:field xpath="mstns:idlistclass" />
       <xs:field xpath="mstns:ayear" />
     </xs:unique>
+    <xs:unique name="finmotive_iva_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:finmotive_iva" />
+      <xs:field xpath="mstns:idfinmotive" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -292,6 +312,7 @@
       <msdata:Relationship name="intrastatsupplymethod_listclass" msdata:parent="intrastatsupplymethod" msdata:child="listclass" msdata:parentkey="idintrastatsupplymethod" msdata:childkey="idintrastatsupplymethod" />
       <msdata:Relationship name="finmotive_listclass" msdata:parent="finmotive" msdata:child="listclass" msdata:parentkey="idfinmotive" msdata:childkey="idfinmotive" />
       <msdata:Relationship name="accmotiveapplied_credit_listclass" msdata:parent="accmotiveapplied_credit" msdata:child="listclass" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotivecredit" />
+      <msdata:Relationship name="finmotive_iva_listclass" msdata:parent="finmotive_iva" msdata:child="listclass" msdata:parentkey="idfinmotive" msdata:childkey="idfinmotive_iva" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

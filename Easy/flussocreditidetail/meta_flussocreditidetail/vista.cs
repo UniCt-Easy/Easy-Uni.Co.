@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -32,86 +31,86 @@ public class flussocreditidetailRow: MetaRow  {
 	///<summary>
 	///#
 	///</summary>
-	public Int32? idflusso{ 
-		get {if (this["idflusso"]==DBNull.Value)return null; return  (Int32?)this["idflusso"];}
-		set {if (value==null) this["idflusso"]= DBNull.Value; else this["idflusso"]= value;}
+	public Int32 idflusso{ 
+		get {return  (Int32)this["idflusso"];}
+		set {this["idflusso"]= value;}
 	}
 	public object idflussoValue { 
 		get{ return this["idflusso"];}
-		set {if (value==null|| value==DBNull.Value) this["idflusso"]= DBNull.Value; else this["idflusso"]= value;}
+		set {this["idflusso"]= value;}
 	}
-	public Int32? idflussoOriginal { 
-		get {if (this["idflusso",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idflusso",DataRowVersion.Original];}
+	public Int32 idflussoOriginal { 
+		get {return  (Int32)this["idflusso",DataRowVersion.Original];}
 	}
 	///<summary>
 	///n. dettaglio
 	///</summary>
-	public Int32? iddetail{ 
-		get {if (this["iddetail"]==DBNull.Value)return null; return  (Int32?)this["iddetail"];}
-		set {if (value==null) this["iddetail"]= DBNull.Value; else this["iddetail"]= value;}
+	public Int32 iddetail{ 
+		get {return  (Int32)this["iddetail"];}
+		set {this["iddetail"]= value;}
 	}
 	public object iddetailValue { 
 		get{ return this["iddetail"];}
-		set {if (value==null|| value==DBNull.Value) this["iddetail"]= DBNull.Value; else this["iddetail"]= value;}
+		set {this["iddetail"]= value;}
 	}
-	public Int32? iddetailOriginal { 
-		get {if (this["iddetail",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["iddetail",DataRowVersion.Original];}
+	public Int32 iddetailOriginal { 
+		get {return  (Int32)this["iddetail",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome utente creazione
 	///</summary>
 	public String cu{ 
-		get {if (this["cu"]==DBNull.Value)return null; return  (String)this["cu"];}
-		set {if (value==null) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		get {return  (String)this["cu"];}
+		set {this["cu"]= value;}
 	}
 	public object cuValue { 
 		get{ return this["cu"];}
-		set {if (value==null|| value==DBNull.Value) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		set {this["cu"]= value;}
 	}
 	public String cuOriginal { 
-		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
+		get {return  (String)this["cu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///data creazione
 	///</summary>
-	public DateTime? ct{ 
-		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
-		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
+	public DateTime ct{ 
+		get {return  (DateTime)this["ct"];}
+		set {this["ct"]= value;}
 	}
 	public object ctValue { 
 		get{ return this["ct"];}
-		set {if (value==null|| value==DBNull.Value) this["ct"]= DBNull.Value; else this["ct"]= value;}
+		set {this["ct"]= value;}
 	}
-	public DateTime? ctOriginal { 
-		get {if (this["ct",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["ct",DataRowVersion.Original];}
+	public DateTime ctOriginal { 
+		get {return  (DateTime)this["ct",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome ultimo utente modifica
 	///</summary>
 	public String lu{ 
-		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
-		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		get {return  (String)this["lu"];}
+		set {this["lu"]= value;}
 	}
 	public object luValue { 
 		get{ return this["lu"];}
-		set {if (value==null|| value==DBNull.Value) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		set {this["lu"]= value;}
 	}
 	public String luOriginal { 
-		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
+		get {return  (String)this["lu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///data ultima modifica
 	///</summary>
-	public DateTime? lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
-		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
+	public DateTime lt{ 
+		get {return  (DateTime)this["lt"];}
+		set {this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
-		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
+		set {this["lt"]= value;}
 	}
-	public DateTime? ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
+	public DateTime ltOriginal { 
+		get {return  (DateTime)this["lt",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Importo
@@ -670,6 +669,9 @@ public class flussocreditidetailRow: MetaRow  {
 	public Int32? idlistOriginal { 
 		get {if (this["idlist",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idlist",DataRowVersion.Original];}
 	}
+	///<summary>
+	///P.Iva
+	///</summary>
 	public String p_iva{ 
 		get {if (this["p_iva"]==DBNull.Value)return null; return  (String)this["p_iva"];}
 		set {if (value==null) this["p_iva"]= DBNull.Value; else this["p_iva"]= value;}
@@ -681,6 +683,9 @@ public class flussocreditidetailRow: MetaRow  {
 	public String p_ivaOriginal { 
 		get {if (this["p_iva",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["p_iva",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Annotazioni
+	///</summary>
 	public String annotations{ 
 		get {if (this["annotations"]==DBNull.Value)return null; return  (String)this["annotations"];}
 		set {if (value==null) this["annotations"]= DBNull.Value; else this["annotations"]= value;}
@@ -702,6 +707,39 @@ public class flussocreditidetailRow: MetaRow  {
 	}
 	public String idupb_ivaOriginal { 
 		get {if (this["idupb_iva",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idupb_iva",DataRowVersion.Original];}
+	}
+	public String codicetassonomia{ 
+		get {if (this["codicetassonomia"]==DBNull.Value)return null; return  (String)this["codicetassonomia"];}
+		set {if (value==null) this["codicetassonomia"]= DBNull.Value; else this["codicetassonomia"]= value;}
+	}
+	public object codicetassonomiaValue { 
+		get{ return this["codicetassonomia"];}
+		set {if (value==null|| value==DBNull.Value) this["codicetassonomia"]= DBNull.Value; else this["codicetassonomia"]= value;}
+	}
+	public String codicetassonomiaOriginal { 
+		get {if (this["codicetassonomia",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codicetassonomia",DataRowVersion.Original];}
+	}
+	public Int32? flag_showcase{ 
+		get {if (this["flag_showcase"]==DBNull.Value)return null; return  (Int32?)this["flag_showcase"];}
+		set {if (value==null) this["flag_showcase"]= DBNull.Value; else this["flag_showcase"]= value;}
+	}
+	public object flag_showcaseValue { 
+		get{ return this["flag_showcase"];}
+		set {if (value==null|| value==DBNull.Value) this["flag_showcase"]= DBNull.Value; else this["flag_showcase"]= value;}
+	}
+	public Int32? flag_showcaseOriginal { 
+		get {if (this["flag_showcase",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["flag_showcase",DataRowVersion.Original];}
+	}
+	public String idfinmotive_iva{ 
+		get {if (this["idfinmotive_iva"]==DBNull.Value)return null; return  (String)this["idfinmotive_iva"];}
+		set {if (value==null) this["idfinmotive_iva"]= DBNull.Value; else this["idfinmotive_iva"]= value;}
+	}
+	public object idfinmotive_ivaValue { 
+		get{ return this["idfinmotive_iva"];}
+		set {if (value==null|| value==DBNull.Value) this["idfinmotive_iva"]= DBNull.Value; else this["idfinmotive_iva"]= value;}
+	}
+	public String idfinmotive_ivaOriginal { 
+		get {if (this["idfinmotive_iva",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idfinmotive_iva",DataRowVersion.Original];}
 	}
 	#endregion
 
@@ -761,8 +799,10 @@ public class flussocreditidetailTable : MetaTableBase<flussocreditidetailRow> {
 			{"p_iva",createColumn("p_iva",typeof(string),true,false)},
 			{"annotations",createColumn("annotations",typeof(string),true,false)},
 			{"idupb_iva",createColumn("idupb_iva",typeof(string),true,false)},
+			{"codicetassonomia",createColumn("codicetassonomia",typeof(string),true,false)},
+			{"flag_showcase",createColumn("flag_showcase",typeof(int),true,false)},
+			{"idfinmotive_iva",createColumn("idfinmotive_iva",typeof(string),true,false)},
 		};
 	}
 }
 }
-

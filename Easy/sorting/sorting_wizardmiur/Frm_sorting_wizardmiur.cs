@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -27,7 +26,7 @@ using metadatalibrary;
 using funzioni_configurazione;
 
 namespace sorting_wizardmiur {
-    public partial class Frm_sorting_wizardmiur : Form {
+    public partial class Frm_sorting_wizardmiur : MetaDataForm {
         DataTable dataTableExpenseOrIncome;
         DataTable dataTableExpensesortedOrIncomesorted;
         string tabellaEntrataOSpesa;
@@ -162,7 +161,7 @@ namespace sorting_wizardmiur {
             if (objMiurFunz != null) return objMiurFunz;
 
             Cursor = null;
-            MessageBox.Show(this, "Impossibile trovare il codice della FUNZIONE MIUR");
+            show(this, "Impossibile trovare il codice della FUNZIONE MIUR");
 
             return null;
         }
@@ -175,7 +174,7 @@ namespace sorting_wizardmiur {
             string filter = QHS.AppAnd(QHS.CmpEq("active","S"),QHS.CmpEq("ayear",esercizio));
             MetaData MetaUpb = MetaData.GetMetaData(this, "upbyearview");
             MetaUpb.DS = new DataSet();
-            MetaUpb.LinkedForm = this;
+            MetaUpb.linkedForm = this;
             MetaUpb.FilterLocked = true;
             DataRow Upb = MetaUpb.SelectOne(tabellaEntrataOSpesa, filter, "upbyearview", null);
             if (Upb == null) return;
@@ -231,7 +230,7 @@ namespace sorting_wizardmiur {
             if (!CustomChangeTab(oldTab, newTab)) return;
             if (newTab == tabController.TabPages.Count) {
                 Cursor = null;
-                if (MessageBox.Show(this, "Si desidera eseguire ancora la procedura",
+                if (show(this, "Si desidera eseguire ancora la procedura",
                     "Conferma", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                     newTab = 1;
                     ResetWizard();
@@ -326,14 +325,14 @@ namespace sorting_wizardmiur {
             }
             if ((oldTab == 3) && (newTab == 4)) {
                 if (dataTableExpensesortedOrIncomesorted.Rows.Count == 0) {
-                    MessageBox.Show(this, "Nessuna nuova classificazione inserita.");
+                    show(this, "Nessuna nuova classificazione inserita.");
                     return true;
                 }
                 PostData post = Meta.Get_PostData();
                 post.InitClass(DS, Meta.Conn);
                 bool res = post.DO_POST();
                 if (res) {
-                    MessageBox.Show("Aggiunta delle classificazioni eseguita con successo.");
+                    show("Aggiunta delle classificazioni eseguita con successo.");
                 }
                 return res;
             }
@@ -439,7 +438,7 @@ namespace sorting_wizardmiur {
                     decimal currAmount = (decimal)view[i]["curramount"];
                     if (sumAmount != sortedAmount) {
                         Cursor = null;
-                        MessageBox.Show(this, "Errore interno: "
+                        show(this, "Errore interno: "
                             + chiaveEntrataOSpesa +"='" + view[i][chiaveEntrataOSpesa] 
                             + "'; sortedAmount=" + sortedAmount 
                             + "; objAmount=" + objAmount);
@@ -842,7 +841,7 @@ namespace sorting_wizardmiur {
         //             }
         //         }
         //         catch (FormatException) {
-        //             MessageBox.Show(this, "Errore nella selezione desiderata: " + valore + "\nImmettere i numeri dei movimenti e/o gli intervalli dei movimenti separati da virgole.");
+        //             show(this, "Errore nella selezione desiderata: " + valore + "\nImmettere i numeri dei movimenti e/o gli intervalli dei movimenti separati da virgole.");
         //             return;
         //         }
         //     }
@@ -1027,4 +1026,4 @@ namespace sorting_wizardmiur {
             Close();
         }
     }
-}
+}

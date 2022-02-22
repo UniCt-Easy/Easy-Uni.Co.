@@ -1,0 +1,234 @@
+﻿<div class="p-2 custom_lng_div" data-langkey="pageheader3" >Le ore per i compiti di ricerca e gestionali si ricavano per differenza tra il monte ore annuo complessivo e i compiti didattici istituzionali.</div>
+
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabcontrattokind_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabcontrattokind_default_0"><i class="fa fa-file-signature mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabcontrattokind_default_1" class="nav-link" data-toggle="pill" data-target="#tabcontrattokind_default_1"><i class="fa fa-user-tie mr-1"></i>Inquadramento</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabcontrattokind_default_2" class="nav-link" data-toggle="pill" data-target="#tabcontrattokind_default_2"><i class="fa fa-calendar-alt mr-1"></i>Periodi di validità</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabcontrattokind_default_3" class="nav-link" data-toggle="pill" data-target="#tabcontrattokind_default_3"><i class="fa fa-user-tag mr-1"></i>Ruoli associati</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabcontrattokind_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_title">Tipologia</label>
+					<input id="contrattokind_default_title" type="text" class="form-control" data-tag="contrattokind.title?contrattokinddefaultview.title" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_description">Descrizione</label>
+					<input id="contrattokind_default_description" type="text" class="form-control" data-tag="contrattokind.description?contrattokinddefaultview.contrattokind_description" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="contrattokind_default_activeSi" type="radio" name="contrattokind_default_active" class="custom-control-input" data-tag="contrattokind.active:S?contrattokinddefaultview.contrattokind_active:Si" data-subentity  data-mandatory ><label for="contrattokind_default_activeSi"> Si</label>
+						<input id="contrattokind_default_activeNo" type="radio" name="contrattokind_default_active" class="custom-control-input" data-tag="contrattokind.active:N?contrattokinddefaultview.contrattokind_active:No" data-subentity  data-mandatory ><label for="contrattokind_default_activeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_sortcode">Ordinamento</label>
+					<input id="contrattokind_default_sortcode" type="text" class="form-control" data-tag="contrattokind.sortcode?contrattokinddefaultview.contrattokind_sortcode" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_oremaxtempopieno">Ore massime a tempo pieno</label>
+					<input id="contrattokind_default_oremaxtempopieno" type="text" class="form-control" data-tag="contrattokind.oremaxtempopieno?contrattokinddefaultview.contrattokind_oremaxtempopieno" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_oremaxtempoparziale">Ore massime a tempo parziale</label>
+					<input id="contrattokind_default_oremaxtempoparziale" type="text" class="form-control" data-tag="contrattokind.oremaxtempoparziale?contrattokinddefaultview.contrattokind_oremaxtempoparziale" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_oremintempopieno">Ore minime a tempo pieno</label>
+					<input id="contrattokind_default_oremintempopieno" type="text" class="form-control" data-tag="contrattokind.oremintempopieno?contrattokinddefaultview.contrattokind_oremintempopieno" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_oremintempoparziale">Ore minime a tempo parziale</label>
+					<input id="contrattokind_default_oremintempoparziale" type="text" class="form-control" data-tag="contrattokind.oremintempoparziale?contrattokinddefaultview.contrattokind_oremintempoparziale" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_oremaxcompitididatempopieno">Ore massime per i compiti didattici a tempo pieno</label>
+					<input id="contrattokind_default_oremaxcompitididatempopieno" type="text" class="form-control" data-tag="contrattokind.oremaxcompitididatempopieno?contrattokinddefaultview.contrattokind_oremaxcompitididatempopieno" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_oremaxcompitididatempoparziale">Ore massime per i compiti didattici a tempo parziale</label>
+					<input id="contrattokind_default_oremaxcompitididatempoparziale" type="text" class="form-control" data-tag="contrattokind.oremaxcompitididatempoparziale?contrattokinddefaultview.contrattokind_oremaxcompitididatempoparziale" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_oremincompitididatempopieno">Ore minime per i compiti didattici a tempo pieno</label>
+					<input id="contrattokind_default_oremincompitididatempopieno" type="text" class="form-control" data-tag="contrattokind.oremincompitididatempopieno?contrattokinddefaultview.contrattokind_oremincompitididatempopieno" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_oremincompitididatempoparziale">Ore minime per i compiti didattici a tempo parziale</label>
+					<input id="contrattokind_default_oremincompitididatempoparziale" type="text" class="form-control" data-tag="contrattokind.oremincompitididatempoparziale?contrattokinddefaultview.contrattokind_oremincompitididatempoparziale" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_oremaxdidatempopieno">Ore massime per didattica frontale a tempo pieno</label>
+					<input id="contrattokind_default_oremaxdidatempopieno" type="text" class="form-control" data-tag="contrattokind.oremaxdidatempopieno?contrattokinddefaultview.contrattokind_oremaxdidatempopieno" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_oremaxdidatempoparziale">Ore massime per didattica frontale a tempo parziale</label>
+					<input id="contrattokind_default_oremaxdidatempoparziale" type="text" class="form-control" data-tag="contrattokind.oremaxdidatempoparziale?contrattokinddefaultview.contrattokind_oremaxdidatempoparziale" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_oremindidatempopieno">Ore minime di didattica frontale a tempo pieno</label>
+					<input id="contrattokind_default_oremindidatempopieno" type="text" class="form-control" data-tag="contrattokind.oremindidatempopieno?contrattokinddefaultview.contrattokind_oremindidatempopieno" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_oremindidatempoparziale">Ore minime di didattica frontale a tempo parziale</label>
+					<input id="contrattokind_default_oremindidatempoparziale" type="text" class="form-control" data-tag="contrattokind.oremindidatempoparziale?contrattokinddefaultview.contrattokind_oremindidatempoparziale" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_orestraordinariemax">Ore massime di straordinario rendicontabili</label>
+					<input id="contrattokind_default_orestraordinariemax" type="text" class="form-control" data-tag="contrattokind.orestraordinariemax?contrattokinddefaultview.contrattokind_orestraordinariemax" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_oremaxgg">Ore di lavoro al giorno massime</label>
+					<input id="contrattokind_default_oremaxgg" type="text" class="form-control" data-tag="contrattokind.oremaxgg?contrattokinddefaultview.contrattokind_oremaxgg" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelcontrattokind_default_costolordoannuo" >Stipendio e eventuali annessi che compongono la retribuzione annua lorda, esclusi gli oneri a carico ente, allo scatto massimo della tabella stipendiale.</div>
+					<label class="col-form-label col-md-12" for="contrattokind_default_costolordoannuo">Costo lordo annuo</label>
+					<input id="contrattokind_default_costolordoannuo" type="text" class="form-control" data-tag="contrattokind.costolordoannuo.fixed.2?contrattokinddefaultview.contrattokind_costolordoannuo" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelcontrattokind_default_costolordoannuooneri" >Stipendio e eventuali annessi che compongono la retribuzione annua lorda sommati gli oneri a carico ente, allo scatto massimo della tabella stipendiale.</div>
+					<label class="col-form-label col-md-12" for="contrattokind_default_costolordoannuooneri">Costo lordo annuo e oneri</label>
+					<input id="contrattokind_default_costolordoannuooneri" type="text" class="form-control" data-tag="contrattokind.costolordoannuooneri.fixed.2?contrattokinddefaultview.contrattokind_costolordoannuooneri" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_parttime">Abilita part-time</label>
+					<input id="contrattokind_default_parttime" type="checkbox" class="custom-control-input big-checkbox" data-tag="contrattokind.parttime:S:N?contrattokinddefaultview.contrattokind_parttime:Si:No" data-subentity />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_tempdef">Abilita tempo definito o parziale</label>
+					<input id="contrattokind_default_tempdef" type="checkbox" class="custom-control-input big-checkbox" data-tag="contrattokind.tempdef:S:N?contrattokinddefaultview.contrattokind_tempdef:Si:No" data-subentity />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_scatto">Abilita scatti stipendio</label>
+					<div class="custom-control custom-radio">
+						<input id="contrattokind_default_scattoSi" type="radio" name="contrattokind_default_scatto" class="custom-control-input" data-tag="contrattokind.scatto:S?contrattokinddefaultview.contrattokind_scatto:Si" data-subentity  ><label for="contrattokind_default_scattoSi"> Si</label>
+						<input id="contrattokind_default_scattoNo" type="radio" name="contrattokind_default_scatto" class="custom-control-input" data-tag="contrattokind.scatto:N?contrattokinddefaultview.contrattokind_scatto:No" data-subentity  ><label for="contrattokind_default_scattoNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_assegnoaggiuntivo">Abilita assegno aggiuntivo</label>
+					<div class="custom-control custom-radio">
+						<input id="contrattokind_default_assegnoaggiuntivoSi" type="radio" name="contrattokind_default_assegnoaggiuntivo" class="custom-control-input" data-tag="contrattokind.assegnoaggiuntivo:S?contrattokinddefaultview.contrattokind_assegnoaggiuntivo:Si" data-subentity  ><label for="contrattokind_default_assegnoaggiuntivoSi"> Si</label>
+						<input id="contrattokind_default_assegnoaggiuntivoNo" type="radio" name="contrattokind_default_assegnoaggiuntivo" class="custom-control-input" data-tag="contrattokind.assegnoaggiuntivo:N?contrattokinddefaultview.contrattokind_assegnoaggiuntivo:No" data-subentity  ><label for="contrattokind_default_assegnoaggiuntivoNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_elementoperequativo">Abilita elemento perequativo</label>
+					<div class="custom-control custom-radio">
+						<input id="contrattokind_default_elementoperequativoSi" type="radio" name="contrattokind_default_elementoperequativo" class="custom-control-input" data-tag="contrattokind.elementoperequativo:S?contrattokinddefaultview.contrattokind_elementoperequativo:Si" data-subentity  ><label for="contrattokind_default_elementoperequativoSi"> Si</label>
+						<input id="contrattokind_default_elementoperequativoNo" type="radio" name="contrattokind_default_elementoperequativo" class="custom-control-input" data-tag="contrattokind.elementoperequativo:N?contrattokinddefaultview.contrattokind_elementoperequativo:No" data-subentity  ><label for="contrattokind_default_elementoperequativoNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_indennitadiposizione">Abilita indennità di posizione</label>
+					<div class="custom-control custom-radio">
+						<input id="contrattokind_default_indennitadiposizioneSi" type="radio" name="contrattokind_default_indennitadiposizione" class="custom-control-input" data-tag="contrattokind.indennitadiposizione:S?contrattokinddefaultview.contrattokind_indennitadiposizione:Si" data-subentity  ><label for="contrattokind_default_indennitadiposizioneSi"> Si</label>
+						<input id="contrattokind_default_indennitadiposizioneNo" type="radio" name="contrattokind_default_indennitadiposizione" class="custom-control-input" data-tag="contrattokind.indennitadiposizione:N?contrattokinddefaultview.contrattokind_indennitadiposizione:No" data-subentity  ><label for="contrattokind_default_indennitadiposizioneNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_indennitadiateneo">Abilita indennità di ateneo</label>
+					<div class="custom-control custom-radio">
+						<input id="contrattokind_default_indennitadiateneoSi" type="radio" name="contrattokind_default_indennitadiateneo" class="custom-control-input" data-tag="contrattokind.indennitadiateneo:S?contrattokinddefaultview.contrattokind_indennitadiateneo:Si" data-subentity  ><label for="contrattokind_default_indennitadiateneoSi"> Si</label>
+						<input id="contrattokind_default_indennitadiateneoNo" type="radio" name="contrattokind_default_indennitadiateneo" class="custom-control-input" data-tag="contrattokind.indennitadiateneo:N?contrattokinddefaultview.contrattokind_indennitadiateneo:No" data-subentity  ><label for="contrattokind_default_indennitadiateneoNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_indvacancacontrattuale">Abilita ind. vacanca contrattuale</label>
+					<div class="custom-control custom-radio">
+						<input id="contrattokind_default_indvacancacontrattualeSi" type="radio" name="contrattokind_default_indvacancacontrattuale" class="custom-control-input" data-tag="contrattokind.indvacancacontrattuale:S?contrattokinddefaultview.contrattokind_indvacancacontrattuale:Si" data-subentity  ><label for="contrattokind_default_indvacancacontrattualeSi"> Si</label>
+						<input id="contrattokind_default_indvacancacontrattualeNo" type="radio" name="contrattokind_default_indvacancacontrattuale" class="custom-control-input" data-tag="contrattokind.indvacancacontrattuale:N?contrattokinddefaultview.contrattokind_indvacancacontrattuale:No" data-subentity  ><label for="contrattokind_default_indvacancacontrattualeNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_tredicesimaindennitaintegrativaspeciale">Abilita tredicesima indennità integrativa speciale</label>
+					<div class="custom-control custom-radio">
+						<input id="contrattokind_default_tredicesimaindennitaintegrativaspecialeSi" type="radio" name="contrattokind_default_tredicesimaindennitaintegrativaspeciale" class="custom-control-input" data-tag="contrattokind.tredicesimaindennitaintegrativaspeciale:S?contrattokinddefaultview.contrattokind_tredicesimaindennitaintegrativaspeciale:Si" data-subentity  ><label for="contrattokind_default_tredicesimaindennitaintegrativaspecialeSi"> Si</label>
+						<input id="contrattokind_default_tredicesimaindennitaintegrativaspecialeNo" type="radio" name="contrattokind_default_tredicesimaindennitaintegrativaspeciale" class="custom-control-input" data-tag="contrattokind.tredicesimaindennitaintegrativaspeciale:N?contrattokinddefaultview.contrattokind_tredicesimaindennitaintegrativaspeciale:No" data-subentity  ><label for="contrattokind_default_tredicesimaindennitaintegrativaspecialeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contrattokind_default_totaletredicesima">Abilita totale tredicesima</label>
+					<div class="custom-control custom-radio">
+						<input id="contrattokind_default_totaletredicesimaSi" type="radio" name="contrattokind_default_totaletredicesima" class="custom-control-input" data-tag="contrattokind.totaletredicesima:S?contrattokinddefaultview.contrattokind_totaletredicesima:Si" data-subentity  ><label for="contrattokind_default_totaletredicesimaSi"> Si</label>
+						<input id="contrattokind_default_totaletredicesimaNo" type="radio" name="contrattokind_default_totaletredicesima" class="custom-control-input" data-tag="contrattokind.totaletredicesima:N?contrattokinddefaultview.contrattokind_totaletredicesima:No" data-subentity  ><label for="contrattokind_default_totaletredicesimaNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelcontrattokind_default_puntiorganico" >Proporzione (da 0 a 1) dove 1 è il docente ordinario e per ogni altra tipologia si considera il rapporto tra il costo di un docente ordinario e il costo dello scatto più costoso della tipologia</div>
+					<label class="col-form-label col-md-12" for="contrattokind_default_puntiorganico">Punti organico</label>
+					<input id="contrattokind_default_puntiorganico" type="text" class="form-control" data-tag="contrattokind.puntiorganico.fixed.2?contrattokinddefaultview.contrattokind_puntiorganico" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelcontrattokind_default_siglaesportazione" >Sigla utilizzata dal sistema verso cui si esportano i dati (solitamente il MIUR)</div>
+					<label class="col-form-label col-md-12" for="contrattokind_default_siglaesportazione">Sigla esportazione</label>
+					<input id="contrattokind_default_siglaesportazione" type="text" class="form-control" data-tag="contrattokind.siglaesportazione?contrattokinddefaultview.contrattokind_siglaesportazione" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelcontrattokind_default_siglaimportazione" >Sigla utilizzata dal sistema da cui si importano i dati</div>
+					<label class="col-form-label col-md-12" for="contrattokind_default_siglaimportazione">Sigla importazione</label>
+					<input id="contrattokind_default_siglaimportazione" type="text" class="form-control" data-tag="contrattokind.siglaimportazione?contrattokinddefaultview.contrattokind_siglaimportazione" data-subentity  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabcontrattokind_default_1" role="tabpanel">
+				<div class="gridx" id="grid_inquadramento_default" data-tag="inquadramento.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="tempdef,S,Si;tempdef,N,No;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabcontrattokind_default_2" role="tabpanel">
+				<div class="gridx" id="grid_contrattokindperiodo_default" data-tag="contrattokindperiodo.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabcontrattokind_default_3" role="tabpanel">
+		<div id="grid_contrattokindposition_default" data-tag="position.default.default" data-custom-control="checklist" data-mdlconditionallookup="!idposition_position_active,S,Si;!idposition_position_active,N,No;!idposition_position_foreignclass,S,Si;!idposition_position_foreignclass,N,No;" ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

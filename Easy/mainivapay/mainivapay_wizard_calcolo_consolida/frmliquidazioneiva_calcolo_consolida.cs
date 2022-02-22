@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -29,7 +28,7 @@ using ep_functions;
 using movimentofunctions;
 
 namespace mainivapay_wizard_calcolo_consolida {
-    public partial class frmliquidazioneiva_calcolo_consolida : Form {
+    public partial class frmliquidazioneiva_calcolo_consolida : MetaDataForm {
         MetaData Meta;
         QueryHelper QHS;
         CQueryHelper QHC;
@@ -121,7 +120,7 @@ namespace mainivapay_wizard_calcolo_consolida {
             }
             btnNext.Visible = IsAmministrazione;
             if (!IsAmministrazione){
-                MessageBox.Show("Questa procedura può essere eseguita solo dall'Amministrazione Centrale", "Attenzione",
+                show("Questa procedura può essere eseguita solo dall'Amministrazione Centrale", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
@@ -336,7 +335,7 @@ namespace mainivapay_wizard_calcolo_consolida {
         private void ShowMsg(string msg, string error)
         {
             if (error == null || error == "")
-                MessageBox.Show(msg, "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                show(msg, "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             else
                 QueryCreator.ShowError(this, msg, error);
         }
@@ -408,7 +407,7 @@ namespace mainivapay_wizard_calcolo_consolida {
                 CheckDefault();
                 if (!((chkCommerciale.Checked) || (chkIstituzionale.Checked)))
                 {
-                    MessageBox.Show(this, "Selezionare il Tipo liquidazione");
+                    show(this, "Selezionare il Tipo liquidazione");
                     return false;
                 }
                 if (!CalcolaLiquidazione()) return false;
@@ -1043,7 +1042,7 @@ namespace mainivapay_wizard_calcolo_consolida {
                 ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
                 bool res = ga.GeneraAutomatismiAfterPost(true);
                 if (!res) {
-                    MessageBox.Show(this, "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
+                    show(this, "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
                     return;
                 }
                 res = ga.doPost(Meta.Dispatcher);
@@ -1099,7 +1098,7 @@ namespace mainivapay_wizard_calcolo_consolida {
             //if (  MovimentiFinanziariConfigurati() == false   &&  ivadelperiodo !=  0  ) 
             if ((MovimentiFinanziariConfigurati() == false) && (MovimentiFinanziariConfigurati12() == false) && (ivadelperiodo != 0))
             {
-                MessageBox.Show(this, "Non avendo generato alcuna movimentazione finanziaria non sarà generata alcuna scrittura E.P.", "Avviso");
+                show(this, "Non avendo generato alcuna movimentazione finanziaria non sarà generata alcuna scrittura E.P.", "Avviso");
                 return;
             }
 
@@ -1107,7 +1106,7 @@ namespace mainivapay_wizard_calcolo_consolida {
             if (DS.config.Rows.Count == 0) {
                 string messaggio = "Non è stata impostata la configurazione per la liquidazione IVA dell'anno in corso"
                     + "\nAndare dal menu CONFIGURAZIONE - ECONOMICO PATRIMONIALE - CONFIGURAZIONE ed impostare tale configurazione";
-                MessageBox.Show(this, messaggio);
+                show(this, messaggio);
                 return;
             }
             DataRow tEntrySetup = DS.config.Rows[0];
@@ -1130,14 +1129,14 @@ namespace mainivapay_wizard_calcolo_consolida {
                 string msg = "Non è stato configurato alcun conto per il rimborso dell'IVA"
                     + "\nAndare dal menu CONFIGURAZIONE - ECONOMICO PATRIMONIALE - CONFIGURAZIONE ed impostare il conto Crediti v/Clienti o il conto Rimborso IVA"
                     + "\nLe scritture non verranno generate";
-                MessageBox.Show(this, msg);
+                show(this, msg);
                 return;
             }
 
             if (idacc_payment == DBNull.Value && totale_iva_debito > 0) {
                 string msg = "Non è stato configurato alcun conto per il pagamento dell'IVA"
                     + "\n Andare dal menu CONFIGURAZIONE - ECONOMICO PATRIMONIALE - CONFIGURAZIONE ed impostare il conto Debiti v/Fornitori o il conto Versamento IVA";
-                MessageBox.Show(this, msg);
+                show(this, msg);
                 return;
             }
             // INTRA
@@ -1145,14 +1144,14 @@ namespace mainivapay_wizard_calcolo_consolida {
                 string msg = "Non è stato configurato alcun conto per il rimborso dell'IVA Intra e Extra-UE"
                     + "\nAndare dal menu CONFIGURAZIONE - ECONOMICO PATRIMONIALE - CONFIGURAZIONE ed impostare il conto Crediti v/Clienti o il conto Rimborso IVA"
                     + "\nLe scritture non verranno generate";
-                MessageBox.Show(this, msg);
+                show(this, msg);
                 return;
             }
 
             if (idacc_payment12 == DBNull.Value && totale_iva_debito12 > 0) {
                 string msg = "Non è stato configurato alcun conto per il pagamento dell'IVA Intra e Extra-UE"
                     + "\n Andare dal menu CONFIGURAZIONE - ECONOMICO PATRIMONIALE - CONFIGURAZIONE ed impostare il conto Debiti v/Fornitori o il conto Versamento IVA";
-                MessageBox.Show(this, msg);
+                show(this, msg);
                 return;
             }
 
@@ -1250,7 +1249,7 @@ namespace mainivapay_wizard_calcolo_consolida {
                 string msg = "Attenzione il conto generale per l'imputazione dell'iva indetrabile (Costi)" +
                     "non è stato configurato." +
                     "\nAndare dal menu CONFIGURAZIONE - Configurazione Annuale - EP - Iva e configurare il conto";
-                MessageBox.Show(this, msg);
+                show(this, msg);
                 return;
             }
 
@@ -1258,7 +1257,7 @@ namespace mainivapay_wizard_calcolo_consolida {
                 string msg = "Attenzione il conto generale per l'imputazione dell'iva indetrabile (Ricavi)" +
                     "non è stato configurato." +
                     "\nAndare dal menu CONFIGURAZIONE - Configurazione Annuale - EP - Iva e configurare il conto";
-                MessageBox.Show(this, msg);
+                show(this, msg);
                 return;
             }
 
@@ -1438,7 +1437,7 @@ namespace mainivapay_wizard_calcolo_consolida {
                         object codicecreddeb = R["idreg"];
                         DataRow ModPagam = CfgFn.ModalitaPagamentoDefault(Meta.Conn, codicecreddeb);
                         if (ModPagam == null){
-                            MessageBox.Show(this,
+                            show(this,
                                 "E' necessario che sia definita almeno una modalità di pagamento per il percipiente " +
                                 "\"" + R["registry"].ToString() + "\"\n\n" +
                                 "Dati non salvati", "Errore", MessageBoxButtons.OK);
@@ -1727,7 +1726,7 @@ namespace mainivapay_wizard_calcolo_consolida {
                     errore += "\n Dipartimento: " + r["department"] + ". Registro: " + r["description"] + ";";
                 }
                 errore += "\n\nImpostare il codice di Consolidamento.";
-                MessageBox.Show(this, errore);
+                show(this, errore);
                 return false;
             }
         }
@@ -2567,7 +2566,7 @@ namespace mainivapay_wizard_calcolo_consolida {
 
             int maxfase = GetMaxFaseForSelection(RigheSelezionate, "income");
             if (maxfase < 1){
-                MessageBox.Show("Non è possibile collegare tutte le righe selezionate ad uno stesso movimento.\n" +
+                show("Non è possibile collegare tutte le righe selezionate ad uno stesso movimento.\n" +
                     "Le informazioni di U.P.B., bilancio e versante sono troppo diverse tra loro.", "Errore");
                 return;
             }
@@ -2611,7 +2610,7 @@ namespace mainivapay_wizard_calcolo_consolida {
             string rowfilter;
             int maxfase = GetMaxFaseForSelection(RigheSelezionate, "expense");
             if (maxfase < 1){
-                MessageBox.Show("Non è possibile collegare tutte le righe selezionate ad uno stesso movimento.\n" +
+                show("Non è possibile collegare tutte le righe selezionate ad uno stesso movimento.\n" +
                     "Le informazioni di U.P.B., bilancio e versante sono troppo diverse tra loro.", "Errore");
                 return;
             }
@@ -2673,4 +2672,4 @@ namespace mainivapay_wizard_calcolo_consolida {
         }
 
     }
-}
+}

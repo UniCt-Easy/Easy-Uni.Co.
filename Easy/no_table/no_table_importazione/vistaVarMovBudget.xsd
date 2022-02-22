@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaVarMovBudget" targetNamespace="http://tempuri.org/vistaVarMovBudget.xsd" xmlns:mstns="http://tempuri.org/vistaVarMovBudget.xsd" xmlns="http://tempuri.org/vistaVarMovBudget.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaVarMovBudget" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="epaccvar">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idepacc" type="xs:int" />
+              <xs:element name="nvar" type="xs:int" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="amount2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="yvar" type="xs:short" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="epexpvar">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idepexp" type="xs:int" />
+              <xs:element name="nvar" type="xs:int" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="amount2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="yvar" type="xs:short" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:epaccvar" />
+      <xs:field xpath="mstns:idepacc" />
+      <xs:field xpath="mstns:nvar" />
+    </xs:unique>
+    <xs:unique name="epexpvar_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:epexpvar" />
+      <xs:field xpath="mstns:idepexp" />
+      <xs:field xpath="mstns:nvar" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -24,12 +23,13 @@ using System.Windows.Forms;
 using metadatalibrary;
 using System.Data;
 using funzioni_configurazione;
+using System.Collections.Generic;
 
 namespace flussocrediti_default{
 	/// <summary>
 	/// Summary description for FrmWizardScegliDettagli.
 	/// </summary>
-	public class FrmWizardScegliDettagliFattura : System.Windows.Forms.Form
+	public class FrmWizardScegliDettagliFattura : MetaDataForm
 	{
 		private System.Windows.Forms.Button btnNext;
 		private System.Windows.Forms.Button btnBack;
@@ -496,6 +496,8 @@ namespace flussocrediti_default{
             if (cmbTipoFattura.SelectedValue != null) {
                 filter=  QHS.AppAnd(filter,QHS.CmpEq("idinvkind", cmbTipoFattura.SelectedValue));
             }
+            filter = QHS.AppAnd(filter, QHS.NullOrEq("flagbankitaliaproceeds","N"), QHS.IsNotNull("idfinmotive"));
+
             if (txtAnagrafica.Text != "") {
                 filter = QHS.AppAnd(filter, QHS.CmpEq("registry", txtAnagrafica.Text.ToString()));
             }
@@ -558,7 +560,7 @@ namespace flussocrediti_default{
         bool ScegliDocs(){
 			SelectedRows = GetGridSelectedRows(gridDettagli);
 			if ((SelectedRows==null)||(SelectedRows.Length==0)){
-				MessageBox.Show("Non è stato selezionato alcun dettaglio.");
+				show("Non è stato selezionato alcun dettaglio.");
 				return false;
 			}
 			if (SelectedRows.Length>1)
@@ -589,27 +591,13 @@ namespace flussocrediti_default{
 			string TableName = G.DataMember.ToString();
 			DataSet MyDS =(DataSet)G.DataSource;
 			DataTable MyTable = MyDS.Tables[TableName];
-			int numrighetemp=MyTable.Rows.Count;
-
-			int numrighe=0;
-			int i;
-			for (i=0; i<numrighetemp; i++){
+            List <DataRow> res = new List<DataRow>();
+            for (int i=0; i<MyTable.Rows.Count; i++){
 				if(G.IsSelected(i)){
-					numrighe++;
+					res.Add(GetGridRow(G,i));
 				}
 			}
-			DataRow[] Res=new DataRow[numrighe]; 		
-
-			int count=0;
-			for (i=0; i<numrighetemp; i++)
-			{
-				if(G.IsSelected(i))
-				{
-					Res[count++]= GetGridRow(G,i);
-				}
-			}
-			
-			return Res;
+            return res.ToArray();
 		}
 
 		private bool alreadyselected(DataRow curr_rowgrid, DataRow[] RrowSelected)
@@ -715,4 +703,3 @@ namespace flussocrediti_default{
         }
     }
 }
-

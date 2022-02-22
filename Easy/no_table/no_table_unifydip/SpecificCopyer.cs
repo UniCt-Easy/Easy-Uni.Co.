@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -118,7 +117,7 @@ namespace no_table_unifydip {
                 }
                 DataRow[] RDs = UPBDest.Select(QHC.AppAnd(QHC.CmpEq("codeupb", RS["codeupb"]), QHC.CmpEq("paridupb", "0001")));
                 if (RDs.Length == 0) {
-                    MessageBox.Show("L'UPB di 2o livello avente  codice " + RS["codeupb"].ToString() +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("L'UPB di 2o livello avente  codice " + RS["codeupb"].ToString() +
                                     " non ha corrispondenza  nel db di destinazione");
                     return false;
                 }
@@ -198,7 +197,7 @@ namespace no_table_unifydip {
                 filter = QHC.MCmp(Rs, "ayear", "codefin");
                 DataRow[] found = D.Select(filter);
                 if (found.Length == 0) {
-                    MessageBox.Show("Nessuna riga di bilancio trovata nel dip. di destinazione sodisfante il filtro " + filter, "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga di bilancio trovata nel dip. di destinazione sodisfante il filtro " + filter, "Errore");
                     return false;
                 }
                 H[Rs["idfin"]] = found[0]["idfin"];
@@ -212,7 +211,7 @@ namespace no_table_unifydip {
                 filter = QHC.MCmp(Rs, "ayear", "codefin");
                 DataRow[] found = D.Select(filter);
                 if (found.Length == 0) {
-                    MessageBox.Show("Nessuna riga di bilancio trovata nel dip. di destinazione sodisfante il filtro " + filter, "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga di bilancio trovata nel dip. di destinazione sodisfante il filtro " + filter, "Errore");
                     return false;
                 }
                 H[Rs["idfin"]] = found[0]["idfin"];
@@ -314,7 +313,7 @@ namespace no_table_unifydip {
                             StreamWriter fsw = new StreamWriter("temp.sql", false, Encoding.Default);
                             fsw.Write(s.ToString());
                             fsw.Close();
-                            MessageBox.Show("Errore durante la copia della tabella " + table + "\r\nLo script lanciato si trova nel file 'temp.sql'");
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore durante la copia della tabella " + table + "\r\nLo script lanciato si trova nel file 'temp.sql'");
                             CD.Stop(false);
                             return false;
                         }
@@ -330,7 +329,7 @@ namespace no_table_unifydip {
                         StreamWriter fsw = new StreamWriter("temp.sql", false, Encoding.Default);
                         fsw.Write(s.ToString());
                         fsw.Close();
-                        MessageBox.Show("Errore durante la copia di " + table + "\r\nLo script lanciato si trova nel file 'temp.sql'");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore durante la copia di " + table + "\r\nLo script lanciato si trova nel file 'temp.sql'");
                         CD.Stop(false);
                         return false;
                     }
@@ -421,7 +420,7 @@ namespace no_table_unifydip {
                             StreamWriter fsw = new StreamWriter("temp.sql", false, Encoding.Default);
                             fsw.Write(s.ToString());
                             fsw.Close();
-                            MessageBox.Show("Errore durante la copia della tabella " + table + "\r\nLo script lanciato si trova nel file 'temp.sql'");
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore durante la copia della tabella " + table + "\r\nLo script lanciato si trova nel file 'temp.sql'");
                             CD.Stop(false);
                             return false;
                         }
@@ -437,7 +436,7 @@ namespace no_table_unifydip {
                         StreamWriter fsw = new StreamWriter("temp.sql", false, Encoding.Default);
                         fsw.Write(s.ToString());
                         fsw.Close();
-                        MessageBox.Show("Errore durante la copia di " + table + "\r\nLo script lanciato si trova nel file 'temp.sql'");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore durante la copia di " + table + "\r\nLo script lanciato si trova nel file 'temp.sql'");
                         CD.Stop(false);
                         return false;
                     }
@@ -518,7 +517,7 @@ namespace no_table_unifydip {
                 //proietta Rs[idsorkind] sul db di destinazione
                 object idsork = Rs["idsorkind"];
                 if (Sk.Select(QHC.CmpEq("idsorkind", idsork)).Length == 0) {
-                    MessageBox.Show("Chiave esterna idsorkind ORFANA nella tabella sorting del dipartimento di origine", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Chiave esterna idsorkind ORFANA nella tabella sorting del dipartimento di origine", "Errore");
                     return false;
                 }
             }
@@ -567,7 +566,7 @@ namespace no_table_unifydip {
                         }
                         if (found.Length == 1) {
                             if (Rs["nlevel"].ToString() != found[0]["nlevel"].ToString()) {
-                                MessageBox.Show("La classificazione " + Rsk["codesorkind"].ToString() + " nel dipartimento di destinazione " +
+                                MetaFactory.factory.getSingleton<IMessageShower>().Show("La classificazione " + Rsk["codesorkind"].ToString() + " nel dipartimento di destinazione " +
                                        " con codice " + Rs["sortcode"].ToString()+
                                        " appartiene ad un livello diverso rispetto al dipartimento di origine.", "Errore");
                                 errors = true;
@@ -576,7 +575,7 @@ namespace no_table_unifydip {
                             H[Rs["idsor"]] = found[0]["idsor"];
                             continue;
                         }
-                        MessageBox.Show("La classificazione " + Rsk["codesorkind"].ToString() + " nel dipartimento di destinazione " +
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("La classificazione " + Rsk["codesorkind"].ToString() + " nel dipartimento di destinazione " +
                                " ha PIU' VOCI con codice " + Rs["sortcode"].ToString(), "Errore");
                         errors = true;
                     }
@@ -687,4 +686,3 @@ namespace no_table_unifydip {
 
     
 }
-

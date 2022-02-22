@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿
+
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -81,6 +80,7 @@ namespace meta_csa_importver_partitionview {
                 DescribeAColumn(T, "ndetail", "#", nPos++);
                 DescribeAColumn(T, "amount", "Importo", nPos++);
                 DescribeAColumn(T, "vocecsa", "Voce CSA", nPos++);
+                DescribeAColumn(T, "ente", "Ente CSA", nPos++);
                 DescribeAColumn(T, "csa_contractkindcode", "Cod. Regola generale CSA", nPos++);
                 DescribeAColumn(T, "ycontract", "Eserc. Regola specifica CSA", nPos++);
                 DescribeAColumn(T, "ncontract", "Num. Regola specifica CSA", nPos++);
@@ -94,9 +94,27 @@ namespace meta_csa_importver_partitionview {
                 DescribeAColumn(T, "upb", "UPB", nPos++);
                 DescribeAColumn(T, "codefin", "Cod. Bilancio Spesa", nPos++);
                 DescribeAColumn(T, "fin", "Bilancio Spesa", nPos++);
-                DescribeAColumn(T, "codeacc_cost", "Cod. Conto EP", nPos++);
-                DescribeAColumn(T, "account_cost", "Conto EP", nPos++);
+                DescribeAColumn(T, "codeacc_cost", "Cod. Conto EP costo", nPos++);
+                DescribeAColumn(T, "account_cost", "Conto EP costo", nPos++);
+                DescribeAColumn(T, "descflagaccountusage", "Tipo utilizzo conto", nPos++);
                 DescribeAColumn(T, "sorting_siope", "Class. Siope", nPos++);
+                DescribeAColumn(T, "matricola", "Matricola", nPos++);
+                DescribeAColumn(T, "sortcode_income", "Codice Siope Entrate", nPos++);
+                DescribeAColumn(T, "sorting_income", "Siope Entrate", nPos++);
+                DescribeAColumn(T, "sortcode_incomeclawback", "Codice Siope Recupero", nPos++);
+                DescribeAColumn(T, "sorting_incomeclawback", "Siope Recupero", nPos++);
+                DescribeAColumn(T, "codeacc_revenue", "Codice Conto EP ricavo", nPos++);
+                DescribeAColumn(T, "account_revenue", "Conto EP ricavo", nPos++);
+                DescribeAColumn(T, "codeacc_expense", "Codice Conto EP debito", nPos++);
+                DescribeAColumn(T, "account_expense", "Conto EP debito", nPos++);
+                DescribeAColumn(T, "codeacc_agency_credit", "Codice Conto EP credito", nPos++);
+                DescribeAColumn(T, "account_agency_credit", "Conto EP credito", nPos++);
+                DescribeAColumn(T, "registry", "Anagrafica Ente", nPos++);
+                DescribeAColumn(T, "nobill", "Non richiede sospeso in versamenti", nPos++);
+                DescribeAColumn(T, "annualpayment", "Versamenti annuali", nPos++);
+                DescribeAColumn(T, "agency", "Ente Versamento", nPos++);
+                DescribeAColumn(T, "registry_agency", "Anagrafica Versamento", nPos++);
+
             }
             if (ListingType == "versamentiannuali") {
                 DescribeAColumn(T, "idcsa_import", ".#import", nPos++);
@@ -110,6 +128,7 @@ namespace meta_csa_importver_partitionview {
                 DescribeAColumn(T, "vocecsa", "Voce CSA", nPos++);
                 DescribeAColumn(T, "ruolocsa", "Ruolo CSA", nPos++);
                 DescribeAColumn(T, "capitolocsa", "Capitolo CSA", nPos++);
+                DescribeAColumn(T, "ente", "Ente CSA", nPos++);
                 DescribeAColumn(T, "csa_contractkindcode", "Tipo contr.", nPos++);
                 DescribeAColumn(T, "ycontract", "Esercizio Contr.", nPos++);
                 DescribeAColumn(T, "ncontract", "Numero Contr.", nPos++);
@@ -139,6 +158,7 @@ namespace meta_csa_importver_partitionview {
 				DescribeAColumn(T, "vocecsa", "Voce CSA", nPos++);
 				DescribeAColumn(T, "ruolocsa", "Ruolo CSA", nPos++);
 				DescribeAColumn(T, "capitolocsa", "Capitolo CSA", nPos++);
+				DescribeAColumn(T, "ente", "Ente CSA", nPos++);
 				DescribeAColumn(T, "csa_contractkindcode", "Tipo contr.", nPos++);
 				DescribeAColumn(T, "ycontract", "Esercizio Contr.", nPos++);
 				DescribeAColumn(T, "ncontract", "Numero Contr.", nPos++);
@@ -160,6 +180,7 @@ namespace meta_csa_importver_partitionview {
                 DescribeAColumn(T, "vocecsa", "Voce CSA", nPos++);
                 DescribeAColumn(T, "ruolocsa", "Ruolo CSA", nPos++);
                 DescribeAColumn(T, "capitolocsa", "Capitolo CSA", nPos++);
+                DescribeAColumn(T, "ente", "Ente CSA", nPos++);
                 DescribeAColumn(T, "csa_contractkindcode", "Tipo contr.", nPos++);
                 DescribeAColumn(T, "ycontract", "Esercizio Contr.", nPos++);
                 DescribeAColumn(T, "ncontract", "Numero Contr.", nPos++);
@@ -174,4 +195,3 @@ namespace meta_csa_importver_partitionview {
 
     }
 
-

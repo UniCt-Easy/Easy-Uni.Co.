@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[f_calcola_quota_importverpartition]') )
 drop function f_calcola_quota_importverpartition
 GO
@@ -34,7 +51,7 @@ select --IV.idcsa_import,IV.idver,CE.ndetail,
 	--CE.quota,		--quota
 	@quotaapplicata = case when @quotaapplicata is null then 0 else  @quotaapplicata+@ultimaquota end ,	--quota_applicata
 	@ultimaquota= CE.quota, 
-	@quotadaapplicare = CE.quota / (1-@quotaapplicata),
+	@quotadaapplicare = case when @quotaapplicata=1 then 0 else  CE.quota / (1-@quotaapplicata) end,
 	@ultimoimporto =  round(@quotadaapplicare*@totaleresiduo,2)   --totresidual		
 from csa_importver IV
 	join csa_contract C on C.idcsa_contract=IV.idcsa_contract and IV.ayear=C.ayear

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -30,7 +29,7 @@ namespace changedepartmentpassword_default
 	/// <summary>
 	/// Summary description for FrmChangeDepartPwd.
 	/// </summary>
-	public class FrmChangeDepartPwd : System.Windows.Forms.Form
+	public class FrmChangeDepartPwd : MetaDataForm
 	{
 		public DataSet DS;
 		MetaData Meta;
@@ -201,8 +200,8 @@ namespace changedepartmentpassword_default
 				DepConn.GetSys("server").ToString(), DepConn.GetSys("database").ToString(),
 				dbuser,old,DateTime.Now.Year,DateTime.Now);
 			Try.Open();
-			if (Try.OpenError){
-				MessageBox.Show(this,"La vecchia password inserita non è corretta!","Errore");
+			if (Try.openError){
+				show(this,"La vecchia password inserita non è corretta!","Errore");
 				DialogResult = DialogResult.None;
 				return;
 			}
@@ -216,12 +215,12 @@ namespace changedepartmentpassword_default
 			string new1= txtNew1.Text.ToUpper();
 			string new2= Confirm.txtPwd.Text.ToUpper();
 			if (new1!=new2) {
-				MessageBox.Show(this,"La password inserita come conferma era diversa!","Errore");
+				show(this,"La password inserita come conferma era diversa!","Errore");
 				DialogResult = DialogResult.None;
 				return;
 			}
 			if (new1.Length == 0) {
-				MessageBox.Show(this, "La password deve essere composta da almeno 1 carattere");
+				show(this, "La password deve essere composta da almeno 1 carattere");
 				this.DialogResult = DialogResult.None;
 				return;
 			}
@@ -243,11 +242,10 @@ namespace changedepartmentpassword_default
 					return;
 				}
 				DepConn.SetSys("passworddb", new1);
-				MessageBox.Show(this, "Password reimpostata con successo");
+				show(this, "Password reimpostata con successo");
 			} else {
-				MessageBox.Show(this, "Non è stato possibile cambiare la password");
+				show(this, "Non è stato possibile cambiare la password");
 			}
 		}
 	}
 }
-

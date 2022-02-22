@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -108,7 +107,7 @@ namespace funzioni_configurazione {
                 }
                 if (!Rsp_data.Table.Columns.Contains(source_field)) {
                     if (!source_field.EndsWith("_Id")) {
-                        MessageBox.Show("La riga prodotta dalla sp di esportazione per la tabella "+
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("La riga prodotta dalla sp di esportazione per la tabella "+
                             TSchema.TableName+
                             " non contiene il campo " + source_field, "Errore");
                     }
@@ -131,7 +130,7 @@ namespace funzioni_configurazione {
                     //            ". Altri valori presenti:"+XX);
 
                     if (AllowSkip == false) {
-                        MessageBox.Show("La colonna " + field + " della sezione " + TSchema.TableName +
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("La colonna " + field + " della sezione " + TSchema.TableName +
                             " non contiene alcun valore. Valori presenti:" + XX, "Errore");
                     }
                 }
@@ -290,6 +289,15 @@ namespace funzioni_configurazione {
 
         static Dictionary<string,XmlReaderSettings> allXmlReaderSettings = new Dictionary<string, XmlReaderSettings>();
 
+        //public static string CleanInvalidXmlChars(string text) 
+        //{ 
+	       // // From xml spec valid chars: 
+	       // // #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]     
+	       // // any Unicode character, excluding the surrogate blocks, FFFE, and FFFF. 
+	       // string re = @"[^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD\u10000-\u10FFFF]"; 
+	       // return Regex.Replace(text, re, ""); 
+        //}
+
         public static bool Validate(Stream xml, string xsdFileName) {
             ClearErrorMessage();
             XmlReaderSettings settings;
@@ -396,4 +404,3 @@ namespace funzioni_configurazione {
         }
     }
 }
-

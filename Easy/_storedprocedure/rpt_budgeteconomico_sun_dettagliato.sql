@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_budgeteconomico_sun_dettagliato]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_budgeteconomico_sun_dettagliato]
 GO
@@ -88,27 +105,27 @@ WHERE S.idsorkind = @idsorkind
 	
 
 DECLARE @lencod_lev1 int
-SELECT @lencod_lev1 = 1-- flag / 256 FROM sortinglevel WHERE idsorkind = @idsorkind AND nlevel = 1
+SELECT @lencod_lev1 = flag / 256 FROM sortinglevel WHERE idsorkind = @idsorkind AND nlevel = 1
 DECLARE @startpos1 int
 SELECT @startpos1 = 1
 DECLARE @lencod_lev2 int
-SELECT @lencod_lev2 = 1--flag / 256 FROM sortinglevel WHERE idsorkind = @idsorkind AND nlevel = 2
+SELECT @lencod_lev2 = flag / 256 FROM sortinglevel WHERE idsorkind = @idsorkind AND nlevel = 2
 DECLARE @startpos2 int
 SELECT @startpos2 = @startpos1 + @lencod_lev1
 DECLARE @lencod_lev3 int
-SELECT @lencod_lev3 = 1--flag / 256 FROM sortinglevel WHERE idsorkind = @idsorkind AND nlevel = 3
+SELECT @lencod_lev3 = flag / 256 FROM sortinglevel WHERE idsorkind = @idsorkind AND nlevel = 3
 DECLARE @startpos3 int
 SELECT @startpos3 = @startpos2 + @lencod_lev2
 DECLARE @lencod_lev4 int
-SELECT @lencod_lev4 = 1--flag / 256 FROM sortinglevel WHERE idsorkind = @idsorkind AND nlevel = 4
+SELECT @lencod_lev4 = flag / 256 FROM sortinglevel WHERE idsorkind = @idsorkind AND nlevel = 4
 DECLARE @startpos4 int
 SELECT @startpos4 = @startpos3 + @lencod_lev3
 DECLARE @lencod_lev5 int 
-SELECT @lencod_lev5 = 1--flag / 256 FROM sortinglevel WHERE idsorkind = @idsorkind AND nlevel = 5
+SELECT @lencod_lev5 = flag / 256 FROM sortinglevel WHERE idsorkind = @idsorkind AND nlevel = 5
 DECLARE @startpos5 int 
 SELECT @startpos5 = @startpos4 + @lencod_lev4
 DECLARE @lencod_lev6 int 
-SELECT @lencod_lev6 = 2--flag / 256 FROM sortinglevel WHERE idsorkind = @idsorkind AND nlevel = 6
+SELECT @lencod_lev6 = flag / 256 FROM sortinglevel WHERE idsorkind = @idsorkind AND nlevel = 6
 DECLARE @startpos6 int 
 SELECT @startpos6 = @startpos5 + @lencod_lev5
 

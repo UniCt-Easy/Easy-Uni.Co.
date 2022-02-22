@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[check_detrazioni_reddito]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [check_detrazioni_reddito]
 GO
@@ -319,13 +336,13 @@ BEGIN
 	set @min_detrazione = 1380 
 
 	declare @max_fascia1 decimal(19,2) -- reddito
-	set @max_fascia1= 8000
+	set @max_fascia1= 15000
 
 	declare @max_fascia2 decimal(19,2)
 	set @max_fascia2= 28000
 
 	declare @max_fascia3 decimal(19,2)
-	set @max_fascia3= 55000
+	set @max_fascia3= 50000
 
 	if (@totale_reddito <=@max_fascia1) begin
 	--1880 massimale detrazione
@@ -348,7 +365,7 @@ BEGIN
 
     if (@totale_reddito >@max_fascia1 and @totale_reddito <=@max_fascia2) begin
 		print 'fascia 2'
-		 set @maxdetrazione =  978    +   (902 * (28000 - @totale_reddito)) / 20000;
+		 set @maxdetrazione =  1910    +   (1190 * (28000 - @totale_reddito)) / 13000;
 		 set  @maxdetrazione = (@maxdetrazione / @giorni_anno) * @workingdays
 		  print  'calcolo detrazione applicata al percipiente rapportata al periodo di lavoro'
 		 print 	@maxdetrazione	
@@ -358,7 +375,7 @@ BEGIN
  
 	if (@totale_reddito >=@max_fascia2 and @totale_reddito <=@max_fascia3) begin	 
 		print 'fascia 3'
-		set @maxdetrazione= (978 * (55000 - @totale_reddito)) / 27000;
+		set @maxdetrazione= (1910 * (50000 - @totale_reddito)) / 22000;
 		set  @maxdetrazione = (@maxdetrazione / @giorni_anno) * @workingdays
 		 print  'calcolo detrazione applicata al percipiente rapportata al periodo di lavoro'
 		 print 	@maxdetrazione	
@@ -373,6 +390,11 @@ BEGIN
 	
 	if (@detrazioni_per_reddito> @maxdetrazione)BEGIN
 		set @res=1
+
+	END
+	else
+	BEGIN
+		set @res=0
 	END
 
 
@@ -386,5 +408,5 @@ GO
 
 --setuser 'amm'
 --declare @res int
---exec check_detrazioni_reddito 5960,2015, @res out
+--exec check_detrazioni_reddito 21,2022, @res out
 --select @res

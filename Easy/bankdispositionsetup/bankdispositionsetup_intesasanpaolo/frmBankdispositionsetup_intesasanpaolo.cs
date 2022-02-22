@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -36,10 +35,15 @@ namespace bankdispositionsetup_intesasanpaolo {
 
 
 
-    public partial class frmbankdispositionsetup_intesasanpaolo : Form {
+    public partial class frmbankdispositionsetup_intesasanpaolo : MetaDataForm {
+
+        public IOpenFileDialog openFileDialog;
+
         public frmbankdispositionsetup_intesasanpaolo() {
             InitializeComponent();
+            openFileDialog = createOpenFileDialog(_openFileDialog1);
         }
+        
 
         DataAccess Conn;
         MetaData Meta;
@@ -125,7 +129,7 @@ namespace bankdispositionsetup_intesasanpaolo {
         private void btnGeneraFilePagamenti_Click(object sender, EventArgs e) {
             int n = CfgFn.GetNoNullInt32(txtNPaymentTransmission.Text);
             if (n == 0) {
-                MessageBox.Show(this, "E' necessario selezionare un numero per la distinta");
+                show(this, "E' necessario selezionare un numero per la distinta");
                 return;
             }
             int y = CfgFn.GetNoNullInt32(Conn.GetSys("esercizio"));
@@ -141,7 +145,7 @@ namespace bankdispositionsetup_intesasanpaolo {
             if (cfgflagenabletransmission != DBNull.Value) {
                 string cfg_flag = cfgflagenabletransmission.ToString().ToUpper();
                 if ((cfg_flag == "S") && (flagtransmissionenabled.ToString().ToUpper() != "S")) {
-                    MessageBox.Show(this, "La trasmissione della distinta non è stata autorizzata");
+                    show(this, "La trasmissione della distinta non è stata autorizzata");
                     return;
                 }
             }
@@ -170,7 +174,7 @@ namespace bankdispositionsetup_intesasanpaolo {
                 D.WriteTo(xw);
                 xw.Flush();
                 xw.Close();
-                MessageBox.Show("Salvataggio del file " + fname + " effettuato");
+                show("Salvataggio del file " + fname + " effettuato");
 
                 TreasurerPutFile ftp = new TreasurerPutFile(Conn, idtreasurer);
                 ftp.putFile(fname, Conn.GetEsercizio() + "_mandati_" + n.ToString());
@@ -230,7 +234,7 @@ namespace bankdispositionsetup_intesasanpaolo {
         private void btnGeneraFileIncassi_Click(object sender, EventArgs e) {
             int n = CfgFn.GetNoNullInt32(txtNproceedsTransm.Text);
             if (n == 0) {
-                MessageBox.Show(this, "E' necessario selezionare un numero per la distinta");
+                show(this, "E' necessario selezionare un numero per la distinta");
                 return;
             }
             int y = CfgFn.GetNoNullInt32(Conn.GetSys("esercizio"));
@@ -245,7 +249,7 @@ namespace bankdispositionsetup_intesasanpaolo {
             if (cfgflagenabletransmission != DBNull.Value) {
                 string cfg_flag = cfgflagenabletransmission.ToString().ToUpper();
                 if ((cfg_flag == "S") && (flagtransmissionenabled.ToString().ToUpper() != "S")) {
-                    MessageBox.Show(this, "La trasmissione della distinta non è stata autorizzata");
+                    show(this, "La trasmissione della distinta non è stata autorizzata");
                     return;
                 }
             }
@@ -273,14 +277,14 @@ namespace bankdispositionsetup_intesasanpaolo {
                 D.WriteTo(xw);
                 xw.Flush();
                 xw.Close();
-                MessageBox.Show("Salvataggio del file " + fname + " effettuato");
+                show("Salvataggio del file " + fname + " effettuato");
                 TreasurerPutFile ftp = new TreasurerPutFile(Conn, idtreasurer);
                 ftp.putFile(fname, Meta.GetSys("esercizio") + "_reversali_" + n.ToString());
 
 
             }
             catch (Exception e1) {
-                MessageBox.Show(e1.Message, "Errore nel salvataggio del file " + fname);
+                show(e1.Message, "Errore nel salvataggio del file " + fname);
             }
 
             try {
@@ -353,4 +357,4 @@ namespace bankdispositionsetup_intesasanpaolo {
     }
 
 
-}
+}

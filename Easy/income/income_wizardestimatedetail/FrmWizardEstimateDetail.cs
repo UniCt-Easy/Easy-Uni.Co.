@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -29,12 +28,15 @@ using funzioni_configurazione;
 using movimentofunctions;
 using System.Globalization;
 using AskInfo;
+using ep_functions;
+using gestioneclassificazioni;
+using q = metadatalibrary.MetaExpression;
 
 namespace income_wizardestimatedetail {
     /// <summary>
     /// Summary description for FrmWizardEstimateDetail.
     /// </summary>
-    public class FrmWizardEstimateDetail : System.Windows.Forms.Form {
+    public class FrmWizardEstimateDetail : MetaDataForm {
         private Crownwood.Magic.Controls.TabControl tabController;
         private Crownwood.Magic.Controls.TabPage tabIntro;
         private System.Windows.Forms.Label label1;
@@ -138,6 +140,7 @@ namespace income_wizardestimatedetail {
         private Label label17;
         private TextBox txtDaIncassare;
         bool SalvataggioEnabled = true;
+        bool monofase = false;
         ArrayList DetailsToUpdate;
         CQueryHelper QHC;
         private GroupBox groupBox4;
@@ -147,6 +150,7 @@ namespace income_wizardestimatedetail {
         private TextBox txtUPB;
         private Panel panel1;
         QueryHelper QHS;
+        GestioneClassificazioni ManageClassificazioni;
 
         public FrmWizardEstimateDetail() {
             //
@@ -303,11 +307,10 @@ namespace income_wizardestimatedetail {
             this.tabController.Location = new System.Drawing.Point(0, 0);
             this.tabController.Name = "tabController";
             this.tabController.SelectedIndex = 0;
-            this.tabController.SelectedTab = this.tabIntro;
+            this.tabController.SelectedTab = this.tabSelDetail;
             this.tabController.Size = new System.Drawing.Size(791, 536);
             this.tabController.TabIndex = 0;
             this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
-                this.tabIntro,
                 this.tabSelDetail,
                 this.tabSplit,
                 this.tabSelMov,
@@ -340,7 +343,7 @@ namespace income_wizardestimatedetail {
             this.tabSelDetail.Selected = false;
             this.tabSelDetail.Size = new System.Drawing.Size(791, 511);
             this.tabSelDetail.TabIndex = 5;
-            this.tabSelDetail.Title = "Pagina 2 di 5";
+            this.tabSelDetail.Title = "Pagina 1 di 4";
             // 
             // groupBox5
             // 
@@ -684,7 +687,7 @@ namespace income_wizardestimatedetail {
             this.tabSplit.Selected = false;
             this.tabSplit.Size = new System.Drawing.Size(791, 511);
             this.tabSplit.TabIndex = 7;
-            this.tabSplit.Title = "Page 3 di 5";
+            this.tabSplit.Title = "Page 2 di 4";
             // 
             // label23
             // 
@@ -815,7 +818,7 @@ namespace income_wizardestimatedetail {
             this.tabSelMov.Selected = false;
             this.tabSelMov.Size = new System.Drawing.Size(791, 511);
             this.tabSelMov.TabIndex = 4;
-            this.tabSelMov.Title = "Pagina 4 di 5";
+            this.tabSelMov.Title = "Pagina 3 di 4";
             // 
             // labelNewLinkedCont
             // 
@@ -1236,7 +1239,7 @@ namespace income_wizardestimatedetail {
             this.tabConfirm.Selected = false;
             this.tabConfirm.Size = new System.Drawing.Size(791, 511);
             this.tabConfirm.TabIndex = 6;
-            this.tabConfirm.Title = "Pagina 5 di 5";
+            this.tabConfirm.Title = "Pagina 4 di 4";
             // 
             // gboxBilToCreate
             // 
@@ -1306,7 +1309,7 @@ namespace income_wizardestimatedetail {
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 16;
             this.btnCancel.Tag = "maincancel";
-            this.btnCancel.Text = "Cancel";
+            this.btnCancel.Text = "Annulla";
             // 
             // btnNext
             // 
@@ -1409,9 +1412,9 @@ namespace income_wizardestimatedetail {
             //Evaluates Buttons Appearance
             btnBack.Visible = (newTab > 0);
             if (newTab == tabController.TabPages.Count - 1)
-                btnNext.Text = "Esegui.";
+                btnNext.Text = "Esegui";
             else
-                btnNext.Text = "Next >";
+                btnNext.Text = "Avanti >";
             Text = CustomTitle + " (Pagina " + (newTab + 1) + " di " + tabController.TabPages.Count + ")";
         }
 
@@ -1421,9 +1424,9 @@ namespace income_wizardestimatedetail {
             if ((newTab < 0) || (newTab > tabController.TabPages.Count)) return;
             if (!CustomChangeTab(oldTab, newTab)) return;
             if (newTab == tabController.TabPages.Count) {
-                if (MessageBox.Show(this, "Si desidera eseguire ancora la procedura",
+                if (show(this, "Si desidera eseguire ancora la procedura",
                     "Conferma", MessageBoxButtons.YesNo) == DialogResult.Yes) {
-                    newTab = 1;
+                    newTab = 0;
                     ResetWizard();
                 }
                 else {
@@ -1432,8 +1435,8 @@ namespace income_wizardestimatedetail {
                     return;
                 }
             }
-            if ((oldTab == 4) && (newTab == 3)) {
-                newTab = 1;
+            if ((oldTab == 3) && (newTab == 4)) {
+                newTab = 0;
                 ResetWizard();
             }
             DisplayTabs(newTab);
@@ -1452,14 +1455,14 @@ namespace income_wizardestimatedetail {
             if (!SalvataggioEnabled) {
                 return false;
             }
-            if (oldTab == 0) {
-                return true; // 0->1: nothing to do
-            }
-            if ((oldTab == 1) && (newTab == 0)) return true; //1->0:nothing to do!
-            if ((oldTab == 1) && (newTab == 2)) {
+            //if (oldTab == 0) {
+            //    return true; // 0->1: nothing to do
+            //}
+            //if ((oldTab == 1) && (newTab == 0)) return true; //1->0:nothing to do!
+            if ((oldTab == 0) && (newTab == 1)) {
                 DataRow[] Selected = GetGridSelectedRows(gridDetails);
                 if ((Selected == null) || (GetGridSelectedRows(gridDetails).Length == 0)) {
-                    MessageBox.Show("Non è stato selezionato alcun dettaglio.");
+                    show("Non è stato selezionato alcun dettaglio.");
                     return false;
                 }
                 // Verifico se devo abilitare o meno la digitazione dell'importo
@@ -1493,7 +1496,7 @@ namespace income_wizardestimatedetail {
                 txtPerc.Text = "100";
                 return true;
             }
-            if ((oldTab == 2) && (newTab == 1)) {
+            if ((oldTab == 1) && (newTab == 0)) {
                 VisualizzaUPB();
                 VisualizzaRegistry();
                 AggiornaGridDettagliContratto();
@@ -1502,23 +1505,23 @@ namespace income_wizardestimatedetail {
                 txtPerc.Text = "";
                 return true;
             }
-            ;
-            if ((oldTab == 2) && (newTab == 3)) {
+            
+            if ((oldTab == 1) && (newTab == 2)) {
                 if (!RecalcSelezioneMovimenti()) return false;
                 RadioCheck_Changed();
             }
-            if ((oldTab == 3) && (newTab == 4)) {
+            if ((oldTab == 2) && (newTab == 3)) {
                 if ((radioNewCont.Checked == false) && (radioNewLinkedMov.Checked == false)
                     && (radioAddCont.Checked == false)) {
-                    MessageBox.Show("Non sarà possibile contabilizzare i dettagli selezionati.");
+                    show("Non sarà possibile contabilizzare i dettagli selezionati.");
                     return false;
                 }
                 if (!CheckInfoFin()) return false;
                 return true;
             }
-            if ((oldTab == 4) && (newTab == 5)) {
+            if ((oldTab == 3) && (newTab == 4)) {
                 if (!SelezioneMovimentiEffettuata) {
-                    MessageBox.Show("Non è stato selezionato il movimento.");
+                    show("Non è stato selezionato il movimento.");
                     return false;
                 }
                 RecalcDettagliSelezionati();
@@ -1589,7 +1592,7 @@ namespace income_wizardestimatedetail {
             }
 
             if ((FiltraRows(SelectedRows, filter).Count > 0) && (upb1.Length > 2)) {
-                MessageBox.Show(
+                show(
                     " Ad alcuni dettagli tra quelli selezionati non è stato attribuito l'UPB, ad altri si." +
                     " Selezionare dettagli coerenti");
                 stop = true;
@@ -1610,7 +1613,7 @@ namespace income_wizardestimatedetail {
             if (idreg != DBNull.Value)
                 filteridreg1 = QHC.CmpEq("idreg", idreg);
             else {
-                MessageBox.Show(" Il cliente non è correttamente impostato." +
+                show(" Il cliente non è correttamente impostato." +
                                 " Pertanto non sarà possibile contabilizzare il contratto.");
                 stop = true;
             }
@@ -1682,17 +1685,24 @@ namespace income_wizardestimatedetail {
             GetData.CacheTable(DS.estimatekind, null, "description", true);
             fasecontratto = CfgFn.GetNoNullInt32(Meta.GetSys("estimatephase"));
             if (fasecontratto == 0) {
-                MessageBox.Show("La configurazione della fase di contabilizzazione in entrata " +
+                show("La configurazione della fase di contabilizzazione in entrata " +
                                 "non è stata definita per l'esercizio corrente! Non sarà possibile utilizzare questa procedura ",
                     "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 SalvataggioEnabled = false;
             }
+
+            int maxphase = CfgFn.GetNoNullInt32(Conn.GetSys("maxincomephase"));
+            if (maxphase == 1) {
+                GetData.SetStaticFilter(DS.estimatekind, QHS.AppAnd(QHS.CmpEq("active", "S") ,QHS.CmpEq("linktoinvoice", "N")));
+			}
+
             DataAccess.SetTableForReading(DS.registry1, "registry");
             DataAccess.SetTableForReading(DS.registry2, "registry");
             DetailsToUpdate = new ArrayList();
             Meta.CanCancel = false;
             Meta.SearchEnabled = false;
-            Meta.CanSave = false;
+            Meta.CanSave = false;            
+            monofase = (Conn.RUN_SELECT_COUNT("incomephase", null, true) == 1) ? true : false;
         }
 
         public void MetaData_AfterClear() {
@@ -1724,6 +1734,12 @@ namespace income_wizardestimatedetail {
             MetaData Estimate = MetaData.GetMetaData(this, "estimateincavailable");
             Estimate.FilterLocked = true;
             Estimate.DS = new DataSet();
+
+            int maxphase = CfgFn.GetNoNullInt32(Conn.GetSys("maxexpensephase"));
+            if (maxphase == 1) {
+                filter = QHS.AppAnd(filter, QHS.CmpEq("linktoinvoice", "N"));
+			}
+
             DataRow M = Estimate.SelectOne("default", filter, null, null);
             if (M == null) return;
             HelpForm.SetComboBoxValue(cmbTipoContratto, M["idestimkind"]);
@@ -2191,7 +2207,7 @@ namespace income_wizardestimatedetail {
             if (currcausale == 1) {
                 foreach (DataRow r in SelectedRows) {
                     if (r["idupb_iva"].ToString() != r["idupb"].ToString()) {
-                        MessageBox.Show("La contabilizzazione totale non può essere usata su dettagli con upb diverse",
+                        show("La contabilizzazione totale non può essere usata su dettagli con upb diverse",
                             "Avviso");
                         return false;
                     }
@@ -2262,13 +2278,13 @@ namespace income_wizardestimatedetail {
                 radioAddCont.Checked = true;
 
                 if (registry.Length > 1) {
-                    MessageBox.Show(
+                    show(
                         "Per aggiungere la contabilizzazione i dettagli selezionati devono avere lo stesso creditore");
                     return false;
                 }
 
                 if (upb.Length > 1) {
-                    MessageBox.Show(
+                    show(
                         "Per aggiungere la contabilizzazione i dettagli selezionati devono avere lo stesso UPB");
                     return false;
                 }
@@ -2277,7 +2293,7 @@ namespace income_wizardestimatedetail {
                 // 1. Non esiste un movimento con capienza sufficiente per i dettagli selezionati
                 if (ContabilizzazioniDisponibili.Rows.Count == 0) {
                     //string DescrUpb= Conn.DO_READ_VALUE("upb",filterupb,"title").ToString();
-                    MessageBox.Show("Non esiste un movimento con capienza sufficiente per i dettagli selezionati");
+                    show("Non esiste un movimento con capienza sufficiente per i dettagli selezionati");
                     //" (UPB "+DescrUpb+")"); 
                     AbilitaDisabilitaSelezioneMovimento(false);
                     //DS.Estimatedetail.RejectChanges();
@@ -2289,7 +2305,7 @@ namespace income_wizardestimatedetail {
                 // 2. Sono stati individuati più movimenti per contabilizzare i dettagli selezionati
                 // abilito il tasto di selezione 
                 if (ContabilizzazioniDisponibili.Rows.Count > 1) {
-                    MessageBox.Show(
+                    show(
                         "Esistono più movimenti con capienza sufficiente per i dettagli selezionati. selezionare il movimento");
                     //DS.Estimatedetail.RejectChanges();
                     //ClearMovimento();
@@ -2303,7 +2319,7 @@ namespace income_wizardestimatedetail {
                 // 3. E' stato individuato un solo movimento per aggiungere la contabilizzazione,
                 // esso viene collegato automaticamente
                 if (ContabilizzazioniDisponibili.Rows.Count == 1) {
-                    MessageBox.Show("Il movimento è stato determinato automaticamente");
+                    show("Il movimento è stato determinato automaticamente");
                     AbilitaDisabilitaSelezioneMovimento(false);
                     //DS.Estimatedetail.RejectChanges();
                     //ClearMovimento();
@@ -2485,10 +2501,9 @@ namespace income_wizardestimatedetail {
             if (AutoSelectedMov != null) FillMovimento(AutoSelectedMov);
 
             string filterfase = QHS.CmpEq("nphase", fasecontratto);
-            string descfasecontratto = "";
-            descfasecontratto = Conn.DO_READ_VALUE("incomephase", filterfase, "description").ToString();
-            if (descfasecontratto != "") {
-                gboxMovimento.Text = descfasecontratto;
+            object descfasecontratto = Conn.DO_READ_VALUE("incomephase", filterfase, "description")??"";
+            if (!String.IsNullOrEmpty(descfasecontratto?.ToString())) {
+                gboxMovimento.Text = descfasecontratto.ToString();
             }
 
         }
@@ -2499,11 +2514,12 @@ namespace income_wizardestimatedetail {
             SelezioneMovimentiEffettuata = true; //!!
             int primafaseentrata = 1;
             string filterfase = QHS.CmpEq("nphase", primafaseentrata);
-            string descfase = "";
-            descfase = Conn.DO_READ_VALUE("incomephase", filterfase, "description").ToString();
-            if (descfase != "") {
-                gboxMovimento.Text = descfase;
+            
+            object descfase = Conn.DO_READ_VALUE("incomephase", filterfase, "description");
+            if (descfase != null) {
+                gboxMovimento.Text = descfase.ToString();
             }
+
 
         }
 
@@ -2719,7 +2735,7 @@ namespace income_wizardestimatedetail {
             }
 
             if (DS.estimate.Rows.Count == 0) {
-                MessageBox.Show("Nessun contratto selezionato", "Errore");
+                show("Nessun contratto selezionato", "Errore");
                 return false;
             }
             DataRow CurrEstimate = DS.estimate.Rows[0];
@@ -2777,10 +2793,17 @@ namespace income_wizardestimatedetail {
                 upbToSelect = false;
             }
 
+            object idfin = DBNull.Value;
+            int count = CfgFn.GetNoNullInt32(Conn.count("finusable", q.bitClear("flag", 1) & q.bitClear("flag", 0) & q.eq("ayear", Meta.GetSys("esercizio"))));
+            if (monofase && count == 1) {
+                idfin = Conn.readValue("finusable", q.bitClear("flag", 1) & q.bitClear("flag", 0) & q.eq("ayear", Meta.GetSys("esercizio")), "idfin");
+			}
+
             FrmAskInfo F = new FrmAskInfo(Meta, "E", upbToSelect)
                 .SetUPB(idupb)
+                .SetFin(idfin)
                 .EnableFilterAvailable(amount)
-                .SetManager(idman_start)
+                .SetManager(idman_start)                
                 .EnableUPBSelection(upbToSelect);
 
             //bool fin_in_details = false;
@@ -2904,17 +2927,36 @@ namespace income_wizardestimatedetail {
 
         bool doSave() {
             DataSet DSP = DS.Copy();
+            
+            DSP.Tables["estimatedetail"]._safeMergeFromDb(Conn, q.keyCmp(DS.Tables["estimate"].Rows[0]));
             int faseentratamax = CfgFn.GetNoNullInt32(Meta.GetSys("maxincomephase"));
             GestioneAutomatismi ga = new GestioneAutomatismi(this, Meta.Conn, Meta.Dispatcher,
                 DSP, faseentratamax, faseentratamax, "income", true);
+            string newcomputesorting = Meta.Conn.DO_READ_VALUE("siopekind",
+                                        QHS.AppAnd(QHS.CmpEq("codesorkind_siopeentrate", Meta.GetSys("codesorkind_siopeentrate")), QHS.CmpEq("ayear", CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")))
+                                            ),
+                                        "newcomputesorting")?.ToString();
+            if (newcomputesorting == "S") {
+                ManageClassificazioni = new GestioneClassificazioni(Meta, null, null, null, null, null, null, null, null);
+                ManageClassificazioni.ClassificaTramiteClassDocumento(ga.DSP, DS);
+                ManageClassificazioni.completaClassificazioniSiope(DS.incomesorted, ga.DSP);
+            }
             ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
+            
             //ga.GeneraClassificazioniIndirette(ga.DSP, true); lo fa già GeneraClassificazioniAutomatiche
             bool res = ga.GeneraAutomatismiAfterPost(true);
             if (!res) {
-                MessageBox.Show(this,
+                show(this,
                     "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
                 return false;
             }
+
+            var metaEstim = Meta.Dispatcher.Get("estimate");
+            metaEstim.DS = ga.dsAuto;
+
+            var EPM = new EP_Manager(metaEstim, null, null, null, null,null, null, null, null, "estimate");
+
+            EPM.beforePost();
             res = ga.doPost(Meta.Dispatcher);
             if (res) ViewAutomatismi(ga.DSP);
             if (!res) {
@@ -3314,7 +3356,7 @@ namespace income_wizardestimatedetail {
             decimal valore = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof (Decimal),
                 T.Text, "x.y.c"));
             if (valore < 0) {
-                MessageBox.Show("Valore non valido");
+                show("Valore non valido");
                 T.Focus();
                 return;
             }
@@ -3341,7 +3383,7 @@ namespace income_wizardestimatedetail {
             txtDaIncassare.Text = ImportoDaIncassare.ToString("c");
             
             if (ImportoDaIncassare > ImportoMax) {
-                MessageBox.Show("L'importo da incassare è superiore al totale dei dettagli selezionati");
+                show("L'importo da incassare è superiore al totale dei dettagli selezionati");
                 txtDaIncassare.Text = "";
                 return;
             }
@@ -3662,7 +3704,7 @@ namespace income_wizardestimatedetail {
                     NumberStyles.Number,
                     NumberFormatInfo.CurrentInfo);
                 if ((percent < 0) || (percent > percentmax)) {
-                    MessageBox.Show(errmsg, "Avviso");
+                    show(errmsg, "Avviso");
                     T.Focus();
                     OK = false;
                 }
@@ -3671,7 +3713,7 @@ namespace income_wizardestimatedetail {
                 }
             }
             catch {
-                MessageBox.Show("E' necessario digitare un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK,
+                show("E' necessario digitare un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK,
                     System.Windows.Forms.MessageBoxIcon.Exclamation);
                 return false;
             }
@@ -3888,4 +3930,3 @@ namespace income_wizardestimatedetail {
 
     }
 }
-

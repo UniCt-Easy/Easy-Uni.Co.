@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -30,7 +29,7 @@ namespace payedtaxview_default//ritenuteapplicate//
 	/// <summary>
 	/// Summary description for frmritenuteapplicate.
 	/// </summary>
-	public class Frm_payedtaxview_default : System.Windows.Forms.Form
+	public class Frm_payedtaxview_default : MetaDataForm
 	{
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.GroupBox groupBox2;
@@ -64,6 +63,7 @@ namespace payedtaxview_default//ritenuteapplicate//
 		public /*Rana:ritenuteapplicate.*/vistaForm DS;
 		private System.Windows.Forms.TextBox txtCreDeb;
 		MetaData Meta;
+		IDataAccess Conn;
 		private System.Windows.Forms.GroupBox groupBox6;
 		private System.Windows.Forms.Label label16;
 		private System.Windows.Forms.Label label17;
@@ -209,17 +209,14 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.textBox3.Size = new System.Drawing.Size(104, 20);
 			this.textBox3.TabIndex = 2;
 			this.textBox3.Tag = "payedtaxview.nmov";
-			this.textBox3.Text = "";
 			// 
 			// txtEsercMov
 			// 
 			this.txtEsercMov.Location = new System.Drawing.Point(72, 20);
 			this.txtEsercMov.Name = "txtEsercMov";
-			this.txtEsercMov.ReadOnly = true;
 			this.txtEsercMov.Size = new System.Drawing.Size(104, 20);
 			this.txtEsercMov.TabIndex = 1;
 			this.txtEsercMov.Tag = "payedtaxview.ymov.year";
-			this.txtEsercMov.Text = "";
 			// 
 			// groupBox2
 			// 
@@ -269,7 +266,6 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.textBox11.Size = new System.Drawing.Size(72, 20);
 			this.textBox11.TabIndex = 3;
 			this.textBox11.Tag = "payedtaxview.employdenominator";
-			this.textBox11.Text = "";
 			// 
 			// textBox10
 			// 
@@ -278,7 +274,6 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.textBox10.Size = new System.Drawing.Size(72, 20);
 			this.textBox10.TabIndex = 2;
 			this.textBox10.Tag = "payedtaxview.employnumerator";
-			this.textBox10.Text = "";
 			// 
 			// textBox9
 			// 
@@ -287,7 +282,6 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.textBox9.Size = new System.Drawing.Size(80, 20);
 			this.textBox9.TabIndex = 1;
 			this.textBox9.Tag = "payedtaxview.employrate.fixed.2..%.100";
-			this.textBox9.Text = "";
 			// 
 			// label9
 			// 
@@ -328,7 +322,6 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.textBox14.Size = new System.Drawing.Size(80, 20);
 			this.textBox14.TabIndex = 3;
 			this.textBox14.Tag = "payedtaxview.admindenominator";
-			this.textBox14.Text = "";
 			// 
 			// textBox15
 			// 
@@ -337,7 +330,6 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.textBox15.Size = new System.Drawing.Size(80, 20);
 			this.textBox15.TabIndex = 2;
 			this.textBox15.Tag = "payedtaxview.adminnumerator";
-			this.textBox15.Text = "";
 			// 
 			// textBox16
 			// 
@@ -346,7 +338,6 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.textBox16.Size = new System.Drawing.Size(80, 20);
 			this.textBox16.TabIndex = 1;
 			this.textBox16.Tag = "payedtaxview.adminrate.fixed.2..%.100";
-			this.textBox16.Text = "";
 			// 
 			// label12
 			// 
@@ -384,7 +375,6 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.txtCreDeb.Size = new System.Drawing.Size(456, 20);
 			this.txtCreDeb.TabIndex = 1;
 			this.txtCreDeb.Tag = "registry.title?payedtaxview.registry";
-			this.txtCreDeb.Text = "";
 			// 
 			// textBox5
 			// 
@@ -393,7 +383,6 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.textBox5.Size = new System.Drawing.Size(112, 20);
 			this.textBox5.TabIndex = 6;
 			this.textBox5.Tag = "payedtaxview.taxablenet";
-			this.textBox5.Text = "";
 			// 
 			// textBox6
 			// 
@@ -402,7 +391,6 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.textBox6.Size = new System.Drawing.Size(128, 20);
 			this.textBox6.TabIndex = 1;
 			this.textBox6.Tag = "payedtaxview.competencydate";
-			this.textBox6.Text = "";
 			// 
 			// textBox7
 			// 
@@ -411,7 +399,6 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.textBox7.Size = new System.Drawing.Size(128, 20);
 			this.textBox7.TabIndex = 3;
 			this.textBox7.Tag = "payedtaxview.datetaxpay";
-			this.textBox7.Text = "";
 			// 
 			// textBox8
 			// 
@@ -420,7 +407,6 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.textBox8.Size = new System.Drawing.Size(128, 20);
 			this.textBox8.TabIndex = 2;
 			this.textBox8.Tag = "payedtaxview.adate";
-			this.textBox8.Text = "";
 			// 
 			// label3
 			// 
@@ -438,7 +424,6 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.textBox4.Size = new System.Drawing.Size(392, 56);
 			this.textBox4.TabIndex = 5;
 			this.textBox4.Tag = "payedtaxview.expensedescription";
-			this.textBox4.Text = "";
 			// 
 			// label4
 			// 
@@ -496,7 +481,6 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.textBox17.Size = new System.Drawing.Size(104, 20);
 			this.textBox17.TabIndex = 2;
 			this.textBox17.Tag = "payedtaxview.ntaxpay";
-			this.textBox17.Text = "";
 			// 
 			// textBox1
 			// 
@@ -505,7 +489,6 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.textBox1.Size = new System.Drawing.Size(104, 20);
 			this.textBox1.TabIndex = 1;
 			this.textBox1.Tag = "payedtaxview.ytaxpay.year";
-			this.textBox1.Text = "";
 			// 
 			// label17
 			// 
@@ -547,7 +530,6 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.txtnbracket.Size = new System.Drawing.Size(80, 20);
 			this.txtnbracket.TabIndex = 13;
 			this.txtnbracket.Tag = "payedtaxview.nbracket";
-			this.txtnbracket.Text = "";
 			// 
 			// labNumscaglione
 			// 
@@ -564,7 +546,6 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.txtDetrazioni.Size = new System.Drawing.Size(112, 20);
 			this.txtDetrazioni.TabIndex = 15;
 			this.txtDetrazioni.Tag = "payedtaxview.abatements";
-			this.txtDetrazioni.Text = "";
 			// 
 			// textBox2
 			// 
@@ -573,7 +554,6 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.textBox2.Size = new System.Drawing.Size(112, 20);
 			this.textBox2.TabIndex = 0;
 			this.textBox2.Tag = "payedtaxview.taxablegross";
-			this.textBox2.Text = "";
 			// 
 			// label14
 			// 
@@ -606,7 +586,6 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.textBox18.Size = new System.Drawing.Size(112, 20);
 			this.textBox18.TabIndex = 19;
 			this.textBox18.Tag = "payedtaxview.employtax";
-			this.textBox18.Text = "";
 			// 
 			// label11
 			// 
@@ -623,7 +602,6 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.textBox19.Size = new System.Drawing.Size(112, 20);
 			this.textBox19.TabIndex = 21;
 			this.textBox19.Tag = "payedtaxview.admintax";
-			this.textBox19.Text = "";
 			// 
 			// Frm_payedtaxview_default
 			// 
@@ -655,26 +633,39 @@ namespace payedtaxview_default//ritenuteapplicate//
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "frmritenuteapplicate";
 			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.groupBox3.ResumeLayout(false);
+			this.groupBox3.PerformLayout();
 			this.groupBox4.ResumeLayout(false);
+			this.groupBox4.PerformLayout();
 			this.groupBox5.ResumeLayout(false);
+			this.groupBox5.PerformLayout();
 			this.groupBox6.ResumeLayout(false);
+			this.groupBox6.PerformLayout();
 			this.groupBox7.ResumeLayout(false);
+			this.groupBox7.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 		#endregion
-
+	    QueryHelper QHS;
+        CQueryHelper QHC;
 		public void MetaData_AfterLink()
 		{		
 				Meta=MetaData.GetMetaData(this);
+		        this.Conn = this.getInstance<IDataAccess>();
 				Meta.CanInsert = false;
 				Meta.CanSave = false;
 				Meta.CanCancel = false;
 				Meta.CanInsertCopy=false;
-				string filter = "(ymov = '" + Meta.GetSys("esercizio") + "')";
+				QHS = Conn.GetQueryHelper();
+                QHC = new CQueryHelper();
+
+				string filter = QHS.DoPar(QHS.AppOr(QHS.CmpEq("ymov",Meta.GetSys("esercizio")),QHS.IsNull("ytaxpay"),
+					            QHS.CmpEq("ytaxpay",Meta.GetSys("esercizio"))));
 				GetData.SetStaticFilter(DS.payedtaxview,filter);
 		}
 
@@ -689,4 +680,3 @@ namespace payedtaxview_default//ritenuteapplicate//
 		}
 	}
 }
-

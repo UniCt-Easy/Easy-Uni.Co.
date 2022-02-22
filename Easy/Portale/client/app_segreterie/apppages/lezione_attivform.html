@@ -1,0 +1,48 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+					<input hidden id="lezione_attivform_title" type="text" class="form-control" data-tag="lezione.!title" />
+					<input hidden id="lezione_attivform_idreg_docenti" type="text" class="form-control" data-tag="lezione.idreg_docenti" />
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#lezione_attivform_start").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="lezione_attivform_start">Data e ora inizio</label>
+					<input id="lezione_attivform_start" type="text" class="form-control" data-tag="lezione.start.g"  data-mandatory />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#lezione_attivform_stop").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="lezione_attivform_stop">Data e ora fine</label>
+					<input id="lezione_attivform_stop" type="text" class="form-control" data-tag="lezione.stop.g"  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_attivform_idsede">Sede</label>
+					<select id="lezione_attivform_idsede" class="custom-select d-block w-100"  data-source-name="sededefaultview" data-value-member="idsede" data-display-member="dropdown_title" data-custom-control="combo" data-tag="lezione.idsede"  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_attivform_idedificio">Edificio</label>
+					<select id="lezione_attivform_idedificio" class="custom-select d-block w-100"  data-source-name="edificiodefaultview" data-value-member="idedificio" data-display-member="dropdown_title" data-custom-control="combo" data-tag="lezione.idedificio"  data-mandatory  data-master="sededefaultview"> </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_attivform_idaula">Aula</label>
+					<select id="lezione_attivform_idaula" class="custom-select d-block w-100"  data-source-name="auladefaultview" data-value-member="idaula" data-display-member="dropdown_title" data-custom-control="combo" data-tag="lezione.idaula"  data-mandatory  data-master="edificiodefaultview"> </select>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

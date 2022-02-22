@@ -1,0 +1,61 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pcsassunzionisimulate_default_numeropersoneassunzione">Numero di persone su nuova assunzione</label>
+					<input id="pcsassunzionisimulate_default_numeropersoneassunzione" type="text" class="form-control" data-tag="pcsassunzionisimulate.numeropersoneassunzione.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pcsassunzionisimulate_default_idcontrattokind">Qualifica/Categoria</label>
+					<select id="pcsassunzionisimulate_default_idcontrattokind" class="custom-select d-block w-100"  data-source-name="contrattokinddefaultview" data-value-member="idcontrattokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="pcsassunzionisimulate.idcontrattokind"   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#pcsassunzionisimulate_default_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="pcsassunzionisimulate_default_data">Data assunzione presunta</label>
+					<input id="pcsassunzionisimulate_default_data" type="text" class="form-control" data-tag="pcsassunzionisimulate.data.g"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pcsassunzionisimulate_default_stipendio">Stipendio tabellare più basso</label>
+					<input id="pcsassunzionisimulate_default_stipendio" type="text" class="form-control" data-tag="pcsassunzionisimulate.stipendio.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pcsassunzionisimulate_default_percentuale">Indicare la percentuale di stipendio da considerare.</label>
+					<input id="pcsassunzionisimulate_default_percentuale" type="text" class="form-control" data-tag="pcsassunzionisimulate.percentuale.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pcsassunzionisimulate_default_totale">Totale anno in analisi</label>
+					<input id="pcsassunzionisimulate_default_totale" type="text" class="form-control" data-tag="pcsassunzionisimulate.totale.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pcsassunzionisimulate_default_totale1">Totale anno in analisi +1</label>
+					<input id="pcsassunzionisimulate_default_totale1" type="text" class="form-control" data-tag="pcsassunzionisimulate.totale1.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pcsassunzionisimulate_default_totale2">Totale anno in analisi +2</label>
+					<input id="pcsassunzionisimulate_default_totale2" type="text" class="form-control" data-tag="pcsassunzionisimulate.totale2.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pcsassunzionisimulate_default_totale3">Totale anno in analisi +3</label>
+					<input id="pcsassunzionisimulate_default_totale3" type="text" class="form-control" data-tag="pcsassunzionisimulate.totale3.fixed.2"  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

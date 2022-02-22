@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -22,6 +21,8 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using metadatalibrary;
 #pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_mandate {
 public class mandateRow: MetaRow  {
 	public mandateRow(DataRowBuilder rb) : base(rb) {} 
@@ -31,43 +32,43 @@ public class mandateRow: MetaRow  {
 	///id tipo contratto (tabella mandatekind)
 	///</summary>
 	public String idmankind{ 
-		get {if (this["idmankind"]==DBNull.Value)return null; return  (String)this["idmankind"];}
-		set {if (value==null) this["idmankind"]= DBNull.Value; else this["idmankind"]= value;}
+		get {return  (String)this["idmankind"];}
+		set {this["idmankind"]= value;}
 	}
 	public object idmankindValue { 
 		get{ return this["idmankind"];}
-		set {if (value==null|| value==DBNull.Value) this["idmankind"]= DBNull.Value; else this["idmankind"]= value;}
+		set {this["idmankind"]= value;}
 	}
 	public String idmankindOriginal { 
-		get {if (this["idmankind",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idmankind",DataRowVersion.Original];}
+		get {return  (String)this["idmankind",DataRowVersion.Original];}
 	}
 	///<summary>
 	///n.contratto
 	///</summary>
-	public Int32? nman{ 
-		get {if (this["nman"]==DBNull.Value)return null; return  (Int32?)this["nman"];}
-		set {if (value==null) this["nman"]= DBNull.Value; else this["nman"]= value;}
+	public Int32 nman{ 
+		get {return  (Int32)this["nman"];}
+		set {this["nman"]= value;}
 	}
 	public object nmanValue { 
 		get{ return this["nman"];}
-		set {if (value==null|| value==DBNull.Value) this["nman"]= DBNull.Value; else this["nman"]= value;}
+		set {this["nman"]= value;}
 	}
-	public Int32? nmanOriginal { 
-		get {if (this["nman",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["nman",DataRowVersion.Original];}
+	public Int32 nmanOriginal { 
+		get {return  (Int32)this["nman",DataRowVersion.Original];}
 	}
 	///<summary>
 	///anno contratto
 	///</summary>
-	public Int16? yman{ 
-		get {if (this["yman"]==DBNull.Value)return null; return  (Int16?)this["yman"];}
-		set {if (value==null) this["yman"]= DBNull.Value; else this["yman"]= value;}
+	public Int16 yman{ 
+		get {return  (Int16)this["yman"];}
+		set {this["yman"]= value;}
 	}
 	public object ymanValue { 
 		get{ return this["yman"];}
-		set {if (value==null|| value==DBNull.Value) this["yman"]= DBNull.Value; else this["yman"]= value;}
+		set {this["yman"]= value;}
 	}
-	public Int16? ymanOriginal { 
-		get {if (this["yman",DataRowVersion.Original]==DBNull.Value)return null; return  (Int16?)this["yman",DataRowVersion.Original];}
+	public Int16 ymanOriginal { 
+		get {return  (Int16)this["yman",DataRowVersion.Original];}
 	}
 	///<summary>
 	///attivo
@@ -86,44 +87,44 @@ public class mandateRow: MetaRow  {
 	///<summary>
 	///data contabile
 	///</summary>
-	public DateTime? adate{ 
-		get {if (this["adate"]==DBNull.Value)return null; return  (DateTime?)this["adate"];}
-		set {if (value==null) this["adate"]= DBNull.Value; else this["adate"]= value;}
+	public DateTime adate{ 
+		get {return  (DateTime)this["adate"];}
+		set {this["adate"]= value;}
 	}
 	public object adateValue { 
 		get{ return this["adate"];}
-		set {if (value==null|| value==DBNull.Value) this["adate"]= DBNull.Value; else this["adate"]= value;}
+		set {this["adate"]= value;}
 	}
-	public DateTime? adateOriginal { 
-		get {if (this["adate",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["adate",DataRowVersion.Original];}
+	public DateTime adateOriginal { 
+		get {return  (DateTime)this["adate",DataRowVersion.Original];}
 	}
 	///<summary>
 	///data creazione
 	///</summary>
-	public DateTime? ct{ 
-		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
-		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
+	public DateTime ct{ 
+		get {return  (DateTime)this["ct"];}
+		set {this["ct"]= value;}
 	}
 	public object ctValue { 
 		get{ return this["ct"];}
-		set {if (value==null|| value==DBNull.Value) this["ct"]= DBNull.Value; else this["ct"]= value;}
+		set {this["ct"]= value;}
 	}
-	public DateTime? ctOriginal { 
-		get {if (this["ct",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["ct",DataRowVersion.Original];}
+	public DateTime ctOriginal { 
+		get {return  (DateTime)this["ct",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome utente creazione
 	///</summary>
 	public String cu{ 
-		get {if (this["cu"]==DBNull.Value)return null; return  (String)this["cu"];}
-		set {if (value==null) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		get {return  (String)this["cu"];}
+		set {this["cu"]= value;}
 	}
 	public object cuValue { 
 		get{ return this["cu"];}
-		set {if (value==null|| value==DBNull.Value) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		set {this["cu"]= value;}
 	}
 	public String cuOriginal { 
-		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
+		get {return  (String)this["cu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Ind. cons.
@@ -157,15 +158,15 @@ public class mandateRow: MetaRow  {
 	///Descrizione
 	///</summary>
 	public String description{ 
-		get {if (this["description"]==DBNull.Value)return null; return  (String)this["description"];}
-		set {if (value==null) this["description"]= DBNull.Value; else this["description"]= value;}
+		get {return  (String)this["description"];}
+		set {this["description"]= value;}
 	}
 	public object descriptionValue { 
 		get{ return this["description"];}
-		set {if (value==null|| value==DBNull.Value) this["description"]= DBNull.Value; else this["description"]= value;}
+		set {this["description"]= value;}
 	}
 	public String descriptionOriginal { 
-		get {if (this["description",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["description",DataRowVersion.Original];}
+		get {return  (String)this["description",DataRowVersion.Original];}
 	}
 	///<summary>
 	///documento
@@ -226,44 +227,44 @@ public class mandateRow: MetaRow  {
 	///<summary>
 	///data ultima modifica
 	///</summary>
-	public DateTime? lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
-		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
+	public DateTime lt{ 
+		get {return  (DateTime)this["lt"];}
+		set {this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
-		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
+		set {this["lt"]= value;}
 	}
-	public DateTime? ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
+	public DateTime ltOriginal { 
+		get {return  (DateTime)this["lt",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome ultimo utente modifica
 	///</summary>
 	public String lu{ 
-		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
-		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		get {return  (String)this["lu"];}
+		set {this["lu"]= value;}
 	}
 	public object luValue { 
 		get{ return this["lu"];}
-		set {if (value==null|| value==DBNull.Value) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		set {this["lu"]= value;}
 	}
 	public String luOriginal { 
-		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
+		get {return  (String)this["lu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Flag stampa
 	///</summary>
 	public String officiallyprinted{ 
-		get {if (this["officiallyprinted"]==DBNull.Value)return null; return  (String)this["officiallyprinted"];}
-		set {if (value==null) this["officiallyprinted"]= DBNull.Value; else this["officiallyprinted"]= value;}
+		get {return  (String)this["officiallyprinted"];}
+		set {this["officiallyprinted"]= value;}
 	}
 	public object officiallyprintedValue { 
 		get{ return this["officiallyprinted"];}
-		set {if (value==null|| value==DBNull.Value) this["officiallyprinted"]= DBNull.Value; else this["officiallyprinted"]= value;}
+		set {this["officiallyprinted"]= value;}
 	}
 	public String officiallyprintedOriginal { 
-		get {if (this["officiallyprinted",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["officiallyprinted",DataRowVersion.Original];}
+		get {return  (String)this["officiallyprinted",DataRowVersion.Original];}
 	}
 	///<summary>
 	///N. giorni scadenza
@@ -884,6 +885,9 @@ public class mandateRow: MetaRow  {
 	public String publishdatekindOriginal { 
 		get {if (this["publishdatekind",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["publishdatekind",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Documenti richiesti
+	///</summary>
 	public Int32? requested_doc{ 
 		get {if (this["requested_doc"]==DBNull.Value)return null; return  (Int32?)this["requested_doc"];}
 		set {if (value==null) this["requested_doc"]= DBNull.Value; else this["requested_doc"]= value;}
@@ -895,6 +899,20 @@ public class mandateRow: MetaRow  {
 	public Int32? requested_docOriginal { 
 		get {if (this["requested_doc",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["requested_doc",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Flag a bit.
+	///</summary>
+	public Int32? flagbit{ 
+		get {if (this["flagbit"]==DBNull.Value)return null; return  (Int32?)this["flagbit"];}
+		set {if (value==null) this["flagbit"]= DBNull.Value; else this["flagbit"]= value;}
+	}
+	public object flagbitValue { 
+		get{ return this["flagbit"];}
+		set {if (value==null|| value==DBNull.Value) this["flagbit"]= DBNull.Value; else this["flagbit"]= value;}
+	}
+	public Int32? flagbitOriginal { 
+		get {if (this["flagbit",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["flagbit",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -904,69 +922,69 @@ public class mandateRow: MetaRow  {
 public class mandateTable : MetaTableBase<mandateRow> {
 	public mandateTable() : base("mandate"){
 		baseColumns = new Dictionary<string, DataColumn>(){
-			{"idmankind",createColumn("idmankind",typeof(String),false,false)},
-			{"nman",createColumn("nman",typeof(Int32),false,false)},
-			{"yman",createColumn("yman",typeof(Int16),false,false)},
-			{"active",createColumn("active",typeof(String),true,false)},
+			{"idmankind",createColumn("idmankind",typeof(string),false,false)},
+			{"nman",createColumn("nman",typeof(int),false,false)},
+			{"yman",createColumn("yman",typeof(short),false,false)},
+			{"active",createColumn("active",typeof(string),true,false)},
 			{"adate",createColumn("adate",typeof(DateTime),false,false)},
 			{"ct",createColumn("ct",typeof(DateTime),false,false)},
-			{"cu",createColumn("cu",typeof(String),false,false)},
-			{"deliveryaddress",createColumn("deliveryaddress",typeof(String),true,false)},
-			{"deliveryexpiration",createColumn("deliveryexpiration",typeof(String),true,false)},
-			{"description",createColumn("description",typeof(String),false,false)},
-			{"doc",createColumn("doc",typeof(String),true,false)},
+			{"cu",createColumn("cu",typeof(string),false,false)},
+			{"deliveryaddress",createColumn("deliveryaddress",typeof(string),true,false)},
+			{"deliveryexpiration",createColumn("deliveryexpiration",typeof(string),true,false)},
+			{"description",createColumn("description",typeof(string),false,false)},
+			{"doc",createColumn("doc",typeof(string),true,false)},
 			{"docdate",createColumn("docdate",typeof(DateTime),true,false)},
-			{"exchangerate",createColumn("exchangerate",typeof(Double),true,false)},
-			{"idreg",createColumn("idreg",typeof(Int32),true,false)},
+			{"exchangerate",createColumn("exchangerate",typeof(double),true,false)},
+			{"idreg",createColumn("idreg",typeof(int),true,false)},
 			{"lt",createColumn("lt",typeof(DateTime),false,false)},
-			{"lu",createColumn("lu",typeof(String),false,false)},
-			{"officiallyprinted",createColumn("officiallyprinted",typeof(String),false,false)},
-			{"paymentexpiring",createColumn("paymentexpiring",typeof(Int16),true,false)},
-			{"registryreference",createColumn("registryreference",typeof(String),true,false)},
+			{"lu",createColumn("lu",typeof(string),false,false)},
+			{"officiallyprinted",createColumn("officiallyprinted",typeof(string),false,false)},
+			{"paymentexpiring",createColumn("paymentexpiring",typeof(short),true,false)},
+			{"registryreference",createColumn("registryreference",typeof(string),true,false)},
 			{"rtf",createColumn("rtf",typeof(Byte[]),true,false)},
-			{"txt",createColumn("txt",typeof(String),true,false)},
-			{"idman",createColumn("idman",typeof(Int32),true,false)},
-			{"idcurrency",createColumn("idcurrency",typeof(Int32),true,false)},
-			{"idexpirationkind",createColumn("idexpirationkind",typeof(Int16),true,false)},
-			{"flagintracom",createColumn("flagintracom",typeof(String),true,false)},
-			{"idaccmotivedebit",createColumn("idaccmotivedebit",typeof(String),true,false)},
-			{"idaccmotivedebit_crg",createColumn("idaccmotivedebit_crg",typeof(String),true,false)},
+			{"txt",createColumn("txt",typeof(string),true,false)},
+			{"idman",createColumn("idman",typeof(int),true,false)},
+			{"idcurrency",createColumn("idcurrency",typeof(int),true,false)},
+			{"idexpirationkind",createColumn("idexpirationkind",typeof(short),true,false)},
+			{"flagintracom",createColumn("flagintracom",typeof(string),true,false)},
+			{"idaccmotivedebit",createColumn("idaccmotivedebit",typeof(string),true,false)},
+			{"idaccmotivedebit_crg",createColumn("idaccmotivedebit_crg",typeof(string),true,false)},
 			{"idaccmotivedebit_datacrg",createColumn("idaccmotivedebit_datacrg",typeof(DateTime),true,false)},
-			{"applierannotations",createColumn("applierannotations",typeof(String),true,false)},
-			{"idmandatestatus",createColumn("idmandatestatus",typeof(Int16),true,false)},
-			{"idstore",createColumn("idstore",typeof(Int32),true,false)},
-			{"cigcode",createColumn("cigcode",typeof(String),true,false)},
-			{"idsor01",createColumn("idsor01",typeof(Int32),true,false)},
-			{"idsor02",createColumn("idsor02",typeof(Int32),true,false)},
-			{"idsor03",createColumn("idsor03",typeof(Int32),true,false)},
-			{"idsor04",createColumn("idsor04",typeof(Int32),true,false)},
-			{"idsor05",createColumn("idsor05",typeof(Int32),true,false)},
-			{"idconsipkind",createColumn("idconsipkind",typeof(Int32),true,false)},
-			{"flagdanger",createColumn("flagdanger",typeof(String),true,false)},
-			{"idmankind_origin",createColumn("idmankind_origin",typeof(String),true,false)},
-			{"nman_origin",createColumn("nman_origin",typeof(Int32),true,false)},
-			{"yman_origin",createColumn("yman_origin",typeof(Int16),true,false)},
-			{"subappropriation",createColumn("subappropriation",typeof(String),true,false)},
-			{"finsubappropriation",createColumn("finsubappropriation",typeof(String),true,false)},
+			{"applierannotations",createColumn("applierannotations",typeof(string),true,false)},
+			{"idmandatestatus",createColumn("idmandatestatus",typeof(short),true,false)},
+			{"idstore",createColumn("idstore",typeof(int),true,false)},
+			{"cigcode",createColumn("cigcode",typeof(string),true,false)},
+			{"idsor01",createColumn("idsor01",typeof(int),true,false)},
+			{"idsor02",createColumn("idsor02",typeof(int),true,false)},
+			{"idsor03",createColumn("idsor03",typeof(int),true,false)},
+			{"idsor04",createColumn("idsor04",typeof(int),true,false)},
+			{"idsor05",createColumn("idsor05",typeof(int),true,false)},
+			{"idconsipkind",createColumn("idconsipkind",typeof(int),true,false)},
+			{"flagdanger",createColumn("flagdanger",typeof(string),true,false)},
+			{"idmankind_origin",createColumn("idmankind_origin",typeof(string),true,false)},
+			{"nman_origin",createColumn("nman_origin",typeof(int),true,false)},
+			{"yman_origin",createColumn("yman_origin",typeof(short),true,false)},
+			{"subappropriation",createColumn("subappropriation",typeof(string),true,false)},
+			{"finsubappropriation",createColumn("finsubappropriation",typeof(string),true,false)},
 			{"adatesubappropriation",createColumn("adatesubappropriation",typeof(DateTime),true,false)},
-			{"arrivalprotocolnum",createColumn("arrivalprotocolnum",typeof(String),true,false)},
+			{"arrivalprotocolnum",createColumn("arrivalprotocolnum",typeof(string),true,false)},
 			{"arrivaldate",createColumn("arrivaldate",typeof(DateTime),true,false)},
-			{"annotations",createColumn("annotations",typeof(String),true,false)},
-			{"resendingpcc",createColumn("resendingpcc",typeof(String),true,false)},
-			{"external_reference",createColumn("external_reference",typeof(String),true,false)},
-			{"idconsipkind_ext",createColumn("idconsipkind_ext",typeof(Int32),true,false)},
-			{"consipmotive",createColumn("consipmotive",typeof(String),true,false)},
-			{"idoffice",createColumn("idoffice",typeof(Int32),true,false)},
-			{"flagtenderresult",createColumn("flagtenderresult",typeof(String),true,false)},
-			{"motiveassignment",createColumn("motiveassignment",typeof(String),true,false)},
-			{"anacreduced",createColumn("anacreduced",typeof(Double),true,false)},
-			{"idreg_rupanac",createColumn("idreg_rupanac",typeof(Int32),true,false)},
-			{"tenderkind",createColumn("tenderkind",typeof(String),true,false)},
+			{"annotations",createColumn("annotations",typeof(string),true,false)},
+			{"resendingpcc",createColumn("resendingpcc",typeof(string),true,false)},
+			{"external_reference",createColumn("external_reference",typeof(string),true,false)},
+			{"idconsipkind_ext",createColumn("idconsipkind_ext",typeof(int),true,false)},
+			{"consipmotive",createColumn("consipmotive",typeof(string),true,false)},
+			{"idoffice",createColumn("idoffice",typeof(int),true,false)},
+			{"flagtenderresult",createColumn("flagtenderresult",typeof(string),true,false)},
+			{"motiveassignment",createColumn("motiveassignment",typeof(string),true,false)},
+			{"anacreduced",createColumn("anacreduced",typeof(double),true,false)},
+			{"idreg_rupanac",createColumn("idreg_rupanac",typeof(int),true,false)},
+			{"tenderkind",createColumn("tenderkind",typeof(string),true,false)},
 			{"publishdate",createColumn("publishdate",typeof(DateTime),true,false)},
-			{"publishdatekind",createColumn("publishdatekind",typeof(String),true,false)},
-			{"requested_doc",createColumn("requested_doc",typeof(Int32),true,false)},
+			{"publishdatekind",createColumn("publishdatekind",typeof(string),true,false)},
+			{"requested_doc",createColumn("requested_doc",typeof(int),true,false)},
+			{"flagbit",createColumn("flagbit",typeof(int),true,false)},
 		};
 	}
 }
 }
-

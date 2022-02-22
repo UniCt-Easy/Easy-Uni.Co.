@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -51,14 +50,14 @@ namespace bankdispositionsetup_bsondrio {
                     QHS.AppAnd(QHS.CmpEq("ypaymenttransmission", ypaymenttransmission),
                                 QHS.CmpEq("npaymenttransmission", npaymenttransmission)), null, false);
             if (P == null || P.Rows.Count == 0) {
-                MessageBox.Show("Non ho trovato la distinta n." + npaymenttransmission + " del " + ypaymenttransmission,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non ho trovato la distinta n." + npaymenttransmission + " del " + ypaymenttransmission,
                                 "Errore");
                 return null;
             }
             DataRow R = P.Rows[0];
             object spexportexp = Conn.DO_READ_VALUE("treasurer", QHS.CmpEq("idtreasurer", R["idtreasurer"]), "spexportexp");
             if (spexportexp == null || spexportexp == DBNull.Value) {
-                MessageBox.Show("Il cassiere relativo alla distinta n." + npaymenttransmission +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Il cassiere relativo alla distinta n." + npaymenttransmission +
                             " del " + ypaymenttransmission + " non è ben configurato per l'esportazione elettronica", "Errore");
                 return null;
             }
@@ -67,7 +66,7 @@ namespace bankdispositionsetup_bsondrio {
             if (D == null || D.Tables.Count == 0) return null;
             DataTable T = D.Tables[0];
             if (T.Rows.Count == 0) {
-                MessageBox.Show("L'esportazione è stata eseguita ma non ha restituito alcun risultato", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("L'esportazione è stata eseguita ma non ha restituito alcun risultato", "Errore");
                 return null;
             }
 
@@ -108,7 +107,7 @@ namespace bankdispositionsetup_bsondrio {
             string selettore = "(kind='TESTATA')";
             DataRow[] RR = T.Select(selettore);
             if (RR.Length == 0) {
-                MessageBox.Show("Riga flusso_ordinativi non trovata, filtro utilizzato = " + selettore,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Riga flusso_ordinativi non trovata, filtro utilizzato = " + selettore,
                                         "Errore");
                 return  false;
             }
@@ -133,13 +132,13 @@ namespace bankdispositionsetup_bsondrio {
             string selettore = "(kind='MANDATO')";
             DataRow[] RR = T.Select(selettore);
             if (RR.Length == 0) {
-                MessageBox.Show("Nessun mandato trovato.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessun mandato trovato.");
                 return false;
             }
             foreach (DataRow R in RR) {
                 XmlElement Rmandato = XmlHelper.CreaRigaChild(E, schema.mandato, R, null);
                 if (Rmandato == null) {
-                    MessageBox.Show("Saltato mandato n." + R["ndoc"].ToString() + " per errore di dati");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Saltato mandato n." + R["ndoc"].ToString() + " per errore di dati");
                     return false;
                 }
                 if (!Aggiungi_informazioni_beneficiario(Rmandato, T, R)) return false;
@@ -163,7 +162,7 @@ namespace bankdispositionsetup_bsondrio {
                               );
             DataRow[] RR = T.Select(selettore);
             if (RR.Length == 0) {
-                MessageBox.Show("Informazioni sul beneficiario non trovate per il mandato n." +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Informazioni sul beneficiario non trovate per il mandato n." +
                                     Rmandato["ndoc"].ToString(), "Errore");
                 return false;
             }
@@ -171,7 +170,7 @@ namespace bankdispositionsetup_bsondrio {
                 XmlElement Rinformazioni_beneficiario =
                     XmlHelper.CreaRigaChild(E, schema.informazioni_beneficiario, R, null);
                 if (Rinformazioni_beneficiario == null) {
-                    MessageBox.Show("Informazioni sul beneficiario non trovate per il mandato n." +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Informazioni sul beneficiario non trovate per il mandato n." +
                                     R["ndoc"].ToString(), "Errore");
                     return false;
                 }
@@ -267,4 +266,3 @@ namespace bankdispositionsetup_bsondrio {
        
     }
 }
-

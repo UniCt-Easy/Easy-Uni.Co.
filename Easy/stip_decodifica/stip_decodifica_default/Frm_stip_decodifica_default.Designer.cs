@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿namespace stip_decodifica_default {
+
+namespace stip_decodifica_default {
     partial class Frm_stip_decodifica_default {
         /// <summary>
         /// Required designer variable.
@@ -41,7 +40,6 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-			this.DS = new stip_decodifica_default.vistaForm();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
 			this.textBox14 = new System.Windows.Forms.TextBox();
 			this.txtCausaleOltre = new System.Windows.Forms.TextBox();
@@ -70,18 +68,19 @@
 			this.txtVoce = new System.Windows.Forms.TextBox();
 			this.txtCodiceCorsoLaurea = new System.Windows.Forms.TextBox();
 			this.label7 = new System.Windows.Forms.Label();
-			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.DS = new stip_decodifica_default.vistaForm();
+			this.cmbTipoContratto = new System.Windows.Forms.ComboBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.button5 = new System.Windows.Forms.Button();
+			this.txtImporto = new System.Windows.Forms.TextBox();
+			this.label6 = new System.Windows.Forms.Label();
 			this.groupBox4.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox10.SuspendLayout();
 			this.gboxCausale.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// DS
-			// 
-			this.DS.DataSetName = "vistaForm";
-			this.DS.EnforceConstraints = false;
 			// 
 			// groupBox4
 			// 
@@ -90,7 +89,7 @@
 			this.groupBox4.Controls.Add(this.textBox14);
 			this.groupBox4.Controls.Add(this.txtCausaleOltre);
 			this.groupBox4.Controls.Add(this.button4);
-			this.groupBox4.Location = new System.Drawing.Point(383, 149);
+			this.groupBox4.Location = new System.Drawing.Point(375, 186);
 			this.groupBox4.Name = "groupBox4";
 			this.groupBox4.Size = new System.Drawing.Size(405, 120);
 			this.groupBox4.TabIndex = 82;
@@ -140,7 +139,7 @@
 			this.groupBox3.Controls.Add(this.textBox12);
 			this.groupBox3.Controls.Add(this.txtCausaleRicavo);
 			this.groupBox3.Controls.Add(this.button3);
-			this.groupBox3.Location = new System.Drawing.Point(375, 12);
+			this.groupBox3.Location = new System.Drawing.Point(375, 49);
 			this.groupBox3.Name = "groupBox3";
 			this.groupBox3.Size = new System.Drawing.Size(405, 131);
 			this.groupBox3.TabIndex = 81;
@@ -188,7 +187,7 @@
 			this.groupBox2.Controls.Add(this.textBox10);
 			this.groupBox2.Controls.Add(this.txtCausaleEntro);
 			this.groupBox2.Controls.Add(this.button2);
-			this.groupBox2.Location = new System.Drawing.Point(20, 149);
+			this.groupBox2.Location = new System.Drawing.Point(12, 186);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(357, 120);
 			this.groupBox2.TabIndex = 80;
@@ -234,7 +233,7 @@
 			this.groupBox10.Controls.Add(this.textBox9);
 			this.groupBox10.Controls.Add(this.txtCodiceCausaleDeb);
 			this.groupBox10.Controls.Add(this.button1);
-			this.groupBox10.Location = new System.Drawing.Point(12, 12);
+			this.groupBox10.Location = new System.Drawing.Point(12, 49);
 			this.groupBox10.Name = "groupBox10";
 			this.groupBox10.Size = new System.Drawing.Size(357, 131);
 			this.groupBox10.TabIndex = 79;
@@ -280,9 +279,9 @@
 			this.gboxCausale.Controls.Add(this.TxtDescrCausaleDeb);
 			this.gboxCausale.Controls.Add(this.txtCodiceCausaleEntrata);
 			this.gboxCausale.Controls.Add(this.button6);
-			this.gboxCausale.Location = new System.Drawing.Point(20, 275);
+			this.gboxCausale.Location = new System.Drawing.Point(12, 312);
 			this.gboxCausale.Name = "gboxCausale";
-			this.gboxCausale.Size = new System.Drawing.Size(357, 130);
+			this.gboxCausale.Size = new System.Drawing.Size(357, 131);
 			this.gboxCausale.TabIndex = 78;
 			this.gboxCausale.TabStop = false;
 			this.gboxCausale.Tag = "AutoManage.txtCodiceCausaleEntrata.tree.(active = \'S\')";
@@ -298,7 +297,7 @@
 			this.TxtDescrCausaleDeb.Multiline = true;
 			this.TxtDescrCausaleDeb.Name = "TxtDescrCausaleDeb";
 			this.TxtDescrCausaleDeb.ReadOnly = true;
-			this.TxtDescrCausaleDeb.Size = new System.Drawing.Size(231, 73);
+			this.TxtDescrCausaleDeb.Size = new System.Drawing.Size(231, 74);
 			this.TxtDescrCausaleDeb.TabIndex = 2;
 			this.TxtDescrCausaleDeb.TabStop = false;
 			this.TxtDescrCausaleDeb.Tag = "finmotive_income.title";
@@ -325,7 +324,7 @@
 			// 
 			// btnCorsoLaurea
 			// 
-			this.btnCorsoLaurea.Location = new System.Drawing.Point(383, 275);
+			this.btnCorsoLaurea.Location = new System.Drawing.Point(375, 312);
 			this.btnCorsoLaurea.Name = "btnCorsoLaurea";
 			this.btnCorsoLaurea.Size = new System.Drawing.Size(104, 23);
 			this.btnCorsoLaurea.TabIndex = 109;
@@ -335,7 +334,7 @@
 			// 
 			// btnTassa
 			// 
-			this.btnTassa.Location = new System.Drawing.Point(383, 354);
+			this.btnTassa.Location = new System.Drawing.Point(375, 393);
 			this.btnTassa.Name = "btnTassa";
 			this.btnTassa.Size = new System.Drawing.Size(104, 23);
 			this.btnTassa.TabIndex = 110;
@@ -345,7 +344,7 @@
 			// 
 			// btnVoce
 			// 
-			this.btnVoce.Location = new System.Drawing.Point(383, 381);
+			this.btnVoce.Location = new System.Drawing.Point(375, 420);
 			this.btnVoce.Name = "btnVoce";
 			this.btnVoce.Size = new System.Drawing.Size(104, 23);
 			this.btnVoce.TabIndex = 111;
@@ -357,7 +356,7 @@
 			// 
 			this.txtCorsoLaurea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtCorsoLaurea.Location = new System.Drawing.Point(384, 302);
+			this.txtCorsoLaurea.Location = new System.Drawing.Point(376, 339);
 			this.txtCorsoLaurea.Multiline = true;
 			this.txtCorsoLaurea.Name = "txtCorsoLaurea";
 			this.txtCorsoLaurea.ReadOnly = true;
@@ -369,7 +368,7 @@
 			// 
 			this.txtTassa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtTassa.Location = new System.Drawing.Point(493, 357);
+			this.txtTassa.Location = new System.Drawing.Point(485, 394);
 			this.txtTassa.Name = "txtTassa";
 			this.txtTassa.ReadOnly = true;
 			this.txtTassa.Size = new System.Drawing.Size(280, 20);
@@ -380,7 +379,7 @@
 			// 
 			this.txtVoce.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtVoce.Location = new System.Drawing.Point(493, 384);
+			this.txtVoce.Location = new System.Drawing.Point(485, 421);
 			this.txtVoce.Name = "txtVoce";
 			this.txtVoce.ReadOnly = true;
 			this.txtVoce.Size = new System.Drawing.Size(280, 20);
@@ -391,7 +390,7 @@
 			// 
 			this.txtCodiceCorsoLaurea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtCodiceCorsoLaurea.Location = new System.Drawing.Point(604, 278);
+			this.txtCodiceCorsoLaurea.Location = new System.Drawing.Point(596, 315);
 			this.txtCodiceCorsoLaurea.Name = "txtCodiceCorsoLaurea";
 			this.txtCodiceCorsoLaurea.ReadOnly = true;
 			this.txtCodiceCorsoLaurea.Size = new System.Drawing.Size(168, 20);
@@ -400,16 +399,72 @@
 			// 
 			// label7
 			// 
-			this.label7.Location = new System.Drawing.Point(508, 279);
+			this.label7.Location = new System.Drawing.Point(504, 316);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(90, 16);
 			this.label7.TabIndex = 116;
 			this.label7.Text = "Codice Corso:";
 			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			// 
+			// cmbTipoContratto
+			// 
+			this.cmbTipoContratto.DisplayMember = "description";
+			this.cmbTipoContratto.Location = new System.Drawing.Point(135, 472);
+			this.cmbTipoContratto.Name = "cmbTipoContratto";
+			this.cmbTipoContratto.Size = new System.Drawing.Size(320, 21);
+			this.cmbTipoContratto.TabIndex = 117;
+			this.cmbTipoContratto.Tag = "stip_decodifica.idestimkind";
+			this.cmbTipoContratto.ValueMember = "idestimkind";
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(137, 456);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(179, 13);
+			this.label1.TabIndex = 118;
+			this.label1.Text = "Tipo contratto attivo che sarà creato";
+			// 
+			// button5
+			// 
+			this.button5.Location = new System.Drawing.Point(20, 469);
+			this.button5.Name = "button5";
+			this.button5.Size = new System.Drawing.Size(104, 24);
+			this.button5.TabIndex = 119;
+			this.button5.TabStop = false;
+			this.button5.Tag = "Choose.estimatekind.default";
+			this.button5.Text = "Tipo Contratto";
+			// 
+			// txtImporto
+			// 
+			this.txtImporto.Location = new System.Drawing.Point(45, 12);
+			this.txtImporto.Name = "txtImporto";
+			this.txtImporto.Size = new System.Drawing.Size(60, 20);
+			this.txtImporto.TabIndex = 120;
+			this.txtImporto.Tag = "stip_decodifica.idstipdecodifica";
+			// 
+			// label6
+			// 
+			this.label6.Location = new System.Drawing.Point(16, 12);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(29, 16);
+			this.label6.TabIndex = 121;
+			this.label6.Text = "#:";
+			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
 			// Frm_stip_decodifica_default
 			// 
-			this.ClientSize = new System.Drawing.Size(789, 417);
+			this.ClientSize = new System.Drawing.Size(789, 515);
+			this.Controls.Add(this.txtImporto);
+			this.Controls.Add(this.label6);
+			this.Controls.Add(this.button5);
+			this.Controls.Add(this.label1);
+			this.Controls.Add(this.cmbTipoContratto);
 			this.Controls.Add(this.label7);
 			this.Controls.Add(this.txtCodiceCorsoLaurea);
 			this.Controls.Add(this.txtVoce);
@@ -424,7 +479,6 @@
 			this.Controls.Add(this.groupBox10);
 			this.Controls.Add(this.gboxCausale);
 			this.Name = "Frm_stip_decodifica_default";
-			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
 			this.groupBox3.ResumeLayout(false);
@@ -435,6 +489,7 @@
 			this.groupBox10.PerformLayout();
 			this.gboxCausale.ResumeLayout(false);
 			this.gboxCausale.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -471,5 +526,10 @@
 		private System.Windows.Forms.TextBox txtVoce;
 		private System.Windows.Forms.TextBox txtCodiceCorsoLaurea;
 		private System.Windows.Forms.Label label7;
-	}
-}
+        private System.Windows.Forms.ComboBox cmbTipoContratto;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.TextBox txtImporto;
+        private System.Windows.Forms.Label label6;
+    }
+}

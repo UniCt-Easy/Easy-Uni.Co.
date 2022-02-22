@@ -32,6 +32,7 @@
               <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
               <xs:element name="riferimento_amministrazione" type="xs:string" minOccurs="0" />
               <xs:element name="enable_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="enable_fe_estera" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

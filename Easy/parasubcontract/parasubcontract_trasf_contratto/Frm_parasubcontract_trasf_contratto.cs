@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -30,7 +29,7 @@ namespace parasubcontract_trasf_contratto//contratto_trasferimento//
 	/// <summary>
 	/// Summary description for frmcontratto_trasferimento.
 	/// </summary>
-	public class Frm_parasubcontract_trasf_contratto : System.Windows.Forms.Form
+	public class Frm_parasubcontract_trasf_contratto : MetaDataForm
 	{
 		MetaData Meta;
 		int esercizio;
@@ -828,7 +827,7 @@ namespace parasubcontract_trasf_contratto//contratto_trasferimento//
 			if (cm == null) return;
 			DataView view = cm.List as DataView;
 			if (view == null) {
-				MessageBox.Show(this, "Lista vuota!");
+				show(this, "Lista vuota!");
 				return;
 			}
 			
@@ -847,7 +846,7 @@ namespace parasubcontract_trasf_contratto//contratto_trasferimento//
 			}
 
 			if (contratti.Count == 0) {
-				MessageBox.Show(this, "Nessun contratto selezionato!");
+				show(this, "Nessun contratto selezionato!");
 				return;
 			}
 
@@ -862,7 +861,7 @@ namespace parasubcontract_trasf_contratto//contratto_trasferimento//
 			pd.InitClass(dsContratto,MetaContratto.Conn);
 			
 			if (!pd.DO_POST()) {
-				MessageBox.Show("I Contratti non sono stati trasferiti - Problemi durante il salvataggio");
+				show("I Contratti non sono stati trasferiti - Problemi durante il salvataggio");
 			}
 			else {
 				foreach(string idContratto in contratti) {
@@ -975,6 +974,7 @@ namespace parasubcontract_trasf_contratto//contratto_trasferimento//
 			DRImpuC["idresidence"] = drImputazione[0]["idresidence"];
 			DRImpuC["notaxappliance"] = drImputazione[0]["notaxappliance"];
             DRImpuC["flagbonusappliance"] = drImputazione[0]["flagbonusappliance"];
+            DRImpuC["highertax"] = drImputazione[0]["highertax"];
 
 			// Trasferimento del tipo rapporto E-Mens
 			// Viene trasferito solo se esiste un codice analogo nell'esercizio successivo
@@ -1177,4 +1177,3 @@ namespace parasubcontract_trasf_contratto//contratto_trasferimento//
 		#endregion Gestione selezione CONTRATTI DA TRASFERIRE
 	}
 }
-

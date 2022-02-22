@@ -1,0 +1,104 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tax_seg_taxref">Codice ritenuta</label>
+					<input id="tax_seg_taxref" type="text" class="form-control" data-tag="tax.taxref?taxsegview.tax_taxref" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tax_seg_appliancebasis">Principio di applicazione: C Competenza - A Cassa Allargato - S Cassa</label>
+					<div class="custom-control custom-radio">
+						<input id="tax_seg_appliancebasisSi" type="radio" name="tax_seg_appliancebasis" class="custom-control-input" data-tag="tax.appliancebasis:S?taxsegview.tax_appliancebasis:Si" data-subentity  ><label for="tax_seg_appliancebasisSi"> Si</label>
+						<input id="tax_seg_appliancebasisNo" type="radio" name="tax_seg_appliancebasis" class="custom-control-input" data-tag="tax.appliancebasis:N?taxsegview.tax_appliancebasis:No" data-subentity  ><label for="tax_seg_appliancebasisNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tax_seg_description">Descrizione</label>
+					<input id="tax_seg_description" type="text" class="form-control" data-tag="tax.description?taxsegview.description" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tax_seg_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="tax_seg_activeSi" type="radio" name="tax_seg_active" class="custom-control-input" data-tag="tax.active:S?taxsegview.tax_active:Si" data-subentity  ><label for="tax_seg_activeSi"> Si</label>
+						<input id="tax_seg_activeNo" type="radio" name="tax_seg_active" class="custom-control-input" data-tag="tax.active:N?taxsegview.tax_active:No" data-subentity  ><label for="tax_seg_activeNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tax_seg_fiscaltaxcode">Codice tributo/Causale contributo</label>
+					<input id="tax_seg_fiscaltaxcode" type="text" class="form-control" data-tag="tax.fiscaltaxcode?taxsegview.tax_fiscaltaxcode" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tax_seg_fiscaltaxcodecredit">Fiscaltaxcodecredit</label>
+					<input id="tax_seg_fiscaltaxcodecredit" type="text" class="form-control" data-tag="tax.fiscaltaxcodecredit?taxsegview.tax_fiscaltaxcodecredit" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tax_seg_flagunabatable">Ritenuta indetraibile</label>
+					<div class="custom-control custom-radio">
+						<input id="tax_seg_flagunabatableSi" type="radio" name="tax_seg_flagunabatable" class="custom-control-input" data-tag="tax.flagunabatable:S?taxsegview.tax_flagunabatable:Si" data-subentity  ><label for="tax_seg_flagunabatableSi"> Si</label>
+						<input id="tax_seg_flagunabatableNo" type="radio" name="tax_seg_flagunabatable" class="custom-control-input" data-tag="tax.flagunabatable:N?taxsegview.tax_flagunabatable:No" data-subentity  ><label for="tax_seg_flagunabatableNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tax_seg_geoappliance">Tipo applicazione geografica: N Nulla- R Regionale - P Provinciale - C comunale</label>
+					<div class="custom-control custom-radio">
+						<input id="tax_seg_geoapplianceSi" type="radio" name="tax_seg_geoappliance" class="custom-control-input" data-tag="tax.geoappliance:S?taxsegview.tax_geoappliance:Si" data-subentity  ><label for="tax_seg_geoapplianceSi"> Si</label>
+						<input id="tax_seg_geoapplianceNo" type="radio" name="tax_seg_geoappliance" class="custom-control-input" data-tag="tax.geoappliance:N?taxsegview.tax_geoappliance:No" data-subentity  ><label for="tax_seg_geoapplianceNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tax_seg_idaccmotive_cost">ID Causale di Costo (tab. Accmotive)</label>
+					<div>
+						<input id="tax_seg_idaccmotive_cost" name="tax_seg_idaccmotive_cost" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="accmotivedefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tax_seg_idaccmotive_debit">ID Causale di Debito (tab. Accmotive)</label>
+					<div>
+						<input id="tax_seg_idaccmotive_debit" name="tax_seg_idaccmotive_debit" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="accmotivedefaultview_alias1.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tax_seg_idaccmotive_pay">ID Causale Liquidazione Ritenute (tab. Accmotive)</label>
+					<div>
+						<input id="tax_seg_idaccmotive_pay" name="tax_seg_idaccmotive_pay" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="accmotivedefaultview_alias2.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tax_seg_insuranceagencycode">Codice istituto previdenziale DALIA</label>
+					<input id="tax_seg_insuranceagencycode" type="text" class="form-control" data-tag="tax.insuranceagencycode?taxsegview.tax_insuranceagencycode" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tax_seg_maintaxcode">ID Ritenuta per Liquidazione (tab. Tax)</label>
+					<input id="tax_seg_maintaxcode" type="text" class="form-control" data-tag="tax.maintaxcode?taxsegview.tax_maintaxcode" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tax_seg_taxablecode">ID Codice imponibile (tab . Taxablekind)</label>
+					<input id="tax_seg_taxablecode" type="text" class="form-control" data-tag="tax.taxablecode?taxsegview.tax_taxablecode" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tax_seg_taxkind">Tipo ritenuta: 1 Fiscale- 2 Assistenziale - 3 Previdenziale - 4 Assicurativa - 5 Arretrati - 6 Altro</label>
+					<input id="tax_seg_taxkind" type="text" class="form-control" data-tag="tax.taxkind?taxsegview.tax_taxkind" data-subentity  data-mandatory />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

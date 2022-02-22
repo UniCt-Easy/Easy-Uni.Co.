@@ -1,62 +1,65 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using metadatalibrary;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_upbview {
 public class upbviewRow: MetaRow  {
 	public upbviewRow(DataRowBuilder rb) : base(rb) {} 
 
 	#region Field Definition
 	public String idupb{ 
-		get {if (this["idupb"]==DBNull.Value)return null; return  (String)this["idupb"];}
-		set {if (value==null) this["idupb"]= DBNull.Value; else this["idupb"]= value;}
+		get {return  (String)this["idupb"];}
+		set {this["idupb"]= value;}
 	}
 	public object idupbValue { 
 		get{ return this["idupb"];}
-		set {if (value==null|| value==DBNull.Value) this["idupb"]= DBNull.Value; else this["idupb"]= value;}
+		set {this["idupb"]= value;}
 	}
 	public String idupbOriginal { 
-		get {if (this["idupb",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idupb",DataRowVersion.Original];}
+		get {return  (String)this["idupb",DataRowVersion.Original];}
 	}
 	public String codeupb{ 
-		get {if (this["codeupb"]==DBNull.Value)return null; return  (String)this["codeupb"];}
-		set {if (value==null) this["codeupb"]= DBNull.Value; else this["codeupb"]= value;}
+		get {return  (String)this["codeupb"];}
+		set {this["codeupb"]= value;}
 	}
 	public object codeupbValue { 
 		get{ return this["codeupb"];}
-		set {if (value==null|| value==DBNull.Value) this["codeupb"]= DBNull.Value; else this["codeupb"]= value;}
+		set {this["codeupb"]= value;}
 	}
 	public String codeupbOriginal { 
-		get {if (this["codeupb",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codeupb",DataRowVersion.Original];}
+		get {return  (String)this["codeupb",DataRowVersion.Original];}
 	}
 	public String title{ 
-		get {if (this["title"]==DBNull.Value)return null; return  (String)this["title"];}
-		set {if (value==null) this["title"]= DBNull.Value; else this["title"]= value;}
+		get {return  (String)this["title"];}
+		set {this["title"]= value;}
 	}
 	public object titleValue { 
 		get{ return this["title"];}
-		set {if (value==null|| value==DBNull.Value) this["title"]= DBNull.Value; else this["title"]= value;}
+		set {this["title"]= value;}
 	}
 	public String titleOriginal { 
-		get {if (this["title",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["title",DataRowVersion.Original];}
+		get {return  (String)this["title",DataRowVersion.Original];}
 	}
 	public String paridupb{ 
 		get {if (this["paridupb"]==DBNull.Value)return null; return  (String)this["paridupb"];}
@@ -114,15 +117,15 @@ public class upbviewRow: MetaRow  {
 		get {if (this["underwriter",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["underwriter",DataRowVersion.Original];}
 	}
 	public String printingorder{ 
-		get {if (this["printingorder"]==DBNull.Value)return null; return  (String)this["printingorder"];}
-		set {if (value==null) this["printingorder"]= DBNull.Value; else this["printingorder"]= value;}
+		get {return  (String)this["printingorder"];}
+		set {this["printingorder"]= value;}
 	}
 	public object printingorderValue { 
 		get{ return this["printingorder"];}
-		set {if (value==null|| value==DBNull.Value) this["printingorder"]= DBNull.Value; else this["printingorder"]= value;}
+		set {this["printingorder"]= value;}
 	}
 	public String printingorderOriginal { 
-		get {if (this["printingorder",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["printingorder",DataRowVersion.Original];}
+		get {return  (String)this["printingorder",DataRowVersion.Original];}
 	}
 	public Decimal? requested{ 
 		get {if (this["requested"]==DBNull.Value)return null; return  (Decimal?)this["requested"];}
@@ -378,170 +381,128 @@ public class upbviewRow: MetaRow  {
 		get {if (this["flag",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["flag",DataRowVersion.Original];}
 	}
 	public String cu{ 
-		get {if (this["cu"]==DBNull.Value)return null; return  (String)this["cu"];}
-		set {if (value==null) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		get {return  (String)this["cu"];}
+		set {this["cu"]= value;}
 	}
 	public object cuValue { 
 		get{ return this["cu"];}
-		set {if (value==null|| value==DBNull.Value) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		set {this["cu"]= value;}
 	}
 	public String cuOriginal { 
-		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
+		get {return  (String)this["cu",DataRowVersion.Original];}
 	}
-	public DateTime? ct{ 
-		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
-		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
+	public DateTime ct{ 
+		get {return  (DateTime)this["ct"];}
+		set {this["ct"]= value;}
 	}
 	public object ctValue { 
 		get{ return this["ct"];}
-		set {if (value==null|| value==DBNull.Value) this["ct"]= DBNull.Value; else this["ct"]= value;}
+		set {this["ct"]= value;}
 	}
-	public DateTime? ctOriginal { 
-		get {if (this["ct",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["ct",DataRowVersion.Original];}
+	public DateTime ctOriginal { 
+		get {return  (DateTime)this["ct",DataRowVersion.Original];}
 	}
 	public String lu{ 
-		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
-		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		get {return  (String)this["lu"];}
+		set {this["lu"]= value;}
 	}
 	public object luValue { 
 		get{ return this["lu"];}
-		set {if (value==null|| value==DBNull.Value) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		set {this["lu"]= value;}
 	}
 	public String luOriginal { 
-		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
+		get {return  (String)this["lu",DataRowVersion.Original];}
 	}
-	public DateTime? lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
-		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
+	public DateTime lt{ 
+		get {return  (DateTime)this["lt"];}
+		set {this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
-		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
+		set {this["lt"]= value;}
 	}
-	public DateTime? ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
+	public DateTime ltOriginal { 
+		get {return  (DateTime)this["lt",DataRowVersion.Original];}
+	}
+	public String idupb_capofila{ 
+		get {if (this["idupb_capofila"]==DBNull.Value)return null; return  (String)this["idupb_capofila"];}
+		set {if (value==null) this["idupb_capofila"]= DBNull.Value; else this["idupb_capofila"]= value;}
+	}
+	public object idupb_capofilaValue { 
+		get{ return this["idupb_capofila"];}
+		set {if (value==null|| value==DBNull.Value) this["idupb_capofila"]= DBNull.Value; else this["idupb_capofila"]= value;}
+	}
+	public String idupb_capofilaOriginal { 
+		get {if (this["idupb_capofila",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idupb_capofila",DataRowVersion.Original];}
+	}
+	public String codeupb_capofila{ 
+		get {if (this["codeupb_capofila"]==DBNull.Value)return null; return  (String)this["codeupb_capofila"];}
+		set {if (value==null) this["codeupb_capofila"]= DBNull.Value; else this["codeupb_capofila"]= value;}
+	}
+	public object codeupb_capofilaValue { 
+		get{ return this["codeupb_capofila"];}
+		set {if (value==null|| value==DBNull.Value) this["codeupb_capofila"]= DBNull.Value; else this["codeupb_capofila"]= value;}
+	}
+	public String codeupb_capofilaOriginal { 
+		get {if (this["codeupb_capofila",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codeupb_capofila",DataRowVersion.Original];}
+	}
+	public String upb_capofila{ 
+		get {if (this["upb_capofila"]==DBNull.Value)return null; return  (String)this["upb_capofila"];}
+		set {if (value==null) this["upb_capofila"]= DBNull.Value; else this["upb_capofila"]= value;}
+	}
+	public object upb_capofilaValue { 
+		get{ return this["upb_capofila"];}
+		set {if (value==null|| value==DBNull.Value) this["upb_capofila"]= DBNull.Value; else this["upb_capofila"]= value;}
+	}
+	public String upb_capofilaOriginal { 
+		get {if (this["upb_capofila",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["upb_capofila",DataRowVersion.Original];}
 	}
 	#endregion
 
 }
 public class upbviewTable : MetaTableBase<upbviewRow> {
-	public upbviewTable() : base("upbview"){}
-	public override void addBaseColumns(params string [] cols){
-		Dictionary<string,bool> definedColums=new Dictionary<string, bool>();
-		foreach(string col in cols) definedColums[col] = true;
-
-		#region add DataColumns
-		if (definedColums.ContainsKey("idupb")){ 
-			defineColumn("idupb", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("codeupb")){ 
-			defineColumn("codeupb", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("title")){ 
-			defineColumn("title", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("paridupb")){ 
-			defineColumn("paridupb", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("idunderwriter")){ 
-			defineColumn("idunderwriter", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idman")){ 
-			defineColumn("idman", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("manager")){ 
-			defineColumn("manager", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("underwriter")){ 
-			defineColumn("underwriter", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("printingorder")){ 
-			defineColumn("printingorder", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("requested")){ 
-			defineColumn("requested", typeof(System.Decimal));
-		}
-		if (definedColums.ContainsKey("granted")){ 
-			defineColumn("granted", typeof(System.Decimal));
-		}
-		if (definedColums.ContainsKey("previousappropriation")){ 
-			defineColumn("previousappropriation", typeof(System.Decimal));
-		}
-		if (definedColums.ContainsKey("previousassessment")){ 
-			defineColumn("previousassessment", typeof(System.Decimal));
-		}
-		if (definedColums.ContainsKey("expiration")){ 
-			defineColumn("expiration", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("assured")){ 
-			defineColumn("assured", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("active")){ 
-			defineColumn("active", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("cupcode")){ 
-			defineColumn("cupcode", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("idsor01")){ 
-			defineColumn("idsor01", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idsor02")){ 
-			defineColumn("idsor02", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idsor03")){ 
-			defineColumn("idsor03", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idsor04")){ 
-			defineColumn("idsor04", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idsor05")){ 
-			defineColumn("idsor05", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("flagactivity")){ 
-			defineColumn("flagactivity", typeof(System.Int16));
-		}
-		if (definedColums.ContainsKey("flagkind")){ 
-			defineColumn("flagkind", typeof(System.Byte));
-		}
-		if (definedColums.ContainsKey("newcodeupb")){ 
-			defineColumn("newcodeupb", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("start")){ 
-			defineColumn("start", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("stop")){ 
-			defineColumn("stop", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("cigcode")){ 
-			defineColumn("cigcode", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("idtreasurer")){ 
-			defineColumn("idtreasurer", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("codetreasurer")){ 
-			defineColumn("codetreasurer", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("idepupbkind")){ 
-			defineColumn("idepupbkind", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("flag")){ 
-			defineColumn("flag", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("cu")){ 
-			defineColumn("cu", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("ct")){ 
-			defineColumn("ct", typeof(System.DateTime),false);
-		}
-		if (definedColums.ContainsKey("lu")){ 
-			defineColumn("lu", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("lt")){ 
-			defineColumn("lt", typeof(System.DateTime),false);
-		}
-		#endregion
-
+	public upbviewTable() : base("upbview"){
+		baseColumns = new Dictionary<string, DataColumn>(){
+			{"idupb",createColumn("idupb",typeof(string),false,false)},
+			{"codeupb",createColumn("codeupb",typeof(string),false,false)},
+			{"title",createColumn("title",typeof(string),false,false)},
+			{"paridupb",createColumn("paridupb",typeof(string),true,false)},
+			{"idunderwriter",createColumn("idunderwriter",typeof(int),true,false)},
+			{"idman",createColumn("idman",typeof(int),true,false)},
+			{"manager",createColumn("manager",typeof(string),true,false)},
+			{"underwriter",createColumn("underwriter",typeof(string),true,false)},
+			{"printingorder",createColumn("printingorder",typeof(string),false,false)},
+			{"requested",createColumn("requested",typeof(decimal),true,false)},
+			{"granted",createColumn("granted",typeof(decimal),true,false)},
+			{"previousappropriation",createColumn("previousappropriation",typeof(decimal),true,false)},
+			{"previousassessment",createColumn("previousassessment",typeof(decimal),true,false)},
+			{"expiration",createColumn("expiration",typeof(DateTime),true,false)},
+			{"assured",createColumn("assured",typeof(string),true,false)},
+			{"active",createColumn("active",typeof(string),true,false)},
+			{"cupcode",createColumn("cupcode",typeof(string),true,false)},
+			{"idsor01",createColumn("idsor01",typeof(int),true,false)},
+			{"idsor02",createColumn("idsor02",typeof(int),true,false)},
+			{"idsor03",createColumn("idsor03",typeof(int),true,false)},
+			{"idsor04",createColumn("idsor04",typeof(int),true,false)},
+			{"idsor05",createColumn("idsor05",typeof(int),true,false)},
+			{"flagactivity",createColumn("flagactivity",typeof(short),true,false)},
+			{"flagkind",createColumn("flagkind",typeof(byte),true,false)},
+			{"newcodeupb",createColumn("newcodeupb",typeof(string),true,false)},
+			{"start",createColumn("start",typeof(DateTime),true,false)},
+			{"stop",createColumn("stop",typeof(DateTime),true,false)},
+			{"cigcode",createColumn("cigcode",typeof(string),true,false)},
+			{"idtreasurer",createColumn("idtreasurer",typeof(int),true,false)},
+			{"codetreasurer",createColumn("codetreasurer",typeof(string),true,false)},
+			{"idepupbkind",createColumn("idepupbkind",typeof(int),true,false)},
+			{"flag",createColumn("flag",typeof(int),true,false)},
+			{"cu",createColumn("cu",typeof(string),false,false)},
+			{"ct",createColumn("ct",typeof(DateTime),false,false)},
+			{"lu",createColumn("lu",typeof(string),false,false)},
+			{"lt",createColumn("lt",typeof(DateTime),false,false)},
+			{"idupb_capofila",createColumn("idupb_capofila",typeof(string),true,false)},
+			{"codeupb_capofila",createColumn("codeupb_capofila",typeof(string),true,false)},
+			{"upb_capofila",createColumn("upb_capofila",typeof(string),true,false)},
+		};
 	}
 }
 }
-

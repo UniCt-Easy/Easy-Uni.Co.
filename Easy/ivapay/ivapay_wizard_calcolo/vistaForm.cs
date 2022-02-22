@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,7 +26,7 @@ using System.Runtime.Serialization;
 namespace ivapay_wizard_calcolo {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -197,6 +196,9 @@ public class vistaForm: DataSet {
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicedetaildeferred 		=> Tables["invoicedetaildeferred"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable invoiceview 		=> Tables["invoiceview"];
 
 	#endregion
 
@@ -1317,6 +1319,248 @@ private void initClass() {
 	tinvoicedetaildeferred.PrimaryKey =  new DataColumn[]{tinvoicedetaildeferred.Columns["idinvkind"], tinvoicedetaildeferred.Columns["yinv"], tinvoicedetaildeferred.Columns["ninv"], tinvoicedetaildeferred.Columns["rownum"], tinvoicedetaildeferred.Columns["yivapay"], tinvoicedetaildeferred.Columns["nivapay"], tinvoicedetaildeferred.Columns["idivaregisterkind"]};
 
 
+	//////////////////// INVOICEVIEW /////////////////////////////////
+	var tinvoiceview= new DataTable("invoiceview");
+	C= new DataColumn("idinvkind", typeof(int));
+	C.AllowDBNull=false;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("codeinvkind", typeof(string));
+	C.AllowDBNull=false;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("invoicekind", typeof(string));
+	C.AllowDBNull=false;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("yinv", typeof(short));
+	C.AllowDBNull=false;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("ninv", typeof(int));
+	C.AllowDBNull=false;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("flag", typeof(byte));
+	C.AllowDBNull=false;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("flagbuysell", typeof(string));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("flagvariation", typeof(string));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("idreg", typeof(int));
+	C.AllowDBNull=false;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("registry", typeof(string));
+	C.AllowDBNull=false;
+	tinvoiceview.Columns.Add(C);
+	tinvoiceview.Columns.Add( new DataColumn("ipa_fe", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("cf", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("p_iva", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("registryreference", typeof(string)));
+	C= new DataColumn("description", typeof(string));
+	C.AllowDBNull=false;
+	tinvoiceview.Columns.Add(C);
+	tinvoiceview.Columns.Add( new DataColumn("paymentexpiring", typeof(short)));
+	tinvoiceview.Columns.Add( new DataColumn("idexpirationkind", typeof(short)));
+	tinvoiceview.Columns.Add( new DataColumn("idcurrency", typeof(int)));
+	tinvoiceview.Columns.Add( new DataColumn("codecurrency", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("currency", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("exchangerate", typeof(double)));
+	tinvoiceview.Columns.Add( new DataColumn("doc", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	C= new DataColumn("adate", typeof(DateTime));
+	C.AllowDBNull=false;
+	tinvoiceview.Columns.Add(C);
+	tinvoiceview.Columns.Add( new DataColumn("protocoldate", typeof(DateTime)));
+	tinvoiceview.Columns.Add( new DataColumn("packinglistnum", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("packinglistdate", typeof(DateTime)));
+	C= new DataColumn("officiallyprinted", typeof(string));
+	C.AllowDBNull=false;
+	tinvoiceview.Columns.Add(C);
+	tinvoiceview.Columns.Add( new DataColumn("flagdeferred", typeof(string)));
+	C= new DataColumn("taxable", typeof(decimal));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("tax", typeof(decimal));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("unabatable", typeof(decimal));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("total", typeof(decimal));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	tinvoiceview.Columns.Add( new DataColumn("active", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("txt", typeof(string)));
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("ycon", typeof(int));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("ncon", typeof(int));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	tinvoiceview.Columns.Add( new DataColumn("idintrastatnation_origin", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("intrastatnation_origin", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("idintrastatnation_provenance", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("intrastatnation_provenance", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("idintrastatnation_destination", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("intrastatnation_destination", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("idcountry_origin", typeof(int)));
+	tinvoiceview.Columns.Add( new DataColumn("country_origin", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("idcountry_destination", typeof(int)));
+	tinvoiceview.Columns.Add( new DataColumn("country_destination", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("flagintracom", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("idintrastatkind", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("intrastatkind", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("idintrastatnation_payment", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("intrastatnation_payment", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("idintrastatpaymethod", typeof(int)));
+	tinvoiceview.Columns.Add( new DataColumn("intrastatpaymethod", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("idaccmotivedebit", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("codemotivedebit", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("idaccmotivedebit_crg", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("codemotivedebit_crg", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("idaccmotivedebit_datacrg", typeof(DateTime)));
+	tinvoiceview.Columns.Add( new DataColumn("flag_invoice", typeof(int)));
+	C= new DataColumn("totransmit", typeof(string));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	tinvoiceview.Columns.Add( new DataColumn("idblacklist", typeof(int)));
+	tinvoiceview.Columns.Add( new DataColumn("idblnation", typeof(int)));
+	tinvoiceview.Columns.Add( new DataColumn("blnation", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("blcode", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("idinvkind_real", typeof(int)));
+	tinvoiceview.Columns.Add( new DataColumn("invkind_real", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("yinv_real", typeof(short)));
+	tinvoiceview.Columns.Add( new DataColumn("ninv_real", typeof(int)));
+	tinvoiceview.Columns.Add( new DataColumn("autoinvoice", typeof(string)));
+	C= new DataColumn("idsor01", typeof(int));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("idsor02", typeof(int));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("idsor03", typeof(int));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("idsor04", typeof(int));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("idsor05", typeof(int));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	tinvoiceview.Columns.Add( new DataColumn("nelectronicinvoice", typeof(int)));
+	tinvoiceview.Columns.Add( new DataColumn("yelectronicinvoice", typeof(short)));
+	tinvoiceview.Columns.Add( new DataColumn("idfepaymethodcondition", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("idfepaymethod", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("idtreasurer", typeof(int)));
+	tinvoiceview.Columns.Add( new DataColumn("iduniqueregister", typeof(int)));
+	tinvoiceview.Columns.Add( new DataColumn("annotations", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("arrivalprotocolnum", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("toincludeinpaymentindicator", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("resendingpcc", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("touniqueregister", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("expirationkind", typeof(string)));
+	C= new DataColumn("expiring", typeof(DateTime));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	tinvoiceview.Columns.Add( new DataColumn("idstampkind", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("flag_enable_split_payment", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("flag_auto_split_payment", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("flag_reverse_charge", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("idsdi_acquisto", typeof(int)));
+	tinvoiceview.Columns.Add( new DataColumn("sdi_codice_ipa", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("sdi_riferimento_amministrazione", typeof(string)));
+	C= new DataColumn("idsdi_status", typeof(short));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("sdi_status", typeof(string));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("flag_unseen", typeof(int));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("sdi_se", typeof(string));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("sdi_ns", typeof(string));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("sdi_mc", typeof(string));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("sdi_rc", typeof(string));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("sdi_ne", typeof(string));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("sdi_at", typeof(string));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("sdi_dt", typeof(string));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	tinvoiceview.Columns.Add( new DataColumn("idsdi_vendita", typeof(int)));
+	tinvoiceview.Columns.Add( new DataColumn("idsdi_deliverystatus", typeof(short)));
+	tinvoiceview.Columns.Add( new DataColumn("ipa_acq", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("rifamm_acq", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("ipa_ven_emittente", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("rifamm_ven_emittente", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("ipa_ven_cliente", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("rifamm_ven_cliente", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("email_ven_cliente", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("pec_ven_cliente", typeof(string)));
+	C= new DataColumn("rounding", typeof(decimal));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	tinvoiceview.Columns.Add( new DataColumn("ssntipospesa", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("ssnflagtipospesa", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("idinvkind_forwarder", typeof(int)));
+	tinvoiceview.Columns.Add( new DataColumn("codeinvkind_forwarder", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("invkind_forwarder", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("yinv_forwarder", typeof(short)));
+	tinvoiceview.Columns.Add( new DataColumn("ninv_forwarder", typeof(int)));
+	C= new DataColumn("flag_bolladoganale", typeof(string));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("flag_fattspedizioniere", typeof(string));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("escludiinvio", typeof(string));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	tinvoiceview.Columns.Add( new DataColumn("flagbit", typeof(byte)));
+	tinvoiceview.Columns.Add( new DataColumn("requested_doc", typeof(int)));
+	tinvoiceview.Columns.Add( new DataColumn("idreg_sostituto", typeof(int)));
+	tinvoiceview.Columns.Add( new DataColumn("registry_sostituto", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("forename_sostituto", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("surname_sostituto", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("cf_sostituto", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("p_iva_sostituto", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("flaghuman_sostituto", typeof(string)));
+	C= new DataColumn("cc_dedicato", typeof(string));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("visura_camerale", typeof(string));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	C= new DataColumn("durc", typeof(string));
+	C.ReadOnly=true;
+	tinvoiceview.Columns.Add(C);
+	tinvoiceview.Columns.Add( new DataColumn("flag_ddt", typeof(string)));
+	tinvoiceview.Columns.Add( new DataColumn("idnocigmotive", typeof(int)));
+	Tables.Add(tinvoiceview);
+
 	#endregion
 
 
@@ -1418,4 +1662,3 @@ private void initClass() {
 }
 }
 }
-

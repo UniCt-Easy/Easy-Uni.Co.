@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -28,7 +27,7 @@ using metadatalibrary;
 using metaeasylibrary;
 
 namespace no_table_entry_apertura {
-    public partial class Frmno_table_entry_apertura : Form {
+    public partial class Frmno_table_entry_apertura : MetaDataForm {
         MetaData Meta;
         DataTable tAccountLookUp;
         CQueryHelper QHC;
@@ -90,7 +89,7 @@ namespace no_table_entry_apertura {
         private void btnApertura_Click(object sender, EventArgs e) {
             if (Meta.edit_type == "apertura") {
                 if (!doApertura()) {
-                    MessageBox.Show(this, "Errore nel processo di apertura dei conti", "Errore");
+                    show(this, "Errore nel processo di apertura dei conti", "Errore");
                 }
             }
             if (Meta.edit_type == "riparto") {
@@ -105,7 +104,7 @@ namespace no_table_entry_apertura {
             int num = Conn.RUN_SELECT_COUNT("entry", filter, false);
             
             if (num>0) {
-                if (MessageBox.Show("Le scritture di Apertura relative all''esercizio corrente risultano già generate. Si desidera proseguire comunque?", "Avviso",
+                if (show("Le scritture di Apertura relative all''esercizio corrente risultano già generate. Si desidera proseguire comunque?", "Avviso",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return false;
             }
@@ -120,7 +119,7 @@ namespace no_table_entry_apertura {
             int num = Conn.RUN_SELECT_COUNT("entry", filter, false);
 
             if (num > 0) {
-                if (MessageBox.Show("Le scritture di ribaltamento relative all''esercizio corrente risultano già generate. Si desidera proseguire comunque?", "Avviso",
+                if (show("Le scritture di ribaltamento relative all''esercizio corrente risultano già generate. Si desidera proseguire comunque?", "Avviso",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return false;
             }
@@ -161,43 +160,36 @@ namespace no_table_entry_apertura {
             + " ED.idupb, UPB.codeupb , UPB.title as upb, " 
             + " ED.idreg, REGISTRY.title as registry, "
             + " ED.competencystart, ED.competencystop, " 
-            + " ED.idaccmotive, ACCMOTIVE.codemotive, ACCMOTIVE.title as accmotive,ED.idepexp,ED.idepacc "
+            + " ED.idaccmotive, ACCMOTIVE.codemotive, ACCMOTIVE.title as accmotive,ED.idepexp,ED.idepacc,ED.idrelated "
             + " FROM entrydetail ED "
-            + " JOIN entry E "
-            + " ON E.yentry = ED.yentry AND E.nentry = ED.nentry "
-            + " LEFT OUTER JOIN accountlookup LKP "
-            + " ON " + QHS.CmpEq("ED.idacc", QHS.Field("LKP.oldidacc"))
-            + " LEFT OUTER JOIN account LKACC "
-            + " ON " + QHS.CmpEq("LKP.newidacc", QHS.Field("LKACC.idacc"))
-            + " JOIN account ACC "
-            + " ON " + QHS.CmpEq("ED.idacc", QHS.Field("ACC.idacc"))
-            + " LEFT OUTER JOIN UPB "
-            + " ON " + QHS.CmpEq("ED.idupb", QHS.Field("UPB.idupb"))
-            + " LEFT OUTER JOIN REGISTRY "
-            + " ON " + QHS.CmpEq("ED.idreg", QHS.Field("REGISTRY.idreg"))
-            + " LEFT OUTER JOIN ACCMOTIVE "
-            + " ON " + QHS.CmpEq("ED.idaccmotive", QHS.Field("ACCMOTIVE.idaccmotive"))
+            + " JOIN entry E  ON E.yentry = ED.yentry AND E.nentry = ED.nentry "
+            + " LEFT OUTER JOIN accountlookup LKP  ON " + QHS.CmpEq("ED.idacc", QHS.Field("LKP.oldidacc"))
+            + " LEFT OUTER JOIN account LKACC  ON " + QHS.CmpEq("LKP.newidacc", QHS.Field("LKACC.idacc"))
+            + " JOIN account ACC  ON " + QHS.CmpEq("ED.idacc", QHS.Field("ACC.idacc"))
+            + " LEFT OUTER JOIN UPB  ON " + QHS.CmpEq("ED.idupb", QHS.Field("UPB.idupb"))
+            + " LEFT OUTER JOIN REGISTRY ON " + QHS.CmpEq("ED.idreg", QHS.Field("REGISTRY.idreg"))
+            + " LEFT OUTER JOIN ACCMOTIVE ON " + QHS.CmpEq("ED.idaccmotive", QHS.Field("ACCMOTIVE.idaccmotive"))
             + " WHERE " + QHS.AppAnd(QHS.CmpEq("ED.yentry", lastEsercizio),
             QHS.CmpEq("ACC.ayear", lastEsercizio), QHS.CmpEq("E.identrykind", 12)
                 ,QHS.IsNotNull("ACC.idpatrimony")   // non saltiamo nulla e ribaltiamo semplicemente tutti i conti attualizzandoli nell'anno successivo
                 );
-
-            DataTable tSaldo = Meta.Conn.SQLRunner(query);
+            string errMsg;
+            DataTable tSaldo = Meta.Conn.SQLRunner(query,300, out errMsg);
              
             if (tSaldo == null) {
-                MessageBox.Show(this, "Errore nella query che estrae i conti da aprire", "Errore");
+                show(this, "Errore nella query che estrae i conti da aprire " + errMsg, "Errore");
                 return false;
             }
 
             if (tSaldo.Rows.Count == 0) {
-                MessageBox.Show(this, "La tabella dei saldi risulta vuota, procedura di apertura non eseguita", "Avvertimento");
+                show(this, "La tabella dei saldi risulta vuota, procedura di apertura non eseguita", "Avvertimento");
                 return true;
             }
 
             DataRow rEntry = fillEntryApertura(tEntry);
 
             if (rEntry == null) {
-                MessageBox.Show(this, "Errore nella creazione della scrittura", "Errore");
+                show(this, "Errore nella creazione della scrittura", "Errore");
                 return false;
             }
 
@@ -208,7 +200,7 @@ namespace no_table_entry_apertura {
             object idaccPat = Meta.Conn.DO_READ_VALUE("config", f, "idacc_patrimony");
 
             if ((idaccPat == null) || (idaccPat == DBNull.Value)) {
-                MessageBox.Show(this, "Non è stato selezionato il conto che pareggia l'epilogo dei conti patrimoniali", "Errore");
+                show(this, "Non è stato selezionato il conto che pareggia l'epilogo dei conti patrimoniali", "Errore");
                 return false;
             }
 
@@ -226,7 +218,7 @@ namespace no_table_entry_apertura {
             FrmEntryPreSave frm = new FrmEntryPreSave(ds.Tables["entrydetail"], Meta.Conn, tSaldo);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
-                MessageBox.Show(this, "Operazione Annullata!");
+                show(this, "Operazione Annullata!");
                 return true;
             }
 
@@ -239,10 +231,10 @@ namespace no_table_entry_apertura {
             if (Post.DO_POST()) {
                 DataRow rEntryPosted = tEntry.Rows[0];
                 EditEntry(rEntryPosted);
-                MessageBox.Show(this, "Apertura dei conti effettuata");
+                show(this, "Apertura dei conti effettuata");
             }
             else {
-                MessageBox.Show(this, "Errore nel salvataggio della scrittura di apertura!", "Errore");
+                show(this, "Errore nel salvataggio della scrittura di apertura!", "Errore");
                 return false;
             }
 
@@ -264,7 +256,7 @@ namespace no_table_entry_apertura {
             string checkfilter = QHS.AppAnd(QHS.CmpEq("yentry", yentry), QHS.CmpEq("nentry", nentry));
             ToMeta.ContextFilter = checkfilter;
             Form F = null;
-            if (Meta.LinkedForm != null) F = Meta.LinkedForm.ParentForm;
+            if (Meta.linkedForm != null) F = Meta.linkedForm.ParentForm;
             bool result = ToMeta.Edit(F, "default", false);
             string listtype = ToMeta.DefaultListType;
             DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
@@ -299,7 +291,7 @@ namespace no_table_entry_apertura {
 
             //object nEntry = Meta.Conn.DO_READ_VALUE("entry", filter, "MAX(nentry)");
             //if (nEntry == null) {
-            //    MessageBox.Show(this, "Errore nel calcolo dell'ultima scrittura", "Errore");
+            //    show(this, "Errore nel calcolo dell'ultima scrittura", "Errore");
             //    return null;
             //}
             //int freeN = 1 + CfgFn.GetNoNullInt32(nEntry);
@@ -326,7 +318,9 @@ namespace no_table_entry_apertura {
             decimal amount = CfgFn.GetNoNullDecimal(rSaldo["amount"]);
             decimal reverseAmount = -amount ;
             if ((newidAcc == null)|| (newidAcc == DBNull.Value)) {
-                MessageBox.Show(this, "Errore nell'attualizzazione del conto " + rSaldo["olcodeacc"].ToString() + " nell'esercizio corrente", "Errore");
+                show(this, "Errore nell'attualizzazione del conto " + rSaldo["olcodeacc"].ToString() + " nell'esercizio corrente.\n" + 
+                    "Inserire la configurazione nell'esercizio precedente da Opzioni - Chiusura - Converti voci del piano dei conti annuale, " + 
+                    "per poter generare la scrittura di apertura", "Errore");
                 return false;
             }
             object idaccmotive = DBNull.Value;
@@ -342,13 +336,13 @@ namespace no_table_entry_apertura {
             if (rSaldo.Table.Columns.Contains("idepexp"))
                 idepacc = rSaldo["idepacc"];
 
-            DataRow rEntry1 = fillEntryDetail(tEntryDetail, rEntry, newidAcc, idaccmotive, idepexp, idepacc, reverseAmount);
+            DataRow rEntry1 = fillEntryDetail(tEntryDetail, rEntry, newidAcc, idaccmotive, idepexp, idepacc, reverseAmount,rSaldo["idrelated"]);
             rEntry1["competencystart"] = rSaldo["competencystart"];
             rEntry1["competencystop"] = rSaldo["competencystop"];
             rEntry1["idreg"] = rSaldo["idreg"];
             rEntry1["idupb"] = rSaldo["idupb"];
 
-            DataRow rEntry2 = fillEntryDetail(tEntryDetail, rEntry, idaccPat,idaccmotive, idepexp, idepacc, amount);
+            DataRow rEntry2 = fillEntryDetail(tEntryDetail, rEntry, idaccPat,idaccmotive, idepexp, idepacc, amount,DBNull.Value);
             rEntry2["competencystart"] = rSaldo["competencystart"];
             rEntry2["competencystop"] = rSaldo["competencystop"];
             rEntry2["idreg"] = rSaldo["idreg"];
@@ -371,7 +365,7 @@ namespace no_table_entry_apertura {
             return rEntry;
         }
        
-        protected DataRow fillEntryDetail(DataTable tEntryDetail, DataRow rEntry, object idacc, object idaccmotive, object idepexp, object idepacc, decimal amount) {
+        protected DataRow fillEntryDetail(DataTable tEntryDetail, DataRow rEntry, object idacc, object idaccmotive, object idepexp, object idepacc, decimal amount,object idrelated) {
             metaEntryDetail.SetDefaults(tEntryDetail);
 
             DataRow rEntryDetail = metaEntryDetail.Get_New_Row(rEntry, tEntryDetail);
@@ -389,6 +383,7 @@ namespace no_table_entry_apertura {
             rEntryDetail["cu"] = "APERTURA";
             rEntryDetail["lt"] = DateTime.Now;
             rEntryDetail["lu"] = "'APERTURA'";
+            rEntryDetail["idrelated"] = idrelated;
 
             //tEntryDetail.Rows.Add(rEntryDetail);
             return rEntryDetail;
@@ -431,22 +426,22 @@ namespace no_table_entry_apertura {
                            " WHERE " + QHS.AppAnd(QHS.CmpEq("ED.yentry", esercizio), QHS.CmpEq("idacc", idacc_risultatoesercizio)) +
                            " group by U.idupb,U.codeupb, U.title " +
                            " having sum(amount)<>0 ";
-
-            DataTable t = Conn.SQLRunner(query);
-
+            string errMsg;
+            DataTable t = Meta.Conn.SQLRunner(query, 300, out errMsg);
+          
             if (t == null) {
-                MessageBox.Show(this, "Errore nella query che estrae i risultati da ripartire", "Errore");
+                show(this, "Errore nella query che estrae i risultati da ripartire  " + errMsg, "Errore");
                 return false;
             }
 
             if (t.Rows.Count == 0) {
-                MessageBox.Show(this, "Nessun risultato economico da ripartire", "Avvertimento");
+                show(this, "Nessun risultato economico da ripartire", "Avvertimento");
                 return true;
             }
 
             DataRow rEntry = getEntryRibaltamento(tEntry);
             if (rEntry == null) {
-                MessageBox.Show(this, "Errore nella creazione della scrittura", "Errore");
+                show(this, "Errore nella creazione della scrittura", "Errore");
                 return false;
             }
 
@@ -460,7 +455,7 @@ namespace no_table_entry_apertura {
             FrmEntryPreSave frm = new FrmEntryPreSave(ds.Tables["entrydetail"], Meta.Conn, t);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
-                MessageBox.Show(this, "Operazione Annullata!");
+                show(this, "Operazione Annullata!");
                 return true;
             }
 
@@ -471,10 +466,10 @@ namespace no_table_entry_apertura {
             if (post.DO_POST()) {
                 DataRow rEntryPosted = tEntry.Rows[0];
                 EditEntry(rEntryPosted);
-                MessageBox.Show(this, "Ripartimento del risultato economico completato con successo!");
+                show(this, "Ripartimento del risultato economico completato con successo!");
             }
             else {
-                MessageBox.Show(this, "Errore nel salvataggio della scrittura di ripartimento", "Errore");
+                show(this, "Errore nel salvataggio della scrittura di ripartimento", "Errore");
                 return false;
             }
             return true;
@@ -689,4 +684,4 @@ namespace no_table_entry_apertura {
                 , false);
         }
     }
-}
+}

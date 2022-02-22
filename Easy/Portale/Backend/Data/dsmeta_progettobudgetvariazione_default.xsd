@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_progettobudgetvariazione_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_progettobudgetvariazione_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="accmotivedefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="accmotive_active" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive_ct" type="xs:dateTime" />
+              <xs:element name="accmotive_cu" type="xs:string" />
+              <xs:element name="accmotive_expensekind" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive_flag" type="xs:int" minOccurs="0" />
+              <xs:element name="accmotive_flagamm" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive_flagdep" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive_lt" type="xs:dateTime" />
+              <xs:element name="accmotive_lu" type="xs:string" />
+              <xs:element name="accmotive_title" type="xs:string" />
+              <xs:element name="accmotiveparent_codemotive" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotiveparent_title" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive" type="xs:string" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idaccmotive" type="xs:string" />
+              <xs:element name="paridaccmotive" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="upbdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="epupbkind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="epupbkind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="idupb_capofila" type="xs:string" minOccurs="0" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="treasurer_description" type="xs:string" minOccurs="0" />
+              <xs:element name="underwriter_description" type="xs:string" minOccurs="0" />
+              <xs:element name="upb_active" type="xs:string" minOccurs="0" />
+              <xs:element name="upb_assured" type="xs:string" minOccurs="0" />
+              <xs:element name="upb_cigcode" type="xs:string" minOccurs="0" />
+              <xs:element name="upb_codeupb" type="xs:string" />
+              <xs:element name="upb_cofogmpcode" type="xs:string" minOccurs="0" />
+              <xs:element name="upb_ct" type="xs:dateTime" />
+              <xs:element name="upb_cu" type="xs:string" />
+              <xs:element name="upb_cupcode" type="xs:string" minOccurs="0" />
+              <xs:element name="upb_expiration" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="upb_flag" type="xs:int" minOccurs="0" />
+              <xs:element name="upb_flagactivity" type="xs:int" minOccurs="0" />
+              <xs:element name="upb_flagkind" type="xs:int" minOccurs="0" />
+              <xs:element name="upb_granted" type="xs:decimal" minOccurs="0" />
+              <xs:element name="upb_idepupbkind" type="xs:int" minOccurs="0" />
+              <xs:element name="upb_lt" type="xs:dateTime" />
+              <xs:element name="upb_lu" type="xs:string" />
+              <xs:element name="upb_newcodeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="upb_previousappropriation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="upb_previousassessment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="upb_printingorder" type="xs:string" />
+              <xs:element name="upb_requested" type="xs:decimal" minOccurs="0" />
+              <xs:element name="upb_ri_ra_quota" type="xs:decimal" minOccurs="0" />
+              <xs:element name="upb_ri_rb_quota" type="xs:decimal" minOccurs="0" />
+              <xs:element name="upb_ri_sa_quota" type="xs:decimal" minOccurs="0" />
+              <xs:element name="upb_rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="upb_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="upb_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="upb_txt" type="xs:string" minOccurs="0" />
+              <xs:element name="upb_uesiopecode" type="xs:string" minOccurs="0" />
+              <xs:element name="upbcapofila_title" type="xs:string" minOccurs="0" />
+              <xs:element name="upbparent_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="progettobudgetvariazione" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idprogettobudget" type="xs:int" />
+              <xs:element name="idprogettobudgetvariazione" type="xs:int" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="newamount" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accmotivedefaultview" />
+      <xs:field xpath="mstns:idaccmotive" />
+    </xs:unique>
+    <xs:unique name="upbdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upbdefaultview" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="progettobudgetvariazione_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:progettobudgetvariazione" />
+      <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idprogettobudget" />
+      <xs:field xpath="mstns:idprogettobudgetvariazione" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_progettobudgetvariazione_accmotivedefaultview_idaccmotive" msdata:parent="accmotivedefaultview" msdata:child="progettobudgetvariazione" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotive" />
+      <msdata:Relationship name="FK_progettobudgetvariazione_upbdefaultview_idupb" msdata:parent="upbdefaultview" msdata:child="progettobudgetvariazione" msdata:parentkey="idupb" msdata:childkey="idupb" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

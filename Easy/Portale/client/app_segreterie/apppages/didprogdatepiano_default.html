@@ -1,0 +1,36 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprogdatepiano_default_aa">Anno Accademico</label>
+					<select id="didprogdatepiano_default_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="didprogdatepiano.aa"   > </select>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#didprogdatepiano_default_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="didprogdatepiano_default_start">Dal</label>
+					<input id="didprogdatepiano_default_start" type="text" class="form-control" data-tag="didprogdatepiano.start"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#didprogdatepiano_default_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="didprogdatepiano_default_stop">Al</label>
+					<input id="didprogdatepiano_default_stop" type="text" class="form-control" data-tag="didprogdatepiano.stop"  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

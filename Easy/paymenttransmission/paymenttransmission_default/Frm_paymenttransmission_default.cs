@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -32,7 +31,7 @@ namespace paymenttransmission_default { //trasmdocpagamento//
     /// Summary description for frmtrasmdocpagamento.
     /// Revised By Nino on 9/3/2003 (adjusted filter of combos)
     /// </summary>
-    public class Frm_paymenttransmission_default : System.Windows.Forms.Form {
+    public class Frm_paymenttransmission_default : MetaDataForm {
         private System.Windows.Forms.ComboBox cmbCodiceIstituto;
         private System.Windows.Forms.Button btnIstitutoCassiere;
         private System.Windows.Forms.ComboBox cmbResponsabile;
@@ -960,7 +959,7 @@ namespace paymenttransmission_default { //trasmdocpagamento//
                     //if (SM.NoConfig == false) continue;
                     if (!SM.Send()) {
                         if (SM.ErrorMessage.Trim() != "")
-                            MessageBox.Show(SM.ErrorMessage, "Errore");
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(SM.ErrorMessage, "Errore");
                     }
                     else sent = true;
                 }
@@ -981,8 +980,7 @@ namespace paymenttransmission_default { //trasmdocpagamento//
 
             object idtreasurer;
             idtreasurer = DS.paymenttransmission.Rows[0]["idtreasurer"];
-            DataTable TTreasurer = Meta.Conn.RUN_SELECT("treasurer", "*", null, QHS.CmpEq("idtreasurer", idtreasurer),
-                null, false);
+            DataTable TTreasurer = Meta.Conn.RUN_SELECT("treasurer", "*", null, QHS.CmpEq("idtreasurer", idtreasurer), null, false);
             if (TTreasurer == null || TTreasurer.Rows.Count == 0) return;
             DataRow RTreasurer = TTreasurer.Rows[0];
 
@@ -996,6 +994,7 @@ namespace paymenttransmission_default { //trasmdocpagamento//
             foreach (DataRow Mandato in rMandati) {
                 filtermand = QHS.CmpEq("kpay", Mandato["kpay"]);
                 DataTable TDisp = Meta.Conn.RUN_SELECT("paydispositionview", "*", null, filtermand, null, false);
+                if (TDisp == null) continue;
                 if (TDisp.Rows.Count > 0) continue; // mandato associato a disposizioni di pagamento
 
                 DataTable T = Meta.Conn.RUN_SELECT("expenselastview", "*", null, filtermand, null, false);
@@ -1021,12 +1020,10 @@ namespace paymenttransmission_default { //trasmdocpagamento//
                     object docdate = rExp["docdate"];
 
                     decimal linkedIncome = CfgFn.GetNoNullDecimal(Meta.Conn.DO_SYS_CMD(
-                        "SELECT sum(IIT.curramount) from 		income II with (nolock) " +
-                        " join incometotal IIT  with (nolock)  on II.idinc=IIT.idinc and IIT.ayear=" +
-                        QHS.quote(Meta.Conn.GetEsercizio()) +
-                        " join incomelast IL with (nolock) on IL.idinc=II.idinc " +
-                        "WHERE II.idpayment = " + QHS.quote(rExp["idexp"]) + " AND " +
-                        "((II.autokind=4 and II.idreg = " + QHS.quote(idreg) + ") or II.autokind in (6,14,20,21)) ",
+						$"SELECT sum(IIT.curramount) from 		income II with (nolock)  " +
+						$"join incometotal IIT  with (nolock)  on II.idinc=IIT.idinc and IIT.ayear={QHS.quote(Meta.Conn.GetEsercizio())} " +
+						$"join incomelast IL with (nolock) on IL.idinc=II.idinc WHERE II.idpayment = {QHS.quote(rExp["idexp"])}" +
+						$" AND ((II.autokind=4 and II.idreg = {QHS.quote(idreg)}) or II.autokind in (6,14,20,21)) ",
                         true));
 
                     amount -= linkedIncome;
@@ -1043,8 +1040,7 @@ namespace paymenttransmission_default { //trasmdocpagamento//
                     }
 
                     string filterReference = QHS.AppAnd(QHS.CmpEq("idreg", idreg), QHS.CmpEq("flagdefault", "S"));
-                    DataTable TReference =
-                        Meta.Conn.RUN_SELECT("registryreference", "*", null, filterReference, null, false);
+                    DataTable TReference = Meta.Conn.RUN_SELECT("registryreference", "*", null, filterReference, null, false);
 
                     if (TReference == null || TReference.Rows.Count == 0) continue;
 
@@ -1054,12 +1050,12 @@ namespace paymenttransmission_default { //trasmdocpagamento//
                     if (mailto == "") {
                         mailto = GetErrorMailAddress(Meta.Conn);
                         AVVISO_ERRORE = "MAIL NON INVIATA\r\n";
-                        continue;
+                        //continue;
                     }
 
-                    DataTable Tpaymethod = Meta.Conn.RUN_SELECT("paymethod", "*", null,
-                        QHS.CmpEq("idpaymethod", rExp["idpaymethod"]), null, false);
+                    DataTable Tpaymethod = Meta.Conn.RUN_SELECT("paymethod", "*", null, QHS.CmpEq("idpaymethod", rExp["idpaymethod"]), null, false);
                     if (Tpaymethod == null || Tpaymethod.Rows.Count == 0) continue;
+
                     DataRow Rpaymethod = Tpaymethod.Rows[0];
                     MsgHeader = AVVISO_ERRORE;
                     if (RTreasurer["idbank"].ToString() == "03067") {
@@ -1071,12 +1067,14 @@ namespace paymenttransmission_default { //trasmdocpagamento//
                                      rLicenza["agencyname"] + " - " + rLicenza["departmentname"] + "\r\n";
                     }
 
-
+                    string pDate = (paymentadate == DBNull.Value)
+                        ? ""
+                        : " del " + ((DateTime) paymentadate).ToShortDateString() + ".\r\n";
                     MsgBody = MsgHeader +
                               " è in pagamento per il Beneficiario " + registry + " \r\n" +
                               " il Mandato numero " + npay.ToString() + " relativo all'esercizio " + ypay.ToString() +
                               "\r\n" +
-                              " del " + ((DateTime) paymentadate).ToShortDateString() + ".\r\n" +
+                              pDate +
                               " Modalità di pagamento: " + Rpaymethod["description"] + "\r\n" +
                               " Causale del pagamento: " + description.ToString() + ".\r\n" +
                               doc_docdate +
@@ -1095,18 +1093,23 @@ namespace paymenttransmission_default { //trasmdocpagamento//
 
                     MsgBody += MsgNotes;
 
-                    SendMail SM = new SendMail();
-                    SM.Conn = Meta.Conn;
-                    SM.UseSMTPLoginAsFromField = true;
-                    SM.To = mailto;
+					var SM = new SendMail {
+						Conn = Meta.Conn,
+						UseSMTPLoginAsFromField = true,
+						To = mailto,
+						Subject = "Emissione Mandato di Pagamento n° " + npay.ToString() + "/" + ypay.ToString(),
+						MessageBody = MsgBody
+					};
+					SM.Conn = Meta.Conn;
+
                     if (emaildep != "") SM.Cc = emaildep;
-                    SM.Subject = "Emissione Mandato di Pagamento n° " + npay.ToString() + "/" + ypay.ToString();
-                    SM.MessageBody = MsgBody;
-                    SM.Conn = Meta.Conn;
+
+
                     //if (SM.NoConfig == false) continue;
                     if (!SM.Send()) {
-                        if (SM.ErrorMessage.Trim() != "")
-                            MessageBox.Show(SM.ErrorMessage, "Errore");
+	                    if (SM.ErrorMessage.Trim() != "") {
+		                    MetaFactory.factory.getSingleton<IMessageShower>().Show(SM.ErrorMessage, "Errore");
+	                    }
                     }
                     else sent = true;
                 }
@@ -1213,6 +1216,7 @@ namespace paymenttransmission_default { //trasmdocpagamento//
             string command = "choose.expensevarview.documentitrasmessi." + MyFilter;
             MetaData.Choose(this, command);
             CollegaScollegaAnnullamentiTotali();
+            CollegaAnnullamentiParziali();
             Meta.FreshForm();
         }
 
@@ -1260,7 +1264,7 @@ namespace paymenttransmission_default { //trasmdocpagamento//
                 }
             }
             else {
-                MessageBox.Show(
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(
                     "Errore: Non è stata ancora effettuata la configurazione delle spese per l'esercizio corrente.");
                 Meta.CanSave = false;
                 Meta.SearchEnabled = false;
@@ -1468,6 +1472,91 @@ namespace paymenttransmission_default { //trasmdocpagamento//
         }
 
 
+        private void CollegaAnnullamentiParziali()
+        {
+            Hashtable hVarParziali = null;
+            hVarParziali = new Hashtable();
+
+           
+
+            // in questo secondo ciclo se vi sono righe originariamente collegate, poi scollegate e poi ricollegate
+            // ne ripristina il valore originale not null (anche per le sorelle) ponendole in stato unchanged
+
+            foreach (DataRow rVar in DS.expensevarview.Select())
+            {
+                if (rVar.RowState != DataRowState.Modified) continue;
+                if (CfgFn.GetNoNullInt32(rVar["autokind"]) != 10) continue;
+
+                object originalVal = rVar["kpaymenttransmission", DataRowVersion.Original];
+                object currVal = rVar["kpaymenttransmission", DataRowVersion.Current];
+
+                if ((originalVal != DBNull.Value) && (currVal != DBNull.Value))
+                {
+                    string filter = "";
+                    filter = QHC.AppAnd(QHC.CmpEq("kpay", rVar["kpay"]), QHC.CmpEq("autokind", 10));
+                    foreach (DataRow VarAnn in DS.expensevarview.Select(filter))
+                    {
+                        VarAnn["kpaymenttransmission"] = originalVal;
+                        VarAnn.AcceptChanges();
+                    }
+                }
+
+            }
+
+           
+
+            // in questo quarto ciclo se vi sono righe originariamente scollegate, poi collegate 
+            // collega tutte le sorelle
+            foreach (DataRow rVar in DS.expensevarview.Select())
+            {
+                //if (rVar.RowState != DataRowState.Modified) continue;
+                if (CfgFn.GetNoNullInt32(rVar["autokind"]) != 10) continue;
+
+                object originalVal = rVar["kpaymenttransmission", DataRowVersion.Original];
+                object currVal = rVar["kpaymenttransmission", DataRowVersion.Current];
+
+                if ((originalVal == DBNull.Value) && (currVal != DBNull.Value))
+                {
+                    string filter = "";
+
+                    if (hVarParziali[rVar["kpay"]] != null) continue;
+
+                    hVarParziali[rVar["kpay"]] = 1;
+                    filter = QHS.AppAnd(QHS.CmpEq("kpay", rVar["kpay"]), QHS.CmpEq("autokind", 10),QHS.IsNull("kpaymenttransmission"));
+                    // select da db delle var collegate allo stesso mandato, ma non ancora trasmesse
+                    DataTable T = Meta.Conn.RUN_SELECT("expensevarview", "*", null, filter, null, false);
+                    if (T == null) continue;
+
+                    foreach (DataRow VarAnn in T.Rows)
+                    {
+                        string filterRow = QHC.AppAnd(QHC.CmpEq("idexp", VarAnn["idexp"]),
+                            QHC.CmpEq("nvar", VarAnn["nvar"]));
+                        DataRow[] Found = DS.expensevarview.Select(filterRow);
+                        if (Found.Length > 0)
+                        {
+                            Found[0]["kpaymenttransmission"] = currVal;
+                        }
+                        else
+                        {
+                            DataRow NewVar = DS.expensevarview.NewRow();
+                            foreach (DataColumn C in VarAnn.Table.Columns)
+                            {
+                                if (DS.expensevarview.Columns.Contains(C.ColumnName))
+                                {
+                                    NewVar[C.ColumnName] = VarAnn[C.ColumnName];
+                                }
+                            }
+
+                            MetaData metaSpesaVarView = Meta.Dispatcher.Get("expensevarview");
+                            DS.expensevarview.Rows.Add(NewVar);
+                            metaSpesaVarView.CalculateFields(NewVar, "documentitrasmessi");
+                            NewVar.AcceptChanges();
+                            NewVar["kpaymenttransmission"] = currVal;
+                        }
+                    }
+                }
+            }
+        }
 
 
         private void btnModifica_Click(object sender, System.EventArgs e) {
@@ -1498,6 +1587,7 @@ namespace paymenttransmission_default { //trasmdocpagamento//
                 DS.expensevarview, MyFilter, MyFilterSQL, "documentitrasmessi");
             ConfermaRigheCollegate(hVarCollegate, arrVarCollegate);
             CollegaScollegaAnnullamentiTotali();
+            CollegaAnnullamentiParziali();
             Meta.FreshForm();
         }
 
@@ -1519,20 +1609,22 @@ namespace paymenttransmission_default { //trasmdocpagamento//
         private void btnSendNotification_Click(object sender, EventArgs e) {
             if (!Meta.DrawStateIsDone) return;
             if (MetaData.Empty(this)) return;
-            DataRow Curr = DS.paymenttransmission.Rows[0];
             if (chkFlagMailSent.Checked) return;
+            Meta.closeDisabled = true;
+            var Curr = DS.paymenttransmission.Rows[0];
             sent = false;
             SendNotification();
             SendNotificationDisp();
-            if (Meta.destroyed) return;
 
             if (sent) {
-                MessageBox.Show("Notifiche inviate");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Notifiche inviate");
                 sent = false;
                 Curr["flagmailsent"] = "S";
                 Meta.FreshForm();
                 Meta.DoMainCommand("mainsave");
             }
+            Meta.closeDisabled = false;
+
         }
 
         private void chkTransmissionKind_CheckedChanged(object sender, EventArgs e) {
@@ -1568,4 +1660,4 @@ namespace paymenttransmission_default { //trasmdocpagamento//
 
 
     }
-}
+}

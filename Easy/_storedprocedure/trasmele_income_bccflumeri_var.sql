@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 --setuser 'amministrazione'
 if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_income_bccflumeri_var]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trasmele_income_bccflumeri_var]
@@ -9,7 +26,7 @@ SET ANSI_NULLS ON
 GO
 
 
-
+--setuser 'amministrazione'
 CREATE  PROCEDURE [trasmele_income_bccflumeri_var]
 (
 	@y int,
@@ -55,8 +72,8 @@ DECLARE @len_cc int
 SET @len_cc = 12
 
 
-DECLARE @ABI_codebcc varchar(5)
-SET @ABI_codebcc = '08553'   -- 08553  BANCA DI CREDITO COOPERATIVO FLUMERI
+--DECLARE @ABI_codebcc varchar(5)
+--SET @ABI_codebcc = '08553'   -- 08553  BANCA DI CREDITO COOPERATIVO FLUMERI
 
 
 
@@ -827,8 +844,8 @@ UPDATE #proceeds SET flagcompensation = 'S'
 WHERE idinc in (select idinc FROM #admintax)
 
 UPDATE #proceeds SET flagcompensation = 'S' 
-WHERE idexp in (select idexp FROM #tax WHERE curramount_expense = 
-							isnull( (select sum(curramount) FROM #tax T1 where #tax.idexp = T1.idexp),0))
+WHERE idexp in (select idexp FROM #tax) -- WHERE curramount_expense = 
+							--isnull( (select sum(curramount) FROM #tax T1 where #tax.idexp = T1.idexp),0))
 
 -- Gestione Indirizzi Versante 
 DECLARE @codenostand varchar(20)
@@ -1076,7 +1093,7 @@ SET @codice_ente_BT = @cod_department
 DECLARE @riferimento_ente varchar(30)
 DECLARE @esercizio int
 SET @esercizio = @y -- esercizio finanziario
-SET @codice_ABI_BT = @ABI_codebcc
+SET @codice_ABI_BT = @ABI_code
 ---------------------------------------------
 ----- fine testata flusso -------------------
 ---------------------------------------------

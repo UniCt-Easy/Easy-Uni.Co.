@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -28,7 +27,7 @@ namespace paymethod_anagrafica//modalitapagamentoanagrafica//
 	/// <summary>
 	/// Summary description for frmModalitaPagamentoAnagrafica.
 	/// </summary>
-	public class Frm_paymethod_anagrafica : System.Windows.Forms.Form
+	public class Frm_paymethod_anagrafica : MetaDataForm
 	{
 		public System.Windows.Forms.Panel MetaDataDetail;
 		private System.Windows.Forms.CheckBox chkStampaAvviso;
@@ -135,6 +134,8 @@ namespace paymethod_anagrafica//modalitapagamentoanagrafica//
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.cmbabilabel = new System.Windows.Forms.ComboBox();
+			this.DS = new paymethod_anagrafica.vistaForm();
 			this.label9 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.txtCodModBanca = new System.Windows.Forms.TextBox();
@@ -169,18 +170,16 @@ namespace paymethod_anagrafica//modalitapagamentoanagrafica//
 			this.Salva = new System.Windows.Forms.ToolBarButton();
 			this.aggiorna = new System.Windows.Forms.ToolBarButton();
 			this.images = new System.Windows.Forms.ImageList(this.components);
-			this.DS = new paymethod_anagrafica.vistaForm();
-			this.cmbabilabel = new System.Windows.Forms.ComboBox();
 			this.MetaDataDetail.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.groupBox6.SuspendLayout();
 			this.groupBox2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.groupBox5.SuspendLayout();
 			this.gboxEsecuzione.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// MetaDataDetail
@@ -367,6 +366,26 @@ namespace paymethod_anagrafica//modalitapagamentoanagrafica//
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Importante per l\'esportazione elettronica dei Mandati";
 			// 
+			// cmbabilabel
+			// 
+			this.cmbabilabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmbabilabel.DataSource = this.DS.abi_label_lookup;
+			this.cmbabilabel.DisplayMember = "description";
+			this.cmbabilabel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbabilabel.Location = new System.Drawing.Point(4, 69);
+			this.cmbabilabel.Name = "cmbabilabel";
+			this.cmbabilabel.Size = new System.Drawing.Size(407, 21);
+			this.cmbabilabel.TabIndex = 18;
+			this.cmbabilabel.Tag = "paymethod.abi_label";
+			this.cmbabilabel.ValueMember = "abi_label";
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
 			// label9
 			// 
 			this.label9.AutoSize = true;
@@ -473,6 +492,7 @@ namespace paymethod_anagrafica//modalitapagamentoanagrafica//
 			this.gboxEsecuzione.TabIndex = 10;
 			this.gboxEsecuzione.TabStop = false;
 			this.gboxEsecuzione.Text = "Modalità esecuzione";
+			this.gboxEsecuzione.Visible = false;
 			// 
 			// checkBox6
 			// 
@@ -748,26 +768,6 @@ namespace paymethod_anagrafica//modalitapagamentoanagrafica//
 			this.images.Images.SetKeyName(12, "");
 			this.images.Images.SetKeyName(13, "");
 			// 
-			// DS
-			// 
-			this.DS.DataSetName = "vistaForm";
-			this.DS.EnforceConstraints = false;
-			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-			// 
-			// cmbabilabel
-			// 
-			this.cmbabilabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.cmbabilabel.DataSource = this.DS.abi_label_lookup;
-			this.cmbabilabel.DisplayMember = "description";
-			this.cmbabilabel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbabilabel.Location = new System.Drawing.Point(4, 69);
-			this.cmbabilabel.Name = "cmbabilabel";
-			this.cmbabilabel.Size = new System.Drawing.Size(407, 21);
-			this.cmbabilabel.TabIndex = 18;
-			this.cmbabilabel.Tag = "paymethod.abi_label";
-			this.cmbabilabel.ValueMember = "abi_label";
-			// 
 			// Frm_paymethod_anagrafica
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -785,6 +785,7 @@ namespace paymethod_anagrafica//modalitapagamentoanagrafica//
 			this.groupBox6.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.groupBox5.ResumeLayout(false);
@@ -794,7 +795,6 @@ namespace paymethod_anagrafica//modalitapagamentoanagrafica//
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -816,16 +816,15 @@ namespace paymethod_anagrafica//modalitapagamentoanagrafica//
         private void CheckBoxVincolatoChange(object sender, EventArgs e) {
             CheckBox C = sender as CheckBox;
             if (C==null) {
-                MessageBox.Show("Metodo CheckBoxVincolatoChange con parametro non checkbox","Errore");
+                show("Metodo CheckBoxVincolatoChange con parametro non checkbox","Errore");
                 return;
             }
             GroupBox  CParent = C.Parent as GroupBox;
             if (CParent==null){
-                MessageBox.Show("Metodo CheckBoxVincolatoChange con parametro checkbox non contenuto in g.box","Errore");
+                show("Metodo CheckBoxVincolatoChange con parametro checkbox non contenuto in g.box","Errore");
                 return;
             }
             DeselezionaAltriCheckBox(CParent, C);
         }
     }
 }
-

@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_assetamortization]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure exp_assetamortization
 GO
@@ -6,8 +23,8 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-
---exp_assetamortization 2014
+--setuser 'amm'
+--exp_assetamortization 2013
 CREATE      PROCEDURE exp_assetamortization
  (
 	@ayear int,
@@ -26,8 +43,9 @@ AMV.ass_year as 'Inizio esistenza Cespite',
 AMV.namortization as 'N. Ammortamento',
 AMV.inventoryamortization as 'Tipo ammortamento',
 AMV.inventory as 'Inventario',
-upb.codeupb as 'Cod. upb',
-upb.title as 'upb',
+upb.codeupb as 'Cod. UPB',
+epupbkind.title as 'Tipo UPB',
+upb.title as 'UPB',
 asset.ninventory as 'N. inventario',
 AMV.description as 'Desc. Cespite',
 AMV.assetvalue as 'Valore iniziale' ,
@@ -42,6 +60,7 @@ from assetamortizationview AMV
 join asset on asset.idasset = AMV.idasset and asset.idpiece = AMV.idpiece
 join assetacquire on asset.nassetacquire =assetacquire.nassetacquire 
 join upb on assetacquire.idupb = upb.idupb
+left outer join epupbkind on epupbkind.idepupbkind=upb.idepupbkind
 left outer join inventorysortingamortizationyearview IAY
 on IAY.idinv = AMV.idinv 
 and IAY.idinventoryamortization = AMV.idinventoryamortization

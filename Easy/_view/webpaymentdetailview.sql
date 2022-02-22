@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA webpaymentdetailview
 IF EXISTS(select * from sysobjects where id = object_id(N'[webpaymentdetailview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [webpaymentdetailview]
@@ -7,7 +24,7 @@ GO
 -- select * from webpaymentdetailview
 -- clear_table_info'webpaymentdetailview'
 
-
+--setuser 'amm'
 CREATE   VIEW [webpaymentdetailview]
 (
 	idstore,
@@ -23,7 +40,7 @@ CREATE   VIEW [webpaymentdetailview]
 	codelistclass,
 	listclass,
 	number,
-	price,
+	price, tax,
 	idsor01,idsor02,idsor03,idsor04,idsor05,
 	cu,
 	ct,
@@ -39,7 +56,8 @@ CREATE   VIEW [webpaymentdetailview]
 	idinvkind,
 	competencystart,
 	competencystop,
-	idupb_iva
+	idupb_iva,
+	flag_showcase
 
 )
 AS SELECT
@@ -57,6 +75,7 @@ AS SELECT
 	listclass.title,
 	webpaymentdetail.number,
 	webpaymentdetail.price,
+	webpaymentdetail.tax,
 	store.idsor01,store.idsor02,store.idsor03,store.idsor04,store.idsor05,
 	webpaymentdetail.cu,
 	webpaymentdetail.ct,
@@ -72,135 +91,17 @@ AS SELECT
 	webpaymentdetail.idinvkind,
 	webpaymentdetail.competencystart,
 	webpaymentdetail.competencystop,
-	webpaymentdetail.idupb_iva
+	webpaymentdetail.idupb_iva,
+	webpaymentdetail.flag_showcase
 FROM webpaymentdetail
-JOIN webpayment 
-	ON webpayment.idwebpayment = webpaymentdetail.idwebpayment
-JOIN store
-	ON store.idstore = webpaymentdetail.idstore
-JOIN list 
-	ON webpaymentdetail.idlist = list.idlist
-LEFT OUTER JOIN listclass 
-	ON list.idlistclass = listclass.idlistclass
-LEFT OUTER JOIN sorting sorting1
-	ON sorting1.idsor = webpaymentdetail.idsor1
-LEFT OUTER JOIN sorting sorting2
-	ON sorting2.idsor = webpaymentdetail.idsor2
-LEFT OUTER JOIN sorting sorting3
-	ON sorting3.idsor = webpaymentdetail.idsor3
+JOIN webpayment				ON webpayment.idwebpayment = webpaymentdetail.idwebpayment
+JOIN store					ON store.idstore = webpaymentdetail.idstore
+JOIN list					ON webpaymentdetail.idlist = list.idlist
+LEFT OUTER JOIN listclass 	ON list.idlistclass = listclass.idlistclass
+LEFT OUTER JOIN sorting sorting1	ON sorting1.idsor = webpaymentdetail.idsor1
+LEFT OUTER JOIN sorting sorting2	ON sorting2.idsor = webpaymentdetail.idsor2
+LEFT OUTER JOIN sorting sorting3	ON sorting3.idsor = webpaymentdetail.idsor3
 
 
 GO
-
--- VERIFICA DI webpaymentdetailview IN COLUMNTYPES --
-DELETE FROM columntypes WHERE tablename = 'webpaymentdetailview'
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','annotations','400','''assistenza''','varchar(400)','webpaymentdetailview','','','','','S','N','varchar','assistenza','System.String')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','codelistclass','50','''assistenza''','varchar(50)','webpaymentdetailview','','','','','S','N','varchar','assistenza','System.String')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','competencystart','3','''assistenza''','date','webpaymentdetailview','','','','','S','N','date','assistenza','System.DateTime')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','competencystop','3','''assistenza''','date','webpaymentdetailview','','','','','S','N','date','assistenza','System.DateTime')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','ct','8','''assistenza''','datetime','webpaymentdetailview','','','','','N','N','datetime','assistenza','System.DateTime')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','cu','64','''assistenza''','varchar(64)','webpaymentdetailview','','','','','N','N','varchar','assistenza','System.String')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','iddetail','4','''assistenza''','int','webpaymentdetailview','','','','','N','N','int','assistenza','System.Int32')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idinvkind','4','''assistenza''','int','webpaymentdetailview','','','','','S','N','int','assistenza','System.Int32')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','idlist','4','''assistenza''','int','webpaymentdetailview','','','','','N','N','int','assistenza','System.Int32')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','idlistclass','36','''assistenza''','varchar(36)','webpaymentdetailview','','','','','N','N','varchar','assistenza','System.String')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idsor01','4','''assistenza''','int','webpaymentdetailview','','','','','S','N','int','assistenza','System.Int32')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idsor02','4','''assistenza''','int','webpaymentdetailview','','','','','S','N','int','assistenza','System.Int32')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idsor03','4','''assistenza''','int','webpaymentdetailview','','','','','S','N','int','assistenza','System.Int32')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idsor04','4','''assistenza''','int','webpaymentdetailview','','','','','S','N','int','assistenza','System.Int32')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idsor05','4','''assistenza''','int','webpaymentdetailview','','','','','S','N','int','assistenza','System.Int32')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idsor1','4','''assistenza''','int','webpaymentdetailview','','','','','S','N','int','assistenza','System.Int32')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idsor2','4','''assistenza''','int','webpaymentdetailview','','','','','S','N','int','assistenza','System.Int32')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idsor3','4','''assistenza''','int','webpaymentdetailview','','','','','S','N','int','assistenza','System.Int32')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','idstore','4','''assistenza''','int','webpaymentdetailview','','','','','N','N','int','assistenza','System.Int32')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','idupb_iva','36','''assistenza''','varchar(36)','webpaymentdetailview','','','','','S','N','varchar','assistenza','System.String')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','idwebpayment','4','''assistenza''','int','webpaymentdetailview','','','','','N','N','int','assistenza','System.Int32')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','intcode','50','''assistenza''','varchar(50)','webpaymentdetailview','','','','','N','N','varchar','assistenza','System.String')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','list','150','''assistenza''','varchar(150)','webpaymentdetailview','','','','','N','N','varchar','assistenza','System.String')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','listclass','150','''assistenza''','varchar(150)','webpaymentdetailview','','','','','S','N','varchar','assistenza','System.String')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','lt','8','''assistenza''','datetime','webpaymentdetailview','','','','','N','N','datetime','assistenza','System.DateTime')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','lu','64','''assistenza''','varchar(64)','webpaymentdetailview','','','','','N','N','varchar','assistenza','System.String')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','number','9','''assistenza''','decimal(19,2)','webpaymentdetailview','','19','','2','N','N','decimal','assistenza','System.Decimal')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','nwebpayment','4','''assistenza''','int','webpaymentdetailview','','','','','S','N','int','assistenza','System.Int32')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','price','9','''assistenza''','decimal(19,2)','webpaymentdetailview','','19','','2','S','N','decimal','assistenza','System.Decimal')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','sortcode1','50','''assistenza''','varchar(50)','webpaymentdetailview','','','','','S','N','varchar','assistenza','System.String')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','sortcode2','50','''assistenza''','varchar(50)','webpaymentdetailview','','','','','S','N','varchar','assistenza','System.String')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('N','sortcode3','50','''assistenza''','varchar(50)','webpaymentdetailview','','','','','S','N','varchar','assistenza','System.String')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','store','50','''assistenza''','varchar(50)','webpaymentdetailview','','','','','N','N','varchar','assistenza','System.String')
-GO
-
-INSERT INTO columntypes (denynull,field,col_len,lastmoduser,sqldeclaration,tablename,format,col_precision,defaultvalue,col_scale,allownull,iskey,sqltype,createuser,systemtype) VALUES('S','ywebpayment','2','''assistenza''','smallint','webpaymentdetailview','','','','','N','N','smallint','assistenza','System.Int16')
-GO
-
--- VERIFICA DI webpaymentdetailview IN CUSTOMOBJECT --
-IF EXISTS(select * from customobject where objectname = 'webpaymentdetailview')
-UPDATE customobject set isreal = 'N' where objectname = 'webpaymentdetailview'
-ELSE
-INSERT INTO customobject (objectname, isreal) values('webpaymentdetailview', 'N')
-GO
--- FINE GENERAZIONE SCRIPT --
 

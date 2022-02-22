@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaContratto.xsd" xmlns:mstns="http://tempuri.org/VistaContratto.xsd" xmlns="http://tempuri.org/VistaContratto.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
-  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+<xs:schema id="dsmeta" targetNamespace="http://tempuri.org/VistaContratto.xsd" xmlns:mstns="http://tempuri.org/VistaContratto.xsd" xmlns="http://tempuri.org/VistaContratto.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="parasubcontract">
+        <xs:element name="parasubcontract" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idcon" type="xs:string" />
@@ -46,10 +46,12 @@
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
               <xs:element name="requested_doc" type="xs:int" minOccurs="0" />
               <xs:element name="iddaliarecruitmentmotive" type="xs:int" minOccurs="0" />
+              <xs:element name="iddalia_dipartimento" type="xs:int" minOccurs="0" />
+              <xs:element name="iddalia_funzionale" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="service">
+        <xs:element name="service" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idser" type="xs:int" />
@@ -74,7 +76,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="geo_cityview">
+        <xs:element name="geo_cityview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idcity" type="xs:int" />
@@ -106,7 +108,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="payrollkind">
+        <xs:element name="payrollkind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idpayrollkind" type="xs:string" />
@@ -118,7 +120,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="inpsactivity">
+        <xs:element name="inpsactivity" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ayear" type="xs:int" />
@@ -129,7 +131,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="otherinsurance">
+        <xs:element name="otherinsurance" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ayear" type="xs:int" />
@@ -140,7 +142,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="matriculabook">
+        <xs:element name="matriculabook" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idmatriculabook" type="xs:string" />
@@ -152,7 +154,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="pat">
+        <xs:element name="pat" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idpat" type="xs:int" />
@@ -176,7 +178,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="registry">
+        <xs:element name="registry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idreg" type="xs:int" />
@@ -212,7 +214,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="deductibleexpense">
+        <xs:element name="deductibleexpense" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ayear" type="xs:int" />
@@ -227,7 +229,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="deduction">
+        <xs:element name="deduction" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="iddeduction" type="xs:int" />
@@ -244,7 +246,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="abatableexpense">
+        <xs:element name="abatableexpense" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ayear" type="xs:int" />
@@ -259,7 +261,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="abatement">
+        <xs:element name="abatement" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idabatement" type="xs:int" />
@@ -277,7 +279,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="exhibitedcud">
+        <xs:element name="exhibitedcud" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idlinkedcon" type="xs:string" minOccurs="0" />
@@ -310,15 +312,18 @@
               <xs:element name="idfiscaltaxregion" type="xs:string" minOccurs="0" />
               <xs:element name="idlinkeddbdepartment" type="xs:string" minOccurs="0" />
               <xs:element name="irpefgross" type="xs:decimal" minOccurs="0" />
+              <xs:element name="earnings_based_abatements2020" type="xs:decimal" minOccurs="0" />
               <xs:element name="earnings_based_abatements" type="xs:decimal" minOccurs="0" />
+              <xs:element name="fiscalbonusnotapplied2020" type="xs:decimal" minOccurs="0" />
               <xs:element name="fiscalbonusnotapplied" type="xs:decimal" minOccurs="0" />
+              <xs:element name="fiscalbonusapplied2020" type="xs:decimal" minOccurs="0" />
               <xs:element name="fiscalbonusapplied" type="xs:decimal" minOccurs="0" />
               <xs:element name="flagbonusaccredited" type="xs:int" minOccurs="0" />
               <xs:element name="totabatements" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="exhibitedcudabatement">
+        <xs:element name="exhibitedcudabatement" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idcon" type="xs:string" />
@@ -329,7 +334,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="exhibitedcuddeduction">
+        <xs:element name="exhibitedcuddeduction" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idcon" type="xs:string" />
@@ -340,7 +345,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="parasubcontractfamily">
+        <xs:element name="parasubcontractfamily" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idcon" type="xs:string" />
@@ -370,7 +375,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="deductioncode">
+        <xs:element name="deductioncode" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="iddeduction" type="xs:int" />
@@ -386,7 +391,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="abatementcode">
+        <xs:element name="abatementcode" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idabatement" type="xs:int" />
@@ -400,7 +405,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="payroll">
+        <xs:element name="payroll" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idpayroll" type="xs:int" />
@@ -423,10 +428,12 @@
               <xs:element name="enabletaxrelief" type="xs:string" />
               <xs:element name="fiscalyear" type="xs:int" />
               <xs:element name="flagsummarybalance" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_codeupb" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="geo_city">
+        <xs:element name="geo_city" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idcity" type="xs:int" />
@@ -441,7 +448,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="otherinail">
+        <xs:element name="otherinail" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idcon" type="xs:string" />
@@ -453,7 +460,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="payrolltax">
+        <xs:element name="payrolltax" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idpayroll" type="xs:int" />
@@ -486,7 +493,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="payrolldeduction">
+        <xs:element name="payrolldeduction" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idpayroll" type="xs:int" />
@@ -497,7 +504,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="payrollabatement">
+        <xs:element name="payrollabatement" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idpayroll" type="xs:int" />
@@ -508,7 +515,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="payrolltaxbracket">
+        <xs:element name="payrolltaxbracket" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idpayroll" type="xs:int" />
@@ -526,7 +533,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="parasubcontractyear">
+        <xs:element name="parasubcontractyear" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ayear" type="xs:int" />
@@ -570,7 +577,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="emenscontractkind">
+        <xs:element name="emenscontractkind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idemenscontractkind" type="xs:string" />
@@ -583,7 +590,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sorting">
+        <xs:element name="sorting" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idsorkind" type="xs:int" />
@@ -615,11 +622,16 @@
               <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="parasubcontractsorting">
+        <xs:element name="parasubcontractsorting" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idsor" type="xs:int" />
@@ -634,7 +646,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="expensepayrollview">
+        <xs:element name="expensepayrollview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idpayroll" type="xs:int" />
@@ -654,8 +666,6 @@
               <xs:element name="registry" type="xs:string" minOccurs="0" />
               <xs:element name="idman" type="xs:int" minOccurs="0" />
               <xs:element name="manager" type="xs:string" minOccurs="0" />
-              <xs:element name="ypay" type="xs:short" minOccurs="0" />
-              <xs:element name="npay" type="xs:int" minOccurs="0" />
               <xs:element name="doc" type="xs:string" minOccurs="0" />
               <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
               <xs:element name="description" type="xs:string" />
@@ -663,17 +673,6 @@
               <xs:element name="ayearstartamount" type="xs:decimal" minOccurs="0" />
               <xs:element name="curramount" type="xs:decimal" minOccurs="0" />
               <xs:element name="available" type="xs:decimal" minOccurs="0" />
-              <xs:element name="idpaymethod" type="xs:int" minOccurs="0" />
-              <xs:element name="cin" type="xs:string" minOccurs="0" />
-              <xs:element name="idbank" type="xs:string" minOccurs="0" />
-              <xs:element name="idcab" type="xs:string" minOccurs="0" />
-              <xs:element name="cc" type="xs:string" minOccurs="0" />
-              <xs:element name="paymentdescr" type="xs:string" minOccurs="0" />
-              <xs:element name="idser" type="xs:int" minOccurs="0" />
-              <xs:element name="service" type="xs:string" minOccurs="0" />
-              <xs:element name="servicestart" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="servicestop" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="ivaamount" type="xs:decimal" minOccurs="0" />
               <xs:element name="autokind" type="xs:unsignedByte" minOccurs="0" />
               <xs:element name="idpayment" type="xs:int" minOccurs="0" />
               <xs:element name="flagarrear" type="xs:string" minOccurs="0" />
@@ -690,7 +689,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="cafdocument">
+        <xs:element name="cafdocument" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idcafdocument" type="xs:int" />
@@ -730,7 +729,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="monthname">
+        <xs:element name="monthname" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="code" type="xs:int" />
@@ -739,7 +738,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="tipocomunicazione">
+        <xs:element name="tipocomunicazione" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="codice" type="xs:string" />
@@ -747,7 +746,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="accmotiveapplied_cost">
+        <xs:element name="accmotiveapplied_cost" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idaccmotive" type="xs:string" />
@@ -767,7 +766,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sorting1">
+        <xs:element name="sorting1" msprop:TableForReading="sorting" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idsorkind" type="xs:int" />
@@ -799,11 +798,16 @@
               <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sorting2">
+        <xs:element name="sorting2" msprop:TableForReading="sorting" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idsorkind" type="xs:int" />
@@ -835,11 +839,16 @@
               <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sorting3">
+        <xs:element name="sorting3" msprop:TableForReading="sorting" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idsorkind" type="xs:int" />
@@ -871,11 +880,16 @@
               <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="upb">
+        <xs:element name="upb" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idupb" type="xs:string" />
@@ -906,7 +920,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="tax">
+        <xs:element name="tax" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="taxcode" type="xs:int" />
@@ -929,7 +943,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="taxratebracket">
+        <xs:element name="taxratebracket" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="taxcode" type="xs:int" />
@@ -948,7 +962,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="config">
+        <xs:element name="config" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ayear" type="xs:short" />
@@ -1032,7 +1046,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="payrolltaxcorrige">
+        <xs:element name="payrolltaxcorrige" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idpayroll" type="xs:int" />
@@ -1052,7 +1066,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="accmotiveapplied_debit">
+        <xs:element name="accmotiveapplied_debit" msprop:TableForReading="accmotiveapplied" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idaccmotive" type="xs:string" />
@@ -1072,7 +1086,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="accmotiveapplied_crg">
+        <xs:element name="accmotiveapplied_crg" msprop:TableForReading="accmotiveapplied" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idaccmotive" type="xs:string" />
@@ -1092,7 +1106,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sorting01">
+        <xs:element name="sorting01" msprop:TableForReading="sorting" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
@@ -1130,7 +1144,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sorting02">
+        <xs:element name="sorting02" msprop:TableForReading="sorting" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
@@ -1168,7 +1182,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sorting03">
+        <xs:element name="sorting03" msprop:TableForReading="sorting" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
@@ -1206,7 +1220,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sorting04">
+        <xs:element name="sorting04" msprop:TableForReading="sorting" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
@@ -1244,7 +1258,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sorting05">
+        <xs:element name="sorting05" msprop:TableForReading="sorting" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
@@ -1282,7 +1296,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="dalia_position">
+        <xs:element name="dalia_position" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="iddaliaposition" type="xs:int" />
@@ -1291,7 +1305,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sortingview1">
+        <xs:element name="sortingview1" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="codesorkind" type="xs:string" />
@@ -1323,11 +1337,16 @@
               <xs:element name="defaults4" type="xs:string" minOccurs="0" />
               <xs:element name="defaults5" type="xs:string" minOccurs="0" />
               <xs:element name="flagnodate" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="movkind" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="payroll_altriesercizi">
+        <xs:element name="payroll_altriesercizi" msprop:TableForReading="payroll" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idpayroll" type="xs:int" />
@@ -1350,10 +1369,12 @@
               <xs:element name="start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="flagsummarybalance" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_codeupb_other" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="parasubcontractview">
+        <xs:element name="parasubcontractview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ayear" type="xs:int" />
@@ -1441,10 +1462,11 @@
               <xs:element name="idrelated" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
               <xs:element name="codeupb" type="xs:string" minOccurs="0" />
               <xs:element name="requested_doc" type="xs:int" minOccurs="0" />
+              <xs:element name="sortcode1" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sorting_siope">
+        <xs:element name="sorting_siope" msprop:TableForReading="sorting" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
@@ -1479,11 +1501,16 @@
               <xs:element name="nlevel" type="xs:unsignedByte" />
               <xs:element name="start" type="xs:short" minOccurs="0" />
               <xs:element name="stop" type="xs:short" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="email" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="dalia_recruitmentmotive">
+        <xs:element name="dalia_recruitmentmotive" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="iddaliarecruitmentmotive" type="xs:int" />
@@ -1493,6 +1520,126 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="upb_payroll" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="requested" type="xs:decimal" minOccurs="0" />
+              <xs:element name="granted" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousappropriation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousassessment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="expiration" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="assured" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="upb_payrollother" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="requested" type="xs:decimal" minOccurs="0" />
+              <xs:element name="granted" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousappropriation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousassessment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="expiration" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="assured" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="dalia_dipartimento" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddalia_dipartimento" type="xs:int" />
+              <xs:element name="codedip" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="dalia_funzionale" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddalia_funzionale" type="xs:int" />
+              <xs:element name="codefunz" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="serviceattachmentkind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idattachmentkind" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idser" type="xs:int" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="flagforced" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="parasubcontractattachment" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcon" type="xs:string" />
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_serviceattachmentkind" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1747,6 +1894,31 @@
       <xs:selector xpath=".//mstns:dalia_recruitmentmotive" />
       <xs:field xpath="mstns:iddaliarecruitmentmotive" />
     </xs:unique>
+    <xs:unique name="upb_payroll_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upb_payroll" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="upb_payrollother_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upb_payrollother" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="dalia_dipartimento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:dalia_dipartimento" />
+      <xs:field xpath="mstns:iddalia_dipartimento" />
+    </xs:unique>
+    <xs:unique name="dalia_funzionale_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:dalia_funzionale" />
+      <xs:field xpath="mstns:iddalia_funzionale" />
+    </xs:unique>
+    <xs:unique name="serviceattachmentkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:serviceattachmentkind" />
+      <xs:field xpath="mstns:idattachmentkind" />
+    </xs:unique>
+    <xs:unique name="parasubcontractattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:parasubcontractattachment" />
+      <xs:field xpath="mstns:idcon" />
+      <xs:field xpath="mstns:idattachment" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -1809,6 +1981,12 @@
       <msdata:Relationship name="payroll_altriesercizi_payrollabatement" msdata:parent="payroll_altriesercizi" msdata:child="payrollabatement" msdata:parentkey="idpayroll" msdata:childkey="idpayroll" />
       <msdata:Relationship name="sorting_siope_parasubcontract" msdata:parent="sorting_siope" msdata:child="parasubcontract" msdata:parentkey="idsor" msdata:childkey="idsor_siope" />
       <msdata:Relationship name="dalia_recruitmentmotive_parasubcontract" msdata:parent="dalia_recruitmentmotive" msdata:child="parasubcontract" msdata:parentkey="iddaliarecruitmentmotive" msdata:childkey="iddaliarecruitmentmotive" />
+      <msdata:Relationship name="upb_payrollother_payroll_altriesercizi" msdata:parent="upb_payrollother" msdata:child="payroll_altriesercizi" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="upb_payroll_payroll" msdata:parent="upb_payroll" msdata:child="payroll" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="dalia_dipartimento_parasubcontract" msdata:parent="dalia_dipartimento" msdata:child="parasubcontract" msdata:parentkey="iddalia_dipartimento" msdata:childkey="iddalia_dipartimento" />
+      <msdata:Relationship name="dalia_funzionale_parasubcontract" msdata:parent="dalia_funzionale" msdata:child="parasubcontract" msdata:parentkey="iddalia_funzionale" msdata:childkey="iddalia_funzionale" />
+      <msdata:Relationship name="serviceattachmentkind_parasubcontractattachment" msdata:parent="serviceattachmentkind" msdata:child="parasubcontractattachment" msdata:parentkey="idattachmentkind" msdata:childkey="idattachmentkind" />
+      <msdata:Relationship name="parasubcontract_parasubcontractattachment" msdata:parent="parasubcontract" msdata:child="parasubcontractattachment" msdata:parentkey="idcon" msdata:childkey="idcon" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

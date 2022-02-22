@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsmeta_registrycf_default" targetNamespace="http://tempuri.org/dsmeta_registrycf_default.xsd" xmlns:mstns="http://tempuri.org/dsmeta_registrycf_default.xsd" xmlns="http://tempuri.org/dsmeta_registrycf_default.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsmeta_registrycf_default" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsmeta_registrycf_default" msprop:Generator_UserDSName="dsmeta_registrycf_default">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="registrycf" msprop:Generator_TableClassName="registrycfDataTable" msprop:Generator_TableVarName="tableregistrycf" msprop:Generator_TablePropName="registrycf" msprop:Generator_RowDeletingName="registrycfRowDeleting" msprop:Generator_RowChangingName="registrycfRowChanging" msprop:Generator_RowEvHandlerName="registrycfRowChangeEventHandler" msprop:Generator_RowDeletedName="registrycfRowDeleted" msprop:Generator_UserTableName="registrycf" msprop:Generator_RowChangedName="registrycfRowChanged" msprop:Generator_RowEvArgName="registrycfRowChangeEvent" msprop:Generator_RowClassName="registrycfRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idreg" msprop:Generator_ColumnVarNameInTable="columnidreg" msprop:Generator_ColumnPropNameInRow="idreg" msprop:Generator_ColumnPropNameInTable="idregColumn" msprop:Generator_UserColumnName="idreg" type="xs:int" />
+              <xs:element name="idregistrycf" msprop:Generator_ColumnVarNameInTable="columnidregistrycf" msprop:Generator_ColumnPropNameInRow="idregistrycf" msprop:Generator_ColumnPropNameInTable="idregistrycfColumn" msprop:Generator_UserColumnName="idregistrycf" type="xs:int" />
+              <xs:element name="cf" msprop:Generator_ColumnVarNameInTable="columncf" msprop:Generator_ColumnPropNameInRow="cf" msprop:Generator_ColumnPropNameInTable="cfColumn" msprop:Generator_UserColumnName="cf" type="xs:string" />
+              <xs:element name="start" msprop:Generator_ColumnVarNameInTable="columnstart" msprop:Generator_ColumnPropNameInRow="start" msprop:Generator_ColumnPropNameInTable="startColumn" msprop:Generator_UserColumnName="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" msprop:Generator_ColumnVarNameInTable="columnstop" msprop:Generator_ColumnPropNameInRow="stop" msprop:Generator_ColumnPropNameInTable="stopColumn" msprop:Generator_UserColumnName="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ct" msprop:Generator_ColumnVarNameInTable="columnct" msprop:Generator_ColumnPropNameInRow="ct" msprop:Generator_ColumnPropNameInTable="ctColumn" msprop:Generator_UserColumnName="ct" type="xs:dateTime" />
+              <xs:element name="cu" msprop:Generator_ColumnVarNameInTable="columncu" msprop:Generator_ColumnPropNameInRow="cu" msprop:Generator_ColumnPropNameInTable="cuColumn" msprop:Generator_UserColumnName="cu" type="xs:string" />
+              <xs:element name="lt" msprop:Generator_ColumnVarNameInTable="columnlt" msprop:Generator_ColumnPropNameInRow="lt" msprop:Generator_ColumnPropNameInTable="ltColumn" msprop:Generator_UserColumnName="lt" type="xs:dateTime" />
+              <xs:element name="lu" msprop:Generator_ColumnVarNameInTable="columnlu" msprop:Generator_ColumnPropNameInRow="lu" msprop:Generator_ColumnPropNameInTable="luColumn" msprop:Generator_UserColumnName="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrycf" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistrycf" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

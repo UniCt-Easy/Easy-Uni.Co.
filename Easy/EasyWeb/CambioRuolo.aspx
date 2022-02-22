@@ -19,10 +19,10 @@
         <div class="col-md-7">
         </div>
         <div class="col-md-1">
-            <cc1:hwButton runat="server" ID="btnok" Text="Ok" OnClick="btnok_Click" />
+            <cc1:hwButton runat="server" ID="btnok" Text="Ok" class="btn btn-primary" OnClick="btnok_Click" />
         </div>
         <div class="col-md-1">
-            <cc1:hwButton runat="server" ID="btncancel" Text="Annulla" OnClick="btncancel_Click" />
+            <cc1:hwButton runat="server" ID="btncancel" Text="Annulla" class="btn btn-danger" OnClick="btncancel_Click" />
         </div>
         <div class="col-md-3">
         </div>

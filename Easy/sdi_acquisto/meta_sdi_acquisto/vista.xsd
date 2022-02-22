@@ -13,7 +13,7 @@
               <xs:element name="xml" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
-              <xs:element name="identificativo_sdi" type="xs:int" minOccurs="0" />
+              <xs:element name="identificativo_sdi" type="xs:long" minOccurs="0" />
               <xs:element name="mt" type="xs:string" minOccurs="0" />
               <xs:element name="ec" type="xs:string" minOccurs="0" />
               <xs:element name="ec_sent" type="xs:string" minOccurs="0" />
@@ -46,6 +46,7 @@
               <xs:element name="tipodocumento" type="xs:string" minOccurs="0" />
               <xs:element name="notcreacontabilita" type="xs:string" minOccurs="0" />
               <xs:element name="notcreacontabilitareason" type="xs:string" minOccurs="0" />
+              <xs:element name="data_ricezione" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

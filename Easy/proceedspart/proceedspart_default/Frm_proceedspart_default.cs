@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -31,7 +30,7 @@ namespace proceedspart_default//assegnazioneincassi//
 	/// <summary>
 	/// Summary description for frmassegnazioneincassi.
 	/// </summary>
-	public class Frm_proceedspart_default : System.Windows.Forms.Form
+	public class Frm_proceedspart_default : MetaDataForm
 	{
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.TextBox txtDataContabile;
@@ -862,7 +861,7 @@ namespace proceedspart_default//assegnazioneincassi//
 
 
                 MetaCP.DS = new DataSet();
-                MetaCP.LinkedForm = this;
+                MetaCP.linkedForm = this;
                 MetaCP.FilterLocked = true;
                 DataRow CP = MetaCP.SelectOne("lista", filter, "creditproceedsview", null);
                 if (CP == null) return;
@@ -893,7 +892,7 @@ namespace proceedspart_default//assegnazioneincassi//
                                             QHS.CmpEq("ayear",Meta.GetSys("esercizio")));
                 MetaData MetaUnder = MetaData.GetMetaData(this, "upbunderwritingyearview");
                 MetaUnder.DS = new DataSet();
-                MetaUnder.LinkedForm = this;
+                MetaUnder.linkedForm = this;
                 MetaUnder.FilterLocked = true;
                 DataRow Und = MetaUnder.SelectOne("crediti", filter, "upbunderwritingyearview", null);
                 if (Und == null) return;
@@ -914,7 +913,7 @@ namespace proceedspart_default//assegnazioneincassi//
                                             QHS.CmpEq("finpart", "S"), QHS.CmpEq("ayear", Meta.GetSys("esercizio")));
                 MetaData MetaUY = MetaData.GetMetaData(this, "upbfinyearview");
                 MetaUY.DS = new DataSet();
-                MetaUY.LinkedForm = this;
+                MetaUY.linkedForm = this;
                 MetaUY.FilterLocked = true;
                 DataRow Und = MetaUY.SelectOne("crediti", filter, "upbfinyearview", null);
                 if (Und == null) return;
@@ -958,4 +957,3 @@ namespace proceedspart_default//assegnazioneincassi//
 
 	}
 }
-

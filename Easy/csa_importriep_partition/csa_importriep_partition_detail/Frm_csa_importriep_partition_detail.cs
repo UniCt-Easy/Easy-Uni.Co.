@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,7 +28,7 @@ using funzioni_configurazione;
 
 
 namespace csa_importriep_partition_detail {
-    public partial class Frm_csa_importriep_partition_detail :Form {
+    public partial class Frm_csa_importriep_partition_detail : MetaDataForm {
         MetaData Meta;
         DataAccess Conn;
         public Frm_csa_importriep_partition_detail() {
@@ -374,7 +373,7 @@ namespace csa_importriep_partition_detail {
 
         private void txtEsercizioImpegno_Leave(object sender, EventArgs e) {
             HelpForm.FormatLikeYear(txtEsercizioImpegno);
-            if (Meta.inchiusura) return;
+            if (Meta.formController.isClosing) return;
             if (Meta.IsEmpty || DS.csa_importriep_partition.Rows.Count == 0) return;
             DataRow Curr = DS.csa_importriep_partition.Rows[0];
             if (Curr["idepexp"] != DBNull.Value) {
@@ -403,7 +402,7 @@ namespace csa_importriep_partition_detail {
         }
 
         private void txtNumImpegno_Leave(object sender, EventArgs e) {
-            if (Meta.inchiusura) return;
+            if (Meta.formController.isClosing) return;
             if (Meta.IsEmpty || DS.csa_importriep_partition.Rows.Count == 0) return;
             if (txtNumImpegno.ReadOnly) return;
             DataRow Curr = DS.csa_importriep_partition.Rows[0];
@@ -434,4 +433,4 @@ namespace csa_importriep_partition_detail {
 
 
 
-       
+       

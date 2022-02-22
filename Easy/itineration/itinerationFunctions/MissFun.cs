@@ -1,26 +1,29 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
 using funzioni_configurazione;//funzioni_configurazione
 using metadatalibrary;
+using metaeasylibrary;
 using System.Windows.Forms;
+using System.IO;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
 
 namespace itinerationFunctions//FunzioniMissione//
 {
@@ -576,7 +579,7 @@ namespace itinerationFunctions//FunzioniMissione//
             DataTable TRefRule = Conn.RUN_SELECT("itinerationrefundruledetail", "*", null, filter, null, true);
 
             if (TRefRule.Rows.Count == 0) {
-                MessageBox.Show("Configurazione anticipo spese non trovata");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Configurazione anticipo spese non trovata");
                 return;
             }
 
@@ -589,7 +592,7 @@ namespace itinerationFunctions//FunzioniMissione//
                 if (RefRule.Length > 0)
                     Spesa["advancepercentage"] = CfgFn.GetNoNullDouble(RefRule[0]["advancepercentage"]);
                 else
-                    MessageBox.Show("Configurazione anticipo spese non trovata (Spesa " +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Configurazione anticipo spese non trovata (Spesa " +
                         Spesa["description"].ToString() + ")");
             }
         }
@@ -746,7 +749,11 @@ namespace itinerationFunctions//FunzioniMissione//
                 msg += "Avviso ricevuto:\r\n";
                 msg += Itineration["webwarn"].ToString() + "\r\n";
             }
-            msg = "Da: " + GetDipartimento(Conn) + "\r\n" + msg;
+            
+            string NomeDipartimento = GetDipartimento(Conn);
+            if (NomeDipartimento != "") {
+                msg = "Da: " + NomeDipartimento + "\r\n" + msg;
+            }
             object public_address = Conn.DO_READ_VALUE("web_config",null,"public_address");
 
             if (public_address != null && public_address != DBNull.Value) {
@@ -803,12 +810,10 @@ namespace itinerationFunctions//FunzioniMissione//
             QueryHelper q = Conn.GetQueryHelper();
             string StatusDescription = Conn.DO_READ_VALUE("itinerationstatus",  q.CmpEq("iditinerationstatus", status), "description").ToString();
 
-            string svolta = (DataInizio.CompareTo(DateTime.Now)) < 0 ? " svoltasi " : " che si svolgerà ";
-            svolta += "tra il " + DataInizio.ToShortDateString() + " ed il " + DataFine.ToShortDateString();
-            string msg = "La " + GetNomeMissione(Conn, Itineration) + //svolta +  //non serve aggiungere 'svolta' perchè le info sono già presenti in GetNomeMissione()
-                  " necessita di autorizzazione.";
-            //msg += "Descrizione della missione:\r\n"; // In GetNomeMissione() è già presente questa info.
-            //msg += Itineration["description"].ToString() + "\r\n";
+            string msg = "La " + GetNomeBreveMissione(Conn, Itineration) + 
+                  " necessita di autorizzazione.\r\n";
+            msg += "Descrizione della missione:\r\n"; 
+            msg += Itineration["description"].ToString() + "\r\n";
 
             DataTable Tappe = Conn.RUN_SELECT("itinerationlapview", "*", "lapnumber", q.CmpEq("iditineration", Itineration["iditineration"]), null, false);
             if (Tappe.Rows.Count > 0) {
@@ -828,7 +833,10 @@ namespace itinerationFunctions//FunzioniMissione//
             }
 
             msg += "\r\n";
-            msg = "Da: " + GetDipartimento(Conn) + "\r\n" + msg;
+            string NomeDipartimento = GetDipartimento(Conn);
+            if (NomeDipartimento != "") {
+                msg = "Da: " + NomeDipartimento + "\r\n" + msg;
+            }
             SendMail SM = new SendMail();
             SM.UseSMTPLoginAsFromField = true;
             SM.To = emailaddress;
@@ -915,6 +923,205 @@ namespace itinerationFunctions//FunzioniMissione//
             return email.ToString();
 
         }
+
+        /// <summary>
+        /// Dato il path di una directory, raccoglie file allegati e stampa missione e si carica
+        /// in questa cartella, creando una sottocartella per ogni missione nominandola:
+        /// missione_esercizio_numero (missione_2021_145).
+        /// </summary>
+
+        public static void ScaricaAllegati_e_StampaMissioni(DataAccess Conn, string mypath, object yitineration, object nstart, object nstop, out string errors) {
+            errors = "";
+            QueryHelper QHS = Conn.GetQueryHelper();
+            string filterMiss = QHS.AppAnd(QHS.CmpEq("yitineration", yitineration), QHS.Between("nitineration", nstart, nstop));
+            //Prende le missioni in base all'intervallo indicato
+            DataTable itineration = Conn.RUN_SELECT("itineration", "*", null, filterMiss, null, false);
+            foreach (DataRow R in itineration.Select()) {
+                //dstPath: rappresenta la cartella indicata + /missione_yitineration_nitineration/
+                string dstPath = Path.Combine(mypath, "missione_" + R["yitineration"].ToString() + "_" + R["nitineration"].ToString());
+                if (!Directory.Exists(dstPath)) {
+                    Directory.CreateDirectory(dstPath);
+                }
+                //Prende gli allegati delle spese, solo quelli attivi.
+                string filterAttac = QHS.AppAnd(QHS.CmpEq("iditineration", R["iditineration"]), QHS.CmpEq("active", "S"));
+                DataTable itinerationrefundattachment = Conn.RUN_SELECT("itinerationrefundattachment", "*", null, filterAttac, null, false);
+                foreach (DataRow Ratt in itinerationrefundattachment.Select()) {
+                    if (Ratt["attachment"] == DBNull.Value) continue;
+                    byte[] ByteArray = (byte[])Ratt["attachment"];
+                    int offset = 0;
+                    string fname = Ratt["filename"].ToString();
+                    //if (File.Exists(Path.Combine(dstPath, fname))) {
+                        fname = "Spesa"+Ratt["nrefund"].ToString() + "_all"  + Ratt["idattachment"].ToString() + "_" + fname;
+                    //}
+                    string sw = Path.Combine(dstPath, fname);
+                    try {
+                        ScriviFile(sw, ByteArray, offset);
+                    }
+                    catch (Exception E) {
+                        QueryCreator.ShowException(E);
+                    }
+                }
+                //Prende gli allegati della missione
+                string filterAttacMiss = QHS.AppAnd(QHS.CmpEq("iditineration", R["iditineration"]), QHS.CmpEq("active", "S"));
+                DataTable itinerationattachment = Conn.RUN_SELECT("itinerationattachment", "*", null, filterAttacMiss, null, false);
+                foreach (DataRow Ratt in itinerationattachment.Select()) {
+                    if (Ratt["attachment"] == DBNull.Value) continue;
+                    byte[] ByteArray = (byte[])Ratt["attachment"];
+                    int offset = 0;
+                    string fname = Ratt["filename"].ToString();
+                    //if (File.Exists(Path.Combine(dstPath, fname))) {
+                        fname = "Miss_all" + Ratt["idattachment"].ToString() + "_" + fname;
+                    //}
+                    string sw = Path.Combine(dstPath, fname);
+                    try {
+                        ScriviFile(sw, ByteArray, offset);
+                    }
+                    catch (Exception E) {
+                        QueryCreator.ShowException(E);
+                    }
+                }
+                //Chiama la stampa
+                errors = ProduciStampaMissione(Conn, dstPath, R);
+            }
+        }
+        public static void ScriviFile(string sw, byte[] documento, int offset) {
+            // Legge il documento memorizzato nel DB e lo scrive nel file temp.
+            FileStream FS = new FileStream(sw, FileMode.Create, FileAccess.Write);
+
+            int n = documento.Length - offset;
+            if (n == 0) return;
+            try {
+                FS.Write(documento, offset, n);//<<<<<<<<<
+                FS.Flush();
+                FS.Close();
+            }
+            catch { }
+        }
+        public static string ProduciStampaMissione(DataAccess Conn, string FilePath, DataRow curr) {
+            int yitineration = CfgFn.GetNoNullInt32(curr["yitineration"]);
+            int numberbegin = CfgFn.GetNoNullInt32(curr["nitineration"]);
+            int numberend = CfgFn.GetNoNullInt32(curr["nitineration"]);
+            string pdfFileName, errmess;
+            bool res = stampaMissione(Conn, FilePath, yitineration, numberbegin, numberend, out pdfFileName, out errmess);
+            if (!res) {
+                return errmess;
+            }
+            return null;
+
+        }
+        
+        public static bool stampaMissione(DataAccess Conn, string FilePath, int yitineration, int numberbegin, int numberend, out string pdfFileName, out string errmess) {
+            errmess = "";
+            pdfFileName = "";
+            string ReportName = "missione_prospetto_calcolo";
+            DataTable myPrymaryTable = createStampaMissioneTable();
+            myPrymaryTable.Rows[0]["reportname"] = ReportName;
+            myPrymaryTable.Rows[0]["ayear"] = Conn.GetSys("esercizio");
+            myPrymaryTable.Rows[0]["yitineration"] = yitineration;
+            myPrymaryTable.Rows[0]["numberbegin"] = numberbegin;
+            myPrymaryTable.Rows[0]["numberend"] = numberend;
+            myPrymaryTable.Rows[0]["idsor01"] = DBNull.Value;
+            myPrymaryTable.Rows[0]["idsor02"] = DBNull.Value;
+            myPrymaryTable.Rows[0]["idsor03"] = DBNull.Value;
+            myPrymaryTable.Rows[0]["idsor04"] = DBNull.Value;
+            myPrymaryTable.Rows[0]["idsor05"] = DBNull.Value;
+            QueryHelper QHS = Conn.GetQueryHelper();
+            string filter = QHS.CmpEq("reportname", ReportName);
+
+            DataTable Report = Conn.RUN_SELECT("report", "*", null, filter, null, false);
+
+            if (Report == null) {
+                errmess = "Report: '" + ReportName + "' non trovato.";
+                return false;
+            }
+
+            var rep = Report._First();
+            var par = myPrymaryTable.Rows[0];
+
+            ReportDocument myRptDoc = Easy_DataAccess.GetReport(Conn as Easy_DataAccess, rep, par, out errmess);
+            if (myRptDoc == null) {
+                if (errmess == null || errmess == "") errmess = "Impossibile trovare il report";
+                return false;
+            }
+
+            if (!FilePath.EndsWith("\\")) FilePath += "\\";
+
+            //var tempfilename = "stampamissione-" + Guid.NewGuid() + ".pdf";
+            var tempfilename = "stampamissione_" + yitineration.ToString() + "_" + numberbegin.ToString() + ".pdf";
+            //pdfFileName = @"ReportPDF/" + tempfilename;
+            string error;
+            bool retExp = exportToPdf(myRptDoc, tempfilename, FilePath, out error);
+            if (!retExp) errmess = "Impossibile esportare in pdf: " + tempfilename + " in " + FilePath + " (" + error + ")";
+            return retExp;
+        }
+
+        public static bool exportToPdf(ReportDocument rd, string fileName, string relativePath, out string error) {
+            error = "";
+            var tempfilename = relativePath + fileName;
+
+            rd.ExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
+            rd.ExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
+
+            DiskFileDestinationOptions diskOpts = new DiskFileDestinationOptions { DiskFileName = tempfilename };
+            rd.ExportOptions.DestinationOptions = diskOpts;
+
+            // Export the report
+            try {
+                rd.Export();
+                bool existfile = File.Exists(tempfilename);
+                if (!existfile) error = "export fallito";
+                return existfile;
+            }
+            catch (Exception e) {
+                if (!e.ToString().Contains("0x8000030E")) {
+                    error =
+                        "E' necessario disinstallare l'aggiornamento di windows KB3102429 per poter effettuare la stampa. - " +
+                        e.Message;
+                    return false;
+                }
+                error = e.Message;
+                return false;
+            }
+        }
+
+        public static DataTable createStampaMissioneTable() {
+            var myPrimaryTable = new DataTable("export_itineration");
+            //Create a dummy primary key
+            var dcpk = new DataColumn("DummyPrimaryKeyField", typeof(int)) { DefaultValue = 1 };
+            myPrimaryTable.Columns.Add(dcpk);
+            myPrimaryTable.PrimaryKey = new[] { dcpk };
+
+            DataColumn column;
+            myPrimaryTable.Columns.Add(new DataColumn("reportname", typeof(string)));
+            myPrimaryTable.Columns.Add(new DataColumn("ayear", typeof(int)));
+            myPrimaryTable.Columns.Add(new DataColumn("yitineration", typeof(int)));
+            myPrimaryTable.Columns.Add(new DataColumn("numberbegin", typeof(int)));
+            myPrimaryTable.Columns.Add(new DataColumn("numberend", typeof(int)));
+
+            column = new DataColumn("idsor01", typeof(int));
+            column.AllowDBNull = true;
+            myPrimaryTable.Columns.Add(column);
+
+            column = new DataColumn("idsor02", typeof(int));
+            column.AllowDBNull = true;
+            myPrimaryTable.Columns.Add(column);
+
+            column = new DataColumn("idsor03", typeof(int));
+            column.AllowDBNull = true;
+            myPrimaryTable.Columns.Add(column);
+
+            column = new DataColumn("idsor04", typeof(int));
+            column.AllowDBNull = true;
+            myPrimaryTable.Columns.Add(column);
+
+            column = new DataColumn("idsor05", typeof(int));
+            column.AllowDBNull = true;
+            myPrimaryTable.Columns.Add(column);
+
+            var r = myPrimaryTable.NewRow();
+            myPrimaryTable.Rows.Add(r);
+            return myPrimaryTable;
+        }
+
     }
 }
-

@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_buono_ordine_integrazioni]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_buono_ordine_integrazioni]
 GO
@@ -30,7 +47,9 @@ CREATE TABLE #mandatedetail
 	tax decimal(19,2),
 	discount float,
 	start datetime,
-	stop datetime
+	stop datetime,
+	yepexp smallint,
+	nepexp int
 )
 INSERT INTO #mandatedetail
 (
@@ -45,7 +64,8 @@ INSERT INTO #mandatedetail
 	tax,
 	discount,
 	start,
-	stop 
+	stop ,
+	yepexp, nepexp
 )
 SELECT 
 	@yman,
@@ -58,14 +78,17 @@ SELECT
 	taxrate,
 	sum(tax),
 	discount,
-	start,
-	stop
+	mandatedetail.start,
+	mandatedetail.stop,
+	epexp.yepexp, epexp.nepexp
 FROM    mandatedetail
+LEFT OUTER JOIN epexp
+		on epexp.idepexp = mandatedetail.idepexp
 WHERE   mandatedetail.yman = @yman
 	AND mandatedetail.idmankind= @mandatekind
 	AND mandatedetail.nman = @nman
-GROUP BY  detaildescription,annotations,npackage,
-	taxrate,discount,start,stop,idgroup
+group BY  detaildescription,annotations,npackage,
+	taxrate,discount, mandatedetail.start, mandatedetail.stop, idgroup,epexp.yepexp, epexp.nepexp
 --select * from #mandatedetail
 SELECT 
 	@yman,
@@ -128,7 +151,8 @@ SELECT
 	case when (isnull(mandate.flagintracom,'N')='N') then ROUND(#mandatedetail.tax,2)   else 0 end
 	
 	)
- AS totalrow_fcurrency
+ AS totalrow_fcurrency,
+ #mandatedetail.yepexp, #mandatedetail.nepexp
 ----------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------
@@ -157,4 +181,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-

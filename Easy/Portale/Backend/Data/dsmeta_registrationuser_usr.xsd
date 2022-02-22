@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_registrationuser_usr" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_registrationuser_usr" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="flowchart" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="ayear" type="xs:int" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="codeflowchart" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="fax" type="xs:string" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idflowchart" type="xs:string" />
+              <xs:element name="idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:int" minOccurs="0" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nlevel" type="xs:int" />
+              <xs:element name="paridflowchart" type="xs:string" />
+              <xs:element name="phone" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrationuserflowchart" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idflowchart" type="xs:string" />
+              <xs:element name="idregistrationuser" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrationuserstatus" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idregistrationuserstatus" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="usertype" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="usertype" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrationuser" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="cf" type="xs:string" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="esercizio" type="xs:int" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="idregistrationuser" type="xs:int" />
+              <xs:element name="idregistrationuserstatus" type="xs:int" minOccurs="0" />
+              <xs:element name="login" type="xs:string" minOccurs="0" />
+              <xs:element name="matricola" type="xs:string" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+              <xs:element name="userkind" type="xs:int" minOccurs="0" />
+              <xs:element name="usertype" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:flowchart" />
+      <xs:field xpath="mstns:idflowchart" />
+    </xs:unique>
+    <xs:unique name="registrationuserflowchart_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrationuserflowchart" />
+      <xs:field xpath="mstns:idflowchart" />
+      <xs:field xpath="mstns:idregistrationuser" />
+    </xs:unique>
+    <xs:unique name="registrationuserstatus_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrationuserstatus" />
+      <xs:field xpath="mstns:idregistrationuserstatus" />
+    </xs:unique>
+    <xs:unique name="usertype_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:usertype" />
+      <xs:field xpath="mstns:usertype" />
+    </xs:unique>
+    <xs:unique name="registrationuser_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrationuser" />
+      <xs:field xpath="mstns:idregistrationuser" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_registrationuserflowchart_registrationuser_idregistrationuser" msdata:parent="registrationuser" msdata:child="registrationuserflowchart" msdata:parentkey="idregistrationuser" msdata:childkey="idregistrationuser" />
+      <msdata:Relationship name="FK_registrationuserflowchart_flowchart_idflowchart" msdata:parent="flowchart" msdata:child="registrationuserflowchart" msdata:parentkey="idflowchart" msdata:childkey="idflowchart" />
+      <msdata:Relationship name="FK_registrationuser_registrationuserstatus_idregistrationuserstatus" msdata:parent="registrationuserstatus" msdata:child="registrationuser" msdata:parentkey="idregistrationuserstatus" msdata:childkey="idregistrationuserstatus" />
+      <msdata:Relationship name="FK_registrationuser_usertype_usertype" msdata:parent="usertype" msdata:child="registrationuser" msdata:parentkey="usertype" msdata:childkey="usertype" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

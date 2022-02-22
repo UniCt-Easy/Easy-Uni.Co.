@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -32,15 +31,21 @@ namespace meta_registryaddress //meta_cdindirizzo//
     public class Meta_registryaddress : Meta_easydata {
         public Meta_registryaddress(DataAccess Conn, MetaDataDispatcher Dispatcher) :
             base(Conn, Dispatcher, "registryaddress") {
-            EditTypes.Add("default");
-            ListingTypes.Add("default");
-            EditTypes.Add("anagraficasingle");
+			EditTypes.Add("default");
+			ListingTypes.Add("default");
+			EditTypes.Add("anagraficasingle");
             ListingTypes.Add("anagraficasingle");
             ListingTypes.Add("unione");
             Name = "Indirizzo";
-            EditTypes.Add("instmuser");
-            ListingTypes.Add("instmuser");
-            //$EditTypes$
+			EditTypes.Add("anagrafica");
+			ListingTypes.Add("anagrafica");
+			EditTypes.Add("seg");
+			ListingTypes.Add("seg");
+			EditTypes.Add("user");
+			ListingTypes.Add("user");
+			EditTypes.Add("segistituti");
+			ListingTypes.Add("segistituti");
+			//$EditTypes$
         }
 
         protected override Form GetForm(string FormName) {
@@ -84,28 +89,54 @@ namespace meta_registryaddress //meta_cdindirizzo//
 
             int nPos = 1;
 
-            switch (ListingType) {
-                case "default": {
-                    DescribeAColumn(T, "stop", "data fine", nPos++);
-                    DescribeAColumn(T, "recipientagency", "Ente di provenienza (per anagrafe prestazioni)", nPos++);
-                    DescribeAColumn(T, "officename", "Nome ufficio", nPos++);
-                    DescribeAColumn(T, "active", "attivo", nPos++);
-                    DescribeAColumn(T, "address", "n. operazione", nPos++);
-                    DescribeAColumn(T, "flagforeign", "Estero", nPos++);
-                    DescribeAColumn(T, "!idcity_geo_city_title", "id città (tabella geo_city)", nPos++);
-                    DescribeAColumn(T, "location", "ubicazione", nPos++);
-                    DescribeAColumn(T, "cap", "Codice avv. postale", nPos++);
-                    DescribeAColumn(T, "!idnation_geo_nation_title", "Id nazione (tabella geo_nation)", nPos++);
-                    DescribeAColumn(T, "annotations", "Annotazioni", nPos++);
-                    break;
-                }
-            }
+			switch (ListingType) {
+				case "default": {
+						DescribeAColumn(T, "stop", "data fine", nPos++);
+						DescribeAColumn(T, "recipientagency", "Ente di provenienza (per anagrafe prestazioni)", nPos++);
+						DescribeAColumn(T, "officename", "Nome ufficio", nPos++);
+						DescribeAColumn(T, "active", "attivo", nPos++);
+						DescribeAColumn(T, "address", "n. operazione", nPos++);
+						DescribeAColumn(T, "flagforeign", "Estero", nPos++);
+						DescribeAColumn(T, "!idcity_geo_city_title", "Comune", nPos++);
+						DescribeAColumn(T, "location", "ubicazione", nPos++);
+						DescribeAColumn(T, "cap", "Codice avv. postale", nPos++);
+						DescribeAColumn(T, "!idnation_geo_nation_title", "Nazione", nPos++);
+						DescribeAColumn(T, "annotations", "Annotazioni", nPos++);
+						break;
+					}
+				case "anagrafica": {
+						DescribeAColumn(T, "address", "Indirizzo", nPos++);
+						DescribeAColumn(T, "!idcity_geo_city_title", "Comune", nPos++);
+						DescribeAColumn(T, "location", "Località", nPos++);
+						DescribeAColumn(T, "cap", "CAP", nPos++);
+						break;
+					}
+				case "seg": {
+						DescribeAColumn(T, "!idaddresskind_address_description", "Tipologia", nPos++);
+						DescribeAColumn(T, "start", "Data inizio", nPos++);
+						DescribeAColumn(T, "stop", "Data fine", nPos++);
+						DescribeAColumn(T, "active", "Attivo", nPos++);
+						DescribeAColumn(T, "address", "Indirizzo", nPos++);
+						DescribeAColumn(T, "flagforeign", "Estero", nPos++);
+						DescribeAColumn(T, "!idcity_geo_city_title", "Comune", nPos++);
+						DescribeAColumn(T, "location", "Località", nPos++);
+						DescribeAColumn(T, "cap", "CAP", nPos++);
+						DescribeAColumn(T, "!idnation_geo_nation_title", "Nazione", nPos++);
+						DescribeAColumn(T, "annotations", "Annotazioni", nPos++);
+						break;
+					}
+				case "user": {
+						DescribeAColumn(T, "address", "Indirizzo", nPos++);
+						DescribeAColumn(T, "!idcity_geo_city_title", "Comune", nPos++);
+						DescribeAColumn(T, "location", "Località", nPos++);
+						DescribeAColumn(T, "cap", "CAP", nPos++);
+						break;
+					}
+					//$DescribeAColumn$
+			}
 
-            if (ListingType == "anagraficasingle") {
-                //foreach (DataColumn C in T.Columns)
-                //    DescribeAColumn(T, C.ColumnName, "", -1);
+			if (ListingType == "anagraficasingle") {
 
-                //int nPos = 1;
                 DescribeAColumn(T, "start", "Data inizio", nPos++);
                 DescribeAColumn(T, "stop", "Data fine", nPos++);
                 DescribeAColumn(T, "!descrtipoindirizzo", "Tipo", "address.description", nPos++);
@@ -122,9 +153,7 @@ namespace meta_registryaddress //meta_cdindirizzo//
             }
 
             if (ListingType == "unione") {
-                //foreach (DataColumn C in T.Columns)
-                //    DescribeAColumn(T, C.ColumnName, "", -1);
-                //int nPos = 1;
+
                 DescribeAColumn(T, "!kk", ".aaaa", nPos++);
                 DescribeAColumn(T, "idreg", "#", nPos++);
                 DescribeAColumn(T, "start", "Data inizio", nPos++);
@@ -142,16 +171,6 @@ namespace meta_registryaddress //meta_cdindirizzo//
                 DescribeAColumn(T, "lt", "Data ultima mod.", nPos++);
             }
 
-            switch (ListingType) {
-                case "instmuser": {
-                    DescribeAColumn(T, "address", "Indirizzo", nPos++);
-                    DescribeAColumn(T, "!idcity_geo_city_title", "Comune", nPos++);
-                    DescribeAColumn(T, "location", "Località", nPos++);
-                    DescribeAColumn(T, "cap", "CAP", nPos++);
-                    break;
-                }
-                //$DescribeAColumn$
-            }
 
 
         }
@@ -244,6 +263,11 @@ namespace meta_registryaddress //meta_cdindirizzo//
                     errfield = "idnation";
                     return false;
                 }
+                if (R["location"].ToString() == "") {
+	                errmess = "Attenzione! Inserire il comune estero.";
+	                errfield = "location";
+	                return false;
+                }
             }
             else {
                 if (R["idcity"].ToString() == "") {
@@ -263,19 +287,16 @@ namespace meta_registryaddress //meta_cdindirizzo//
                     DataRow[] r1 = t.Select("value=" + QueryCreator.quotedstrvalue(cap, false));
                     if (r1.Length == 0) {
 
-                        //DialogResult dr = MessageBox.Show(LinkedForm, "Il C.A.P. non è coerente o non è più valido per il comune inserito. Salvare ugualmente?", "Avviso", MessageBoxButtons.YesNo);
+                        //DialogResult dr = MessageBox. Show(LinkedForm, "Il C.A.P. non è coerente o non è più valido per il comune inserito. Salvare ugualmente?", "Avviso", MessageBoxButtons.YesNo);
                         //if (dr==DialogResult.No) 
                         //{
-                        object comune = Conn.readValue("geo_city", q.eq("idcity", R["idcity"]), "title") ??
-                                        "(Comune non trovato)";
+                        object comune = Conn.readValue("geo_city", q.eq("idcity", R["idcity"]), "title") ?? "(Comune non trovato)";
                         //R.GetParentRow("geo_cityregistryaddress")["title"];
                         if (t.Rows.Count == 1) {
-                            errmess = "Il codice postale del comune di '" + comune + "' è '" +
-                                      t.Rows[0]["value"].ToString() + "'";
+                            errmess = $"Il codice postale del comune di '{comune}' è '{t.Rows[0]["value"].ToString()}'";
                         }
                         else {
-                            errmess = "Il comune di '" + comune + "' ha i seguenti codici postali:\n"
-                                      + QueryCreator.ColumnValues(t, null, "value", false);
+                            errmess = $"Il comune di '{comune}' ha i seguenti codici postali:\n{QueryCreator.ColumnValues(t, null, "value", false)}";
                         }
 
                         errfield = "cap";
@@ -289,4 +310,3 @@ namespace meta_registryaddress //meta_cdindirizzo//
         }
     }
 }
-

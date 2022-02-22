@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA paymentview
 IF EXISTS(select * from sysobjects where id = object_id(N'[paymentview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [paymentview]
@@ -88,7 +105,7 @@ CREATE                              VIEW [paymentview]
 	isnull( (SELECT sum(IIT.curramount) from expenselast EL with (nolock)
 				join expense E with (nolock) on E.idexp =  EL.idexp				
 				join income II with (nolock) on EL.idexp=II.idpayment and 
-						((II.autokind=4 and II.idreg = E.idreg ) or II.autokind in (6,14,20,21,30,31)) 
+						((II.autokind=4 and II.idreg = E.idreg ) or II.autokind in (6,7,14,20,21,30,31)) 
 				join incometotal IIT  with (nolock)  on II.idinc=IIT.idinc and IIT.ayear=payment.ypay	
 				join incomelast IL with (nolock) on IL.idinc=II.idinc 
 		WHERE EL.kpay  = payment.kpay 
@@ -105,19 +122,13 @@ CREATE                              VIEW [paymentview]
 	COALESCE(payment.idsor04,treasurer.idsor04),COALESCE(payment.idsor05,treasurer.idsor05),
 	payment.external_reference,
 	paymenttransmission.streamdate
-	FROM payment  with (nolock)
-	LEFT OUTER JOIN registry  with (nolock)
-	ON registry.idreg = payment.idreg
-	LEFT OUTER JOIN fin  with (nolock)
-	ON fin.idfin = payment.idfin  
-	LEFT OUTER JOIN manager with (nolock)
-	ON manager.idman = payment.idman
-	LEFT OUTER JOIN stamphandling with (nolock)
-	ON stamphandling.idstamphandling = payment.idstamphandling
-	LEFT OUTER JOIN paymenttransmission with (nolock)
-	ON paymenttransmission.kpaymenttransmission = payment.kpaymenttransmission
-	LEFT OUTER JOIN treasurer with (nolock)
-	ON treasurer.idtreasurer = payment.idtreasurer
+	FROM payment  with (nolock)			
+	LEFT OUTER JOIN registry  with (nolock)	ON registry.idreg = payment.idreg	
+	LEFT OUTER JOIN fin  with (nolock)	ON fin.idfin = payment.idfin  		
+	LEFT OUTER JOIN manager with (nolock)	ON manager.idman = payment.idman	
+	LEFT OUTER JOIN stamphandling with (nolock)	ON stamphandling.idstamphandling = payment.idstamphandling	
+	LEFT OUTER JOIN paymenttransmission with (nolock)	ON paymenttransmission.kpaymenttransmission = payment.kpaymenttransmission	
+	LEFT OUTER JOIN treasurer with (nolock)	ON treasurer.idtreasurer = payment.idtreasurer
 
 GO
 

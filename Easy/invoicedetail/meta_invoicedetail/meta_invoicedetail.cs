@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -196,7 +195,8 @@ namespace meta_invoicedetail{//meta_dettdocumentoiva//
                 || (C.ColumnName == "ycon") || (C.ColumnName == "ncon")
                 || (C.ColumnName == "estimrownum") || (C.ColumnName == "idestimkind")
 			    || (C.ColumnName == "codicetipo") || (C.ColumnName == "codicevalore")
-                || (C.ColumnName == "nestim") || (C.ColumnName == "yestim")) {
+                || (C.ColumnName == "nestim") || (C.ColumnName == "yestim")
+                || (C.ColumnName == "iduniqueformcode")) {
 				return;
 			}
 			base.InsertCopyColumn (C, Source, Dest);
@@ -322,6 +322,21 @@ namespace meta_invoicedetail{//meta_dettdocumentoiva//
                         return false;
                     }
                 }
+
+                if ((R["idexp_taxable"] != DBNull.Value || R["idexp_iva"] != DBNull.Value) &&
+                    (R["idpccdebitstatus"].ToString() == "SOSP" ||
+                     R["idpccdebitstatus"].ToString() == "NLdaLIQ" ||
+                     R["idpccdebitstatus"].ToString() == "NLdaSOSP" ||
+                     R["idpccdebitstatus"].ToString() == "NOLIQ" ||
+                     R["idpccdebitstatus"].ToString() == "SOSP" ||
+                     R["idpccdebitstatus"].ToString() == "SOSPdaLIQ" ||
+                     R["idpccdebitstatus"].ToString() == "SOSPdaNL")
+                ) {
+	                errmess =
+		                "Non è possibile impostare a sospeso o non liquidabile lo stato del debito dopo che si è pagato il dettaglio fattura";
+	                errfield = "idpccstatus";
+	                return false;
+                }
                 if (R["intrastatoperationkind"].ToString() == "S") {
                     if (R["idintrastatservice"] == DBNull.Value) {
                         errmess = "E' necessario scegliere un codice servizi";
@@ -381,4 +396,3 @@ namespace meta_invoicedetail{//meta_dettdocumentoiva//
         }
 	}
 }
-

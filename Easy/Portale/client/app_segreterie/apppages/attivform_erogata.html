@@ -1,0 +1,133 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabattivform_erogata_0" class="nav-link active show" data-toggle="pill" data-target="#tabattivform_erogata_0"><i class="fa fa-chalkboard-teacher mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabattivform_erogata_1" class="nav-link" data-toggle="pill" data-target="#tabattivform_erogata_1"><i class="fa fa-user-check mr-1"></i>Tipo di valutazione</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabattivform_erogata_2" class="nav-link" data-toggle="pill" data-target="#tabattivform_erogata_2"><i class="fa fa-volume-up mr-1"></i>Appelli</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabattivform_erogata_3" class="nav-link" data-toggle="pill" data-target="#tabattivform_erogata_3"><i class="fa fa-layer-group mr-1"></i>Caratteristiche dell'attività formativa</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabattivform_erogata_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivform_erogata_idinsegn">Insegnamento</label>
+					<div>
+						<input id="attivform_erogata_idinsegn" name="attivform_erogata_idinsegn" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="insegndefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+					<input hidden id="attivform_erogata_title" type="text" class="form-control" data-tag="attivform.title" />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivform_erogata_idinsegninteg">Integrando</label>
+					<div>
+						<input id="attivform_erogata_idinsegninteg" name="attivform_erogata_idinsegninteg" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="insegnintegdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="attivform_erogata_obbform">Obiettivi formativi</label>
+					<textarea class="textarea form-control" id="attivform_erogata_obbform" type="text"  rows="4" data-tag="attivform.obbform?attivformerogataview.attivform_obbform" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="attivform_erogata_obbform_en">Obiettivi formativi (ENG)</label>
+					<textarea class="textarea form-control" id="attivform_erogata_obbform_en" type="text"  rows="4" data-tag="attivform.obbform_en?attivformerogataview.attivform_obbform_en" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivform_erogata_tipovalutaz">Profitto o Idoneità</label>
+					<div class="custom-control custom-radio">
+						<input id="attivform_erogata_tipovalutazP" type="radio" name="attivform_erogata_tipovalutaz" class="custom-control-input" data-tag="attivform.tipovalutaz:P?attivformerogataview.attivform_tipovalutaz:Profitto" data-subentity  ><label for="attivform_erogata_tipovalutazP"> Profitto</label>
+						<input id="attivform_erogata_tipovalutazI" type="radio" name="attivform_erogata_tipovalutaz" class="custom-control-input" data-tag="attivform.tipovalutaz:I?attivformerogataview.attivform_tipovalutaz:Idoneità" data-subentity  ><label for="attivform_erogata_tipovalutazI"> Idoneità</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivform_erogata_sortcode">Ordine</label>
+					<input id="attivform_erogata_sortcode" type="text" class="form-control" data-tag="attivform.sortcode?attivformerogataview.attivform_sortcode" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#attivform_erogata_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="attivform_erogata_start">Dal</label>
+					<input id="attivform_erogata_start" type="text" class="form-control" data-tag="attivform.start?attivformerogataview.attivform_start" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#attivform_erogata_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="attivform_erogata_stop">Al</label>
+					<input id="attivform_erogata_stop" type="text" class="form-control" data-tag="attivform.stop?attivformerogataview.attivform_stop" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivform_erogata_iddidprogcurr">Curriculum</label>
+					<select id="attivform_erogata_iddidprogcurr" class="custom-select d-block w-100"  data-source-name="didprogcurr" data-value-member="iddidprogcurr" data-display-member="title" data-custom-control="combo" data-tag="attivform.iddidprogcurr?attivformerogataview.iddidprogcurr" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivform_erogata_iddidprogori">Orientamento</label>
+					<select id="attivform_erogata_iddidprogori" class="custom-select d-block w-100"  data-source-name="didprogoridefaultview" data-value-member="iddidprogori" data-display-member="dropdown_title" data-custom-control="combo" data-tag="attivform.iddidprogori?attivformerogataview.iddidprogori" data-subentity  data-mandatory  data-master="didprogcurr"> </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivform_erogata_iddidproganno">Anno di corso</label>
+					<select id="attivform_erogata_iddidproganno" class="custom-select d-block w-100"  data-source-name="didprogannodefaultview" data-value-member="iddidproganno" data-display-member="dropdown_title" data-custom-control="combo" data-tag="attivform.iddidproganno?attivformerogataview.iddidproganno" data-subentity  data-mandatory  data-master="didprogoridefaultview"> </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivform_erogata_iddidprogporzanno">Porzione d'anno</label>
+					<select id="attivform_erogata_iddidprogporzanno" class="custom-select d-block w-100"  data-source-name="didprogporzannodefaultview" data-value-member="iddidprogporzanno" data-display-member="dropdown_title" data-custom-control="combo" data-tag="attivform.iddidprogporzanno?attivformerogataview.iddidprogporzanno" data-subentity  data-mandatory  data-master="didprogannodefaultview"> </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="attivform_erogata_iddidproggrupp">Gruppo opzionale</label>
+					<select id="attivform_erogata_iddidproggrupp" class="custom-select d-block w-100"  data-source-name="didproggrupp" data-value-member="iddidproggrupp" data-display-member="title" data-custom-control="combo" data-tag="attivform.iddidproggrupp?attivformerogataview.attivform_iddidproggrupp" data-subentity   > </select>
+					<input hidden id="attivform_erogata_idsede" type="text" class="form-control" data-tag="attivform.idsede" />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabattivform_erogata_1" role="tabpanel">
+		<div id="grid_attivformvalutazionekind_default" data-tag="valutazionekind.seg_child.seg_child" data-custom-control="checklist"  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabattivform_erogata_2" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_appelloattivform_idappello" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_appelloattivform_idappello" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Appelli
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_appelloattivform_seg_child" data-tag="appelloattivform.seg_child.seg_child" data-custom-control="gridx" data-mdlbuttondelete data-mdlconditionallookup="!idappello_appello_prointermedia,S,Si;!idappello_appello_prointermedia,N,No;!idappello_appello_publicato,S,Si;!idappello_appello_publicato,N,No;"  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabattivform_erogata_3" role="tabpanel">
+				<div class="gridx" id="grid_attivformcaratteristica_erogata" data-tag="attivformcaratteristica.erogata.erogata" data-custom-control="gridxchild" data-mdlconditionallookup="profess,S,Si;profess,N,No;" ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

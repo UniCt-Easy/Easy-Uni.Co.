@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_registrydurc_default" targetNamespace="http://tempuri.org/dsmeta_registrydurc_default.xsd" xmlns:mstns="http://tempuri.org/dsmeta_registrydurc_default.xsd" xmlns="http://tempuri.org/dsmeta_registrydurc_default.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_registrydurc_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="registrydurc" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idregistrydurc" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="iddurckind" type="xs:short" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="adate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="selfcertification" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="durccertification" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="doc" type="xs:string" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="inpscode" type="xs:string" minOccurs="0" />
+              <xs:element name="inailcode" type="xs:string" minOccurs="0" />
+              <xs:element name="buildingcode" type="xs:string" minOccurs="0" />
+              <xs:element name="otherinsurancecode" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="flagirregular" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_durccertification" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_selfcertification" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="attach_self" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attachment" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="filename" type="xs:string" />
+              <xs:element name="hash" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="size" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="attach_durc" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attachment" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="filename" type="xs:string" />
+              <xs:element name="hash" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="size" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrydurc" />
+      <xs:field xpath="mstns:idregistrydurc" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="attach_self_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attach_self" />
+      <xs:field xpath="mstns:idattach" />
+    </xs:unique>
+    <xs:unique name="attach_durc_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attach_durc" />
+      <xs:field xpath="mstns:idattach" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="attach_durc_registrydurc" msdata:parent="attach_durc" msdata:child="registrydurc" msdata:parentkey="idattach" msdata:childkey="_x0021_durccertification" />
+      <msdata:Relationship name="attach_self_registrydurc" msdata:parent="attach_self" msdata:child="registrydurc" msdata:parentkey="idattach" msdata:childkey="_x0021_selfcertification" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

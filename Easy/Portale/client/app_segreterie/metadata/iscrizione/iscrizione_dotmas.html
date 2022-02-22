@@ -1,0 +1,37 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="iscrizione_dotmas_aa">Anno accademico</label>
+					<select id="iscrizione_dotmas_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="iscrizione.aa?iscrizionedotmasview.aa" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#iscrizione_dotmas_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="iscrizione_dotmas_data">Data</label>
+					<input id="iscrizione_dotmas_data" type="text" class="form-control" data-tag="iscrizione.data.g?iscrizionedotmasview.iscrizione_data.g" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="iscrizione_dotmas_idreg">Studente</label>
+					<div>
+						<input id="iscrizione_dotmas_idreg" name="iscrizione_dotmas_idreg" type="text" data-listtype="studenti"  class="form-control" data-minchar="2" data-tag="registrystudentiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="iscrizione_dotmas_matricola">Matricola</label>
+					<input id="iscrizione_dotmas_matricola" type="text" class="form-control" data-tag="iscrizione.matricola?iscrizionedotmasview.matricola" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

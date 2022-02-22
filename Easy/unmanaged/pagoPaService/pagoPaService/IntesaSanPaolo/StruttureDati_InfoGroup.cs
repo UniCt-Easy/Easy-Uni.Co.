@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Runtime.Serialization;
 using System.Collections.ObjectModel;
 
@@ -887,17 +886,17 @@ namespace InfoGroup {
         [DataMember(EmitDefaultValue = false)]
         public string parametriAggiuntiviSingoloVersamento { get; set; }
 
-        [DataMember(EmitDefaultValue = false, Order = 1)]
-        public string identificativoFlusso { get; set; }
+        //[DataMember(EmitDefaultValue = false, Order = 1)]
+        //public string identificativoFlusso { get; set; }
 
-        [DataMember(Order = 2)]
-        public System.DateTime dataOraFlusso { get; set; }
+        //[DataMember(Order = 2)]
+        //public System.DateTime dataOraFlusso { get; set; }
 
-        [DataMember(EmitDefaultValue = false, Order = 3)]
-        public string identificativoUnivocoRegolamento { get; set; }
+        //[DataMember(EmitDefaultValue = false, Order = 3)]
+        //public string identificativoUnivocoRegolamento { get; set; }
 
-        [DataMember(EmitDefaultValue = false, Order = 4)]
-        public string dataRegolamento { get; set; }
+        //[DataMember(EmitDefaultValue = false, Order = 4)]
+        //public string dataRegolamento { get; set; }
     }
 
     [DataContract(Name = "ct0000000016_istitutoAttestante", Namespace = "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/")]
@@ -1082,6 +1081,24 @@ namespace InfoGroup {
 
         [DataMember(IsRequired = true, EmitDefaultValue = false, Order = 3)]
         public ct0000000016_datiPagamento datiPagamento { get; set; }
+
+        [DataMember(IsRequired = true, EmitDefaultValue = false, Order = 4)]
+        public string identificativoMessaggioRicevuta { get; set; }
+
+        [DataMember(IsRequired = true, EmitDefaultValue = false, Order = 5)]
+        public string codiceEsitoPagamento { get; set; }
+
+        [DataMember(IsRequired = true, EmitDefaultValue = false, Order = 6)]
+        public decimal importoTotalePagato { get; set; }
+
+        [DataMember(IsRequired = true, EmitDefaultValue = false, Order = 7)]
+        public string identificativoUnivocoVersamento { get; set; }
+
+        [DataMember(IsRequired = true, EmitDefaultValue = false, Order = 8)]
+        public string codiceContestoPagamento { get; set; }
+
+        [DataMember(IsRequired = true, EmitDefaultValue = false, Order = 9)]
+        public DateTime dataCreazioneRicevuta { get; set; }
     }
 
     [DataContract(Name = "ct0000000016_pdpRecuperaRTResult", Namespace = "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/")]
@@ -1384,22 +1401,33 @@ namespace InfoGroup {
     public class ct0000000006_pdpEsitiRTType {
 
         [DataMember(EmitDefaultValue = false)]
-        public string identificativoServizio { get; set; }
+        public string idServizio { get; set; }
 
         [DataMember(IsRequired = false, EmitDefaultValue = false, Order = 1)]
         public string idOperazione { get; set; }
 
         [DataMember(EmitDefaultValue = false, Order = 2)]
-        public DateTime dataInizio { get; set; }
+        public DateTime? dataInizio { get; set; }
 
         [DataMember(EmitDefaultValue = false, Order = 3)]
-        public DateTime dataFine { get; set; }
+        public DateTime? dataFine { get; set; }
 
         [DataMember(EmitDefaultValue = false, Order = 4)]
-        public string IUV { get; set; }
+        public string identificativoUnivocoVersamento { get; set; }
 
         [DataMember(EmitDefaultValue = false, Order = 5)]
         public string CF { get; set; }
+    }
+
+    [DataContract(Name = "ct0000000016_pdpRecuperaRTType", Namespace = "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/")]
+    public class ct0000000016_pdpRecuperaRTType
+    {
+
+        [DataMember(EmitDefaultValue = false)]
+        public string identificativoUnivocoVersamento { get; set; }
+
+        [DataMember(EmitDefaultValue = false, Order = 1)]
+        public string codiceContestoPagamento { get; set; }
     }
 
     [CollectionDataContract(Name= "listaRicevutaTelematica", ItemName ="ricevutaTelematica", Namespace = "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/")]
@@ -1495,7 +1523,7 @@ namespace InfoGroup {
         [DataMember(IsRequired = true, EmitDefaultValue = false, Order = 10)]
         public string denominazioneAttestante { get; set; }
 
-        [DataMember(IsRequired = true, EmitDefaultValue = false, Order = 11)]
+        [DataMember(IsRequired = true, EmitDefaultValue = true, Order = 11)]
         public ct0000000008_ricevutaTelematicaTypeTipoIdentificativoUnivocoPagatore tipoIdentificativoUnivocoPagatore { get; set; }
 
         [DataMember(IsRequired = true, EmitDefaultValue = false, Order = 12)]
@@ -1572,7 +1600,7 @@ namespace InfoGroup {
         public string idFlusso { get; set; }
 
         /// <summary>
-        /// Identificativo Bonifico Sepa (Transaction Reference Number‚Äù (TRN) ) del Bonifico cumulative 
+        /// Identificativo Bonifico Sepa (Transaction Reference Numberî (TRN) ) del Bonifico cumulative 
         /// effettuato dal PSP, presente nel flusso di rendicontazione standard AgID 
         /// </summary>
         [DataMember(EmitDefaultValue = false, Order = 9)]                        
@@ -1642,4 +1670,3 @@ namespace InfoGroup {
 }
 
 #endregion
-

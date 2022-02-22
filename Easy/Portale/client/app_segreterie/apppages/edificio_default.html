@@ -1,0 +1,83 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabedificio_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabedificio_default_0"><i class="fa fa-building mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabedificio_default_1" class="nav-link" data-toggle="pill" data-target="#tabedificio_default_1"><i class="fa fa-chalkboard mr-1"></i>Aule</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabedificio_default_2" class="nav-link" data-toggle="pill" data-target="#tabedificio_default_2"><i class="fa fa-stopwatch mr-1"></i>Sospensione delle attività</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabedificio_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="edificio_default_title">Denominazione</label>
+					<input id="edificio_default_title" type="text" class="form-control" data-tag="edificio.title?edificiodefaultview.title" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="edificio_default_idsede">Sede</label>
+					<select id="edificio_default_idsede" class="custom-select d-block w-100"  data-source-name="sededefaultview" data-value-member="idsede" data-display-member="dropdown_title" data-custom-control="combo" data-tag="edificio.idsede?edificiodefaultview.idsede" data-subentity  data-mandatory  > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="edificio_default_address">Indirizzo</label>
+					<input id="edificio_default_address" type="text" class="form-control" data-tag="edificio.address?edificiodefaultview.edificio_address" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="edificio_default_cap">CAP</label>
+					<input id="edificio_default_cap" type="text" class="form-control" data-tag="edificio.cap?edificiodefaultview.edificio_cap" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="edificio_default_code">Codice</label>
+					<input id="edificio_default_code" type="text" class="form-control" data-tag="edificio.code?edificiodefaultview.edificio_code" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="edificio_default_idcity">Città</label>
+					<div>
+						<input id="edificio_default_idcity" name="edificio_default_idcity" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="edificio_default_idnation">Nazione</label>
+					<div>
+						<input id="edificio_default_idnation" name="edificio_default_idnation" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_nation.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="edificio_default_latitude">Latitudine</label>
+					<input id="edificio_default_latitude" type="text" class="form-control" data-tag="edificio.latitude.fixed.7?edificiodefaultview.edificio_latitude" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="edificio_default_location">Località</label>
+					<input id="edificio_default_location" type="text" class="form-control" data-tag="edificio.location?edificiodefaultview.edificio_location" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="edificio_default_longitude">Longitudine</label>
+					<input id="edificio_default_longitude" type="text" class="form-control" data-tag="edificio.longitude.fixed.7?edificiodefaultview.edificio_longitude" data-subentity  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabedificio_default_1" role="tabpanel">
+				<div class="gridx" id="grid_aula_seg_child" data-tag="aula.seg_child.seg_child" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabedificio_default_2" role="tabpanel">
+				<div class="gridx" id="grid_sospensione_edifici" data-tag="sospensione.edifici.edifici" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -35,7 +34,7 @@ using gestioneclassificazioni;
 using q = metadatalibrary.MetaExpression;
 
 namespace expense_wizardinvoicedetailnomandate {
-    public partial class FrmWizardInvoiceDetailNoMandate : Form {
+    public partial class FrmWizardInvoiceDetailNoMandate : MetaDataForm {
         MetaData Meta;
         DataAccess Conn;
         string CustomTitle;
@@ -46,6 +45,7 @@ namespace expense_wizardinvoicedetailnomandate {
         ArrayList DetailsToUpdate;
         QueryHelper QHS;
         CQueryHelper QHC;
+        bool monofase = false;
 
         public FrmWizardInvoiceDetailNoMandate() {
             InitializeComponent();
@@ -66,7 +66,7 @@ namespace expense_wizardinvoicedetailnomandate {
             if (newTab == tabController.TabPages.Count - 1)
                 btnNext.Text = "Esegui.";
             else
-                btnNext.Text = "Next >";
+                btnNext.Text = "Avanti >";
             Text = CustomTitle + " (Pagina " + (newTab + 1) + " di " + tabController.TabPages.Count + ")";
         }
 
@@ -78,7 +78,7 @@ namespace expense_wizardinvoicedetailnomandate {
             if (newTab == tabController.TabPages.Count) {
                 if (MessageBox.Show(this, "Si desidera eseguire ancora la procedura",
                     "Conferma", MessageBoxButtons.YesNo) == DialogResult.Yes) {
-                    newTab = 1;
+                    newTab = 0;
                     ResetWizard();
                 }
                 else {
@@ -87,8 +87,8 @@ namespace expense_wizardinvoicedetailnomandate {
                     return;
                 }
             }
-            if ((oldTab == 4) && (newTab == 3)) {
-                newTab = 1;
+            if ((oldTab == 3) && (newTab == 2)) {
+                newTab = 0;
                 ResetWizard();
             }
             DisplayTabs(newTab);
@@ -104,11 +104,7 @@ namespace expense_wizardinvoicedetailnomandate {
         }
 
         bool CustomChangeTab(int oldTab, int newTab) {
-            if (oldTab == 0) {
-                return true; // 0->1: nothing to do
-            }
-            if ((oldTab == 1) && (newTab == 0)) return true; //1->0:nothing to do!
-            if ((oldTab == 1) && (newTab == 2)) {
+            if ((oldTab == 0) && (newTab == 1)) {
                 DataRow[] Selected = GetGridSelectedRows(gridDetails);
                 if ((Selected == null) || (Selected.Length == 0)) {
                     MessageBox.Show("Non è stato selezionato alcun dettaglio.");
@@ -132,7 +128,7 @@ namespace expense_wizardinvoicedetailnomandate {
                 txtDaPagare.Text = txtTotSelezionato.Text;
                 return true;
             }
-            if ((oldTab == 2) && (newTab == 1)) {
+            if ((oldTab == 1) && (newTab == 0)) {
                 VisualizzaUPB();
                 AggiornaGridDettagliFattura();
                 rdbSplittaTutti.Checked = false;
@@ -141,11 +137,11 @@ namespace expense_wizardinvoicedetailnomandate {
                 return true;
             }
             ;
-            if ((oldTab == 2) && (newTab == 3)) {
+            if ((oldTab == 1) && (newTab == 2)) {
                 RadioCheck_Changed();
                 return true;
             }
-            if ((oldTab == 3) && (newTab == 4)) {
+            if ((oldTab == 2) && (newTab == 3)) {
                 if ((radioNewCont.Checked == false) && (radioNewLinkedMov.Checked == false)
                     && (radioAddCont.Checked == false)) {
                     MessageBox.Show("Non sarà possibile contabilizzare i dettagli selezionati.");
@@ -160,7 +156,7 @@ namespace expense_wizardinvoicedetailnomandate {
                 }
                 return true;
             }
-            if ((oldTab == 4) && (newTab == 5)) {
+            if ((oldTab == 3) && (newTab == 4)) {
                 if (!SelezioneMovimentiEffettuata) {
                     MessageBox.Show("Non è stato selezionato il movimento.");
                     return false;
@@ -240,6 +236,7 @@ namespace expense_wizardinvoicedetailnomandate {
             Meta.CanInsert = false;
             Meta.CanSave = false;
             Meta.SearchEnabled = false;
+            monofase = (Conn.RUN_SELECT_COUNT("expensephase", null, true) == 1) ? true : false;
         }
 
         public void MetaData_AfterClear() {
@@ -359,6 +356,27 @@ namespace expense_wizardinvoicedetailnomandate {
                 EnableImpos = false;
             }
 
+            object currIdInvKind = Fattura["idinvkind"];
+            int nVen = CfgFn.GetNoNullInt32(Conn.DO_SYS_CMD(
+                "select count(*) from invoicekindregisterkind IIRK " +
+                " join ivaregisterkind IRK on IRK.idivaregisterkind = IIRK.idivaregisterkind " +
+                " where " +
+                QHS.AppAnd(QHS.CmpEq("IIRK.idinvkind", currIdInvKind), QHS.CmpEq("registerclass", "V")
+                  )));
+
+            int nAcq = CfgFn.GetNoNullInt32(Conn.DO_SYS_CMD(
+             "select count(*) from invoicekindregisterkind IIRK " +
+             " join ivaregisterkind IRK on IRK.idivaregisterkind = IIRK.idivaregisterkind " +
+             " where " +
+             QHS.AppAnd(QHS.CmpEq("IIRK.idinvkind", currIdInvKind), QHS.CmpEq("registerclass", "A")
+               )));
+
+            // Nota di credito liquidata  Split Payment, può essere contabilizzato solo imponibile
+            if ((Fattura["flag_enable_split_payment"].ToString() == "S") && (nVen > 0) && (nAcq == 0)) {
+                EnableDocum = false;
+                EnableImpos = false;
+            }
+            
 
             //DataRow[] sel = GetGridSelectedRows(gridDetails);
             //if (sel == null) return;
@@ -1192,7 +1210,6 @@ namespace expense_wizardinvoicedetailnomandate {
             bool manager_in_details = false;
             if (upb.Length == 1) {
                 if (upb[0].ToString() != "") idupb = upb[0];
-                //if (DS.upb.Select(QHC.CmpEq("idupb", idupb)).Length == 0) idupb = null;--> L'ho commentato perchè manca nel wizard mandate detail
             }
             else {
                 foreach (object myidupb in upb) {
@@ -1214,9 +1231,16 @@ namespace expense_wizardinvoicedetailnomandate {
                 upbToSelect = false;
             }
 
+            object idfin = DBNull.Value;
+            int count = CfgFn.GetNoNullInt32(Conn.count("finusable", q.bitClear("flag", 1) & q.bitSet("flag", 0) & q.eq("ayear", Meta.GetSys("esercizio"))));
+            if (monofase && count == 1) {
+                idfin = Conn.readValue("finusable", q.bitClear("flag", 1) & q.bitSet("flag", 0) & q.eq("ayear", Meta.GetSys("esercizio")), "idfin");
+			}
+
             FrmAskInfo F = new FrmAskInfo(Meta, "S", upbToSelect)
                 .SetManager(idman_start)
                 .SetUPB(idupb)
+                .SetFin(idfin)
                 .EnableFilterAvailable(amount)
                 .EnableUPBSelection(upbToSelect);
 
@@ -1286,14 +1310,10 @@ namespace expense_wizardinvoicedetailnomandate {
             int esercizio = Convert.ToInt32(Meta.GetSys("esercizio"));
             string filter = QHS.CmpEq("idexp", idexp_selected);
             Conn.RUN_SELECT_INTO_TABLE(DS.expense, null, filter, null, false);
-            Conn.RUN_SELECT_INTO_TABLE(DS.expenseyear, null, QHS.AppAnd(filter, QHS.CmpEq("ayear", esercizio))
-                , null, false);
-            Conn.RUN_SELECT_INTO_TABLE(DS.expenseclawback, null, filter
-                , null, false);
-            Conn.RUN_SELECT_INTO_TABLE(DS.expenselast, null, filter
-                , null, false);
-            Conn.RUN_SELECT_INTO_TABLE(DS.expensesorted, null, filter
-                , null, false);
+            Conn.RUN_SELECT_INTO_TABLE(DS.expenseyear, null, QHS.AppAnd(filter, QHS.CmpEq("ayear", esercizio)) , null, false);
+            Conn.RUN_SELECT_INTO_TABLE(DS.expenseclawback, null, filter, null, false);
+            Conn.RUN_SELECT_INTO_TABLE(DS.expenselast, null, filter, null, false);
+            Conn.RUN_SELECT_INTO_TABLE(DS.expensesorted, null, filter, null, false);
             if (DS.expense.Rows.Count > 0) {
                 DataRow Inv = DS.invoice.Rows[0];
                 DataRow CurrExp = DS.expense.Rows[0];
@@ -1354,13 +1374,20 @@ namespace expense_wizardinvoicedetailnomandate {
             int fasespesamax = CfgFn.GetNoNullInt32(Meta.GetSys("maxexpensephase"));
             GestioneAutomatismi ga = new GestioneAutomatismi(this, Meta.Conn, Meta.Dispatcher,
                 DS, fasefattura, fasespesamax, "expense", true);
-            string newcomputesorting = Meta.Conn.DO_READ_VALUE("siopekind", QHC.CmpEq("codesorkind_siopespese", Meta.GetSys("codesorkind_siopespese")), "newcomputesorting").ToString();
+            string newcomputesorting = Meta.Conn.DO_READ_VALUE("siopekind",
+                QHS.AppAnd(QHS.CmpEq("codesorkind_siopespese", Meta.GetSys("codesorkind_siopespese")),
+                            QHS.CmpEq("ayear", CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")))
+                    ),
+                "newcomputesorting")?.ToString();
             if (newcomputesorting == "S" && ! radioAddCont.Checked)  {         
                  GestioneClassificazioni ManageClassificazioni = new GestioneClassificazioni(Meta, null, null, null, null, null, null, null, null);
                  ManageClassificazioni.ClassificaTramiteClassDocumento(ga.DSP, DS);
-            }
+				 ManageClassificazioni.completaClassificazioniSiope(DS.expensesorted, ga.DSP);
+				 //Meta.FreshForm();
 
-            ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
+			}
+
+			ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
             bool res = ga.GeneraAutomatismiAfterPost(true);
             if (!res) {
                 MessageBox.Show(this,
@@ -1503,11 +1530,9 @@ namespace expense_wizardinvoicedetailnomandate {
         decimal GetIVADettagliFattura(DataRow[] SelectedRows) {
             if (DS.invoice.Rows.Count == 0)
                 return 0;
-            decimal tassocambio;
-            DataRow Fattura = DS.invoice.Rows[0];
-            tassocambio = CfgFn.GetNoNullDecimal(Fattura["exchangerate"]);
-            if (tassocambio == 0) tassocambio = 1;
 
+            DataRow Fattura = DS.invoice.Rows[0];
+             
             decimal imposta = 0;
             DataRow[] ToConsider = new DataRow[0];
             int CurrCausaleIva = GetCausaleIva();
@@ -1517,7 +1542,7 @@ namespace expense_wizardinvoicedetailnomandate {
             foreach (DataRow R in SelectedRows) {
                 if (R.RowState == DataRowState.Deleted) continue;
                 decimal R_imposta = CfgFn.GetNoNullDecimal(R["tax"]);
-                imposta += CfgFn.RoundValuta(R_imposta*tassocambio);
+                imposta += CfgFn.RoundValuta(R_imposta);
             }
 
             return imposta;
@@ -1807,10 +1832,10 @@ namespace expense_wizardinvoicedetailnomandate {
                         NewLastMov["paymethod_allowdeputy"] = paymethod_allowdeputy;
 
                         int paymethod_flag = CfgFn.GetNoNullInt32(TPaymethod.Rows[0]["flag"]);
-                        int flag = CfgFn.GetNoNullInt32(Invoice["requested_doc"]) & 7;
+                        int flag = CfgFn.GetNoNullInt32(Invoice["requested_doc"]) & 255;
                         // lo spostiamo di 15 posizioni a sinistra
                         flag = flag << 15;
-                        NewLastMov["paymethod_flag"] = flag | (paymethod_flag & ~0x38000);
+                        NewLastMov["paymethod_flag"] = flag | (paymethod_flag & ~0x7F8000);
                     }
                     if (NewLastMov["iddeputy"] != DBNull.Value && !avvisoDelegatoMostrato) {
                         avvisoDelegatoMostrato = true;
@@ -2656,4 +2681,4 @@ namespace expense_wizardinvoicedetailnomandate {
         }
     }
 
-}
+}

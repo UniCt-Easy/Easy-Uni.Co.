@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using LiveUpgrade.Properties;
+
+using LiveUpgrade.Properties;
 using Microsoft.Win32;
 using System;
 using System.Diagnostics;
@@ -47,12 +46,12 @@ namespace LiveUpgrade {
             // Controlla che sia stato scaricato un pacchetto di upgrade
             var datafile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LiveUpgrade.dat");
             if (!File.Exists(datafile)) {
-                Log.Warning("Il pacchetto dati non Ã¨ disponibile.");
+                Log.Warning("Il pacchetto dati non è disponibile.");
                 return 0;
             }
 
             try {
-                // Controlla se Ã¨ stato passato l'ID del processo del loader
+                // Controlla se è stato passato l'ID del processo del loader
                 int id;
                 if (args.Length == 1 && int.TryParse(args[0], out id)) {
                     // Ottiene il processo del loader
@@ -73,7 +72,7 @@ namespace LiveUpgrade {
                 if (!CheckFramework()) {
                     string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dotnetfx.exe");
 
-                    Log.Warning("Nel sistema non Ã¨ installata una versione adeguata del .NET Framework.");
+                    Log.Warning("Nel sistema non è installata una versione adeguata del .NET Framework.");
 
                     form.Download(".NET Framework", URL_NETFX, path);
 
@@ -99,7 +98,7 @@ namespace LiveUpgrade {
                 if (!CheckCrystalReport()) {
                     string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "crruntime.zip");
 
-                    Log.Warning("Nel sistema non Ã¨ installata una versione adeguata delle librerie di runtime di Crystal Report.");
+                    Log.Warning("Nel sistema non è installata una versione adeguata delle librerie di runtime di Crystal Report.");
 
                     if (EnvironmentHelper.Is64BitOperatingSystem()) {
                         form.Download("Librerie Crystal Report", URL_CR64, path);
@@ -135,9 +134,9 @@ namespace LiveUpgrade {
         }
 
         /// <summary>
-        /// Controlla se nel sistema Ã¨ installata la versione richiesta di .NET Framework.
+        /// Controlla se nel sistema è installata la versione richiesta di .NET Framework.
         /// </summary>
-        /// <returns>Vero se la versione installata Ã¨ compatibile.</returns>
+        /// <returns>Vero se la versione installata è compatibile.</returns>
         static bool CheckFramework() {
             string regPath = @"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full";
             string name = "Release";
@@ -153,9 +152,9 @@ namespace LiveUpgrade {
         }
 
         /// <summary>
-        /// Controlla se nel sistema Ã¨ installata la versione richiesta di Crystal Report.
+        /// Controlla se nel sistema è installata la versione richiesta di Crystal Report.
         /// </summary>
-        /// <returns>Vero se la versione installata Ã¨ compatibile.</returns>
+        /// <returns>Vero se la versione installata è compatibile.</returns>
         static bool CheckCrystalReport() {
             string regPath = @"SOFTWARE\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Crystal Reports";
             string name = EnvironmentHelper.Is64BitOperatingSystem() ? "CRRuntime64Version" : "CRRuntime32Version";
@@ -174,4 +173,3 @@ namespace LiveUpgrade {
     }
 
 }
-

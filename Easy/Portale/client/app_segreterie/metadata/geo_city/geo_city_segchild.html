@@ -1,0 +1,50 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="geo_city_segchild_title">Denominazione</label>
+					<input id="geo_city_segchild_title" type="text" class="form-control" data-tag="geo_city.title?geo_citysegchildview.title" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="geo_city_segchild_newcity">Nuovo comune in cui questo è confluito</label>
+					<div>
+						<input id="geo_city_segchild_newcity" name="geo_city_segchild_newcity" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city_alias1.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="geo_city_segchild_oldcity">id comune da cui questo è confluito</label>
+					<div>
+						<input id="geo_city_segchild_oldcity" name="geo_city_segchild_oldcity" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city_alias2.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#geo_city_segchild_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="geo_city_segchild_start">data inizio</label>
+					<input id="geo_city_segchild_start" type="text" class="form-control" data-tag="geo_city.start?geo_citysegchildview.geo_city_start" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#geo_city_segchild_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="geo_city_segchild_stop">data fine</label>
+					<input id="geo_city_segchild_stop" type="text" class="form-control" data-tag="geo_city.stop?geo_citysegchildview.geo_city_stop" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

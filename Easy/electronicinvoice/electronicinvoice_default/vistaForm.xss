@@ -22,74 +22,74 @@
     <Shape ID="DesignTable:sdi_rifamm" ZOrder="5" X="-202" Y="5" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
   </Shapes>
   <Connectors>
-    <Connector ID="DesignRelation:FK_treasurer_electronicinvoice" ZOrder="21" LineWidth="11">
+    <Connector ID="DesignRelation:FK_sdi_vendita_invoiceview" ZOrder="6" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>304</X>
-          <Y>199</Y>
+          <X>356</X>
+          <Y>469</Y>
+        </Point>
+        <Point>
+          <X>-11</X>
+          <Y>469</Y>
+        </Point>
+        <Point>
+          <X>-11</X>
+          <Y>436</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
+    <Connector ID="DesignRelation:electronicinvoice_invoiceview" ZOrder="7" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>51</X>
+          <Y>253</Y>
+        </Point>
+        <Point>
+          <X>6</X>
+          <Y>253</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
+    <Connector ID="DesignRelation:FK_ipa_electronicinvoice" ZOrder="3" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>232</X>
+          <Y>74</Y>
+        </Point>
+        <Point>
+          <X>232</X>
+          <Y>91</Y>
         </Point>
         <Point>
           <X>215</X>
-          <Y>199</Y>
+          <Y>91</Y>
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:FK_sorting01_electronicinvoice" ZOrder="15" LineWidth="11">
+    <Connector ID="DesignRelation:FK_sdi_rifamm_electronicinvoice" ZOrder="4" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>136</X>
-          <Y>679</Y>
-        </Point>
-        <Point>
-          <X>136</X>
-          <Y>328</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
-    <Connector ID="DesignRelation:FK_sorting03_electronicinvoice" ZOrder="14" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>43</X>
-          <Y>510</Y>
-        </Point>
-        <Point>
-          <X>43</X>
-          <Y>311</Y>
+          <X>-44</X>
+          <Y>83</Y>
         </Point>
         <Point>
           <X>51</X>
-          <Y>311</Y>
+          <Y>83</Y>
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:FK_sorting02_electronicinvoice" ZOrder="13" LineWidth="11">
+    <Connector ID="DesignRelation:FK_registry_electronicinvoice" ZOrder="10" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>644</X>
-          <Y>652</Y>
+          <X>622</X>
+          <Y>454</Y>
         </Point>
         <Point>
-          <X>182</X>
-          <Y>652</Y>
+          <X>198</X>
+          <Y>454</Y>
         </Point>
         <Point>
-          <X>182</X>
-          <Y>328</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
-    <Connector ID="DesignRelation:FK_sorting04_electronicinvoice" ZOrder="12" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>847</X>
-          <Y>503</Y>
-        </Point>
-        <Point>
-          <X>190</X>
-          <Y>503</Y>
-        </Point>
-        <Point>
-          <X>190</X>
+          <X>198</X>
           <Y>328</Y>
         </Point>
       </RoutePoints>
@@ -110,75 +110,75 @@
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:FK_registry_electronicinvoice" ZOrder="10" LineWidth="11">
+    <Connector ID="DesignRelation:FK_sorting04_electronicinvoice" ZOrder="12" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>622</X>
-          <Y>454</Y>
+          <X>847</X>
+          <Y>503</Y>
         </Point>
         <Point>
-          <X>198</X>
-          <Y>454</Y>
+          <X>190</X>
+          <Y>503</Y>
         </Point>
         <Point>
-          <X>198</X>
+          <X>190</X>
           <Y>328</Y>
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:FK_sdi_rifamm_electronicinvoice" ZOrder="4" LineWidth="11">
+    <Connector ID="DesignRelation:FK_sorting02_electronicinvoice" ZOrder="13" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>-44</X>
-          <Y>83</Y>
+          <X>644</X>
+          <Y>652</Y>
         </Point>
         <Point>
-          <X>51</X>
-          <Y>83</Y>
+          <X>182</X>
+          <Y>652</Y>
+        </Point>
+        <Point>
+          <X>182</X>
+          <Y>328</Y>
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:FK_ipa_electronicinvoice" ZOrder="3" LineWidth="11">
+    <Connector ID="DesignRelation:FK_sorting03_electronicinvoice" ZOrder="14" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>232</X>
-          <Y>74</Y>
+          <X>43</X>
+          <Y>510</Y>
         </Point>
         <Point>
-          <X>232</X>
-          <Y>91</Y>
+          <X>43</X>
+          <Y>311</Y>
+        </Point>
+        <Point>
+          <X>51</X>
+          <Y>311</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
+    <Connector ID="DesignRelation:FK_sorting01_electronicinvoice" ZOrder="15" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>136</X>
+          <Y>679</Y>
+        </Point>
+        <Point>
+          <X>136</X>
+          <Y>328</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
+    <Connector ID="DesignRelation:FK_treasurer_electronicinvoice" ZOrder="21" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>304</X>
+          <Y>199</Y>
         </Point>
         <Point>
           <X>215</X>
-          <Y>91</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
-    <Connector ID="DesignRelation:electronicinvoice_invoiceview" ZOrder="7" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>51</X>
-          <Y>253</Y>
-        </Point>
-        <Point>
-          <X>6</X>
-          <Y>253</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
-    <Connector ID="DesignRelation:FK_sdi_vendita_invoiceview" ZOrder="6" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>356</X>
-          <Y>469</Y>
-        </Point>
-        <Point>
-          <X>-11</X>
-          <Y>469</Y>
-        </Point>
-        <Point>
-          <X>-11</X>
-          <Y>436</Y>
+          <Y>199</Y>
         </Point>
       </RoutePoints>
     </Connector>

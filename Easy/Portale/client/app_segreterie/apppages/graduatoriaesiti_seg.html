@@ -1,0 +1,63 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabgraduatoriaesiti_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabgraduatoriaesiti_seg_0"><i class="fa fa-dot-circle-o mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabgraduatoriaesiti_seg_1" class="nav-link" data-toggle="pill" data-target="#tabgraduatoriaesiti_seg_1"><i class="fa fa-dot-circle-o mr-1"></i>Esito</a>
+	</li>
+
+	</ul>
+	<form>
+<div class=	"tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabgraduatoriaesiti_seg_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#graduatoriaesiti_seg_datachiusura").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="graduatoriaesiti_seg_datachiusura">Data di chiusura</label>
+					<input id="graduatoriaesiti_seg_datachiusura" type="text" class="form-control" data-tag="graduatoriaesiti.datachiusura.g"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="graduatoriaesiti_seg_idcorsostudio">Idcorsostudio</label>
+					<div>
+						<input id="graduatoriaesiti_seg_idcorsostudio" name="graduatoriaesiti_seg_idcorsostudio" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="corsostudiodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="graduatoriaesiti_seg_idgraduatoria">Calcolo su cui ? basata</label>
+					<div>
+						<input id="graduatoriaesiti_seg_idgraduatoria" name="graduatoriaesiti_seg_idgraduatoria" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="graduatoria.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="graduatoriaesiti_seg_idtipologiastudente">Idtipologiastudente</label>
+					<div>
+						<input id="graduatoriaesiti_seg_idtipologiastudente" name="graduatoriaesiti_seg_idtipologiastudente" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="tipologiastudente.abbreviazione" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="graduatoriaesiti_seg_provvisoria">Provvisoria</label>
+					<div class="custom-control custom-radio">
+						<input id="graduatoriaesiti_seg_provvisoriaSi" type="radio" name="graduatoriaesiti_seg_provvisoria" class="custom-control-input" data-tag="graduatoriaesiti.provvisoria:S"  data-mandatory ><label for="graduatoriaesiti_seg_provvisoriaSi"> Si</label>
+						<input id="graduatoriaesiti_seg_provvisoriaNo" type="radio" name="graduatoriaesiti_seg_provvisoria" class="custom-control-input" data-tag="graduatoriaesiti.provvisoria:N"  data-mandatory ><label for="graduatoriaesiti_seg_provvisoriaNo"> No</label>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabgraduatoriaesiti_seg_1" role="tabpanel">
+				<div id="grid_graduatoriaesitipos_seg" data-tag="graduatoriaesitipos.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

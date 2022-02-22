@@ -173,6 +173,8 @@
               <xs:element name="availableexpenseprevision" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
               <xs:element name="idman" type="xs:int" minOccurs="0" />
               <xs:element name="manager" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:short" minOccurs="0" />
+              <xs:element name="stop" type="xs:short" minOccurs="0" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />

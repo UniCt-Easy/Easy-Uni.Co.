@@ -1,0 +1,71 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabprogettobudget_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabprogettobudget_seg_0"><i class="fa fa-money-check-alt mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogettobudget_seg_1" class="nav-link" data-toggle="pill" data-target="#tabprogettobudget_seg_1"><i class="fa fa-money-check-alt mr-1"></i>Dettaglio dei costi</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogettobudget_seg_2" class="nav-link" data-toggle="pill" data-target="#tabprogettobudget_seg_2"><i class="fa fa-chart-bar mr-1"></i>Variazioni del budget</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogettobudget_seg_3" class="nav-link" data-toggle="pill" data-target="#tabprogettobudget_seg_3"><i class="fa fa-wallet mr-1"></i>Dettaglio dei ricavi</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabprogettobudget_seg_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettobudget_seg_idworkpackage">Workpackage</label>
+					<select id="progettobudget_seg_idworkpackage" class="custom-select d-block w-100"  data-source-name="workpackagesegview" data-value-member="idworkpackage" data-display-member="dropdown_title" data-custom-control="combo" data-tag="progettobudget.idworkpackage"   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettobudget_seg_sortcode">Ordine di visualizzazione</label>
+					<input id="progettobudget_seg_sortcode" type="text" class="form-control" data-tag="progettobudget.sortcode"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettobudget_seg_idprogettotipocosto">Voce di costo</label>
+					<select id="progettobudget_seg_idprogettotipocosto" class="custom-select d-block w-100"  data-source-name="progettotipocosto" data-value-member="idprogettotipocosto" data-display-member="title" data-custom-control="combo" data-tag="progettobudget.idprogettotipocosto"   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettobudget_seg_budget">Budget iniziale</label>
+					<input id="progettobudget_seg_budget" type="text" class="form-control" data-tag="progettobudget.budget.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettobudget_seg_budgetvariazione">Budget corrente</label>
+					<input id="progettobudget_seg_budgetvariazione" type="text" class="form-control" data-tag="progettobudget.!budgetvariazione.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettobudget_seg_spese">Costi</label>
+					<input id="progettobudget_seg_spese" type="text" class="form-control" data-tag="progettobudget.!spese.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettobudget_seg_ricaviincassati">Ricavi</label>
+					<input id="progettobudget_seg_ricaviincassati" type="text" class="form-control" data-tag="progettobudget.!ricaviincassati.fixed.2"  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabprogettobudget_seg_1" role="tabpanel">
+				<div class="gridx" id="grid_progettocosto_seg" data-tag="progettocosto.seg.seg" data-custom-control="gridx" data-mdlgroupedcolumns="!idprogettotipocosto_progettotipocosto_title" data-mdltotnotvisible data-mdlaggregatecolumns="amount"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabprogettobudget_seg_2" role="tabpanel">
+				<div class="gridx" id="grid_progettobudgetvariazione_default" data-tag="progettobudgetvariazione.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabprogettobudget_seg_3" role="tabpanel">
+				<div class="gridx" id="grid_progettoricavo_default" data-tag="progettoricavo.default.default" data-custom-control="gridx" data-mdlgroupedcolumns="!idprogettotipocosto_progettotipocosto_title" data-mdltotnotvisible data-mdlaggregatecolumns="amount"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

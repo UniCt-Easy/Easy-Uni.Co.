@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -93,7 +92,7 @@ namespace meta_upb {
 				SetDefault(T,"paridupb",DBNull.Value);
 			}
 			if (level > (maxDepth)){
-				MessageBox.Show("Non è possibile inserire un livello inferiore a quello selezionato");
+				//MessageBox. Show("Non è possibile inserire un livello inferiore a quello selezionato");
 				return null;
 			}
 
@@ -165,7 +164,14 @@ namespace meta_upb {
                 errfield = "cigcode";
                 return false;
             }
-            return true;
+ 
+			if (((R["uesiopecode"] != DBNull.Value) && (R["cofogmpcode"] == DBNull.Value))|| 
+				((R["uesiopecode"] == DBNull.Value) && (R["cofogmpcode"] != DBNull.Value))) {
+				errmess = "Attenzione! I dati ARCONET nella scheda fabbisogno devono essere entrambi valorizzati oppure entrambi assenti.";
+				errfield = "uesiopecode";
+				return false;
+			}
+				return true;
         }
 
 
@@ -285,4 +291,4 @@ namespace meta_upb {
 
     }
 
-}
+}

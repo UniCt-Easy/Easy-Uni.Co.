@@ -90,10 +90,6 @@
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="siopeplus_functions, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\siopeplus_functions\bin\Debug\siopeplus_functions.dll</HintPath>
-    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -123,6 +119,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\siopeplus_functions\siopeplus_functions.csproj">
+      <Project>{7d85344b-860d-48e2-b073-a8cfef78bf07}</Project>
+      <Name>siopeplus_functions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
       <Project>{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}</Project>
       <Name>funzioni_configurazione</Name>

@@ -1,0 +1,41 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+					<input hidden id="didprogporzanno_default_title" type="text" class="form-control" data-tag="didprogporzanno.title" />
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprogporzanno_default_iddidprogporzannokind">Durata</label>
+					<select id="didprogporzanno_default_iddidprogporzannokind" class="custom-select d-block w-100"  data-source-name="didprogporzannokind" data-value-member="iddidprogporzannokind" data-display-member="title" data-custom-control="combo" data-tag="didprogporzanno.iddidprogporzannokind?didprogporzannodefaultview.didprogporzanno_iddidprogporzannokind" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprogporzanno_default_indice">Indice</label>
+					<input id="didprogporzanno_default_indice" type="text" class="form-control" data-tag="didprogporzanno.indice?didprogporzannodefaultview.didprogporzanno_indice" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#didprogporzanno_default_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="didprogporzanno_default_start">Dal</label>
+					<input id="didprogporzanno_default_start" type="text" class="form-control" data-tag="didprogporzanno.start?didprogporzannodefaultview.didprogporzanno_start" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#didprogporzanno_default_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="didprogporzanno_default_stop">Al</label>
+					<input id="didprogporzanno_default_stop" type="text" class="form-control" data-tag="didprogporzanno.stop?didprogporzannodefaultview.didprogporzanno_stop" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

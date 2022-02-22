@@ -70,7 +70,7 @@
   <xs:simpleType name="stTipoCodiceCIG">
     <xs:restriction base="xs:string">
       <xs:length value="10"/>
-      <xs:pattern value="[a-zA-Z0-9]{10}"/>
+      <xs:pattern value="[0-9]{7}[0-9A-F]{3}"/>
     </xs:restriction>
   </xs:simpleType>
   <!--  -->
@@ -194,6 +194,31 @@
         <xs:simpleType>
           <xs:restriction base="xs:string">
             <xs:pattern value="\d{6}"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!--  -->
+  <!--  -->
+  <xs:complexType name="ctAvviso_pagoPA">
+    <xs:annotation>
+      <xs:documentation>struttura Avviso PagoPA</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="codice_identificativo_ente" minOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="99999999999"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="numero_avviso" minOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="999999999999999999"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
@@ -405,6 +430,7 @@ TEDESCO</xs:documentation>
           <xs:restriction base="xs:string"/>
         </xs:simpleType>
       </xs:element>
+      <xs:element name="avviso_pagoPA" type="ctAvviso_pagoPA" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <!--  -->
@@ -746,23 +772,25 @@ SOSTITUZIONE</xs:documentation>
             </xs:element>
             <xs:element name="tipo_pagamento">
               <xs:annotation>
-                <xs:documentation>Può assumere i valori:
-CASSA
-SEPA CREDIT TRANSFER
-ASSEGNO BANCARIO E POSTALE
-ASSEGNO CIRCOLARE
-ACCREDITO CONTO CORRENTE POSTALE
-ACCREDITO TESORERIA PROVINCIALE STATO PER TAB A
-ACCREDITO TESORERIA PROVINCIALE STATO PER TAB B
-F24EP
-VAGLIA POSTALE
-VAGLIA TESORO
-REGOLARIZZAZIONE
-REGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB A
-REGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB B
-ADDEBITO PREAUTORIZZATO DISPOSIZIONE DOCUMENTO ESTERNO
-COMPENSAZIONE
-BONIFICO ESTERO EURO</xs:documentation>
+                <xs:documentation>
+                  Può assumere i valori:
+                  CASSA
+                  SEPA CREDIT TRANSFER
+                  ASSEGNO BANCARIO E POSTALE
+                  ASSEGNO CIRCOLARE
+                  AVVISO PAGOPA
+                  ACCREDITO CONTO CORRENTE POSTALE
+                  ACCREDITO TESORERIA PROVINCIALE STATO PER TAB A
+                  ACCREDITO TESORERIA PROVINCIALE STATO PER TAB B
+                  F24EP
+                  VAGLIA POSTALE
+                  VAGLIA TESORO
+                  REGOLARIZZAZIONE
+                  REGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB A
+                  REGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB B
+                  ADDEBITO PREAUTORIZZATO DISPOSIZIONE DOCUMENTO ESTERNO
+                  COMPENSAZIONE
+                  BONIFICO ESTERO EURO</xs:documentation>
               </xs:annotation>
               <xs:simpleType>
                 <xs:restriction base="xs:string">
@@ -783,6 +811,7 @@ BONIFICO ESTERO EURO</xs:documentation>
                   <xs:enumeration value="DISPOSIZIONE DOCUMENTO ESTERNO"/>
                   <xs:enumeration value="COMPENSAZIONE"/>
                   <xs:enumeration value="BONIFICO ESTERO EURO"/>
+                  <xs:enumeration value="AVVISO PAGOPA"/>
                 </xs:restriction>
               </xs:simpleType>
             </xs:element>

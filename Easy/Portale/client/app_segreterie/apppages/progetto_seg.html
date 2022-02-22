@@ -1,0 +1,390 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabprogetto_seg_1" class="nav-link active show" data-toggle="pill" data-target="#tabprogetto_seg_1"><i class="fa fa-vials mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogetto_seg_3" class="nav-link" data-toggle="pill" data-target="#tabprogetto_seg_3"><i class="fa fa-hand-holding-usd mr-1"></i>Voci di costo o ricavo</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogetto_seg_0" class="nav-link" data-toggle="pill" data-target="#tabprogetto_seg_0"><i class="fa fa-wrench mr-1"></i>Beni strumentali</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogetto_seg_5" class="nav-link" data-toggle="pill" data-target="#tabprogetto_seg_5"><i class="fa fa-users-cog mr-1"></i>Unità di personale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogetto_seg_2" class="nav-link" data-toggle="pill" data-target="#tabprogetto_seg_2"><i class="fa fa-project-diagram mr-1"></i>Workpackage</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogetto_seg_10" class="nav-link" data-toggle="pill" data-target="#tabprogetto_seg_10"><i class="fa fa-money-check-alt mr-1"></i>Categorie di costo o ricavo</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogetto_seg_4" class="nav-link" data-toggle="pill" data-target="#tabprogetto_seg_4"><i class="fa fa-file-alt mr-1"></i>Testi</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogetto_seg_8" class="nav-link" data-toggle="pill" data-target="#tabprogetto_seg_8"><i class="fa fa-paperclip mr-1"></i>Allegati</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogetto_seg_9" class="nav-link" data-toggle="pill" data-target="#tabprogetto_seg_9"><i class="fa fa-industry mr-1"></i>Enti partner</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogetto_seg_6" class="nav-link" data-toggle="pill" data-target="#tabprogetto_seg_6"><i class="fa fa-bezier-curve mr-1"></i>Settori ERC</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogetto_seg_7" class="nav-link" data-toggle="pill" data-target="#tabprogetto_seg_7"><i class="fa fa-fast-forward mr-1"></i>Proroghe</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogetto_seg_11" class="nav-link" data-toggle="pill" data-target="#tabprogetto_seg_11"><i class="fa fa-chart-area mr-1"></i>Reporting periods</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabprogetto_seg_1" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_idprogetto">Codice interno</label>
+					<input id="progetto_seg_idprogetto" type="text" class="form-control" data-tag="progetto.idprogetto?progettosegview.idprogetto" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_idprogettostatuskind">Stato del progetto o attività</label>
+					<select id="progetto_seg_idprogettostatuskind" class="custom-select d-block w-100"  data-source-name="progettostatuskinddefaultview" data-value-member="idprogettostatuskind" data-display-member="dropdown_title" data-sort-member="sortcode" data-custom-control="combo" data-tag="progetto.idprogettostatuskind?progettosegview.progetto_idprogettostatuskind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="progetto_seg_title">Titolo</label>
+					<input id="progetto_seg_title" type="text" class="form-control" data-tag="progetto.title?progettosegview.progetto_title" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="progetto_seg_titolobreve">Titolo breve o acronimo</label>
+					<input id="progetto_seg_titolobreve" type="text" class="form-control" data-tag="progetto.titolobreve?progettosegview.titolobreve" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="progetto_seg_title_en">Titolo in inglese</label>
+					<input id="progetto_seg_title_en" type="text" class="form-control" data-tag="progetto.title_en?progettosegview.progetto_title_en" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_idreg_aziende_fin">Ente finanziatore</label>
+					<div>
+						<input id="progetto_seg_idreg_aziende_fin" name="progetto_seg_idreg_aziende_fin" type="text" data-listtype="aziende"  class="form-control" data-minchar="2" data-tag="registryaziendeview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogetto_seg_finanziatoretxt" >Qualora l'ente finanziatore non fosse censito è possibile indicarlo in questo campo solamente in fase di presentazione.</div>
+					<label class="col-form-label col-md-12" for="progetto_seg_finanziatoretxt">Ente finanziatore non censito</label>
+					<input id="progetto_seg_finanziatoretxt" type="text" class="form-control" data-tag="progetto.finanziatoretxt?progettosegview.progetto_finanziatoretxt" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_idregistryprogfin">Programma di finanziamento</label>
+					<select id="progetto_seg_idregistryprogfin" class="custom-select d-block w-100"  data-source-name="registryprogfinsegview" data-value-member="idregistryprogfin" data-display-member="dropdown_title" data-custom-control="combo" data-tag="progetto.idregistryprogfin?progettosegview.progetto_idregistryprogfin" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogetto_seg_progfinanziamentotxt" >Qualora il programma di finanziamento non fosse censito è possibile indicarlo in questo campo solamente in fase di presentazione.</div>
+					<label class="col-form-label col-md-12" for="progetto_seg_progfinanziamentotxt">Programma di riferimento non censito</label>
+					<input id="progetto_seg_progfinanziamentotxt" type="text" class="form-control" data-tag="progetto.progfinanziamentotxt?progettosegview.progetto_progfinanziamentotxt" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_idregistryprogfinbando">Bando di riferimento</label>
+					<select id="progetto_seg_idregistryprogfinbando" class="custom-select d-block w-100"  data-source-name="registryprogfinbandosegview" data-value-member="idregistryprogfinbando" data-display-member="dropdown_title" data-custom-control="combo" data-tag="progetto.idregistryprogfinbando?progettosegview.progetto_idregistryprogfinbando" data-subentity   data-master="registryprogfinsegview"> </select>
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogetto_seg_bandoriferimentotxt" >Qualora il bando di riferimento non fosse censito è possibile indicarlo in questo campo solamente in fase di presentazione.</div>
+					<label class="col-form-label col-md-12" for="progetto_seg_bandoriferimentotxt">Bando di riferimento non censito</label>
+					<input id="progetto_seg_bandoriferimentotxt" type="text" class="form-control" data-tag="progetto.bandoriferimentotxt?progettosegview.progetto_bandoriferimentotxt" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_idstrumentofin">Strumento di finanziamento</label>
+					<div>
+						<input id="progetto_seg_idstrumentofin" name="progetto_seg_idstrumentofin" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="strumentofindefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_idprogettokind">Modello di progetto</label>
+					<select id="progetto_seg_idprogettokind" class="custom-select d-block w-100"  data-source-name="progettokindsegview" data-value-member="idprogettokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="progetto.idprogettokind?progettosegview.progetto_idprogettokind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="progetto_seg_finanziamento">Riferimenti del finanziamento</label>
+					<textarea class="textarea form-control" id="progetto_seg_finanziamento" type="text"  rows="4" data-tag="progetto.finanziamento?progettosegview.progetto_finanziamento" data-subentity  ></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="progetto_seg_description">Descrizione / Abstract</label>
+					<textarea class="textarea form-control" id="progetto_seg_description" type="text"  rows="4" data-tag="progetto.description?progettosegview.progetto_description" data-subentity  ></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_cup">Codice univoco progetto (CUP)</label>
+					<input id="progetto_seg_cup" type="text" class="form-control" data-tag="progetto.cup?progettosegview.progetto_cup" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_codiceidentificativo">Codice attribuito dall'ente finanziatore</label>
+					<input id="progetto_seg_codiceidentificativo" type="text" class="form-control" data-tag="progetto.codiceidentificativo?progettosegview.progetto_codiceidentificativo" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_idreg_amm">Responsabile amministrativo</label>
+					<div>
+						<input id="progetto_seg_idreg_amm" name="progetto_seg_idreg_amm" type="text" data-listtype="amministrativi"  class="form-control" data-minchar="2" data-tag="registryamministrativiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_idreg">Principal investigator / Responsabile scientifico</label>
+					<div>
+						<input id="progetto_seg_idreg" name="progetto_seg_idreg" type="text" data-listtype="docenti"  class="form-control" data-minchar="2" data-tag="registrydocentiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_idreg_aziende">Ente capofila</label>
+					<div>
+						<input id="progetto_seg_idreg_aziende" name="progetto_seg_idreg_aziende" type="text" data-listtype="aziende"  class="form-control" data-minchar="2" data-tag="registryaziendeview_alias1.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogetto_seg_capofilatxt" >Qualora l'ente capofila non fosse censito è possibile indicarlo in questo campo solamente in fase di presentazione.</div>
+					<label class="col-form-label col-md-12" for="progetto_seg_capofilatxt">Ente capofila non censito</label>
+					<input id="progetto_seg_capofilatxt" type="text" class="form-control" data-tag="progetto.capofilatxt?progettosegview.progetto_capofilatxt" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="progetto_seg_idpartnerkind">Ruolo dell'ateneo</label>
+					<select id="progetto_seg_idpartnerkind" class="custom-select d-block w-100"  data-source-name="partnerkinddefaultview" data-value-member="idpartnerkind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="progetto.idpartnerkind?progettosegview.progetto_idpartnerkind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#progetto_seg_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="progetto_seg_start">Data di inizio</label>
+					<input id="progetto_seg_start" type="text" class="form-control" data-tag="progetto.start?progettosegview.progetto_start" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#progetto_seg_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="progetto_seg_stop">Data di fine</label>
+					<input id="progetto_seg_stop" type="text" class="form-control" data-tag="progetto.stop?progettosegview.progetto_stop" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+<script>
+  $( function () {
+    $("#progetto_seg_datacontabile").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="progetto_seg_datacontabile">Data chiusura contablile</label>
+					<input id="progetto_seg_datacontabile" type="text" class="form-control" data-tag="progetto.datacontabile?progettosegview.progetto_datacontabile" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_durata">Durata</label>
+					<input id="progetto_seg_durata" type="text" class="form-control" data-tag="progetto.durata?progettosegview.progetto_durata" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_idduratakind">Espressa in</label>
+					<select id="progetto_seg_idduratakind" class="custom-select d-block w-100"  data-source-name="duratakinddefaultview" data-value-member="idduratakind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="progetto.idduratakind?progettosegview.progetto_idduratakind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_contributoenterichiesto">Contributo totale richiesto dall'ateneo all’ente finanziatore</label>
+					<input id="progetto_seg_contributoenterichiesto" type="text" class="form-control" data-tag="progetto.contributoenterichiesto.fixed.2?progettosegview.progetto_contributoenterichiesto" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_contributorichiesto">Cofinanziamento richiesto all'ateneo</label>
+					<input id="progetto_seg_contributorichiesto" type="text" class="form-control" data-tag="progetto.contributorichiesto.fixed.2?progettosegview.progetto_contributorichiesto" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogetto_seg_totalbudget" >Costo complessivo preventivato per tutti gli istituti e enti coinvolti.</div>
+					<label class="col-form-label col-md-12" for="progetto_seg_totalbudget">Costo totale del progetto per tutto il partenariato</label>
+					<input id="progetto_seg_totalbudget" type="text" class="form-control" data-tag="progetto.totalbudget.fixed.2?progettosegview.progetto_totalbudget" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogetto_seg_budget" >Contributo totale richiesto dall'ateneo all'ente finanziatore e cofinanziamento richiesto all'ateneo</div>
+					<label class="col-form-label col-md-12" for="progetto_seg_budget">Costo totale per l'ateneo</label>
+					<input id="progetto_seg_budget" type="text" class="form-control" data-tag="progetto.budget.fixed.2?progettosegview.progetto_budget" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_contributoente">Contributo totale ottenuto per l'ateneo dall’ente finanziatore</label>
+					<input id="progetto_seg_contributoente" type="text" class="form-control" data-tag="progetto.contributoente.fixed.2?progettosegview.progetto_contributoente" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_contributo">Cofinanziamento ottenuto dall'ateneo</label>
+					<input id="progetto_seg_contributo" type="text" class="form-control" data-tag="progetto.contributo.fixed.2?progettosegview.progetto_contributo" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogetto_seg_budgetcalcolato" >Somma dei costi inseriti a sistema</div>
+					<label class="col-form-label col-md-12" for="progetto_seg_budgetcalcolato">Costo totale effettivo per l'ateneo</label>
+					<input id="progetto_seg_budgetcalcolato" type="text" class="form-control" data-tag="progetto.budgetcalcolato.fixed.2?progettosegview.progetto_budgetcalcolato" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#progetto_seg_budgetcalcolatodate").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="progetto_seg_budgetcalcolatodate">Calcolato il</label>
+					<input id="progetto_seg_budgetcalcolatodate" type="text" class="form-control" data-tag="progetto.budgetcalcolatodate.g?progettosegview.progetto_budgetcalcolatodate.g" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_idcurrency">Codice valuta</label>
+					<div>
+						<input id="progetto_seg_idcurrency" name="progetto_seg_idcurrency" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="currency.codecurrency" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogetto_seg_idcorsostudio" >Indicare se l'attività riguarda l'erogazione di una didattica come ad esempio un master, ecc.</div>
+					<label class="col-form-label col-md-12" for="progetto_seg_idcorsostudio">Didattica</label>
+					<div>
+						<input id="progetto_seg_idcorsostudio" name="progetto_seg_idcorsostudio" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="corsostudiodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="progetto_seg_url">URL del sito del progetto</label>
+					<input id="progetto_seg_url" type="text" class="form-control" data-tag="progetto.url?progettosegview.progetto_url" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogetto_default_XXprogettofinanziamento" >Rimodulazioni del finanziamento</div>
+				<div class="gridx" id="grid_progettofinanziamento_default" data-tag="progettofinanziamento.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				</div>
+			</div>
+ <button id="GenerateDetail" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-cogs mr-1" ></i>Genera i dettagli in base al modello/template
+    </button>
+ <button id="CalculateAmmortamento" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-cogs mr-1" ></i>Calcola il costo per l'ammortamento dei beni strumentali
+    </button>
+ <button id="CalculateCostiProgetto" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-cogs mr-1" ></i>Calcola i costi di progetto
+    </button>
+ <button id="GenerateCategorieCosto" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-cogs mr-1" ></i>Aggiorna categorie di costo
+    </button>
+ <button id="XXsal" type="button" class="btn btn-primary p-2 mt-2" data-tag="manage.sal.default">
+        <i class="fa fa-calendar-check mr-1" ></i>Stato avanzamento lavori
+    </button>
+ <button id="XXprogettocosto" type="button" class="btn btn-primary p-2 mt-2" data-tag="manage.progettocosto.segprg">
+        <i class="fa fa-money-check-alt mr-1" ></i>Dettaglio dei costi
+    </button>
+	</div>
+	<div class="tab-pane fade" id="tabprogetto_seg_3" role="tabpanel">
+				<div class="gridx" id="grid_progettotipocosto_seg" data-tag="progettotipocosto.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabprogetto_seg_0" role="tabpanel">
+ <button id="GetAsset" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-cogs mr-1" ></i>Associa i cespiti
+    </button>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_filtraAsset">Filtro per la ricerca dei cespiti</label>
+					<input id="progetto_seg_filtraAsset" type="text" class="form-control" data-tag="progetto.!filtraAsset?progettosegview.!filtraAsset" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogetto_seg_altreupb" >Se abilitato consente di inserire anche cespiti acquisiti su UPB che non fanno parte del progetto.</div>
+					<label class="col-form-label col-md-12" for="progetto_seg_altreupb">Cerca anche cespiti di altre UPB </label>
+					<input id="progetto_seg_altreupb" type="checkbox" class="custom-control-input big-checkbox" data-tag="progetto.!altreupb:S:N?progettosegview.!altreupb:Si:No" data-subentity />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogetto_default_XXprogettoasset" >Beni strumentali</div>
+				<div class="gridx" id="grid_progettoasset_default" data-tag="progettoasset.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="aggiunta,A,Aggiuntivo;aggiunta,S,Sostitutivo;aggiunta,," ></div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabprogetto_seg_5" role="tabpanel">
+				<div class="gridx" id="grid_progettoudr_seg" data-tag="progettoudr.seg.seg" data-custom-control="gridx" data-mdlaggregatecolumns="budget;impegnototale;impegnototaleore;!budgetore"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabprogetto_seg_2" role="tabpanel">
+				<div class="gridx" id="grid_workpackage_seg" data-tag="workpackage.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabprogetto_seg_10" role="tabpanel">
+				<div class="gridx" id="grid_progettobudget_seg" data-tag="progettobudget.seg.seg" data-custom-control="gridx" data-mdlgroupedcolumns="!idworkpackage_workpackage_raggruppamento;!idworkpackage_workpackage_title" data-mdltotnotvisible data-mdlaggregatecolumns="budget;!budgetvariazione;!ricaviincassati;!spese"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabprogetto_seg_4" role="tabpanel">
+				<div class="gridx" id="grid_progettotesto_seg" data-tag="progettotesto.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabprogetto_seg_8" role="tabpanel">
+				<div class="gridx" id="grid_progettoattach_seg" data-tag="progettoattach.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabprogetto_seg_9" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_progettoregistry_aziende_idreg_aziende" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_progettoregistry_aziende_idreg_aziende" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Enti partner
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_progettoregistry_aziende_seg" data-tag="progettoregistry_aziende.seg.seg" data-custom-control="gridx" data-mdlbuttondelete data-mdlbuttonedit   ></div>
+	</div>
+	<div class="tab-pane fade" id="tabprogetto_seg_6" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_progettosettoreerc_idsettoreerc" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_progettosettoreerc_idsettoreerc" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Settori ERC
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_progettosettoreerc_seg" data-tag="progettosettoreerc.seg.seg" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+	</div>
+	<div class="tab-pane fade" id="tabprogetto_seg_7" role="tabpanel">
+				<div class="gridx" id="grid_progettoproroga_seg" data-tag="progettoproroga.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabprogetto_seg_11" role="tabpanel">
+				<div class="gridx" id="grid_progettorp_default" data-tag="progettorp.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="datefilter,C,Data contabile;datefilter,L,Data liquidazione;datefilter,M,Data mandato;datefilter,T,Data trasmissione;datefilter,Q,Data quietanza;" ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

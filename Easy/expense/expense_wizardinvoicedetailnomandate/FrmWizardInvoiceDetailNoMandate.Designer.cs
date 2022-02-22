@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 namespace expense_wizardinvoicedetailnomandate
 {
@@ -53,8 +52,6 @@ namespace expense_wizardinvoicedetailnomandate
             this.btnBack = new System.Windows.Forms.Button();
             this.tabControl1 = new Crownwood.Magic.Controls.TabControl();
             this.tabController = new Crownwood.Magic.Controls.TabControl();
-            this.tabIntro = new Crownwood.Magic.Controls.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
             this.tabSetDetail = new Crownwood.Magic.Controls.TabPage();
             this.chk_Enable_Split_Payment = new System.Windows.Forms.CheckBox();
             this.cmbTipoFattura = new System.Windows.Forms.ComboBox();
@@ -143,7 +140,6 @@ namespace expense_wizardinvoicedetailnomandate
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.tabController.SuspendLayout();
-            this.tabIntro.SuspendLayout();
             this.tabSetDetail.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridDetails)).BeginInit();
@@ -180,7 +176,7 @@ namespace expense_wizardinvoicedetailnomandate
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 19;
             this.btnCancel.Tag = "maincancel";
-            this.btnCancel.Text = "Cancel";
+            this.btnCancel.Text = "Annulla";
             // 
             // btnNext
             // 
@@ -221,36 +217,11 @@ namespace expense_wizardinvoicedetailnomandate
             this.tabController.Size = new System.Drawing.Size(830, 508);
             this.tabController.TabIndex = 20;
             this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
-            this.tabIntro,
             this.tabSetDetail,
             this.tabSplit,
             this.tabSelMov,
             this.tabConfirm});
             this.tabController.SelectionChanged += new System.EventHandler(this.tabController_SelectionChanged);
-            // 
-            // tabIntro
-            // 
-            this.tabIntro.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabIntro.Controls.Add(this.label1);
-            this.tabIntro.Location = new System.Drawing.Point(0, 0);
-            this.tabIntro.Name = "tabIntro";
-            this.tabIntro.Selected = false;
-            this.tabIntro.Size = new System.Drawing.Size(830, 483);
-            this.tabIntro.TabIndex = 3;
-            this.tabIntro.Title = "Pagina 1 di 5";
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(723, 105);
-            this.label1.TabIndex = 0;
-            this.label1.Text = resources.GetString("label1.Text");
             // 
             // tabSetDetail
             // 
@@ -279,7 +250,7 @@ namespace expense_wizardinvoicedetailnomandate
             this.tabSetDetail.Selected = false;
             this.tabSetDetail.Size = new System.Drawing.Size(830, 483);
             this.tabSetDetail.TabIndex = 4;
-            this.tabSetDetail.Title = "Pagina 2 di 5";
+            this.tabSetDetail.Title = "Pagina 1 di 4";
             // 
             // chk_Enable_Split_Payment
             // 
@@ -534,7 +505,7 @@ namespace expense_wizardinvoicedetailnomandate
             this.tabSplit.Selected = false;
             this.tabSplit.Size = new System.Drawing.Size(830, 483);
             this.tabSplit.TabIndex = 7;
-            this.tabSplit.Title = "Pagina 3 di 5";
+            this.tabSplit.Title = "Pagina 2 di 4";
             // 
             // groupBox3
             // 
@@ -663,7 +634,7 @@ namespace expense_wizardinvoicedetailnomandate
             this.tabSelMov.Selected = false;
             this.tabSelMov.Size = new System.Drawing.Size(830, 483);
             this.tabSelMov.TabIndex = 5;
-            this.tabSelMov.Title = "Pagina 4 di 5";
+            this.tabSelMov.Title = "Pagina 3 di 4";
             // 
             // gboxSelMov
             // 
@@ -1054,7 +1025,7 @@ namespace expense_wizardinvoicedetailnomandate
             this.tabConfirm.Name = "tabConfirm";
             this.tabConfirm.Size = new System.Drawing.Size(830, 483);
             this.tabConfirm.TabIndex = 6;
-            this.tabConfirm.Title = "Pagina 5 di 5";
+            this.tabConfirm.Title = "Pagina 4 di 4";
             // 
             // chkAutomRecuperi
             // 
@@ -1195,8 +1166,6 @@ namespace expense_wizardinvoicedetailnomandate
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmWizardInvoiceDetailNoMandate_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
             this.tabController.ResumeLayout(false);
-            this.tabIntro.ResumeLayout(false);
-            this.tabIntro.PerformLayout();
             this.tabSetDetail.ResumeLayout(false);
             this.tabSetDetail.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -1277,8 +1246,6 @@ namespace expense_wizardinvoicedetailnomandate
         private System.Windows.Forms.RadioButton radioNewCont;
         private System.Windows.Forms.RadioButton radioAddCont;
         private System.Windows.Forms.Label labelMessage;
-        private Crownwood.Magic.Controls.TabPage tabIntro;
-        private System.Windows.Forms.Label label1;
         private Crownwood.Magic.Controls.TabPage tabSetDetail;
         private System.Windows.Forms.ComboBox cmbTipoFattura;
         private System.Windows.Forms.TextBox txtDescrFattura;
@@ -1331,4 +1298,4 @@ namespace expense_wizardinvoicedetailnomandate
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupBox4;
     }
-}
+}

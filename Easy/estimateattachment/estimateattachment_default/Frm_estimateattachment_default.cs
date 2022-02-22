@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,13 +26,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using metadatalibrary;
 using System.IO;
+using funzioni_configurazione;
 
 namespace estimateattachment_default {
-    public partial class Frm_estimateattachment_default : Form {
+    public partial class Frm_estimateattachment_default : MetaDataForm {
         MetaData Meta;
+        public IOpenFileDialog openFileDialog1;
+
         public Frm_estimateattachment_default() {
             InitializeComponent();
+            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
         }
+
         public void MetaData_AfterLink() {
             Meta = MetaData.GetMetaData(this);
         }
@@ -57,6 +61,14 @@ namespace estimateattachment_default {
                 QueryCreator.ShowException(E);
                 return;
             }
+
+            string estensione = Path.GetExtension(openFileDialog1.FileName);
+
+			if (CfgFn.ExtensionDenied(estensione)) {
+				show("Impossibile caricare questo tipo di file");
+				return;
+			}
+
             FileStream FS;
             try {
                 FS = new FileStream(openFileDialog1.FileName, FileMode.Open, FileAccess.Read);
@@ -95,7 +107,7 @@ namespace estimateattachment_default {
                 catch { }
             }
 
-            //sw Ã¨ il nome del file temporaneo che hai creato
+            //sw è il nome del file temporaneo che hai creato
             DateTime oggi_dt = DateTime.Now;
             string oggi = oggi_dt.Ticks.ToString();
             DataRow Curr = DS.estimateattachment.Rows[0];
@@ -106,11 +118,23 @@ namespace estimateattachment_default {
             string fname = Curr["filename"].ToString();
             string estensione = Path.GetExtension(fname).Trim();
 
+            bool extensionDenied = CfgFn.ExtensionDenied(estensione);
+
+			if (extensionDenied) {
+				show("Impossibile aprire questo tipo di file");
+				return;
+			}
+			if (!CfgFn.ExtensionAllowed(estensione)) {
+				DialogResult dr = show("Si sta aprendo un file con estensione " + estensione +". Sei sicuro di voler aprire questo file?", "Attenzione!", MessageBoxButtons.YesNo);
+				if (dr == DialogResult.No) 
+					return;
+			}
+
             string sw = Path.Combine(FilePath, prefix + oggi.ToString() + estensione);
             try {
                 ScriviFile(sw, ByteArray, offset);
 
-                System.Diagnostics.Process.Start(sw);
+                runProcess(sw, true);
             }
             catch (Exception E) {
                 QueryCreator.ShowException(E);
@@ -134,4 +158,3 @@ namespace estimateattachment_default {
         }
     }
 }
-

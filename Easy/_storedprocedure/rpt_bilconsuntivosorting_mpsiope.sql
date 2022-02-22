@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilconsuntivosorting_mpsiope]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_bilconsuntivosorting_mpsiope]
 GO
@@ -7,13 +24,13 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
---setuser 'amm'
+--setuser 'amministrazione'
 --exec rpt_bilconsuntivosorting_mpsiope 2017, {ts '2017-12-31 00:00:00'}, 23, 47, '000100020001', 'N', 'N', NULL, NULL, NULL, NULL, NULL
 ---exec rpt_bilconsuntivosorting_mpsiope 2018, {ts '2018-01-19 00:00:00'}, 70, 47, '%', 'S', 'S', NULL, NULL, NULL, NULL, NULL
 
 CREATE  PROCEDURE [rpt_bilconsuntivosorting_mpsiope]
 	@ayear			int,
-	@date datetime,
+	@date datetime,   --- deve essere sempre pari alla data corrente, per un problema di storicizzazione delle classificazioni sui movimenti finanziari
 	@idsorkind_siope int, --> Classificazione Siope 
 	@idsorkind_missprog	int, --> Classificazione Missioni Programmi
 
@@ -62,7 +79,7 @@ CREATE TABLE #situation
 	idsor_siope int,
 	/*idfin			int,
 	nlevel			tinyint,*/
-	pagamenti decimal(19,2)
+	pagamenti decimal(19,6)
 )
 
 IF @ayear IS NULL 
@@ -83,7 +100,21 @@ SELECT  @levelusable = MIN(nlevel)
 FROM 	finlevel
 WHERE 	ayear =@ayear and (flag&2)<>0
 */
+CREATE TABLE #myhistorypaymentview(
+	idexp int,
+	idupb 			varchar(36),
+	amount			decimal(19,6)
+)
 
+insert into #myhistorypaymentview(idexp, idupb, amount)
+select 
+	HPV.idexp, HPV.idupb, sum(amount)
+from historypaymentview HPV
+where (HPV.ymov = @ayear)
+		AND HPV.competencydate <= @date
+		AND (HPV.idupb LIKE @idupb)
+		AND HPV.amount <> 0
+group by HPV.idexp, HPV.idupb
 
 -- Legge le previsioni e le moltiplica per la quota della Classificazione Missione e Programmi
 	INSERT INTO #situation(
@@ -99,7 +130,7 @@ WHERE 	ayear =@ayear and (flag&2)<>0
 		US.idsor,
 		SortSiope.idsor,
 		ISNULL(SUM(HPV.amount*ISNULL(US.quota,0)*ISNULL( SorExp.amount/HPV.amount ,0)),0)
-	FROM historypaymentview HPV
+	FROM #myhistorypaymentview HPV
 	JOIN upbsorting US						on US.idupb = HPV.idupb
 	join sorting SortUpb					ON SortUpb.idsor = US.idsor	
 	JOIN expenselast ELAST					on ELAST.idexp = HPV.idexp
@@ -109,9 +140,8 @@ WHERE 	ayear =@ayear and (flag&2)<>0
 	--JOIN fin F
 		--ON HPV.idfin = F.idfin
 	WHERE /*((F.flag & 1)= @finpart_bit) 
-		AND */(HPV.ymov = @ayear)
-		AND HPV.competencydate <= @date
-		AND (U.idupb LIKE @idupb)
+		AND */
+		 (U.idupb LIKE @idupb)
 		and SortUpb.idsorkind = @idsorkind_MissProg
 		AND SortSiope.idsorkind = @idsorkind_siope
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)
@@ -122,8 +152,7 @@ WHERE 	ayear =@ayear and (flag&2)<>0
 		AND HPV.amount <> 0
 	GROUP BY  U.idupb, US.idsor, SortSiope.idsor/*,F.idfin, F.nlevel*/
 
-DECLARE @cashvaliditykind int
-SELECT  @cashvaliditykind = cashvaliditykind FROM config WHERE ayear = @ayear
+ 
 
 
 declare	@Sorkind	varchar(50)--> Classificazione Missioni Programmi
@@ -151,7 +180,7 @@ BEGIN
 
 		S2.sortcode as code_siope,
 		S2.description as sorting_siope,
-		isnull(sum(pagamenti),0) as pagamenti,
+		round(isnull(sum(pagamenti),0) ,2)as pagamenti,
 		@sorkind_siope as sorkind_siope,
 		@sorkind_missprog as sorkind_missprog
  	FROM #situation 
@@ -216,7 +245,7 @@ BEGIN
 
 		S2.sortcode as code_siope,
 		S2.description as sorting_siope,
-		isnull(sum(pagamenti),0) as pagamenti,
+		round(isnull(sum(pagamenti),0),2) as pagamenti,
 		@sorkind_siope as sorkind_siope,
 		@sorkind_missprog as sorkind_missprog
  	FROM #situation 

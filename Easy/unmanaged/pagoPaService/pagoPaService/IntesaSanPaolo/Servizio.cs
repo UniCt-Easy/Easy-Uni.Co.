@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Security;
@@ -384,7 +383,7 @@ namespace IntesaSanPaolo {
             this.identificativoBU = identificativoBU;
 
             if (pagamento != null) {
-                XmlWriterSettings settings = new XmlWriterSettings() { Indent = true, OmitXmlDeclaration = true };
+                XmlWriterSettings settings = new XmlWriterSettings() { Indent = true, OmitXmlDeclaration = false };
                 DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000003_pdpCaricaPagamentoInAttesa),
                         "param", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
 
@@ -474,6 +473,28 @@ namespace IntesaSanPaolo {
             this.param = param;
         }
 
+        public pdpRecuperaRTBody(string identificativoDominio, string identificativoBU, string iuv, string ccp)
+        {
+            this.identificativoDominio = identificativoDominio;
+            this.identificativoBU = identificativoBU;
+            var filtro = new InfoGroup.ct0000000016_pdpRecuperaRTType()
+            {
+                identificativoUnivocoVersamento = iuv,
+                codiceContestoPagamento = ccp
+            };
+
+            XmlWriterSettings settings = new XmlWriterSettings() { Indent = true, OmitXmlDeclaration = false };
+            DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000016_pdpRecuperaRTType),
+                "param", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                serializer.WriteObject(stream, filtro);
+
+                this.param = stream.ToArray();
+            }
+        }
+
     }
 
     [MessageContract(IsWrapped = false)]
@@ -502,6 +523,23 @@ namespace IntesaSanPaolo {
             this.pdpRecuperaRTResult = pdpRecuperaRTResult;
         }
 
+        public InfoGroup.ct0000000016_pdpRecuperaRTResult Result
+        {
+            get
+            {
+                if (pdpRecuperaRTResult == null || pdpRecuperaRTResult.param == null) return null;
+
+                var serializer = new DataContractSerializer(typeof(EasyBridge.pdpRecuperaRTResult));
+
+                object obj;
+                using (var stream = new MemoryStream(pdpRecuperaRTResult.param))
+                {
+                    obj = serializer.ReadObject(stream);
+                }
+
+                return obj as InfoGroup.ct0000000016_pdpRecuperaRTResult;
+            }
+        }
     }
 
     [MessageContract(IsWrapped = false)]
@@ -537,60 +575,21 @@ namespace IntesaSanPaolo {
             this.identificativoBU = identificativoBU;
             this.param = param;
         }
-        public pdpEsitiRTBody(string identificativoDominio, string identificativoBU, string identificativoServizio,
-            DateTime inizio, DateTime fine, string idoperazione= "RTPOSITIVE", string iuv=null, string cf=null) {
+
+        public pdpEsitiRTBody(string identificativoDominio, string identificativoBU, string identificativoServizio, DateTime inizio, DateTime fine, string idoperazione= "RTPOSITIVE", string iuv=null, string cf=null) {
             this.identificativoDominio = identificativoDominio;
             this.identificativoBU = identificativoBU;
             var filtro = new InfoGroup.ct0000000006_pdpEsitiRTType() {
-                identificativoServizio = identificativoServizio,
+                idServizio = identificativoServizio,
                 idOperazione = idoperazione, // default: solo RT incassate
-                 IUV = iuv,
-                CF = cf
-
-            };
-            if (iuv != null) {
-                filtro = new InfoGroup.ct0000000006_pdpEsitiRTType() {
-                    identificativoServizio = identificativoServizio,
-                    idOperazione = idoperazione, // default: solo RT incassate
-                    dataInizio = inizio,
-                    dataFine = fine,
-                    IUV = iuv
-                };
-            }
-
-            //qui
-            //DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000006_pdpEsitiRTType));
-
-            XmlWriterSettings settings = new XmlWriterSettings() { Indent = true, OmitXmlDeclaration = true };
-            DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000006_pdpEsitiRTType),
-                "param", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
-
-            using (MemoryStream stream = new MemoryStream()) {
-                serializer.WriteObject(stream, filtro);
-
-                this.param = stream.ToArray();
-            }
-        }
-
-        public pdpEsitiRTBody(string identificativoDominio, string identificativoBU, string identificativoServizio,
-            DateTime inizio, DateTime fine) {
-            this.identificativoDominio = identificativoDominio;
-            this.identificativoBU = identificativoBU;
-
-            var filtro = new InfoGroup.ct0000000006_pdpEsitiRTType() {
-                identificativoServizio = identificativoServizio,
-                idOperazione = "RTPOSITIVE", // default: solo RT incassate
                 dataInizio = inizio,
                 dataFine = fine,
-                               
+                identificativoUnivocoVersamento = iuv,
+                CF = cf
             };
-
-            //qui
-            //DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000006_pdpEsitiRTType));
-
-            XmlWriterSettings settings = new XmlWriterSettings() { Indent = true, OmitXmlDeclaration = true };
-            DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000006_pdpEsitiRTType),
-                    "param", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
+            
+            XmlWriterSettings settings = new XmlWriterSettings() { Indent = true, OmitXmlDeclaration = false };
+            DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000006_pdpEsitiRTType), "param", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
 
             using (MemoryStream stream = new MemoryStream()) {
                 serializer.WriteObject(stream, filtro);
@@ -603,25 +602,22 @@ namespace IntesaSanPaolo {
             this.identificativoDominio = identificativoDominio;
             this.identificativoBU = identificativoBU;
 
-            var filtro = new InfoGroup.ct0000000006_pdpEsitiRTType() { 
-                identificativoServizio = identificativoServizio,
-                idOperazione = "RTPOSITIVE", // default: solo RT incassate                
-                IUV = iuv
+            var filtro = new InfoGroup.ct0000000006_pdpEsitiRTType() {
+                idServizio = identificativoServizio,
+                idOperazione = "RICHIESTERT",
+                dataInizio = null,
+                dataFine = null,
+                identificativoUnivocoVersamento = iuv
             };
-            //qui
-            //DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000006_pdpEsitiRTType));
-
-            XmlWriterSettings settings = new XmlWriterSettings() { Indent = true, OmitXmlDeclaration = true };
-            DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000006_pdpEsitiRTType),
-                    "param", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
+            
+            XmlWriterSettings settings = new XmlWriterSettings() { Indent = true, OmitXmlDeclaration = false };
+            DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000006_pdpEsitiRTType), "param", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
 
             using (MemoryStream stream = new MemoryStream()) {
                 serializer.WriteObject(stream, filtro);
-
                 this.param = stream.ToArray();
             }
         }
-
     }
 
     [MessageContract(IsWrapped = false)]
@@ -739,7 +735,7 @@ namespace IntesaSanPaolo {
             this.identificativoBU = identificativoBU;
 
             if (datiPagamento != null) {
-                XmlWriterSettings settings = new XmlWriterSettings() { Indent = true, OmitXmlDeclaration = true };
+                XmlWriterSettings settings = new XmlWriterSettings() { Indent = true, OmitXmlDeclaration = false };
                 DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000027_pdpAttivaRpt),
                        "param", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
 
@@ -1460,4 +1456,4 @@ namespace IntesaSanPaolo {
     }
 
 
-}
+}
