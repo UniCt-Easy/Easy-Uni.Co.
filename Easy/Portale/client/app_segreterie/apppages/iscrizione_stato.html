@@ -1,0 +1,33 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="iscrizione_stato_aa">Anno accademico</label>
+					<select id="iscrizione_stato_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="iscrizione.aa?iscrizionestatoview.aa" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#iscrizione_stato_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="iscrizione_stato_data">Data</label>
+					<input id="iscrizione_stato_data" type="text" class="form-control" data-tag="iscrizione.data.g?iscrizionestatoview.iscrizione_data.g" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="iscrizione_stato_idreg">Studente</label>
+					<div>
+						<input id="iscrizione_stato_idreg" name="iscrizione_stato_idreg" type="text" data-listtype="studenti"  class="form-control" data-minchar="2" data-tag="registrystudentiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

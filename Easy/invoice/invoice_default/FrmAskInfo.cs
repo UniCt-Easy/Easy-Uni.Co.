@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -29,7 +28,7 @@ namespace invoice_default {
 	/// <summary>
 	/// Summary description for FrmAskInfo.
 	/// </summary>
-    public class FrmAskInfo : System.Windows.Forms.Form {
+    public class FrmAskInfo : MetaDataForm {
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox txtCodiceCausale;
 		private System.Windows.Forms.Button btnCausale;
@@ -75,7 +74,7 @@ namespace invoice_default {
         }
 
 
-		public FrmAskInfo(MetaData Meta,object idacc, object idupb, string filtroEP) {
+		public FrmAskInfo(MetaData Meta,object idacc, object idupb, string filtroEP, bool usaScritture) {
 			InitializeComponent();
 
             this.Meta = Meta;
@@ -106,8 +105,8 @@ namespace invoice_default {
                 selAccmotive.SetValue(idacc);
                 EnableAccmotiveSelection(false);
             }
-            else {
-                EnableAccmotiveSelection(true);
+            else {                
+                EnableAccmotiveSelection(usaScritture);
                 btnCausale.Click +=new EventHandler(btnCausale_Click);
             }
 		}
@@ -333,7 +332,7 @@ namespace invoice_default {
 			if (e.Cancel==true) return;
 			if (DialogResult == DialogResult.Cancel) return;
             if (selAccmotive.GetValue()==DBNull.Value){
-                DialogResult dr = MessageBox.Show(this, "Non è stata inserita la causale; si vuole proseguire ugualmente?", "Avviso", MessageBoxButtons.YesNo);
+                DialogResult dr = show(this, "Non è stata inserita la causale; si vuole proseguire ugualmente?", "Avviso", MessageBoxButtons.YesNo);
                 if (dr == DialogResult.No) {
                     txtCodiceCausale.Focus();
                     e.Cancel = true;
@@ -346,4 +345,4 @@ namespace invoice_default {
             this.ActiveControl = null;
         }
     }
-}
+}

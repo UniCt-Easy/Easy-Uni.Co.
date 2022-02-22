@@ -1,0 +1,53 @@
+﻿<h3>Metodo di pagamento</h3>
+<ul class="nav nav-tabs">
+	<li class="nav-item">
+		<a href="" class="nav-link active show" data-toggle="pill" data-target="#tab1"><i class="fa fa-user mr-1"></i>Generale</a>
+	</li>
+	<li class="nav-item">
+		<a href="" class="nav-link" data-toggle="pill" data-target="#tab2"><i class="fa fa-euro-sign mr-1"></i>Note</a>
+	</li>
+	<li class="nav-item">
+		<a href="" class="nav-link" data-toggle="pill" data-target="#tab3"><i class="fa fa-home mr-1"></i>Certificati</a>
+	</li>
+</ul>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tab1" role="tabpanel">
+		<form class="needs-validation" novalidate>
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label for="idreg">#</label>
+					<input id="idreg" type="text" class="form-control" data-tag="registrypaymethod.idregistrypaymethod" />
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="paymentdescr">Note per il tesoriere</label>
+					<input id="paymentdescr" type="text" class="form-control" data-tag="registrypaymethod.paymentdescr" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label for="regmodcode">Nome modalità</label>
+					<input id="regmodcode" type="text" class="form-control" data-tag="registrypaymethod.regmodcode" />
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="idpaymethod">Tipo modalità</label>
+					<select id="idpaymethod" class="custom-select d-block w-100" data-tag="registrypaymethod.idpaymethod" data-source-name="paymethod" data-value-member="idpaymethod" data-display-member="description" data-custom-control="combo"></select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label for="chkPredefinita">Predefinito</label>
+					<input id="chkPredefinita" type="checkbox" class="form-control" data-tag="registrypaymethod.flagstandard:S:N" />
+				</div>
+			</div>
+		</form>
+	</div>
+
+
+	<div class="tab-pane fade" id="tab2" role="tabpanel">
+		2
+	</div>
+
+	<div class="tab-pane fade" id="tab3" role="tabpanel">
+		3
+	</div>
+</div>

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -34,14 +33,15 @@ using System.Threading;
 
 namespace no_table_f24ep {
     
-    public partial class Frmf24ep : Form {
+    public partial class Frmf24ep : MetaDataForm {
 
         CQueryHelper QHC;
         QueryHelper QHS;
         MetaData Meta;
         DataAccess Conn;
         CultureInfo cultureInfo = CultureInfo.GetCultureInfo(0x0410);
-   
+        public IOpenFileDialog openInputFileDlg;
+
         public Frmf24ep() {
             InitializeComponent();
             string dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "f24ep/prog/temp");
@@ -49,6 +49,7 @@ namespace no_table_f24ep {
             {
                 saveOutputFileDlg.InitialDirectory = dir;
             }
+            openInputFileDlg = createOpenFileDialog(_openInputFileDlg);
         }
 
         public void MetaData_AfterLink() {
@@ -80,6 +81,7 @@ namespace no_table_f24ep {
             txtDataDiVersamento.Text = ((DateTime)Meta.GetSys("datacontabile")).ToShortDateString();
             addColumnDati(mData);
             fillTributi(tributi);
+            btnFileInput.ContextMenu = CMenu;
         }
 
 
@@ -96,11 +98,7 @@ namespace no_table_f24ep {
 
         private void fillTributi(DataTable T)
         {
-            /*
-            ('S','384E','CCCC','00MM','AAAA') -- Addizionale comunale Irpef trattenuta dai sostituti d’imposta -saldo  
-            ('S','385E','CCCC','00MM','AAAA') -- Addizionale comunale Irpef trattenuta dai sostituti d’imposta- acconto 
-            ('R','381E',  'RR','00MM','AAAA') -- Addizionale regionale Irpef trattenuta dai sostituti d’imposta  
-            */
+           
             T.Columns.Add("tiporiga", typeof(string));
             T.Columns.Add("cod_tributo", typeof(string));
             T.Columns.Add("tipoente", typeof(string));
@@ -147,12 +145,246 @@ namespace no_table_f24ep {
             dr["tipoente"] = "RR";
             dr["rifA"] = "00MM";
             dr["rifB"] = "AAAA";
-            T.Rows.Add(dr);
-        }
+			T.Rows.Add(dr);
 
-      
+			////////////////////////////////////////////////////////////////
 
-        private void btnFileInput_Click(object sender, EventArgs e)
+			dr = T.NewRow(); // SOMME A TITOLO DI  ADDIZIONALE REGIONALE  ALL'IRPEF RIMBORSATE DAL SOSTITUTO D'IMPOSTA A SEGUITO DI ASSISTENZA FISCALE
+			dr["tiporiga"] = "R";
+			dr["cod_tributo"] = "153E";
+			dr["tipoente"] = "RR";
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); // ECCEDENZA DI  VERSAMENTI DI  ADDIZIONALE REGIONALE  ALL'IRPEF TRATTENUTA  DAL SOSTITUTO D'IMPOSTA
+			dr["tiporiga"] = "R";
+			dr["cod_tributo"] = "160E";
+			dr["tipoente"] = "RR";
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); // ADDIZIONALE REGIONALE   ALL'IRPEF TRATTENUTA   DAL SOSTITUTO D'IMPOSTA   A SEGUITO DI ASSISTENZA   FISCALE
+			dr["tiporiga"] = "R";
+			dr["cod_tributo"] = "126E";
+			dr["tipoente"] = "RR";
+			dr["rifA"] = "00MM";
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); // SOMME A TITOLO DI    ADDIZIONALE COMUNALE  ALL'IRPEF RIMBORSATE  DAL SOSTITUTO D'IMPOSTA   A SEGUITO DI ASSISTENZA FISCALE
+			dr["tiporiga"] = "S";
+			dr["cod_tributo"] = "154E";
+			dr["tipoente"] = "CCCC";
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow();  // ECCEDENZA DI  VERSAMENTI DI   ADDIZIONALE COMUNALE  ALL'IRPEF TRATTENUTA  DAL SOSTITUTO D'IMPOSTA
+			dr["tiporiga"] = "S";
+			dr["cod_tributo"] = "161E";
+			dr["tipoente"] = "CCCC";
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+			
+			dr = T.NewRow();  //VERSAMENTO IVA MENSILE GENNAIO
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "601E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); //VERSAMENTO IVA MENSILE FEBBRAIO
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "602E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); //VERSAMENTO IVA MENSILE MARZO
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "603E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); //VERSAMENTO IVA MENSILE APRILE
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "604E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); //VERSAMENTO IVA MENSILE MAGGIO
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "605E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); //VERSAMENTO IVA MENSILE GIUGNO
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "606E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); //VERSAMENTO IVA MENSILE LUGLIO
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "607E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); //VERSAMENTO IVA MENSILE AGOSTO
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "608E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); //VERSAMENTO IVA MENSILE SETTEMBRE
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "609E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); //VERSAMENTO IVA MENSILE OTTOBRE
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "610E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); //VERSAMENTO IVA MENSILE NOVEMBRE
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "611E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); //VERSAMENTO IVA MENSILE DICEMBRE
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "612E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow();   // VERSAMENTO ACCONTO PER IVA MENSILE
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "613E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow();  // VERSAMENTO IVA TRIMESTRALE 1 TRIMESTRE
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "614E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); // VERSAMENTO IVA TRIMESTRALE 2 TRIMESTRE
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "615E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); // VERSAMENTO IVA TRIMESTRALE 3 TRIMESTRE
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "616E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); // VERSAMENTO IVA TRIMESTRALE 4 TRIMESTRE
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "617E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); // VERSAMENTO IVA ACCONTO  
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "618E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); // VERSAMENTO IVA SULLA BASE DELLA DICHIARAZIONE ANNUALE
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "619E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = DBNull.Value;
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); // SPLIT ISTITUZIONALE
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "620E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = "00MM";
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); // SPLIT COMMERCIALE
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "621E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = "00MM";
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); // INTRA 12
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "622E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = "00MM";
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); // SANZIONE PECUNIARIA IVA
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "801E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = "00MM";
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+
+			dr = T.NewRow(); //	REGOLARIZZAZIONE OPERAZIONI SOGGETTE AD IVA IN CASO DI MANCATA/ IRREGOLARE FATTURAZ.
+			dr["tiporiga"] = "F";
+			dr["cod_tributo"] = "901E";
+			dr["tipoente"] = DBNull.Value;
+			dr["rifA"] = "00MM";
+			dr["rifB"] = "AAAA";
+			T.Rows.Add(dr);
+		}
+
+
+
+		private void btnFileInput_Click(object sender, EventArgs e)
         {
             if (!LeggiFile())
             {
@@ -160,14 +392,13 @@ namespace no_table_f24ep {
             }
         }
 
-        
-
+       
         private bool LeggiFile()
         {
             DialogResult dr = openInputFileDlg.ShowDialog();
             if (dr != DialogResult.OK)
             {
-                MessageBox.Show("Non è stato scelto alcun file");
+                show("Non è stato scelto alcun file");
                 txtInputFile.Text = "";
                 return false;
             }
@@ -186,7 +417,7 @@ namespace no_table_f24ep {
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
+                    show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
                     return false;
                 }
             }
@@ -271,10 +502,10 @@ namespace no_table_f24ep {
 
 
             if (ok)
-                MessageBox.Show(this, "Il File " + fileName + " è stato importato. Si può procedere con la generazione del modello F24EP");
+                show(this, "Il File " + fileName + " è stato importato. Si può procedere con la generazione del modello F24EP");
             else
             {
-                MessageBox.Show(this, "L'esame del file " + fileName + " ha fatto rilevare degli errori");
+                show(this, "L'esame del file " + fileName + " ha fatto rilevare degli errori");
                 mData.Clear();
             }
         }
@@ -315,27 +546,42 @@ namespace no_table_f24ep {
             int pos = 0;
             DataTable T = new DataTable("t");
             T.Columns.Add("nome", typeof(string));
-            T.Columns.Add("posizione", typeof(int));
-            T.Columns.Add("lunghezza", typeof(string));
+                        T.Columns.Add("Descrizione", typeof(string));
+            //T.Columns.Add("posizione", typeof(int));
+            //T.Columns.Add("lunghezza", typeof(string));
             T.Columns.Add("tipo", typeof(string));
-            T.Columns.Add("codifica", typeof(string));
-            T.Columns.Add("Descrizione", typeof(string));
+            //T.Columns.Add("codifica", typeof(string));
+
 
             foreach (string t in tracciato) {
                 DataRow r = T.NewRow();
                 string[] ss = t.Split(';');
                 r["nome"] = ss[0];
-                r["posizione"] = pos;
-                r["lunghezza"] = CfgFn.GetNoNullInt32(ss[3]);
                 r["tipo"] = ss[2];
-                if (ss.Length == 5) r["codifica"] = ss[4];
+     
                 r["Descrizione"] = ss[1];
-                pos += CfgFn.GetNoNullInt32(ss[3]);
                 T.Rows.Add(r);
             }
             return T;
         }
       
+
+       private void MenuEnterPwd_Click(object sender, EventArgs e) {
+			if (sender == null) return;
+			if (!(typeof(MenuItem).IsAssignableFrom(sender.GetType()))) return;
+			object mysender = ((MenuItem) sender).Parent.GetContextMenu().SourceControl;
+			string[] tracciato = tracciato_f24;
+			DataTable TableTracciato = null;
+ 
+			TableTracciato = GetTableTracciato(tracciato_f24);
+		
+			FrmShowTracciato FT = new FrmShowTracciato("tracciato_f24", TableTracciato, "struttura");
+			FT.ShowDialog();
+
+		}
+
+	 
+
         string ExcelColumnFromNumber(int column)
         {
             try {
@@ -533,59 +779,73 @@ namespace no_table_f24ep {
                
                 ErrCell.Value2 = ""; //Azzera eventuale vecchio contenuto
 
-                if ((cod_tributo.ToUpper() != "127E")&& (cod_tributo.ToUpper() != "128E")&&(cod_tributo.ToUpper() != "384E") && (cod_tributo.ToUpper() != "385E") && (cod_tributo.ToUpper() != "381E")) {
-                    err += " Valore non previsto nella decodifica del campo codice tributo";
-                    ErrCell.Value2 = err;
-                    nrigacorrente++;
-                    ok = false;
-                    continue;
-                }
+				 
 
                 cod_tributo = cod_tributo.ToUpper();
-                if ((cod_tributo == "384E") || (cod_tributo == "385E")||(cod_tributo.ToUpper() == "127E")|| (cod_tributo.ToUpper() == "128E")) {
-                    string errori = null;
-                    bool found = CheckProvincia(sigla_prov.Trim(), out errori);
+				if ( (cod_tributo!= "127E")  && (cod_tributo!= "128E")
+				  && (cod_tributo!= "384E") &&  (cod_tributo!= "385E") &&  (cod_tributo!= "381E")
+				  && (cod_tributo!= "126E") &&  (cod_tributo!= "154E") && (cod_tributo!= "161E")
+				  && (cod_tributo!= "601E") &&  (cod_tributo!= "602E") && (cod_tributo!= "603E")
+				  && (cod_tributo!= "604E") &&  (cod_tributo!= "605E") && (cod_tributo!= "606E")
+				  && (cod_tributo!= "607E") &&  (cod_tributo!= "608E") && (cod_tributo!= "609E")
+				  && (cod_tributo!= "610E") &&  (cod_tributo!= "611E") && (cod_tributo!= "612E")
+				  && (cod_tributo!= "613E") &&  (cod_tributo!= "614E") && (cod_tributo!= "615E")
+				  && (cod_tributo!= "616E") &&  (cod_tributo!= "617E") && (cod_tributo!= "618E")
+				  && (cod_tributo!= "619E") &&  (cod_tributo!= "620E") && (cod_tributo!= "621E")
+				  && (cod_tributo!= "622E") &&  (cod_tributo!= "801E") && (cod_tributo!= "901E")
+				  ) {
+					err += " Valore non previsto nella decodifica del campo codice tributo";
+					ErrCell.Value2 = err;
+					nrigacorrente++;
+					ok = false;
+					continue;
+				}
 
-                    if ((!found) && (errori != "")) {
-                        err += " " + errori;
-                        ErrCell.Value2 = err;
-                        nrigacorrente++;
-                        ok = false;
-                        continue;
-                    }
-                }
-                if ((cod_tributo == "384E") || (cod_tributo == "385E") || (cod_tributo.ToUpper() == "127E") || (cod_tributo.ToUpper() == "128E")) {
+				cod_tributo = cod_tributo.ToUpper();
+				if ((cod_tributo == "384E") || (cod_tributo == "385E") || (cod_tributo.ToUpper() == "127E") || (cod_tributo.ToUpper() == "128E")||
+					(cod_tributo == "154E") || (cod_tributo == "161E")) {
+					string errori = null;
+					bool found = CheckProvincia(sigla_prov.Trim(), out errori);
 
-                    bool found = CheckComune(denom.ToString().Trim(), sigla_prov, cod_catastale, out errore, out o_cod_catastale);
-                    if ((!found) && (errore != "")) {
-                        err += " " + errore;
-                        ErrCell.Value2 = err;
-                        nrigacorrente++;
-                        ok = false;
-                        continue;
-                    }
-                }
+					if ((!found) && (errori != "")) {
+						err += " " + errori;
+						ErrCell.Value2 = err;
+						nrigacorrente++;
+						ok = false;
+						continue;
+					}
+				}
+				if ((cod_tributo == "384E") || (cod_tributo == "385E") || (cod_tributo.ToUpper() == "127E") || (cod_tributo.ToUpper() == "128E")||
+					(cod_tributo == "154E") || (cod_tributo == "161E")) {
+					bool found = CheckComune(denom.ToString().Trim(), sigla_prov, cod_catastale, out errore, out o_cod_catastale);
+					if ((!found) && (errore != "")) {
+						err += " " + errore;
+						ErrCell.Value2 = err;
+						nrigacorrente++;
+						ok = false;
+						continue;
+					}
+				}
 
-                if (cod_tributo == "381E") {
-                    if (denom == DBNull.Value || denom == null || denom.ToString() == "") {
-                        err += " Regione fiscale non valorizzata ma obbligatoria"; ;
-                        ErrCell.Value2 = err;
-                        nrigacorrente++;
-                        ok = false;
-                    }
-                    else {
-                        bool found = CheckRegione(denom.ToString().Trim(), out errore, cod_catastale, out o_codice_regione);
+				if ((cod_tributo == "381E") || (cod_tributo == "153E") || (cod_tributo == "381E") || (cod_tributo == "160E") || (cod_tributo == "126E")) {
+					if (denom == DBNull.Value || denom == null || denom.ToString() == "") {
+						err += " Regione fiscale non valorizzata ma obbligatoria"; ;
+						ErrCell.Value2 = err;
+						nrigacorrente++;
+						ok = false;
+					} else {
+						bool found = CheckRegione(denom.ToString().Trim(), out errore, cod_catastale, out o_codice_regione);
 
-                        if ((!found) && (errore != "")) {
-                            err += " " + errore;
-                            ErrCell.Value2 = err;
-                            nrigacorrente++;
-                            ok = false;
-                            continue;
-                        }
-                    }
-                }
-                if ((CfgFn.GetNoNullInt32(o_anno_rif) <= CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) - 10) ||
+						if ((!found) && (errore != "")) {
+							err += " " + errore;
+							ErrCell.Value2 = err;
+							nrigacorrente++;
+							ok = false;
+							continue;
+						}
+					}
+				}
+				if ((CfgFn.GetNoNullInt32(o_anno_rif) <= CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) - 10) ||
                             (CfgFn.GetNoNullInt32(o_anno_rif) > CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")))) {
                     err += " Anno di riferimento errato";
                     ErrCell.Value2 = err;
@@ -657,12 +917,15 @@ namespace no_table_f24ep {
                             dr["tiporiga"] = tributo[0]["tiporiga"];
                             dr["estremi"] = DBNull.Value;
                             dr["codicetributo"] = cod_tributo;
-                            if ((cod_tributo == "384E") || (cod_tributo == "385E") || (cod_tributo.ToUpper() == "127E") || (cod_tributo.ToUpper() == "128E"))
-                                dr["codice"] = o_cod_catastale;
-                            else
-                                dr["codice"] = o_codice_regione; // 381E
 
-                            if (CfgFn.GetNoNullInt32(o_mese_rif) > 9)
+							if ((cod_tributo == "384E") || (cod_tributo == "385E") || (cod_tributo.ToUpper() == "127E") || (cod_tributo.ToUpper() == "128E") ||
+								(cod_tributo == "154E") || (cod_tributo == "161E"))
+								dr["codice"] = o_cod_catastale;
+							if ((cod_tributo == "381E") || (cod_tributo == "153E") || (cod_tributo == "381E") || (cod_tributo == "160E") || (cod_tributo == "126E")) {
+									dr["codice"] = o_codice_regione;  
+							}
+
+							if (CfgFn.GetNoNullInt32(o_mese_rif) > 9)
                                 dr["riferimentoA"] = "00" + getStringaDiLunghezzaN(o_mese_rif, 2);
                             else
                                 dr["riferimentoA"] = "000" + getStringaDiLunghezzaN(o_mese_rif, 2);
@@ -677,7 +940,7 @@ namespace no_table_f24ep {
                 }
                 nrigacorrente++;
             }
-            if (ok) MessageBox.Show(this, "Elaborate " + nrigacorrente.ToString() + " righe.");
+            if (ok) show(this, "Elaborate " + nrigacorrente.ToString() + " righe.");
             return ok;
         }
 
@@ -802,7 +1065,7 @@ namespace no_table_f24ep {
             catch (Exception ex)
             {
                 obj = null;
-                MessageBox.Show("Exception Occured while releasing object " + ex.ToString());
+                show("Exception Occured while releasing object " + ex.ToString());
             }
             finally
             {
@@ -814,7 +1077,7 @@ namespace no_table_f24ep {
         {
             if (mData.Rows.Count == 0)
             {
-                MessageBox.Show(this, "Non ci sono dati da elaborare");
+                show(this, "Non ci sono dati da elaborare");
                 return;
             }
 
@@ -822,7 +1085,7 @@ namespace no_table_f24ep {
                 typeof(DateTime), txtDataDiVersamento.Text, txtDataDiVersamento.Tag.ToString());
             if (dataDiVersamento < DateTime.Now.Date)
             {
-                MessageBox.Show("Data di addebito: il valore immesso non può essere inferiore alla data corrente");
+                show("Data di addebito: il valore immesso non può essere inferiore alla data corrente");
                 HelpForm.FocusControl(txtDataDiVersamento);
                 return;
             }
@@ -836,7 +1099,7 @@ namespace no_table_f24ep {
             }
             else
             {
-                MessageBox.Show(this, "Non è stato selezionato il percorso in cui memorizzare il file dell'F24");
+                show(this, "Non è stato selezionato il percorso in cui memorizzare il file dell'F24");
                 return;
             }
            
@@ -854,7 +1117,7 @@ namespace no_table_f24ep {
 
             txtDataGenerazione.Text = HelpForm.StringValue(Meta.GetSys("datacontabile"),
                 txtDataGenerazione.Tag.ToString());
-            MessageBox.Show(this, "Elaborazione completata");
+            show(this, "Elaborazione completata");
         }
 
         private void txtDataDiVersamento_Leave(object sender, EventArgs e)
@@ -997,4 +1260,4 @@ namespace no_table_f24ep {
             tw.Write("A\r\n".PadLeft(1864 + 1 + 2));
         }
     }
-}
+}

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -29,7 +28,7 @@ namespace expensesorted_all {
 	/// <summary>
 	/// Summary description for FrmExpenseSorted_All.
 	/// </summary>
-	public class FrmExpenseSorted_All : System.Windows.Forms.Form {
+	public class FrmExpenseSorted_All : MetaDataForm {
 		MetaData Meta;
 		private System.Windows.Forms.GroupBox grpClassificazione;
 		private System.Windows.Forms.TextBox txtDescrClass;
@@ -480,7 +479,7 @@ namespace expensesorted_all {
 					});
                 }
                 catch (Exception E) {
-                    MessageBox.Show(E.Message);
+                    show(E.Message);
                 }
                 if ((OutDS != null) && (OutDS.Tables.Count > 0)) {
                     if (ClassMovimentiAllowed == null) ClassMovimentiAllowed = OutDS.Tables[0];
@@ -493,4 +492,4 @@ namespace expensesorted_all {
       
 
 	}
-}
+}

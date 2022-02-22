@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_sitbilancio_entrata]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_sitbilancio_entrata]
 GO
@@ -37,7 +54,6 @@ Accertamenti (non incassati)
 disponibile di previsione  per accertamento
 
 */
-
 
 DECLARE @level_input tinyint
 SET  @level_input = ISNULL((SELECT nlevel from fin where idfin = @idfin) ,@nlevel)
@@ -577,6 +593,7 @@ BEGIN
 		sum(isnull(var_prevision,0.0)) 			as 'Variazioni previsione principale',
 		sum(isnull(initialprevision,0.0)) + sum(isnull(var_prevision,0.0)) as 'Previsione principale definitiva',
 		sum(isnull(assessments,0.0)) + sum(isnull(var_assessments,0.0))	   as 'Accertamenti',
+		(sum(isnull(initialprevision,0.0)) + sum(isnull(var_prevision,0.0)) ) - (sum(isnull(assessments,0.0)) + sum(isnull(var_assessments,0.0)) ) as 'Disponibile ad Accertare',
 		sum(isnull(proceeds,0.0))  + sum(isnull(var_proceeds,0.0)) 		   as 'Incassi',
 		sum(isnull(initialprevision,0.0)) + sum(isnull(var_prevision,0.0)) -
 		(sum(isnull(proceeds,0.0))   +  sum(isnull(var_proceeds,0.0)) ) as 'Previsione Disponibile ad Incassare'
@@ -608,6 +625,7 @@ SELECT
 			sum(isnull(var_prevision,0.0)) 			as 'Variazioni previsione principale',
 			sum(isnull(initialprevision,0.0)) + sum(isnull(var_prevision,0.0)) as 'Previsione principale definitiva',
 			sum(isnull(assessments,0.0)) + sum(isnull(var_assessments,0.0))	   as 'Accertamenti',
+			(sum(isnull(initialprevision,0.0)) + sum(isnull(var_prevision,0.0)) ) - (sum(isnull(assessments,0.0)) + sum(isnull(var_assessments,0.0)) ) as 'Disponibile ad Accertare',
 			sum(isnull(proceeds,0.0))  + sum(isnull(var_proceeds,0.0)) 		   as 'Incassi',
 			sum(isnull(initialprevision,0.0)) + sum(isnull(var_prevision,0.0)) -
 			(sum(isnull(proceeds,0.0))   +  sum(isnull(var_proceeds,0.0)) ) as 'Previsione Disponibile ad Incassare'

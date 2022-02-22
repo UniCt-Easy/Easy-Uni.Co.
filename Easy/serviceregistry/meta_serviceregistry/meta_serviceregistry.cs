@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -94,9 +93,13 @@ namespace meta_serviceregistry {
             string securityServiceagency = Conn.SelectCondition("serviceagency", true);
 
             DataTable Tserviceagency = Conn.RUN_SELECT("serviceagency", "*", null, securityServiceagency, null, null, false);
-            if (Tserviceagency.Rows.Count > 0) {
+            if (Tserviceagency.Rows.Count == 1) {
                 DataRow Rserviceagency = Tserviceagency.Rows[0];
                 SetDefault(PrimaryTable, "pa_code", Rserviceagency["pa_code"].ToString());
+                SetDefault(PrimaryTable, "codicepaipa", Rserviceagency["codicepaipa"].ToString());
+                SetDefault(PrimaryTable, "codiceaooipa", Rserviceagency["codiceaooipa"].ToString());
+                SetDefault(PrimaryTable, "codiceuoipa", Rserviceagency["codiceuoipa"].ToString());
+
                 //SetDefault(PrimaryTable, "pa_title", Rserviceagency["pa_title"].ToString());
                 //SetDefault(PrimaryTable, "pa_cf", Rserviceagency["pa_cf"].ToString());
             }
@@ -159,6 +162,12 @@ namespace meta_serviceregistry {
                     errmess = "Specificare il Tipo Incaricato";
                     errfield = "employkind";
                     return false;
+                }
+
+                if (R["ordinancelink"] == DBNull.Value) {
+	                errmess = "Per gli incarichi da trasferire a perla è obbligatorio il link al decreto di conferimento dell’incarico";
+	                errfield = "ordinancelink";
+	                return false;
                 }
                 ///tipologia società impostata
                 if (R["idconsultingkind"] != DBNull.Value) {
@@ -332,7 +341,7 @@ namespace meta_serviceregistry {
                 // x un dipendente 
                 if (R["employkind"].ToString().ToUpper() == "D") {
                     if ((R["idconsultingkind"] == DBNull.Value) &&
-                    ((R["idapregistrykind"].ToString() == "5") || (R["idapregistrykind"].ToString() == "6"))) {
+                    ((R["idapregistrykind"].ToString() == "4") || (R["idapregistrykind"].ToString() == "5"))) {
                         errmess = "Per un conferente ( se Persona Giuridica ) è obbligatorio la Tipologia Azienda.";
                         errfield = "idconsultingkind";
                         return false;
@@ -386,12 +395,12 @@ namespace meta_serviceregistry {
 
                     //Controlli sul Conferente del dipendente:
 
-                    //1	PUBBLICO
-                    //3	PRIVATO - PERSONA FISICA CON CF RILASCIATO IN ITALIA
-                    //4	PRIVATO - PERSONA FISICA SENZA CF RILASCIATO IN ITALIA
-                    //5	PRIVATO - PERSONA GIURIDICA CON CF RILASCIATO IN ITALIA
-                    //6	PRIVATO - PERSONA GIURIDICA SENZA CF RILASCIATO IN ITALIA
-                    if ((R["idapregistrykind"].ToString() == "1") || (R["idapregistrykind"].ToString() == "5") || (R["idapregistrykind"].ToString() == "6")) {
+                    //1	Pubblico
+                    //2	Privato - persona fisica con CF rilasciato in Italia
+                    //3	Privato - persona fisica senza CF rilasciato in Italia
+                    //4	Privato - persona giuridica con CF rilasciato in Italia
+                    //5	Privato - persona giuridica senza CF rilasciato in Italia
+                    if ((R["idapregistrykind"].ToString() == "1") || (R["idapregistrykind"].ToString() == "4") || (R["idapregistrykind"].ToString() == "5")) {
                         //Persona giuridica
                         if (R["pa_title"] == DBNull.Value) {
                             errmess = "Per un Dipendente la Denominazione dell'ente Conferente è obbligatoria. Inserirlo nel modulo Anagrafica.";
@@ -404,7 +413,7 @@ namespace meta_serviceregistry {
                             return false;
                         }
                     }
-                    if ((R["idapregistrykind"].ToString() == "1") || (R["idapregistrykind"].ToString() == "3") || (R["idapregistrykind"].ToString() == "5")) {
+                    if ((R["idapregistrykind"].ToString() == "1") || (R["idapregistrykind"].ToString() == "2") || (R["idapregistrykind"].ToString() == "4")) {
                         if (R["pa_cf"] == DBNull.Value) {
                             errmess = "E' necessario specificare il Codice Fiscale dell'Ente Conferente";
                             errfield = "pa_cf";
@@ -412,7 +421,7 @@ namespace meta_serviceregistry {
                         }
 
                     }
-                    if ((R["idapregistrykind"].ToString() == "3") || (R["idapregistrykind"].ToString() == "4")) {
+                    if ((R["idapregistrykind"].ToString() == "2") || (R["idapregistrykind"].ToString() == "3")) {
                         if (R["conferring_surname"] == DBNull.Value) {
                             errmess = "Per un Conferente/Persona fisica il Cognome è obbligatorio. Inserirlo nel modulo Anagrafica.";
                             errfield = "conferring_surname";
@@ -625,6 +634,15 @@ namespace meta_serviceregistry {
                     errfield = "idapcontractkind";
                     return false;
                 }
+
+                //task 15205 SOLO per gli incarichi di DIPENDENTI stesso ente non deve essere possibile selezionare
+                //  o deve scattare una regola qualora venga utilizzata la voci di “oggetto incarico” DOCENZE.
+
+                if (R["idapactivitykind"].ToString()=="62" && (R["employkind"].ToString().ToUpper() == "D")) {
+	                errmess = "Non è possibile selezionare 'Docenze' come oggetto dell'incarico";
+	                errfield = "idapcontractkind";
+	                return false;
+                }
             }//fine pubblicazione
 
             return true;
@@ -635,4 +653,3 @@ namespace meta_serviceregistry {
 
 
 }
-

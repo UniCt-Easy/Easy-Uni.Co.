@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsmeta_registrypiva_default" targetNamespace="http://tempuri.org/dsmeta_registrypiva_default.xsd" xmlns:mstns="http://tempuri.org/dsmeta_registrypiva_default.xsd" xmlns="http://tempuri.org/dsmeta_registrypiva_default.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsmeta_registrypiva_default" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsmeta_registrypiva_default" msprop:Generator_UserDSName="dsmeta_registrypiva_default">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="registrypiva" msprop:Generator_TableClassName="registrypivaDataTable" msprop:Generator_TableVarName="tableregistrypiva" msprop:Generator_TablePropName="registrypiva" msprop:Generator_RowDeletingName="registrypivaRowDeleting" msprop:Generator_RowChangingName="registrypivaRowChanging" msprop:Generator_RowEvHandlerName="registrypivaRowChangeEventHandler" msprop:Generator_RowDeletedName="registrypivaRowDeleted" msprop:Generator_UserTableName="registrypiva" msprop:Generator_RowChangedName="registrypivaRowChanged" msprop:Generator_RowEvArgName="registrypivaRowChangeEvent" msprop:Generator_RowClassName="registrypivaRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idreg" msprop:Generator_ColumnVarNameInTable="columnidreg" msprop:Generator_ColumnPropNameInRow="idreg" msprop:Generator_ColumnPropNameInTable="idregColumn" msprop:Generator_UserColumnName="idreg" type="xs:int" />
+              <xs:element name="idregistrypiva" msprop:Generator_ColumnVarNameInTable="columnidregistrypiva" msprop:Generator_ColumnPropNameInRow="idregistrypiva" msprop:Generator_ColumnPropNameInTable="idregistrypivaColumn" msprop:Generator_UserColumnName="idregistrypiva" type="xs:int" />
+              <xs:element name="p_iva" msprop:Generator_ColumnVarNameInTable="columnp_iva" msprop:Generator_ColumnPropNameInRow="p_iva" msprop:Generator_ColumnPropNameInTable="p_ivaColumn" msprop:Generator_UserColumnName="p_iva" type="xs:string" />
+              <xs:element name="start" msprop:Generator_ColumnVarNameInTable="columnstart" msprop:Generator_ColumnPropNameInRow="start" msprop:Generator_ColumnPropNameInTable="startColumn" msprop:Generator_UserColumnName="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" msprop:Generator_ColumnVarNameInTable="columnstop" msprop:Generator_ColumnPropNameInRow="stop" msprop:Generator_ColumnPropNameInTable="stopColumn" msprop:Generator_UserColumnName="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ct" msprop:Generator_ColumnVarNameInTable="columnct" msprop:Generator_ColumnPropNameInRow="ct" msprop:Generator_ColumnPropNameInTable="ctColumn" msprop:Generator_UserColumnName="ct" type="xs:dateTime" />
+              <xs:element name="cu" msprop:Generator_ColumnVarNameInTable="columncu" msprop:Generator_ColumnPropNameInRow="cu" msprop:Generator_ColumnPropNameInTable="cuColumn" msprop:Generator_UserColumnName="cu" type="xs:string" />
+              <xs:element name="lt" msprop:Generator_ColumnVarNameInTable="columnlt" msprop:Generator_ColumnPropNameInRow="lt" msprop:Generator_ColumnPropNameInTable="ltColumn" msprop:Generator_UserColumnName="lt" type="xs:dateTime" />
+              <xs:element name="lu" msprop:Generator_ColumnVarNameInTable="columnlu" msprop:Generator_ColumnPropNameInRow="lu" msprop:Generator_ColumnPropNameInTable="luColumn" msprop:Generator_UserColumnName="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrypiva" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistrypiva" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

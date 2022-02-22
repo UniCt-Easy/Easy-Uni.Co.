@@ -1,0 +1,78 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="assicurazione_default_societaassicura">Società assicurativa</label>
+					<input id="assicurazione_default_societaassicura" type="text" class="form-control" data-tag="assicurazione.societaassicura?assicurazionedefaultview.societaassicura" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#assicurazione_default_datarilascio").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="assicurazione_default_datarilascio">Data di rilascio</label>
+					<input id="assicurazione_default_datarilascio" type="text" class="form-control" data-tag="assicurazione.datarilascio?assicurazionedefaultview.assicurazione_datarilascio" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#assicurazione_default_datascadenza").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="assicurazione_default_datascadenza">Data di scadenza</label>
+					<input id="assicurazione_default_datascadenza" type="text" class="form-control" data-tag="assicurazione.datascadenza?assicurazionedefaultview.assicurazione_datascadenza" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="assicurazione_default_idattach">Regolamento</label>
+					<div id="assicurazione_default_idattach" data-tag="assicurazione.idattach?assicurazionedefaultview.idattach" data-subentity  data-custom-control="upload" ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="assicurazione_default_infortunisullavoro">Infortunio sul lavoro</label>
+					<div class="custom-control custom-radio">
+						<input id="assicurazione_default_infortunisullavoroSi" type="radio" name="assicurazione_default_infortunisullavoro" class="custom-control-input" data-tag="assicurazione.infortunisullavoro:S?assicurazionedefaultview.assicurazione_infortunisullavoro:Si" data-subentity  ><label for="assicurazione_default_infortunisullavoroSi"> Si</label>
+						<input id="assicurazione_default_infortunisullavoroNo" type="radio" name="assicurazione_default_infortunisullavoro" class="custom-control-input" data-tag="assicurazione.infortunisullavoro:N?assicurazionedefaultview.assicurazione_infortunisullavoro:No" data-subentity  ><label for="assicurazione_default_infortunisullavoroNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="assicurazione_default_numeropolizza">Numero della polizza</label>
+					<input id="assicurazione_default_numeropolizza" type="text" class="form-control" data-tag="assicurazione.numeropolizza?assicurazionedefaultview.assicurazione_numeropolizza" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="assicurazione_default_rca">Rca</label>
+					<div class="custom-control custom-radio">
+						<input id="assicurazione_default_rcaSi" type="radio" name="assicurazione_default_rca" class="custom-control-input" data-tag="assicurazione.rca:S?assicurazionedefaultview.assicurazione_rca:Si" data-subentity  ><label for="assicurazione_default_rcaSi"> Si</label>
+						<input id="assicurazione_default_rcaNo" type="radio" name="assicurazione_default_rca" class="custom-control-input" data-tag="assicurazione.rca:N?assicurazionedefaultview.assicurazione_rca:No" data-subentity  ><label for="assicurazione_default_rcaNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="assicurazione_default_spostamenti">Spostamenti</label>
+					<div class="custom-control custom-radio">
+						<input id="assicurazione_default_spostamentiSi" type="radio" name="assicurazione_default_spostamenti" class="custom-control-input" data-tag="assicurazione.spostamenti:S?assicurazionedefaultview.assicurazione_spostamenti:Si" data-subentity  ><label for="assicurazione_default_spostamentiSi"> Si</label>
+						<input id="assicurazione_default_spostamentiNo" type="radio" name="assicurazione_default_spostamenti" class="custom-control-input" data-tag="assicurazione.spostamenti:N?assicurazionedefaultview.assicurazione_spostamenti:No" data-subentity  ><label for="assicurazione_default_spostamentiNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="assicurazione_default_viaggi">Viaggi</label>
+					<div class="custom-control custom-radio">
+						<input id="assicurazione_default_viaggiSi" type="radio" name="assicurazione_default_viaggi" class="custom-control-input" data-tag="assicurazione.viaggi:S?assicurazionedefaultview.assicurazione_viaggi:Si" data-subentity  ><label for="assicurazione_default_viaggiSi"> Si</label>
+						<input id="assicurazione_default_viaggiNo" type="radio" name="assicurazione_default_viaggi" class="custom-control-input" data-tag="assicurazione.viaggi:N?assicurazionedefaultview.assicurazione_viaggi:No" data-subentity  ><label for="assicurazione_default_viaggiNo"> No</label>
+					</div>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

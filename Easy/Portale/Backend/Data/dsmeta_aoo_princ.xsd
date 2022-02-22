@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_aoo_princ" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_aoo_princ" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="sededefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idsede" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="aoo" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codiceaooipa" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idaoo" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="idsede" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sededefaultview" />
+      <xs:field xpath="mstns:idsede" />
+    </xs:unique>
+    <xs:unique name="aoo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:aoo" />
+      <xs:field xpath="mstns:idaoo" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_aoo_sededefaultview_idsede" msdata:parent="sededefaultview" msdata:child="aoo" msdata:parentkey="idsede" msdata:childkey="idsede" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_rendicontaltro_docente" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_rendicontaltro_docente" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="rendicontaltrokinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idrendicontaltrokind" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="annoaccademico" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="rendicontaltro" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="_x0021_title" type="xs:string" minOccurs="0" />
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" />
+              <xs:element name="idreg_docenti" type="xs:int" />
+              <xs:element name="idrendicontaltro" type="xs:int" />
+              <xs:element name="idrendicontaltrokind" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="ore" type="xs:decimal" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:rendicontaltrokinddefaultview" />
+      <xs:field xpath="mstns:idrendicontaltrokind" />
+    </xs:unique>
+    <xs:unique name="annoaccademico_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:annoaccademico" />
+      <xs:field xpath="mstns:aa" />
+    </xs:unique>
+    <xs:unique name="rendicontaltro_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:rendicontaltro" />
+      <xs:field xpath="mstns:aa" />
+      <xs:field xpath="mstns:idreg_docenti" />
+      <xs:field xpath="mstns:idrendicontaltro" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_rendicontaltro_rendicontaltrokinddefaultview_idrendicontaltrokind" msdata:parent="rendicontaltrokinddefaultview" msdata:child="rendicontaltro" msdata:parentkey="idrendicontaltrokind" msdata:childkey="idrendicontaltrokind" />
+      <msdata:Relationship name="FK_rendicontaltro_annoaccademico_aa" msdata:parent="annoaccademico" msdata:child="rendicontaltro" msdata:parentkey="aa" msdata:childkey="aa" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

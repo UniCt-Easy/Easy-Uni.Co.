@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2015 sp1 (x64) (http://www.altova.com) by Manuele Acquistapace (MetaJ Solution S.r.l.) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:pmpay" targetNamespace="urn:pmpay" elementFormDefault="qualified">
 	<xs:element name="PAGAMENTO_REQUEST" type="PAGAMENTO_REQUEST"/>
 	<xs:element name="PAGAMENTO_RESPONSE" type="PAGAMENTO_RESPONSE"/>
@@ -10,6 +9,8 @@
 	<xs:element name="PAGAMENTOESISTENTE_REQUEST" type="PAGAMENTOESISTENTE_REQUEST"/>
 	<xs:element name="REGISTRAPAGAMENTO_REQUEST" type="REGISTRAPAGAMENTO_REQUEST"/>
 	<xs:element name="REGISTRAPAGAMENTO_RESPONSE" type="REGISTRAPAGAMENTO_RESPONSE"/>
+	<xs:element name="RICHIEDI_ANNULLOTECNICO_REQUEST" type="RICHIEDI_ANNULLOTECNICO_REQUEST"/>
+	<xs:element name="RICHIEDI_ANNULLOTECNICO_RESPONSE" type="RICHIEDI_ANNULLOTECNICO_RESPONSE"/>
 	<xs:complexType name="PAGAMENTO_REQUEST">
 		<xs:sequence>
 			<xs:element name="headerPagamento" type="headerPagamento"/>
@@ -32,29 +33,56 @@
 			<xs:element name="URL_S2S" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="headerPagamentoEsistente">
+		<xs:sequence>
+			<xs:element name="ID_CLIENT" type="xs:string"/>
+			<xs:element name="TOKEN" type="xs:string"/>
+			<xs:element name="DATA_RICHIESTA" type="xs:dateTime"/>
+			<xs:element name="ID_RICHIESTA" type="xs:string"/>
+			<xs:element name="CODICE_AZIENDA" type="xs:string"/>
+			<xs:element name="CODICE_FISCALE" type="xs:string" minOccurs="0"/>
+			<xs:element name="TIPO_CLIENT" type="xs:string"/>
+			<xs:element name="URL_OK" type="xs:string"/>
+			<xs:element name="URL_KO" type="xs:string"/>
+			<xs:element name="URL_CANCEL" type="xs:string"/>
+			<xs:element name="URL_S2S" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
 	<xs:complexType name="anagraficaPagamento">
 		<xs:sequence>
-			<xs:element name="NOME">
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:minLength value="1"/>
-						<xs:maxLength value="255"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-			<xs:element name="COGNOME" minOccurs="0">
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:minLength value="1"/>
-						<xs:maxLength value="255"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element name="NOME">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:minLength value="1"/>
+								<xs:maxLength value="35"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="COGNOME" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:minLength value="1"/>
+								<xs:maxLength value="35"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+				<xs:element name="DENOMINAZIONE">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="70"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:choice>
 			<xs:element name="INDIRIZZO" minOccurs="0">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 						<xs:minLength value="1"/>
-						<xs:maxLength value="255"/>
+						<xs:maxLength value="70"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -62,7 +90,7 @@
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 						<xs:minLength value="1"/>
-						<xs:maxLength value="255"/>
+						<xs:maxLength value="35"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -70,23 +98,22 @@
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 						<xs:minLength value="1"/>
-						<xs:maxLength value="255"/>
+						<xs:maxLength value="16"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 			<xs:element name="PROVINCIA" minOccurs="0">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:minLength value="1"/>
-						<xs:maxLength value="255"/>
+						<xs:pattern value="[A-Z]{2,2}"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 			<xs:element name="MAIL" minOccurs="0">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:minLength value="1"/>
 						<xs:maxLength value="255"/>
+						<xs:pattern value="[a-zA-Z0-9_\.\+\-]+@[a-zA-Z0-9\-]+(\.[a-zA-Z0-9\-]+)*"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -216,14 +243,15 @@
 	</xs:complexType>
 	<xs:complexType name="PAGAMENTOESISTENTE_REQUEST">
 		<xs:sequence>
-			<xs:element name="headerPagamento" type="headerPagamento"/>
-			<xs:element name="pagamentoEsistente" type="pagamentoEsistente"/>
+			<xs:element name="headerPagamento" type="headerPagamentoEsistente"/>
+			<xs:element name="pagamentoEsistente" type="pagamentoEsistente" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="pagamentoEsistente">
-		<xs:sequence>
+		<xs:choice>
 			<xs:element name="RIF_PRATICA" type="xs:string"/>
-		</xs:sequence>
+			<xs:element name="ID_DEBITO" type="xs:string"/>
+		</xs:choice>
 	</xs:complexType>
 	<xs:complexType name="REGISTRAPAGAMENTO_REQUEST">
 		<xs:sequence>
@@ -232,6 +260,7 @@
 				<xs:element name="registraPagamento" type="registraPagamento"/>
 				<xs:element name="annullaPagamento" type="annullaPagamento"/>
 				<xs:element name="pagamentoEsterno" type="pagamentoEsterno"/>
+				<xs:element name="modificaPagamento" type="modificaPagamento"/>
 			</xs:choice>
 		</xs:sequence>
 	</xs:complexType>
@@ -330,6 +359,8 @@
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="ANAGRAFICA" type="anagraficaPagamento" minOccurs="0"/>
+			<xs:element name="DATA_INIZIO_VALIDITA" type="xs:date" minOccurs="0"/>
+			<xs:element name="DATA_FINE_VALIDITA" type="xs:date" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="annullaPagamento">
@@ -351,6 +382,47 @@
 				</xs:simpleType>
 			</xs:element>
 		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="modificaPagamento">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="ID_DEBITO">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="64"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="IUV">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="35"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:choice>
+			<xs:element name="CAUSALE_PAGAMENTO" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="IMPORTO_TOTALE" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:minExclusive value="0"/>
+						<xs:fractionDigits value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DATA_SCADENZA" type="xs:date" minOccurs="0"/>
+			<xs:element name="DATA_INIZIO_VALIDITA" type="xs:date" minOccurs="0"/>
+			<xs:element name="DATA_FINE_VALIDITA" type="xs:date" minOccurs="0"/>
+		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="pagamentoEsterno">
 		<xs:sequence>
@@ -396,6 +468,37 @@
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
+			<xs:element name="CODICE_ERRORE" type="xs:integer" minOccurs="0"/>
+			<xs:element name="DESCRIZIONE_ERRORE" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RICHIEDI_ANNULLOTECNICO_REQUEST">
+		<xs:sequence>
+			<xs:element name="headerRichiestaANNULLOTECNICO" type="headerRichiestaANNULLOTECNICO"/>
+			<xs:element name="richiestaANNULLOTECNICO" type="richiestaANNULLOTECNICO"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="headerRichiestaANNULLOTECNICO">
+		<xs:sequence>
+			<xs:element name="ID_CLIENT" type="xs:string"/>
+			<xs:element name="TOKEN" type="xs:string"/>
+			<xs:element name="DATA_RICHIESTA" type="xs:dateTime"/>
+			<xs:element name="ID_RICHIESTA" type="xs:string"/>
+			<xs:element name="CODICE_AZIENDA" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="richiestaANNULLOTECNICO">
+		<xs:sequence>
+			<xs:element name="RIF_INTERNO" type="xs:string"/>
+			<xs:element name="IUV" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RICHIEDI_ANNULLOTECNICO_RESPONSE">
+		<xs:sequence>
+			<xs:element name="DATA_RICHIESTA" type="xs:dateTime"/>
+			<xs:element name="ID_RICHIESTA" type="xs:string"/>
+			<xs:element name="CODICE_AZIENDA" type="xs:string"/>
+			<xs:element name="STREAM_ANNULLOTECNICO" type="xs:string"/>
 			<xs:element name="CODICE_ERRORE" type="xs:integer" minOccurs="0"/>
 			<xs:element name="DESCRIZIONE_ERRORE" type="xs:string" minOccurs="0"/>
 		</xs:sequence>

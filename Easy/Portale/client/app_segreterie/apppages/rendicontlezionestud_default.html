@@ -1,0 +1,46 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="rendicontlezionestud_default_idreg_studenti">Studente</label>
+					<div>
+						<input id="rendicontlezionestud_default_idreg_studenti" name="rendicontlezionestud_default_idreg_studenti" type="text" data-listtype="studenti"  class="form-control" data-minchar="2" data-tag="registrystudentiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="rendicontlezionestud_default_assente">Assente</label>
+					<div class="custom-control custom-radio">
+						<input id="rendicontlezionestud_default_assenteSi" type="radio" name="rendicontlezionestud_default_assente" class="custom-control-input" data-tag="rendicontlezionestud.assente:S"  data-mandatory ><label for="rendicontlezionestud_default_assenteSi"> Si</label>
+						<input id="rendicontlezionestud_default_assenteNo" type="radio" name="rendicontlezionestud_default_assente" class="custom-control-input" data-tag="rendicontlezionestud.assente:N"  data-mandatory ><label for="rendicontlezionestud_default_assenteNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#rendicontlezionestud_default_ritardo").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="rendicontlezionestud_default_ritardo">Ritardo</label>
+					<input id="rendicontlezionestud_default_ritardo" type="text" class="form-control" data-tag="rendicontlezionestud.ritardo.g"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="rendicontlezionestud_default_ritardogiustifica">Giustificazione del ritardo</label>
+					<input id="rendicontlezionestud_default_ritardogiustifica" type="text" class="form-control" data-tag="rendicontlezionestud.ritardogiustifica"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="rendicontlezionestud_default_notadisciplinare">Nota disciplinare</label>
+					<input id="rendicontlezionestud_default_notadisciplinare" type="text" class="form-control" data-tag="rendicontlezionestud.notadisciplinare"  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

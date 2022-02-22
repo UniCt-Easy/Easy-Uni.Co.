@@ -1,0 +1,41 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabgraduatoriaesiti_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabgraduatoriaesiti_default_0"><i class="fa fa-list-ol mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabgraduatoriaesiti_default_1" class="nav-link" data-toggle="pill" data-target="#tabgraduatoriaesiti_default_1"><i class="fa fa-list-ol mr-1"></i>Esiti</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabgraduatoriaesiti_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#graduatoriaesiti_default_datachiusura").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="graduatoriaesiti_default_datachiusura">Data di chiusura</label>
+					<input id="graduatoriaesiti_default_datachiusura" type="text" class="form-control" data-tag="graduatoriaesiti.datachiusura.g"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="graduatoriaesiti_default_provvisoria">Provvisoria</label>
+					<div class="custom-control custom-radio">
+						<input id="graduatoriaesiti_default_provvisoriaP" type="radio" name="graduatoriaesiti_default_provvisoria" class="custom-control-input" data-tag="graduatoriaesiti.provvisoria:P"  data-mandatory ><label for="graduatoriaesiti_default_provvisoriaP"> Provvisoria</label>
+						<input id="graduatoriaesiti_default_provvisoriaD" type="radio" name="graduatoriaesiti_default_provvisoria" class="custom-control-input" data-tag="graduatoriaesiti.provvisoria:D"  data-mandatory ><label for="graduatoriaesiti_default_provvisoriaD"> Definitiva</label>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabgraduatoriaesiti_default_1" role="tabpanel">
+				<div class="gridx" id="grid_graduatoriaesitipos_default" data-tag="graduatoriaesitipos.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

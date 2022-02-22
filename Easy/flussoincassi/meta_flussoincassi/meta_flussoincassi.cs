@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -36,7 +35,7 @@ namespace meta_flussoincassi {
             base(Conn, Dispatcher, "flussoincassi") {
             Name = "Flusso Incassi";
             EditTypes.Add("default");
-            ListingTypes.Add("default");
+            ListingTypes.Add("default");            
             esercizio = Convert.ToInt32(GetSys("esercizio"));
         }
 
@@ -47,7 +46,7 @@ namespace meta_flussoincassi {
                         CanInsertCopy = false;
                         DefaultListType = "default";
                         return MetaData.GetFormByDllName("flussoincassi_default");
-                    }
+                }
             }
             return null;
         }
@@ -68,6 +67,13 @@ namespace meta_flussoincassi {
             return R;
         }
 
+        public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable ToMerge) {
+            if (ListingType=="default")
+				return base.SelectOne(ListingType, filter, "flussoincassiview", ToMerge);
+			else
+				return base.SelectOne(ListingType, filter, "flussoincassi", ToMerge);
+        }
+
         public override void DescribeColumns(DataTable T, string ListingType) {
             base.DescribeColumns(T, ListingType);
 
@@ -82,8 +88,10 @@ namespace meta_flussoincassi {
                 DescribeAColumn(T, "dataincasso", "Data Incasso", nPos++);
                 DescribeAColumn(T, "nbill", "Numero Sospeso Attivo", nPos++);
                 DescribeAColumn(T, "importo", "Importo", nPos++);
-                DescribeAColumn(T, "elaborato", "Elaborato", nPos++);
+                DescribeAColumn(T, "elaborato", "Elaborato", nPos++);              
             }
+
+
         }
 
     }
@@ -91,4 +99,3 @@ namespace meta_flussoincassi {
 }
 
 
-

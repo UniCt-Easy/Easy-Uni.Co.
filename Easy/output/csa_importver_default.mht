@@ -1,11 +1,11 @@
 MIME-Version: 1.0
-Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occ.)
+Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
 X-Unsent: 1
 Content-Type: Multipart/related;
-  boundary="---------blocknote.net--1JM7IHPLZMNNXOI36GYPUTANA"
+  boundary="---------blocknote.net--YDY8HMJPBUZU1YARG5N1233WFV"
 
 
------------blocknote.net--1JM7IHPLZMNNXOI36GYPUTANA
+-----------blocknote.net--YDY8HMJPBUZU1YARG5N1233WFV
 Content-Type: Text/HTML;
   charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
@@ -69,7 +69,7 @@ uesto momento in poi, tutte le modifiche apportate alla configurazione, n=
 on avranno effetto sulle righe di Versamento gi=C3=A0 <U>elaborate</U> e =
 si dovr=C3=A0 ripetere l'elaborazione cliccando nuovamente sul pulsante E=
 labora dell'Importazione di riferimento.</FONT></P>
-<P align=3D"center"><IMG src=3D"cid:14VDVPPISMKZC63Z15Z1DWDYNE"></P>
+<P align=3D"center"><IMG src=3D"cid:1XE2ZH8K3KCNS7G8J2O1IPXQ14"></P>
 <P align=3D"justify">&nbsp;</P>
 <P align=3D"justify"><FONT size=3D"4">Il form dei <STRONG><EM>Versamenti<=
 /EM></STRONG> ha una parte generale composta dai seguenti campi:</FONT></=
@@ -126,7 +126,17 @@ cifica</STRONG></A> manca o se esiste ma nella Matricola manca l'indicazi=
 one dell'Anagrafica, il campo risulter=C3=A0 vuoto.</FONT></LI>
 <DIV>&nbsp;</DIV>
 <LI><STRONG><FONT size=3D"4">Matricola: </STRONG>viene letta dal file dei=
- VERSAMENTI che si =C3=A8 importato</FONT></LI>
+ VERSAMENTI che si =C3=A8 importato.</FONT></LI></UL>
+
+<DIV><STRONG><FONT size=3D"4">NB! La Regola specifica associata ad una Re=
+gola generale viene presa in considerazione in luogo della Regola general=
+e &quot;madre&quot;, solo se:</FONT></STRONG></DIV>
+<DIV align=3D"justify"><STRONG><FONT size=3D"4">- la Regola specifica non=
+ contiene alcuna Matricola nella scheda Anagrafiche</FONT></STRONG></DIV>
+<DIV align=3D"justify"><STRONG><FONT size=3D"4">- la Regola specifica con=
+tiene nella scheda Anagrafiche la Matricola corrispondente alla Riga di R=
+iepilogo o Versamento elaborata.</STRONG></FONT></STRONG></DIV>
+<UL>
 <LI><P align=3D"justify"><STRONG><FONT size=3D"4">Ente: </STRONG>descrizi=
 one dell'<A href=3D"csa_agency_default.mht"><STRONG>Ente</STRONG></A> con=
 figurato in <EM>Easy</EM>.</FONT></P></LI>
@@ -144,7 +154,7 @@ caso la riga di Versamento contraddistingue un RECUPERO.</FONT></P></LI>
  Pagamento Ente: </STRONG>al momento =C3=A8 in disuso questa funzionalit=C3=
 =A0.</FONT></P></LI></UL>
 
-<P align=3D"center"><IMG src=3D"cid:1L9HGRHIZ1C4Q77OCZCIDE8EE"></P>
+<P align=3D"center"><IMG src=3D"cid:1CECGIOK523I91TPZUL81YHADXC"></P>
 <P align=3D"center">&nbsp;</P>
 <P align=3D"justify"><STRONG><FONT size=3D"5">SCHEDA Ripartizione Unica-N=
 B! risulta compilata solo per i Contributi a carico Ente</FONT></STRONG><=
@@ -173,23 +183,23 @@ accedendo al menu <STRONG>Compensi &gt; Contabilizzazione Stipendi&gt; da=
 enti. </STRONG>Tale elenco pu=C3=B2 risultare utile ai fini delle verific=
 he e delle quadrature delle singole Importazioni.</FONT></P>
 <P align=3D"center">&nbsp;</P>
-<P align=3D"center"><IMG src=3D"cid:1LAFJIQIEW1PV1QNJKI6RSGGRZ"></P>
-<P align=3D"center"><IMG src=3D"cid:3UF84KIUO8D792T77I6X1WWZ"></P>
+<P align=3D"center"><IMG src=3D"cid:30MPYLJF2571R7UHTH1DAIXX1"></P>
+<P align=3D"center"><IMG src=3D"cid:V0SOZYL28UVV19M8MV2UONOQB"></P>
 <P align=3D"center">&nbsp;</P>
 <P align=3D"center">&nbsp;</P>
-<P align=3D"justify"><STRONG><FONT size=3D"5">SCHEDA Ritenute</STRONG></F=
-ONT></STRONG></P>
+<P align=3D"justify"><STRONG><FONT size=3D"5">SCHEDA Ritenute</FONT></STR=
+ONG></P>
 <P><FONT size=3D"4">Contiene i Capitoli di Entrata e di Spesa di partita =
 di giro e i relativi codici Siope. Questi dati <EM>Easy</EM> li legge dal=
 la <A href=3D"csa_incomesetup_default.mht">Configurazione voci di Versame=
 nto</A>.</FONT></P>
-<P align=3D"center"><IMG src=3D"cid:1G6FA1NJJYJHFTRMDGYWC9C3J"></P>
+<P align=3D"center"><IMG src=3D"cid:1YW3ZZAKTO7XD1RJLRPT1WPA74X"></P>
 <DIV><STRONG><FONT size=3D"5">SCHEDA EP</FONT></STRONG></DIV>
 <P><FONT size=3D"4">Contiene il Conto di Debito e Credito verso Ente per =
 Ritenute e Contributi. Questi dati <EM>Easy</EM> li legge dalla <A href=3D=
 "csa_incomesetup_default.mht">Configurazione voci di Versamento</A>.</FON=
 T></P>
-<P align=3D"center"><IMG src=3D"cid:JZXFPVJ06UIU1GSJGR7R336LP"></P>
+<P align=3D"center"><IMG src=3D"cid:SQSZBVJ0IJ6E61GC5M153AV1S"></P>
 <DIV><STRONG><FONT size=3D"5">SCHEDA Contributi negativi e Recuperi posit=
 ivi e negativi</FONT></STRONG></DIV>
 <P><FONT size=3D"4">Contiene le configurazioni di Entrata\Ricavo per i Re=
@@ -198,7 +208,7 @@ o per i Recuperi NEGATIVI.</FONT></P>
 <P><FONT size=3D"4">Questi dati <EM>Easy</EM> li legge dalla <A href=3D"c=
 sa_incomesetup_default.mht">Configurazione voci di Versamento</A>.</FONT>=
 </P>
-<P align=3D"center"><IMG src=3D"cid:OAU57NJ7K43R1SZHY8A1P6XCRC"></P>
+<P align=3D"center"><IMG src=3D"cid:1BT1LD9JKFUFZ1R3X1G76N4V3"></P>
 <DIV><STRONG><FONT size=3D"5">SCHEDA Movimenti finanziari</FONT></STRONG>=
 </DIV>
 <P align=3D"justify"><FONT size=3D"4">Nella scheda <STRONG>Movimenti Fina=
@@ -212,7 +222,7 @@ o disponibili in formato Elenco, accedendo al menu <STRONG>Compensi &gt; =
 Contabilizzazione Stipendi&gt; da procedura stipendi (CSA o altro)&gt;Ele=
 nchi&gt;Movimenti Spesa Generati (Ripart.Versamenti) e Movimenti Entrata =
 Generati (Ripart.Versamenti).</FONT></STRONG></P>
-<P align=3D"center"><IMG src=3D"cid:6RVPZEHWSB3B8CISVFD7BCI5"></P>
+<P align=3D"center"><IMG src=3D"cid:1U8PUY6KGRXR2FWN4BTN3R3BM"></P>
 <P align=3D"justify">&nbsp;</P>
 <DIV><STRONG><FONT size=3D"5">SCHEDA Vecchia configurazione</FONT></STRON=
 G></DIV>
@@ -225,9 +235,9 @@ ella nuova versione della procedura di contabilizzazione degli stipendi.<=
 </BODY>
 </HTML>
 
------------blocknote.net--1JM7IHPLZMNNXOI36GYPUTANA
+-----------blocknote.net--YDY8HMJPBUZU1YARG5N1233WFV
 Content-Type: image/x-png
-Content-Id: <14VDVPPISMKZC63Z15Z1DWDYNE>
+Content-Id: <1XE2ZH8K3KCNS7G8J2O1IPXQ14>
 Content-Transfer-Encoding: base64
 Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/Versamenti 1.png
 
@@ -651,9 +661,9 @@ APqEZABgkQwAAAAA0CckAwCLZAAAAACAPiEZAFgkAwAAAAD0CckAwCIZAAAAAKBP
 SAYAFskAAAAAAH1CMgCwSAYAAAAA6BOSAYBFMgAAAABAn5AMAKyZkwGfN/8fER06
 r1lAh7sAAAAASUVORK5CYII==
 
------------blocknote.net--1JM7IHPLZMNNXOI36GYPUTANA
+-----------blocknote.net--YDY8HMJPBUZU1YARG5N1233WFV
 Content-Type: image/x-png
-Content-Id: <1L9HGRHIZ1C4Q77OCZCIDE8EE>
+Content-Id: <1CECGIOK523I91TPZUL81YHADXC>
 Content-Transfer-Encoding: base64
 Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/Versamenti 2.png
 
@@ -1408,9 +1418,9 @@ EQXHgJQoPRiQEhERERERUafgM6RERERERESU0RiQEhERERERUadgQEpERERERESd
 ggEpERERERERdQoGpERERERERNQpGJASERERERFRp2BASkRERERERJ0A+P8BCMf8
 r8VlTjAAAAAASUVORK5CYII==
 
------------blocknote.net--1JM7IHPLZMNNXOI36GYPUTANA
+-----------blocknote.net--YDY8HMJPBUZU1YARG5N1233WFV
 Content-Type: image/x-png
-Content-Id: <1LAFJIQIEW1PV1QNJKI6RSGGRZ>
+Content-Id: <30MPYLJF2571R7UHTH1DAIXX1>
 Content-Transfer-Encoding: base64
 Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/Versamenti 7.png
 
@@ -2967,9 +2977,9 @@ HNA5chrmAxXxwwUAAADkCL/uuO5hR0FhoX2erIdNIA0U8z8vdj3n1d1FEM0h1kfC
 fDDsaQqlsND+ABUW8nIDAAAgd/l1x3UPOwoKi6xW0ULrUSdNq9b+v0/oDD8fd/6r
 EVTjIfL/A/wQgahtI9QvAAAAAElFTkSuQmCC=
 
------------blocknote.net--1JM7IHPLZMNNXOI36GYPUTANA
+-----------blocknote.net--YDY8HMJPBUZU1YARG5N1233WFV
 Content-Type: image/x-png
-Content-Id: <3UF84KIUO8D792T77I6X1WWZ>
+Content-Id: <V0SOZYL28UVV19M8MV2UONOQB>
 Content-Transfer-Encoding: base64
 Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/Versamenti 6.png
 
@@ -4339,9 +4349,9 @@ LQnM/XGBe5PcvmxnERyCZj7gTw4AAADyhL+7bKqus+2NMGZqlrhZ7g0EzRwX+9cY
 /nlPQWFh7D7ZzNvAGS/2f6nE6rmvzoz0/wOXf8Tk3IkI1wAAAABJRU5ErkJggg==
 =
 
------------blocknote.net--1JM7IHPLZMNNXOI36GYPUTANA
+-----------blocknote.net--YDY8HMJPBUZU1YARG5N1233WFV
 Content-Type: image/x-png
-Content-Id: <1G6FA1NJJYJHFTRMDGYWC9C3J>
+Content-Id: <1YW3ZZAKTO7XD1RJLRPT1WPA74X>
 Content-Transfer-Encoding: base64
 Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/Ritenu.png
 
@@ -4779,9 +4789,9 @@ AAAAoGAElwAAAACAghFcAgAAAAAKRnAJAAAAACgYwSUAAAAAoGAElwAAAACAghFc
 AgAAAAAKRnAJAAAAACgYwSUAAAAAoGAElwAAAACAghFcAgAAAAAKJPL/AaetoCEP
 BjX7AAAAAElFTkSuQmCC=
 
------------blocknote.net--1JM7IHPLZMNNXOI36GYPUTANA
+-----------blocknote.net--YDY8HMJPBUZU1YARG5N1233WFV
 Content-Type: image/x-png
-Content-Id: <JZXFPVJ06UIU1GSJGR7R336LP>
+Content-Id: <SQSZBVJ0IJ6E61GC5M153AV1S>
 Content-Transfer-Encoding: base64
 Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/EP versamenti.png
 
@@ -5091,9 +5101,9 @@ veeeeyoLAAAAzHid7gntaAj94qZN+RwAAAC9omtDKAAAALgmFAAAgK4ghAIAAFAa
 IRQAAIDSCKEAAACUJrsx0aPpjYkAAABgGt3w/72lJxQAAIDyCKEAAACURggFAACg
 NEIoAAAAJYn4/wFeAaKJS4fx5AAAAABJRU5ErkJggg===
 
------------blocknote.net--1JM7IHPLZMNNXOI36GYPUTANA
+-----------blocknote.net--YDY8HMJPBUZU1YARG5N1233WFV
 Content-Type: image/x-png
-Content-Id: <OAU57NJ7K43R1SZHY8A1P6XCRC>
+Content-Id: <1BT1LD9JKFUFZ1R3X1G76N4V3>
 Content-Transfer-Encoding: base64
 Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/contrib versamenti.png
 
@@ -5635,9 +5645,9 @@ oytXmiEAAAAAQKkoyAQUAAAAAADuAQUAAAAAjDsSUAAAAABALEhAAQAAAACxIAEF
 AAAAAMSi4t/1Q4gAAAAAAMijVf/fZ1wBBQAAAADEgwQUAAAAABALElAAAAAAQAxE
 /n+Vw4NAK9QhNgAAAABJRU5ErkJggg===
 
------------blocknote.net--1JM7IHPLZMNNXOI36GYPUTANA
+-----------blocknote.net--YDY8HMJPBUZU1YARG5N1233WFV
 Content-Type: image/x-png
-Content-Id: <6RVPZEHWSB3B8CISVFD7BCI5>
+Content-Id: <1U8PUY6KGRXR2FWN4BTN3R3BM>
 Content-Transfer-Encoding: base64
 Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/Finanzia.png
 
@@ -5880,4 +5890,4 @@ QDPJJQAAAM1OPv7o8fO0cHr1tYtAX1fm5dnTJy9WAAAAmLS79x7Mzj44m90/e7iI
 8DuXAAAAjEZyCQAAQDPJJQAAAM0klwAAADT78g/6AAAAwHpms/8PPQsxLmYiv/wA
 AAAASUVORK5CYII==
 
------------blocknote.net--1JM7IHPLZMNNXOI36GYPUTANA--
+-----------blocknote.net--YDY8HMJPBUZU1YARG5N1233WFV--

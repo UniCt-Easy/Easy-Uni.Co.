@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -128,7 +127,7 @@ namespace meta_parasubcontract //meta_contratto//
                         errmess =
                             "L'Anagrafe delle Prestazioni è stata già generata, e risultano modificati i seguenti dati: \n\r" +
                             message + "Adeguare anche i dati dell'Incarico.";
-                        MessageBox.Show(errmess, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(errmess, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                     else {
                         errmess = "Risultano modificati i seguenti dati: \n\r" + message +
@@ -245,7 +244,7 @@ namespace meta_parasubcontract //meta_contratto//
             DataTable tConfigurazione = T.DataSet.Tables["config"];
             DataRow[] rConfig = tConfigurazione.Select(QHC.CmpEq("ayear", GetSys("esercizio")));
             if (rConfig.Length == 0) {
-                MessageBox.Show("Bisogna inserire i dati nel form di configurazione del contratto",
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Bisogna inserire i dati nel form di configurazione del contratto",
                     "Contratto - Dati Mancanti", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return null;
             }
@@ -288,4 +287,3 @@ namespace meta_parasubcontract //meta_contratto//
         }
     }
 }
-

@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_bandods_seg" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_bandods_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="bandodsiscresito" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idbandods" type="xs:int" />
+              <xs:element name="idbandodsiscr" type="xs:int" />
+              <xs:element name="idbandodsiscresito" type="xs:int" />
+              <xs:element name="idbandodsiscresitokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idbandodsservizio" type="xs:int" />
+              <xs:element name="idiscrizione" type="xs:int" />
+              <xs:element name="idreg_studenti" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="bandodsiscr" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="cfbonus" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idaccreditokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idbandods" type="xs:int" />
+              <xs:element name="idbandodsiscr" type="xs:int" />
+              <xs:element name="idbandodsservizio" type="xs:int" />
+              <xs:element name="idiscrizione" type="xs:int" />
+              <xs:element name="idreg_studenti" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="graduatoriaesitipos" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idcorsostudio" type="xs:int" minOccurs="0" />
+              <xs:element name="idgraduatoriaesiti" type="xs:int" />
+              <xs:element name="idgraduatoriaesitipos" type="xs:int" />
+              <xs:element name="idreg_studenti" type="xs:int" />
+              <xs:element name="idtipologiastudente" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="pos" type="xs:int" minOccurs="0" />
+              <xs:element name="punteggio" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="graduatoriaesiti" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="datachiusura" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcorsostudio" type="xs:int" minOccurs="0" />
+              <xs:element name="idgraduatoria" type="xs:int" minOccurs="0" />
+              <xs:element name="idgraduatoriaesiti" type="xs:int" />
+              <xs:element name="idtipologiastudente" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="provvisoria" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tipologiastudentestruttura" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idbandods" type="xs:int" />
+              <xs:element name="idbandodsservizio" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="idtipologiastudente" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="bandodsserviziodatepres" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idbandods" type="xs:int" />
+              <xs:element name="idbandodsservizio" type="xs:int" />
+              <xs:element name="idbandodsserviziodatepres" type="xs:int" />
+              <xs:element name="idtipologiastudente" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="bandodsservizioattach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idbandods" type="xs:int" />
+              <xs:element name="idbandodsservizio" type="xs:int" />
+              <xs:element name="idbandodsservizioattach" type="xs:int" />
+              <xs:element name="idtipologiastudente" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="bandodsserviziorequisito" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="cfbonus" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cfbonushp" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cfconseguiti" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cfconseguitihp" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idbandods" type="xs:int" />
+              <xs:element name="idbandodsservizio" type="xs:int" />
+              <xs:element name="idbandodsserviziorequisito" type="xs:int" />
+              <xs:element name="idtipologiastudente" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tipologiastudente" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="abbreviazione" type="xs:string" minOccurs="0" />
+              <xs:element name="annoiscr" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idbandods" type="xs:int" />
+              <xs:element name="idbandodsservizio" type="xs:int" />
+              <xs:element name="idcorsostudiokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idtipologiastudente" type="xs:int" />
+              <xs:element name="immatricolato" type="xs:string" minOccurs="0" />
+              <xs:element name="iscrittobmi" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="passaggio" type="xs:string" minOccurs="0" />
+              <xs:element name="tri" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="istattitolistudio" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idistattitolistudio" type="xs:int" />
+              <xs:element name="titolo" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="esonero" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idesonero" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="bandodsserviziokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idbandodsserviziokind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="bandodsservizio" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="alloggio" type="xs:string" minOccurs="0" />
+              <xs:element name="borsafuorisede" type="xs:decimal" minOccurs="0" />
+              <xs:element name="borsainsede" type="xs:decimal" minOccurs="0" />
+              <xs:element name="borsapendolari" type="xs:decimal" minOccurs="0" />
+              <xs:element name="contributo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="contributomiimporto" type="xs:decimal" minOccurs="0" />
+              <xs:element name="contributomimesi" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="fuoricorso" type="xs:string" />
+              <xs:element name="idbandods" type="xs:int" />
+              <xs:element name="idbandodsservizio" type="xs:int" />
+              <xs:element name="idbandodsserviziokind" type="xs:int" />
+              <xs:element name="idesonero" type="xs:int" minOccurs="0" />
+              <xs:element name="idistattitolistudio_min" type="xs:int" />
+              <xs:element name="iseemax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ispemax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="maggiorenne" type="xs:string" minOccurs="0" />
+              <xs:element name="mensa" type="xs:string" minOccurs="0" />
+              <xs:element name="parttime" type="xs:string" minOccurs="0" />
+              <xs:element name="primaimmatlivello" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idbandodsserviziokind_bandodsserviziokind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idbandodsserviziokind_bandodsserviziokind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idesonero_esonero_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idistattitolistudio_min_istattitolistudio_titolo" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="annoaccademico" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="bandods" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="fondo" type="xs:string" minOccurs="0" />
+              <xs:element name="idbandods" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:bandodsiscresito" />
+      <xs:field xpath="mstns:idbandods" />
+      <xs:field xpath="mstns:idbandodsiscr" />
+      <xs:field xpath="mstns:idbandodsiscresito" />
+      <xs:field xpath="mstns:idbandodsservizio" />
+      <xs:field xpath="mstns:idiscrizione" />
+      <xs:field xpath="mstns:idreg_studenti" />
+    </xs:unique>
+    <xs:unique name="bandodsiscr_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:bandodsiscr" />
+      <xs:field xpath="mstns:idbandods" />
+      <xs:field xpath="mstns:idbandodsiscr" />
+      <xs:field xpath="mstns:idbandodsservizio" />
+      <xs:field xpath="mstns:idiscrizione" />
+      <xs:field xpath="mstns:idreg_studenti" />
+    </xs:unique>
+    <xs:unique name="graduatoriaesitipos_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:graduatoriaesitipos" />
+      <xs:field xpath="mstns:idgraduatoriaesiti" />
+      <xs:field xpath="mstns:idgraduatoriaesitipos" />
+    </xs:unique>
+    <xs:unique name="graduatoriaesiti_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:graduatoriaesiti" />
+      <xs:field xpath="mstns:idgraduatoriaesiti" />
+      <xs:field xpath="mstns:idtipologiastudente" />
+    </xs:unique>
+    <xs:unique name="tipologiastudentestruttura_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tipologiastudentestruttura" />
+      <xs:field xpath="mstns:idbandods" />
+      <xs:field xpath="mstns:idbandodsservizio" />
+      <xs:field xpath="mstns:idstruttura" />
+      <xs:field xpath="mstns:idtipologiastudente" />
+    </xs:unique>
+    <xs:unique name="bandodsserviziodatepres_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:bandodsserviziodatepres" />
+      <xs:field xpath="mstns:idbandods" />
+      <xs:field xpath="mstns:idbandodsservizio" />
+      <xs:field xpath="mstns:idbandodsserviziodatepres" />
+      <xs:field xpath="mstns:idtipologiastudente" />
+    </xs:unique>
+    <xs:unique name="bandodsservizioattach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:bandodsservizioattach" />
+      <xs:field xpath="mstns:idbandods" />
+      <xs:field xpath="mstns:idbandodsservizio" />
+      <xs:field xpath="mstns:idbandodsservizioattach" />
+      <xs:field xpath="mstns:idtipologiastudente" />
+    </xs:unique>
+    <xs:unique name="bandodsserviziorequisito_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:bandodsserviziorequisito" />
+      <xs:field xpath="mstns:idbandods" />
+      <xs:field xpath="mstns:idbandodsservizio" />
+      <xs:field xpath="mstns:idbandodsserviziorequisito" />
+      <xs:field xpath="mstns:idtipologiastudente" />
+    </xs:unique>
+    <xs:unique name="tipologiastudente_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tipologiastudente" />
+      <xs:field xpath="mstns:idbandods" />
+      <xs:field xpath="mstns:idbandodsservizio" />
+      <xs:field xpath="mstns:idtipologiastudente" />
+    </xs:unique>
+    <xs:unique name="istattitolistudio_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:istattitolistudio" />
+      <xs:field xpath="mstns:idistattitolistudio" />
+    </xs:unique>
+    <xs:unique name="esonero_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:esonero" />
+      <xs:field xpath="mstns:idesonero" />
+    </xs:unique>
+    <xs:unique name="bandodsserviziokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:bandodsserviziokind" />
+      <xs:field xpath="mstns:idbandodsserviziokind" />
+    </xs:unique>
+    <xs:unique name="bandodsservizio_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:bandodsservizio" />
+      <xs:field xpath="mstns:idbandods" />
+      <xs:field xpath="mstns:idbandodsservizio" />
+    </xs:unique>
+    <xs:unique name="annoaccademico_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:annoaccademico" />
+      <xs:field xpath="mstns:aa" />
+    </xs:unique>
+    <xs:unique name="bandods_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:bandods" />
+      <xs:field xpath="mstns:idbandods" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_bandodsservizio_bandods_idbandods" msdata:parent="bandods" msdata:child="bandodsservizio" msdata:parentkey="idbandods" msdata:childkey="idbandods" />
+      <msdata:Relationship name="FK_bandodsiscr_bandodsservizio_idbandods-idbandodsservizio" msdata:parent="bandodsservizio" msdata:child="bandodsiscr" msdata:parentkey="idbandods idbandodsservizio" msdata:childkey="idbandods idbandodsservizio" />
+      <msdata:Relationship name="FK_bandodsiscresito_bandodsiscr_idbandods-idbandodsiscr-idbandodsservizio-idiscrizione-idreg_studenti" msdata:parent="bandodsiscr" msdata:child="bandodsiscresito" msdata:parentkey="idbandods idbandodsiscr idbandodsservizio idiscrizione idreg_studenti" msdata:childkey="idbandods idbandodsiscr idbandodsservizio idiscrizione idreg_studenti" />
+      <msdata:Relationship name="FK_tipologiastudente_bandodsservizio_idbandods-idbandodsservizio" msdata:parent="bandodsservizio" msdata:child="tipologiastudente" msdata:parentkey="idbandods idbandodsservizio" msdata:childkey="idbandods idbandodsservizio" />
+      <msdata:Relationship name="FK_graduatoriaesiti_tipologiastudente_idtipologiastudente" msdata:parent="tipologiastudente" msdata:child="graduatoriaesiti" msdata:parentkey="idtipologiastudente" msdata:childkey="idtipologiastudente" />
+      <msdata:Relationship name="FK_graduatoriaesitipos_graduatoriaesiti_idgraduatoriaesiti-idtipologiastudente" msdata:parent="graduatoriaesiti" msdata:child="graduatoriaesitipos" msdata:parentkey="idgraduatoriaesiti idtipologiastudente" msdata:childkey="idgraduatoriaesiti idtipologiastudente" />
+      <msdata:Relationship name="FK_tipologiastudentestruttura_tipologiastudente_idbandods-idbandodsservizio-idtipologiastudente" msdata:parent="tipologiastudente" msdata:child="tipologiastudentestruttura" msdata:parentkey="idbandods idbandodsservizio idtipologiastudente" msdata:childkey="idbandods idbandodsservizio idtipologiastudente" />
+      <msdata:Relationship name="FK_bandodsserviziodatepres_tipologiastudente_idbandods-idbandodsservizio-idtipologiastudente" msdata:parent="tipologiastudente" msdata:child="bandodsserviziodatepres" msdata:parentkey="idbandods idbandodsservizio idtipologiastudente" msdata:childkey="idbandods idbandodsservizio idtipologiastudente" />
+      <msdata:Relationship name="FK_bandodsservizioattach_tipologiastudente_idbandods-idbandodsservizio-idtipologiastudente" msdata:parent="tipologiastudente" msdata:child="bandodsservizioattach" msdata:parentkey="idbandods idbandodsservizio idtipologiastudente" msdata:childkey="idbandods idbandodsservizio idtipologiastudente" />
+      <msdata:Relationship name="FK_bandodsserviziorequisito_tipologiastudente_idbandods-idbandodsservizio-idtipologiastudente" msdata:parent="tipologiastudente" msdata:child="bandodsserviziorequisito" msdata:parentkey="idbandods idbandodsservizio idtipologiastudente" msdata:childkey="idbandods idbandodsservizio idtipologiastudente" />
+      <msdata:Relationship name="FK_bandodsservizio_istattitolistudio_idistattitolistudio_min" msdata:parent="istattitolistudio" msdata:child="bandodsservizio" msdata:parentkey="idistattitolistudio" msdata:childkey="idistattitolistudio_min" />
+      <msdata:Relationship name="FK_bandodsservizio_esonero_idesonero" msdata:parent="esonero" msdata:child="bandodsservizio" msdata:parentkey="idesonero" msdata:childkey="idesonero" />
+      <msdata:Relationship name="FK_bandodsservizio_bandodsserviziokind_idbandodsserviziokind" msdata:parent="bandodsserviziokind" msdata:child="bandodsservizio" msdata:parentkey="idbandodsserviziokind" msdata:childkey="idbandodsserviziokind" />
+      <msdata:Relationship name="FK_bandods_annoaccademico_aa" msdata:parent="annoaccademico" msdata:child="bandods" msdata:parentkey="aa" msdata:childkey="aa" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

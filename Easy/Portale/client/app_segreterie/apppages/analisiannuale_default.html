@@ -1,0 +1,514 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabanalisiannuale_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabanalisiannuale_default_0"><i class="fa fa-chart-bar mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabanalisiannuale_default_1" class="nav-link" data-toggle="pill" data-target="#tabanalisiannuale_default_1"><i class="fa fa-chart-bar mr-1"></i>Anno successivo</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabanalisiannuale_default_2" class="nav-link" data-toggle="pill" data-target="#tabanalisiannuale_default_2"><i class="fa fa-chart-bar mr-1"></i>Secondo anno successivo</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabanalisiannuale_default_3" class="nav-link" data-toggle="pill" data-target="#tabanalisiannuale_default_3"><i class="fa fa-chart-bar mr-1"></i>Terzo anno successivo</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabanalisiannuale_default_5" class="nav-link" data-toggle="pill" data-target="#tabanalisiannuale_default_5"><i class="fa fa-file-invoice-dollar mr-1"></i>Personale già assunto</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabanalisiannuale_default_4" class="nav-link" data-toggle="pill" data-target="#tabanalisiannuale_default_4"><i class="fa fa-hourglass-end mr-1"></i>Cessazioni</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabanalisiannuale_default_7" class="nav-link" data-toggle="pill" data-target="#tabanalisiannuale_default_7"><i class="fa fa-user-tie mr-1"></i>Assunzioni e progressioni economiche verticali</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabanalisiannuale_default_9" class="nav-link" data-toggle="pill" data-target="#tabanalisiannuale_default_9"><i class="fa fa-users mr-1"></i>Analisi punti organico e importi</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabanalisiannuale_default_6" class="nav-link" data-toggle="pill" data-target="#tabanalisiannuale_default_6"><i class="fa fa-tachometer-alt mr-1"></i>Dashboard</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabanalisiannuale_default_8" class="nav-link" data-toggle="pill" data-target="#tabanalisiannuale_default_8"><i class="fa fa-euro-sign mr-1"></i>Bilancio</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabanalisiannuale_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_year">Anno</label>
+					<select id="analisiannuale_default_year" class="custom-select d-block w-100"  data-source-name="year" data-value-member="year" data-display-member="year" data-custom-control="combo" data-tag="analisiannuale.year?analisiannualedefaultview.year" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_costopt">Costo di un punto organico</label>
+					<input id="analisiannuale_default_costopt" type="text" class="form-control" data-tag="analisiannuale.costopt.fixed.2?analisiannualedefaultview.analisiannuale_costopt" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_spesedocenti0">Spese di personale docente anno corrente</label>
+					<input id="analisiannuale_default_spesedocenti0" type="text" class="form-control" data-tag="analisiannuale.spesedocenti0.fixed.2?analisiannualedefaultview.analisiannuale_spesedocenti0" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_finanzesternidocenti0">Finanziamenti esterni per docenti anno corrente</label>
+					<input id="analisiannuale_default_finanzesternidocenti0" type="text" class="form-control" data-tag="analisiannuale.finanzesternidocenti0.fixed.2?analisiannualedefaultview.analisiannuale_finanzesternidocenti0" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_spesedirPTA0">Spese per dirigenti e personale TA anno corrente</label>
+					<input id="analisiannuale_default_spesedirPTA0" type="text" class="form-control" data-tag="analisiannuale.spesedirPTA0.fixed.2?analisiannualedefaultview.analisiannuale_spesedirPTA0" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_finanzesternidirPTA0">Finanziamenti esterni per dirigenti e personale TA anno corrente</label>
+					<input id="analisiannuale_default_finanzesternidirPTA0" type="text" class="form-control" data-tag="analisiannuale.finanzesternidirPTA0.fixed.2?analisiannualedefaultview.analisiannuale_finanzesternidirPTA0" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_totspesepersonalecaricoateneo0">Totale spese di personale a carico Ateneo anno corrente</label>
+					<input id="analisiannuale_default_totspesepersonalecaricoateneo0" type="text" class="form-control" data-tag="analisiannuale.totspesepersonalecaricoateneo0.fixed.2?analisiannualedefaultview.analisiannuale_totspesepersonalecaricoateneo0" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_speseDG0">Direttore Generale anno corrente</label>
+					<input id="analisiannuale_default_speseDG0" type="text" class="form-control" data-tag="analisiannuale.speseDG0.fixed.2?analisiannualedefaultview.analisiannuale_speseDG0" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_fondocontrattazioneintegrativa0">Fondo contrattazione integrativa anno corrente</label>
+					<input id="analisiannuale_default_fondocontrattazioneintegrativa0" type="text" class="form-control" data-tag="analisiannuale.fondocontrattazioneintegrativa0.fixed.2?analisiannualedefaultview.analisiannuale_fondocontrattazioneintegrativa0" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_trattamentostipintegrativoCEL0">Trattamento stipendiale integrativo CEL anno corrente</label>
+					<input id="analisiannuale_default_trattamentostipintegrativoCEL0" type="text" class="form-control" data-tag="analisiannuale.trattamentostipintegrativoCEL0.fixed.2?analisiannualedefaultview.analisiannuale_trattamentostipintegrativoCEL0" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_contrattiincarichiinsegnamento0">Contratti per incarichi di insegnamento anno corrente</label>
+					<input id="analisiannuale_default_contrattiincarichiinsegnamento0" type="text" class="form-control" data-tag="analisiannuale.contrattiincarichiinsegnamento0.fixed.2?analisiannualedefaultview.analisiannuale_contrattiincarichiinsegnamento0" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_finanzesternicontrattiincarichiinsegnamento0">Finanziamenti esterni per contratti per incarichi di insegnamento anno corrente</label>
+					<input id="analisiannuale_default_finanzesternicontrattiincarichiinsegnamento0" type="text" class="form-control" data-tag="analisiannuale.finanzesternicontrattiincarichiinsegnamento0.fixed.2?analisiannualedefaultview.analisiannuale_finanzesternicontrattiincarichiinsegnamento0" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_numeratore0">Totale numeratore anno corrente</label>
+					<input id="analisiannuale_default_numeratore0" type="text" class="form-control" data-tag="analisiannuale.!numeratore0.fixed.2?analisiannualedefaultview.!numeratore0" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_ffo0">FFO anno corrente</label>
+					<input id="analisiannuale_default_ffo0" type="text" class="form-control" data-tag="analisiannuale.ffo0.fixed.2?analisiannualedefaultview.analisiannuale_ffo0" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_programmazionetriennale0">Programmazione triennale terzo anno corrente</label>
+					<input id="analisiannuale_default_programmazionetriennale0" type="text" class="form-control" data-tag="analisiannuale.programmazionetriennale0.fixed.2?analisiannualedefaultview.analisiannuale_programmazionetriennale0" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_tasse0">Tasse studenti anno correntre</label>
+					<input id="analisiannuale_default_tasse0" type="text" class="form-control" data-tag="analisiannuale.tasse0.fixed.2?analisiannualedefaultview.analisiannuale_tasse0" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_speseriduzione0">Spese a riduzione</label>
+					<input id="analisiannuale_default_speseriduzione0" type="text" class="form-control" data-tag="analisiannuale.speseriduzione0.fixed.2?analisiannualedefaultview.analisiannuale_speseriduzione0" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_denominatore0">Totale denominatore anno corrente</label>
+					<input id="analisiannuale_default_denominatore0" type="text" class="form-control" data-tag="analisiannuale.!denominatore0.fixed.2?analisiannualedefaultview.!denominatore0" data-subentity  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabanalisiannuale_default_1" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_year1">Anno successivo</label>
+					<input id="analisiannuale_default_year1" type="text" class="form-control" data-tag="analisiannuale.!year1?analisiannualedefaultview.!year1" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_incrementodocenti1">Punti percentuali di incremento annuale degli stipendi per i docenti anno successivo</label>
+					<input id="analisiannuale_default_incrementodocenti1" type="text" class="form-control" data-tag="analisiannuale.incrementodocenti1.fixed.2?analisiannualedefaultview.analisiannuale_incrementodocenti1" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_spesedocenti1">Spese di personale docente anno successivo</label>
+					<input id="analisiannuale_default_spesedocenti1" type="text" class="form-control" data-tag="analisiannuale.spesedocenti1.fixed.2?analisiannualedefaultview.analisiannuale_spesedocenti1" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_finanzesternidocenti1">Finanziamenti esterni per docenti anno successivo</label>
+					<input id="analisiannuale_default_finanzesternidocenti1" type="text" class="form-control" data-tag="analisiannuale.finanzesternidocenti1.fixed.2?analisiannualedefaultview.analisiannuale_finanzesternidocenti1" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_spesedirPTA1">Spese di dirigenti e personale TA anno successivo</label>
+					<input id="analisiannuale_default_spesedirPTA1" type="text" class="form-control" data-tag="analisiannuale.spesedirPTA1.fixed.2?analisiannualedefaultview.analisiannuale_spesedirPTA1" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_finanzesternidirPTA1">Finanziamenti esterni per dirigenti e personale TA anno successivo</label>
+					<input id="analisiannuale_default_finanzesternidirPTA1" type="text" class="form-control" data-tag="analisiannuale.finanzesternidirPTA1.fixed.2?analisiannualedefaultview.analisiannuale_finanzesternidirPTA1" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_totspesepersonalecaricoateneo1">Totale spese di personale a carico Ateneo anno successivo</label>
+					<input id="analisiannuale_default_totspesepersonalecaricoateneo1" type="text" class="form-control" data-tag="analisiannuale.totspesepersonalecaricoateneo1.fixed.2?analisiannualedefaultview.analisiannuale_totspesepersonalecaricoateneo1" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_speseDG1">Direttore Generale anno successivo</label>
+					<input id="analisiannuale_default_speseDG1" type="text" class="form-control" data-tag="analisiannuale.speseDG1.fixed.2?analisiannualedefaultview.analisiannuale_speseDG1" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_fondocontrattazioneintegrativa1">Fondo contrattazione integrativa anno successivo</label>
+					<input id="analisiannuale_default_fondocontrattazioneintegrativa1" type="text" class="form-control" data-tag="analisiannuale.fondocontrattazioneintegrativa1.fixed.2?analisiannualedefaultview.analisiannuale_fondocontrattazioneintegrativa1" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_trattamentostipintegrativoCEL1">Trattamento stipendiale integrativo CEL anno successivo</label>
+					<input id="analisiannuale_default_trattamentostipintegrativoCEL1" type="text" class="form-control" data-tag="analisiannuale.trattamentostipintegrativoCEL1.fixed.2?analisiannualedefaultview.analisiannuale_trattamentostipintegrativoCEL1" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_contrattiincarichiinsegnamento1">Contratti per incarichi di insegnamento anno successivo</label>
+					<input id="analisiannuale_default_contrattiincarichiinsegnamento1" type="text" class="form-control" data-tag="analisiannuale.contrattiincarichiinsegnamento1.fixed.2?analisiannualedefaultview.analisiannuale_contrattiincarichiinsegnamento1" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_finanzesternicontrattiincarichiinsegnamento1">Finanziamenti esterni per contratti per incarichi di insegnamento anno successivo</label>
+					<input id="analisiannuale_default_finanzesternicontrattiincarichiinsegnamento1" type="text" class="form-control" data-tag="analisiannuale.finanzesternicontrattiincarichiinsegnamento1.fixed.2?analisiannualedefaultview.analisiannuale_finanzesternicontrattiincarichiinsegnamento1" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_numeratore1">Totale numeratore anno successivo</label>
+					<input id="analisiannuale_default_numeratore1" type="text" class="form-control" data-tag="analisiannuale.!numeratore1.fixed.2?analisiannualedefaultview.!numeratore1" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_ffo1">FFO anno successivo</label>
+					<input id="analisiannuale_default_ffo1" type="text" class="form-control" data-tag="analisiannuale.ffo1.fixed.2?analisiannualedefaultview.analisiannuale_ffo1" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_programmazionetriennale1">Programmazione triennale anno successivo</label>
+					<input id="analisiannuale_default_programmazionetriennale1" type="text" class="form-control" data-tag="analisiannuale.programmazionetriennale1.fixed.2?analisiannualedefaultview.analisiannuale_programmazionetriennale1" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_tasse1">Tasse studenti anno successivo</label>
+					<input id="analisiannuale_default_tasse1" type="text" class="form-control" data-tag="analisiannuale.tasse1.fixed.2?analisiannualedefaultview.analisiannuale_tasse1" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_speseriduzione1">Spese a riduzione anno successivo</label>
+					<input id="analisiannuale_default_speseriduzione1" type="text" class="form-control" data-tag="analisiannuale.speseriduzione1.fixed.2?analisiannualedefaultview.analisiannuale_speseriduzione1" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_denominatore1">Totale denominatore anno successivo</label>
+					<input id="analisiannuale_default_denominatore1" type="text" class="form-control" data-tag="analisiannuale.!denominatore1.fixed.2?analisiannualedefaultview.!denominatore1" data-subentity  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabanalisiannuale_default_2" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_year2">Secondo anno successivo</label>
+					<input id="analisiannuale_default_year2" type="text" class="form-control" data-tag="analisiannuale.!year2?analisiannualedefaultview.!year2" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_incrementodocenti2">Punti percentuali di incremento annuale degli stipendi per i docenti secondo anno successivo</label>
+					<input id="analisiannuale_default_incrementodocenti2" type="text" class="form-control" data-tag="analisiannuale.incrementodocenti2.fixed.2?analisiannualedefaultview.analisiannuale_incrementodocenti2" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_spesedocenti2">Spese di personale docente secondo anno successivo</label>
+					<input id="analisiannuale_default_spesedocenti2" type="text" class="form-control" data-tag="analisiannuale.spesedocenti2.fixed.2?analisiannualedefaultview.analisiannuale_spesedocenti2" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_finanzesternidocenti2">Finanziamenti esterni per docenti secondo anno successivo</label>
+					<input id="analisiannuale_default_finanzesternidocenti2" type="text" class="form-control" data-tag="analisiannuale.finanzesternidocenti2.fixed.2?analisiannualedefaultview.analisiannuale_finanzesternidocenti2" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_spesedirPTA2">Spese di dirigenti e personale TA secondo anno successivo</label>
+					<input id="analisiannuale_default_spesedirPTA2" type="text" class="form-control" data-tag="analisiannuale.spesedirPTA2.fixed.2?analisiannualedefaultview.analisiannuale_spesedirPTA2" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_finanzesternidirPTA2">Finanziamenti esterni per dirigenti e personale TA secondo anno successivo</label>
+					<input id="analisiannuale_default_finanzesternidirPTA2" type="text" class="form-control" data-tag="analisiannuale.finanzesternidirPTA2.fixed.2?analisiannualedefaultview.analisiannuale_finanzesternidirPTA2" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_totspesepersonalecaricoateneo2">Totale spese di personale a carico Ateneo secondo anno successivo</label>
+					<input id="analisiannuale_default_totspesepersonalecaricoateneo2" type="text" class="form-control" data-tag="analisiannuale.totspesepersonalecaricoateneo2.fixed.2?analisiannualedefaultview.analisiannuale_totspesepersonalecaricoateneo2" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_speseDG2">Direttore Generale secondo anno successivo</label>
+					<input id="analisiannuale_default_speseDG2" type="text" class="form-control" data-tag="analisiannuale.speseDG2.fixed.2?analisiannualedefaultview.analisiannuale_speseDG2" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_fondocontrattazioneintegrativa2">Fondo contrattazione integrativa secondo anno successivo</label>
+					<input id="analisiannuale_default_fondocontrattazioneintegrativa2" type="text" class="form-control" data-tag="analisiannuale.fondocontrattazioneintegrativa2.fixed.2?analisiannualedefaultview.analisiannuale_fondocontrattazioneintegrativa2" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_trattamentostipintegrativoCEL2">Trattamento stipendiale integrativo CEL secondo anno successivo</label>
+					<input id="analisiannuale_default_trattamentostipintegrativoCEL2" type="text" class="form-control" data-tag="analisiannuale.trattamentostipintegrativoCEL2.fixed.2?analisiannualedefaultview.analisiannuale_trattamentostipintegrativoCEL2" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_contrattiincarichiinsegnamento2">Contratti per incarichi di insegnamento secondo anno successivo</label>
+					<input id="analisiannuale_default_contrattiincarichiinsegnamento2" type="text" class="form-control" data-tag="analisiannuale.contrattiincarichiinsegnamento2.fixed.2?analisiannualedefaultview.analisiannuale_contrattiincarichiinsegnamento2" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_finanzesternicontrattiincarichiinsegnamento2">Finanziamenti esterni per contratti per incarichi di insegnamento secondo anno successivo</label>
+					<input id="analisiannuale_default_finanzesternicontrattiincarichiinsegnamento2" type="text" class="form-control" data-tag="analisiannuale.finanzesternicontrattiincarichiinsegnamento2.fixed.2?analisiannualedefaultview.analisiannuale_finanzesternicontrattiincarichiinsegnamento2" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_numeratore2">Totale denominatore secondo anno successivo</label>
+					<input id="analisiannuale_default_numeratore2" type="text" class="form-control" data-tag="analisiannuale.!numeratore2.fixed.2?analisiannualedefaultview.!numeratore2" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_ffo2">FFO  secondo anno successivo</label>
+					<input id="analisiannuale_default_ffo2" type="text" class="form-control" data-tag="analisiannuale.ffo2.fixed.2?analisiannualedefaultview.analisiannuale_ffo2" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_programmazionetriennale2">Programmazione triennale secondo anno successivo</label>
+					<input id="analisiannuale_default_programmazionetriennale2" type="text" class="form-control" data-tag="analisiannuale.programmazionetriennale2.fixed.2?analisiannualedefaultview.analisiannuale_programmazionetriennale2" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_tasse2">Tasse studenti  secondo anno successivo</label>
+					<input id="analisiannuale_default_tasse2" type="text" class="form-control" data-tag="analisiannuale.tasse2.fixed.2?analisiannualedefaultview.analisiannuale_tasse2" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_speseriduzione2">Spese a riduzione secondo anno successivo</label>
+					<input id="analisiannuale_default_speseriduzione2" type="text" class="form-control" data-tag="analisiannuale.speseriduzione2.fixed.2?analisiannualedefaultview.analisiannuale_speseriduzione2" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_denominatore2">Denominatore secondo anno successivo</label>
+					<input id="analisiannuale_default_denominatore2" type="text" class="form-control" data-tag="analisiannuale.!denominatore2.fixed.2?analisiannualedefaultview.!denominatore2" data-subentity  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabanalisiannuale_default_3" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_year3">Terzo anno successivo</label>
+					<input id="analisiannuale_default_year3" type="text" class="form-control" data-tag="analisiannuale.!year3?analisiannualedefaultview.!year3" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_incrementodocenti3">Punti percentuali di incremento annuale degli stipendi per i docenti terzo anno successivo</label>
+					<input id="analisiannuale_default_incrementodocenti3" type="text" class="form-control" data-tag="analisiannuale.incrementodocenti3.fixed.2?analisiannualedefaultview.analisiannuale_incrementodocenti3" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_spesedocenti3">Spese di personale docente terzo anno successivo</label>
+					<input id="analisiannuale_default_spesedocenti3" type="text" class="form-control" data-tag="analisiannuale.spesedocenti3.fixed.2?analisiannualedefaultview.analisiannuale_spesedocenti3" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_finanzesternidocenti3">Finanziamenti esterni per docenti terzo anno successivo</label>
+					<input id="analisiannuale_default_finanzesternidocenti3" type="text" class="form-control" data-tag="analisiannuale.finanzesternidocenti3.fixed.2?analisiannualedefaultview.analisiannuale_finanzesternidocenti3" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_spesedirPTA3">Spese di dirigenti e personale TA terzo anno successivo</label>
+					<input id="analisiannuale_default_spesedirPTA3" type="text" class="form-control" data-tag="analisiannuale.spesedirPTA3.fixed.2?analisiannualedefaultview.analisiannuale_spesedirPTA3" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_finanzesternidirPTA3">Finanziamenti esterni per dirigenti e personale TA terzo anno successivo</label>
+					<input id="analisiannuale_default_finanzesternidirPTA3" type="text" class="form-control" data-tag="analisiannuale.finanzesternidirPTA3.fixed.2?analisiannualedefaultview.analisiannuale_finanzesternidirPTA3" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_totspesepersonalecaricoateneo3">Totale spese di personale a carico Ateneo terzo anno successivo</label>
+					<input id="analisiannuale_default_totspesepersonalecaricoateneo3" type="text" class="form-control" data-tag="analisiannuale.totspesepersonalecaricoateneo3.fixed.2?analisiannualedefaultview.analisiannuale_totspesepersonalecaricoateneo3" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_speseDG3">Direttore Generale terzo anno successivo</label>
+					<input id="analisiannuale_default_speseDG3" type="text" class="form-control" data-tag="analisiannuale.speseDG3.fixed.2?analisiannualedefaultview.analisiannuale_speseDG3" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_fondocontrattazioneintegrativa3">Fondo contrattazione integrativa terzo anno successivo</label>
+					<input id="analisiannuale_default_fondocontrattazioneintegrativa3" type="text" class="form-control" data-tag="analisiannuale.fondocontrattazioneintegrativa3.fixed.2?analisiannualedefaultview.analisiannuale_fondocontrattazioneintegrativa3" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_trattamentostipintegrativoCEL3">Trattamento stipendiale integrativo CEL terzo anno successivo</label>
+					<input id="analisiannuale_default_trattamentostipintegrativoCEL3" type="text" class="form-control" data-tag="analisiannuale.trattamentostipintegrativoCEL3.fixed.2?analisiannualedefaultview.analisiannuale_trattamentostipintegrativoCEL3" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_contrattiincarichiinsegnamento3">Contratti per incarichi di insegnamento terzo anno successivo</label>
+					<input id="analisiannuale_default_contrattiincarichiinsegnamento3" type="text" class="form-control" data-tag="analisiannuale.contrattiincarichiinsegnamento3.fixed.2?analisiannualedefaultview.analisiannuale_contrattiincarichiinsegnamento3" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_finanzesternicontrattiincarichiinsegnamento3">Finanziamenti esterni per contratti per incarichi di insegnamento terzo anno successivo</label>
+					<input id="analisiannuale_default_finanzesternicontrattiincarichiinsegnamento3" type="text" class="form-control" data-tag="analisiannuale.finanzesternicontrattiincarichiinsegnamento3.fixed.2?analisiannualedefaultview.analisiannuale_finanzesternicontrattiincarichiinsegnamento3" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_numeratore3">Totale numeratore terzo anno successivo</label>
+					<input id="analisiannuale_default_numeratore3" type="text" class="form-control" data-tag="analisiannuale.!numeratore3.fixed.2?analisiannualedefaultview.!numeratore3" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_ffo3">FFO terzo anno successivo</label>
+					<input id="analisiannuale_default_ffo3" type="text" class="form-control" data-tag="analisiannuale.ffo3.fixed.2?analisiannualedefaultview.analisiannuale_ffo3" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_programmazionetriennale3">Programmazione triennale terzo anno successivo</label>
+					<input id="analisiannuale_default_programmazionetriennale3" type="text" class="form-control" data-tag="analisiannuale.programmazionetriennale3.fixed.2?analisiannualedefaultview.analisiannuale_programmazionetriennale3" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_tasse3">Tasse studenti terzo anno successivo</label>
+					<input id="analisiannuale_default_tasse3" type="text" class="form-control" data-tag="analisiannuale.tasse3.fixed.2?analisiannualedefaultview.analisiannuale_tasse3" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_speseriduzione3">Spese a riduzione terzo anno successivo</label>
+					<input id="analisiannuale_default_speseriduzione3" type="text" class="form-control" data-tag="analisiannuale.speseriduzione3.fixed.2?analisiannualedefaultview.analisiannuale_speseriduzione3" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_denominatore3">Denominatore terzo anno successivo</label>
+					<input id="analisiannuale_default_denominatore3" type="text" class="form-control" data-tag="analisiannuale.!denominatore3.fixed.2?analisiannualedefaultview.!denominatore3" data-subentity  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabanalisiannuale_default_5" role="tabpanel">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelanalisiannuale_prev_XXstipendioannuo" >Personale già assunto</div>
+				<div class="gridx" id="grid_stipendioannuo_prev" data-tag="stipendioannuo.prev.prev" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelanalisiannuale_default_importfilecontratti" >Eseguire l'upload di un file Excel con un foglio con le seguenti colonne: matricola, ruolo, inquadramento, data inizio, data rivalutazione, data fine. Verificare che tutte le voci nella colonna "ruolo" siano presenti nel campo "Sigla importazione" delle "Tipologie di contratto" e che tutte le voci presenti nella colonna "inquadramento" siano presenti nel campo "Sigla importazione" degli "Inquadramenti" o delle "Tabelle stipendiali".</div>
+					<label class="col-form-label col-md-12" for="analisiannuale_default_importfilecontratti">Importa file dei contratti</label>
+					<input id="analisiannuale_default_importfilecontratti" type="file" class="form-control"  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelanalisiannuale_default_importstipendi" >Eseguire l'upload di un file Excel con un foglio con le seguenti colonne: matricola, anno, lordo, oneri.</div>
+					<label class="col-form-label col-md-12" for="analisiannuale_default_importstipendi">Importa file degli stipendi</label>
+					<input id="analisiannuale_default_importstipendi" type="file" class="form-control"  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabanalisiannuale_default_4" role="tabpanel">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelanalisiannuale_default_XXpcscessazioniview" >Cessazioni</div>
+				<div class="gridx" id="grid_pcscessazioniview_default" data-tag="pcscessazioniview.default.default" data-custom-control="gridx"  ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelanalisiannuale_default_idattach_cessazione" >Eseguire l'upload di un file Excel con un foglio con almeno le due seguenti colonne: matricola, data fine rapporto.</div>
+					<label class="col-form-label col-md-12" for="analisiannuale_default_idattach_cessazione">Importa file cessazioni</label>
+					<input id="analisiannuale_default_idattach_cessazione" type="file" class="form-control"  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabanalisiannuale_default_7" role="tabpanel">
+				<div class="gridx" id="grid_pcsassunzioni_default" data-tag="pcsassunzioni.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabanalisiannuale_default_9" role="tabpanel">
+				<div class="gridx" id="grid_pcspuntiorganicoview_default" data-tag="pcspuntiorganicoview.default.default" data-custom-control="gridx"  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabanalisiannuale_default_6" role="tabpanel">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelanalisiannuale_default_XXpcsassunzionisimulate" >Assunzioni simulate</div>
+				<div class="gridx" id="grid_pcsassunzionisimulate_default" data-tag="pcsassunzionisimulate.default.default" data-custom-control="gridxedit" data-mdleditinplacecolumns="data;numeropersoneassunzione;percentuale"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_indicatore0">Indicatore spese di personale anno corrente</label>
+					<div id="analisiannuale_default_indicatore0" data-custom-control="tachimetro" data-max="100" data-th1="70" data-th2="80" data-tag="analisiannuale.!indicatore0.fixed.2?analisiannualedefaultview.!indicatore0" data-subentity ></div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_indicatore1">Indicatore spese di personale anno successivo</label>
+					<div id="analisiannuale_default_indicatore1" data-custom-control="tachimetro" data-max="100" data-th1="70" data-th2="80" data-tag="analisiannuale.!indicatore1.fixed.2?analisiannualedefaultview.!indicatore1" data-subentity ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_indicatore2">Indicatore spese di personale secondo anno successivo</label>
+					<div id="analisiannuale_default_indicatore2" data-custom-control="tachimetro" data-max="100" data-th1="70" data-th2="80" data-tag="analisiannuale.!indicatore2.fixed.2?analisiannualedefaultview.!indicatore2" data-subentity ></div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="analisiannuale_default_indicatore3">Indicatore spese di personale terzo anno successivo</label>
+					<div id="analisiannuale_default_indicatore3" data-custom-control="tachimetro" data-max="100" data-th1="70" data-th2="80" data-tag="analisiannuale.!indicatore3.fixed.2?analisiannualedefaultview.!indicatore3" data-subentity ></div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabanalisiannuale_default_8" role="tabpanel">
+				<div class="gridx" id="grid_pcsbilancio_default" data-tag="pcsbilancio.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

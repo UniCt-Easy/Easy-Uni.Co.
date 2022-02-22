@@ -30,6 +30,7 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="idunderwriting" type="xs:int" minOccurs="0" />
               <xs:element name="external_reference" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -195,64 +196,75 @@
         <xs:element name="sortingkind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="idsorkind" type="xs:int" />
-              <xs:element name="description" type="xs:string" />
-              <xs:element name="nphaseincome" type="xs:unsignedByte" minOccurs="0" />
-              <xs:element name="nphaseexpense" type="xs:unsignedByte" minOccurs="0" />
-              <xs:element name="cu" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="labeln1" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedn1" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedn1" type="xs:string" minOccurs="0" />
-              <xs:element name="labeln2" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedn2" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedn2" type="xs:string" minOccurs="0" />
-              <xs:element name="labeln3" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedn3" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedn3" type="xs:string" minOccurs="0" />
-              <xs:element name="labeln4" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedn4" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedn4" type="xs:string" minOccurs="0" />
-              <xs:element name="labeln5" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedn5" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedn5" type="xs:string" minOccurs="0" />
-              <xs:element name="labels1" type="xs:string" minOccurs="0" />
-              <xs:element name="lockeds1" type="xs:string" minOccurs="0" />
-              <xs:element name="forceds1" type="xs:string" minOccurs="0" />
-              <xs:element name="labels2" type="xs:string" minOccurs="0" />
-              <xs:element name="lockeds2" type="xs:string" minOccurs="0" />
-              <xs:element name="forceds2" type="xs:string" minOccurs="0" />
-              <xs:element name="labels3" type="xs:string" minOccurs="0" />
-              <xs:element name="lockeds3" type="xs:string" minOccurs="0" />
-              <xs:element name="forceds3" type="xs:string" minOccurs="0" />
-              <xs:element name="labels4" type="xs:string" minOccurs="0" />
-              <xs:element name="lockeds4" type="xs:string" minOccurs="0" />
-              <xs:element name="forceds4" type="xs:string" minOccurs="0" />
-              <xs:element name="labels5" type="xs:string" minOccurs="0" />
-              <xs:element name="lockeds5" type="xs:string" minOccurs="0" />
-              <xs:element name="forceds5" type="xs:string" minOccurs="0" />
-              <xs:element name="labelv1" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedv1" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedv1" type="xs:string" minOccurs="0" />
-              <xs:element name="labelv2" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedv2" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedv2" type="xs:string" minOccurs="0" />
-              <xs:element name="labelv3" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedv3" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedv3" type="xs:string" minOccurs="0" />
-              <xs:element name="labelv4" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedv4" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedv4" type="xs:string" minOccurs="0" />
-              <xs:element name="labelv5" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedv5" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedv5" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
               <xs:element name="flagdate" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN1" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN2" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN3" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN4" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN5" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS1" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS2" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS3" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS4" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS5" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv1" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv2" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv3" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv4" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv5" type="xs:string" minOccurs="0" />
               <xs:element name="labelfordate" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln1" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln2" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln3" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln4" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln5" type="xs:string" minOccurs="0" />
+              <xs:element name="labels1" type="xs:string" minOccurs="0" />
+              <xs:element name="labels2" type="xs:string" minOccurs="0" />
+              <xs:element name="labels3" type="xs:string" minOccurs="0" />
+              <xs:element name="labels4" type="xs:string" minOccurs="0" />
+              <xs:element name="labels5" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv1" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv2" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv3" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv4" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv5" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN1" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN2" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN3" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN4" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN5" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS1" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS2" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS3" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS4" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS5" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv1" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv2" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv3" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv4" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv5" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
               <xs:element name="nodatelabel" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_importo" type="xs:decimal" minOccurs="0" />
               <xs:element name="totalexpression" type="xs:string" minOccurs="0" />
+              <xs:element name="nphaseexpense" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="nphaseincome" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="codesorkind" type="xs:string" />
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="flag" type="xs:unsignedByte" />
+              <xs:element name="start" type="xs:short" minOccurs="0" />
+              <xs:element name="stop" type="xs:short" minOccurs="0" />
+              <xs:element name="idparentkind" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="allowedS1" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS2" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS3" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS4" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS5" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -586,6 +598,25 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="incomelastestimatedetail" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinc" type="xs:int" />
+              <xs:element name="idestimkind" type="xs:string" />
+              <xs:element name="yestim" type="xs:short" />
+              <xs:element name="nestim" type="xs:int" />
+              <xs:element name="rownum" type="xs:int" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="originalamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_estimkind" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_description" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1166,6 +1197,59 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="estimatedetail_incassi" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idestimkind" type="xs:string" />
+              <xs:element name="yestim" type="xs:short" />
+              <xs:element name="nestim" type="xs:int" />
+              <xs:element name="rownum" type="xs:int" />
+              <xs:element name="annotations" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="detaildescription" type="xs:string" minOccurs="0" />
+              <xs:element name="discount" type="xs:double" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="ninvoiced" type="xs:decimal" minOccurs="0" />
+              <xs:element name="number" type="xs:decimal" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="tax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxable" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxrate" type="xs:double" minOccurs="0" />
+              <xs:element name="toinvoice" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="idgroup" type="xs:int" minOccurs="0" />
+              <xs:element name="competencystart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="competencystop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idinc_taxable" type="xs:int" minOccurs="0" />
+              <xs:element name="idinc_iva" type="xs:int" minOccurs="0" />
+              <xs:element name="idivakind" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:int" minOccurs="0" />
+              <xs:element name="idaccmotiveannulment" type="xs:string" minOccurs="0" />
+              <xs:element name="epkind" type="xs:string" minOccurs="0" />
+              <xs:element name="idrevenuepartition" type="xs:int" minOccurs="0" />
+              <xs:element name="idepacc" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="idlist" type="xs:int" minOccurs="0" />
+              <xs:element name="cigcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idfinmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="iduniqueformcode" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="proceedsexpiring" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="nform" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
+              <xs:element name="idepacc_pre" type="xs:int" minOccurs="0" />
+              <xs:element name="rownum_main" type="xs:int" minOccurs="0" />
+              <xs:element name="idtassonomia" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -1277,6 +1361,14 @@
       <xs:field xpath="mstns:nbill" />
       <xs:field xpath="mstns:billkind" />
     </xs:unique>
+    <xs:unique name="incomelastestimatedetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:incomelastestimatedetail" />
+      <xs:field xpath="mstns:idinc" />
+      <xs:field xpath="mstns:idestimkind" />
+      <xs:field xpath="mstns:yestim" />
+      <xs:field xpath="mstns:nestim" />
+      <xs:field xpath="mstns:rownum" />
+    </xs:unique>
     <xs:unique name="incomeestimate_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:incomeestimate" />
       <xs:field xpath="mstns:idinc" />
@@ -1362,6 +1454,13 @@
       <xs:field xpath="mstns:nbill" />
       <xs:field xpath="mstns:billkind" />
     </xs:unique>
+    <xs:unique name="estimatedetail_incassi_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:estimatedetail_incassi" />
+      <xs:field xpath="mstns:idestimkind" />
+      <xs:field xpath="mstns:yestim" />
+      <xs:field xpath="mstns:nestim" />
+      <xs:field xpath="mstns:rownum" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -1401,6 +1500,10 @@
       <msdata:Relationship name="incomephaseincome" msdata:parent="incomephase" msdata:child="income" msdata:parentkey="nphase" msdata:childkey="nphase" />
       <msdata:Relationship name="managerincome" msdata:parent="manager" msdata:child="income" msdata:parentkey="idman" msdata:childkey="idman" />
       <msdata:Relationship name="registryincome" msdata:parent="registry" msdata:child="income" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="income_incomelastestimatedetail" msdata:parent="income" msdata:child="incomelastestimatedetail" msdata:parentkey="idinc" msdata:childkey="idinc" />
+      <msdata:Relationship name="estimatekind_incomelastestimatedetail" msdata:parent="estimatekind" msdata:child="incomelastestimatedetail" msdata:parentkey="idestimkind" msdata:childkey="idestimkind" />
+      <msdata:Relationship name="estimatedetail_taxable_incomelastestimatedetail" msdata:parent="estimatedetail_taxable" msdata:child="incomelastestimatedetail" msdata:parentkey="idestimkind yestim nestim rownum" msdata:childkey="idestimkind yestim nestim rownum" />
+      <msdata:Relationship name="estimatedetail_incassi_incomelastestimatedetail" msdata:parent="estimatedetail_incassi" msdata:child="incomelastestimatedetail" msdata:parentkey="idestimkind yestim nestim rownum" msdata:childkey="idestimkind yestim nestim rownum" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

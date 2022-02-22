@@ -32,6 +32,6 @@
 <HelpWeb:hwLabel runat="server" id="lblIdList" tag="" style="position: absolute;  left:112px; top:18px; width:10px;height:17px;text-align: left; vertical-align: top;" Text="#"></HelpWeb:hwLabel>
 <HelpWeb:hwTextBox runat="server" id="txtcodiceart" tag="stocktotalview.intcode" style="position: absolute;  left:275px; top:16px;width:313px;" TabIndex="2" ReadOnly="true"></HelpWeb:hwTextBox>
 <HelpWeb:hwLabel runat="server" id="lblcodart" tag="" style="position: absolute;  left:225px; top:18px; width:39px;height:17px;text-align: left; vertical-align: top;" Text="Codice"></HelpWeb:hwLabel>
-<HelpWeb:hwButton runat="server" id="btnArticolo" tag="choose.stocktotalview.default" style="position: absolute;  left:16px; top:13px; width:75px;height:23px;" Text="Articolo"/>
+<HelpWeb:hwButton runat="server" id="btnArticolo" tag="choose.stocktotalview.default" style="position: absolute;  left:16px; top:13px; width:75px;height:23px;" class="btn btn-primary" Text="Articolo"/>
 </div>
 </asp:Content>

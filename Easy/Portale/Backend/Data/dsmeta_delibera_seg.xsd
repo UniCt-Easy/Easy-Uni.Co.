@@ -1,0 +1,417 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_delibera_seg" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_delibera_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="statuskind_alias2" msprop:TableForReading="statuskind" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstatuskind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry_alias1" msprop:TableForReading="registry" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="istanzakind_alias1" msprop:TableForReading="istanzakind" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idistanzakind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="annoaccademico_alias1" msprop:TableForReading="annoaccademico" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="didprog" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idsede" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="iscrizione" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="anno" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcorsostudio" type="xs:int" minOccurs="0" />
+              <xs:element name="iddidprog" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizione" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="matricola" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="pratica" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddichiar" type="xs:int" minOccurs="0" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idiscrizione" type="xs:int" />
+              <xs:element name="idiscrizione_from" type="xs:int" minOccurs="0" />
+              <xs:element name="idistanza" type="xs:int" />
+              <xs:element name="idistanzakind" type="xs:int" />
+              <xs:element name="idpratica" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idstatuskind" type="xs:int" />
+              <xs:element name="idtitolostudio" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="protanno" type="xs:int" minOccurs="0" />
+              <xs:element name="protnumero" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="deliberapratica" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddelibera" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idiscrizione" type="xs:int" />
+              <xs:element name="idistanza" type="xs:int" />
+              <xs:element name="idistanzakind" type="xs:int" />
+              <xs:element name="idpratica" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idpratica_registry_alias1_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idpratica_iscrizione_anno" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idpratica_iscrizione_didprog_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idpratica_iscrizione_didprog_aa" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idpratica_iscrizione_didprog_idsede" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idpratica_iscrizione_annoaccademico_alias1_aa" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idpratica_istanzakind_alias1_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idpratica_statuskind_alias2_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idpratica_pratica_protnumero" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idpratica_pratica_protanno" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="statuskind_alias1" msprop:TableForReading="statuskind" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstatuskind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="annotation" type="xs:string" minOccurs="0" />
+              <xs:element name="authorization_free" type="xs:string" minOccurs="0" />
+              <xs:element name="badgecode" type="xs:string" minOccurs="0" />
+              <xs:element name="birthdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ccp" type="xs:string" minOccurs="0" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="email_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="extension" type="xs:string" minOccurs="0" />
+              <xs:element name="extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_pa" type="xs:string" minOccurs="0" />
+              <xs:element name="flagbankitaliaproceeds" type="xs:string" minOccurs="0" />
+              <xs:element name="foreigncf" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="gender" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcentralizedcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idexternal" type="xs:int" minOccurs="0" />
+              <xs:element name="idmaritalstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
+              <xs:element name="idregistrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_perlapa" type="xs:string" minOccurs="0" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="maritalsurname" type="xs:string" minOccurs="0" />
+              <xs:element name="multi_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="p_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="pec_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="residence" type="xs:int" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="sdi_defrifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="sdi_norifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="toredirect" type="xs:int" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry_studenti" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="authinps" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idstuddirittokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idstudprenotkind" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="istanzakind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idistanzakind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="annoaccademico" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="istanza_alias14" msprop:TableForReading="istanza" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" />
+              <xs:element name="extension" type="xs:string" minOccurs="0" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idiscrizione" type="xs:int" minOccurs="0" />
+              <xs:element name="idistanza" type="xs:int" />
+              <xs:element name="idistanzakind" type="xs:int" />
+              <xs:element name="idreg_studenti" type="xs:int" />
+              <xs:element name="idstatuskind" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="paridistanza" type="xs:int" />
+              <xs:element name="protanno" type="xs:int" />
+              <xs:element name="protnumero" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="deliberaistanza" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="iddelibera" type="xs:int" />
+              <xs:element name="idistanza" type="xs:int" />
+              <xs:element name="idistanzakind" type="xs:int" />
+              <xs:element name="idreg_studenti" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idistanza_registry_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idistanza_annoaccademico_aa" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idistanza_istanza_alias14_data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idistanza_istanzakind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idistanza_statuskind_alias1_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idistanza_istanza_alias14_protanno" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idistanza_istanza_alias14_protnumero" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="strutturadefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="paridstruttura" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="statuskind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="delibera" type="xs:string" />
+              <xs:element name="idstatuskind" type="xs:int" />
+              <xs:element name="istanze" type="xs:string" />
+              <xs:element name="istanzedelibera" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="pratica" type="xs:string" />
+              <xs:element name="sortcode" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="delibera" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" />
+              <xs:element name="iddelibera" type="xs:int" />
+              <xs:element name="idstatuskind" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="oggetto" type="xs:string" minOccurs="0" />
+              <xs:element name="protanno" type="xs:int" minOccurs="0" />
+              <xs:element name="protnumero" type="xs:int" minOccurs="0" />
+              <xs:element name="testo" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:statuskind_alias2" />
+      <xs:field xpath="mstns:idstatuskind" />
+    </xs:unique>
+    <xs:unique name="registry_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry_alias1" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="istanzakind_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:istanzakind_alias1" />
+      <xs:field xpath="mstns:idistanzakind" />
+    </xs:unique>
+    <xs:unique name="annoaccademico_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:annoaccademico_alias1" />
+      <xs:field xpath="mstns:aa" />
+    </xs:unique>
+    <xs:unique name="didprog_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:didprog" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+    </xs:unique>
+    <xs:unique name="iscrizione_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:iscrizione" />
+      <xs:field xpath="mstns:idiscrizione" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="pratica_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pratica" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idiscrizione" />
+      <xs:field xpath="mstns:idistanza" />
+      <xs:field xpath="mstns:idistanzakind" />
+      <xs:field xpath="mstns:idpratica" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="deliberapratica_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:deliberapratica" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddelibera" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idiscrizione" />
+      <xs:field xpath="mstns:idistanza" />
+      <xs:field xpath="mstns:idistanzakind" />
+      <xs:field xpath="mstns:idpratica" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="statuskind_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:statuskind_alias1" />
+      <xs:field xpath="mstns:idstatuskind" />
+    </xs:unique>
+    <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="registry_studenti_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry_studenti" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="istanzakind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:istanzakind" />
+      <xs:field xpath="mstns:idistanzakind" />
+    </xs:unique>
+    <xs:unique name="annoaccademico_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:annoaccademico" />
+      <xs:field xpath="mstns:aa" />
+    </xs:unique>
+    <xs:unique name="istanza_alias14_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:istanza_alias14" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idistanza" />
+      <xs:field xpath="mstns:idistanzakind" />
+      <xs:field xpath="mstns:idreg_studenti" />
+      <xs:field xpath="mstns:paridistanza" />
+    </xs:unique>
+    <xs:unique name="deliberaistanza_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:deliberaistanza" />
+      <xs:field xpath="mstns:iddelibera" />
+      <xs:field xpath="mstns:idistanza" />
+      <xs:field xpath="mstns:idistanzakind" />
+      <xs:field xpath="mstns:idreg_studenti" />
+    </xs:unique>
+    <xs:unique name="strutturadefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:strutturadefaultview" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+    <xs:unique name="statuskind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:statuskind" />
+      <xs:field xpath="mstns:idstatuskind" />
+    </xs:unique>
+    <xs:unique name="delibera_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:delibera" />
+      <xs:field xpath="mstns:iddelibera" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_deliberapratica_delibera_iddelibera" msdata:parent="delibera" msdata:child="deliberapratica" msdata:parentkey="iddelibera" msdata:childkey="iddelibera" />
+      <msdata:Relationship name="FK_deliberapratica_pratica_idpratica" msdata:parent="pratica" msdata:child="deliberapratica" msdata:parentkey="idpratica" msdata:childkey="idpratica" />
+      <msdata:Relationship name="FK_pratica_statuskind_alias2_idstatuskind" msdata:parent="statuskind_alias2" msdata:child="pratica" msdata:parentkey="idstatuskind" msdata:childkey="idstatuskind" />
+      <msdata:Relationship name="FK_pratica_registry_alias1_idreg" msdata:parent="registry_alias1" msdata:child="pratica" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_pratica_istanzakind_alias1_idistanzakind" msdata:parent="istanzakind_alias1" msdata:child="pratica" msdata:parentkey="idistanzakind" msdata:childkey="idistanzakind" />
+      <msdata:Relationship name="FK_pratica_iscrizione_idiscrizione" msdata:parent="iscrizione" msdata:child="pratica" msdata:parentkey="idiscrizione" msdata:childkey="idiscrizione" />
+      <msdata:Relationship name="FK_iscrizione_annoaccademico_alias1_aa" msdata:parent="annoaccademico_alias1" msdata:child="iscrizione" msdata:parentkey="aa" msdata:childkey="aa" />
+      <msdata:Relationship name="FK_iscrizione_didprog_iddidprog" msdata:parent="didprog" msdata:child="iscrizione" msdata:parentkey="iddidprog" msdata:childkey="iddidprog" />
+      <msdata:Relationship name="FK_deliberaistanza_delibera_iddelibera" msdata:parent="delibera" msdata:child="deliberaistanza" msdata:parentkey="iddelibera" msdata:childkey="iddelibera" />
+      <msdata:Relationship name="FK_deliberaistanza_istanza_alias14_idistanza" msdata:parent="istanza_alias14" msdata:child="deliberaistanza" msdata:parentkey="idistanza" msdata:childkey="idistanza" />
+      <msdata:Relationship name="FK_istanza_alias14_statuskind_alias1_idstatuskind" msdata:parent="statuskind_alias1" msdata:child="istanza_alias14" msdata:parentkey="idstatuskind" msdata:childkey="idstatuskind" />
+      <msdata:Relationship name="FK_istanza_alias14_registry_idreg_studenti" msdata:parent="registry" msdata:child="istanza_alias14" msdata:parentkey="idreg" msdata:childkey="idreg_studenti" />
+      <msdata:Relationship name="FK_registry_studenti_registry_idreg" msdata:parent="registry" msdata:child="registry_studenti" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_istanza_alias14_istanzakind_idistanzakind" msdata:parent="istanzakind" msdata:child="istanza_alias14" msdata:parentkey="idistanzakind" msdata:childkey="idistanzakind" />
+      <msdata:Relationship name="FK_istanza_alias14_annoaccademico_aa" msdata:parent="annoaccademico" msdata:child="istanza_alias14" msdata:parentkey="aa" msdata:childkey="aa" />
+      <msdata:Relationship name="FK_delibera_strutturadefaultview_idstruttura" msdata:parent="strutturadefaultview" msdata:child="delibera" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
+      <msdata:Relationship name="FK_delibera_statuskind_idstatuskind" msdata:parent="statuskind" msdata:child="delibera" msdata:parentkey="idstatuskind" msdata:childkey="idstatuskind" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

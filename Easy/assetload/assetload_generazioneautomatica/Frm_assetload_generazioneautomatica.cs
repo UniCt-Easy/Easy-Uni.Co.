@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -33,7 +32,7 @@ namespace assetload_generazioneautomatica//buonocaricoinv_gen_auto//
 	/// <summary>
 	/// Summary description for frmbuonocaricoinv_gen_auto.
 	/// </summary>
-	public class Frm_assetload_generazioneautomatica : System.Windows.Forms.Form
+	public class Frm_assetload_generazioneautomatica : MetaDataForm
 	{
         DataTable tInventoryTree;
 		public vistaForm DS;
@@ -745,10 +744,13 @@ namespace assetload_generazioneautomatica//buonocaricoinv_gen_auto//
 			Text="Generazione automatica";
 		}
 
-		public void MetaData_AfterActivation() {
+        public void MetaData_BeforeFill() {
+            GetData.DenyClear(DS.assetacquireview);
+        }
+        public void MetaData_AfterActivation() {
             codicefase = Meta.GetSys("maxexpensephase");
             if (DS.config.Rows.Count == 0) {
-				MessageBox.Show("La configurazione del PATRIMONIO non è stata definita per l'esercizio corrente!", "Attenzione",
+				show("La configurazione del PATRIMONIO non è stata definita per l'esercizio corrente!", "Attenzione",
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				Warning=true;
 				return;
@@ -756,7 +758,7 @@ namespace assetload_generazioneautomatica//buonocaricoinv_gen_auto//
 			DataRow r=DS.Tables["config"].Rows[0];
             string flagnumerazione = r["asset_flagnumbering"].ToString().ToUpper();
 			if (flagnumerazione=="" || flagnumerazione=="N") {
-				MessageBox.Show("Non è stato definito il tipo di numerazione per la configurazione "+
+				show("Non è stato definito il tipo di numerazione per la configurazione "+
 					"del PATRIMONIO per l'esercizio corrente", "Attenzione",
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				Warning=true;
@@ -766,7 +768,7 @@ namespace assetload_generazioneautomatica//buonocaricoinv_gen_auto//
             flagcreddeb = (assetload_flag & 1) == 1;
             flagcausale = (assetload_flag & 2) == 2;
 			if (!flagcausale && !flagcreddeb) {
-				MessageBox.Show("Non è stata definita la configurazione dei buoni "+
+				show("Non è stata definita la configurazione dei buoni "+
 					"di carico / scarico per l'esercizio corrente.\rI buoni eventualmente "+
 					"generati verranno creati senza creditore e causale.\r\r"+
 					@"Voce di menu: Configurazione\Operazioni inventariabili\Configurazione",
@@ -818,7 +820,7 @@ namespace assetload_generazioneautomatica//buonocaricoinv_gen_auto//
 //					messaggio += "aumenti valore da elaborare";
 //				}
 //			}
-			MessageBox.Show(messaggio);
+			show(messaggio);
 		}
 
 		/// <summary>
@@ -827,7 +829,7 @@ namespace assetload_generazioneautomatica//buonocaricoinv_gen_auto//
 		private void CollegaRigheADocumento(bool quiet){
 			if ((TempTable==null) || (TempTable.Rows.Count==0)) {
 				if (!quiet) visualizzaMessaggio();
-					//MessageBox.Show("Non ci sono carichi cespiti e/o parti da elaborare");
+					//show("Non ci sono carichi cespiti e/o parti da elaborare");
 				AbilitaBottoniOperazioni(false);
 				AbilitaBottoni(false);
 				//cboTipo.Enabled=true;
@@ -1133,7 +1135,7 @@ namespace assetload_generazioneautomatica//buonocaricoinv_gen_auto//
 
 		private void btnInizia_Click(object sender, System.EventArgs e) {
 			if (CodiceTipoBuono==null || CodiceTipoBuono.ToString()=="") {
-				MessageBox.Show("Selezionare il tipo buono di carico","Attenzione",
+				show("Selezionare il tipo buono di carico","Attenzione",
 					MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 				return;
 			}
@@ -1377,7 +1379,7 @@ namespace assetload_generazioneautomatica//buonocaricoinv_gen_auto//
             {
                 if (!(DS.assetload.Rows[0]["ratificationdate"].Equals(compDate)))
                 {
-                    if (MessageBox.Show("Sostituire la data ratifica con la data di competenza " + HelpForm.StringValue(compDate, tag) +
+                    if (show("Sostituire la data ratifica con la data di competenza " + HelpForm.StringValue(compDate, tag) +
                                         " del movimento selezionato?",
                     "Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
@@ -1591,7 +1593,7 @@ namespace assetload_generazioneautomatica//buonocaricoinv_gen_auto//
 
             if (EP.MainEntryExists())
             {
-                if (MessageBox.Show("Attenzione, le scritture in E/P risultano già generate." +
+                if (show("Attenzione, le scritture in E/P risultano già generate." +
                     " Si desidera sovrascriverle per aggiornarle?", "Avviso",
                     MessageBoxButtons.OKCancel) == DialogResult.Cancel) return;
             }
@@ -1619,7 +1621,7 @@ namespace assetload_generazioneautomatica//buonocaricoinv_gen_auto//
                 object idaccmotive = calcolaIdAccMotiveCaricoCespite(rAssetAcquire["idinv"]);
                 if ((idaccmotive == null) || (idaccmotive == DBNull.Value))
                 {
-                    MessageBox.Show(this, "Non è stata specificata la causale per la class. inventariale del carico n." +
+                    show(this, "Non è stata specificata la causale per la class. inventariale del carico n." +
                         rAssetAcquire["nassetacquire"], "Errore");
                     return;
                 }
@@ -1641,7 +1643,7 @@ namespace assetload_generazioneautomatica//buonocaricoinv_gen_auto//
 
             }
             if (somethingdone == false) {
-                MessageBox.Show("Nessuna scrittura da generare", "Avviso");
+                show("Nessuna scrittura da generare", "Avviso");
                 return;
             }
             EP.RemoveEmptyDetails();
@@ -1662,4 +1664,3 @@ namespace assetload_generazioneautomatica//buonocaricoinv_gen_auto//
         #endregion
 	}
 }
-

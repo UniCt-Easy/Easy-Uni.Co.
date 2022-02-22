@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_ambitoareadisc_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_ambitoareadisc_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="tipoattformdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idtipoattform" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="classescuoladefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idclassescuola" type="xs:int" />
+              <xs:element name="idclassescuolaarea" type="xs:int" minOccurs="0" />
+              <xs:element name="idcorsostudionorma" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ambitoareadisc" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idambitoareadisc" type="xs:int" />
+              <xs:element name="idclassescuola" type="xs:int" minOccurs="0" />
+              <xs:element name="idtipoattform" type="xs:int" minOccurs="0" />
+              <xs:element name="indicecineca" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="sortcode" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tipoattformdefaultview" />
+      <xs:field xpath="mstns:idtipoattform" />
+    </xs:unique>
+    <xs:unique name="classescuoladefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:classescuoladefaultview" />
+      <xs:field xpath="mstns:idclassescuola" />
+    </xs:unique>
+    <xs:unique name="ambitoareadisc_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ambitoareadisc" />
+      <xs:field xpath="mstns:idambitoareadisc" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_ambitoareadisc_tipoattformdefaultview_idtipoattform" msdata:parent="tipoattformdefaultview" msdata:child="ambitoareadisc" msdata:parentkey="idtipoattform" msdata:childkey="idtipoattform" />
+      <msdata:Relationship name="FK_ambitoareadisc_classescuoladefaultview_idclassescuola" msdata:parent="classescuoladefaultview" msdata:child="ambitoareadisc" msdata:parentkey="idclassescuola" msdata:childkey="idclassescuola" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

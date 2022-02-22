@@ -1,0 +1,71 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+ <button id="SetAsDocente" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-chalkboard-teacher mr-1" ></i>Imposta come docente
+    </button>
+ <button id="SetAsAmministrativo" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-user-tie mr-1" ></i>Imposta come personale tecnico amministrativo
+    </button>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_uncategorized_idreg">Identificativo</label>
+					<input id="registry_uncategorized_idreg" type="text" class="form-control" data-tag="registry.idreg?registryuncategorizedview.idreg" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_uncategorized_idregistryclass">Tipologia</label>
+					<div>
+						<input id="registry_uncategorized_idregistryclass" name="registry_uncategorized_idregistryclass" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="registryclassdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_uncategorized_extmatricula">Matricola</label>
+					<input id="registry_uncategorized_extmatricula" type="text" class="form-control" data-tag="registry.extmatricula?registryuncategorizedview.registry_extmatricula" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_uncategorized_idaccmotivedebit">Causale di debito</label>
+					<div>
+						<input id="registry_uncategorized_idaccmotivedebit" name="registry_uncategorized_idaccmotivedebit" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="accmotivedefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_uncategorized_title">Denominazione</label>
+					<input id="registry_uncategorized_title" type="text" class="form-control" data-tag="registry.title?registryuncategorizedview.title" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_uncategorized_idaccmotivecredit">Causale per i crediti</label>
+					<div>
+						<input id="registry_uncategorized_idaccmotivecredit" name="registry_uncategorized_idaccmotivecredit" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="accmotivedefaultview_alias1.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_uncategorized_cf">Codice fiscale</label>
+					<input id="registry_uncategorized_cf" type="text" class="form-control" data-tag="registry.cf?registryuncategorizedview.registry_cf" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_uncategorized_p_iva">Partita iva</label>
+					<input id="registry_uncategorized_p_iva" type="text" class="form-control" data-tag="registry.p_iva?registryuncategorizedview.registry_p_iva" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_uncategorized_active">attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="registry_uncategorized_activeSi" type="radio" name="registry_uncategorized_active" class="custom-control-input" data-tag="registry.active:S?registryuncategorizedview.registry_active:Si" data-subentity  data-mandatory ><label for="registry_uncategorized_activeSi"> Si</label>
+						<input id="registry_uncategorized_activeNo" type="radio" name="registry_uncategorized_active" class="custom-control-input" data-tag="registry.active:N?registryuncategorizedview.registry_active:No" data-subentity  data-mandatory ><label for="registry_uncategorized_activeNo"> No</label>
+					</div>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

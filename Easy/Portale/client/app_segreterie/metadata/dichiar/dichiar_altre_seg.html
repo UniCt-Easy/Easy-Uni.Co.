@@ -1,0 +1,50 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_altre_seg_aa">Anno Accademico</label>
+					<select id="dichiar_altre_seg_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="dichiar.aa?dichiaraltre_segview.aa" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#dichiar_altre_seg_date").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="dichiar_altre_seg_date">Data</label>
+					<input id="dichiar_altre_seg_date" type="text" class="form-control" data-tag="dichiar.date?dichiaraltre_segview.dichiar_date" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_altre_seg_idreg">Studente</label>
+					<div>
+						<input id="dichiar_altre_seg_idreg" name="dichiar_altre_seg_idreg" type="text" data-listtype="studenti"  class="form-control" data-minchar="2" data-tag="registrystudentiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_altre_seg_iddichiaraltrekind">Tipo di dichiarazione</label>
+					<select id="dichiar_altre_seg_iddichiaraltrekind" class="custom-select d-block w-100"  data-source-name="dichiaraltrekind" data-value-member="iddichiaraltrekind" data-display-member="title" data-custom-control="combo" data-tag="dichiar_altre.iddichiaraltrekind?dichiaraltre_segview.dichiar_altre_iddichiaraltrekind" data-subentity  data-mandatory  > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_altre_seg_protnumero">Numero Protocollo</label>
+					<input id="dichiar_altre_seg_protnumero" type="text" class="form-control" data-tag="dichiar.protnumero?dichiaraltre_segview.dichiar_protnumero" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_altre_seg_protanno">Anno Protocollo</label>
+					<input id="dichiar_altre_seg_protanno" type="text" class="form-control" data-tag="dichiar.protanno?dichiaraltre_segview.dichiar_protanno" data-subentity  />
+				</div>
+			</div>
+ <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-stamp mr-1" ></i>Protocolla
+    </button>
+</form>
+
+</div>
+<!--footer-->

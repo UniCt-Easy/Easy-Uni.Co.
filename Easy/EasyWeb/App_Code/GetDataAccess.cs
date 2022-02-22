@@ -1,19 +1,17 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 UniversitÃ  degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
@@ -72,12 +70,17 @@ namespace EasyWebReport {
             }
             DataSet DS = GetConfigDataSet(P);
             if (DS.Tables[0].Rows.Count == 0) {
-                error = "Il file di config. � errato";
+                error = "Il file di config. Ã¨ errato";
                 return null;
             }
             //////////////////////////////////////////////////////////////
             //////////////////////////////////////////////////////////////
-
+            //Da ripristinare al termine dello sviluppo:
+            //string _Server = "10.10.1.72";
+            //string _Database = "webreport";
+            //string _User = "sa";
+            //string _Password = "**********";
+            //string _Password = GetVars.CryptPassword("afrofite");
 
             DataAccess Conn = new DataAccess("myDsn",
                 GetConfigVar(P, "Server").TrimEnd(), GetConfigVar(P, "Database").TrimEnd(),
@@ -96,7 +99,7 @@ namespace EasyWebReport {
             if (!Conn.Open()) {
                 error = "Collegamento fallito a #" +
                     GetConfigVar(P, "Server") + "#" + GetConfigVar(P, "Database") + "#" +
-                    GetConfigVar(P, "User") + "#" + GetConfigVar(P, "Password") + "#";
+                    GetConfigVar(P, "User") + "#" + "Password"/*GetConfigVar(P, "Password")*/ + "#";
                 return null;
             };
             P.Session["SessionSystemDataAccess"] = Conn;
@@ -376,4 +379,3 @@ namespace EasyWebReport {
 		}
 	}
 }
-

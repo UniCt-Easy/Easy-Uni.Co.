@@ -19,6 +19,7 @@
               <xs:element name="cu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
+              <xs:element name="refexternaldoc" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -450,7 +451,7 @@
               <xs:element name="idcsa_import" type="xs:int" />
               <xs:element name="idriep" type="xs:int" />
               <xs:element name="ndetail" type="xs:int" />
-              <xs:element name="idexp" type="xs:int" minOccurs="0"/>
+              <xs:element name="idexp" type="xs:int" minOccurs="0" />
               <xs:element name="amount" type="xs:decimal" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />

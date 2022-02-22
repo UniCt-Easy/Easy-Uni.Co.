@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿namespace csa_import_inail {
+
+namespace csa_import_inail {
     partial class frmcsa_import_inail {
         /// <summary>
         /// Required designer variable.
@@ -63,7 +62,7 @@
 			this.btnBollettaVersamenti = new System.Windows.Forms.Button();
 			this.btnVersamenti = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
+			this._openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
 			this.dsFinancial = new csa_import_inail.dsFinancial();
 			this.DS = new csa_import_inail.dsmeta();
 			this.btnAnnulla = new System.Windows.Forms.Button();
@@ -163,9 +162,9 @@
 			this.chkAzzeraUltimaFase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkAzzeraUltimaFase.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.chkAzzeraUltimaFase.ForeColor = System.Drawing.Color.Red;
-			this.chkAzzeraUltimaFase.Location = new System.Drawing.Point(279, 482);
+			this.chkAzzeraUltimaFase.Location = new System.Drawing.Point(347, 482);
 			this.chkAzzeraUltimaFase.Name = "chkAzzeraUltimaFase";
-			this.chkAzzeraUltimaFase.Size = new System.Drawing.Size(413, 23);
+			this.chkAzzeraUltimaFase.Size = new System.Drawing.Size(345, 23);
 			this.chkAzzeraUltimaFase.TabIndex = 26;
 			this.chkAzzeraUltimaFase.Tag = " ";
 			this.chkAzzeraUltimaFase.Text = "Non generare i pagamenti e gli incassi";
@@ -299,9 +298,9 @@
 			// 
 			this.btnVersamenti.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnVersamenti.Location = new System.Drawing.Point(11, 482);
+			this.btnVersamenti.Location = new System.Drawing.Point(15, 482);
 			this.btnVersamenti.Name = "btnVersamenti";
-			this.btnVersamenti.Size = new System.Drawing.Size(233, 23);
+			this.btnVersamenti.Size = new System.Drawing.Size(268, 23);
 			this.btnVersamenti.TabIndex = 1;
 			this.btnVersamenti.Text = "Elabora Versamenti";
 			this.btnVersamenti.UseVisualStyleBackColor = true;
@@ -347,6 +346,7 @@
 			this.btnAnnulla.Size = new System.Drawing.Size(75, 22);
 			this.btnAnnulla.TabIndex = 317;
 			this.btnAnnulla.Text = "Annulla";
+			this.btnAnnulla.Click += new System.EventHandler(this.btnCancel_Click);
 			// 
 			// frmcsa_import_inail
 			// 
@@ -384,7 +384,7 @@
 		private System.Windows.Forms.DataGrid dgrSospesi;
 		private System.Windows.Forms.Button btnInputSospesi;
 		private System.Windows.Forms.Label lblTask;
-		private System.Windows.Forms.OpenFileDialog openInputFileDlg;
+		private System.Windows.Forms.OpenFileDialog _openInputFileDlg;
 		private System.Windows.Forms.Button btnDelSospesi;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.CheckBox chkAzzeraUltimaFase;
@@ -400,4 +400,3 @@
 	}
 }
 
-

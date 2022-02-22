@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[compute_importflow_errors]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_importflow_errors]
 GO
@@ -7,7 +24,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
---[compute_importflow_errors] 2014
+--[compute_importflow_errors] 2020
 
 CREATE  PROCEDURE [compute_importflow_errors]
 (
@@ -362,7 +379,7 @@ END
 
  BEGIN
 	INSERT INTO #errors 
-	SELECT idimportflow,'sospeso uscita non coperto'
+	SELECT idimportflow, 'sospeso uscita non coperto. Num.' + convert(varchar(8), nbill) 
 	FROM import_flow WHERE esercizio = @ayear AND id_liq is null and  id_inc is null 
               and nbill  is not null and E_S='S' 
 			and isnull ( 

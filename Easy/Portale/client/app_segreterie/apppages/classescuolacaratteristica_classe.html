@@ -1,0 +1,68 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuolacaratteristica_classe_idtipoattform">Tipo di attività formativa</label>
+					<select id="classescuolacaratteristica_classe_idtipoattform" class="custom-select d-block w-100"  data-source-name="tipoattform" data-value-member="idtipoattform" data-display-member="title" data-custom-control="combo" data-tag="classescuolacaratteristica.idtipoattform"   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuolacaratteristica_classe_idtipoattform_2">Tipo della seconda attività formativa</label>
+					<select id="classescuolacaratteristica_classe_idtipoattform_2" class="custom-select d-block w-100"  data-source-name="tipoattform_alias1" data-value-member="idtipoattform" data-display-member="title" data-custom-control="combo" data-tag="classescuolacaratteristica.idtipoattform_2"   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuolacaratteristica_classe_idambitoareadisc">Ambito o area disciplinare</label>
+					<select id="classescuolacaratteristica_classe_idambitoareadisc" class="custom-select d-block w-100"  data-source-name="ambitoareadiscdefaultview" data-value-member="idambitoareadisc" data-display-member="dropdown_title" data-custom-control="combo" data-tag="classescuolacaratteristica.idambitoareadisc"   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuolacaratteristica_classe_idsasdgruppo">Gruppo</label>
+					<select id="classescuolacaratteristica_classe_idsasdgruppo" class="custom-select d-block w-100"  data-source-name="sasdgruppodefaultview" data-value-member="idsasdgruppo" data-display-member="dropdown_title" data-custom-control="combo" data-tag="classescuolacaratteristica.idsasdgruppo"   data-master="tipoattform"> </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuolacaratteristica_classe_idsasd">SASD</label>
+					<div>
+						<input id="classescuolacaratteristica_classe_idsasd" name="classescuolacaratteristica_classe_idsasd" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sasddefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuolacaratteristica_classe_cfmin">Crediti min</label>
+					<input id="classescuolacaratteristica_classe_cfmin" type="text" class="form-control" data-tag="classescuolacaratteristica.cfmin.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuolacaratteristica_classe_cfmax">Crediti max</label>
+					<input id="classescuolacaratteristica_classe_cfmax" type="text" class="form-control" data-tag="classescuolacaratteristica.cfmax.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuolacaratteristica_classe_cf">Crediti</label>
+					<input id="classescuolacaratteristica_classe_cf" type="text" class="form-control" data-tag="classescuolacaratteristica.cf.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuolacaratteristica_classe_obblig">Obbligatorio</label>
+					<div class="custom-control custom-radio">
+						<input id="classescuolacaratteristica_classe_obbligSi" type="radio" name="classescuolacaratteristica_classe_obblig" class="custom-control-input" data-tag="classescuolacaratteristica.obblig:S"  data-mandatory ><label for="classescuolacaratteristica_classe_obbligSi"> Si</label>
+						<input id="classescuolacaratteristica_classe_obbligNo" type="radio" name="classescuolacaratteristica_classe_obblig" class="custom-control-input" data-tag="classescuolacaratteristica.obblig:N"  data-mandatory ><label for="classescuolacaratteristica_classe_obbligNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classescuolacaratteristica_classe_profess">Professionalizzante</label>
+					<div class="custom-control custom-radio">
+						<input id="classescuolacaratteristica_classe_professSi" type="radio" name="classescuolacaratteristica_classe_profess" class="custom-control-input" data-tag="classescuolacaratteristica.profess:S"  data-mandatory ><label for="classescuolacaratteristica_classe_professSi"> Si</label>
+						<input id="classescuolacaratteristica_classe_professNo" type="radio" name="classescuolacaratteristica_classe_profess" class="custom-control-input" data-tag="classescuolacaratteristica.profess:N"  data-mandatory ><label for="classescuolacaratteristica_classe_professNo"> No</label>
+					</div>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

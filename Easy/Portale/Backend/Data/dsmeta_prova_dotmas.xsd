@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_prova_dotmas" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_prova_dotmas" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="valutazionekind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idvalutazionekind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="questionariodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idquestionario" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="prova" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idappello" type="xs:int" minOccurs="0" />
+              <xs:element name="idattivform" type="xs:int" minOccurs="0" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idprova" type="xs:int" />
+              <xs:element name="idquestionario" type="xs:int" minOccurs="0" />
+              <xs:element name="idvalutazionekind" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="programma" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="stop" type="xs:dateTime" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:valutazionekind" />
+      <xs:field xpath="mstns:idvalutazionekind" />
+    </xs:unique>
+    <xs:unique name="questionariodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:questionariodefaultview" />
+      <xs:field xpath="mstns:idquestionario" />
+    </xs:unique>
+    <xs:unique name="prova_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:prova" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idprova" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_prova_valutazionekind_idvalutazionekind" msdata:parent="valutazionekind" msdata:child="prova" msdata:parentkey="idvalutazionekind" msdata:childkey="idvalutazionekind" />
+      <msdata:Relationship name="FK_prova_questionariodefaultview_idquestionario" msdata:parent="questionariodefaultview" msdata:child="prova" msdata:parentkey="idquestionario" msdata:childkey="idquestionario" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

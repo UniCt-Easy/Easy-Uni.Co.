@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -29,7 +28,7 @@ namespace mainform//CambiaEsercizio//
 	/// <summary>
 	/// Summary description for frmCambiaEsercizio.
 	/// </summary>
-	public class frmCambiaEsercizio : System.Windows.Forms.Form
+	public class frmCambiaEsercizio : MetaDataForm
 	{
 		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.Button btnOK;
@@ -184,14 +183,24 @@ namespace mainform//CambiaEsercizio//
 				esercizio = (int) HelpForm.GetObjectFromString(typeof(int),
 					txtEsercizio.Text.ToString(), "x.y.year");
 				if ((esercizio<0)) {
-					MessageBox.Show("L'esercizio non può essere negativo");
+					show("L'esercizio non può essere negativo");
+					txtEsercizio.Focus();
+					return false;
+				}
+				if (esercizio < 1000) {
+					show("L'esercizio non può essere minore di 1000","Errore");
+					txtEsercizio.Focus();
+					return false;
+				}
+				if (esercizio > 3000) {
+					show("L'esercizio è troppo grande","Errore");
 					txtEsercizio.Focus();
 					return false;
 				}
 				//return true;
 			}
 			catch {
-				MessageBox.Show("E' necessario inserire un esercizio");
+				show("E' necessario inserire un esercizio");
 				txtEsercizio.Focus();
 				return false;
 			}
@@ -202,7 +211,7 @@ namespace mainform//CambiaEsercizio//
 				
 			if (EsercizioTable.Rows.Count==0) 
 			{
-				MessageBox.Show("L'esercizio "+esercizio+" non è stato creato.");
+				show("L'esercizio "+esercizio+" non è stato creato.");
 				txtEsercizio.Focus();
 				return false;
 			}
@@ -240,7 +249,7 @@ namespace mainform//CambiaEsercizio//
 				//	new DateTime(esercizio, T.Month, T.Day));
 			}
             if (!CambioDataConsentita(DataAccessLocale, ToSet)) {
-                MessageBox.Show("Accesso non consentito in tale data in base alla gestione della sicurezza");
+                show("Accesso non consentito in tale data in base alla gestione della sicurezza");
                 return;
 
             }
@@ -248,10 +257,9 @@ namespace mainform//CambiaEsercizio//
             E.SetSys("esercizio", esercizio);
             E.SetSys("datacontabile", ToSet);
 			if (esercizio != oldesercizio)
-				MessageBox.Show("Avvertimento: la data contabile è stata automaticamente impostata al \n"+
+				show("Avvertimento: la data contabile è stata automaticamente impostata al \n"+
 					((DateTime)E.GetSys("datacontabile")).ToShortDateString());
 			DialogResult = DialogResult.OK;
 		}
 	}
 }
-

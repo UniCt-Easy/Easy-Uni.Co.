@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 --setuser 'amministrazione'
 if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_income_bccflumeri_ins]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trasmele_income_bccflumeri_ins]
@@ -14,7 +31,7 @@ CREATE  PROCEDURE [trasmele_income_bccflumeri_ins]
 	@n int
 )
 AS BEGIN
- 
+--setuser'amministrazione'
 ----------------------------------------------------------------
 --  STORED PROCEDURE PER LA TRASMISSIONE DELLE REVERSALI PER  --
 ----------- BANCA DI CREDITO COOPERATIVO FLUMERI ---------------
@@ -51,8 +68,8 @@ SET @len_CAB = 5
 DECLARE @len_cc int
 SET @len_cc = 12
 
-DECLARE @ABI_codebcc  varchar(5)
-SET @ABI_codebcc  = '08553'   -- 08553  BANCA DI CREDITO COOPERATIVO FLUMERI
+--DECLARE @ABI_codebcc  varchar(5)
+--SET @ABI_codebcc  = '08553'   -- 08553  BANCA DI CREDITO COOPERATIVO FLUMERI
 
 DECLARE @idtreasurer int
 DECLARE @k int
@@ -137,7 +154,8 @@ END
 
 IF (@ABI_code IS NULL OR @ABI_code = '')
 BEGIN
-	SET @ABI_code  = @ABI_codebcc
+	SET @message = @message + ' Il Codice ABI'
+	SET @error = 'S'
 END
 IF (@error = 'S')
 BEGIN
@@ -697,8 +715,8 @@ UPDATE #proceeds SET flagcompensation = 'S'
 WHERE idinc in (select idinc FROM #admintax)
 
 UPDATE #proceeds SET flagcompensation = 'S' 
-WHERE idexp in (select idexp FROM #tax WHERE curramount_expense = 
-							isnull( (select sum(curramount) FROM #tax T1 where #tax.idexp = T1.idexp),0))
+WHERE idexp in (select idexp FROM #tax) -- WHERE curramount_expense = 
+							--isnull( (select sum(curramount) FROM #tax T1 where #tax.idexp = T1.idexp),0))
 
 -- Gestione Indirizzi Versante 
 DECLARE @codenostand varchar(20)

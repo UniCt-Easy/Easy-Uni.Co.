@@ -1,9 +1,9 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaClassMovimenti_Traduzione.xsd" xmlns:mstns="http://tempuri.org/VistaClassMovimenti_Traduzione.xsd" xmlns="http://tempuri.org/VistaClassMovimenti_Traduzione.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
-  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta" targetNamespace="http://tempuri.org/VistaClassMovimenti_Traduzione.xsd" xmlns:mstns="http://tempuri.org/VistaClassMovimenti_Traduzione.xsd" xmlns="http://tempuri.org/VistaClassMovimenti_Traduzione.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="sorting">
+        <xs:element name="sorting" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idsorkind" type="xs:int" />
@@ -18,16 +18,16 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="defaultn1" type="xs:decimal" minOccurs="0" />
-              <xs:element name="defaultn2" type="xs:decimal" minOccurs="0" />
-              <xs:element name="defaultn3" type="xs:decimal" minOccurs="0" />
-              <xs:element name="defaultn4" type="xs:decimal" minOccurs="0" />
-              <xs:element name="defaultn5" type="xs:decimal" minOccurs="0" />
-              <xs:element name="defaults1" type="xs:string" minOccurs="0" />
-              <xs:element name="defaults2" type="xs:string" minOccurs="0" />
-              <xs:element name="defaults3" type="xs:string" minOccurs="0" />
-              <xs:element name="defaults4" type="xs:string" minOccurs="0" />
-              <xs:element name="defaults5" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultN1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultS1" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS2" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS3" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS4" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS5" type="xs:string" minOccurs="0" />
               <xs:element name="defaultv1" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
@@ -36,11 +36,16 @@
               <xs:element name="flagnodate" type="xs:string" minOccurs="0" />
               <xs:element name="movkind" type="xs:string" minOccurs="0" />
               <xs:element name="start" type="xs:short" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="stop" type="xs:short" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="tipoclassmovimenti_dest">
+        <xs:element name="tipoclassmovimenti_dest" msprop:TableForReading="sortingkind" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idsorkind" type="xs:int" />
@@ -53,36 +58,36 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="forcedN1" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN2" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN3" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN4" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN5" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS1" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS2" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS3" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS4" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS5" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN1" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN2" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN3" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN4" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN5" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS1" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS2" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS3" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS4" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS5" type="xs:string" minOccurs="0" />
               <xs:element name="labeln1" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedn1" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedn1" type="xs:string" minOccurs="0" />
               <xs:element name="labeln2" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedn2" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedn2" type="xs:string" minOccurs="0" />
               <xs:element name="labeln3" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedn3" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedn3" type="xs:string" minOccurs="0" />
               <xs:element name="labeln4" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedn4" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedn4" type="xs:string" minOccurs="0" />
               <xs:element name="labeln5" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedn5" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedn5" type="xs:string" minOccurs="0" />
               <xs:element name="labels1" type="xs:string" minOccurs="0" />
-              <xs:element name="lockeds1" type="xs:string" minOccurs="0" />
-              <xs:element name="forceds1" type="xs:string" minOccurs="0" />
               <xs:element name="labels2" type="xs:string" minOccurs="0" />
-              <xs:element name="lockeds2" type="xs:string" minOccurs="0" />
-              <xs:element name="forceds2" type="xs:string" minOccurs="0" />
               <xs:element name="labels3" type="xs:string" minOccurs="0" />
-              <xs:element name="lockeds3" type="xs:string" minOccurs="0" />
-              <xs:element name="forceds3" type="xs:string" minOccurs="0" />
               <xs:element name="labels4" type="xs:string" minOccurs="0" />
-              <xs:element name="lockeds4" type="xs:string" minOccurs="0" />
-              <xs:element name="forceds4" type="xs:string" minOccurs="0" />
               <xs:element name="labels5" type="xs:string" minOccurs="0" />
-              <xs:element name="lockeds5" type="xs:string" minOccurs="0" />
-              <xs:element name="forceds5" type="xs:string" minOccurs="0" />
               <xs:element name="flagdate" type="xs:string" minOccurs="0" />
               <xs:element name="labelfordate" type="xs:string" minOccurs="0" />
               <xs:element name="nodatelabel" type="xs:string" minOccurs="0" />
@@ -100,12 +105,17 @@
               <xs:element name="lockedv4" type="xs:string" minOccurs="0" />
               <xs:element name="forcedv4" type="xs:string" minOccurs="0" />
               <xs:element name="labelv5" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS1" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS2" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS3" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS4" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS5" type="xs:string" minOccurs="0" />
               <xs:element name="lockedv5" type="xs:string" minOccurs="0" />
               <xs:element name="forcedv5" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sortingtranslation">
+        <xs:element name="sortingtranslation" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idsortingmaster" type="xs:int" />
@@ -145,7 +155,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sortinglevel">
+        <xs:element name="sortinglevel" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="nlevel" type="xs:unsignedByte" />
@@ -158,72 +168,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sortingkind">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idsorkind" type="xs:int" />
-              <xs:element name="codesorkind" type="xs:string" />
-              <xs:element name="description" type="xs:string" />
-              <xs:element name="nphaseincome" type="xs:unsignedByte" minOccurs="0" />
-              <xs:element name="nphaseexpense" type="xs:unsignedByte" minOccurs="0" />
-              <xs:element name="flag" type="xs:unsignedByte" minOccurs="0" />
-              <xs:element name="cu" type="xs:string" />
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="labeln1" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedn1" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedn1" type="xs:string" minOccurs="0" />
-              <xs:element name="labeln2" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedn2" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedn2" type="xs:string" minOccurs="0" />
-              <xs:element name="labeln3" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedn3" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedn3" type="xs:string" minOccurs="0" />
-              <xs:element name="labeln4" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedn4" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedn4" type="xs:string" minOccurs="0" />
-              <xs:element name="labeln5" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedn5" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedn5" type="xs:string" minOccurs="0" />
-              <xs:element name="labels1" type="xs:string" minOccurs="0" />
-              <xs:element name="lockeds1" type="xs:string" minOccurs="0" />
-              <xs:element name="forceds1" type="xs:string" minOccurs="0" />
-              <xs:element name="labels2" type="xs:string" minOccurs="0" />
-              <xs:element name="lockeds2" type="xs:string" minOccurs="0" />
-              <xs:element name="forceds2" type="xs:string" minOccurs="0" />
-              <xs:element name="labels3" type="xs:string" minOccurs="0" />
-              <xs:element name="lockeds3" type="xs:string" minOccurs="0" />
-              <xs:element name="forceds3" type="xs:string" minOccurs="0" />
-              <xs:element name="labels4" type="xs:string" minOccurs="0" />
-              <xs:element name="lockeds4" type="xs:string" minOccurs="0" />
-              <xs:element name="forceds4" type="xs:string" minOccurs="0" />
-              <xs:element name="labels5" type="xs:string" minOccurs="0" />
-              <xs:element name="lockeds5" type="xs:string" minOccurs="0" />
-              <xs:element name="forceds5" type="xs:string" minOccurs="0" />
-              <xs:element name="flagdate" type="xs:string" minOccurs="0" />
-              <xs:element name="labelfordate" type="xs:string" minOccurs="0" />
-              <xs:element name="nodatelabel" type="xs:string" minOccurs="0" />
-              <xs:element name="totalexpression" type="xs:string" minOccurs="0" />
-              <xs:element name="labelv1" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedv1" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedv1" type="xs:string" minOccurs="0" />
-              <xs:element name="labelv2" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedv2" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedv2" type="xs:string" minOccurs="0" />
-              <xs:element name="labelv3" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedv3" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedv3" type="xs:string" minOccurs="0" />
-              <xs:element name="labelv4" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedv4" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedv4" type="xs:string" minOccurs="0" />
-              <xs:element name="labelv5" type="xs:string" minOccurs="0" />
-              <xs:element name="lockedv5" type="xs:string" minOccurs="0" />
-              <xs:element name="forcedv5" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="classmovimenti_dest">
+        <xs:element name="classmovimenti_dest" msprop:TableForReading="sorting" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idsorkind" type="xs:int" />
@@ -258,6 +203,80 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="sortingkind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flagdate" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN1" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN2" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN3" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN4" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN5" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS1" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS2" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS3" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS4" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS5" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv1" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv2" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv3" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv4" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv5" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfordate" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln1" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln2" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln3" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln4" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln5" type="xs:string" minOccurs="0" />
+              <xs:element name="labels1" type="xs:string" minOccurs="0" />
+              <xs:element name="labels2" type="xs:string" minOccurs="0" />
+              <xs:element name="labels3" type="xs:string" minOccurs="0" />
+              <xs:element name="labels4" type="xs:string" minOccurs="0" />
+              <xs:element name="labels5" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv1" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv2" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv3" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv4" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv5" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN1" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN2" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN3" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN4" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN5" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS1" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS2" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS3" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS4" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS5" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv1" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv2" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv3" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv4" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv5" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nodatelabel" type="xs:string" minOccurs="0" />
+              <xs:element name="totalexpression" type="xs:string" minOccurs="0" />
+              <xs:element name="nphaseexpense" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="nphaseincome" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="codesorkind" type="xs:string" />
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="flag" type="xs:unsignedByte" />
+              <xs:element name="start" type="xs:short" minOccurs="0" />
+              <xs:element name="stop" type="xs:short" minOccurs="0" />
+              <xs:element name="idparentkind" type="xs:int" minOccurs="0" />
+              <xs:element name="allowedS1" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS2" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS3" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS4" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS5" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -278,38 +297,24 @@
       <xs:field xpath="mstns:nlevel" />
       <xs:field xpath="mstns:idsorkind" />
     </xs:unique>
-    <xs:unique name="sortingkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:sortingkind" />
-      <xs:field xpath="mstns:idsorkind" />
-    </xs:unique>
     <xs:unique name="classmovimenti_dest_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:classmovimenti_dest" />
       <xs:field xpath="mstns:idsor" />
     </xs:unique>
-    <xs:keyref name="tipoclassmovimenti_dest_classmovimenti_dest" refer="tipoclassmovimenti_dest_Constraint1">
-      <xs:selector xpath=".//mstns:classmovimenti_dest" />
+    <xs:unique name="sortingkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sortingkind" />
       <xs:field xpath="mstns:idsorkind" />
-    </xs:keyref>
-    <xs:keyref name="classmovimenti_destsortingtranslation" refer="classmovimenti_dest_Constraint1">
-      <xs:selector xpath=".//mstns:sortingtranslation" />
-      <xs:field xpath="mstns:idsortingchild" />
-    </xs:keyref>
-    <xs:keyref name="sortingsortingtranslation" refer="Constraint1">
-      <xs:selector xpath=".//mstns:sortingtranslation" />
-      <xs:field xpath="mstns:idsortingmaster" />
-    </xs:keyref>
-    <xs:keyref name="sortingkind_sorting" refer="sortingkind_Constraint1">
-      <xs:selector xpath=".//mstns:sorting" />
-      <xs:field xpath="mstns:idsorkind" />
-    </xs:keyref>
-    <xs:keyref name="sortinglevelsorting" refer="sortinglevel_Constraint1">
-      <xs:selector xpath=".//mstns:sorting" />
-      <xs:field xpath="mstns:nlevel" />
-      <xs:field xpath="mstns:idsorkind" />
-    </xs:keyref>
-    <xs:keyref name="sortingsorting" refer="Constraint1">
-      <xs:selector xpath=".//mstns:sorting" />
-      <xs:field xpath="mstns:paridsor" />
-    </xs:keyref>
+    </xs:unique>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="tipoclassmovimenti_dest_classmovimenti_dest" msdata:parent="tipoclassmovimenti_dest" msdata:child="classmovimenti_dest" msdata:parentkey="idsorkind" msdata:childkey="idsorkind" />
+      <msdata:Relationship name="sortingsortingtranslation" msdata:parent="sorting" msdata:child="sortingtranslation" msdata:parentkey="idsor" msdata:childkey="idsortingmaster" />
+      <msdata:Relationship name="classmovimenti_destsortingtranslation" msdata:parent="classmovimenti_dest" msdata:child="sortingtranslation" msdata:parentkey="idsor" msdata:childkey="idsortingchild" />
+      <msdata:Relationship name="sortingsorting" msdata:parent="sorting" msdata:child="sorting" msdata:parentkey="idsor" msdata:childkey="paridsor" />
+      <msdata:Relationship name="sortinglevelsorting" msdata:parent="sortinglevel" msdata:child="sorting" msdata:parentkey="nlevel idsorkind" msdata:childkey="nlevel idsorkind" />
+      <msdata:Relationship name="tipoclassmovimenti_dest_sorting" msdata:parent="tipoclassmovimenti_dest" msdata:child="sorting" msdata:parentkey="idsorkind" msdata:childkey="idsorkind" />
+      <msdata:Relationship name="sortingkind_sorting" msdata:parent="sortingkind" msdata:child="sorting" msdata:parentkey="idsorkind" msdata:childkey="idsorkind" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

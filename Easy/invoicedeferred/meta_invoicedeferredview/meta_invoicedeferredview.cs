@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Data;
 using System.Collections.Generic;
 using System.Text;
@@ -117,14 +116,14 @@ namespace meta_invoicedeferredview{
 			}
             
             if (list_type=="fatture_acquisti_ist_intraextra") {
-                // Acquisto e Istituzionale e Intracom, e non Spli perchÃ¨ li prendo dopo
+                // Acquisto e Istituzionale e Intracom, e non Spli perchè li prendo dopo
                 if ((R["registerclass"].ToString() == "A") && (R["flagactivity"].ToString() == "1") && (R["flagintracom"].ToString() != "N") && (R["flag_enable_split_payment"].ToString() == "N")) {
                     return true;
                 }
 				return false;
 			}
             if (list_type=="fatture_acquisti_ist_split") {
-                // Acquisto Istituzionale e soggetta a Split , e non intracom perchÃ¨ li ho presi prima
+                // Acquisto Istituzionale e soggetta a Split , e non intracom perchè li ho presi prima
                 if ((R["registerclass"].ToString() == "A") && (R["flagactivity"].ToString() == "1") && (R["flag_enable_split_payment"].ToString() == "S") && (R["flagintracom"].ToString() == "N")) {
                     return true;
                 }
@@ -136,4 +135,3 @@ namespace meta_invoicedeferredview{
 
 	}
 }
-

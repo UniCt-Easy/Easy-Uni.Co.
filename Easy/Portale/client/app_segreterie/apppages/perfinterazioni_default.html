@@ -1,0 +1,40 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfinterazioni_default_idperfinterazionekind">Tipo di interazione</label>
+					<select id="perfinterazioni_default_idperfinterazionekind" class="custom-select d-block w-100"  data-source-name="perfinterazionekind" data-value-member="idperfinterazionekind" data-display-member="title" data-custom-control="combo" data-tag="perfinterazioni.idperfinterazionekind"  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#perfinterazioni_default_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="perfinterazioni_default_data">Data</label>
+					<input id="perfinterazioni_default_data" type="text" class="form-control" data-tag="perfinterazioni.data.g"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="perfinterazioni_default_commentival">Commenti valutatore</label>
+					<textarea class="textarea form-control" id="perfinterazioni_default_commentival" type="text"  rows="4" data-tag="perfinterazioni.commentival"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="perfinterazioni_default_commenti">Commenti valutato</label>
+					<textarea class="textarea form-control" id="perfinterazioni_default_commenti" type="text"  rows="4" data-tag="perfinterazioni.commenti"  />
+				</div>
+			</div>
+ <button id="SendMail" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-cogs mr-1" ></i>Invia mail
+    </button>
+</form>
+
+</div>
+<!--footer-->

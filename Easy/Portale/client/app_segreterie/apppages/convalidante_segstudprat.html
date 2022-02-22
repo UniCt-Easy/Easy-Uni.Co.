@@ -1,0 +1,45 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalidante_segstudprat_changes">Changes</label>
+					<div class="custom-control custom-radio">
+						<input id="convalidante_segstudprat_changesSi" type="radio" name="convalidante_segstudprat_changes" class="custom-control-input" data-tag="convalidante.changes:S"  ><label for="convalidante_segstudprat_changesSi"> Si</label>
+						<input id="convalidante_segstudprat_changesNo" type="radio" name="convalidante_segstudprat_changes" class="custom-control-input" data-tag="convalidante.changes:N"  ><label for="convalidante_segstudprat_changesNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="convalidante_segstudprat_changesother">Changes other</label>
+					<textarea class="textarea form-control" id="convalidante_segstudprat_changesother" type="text"  rows="4" data-tag="convalidante.changesother"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalidante_segstudprat_idchangeskind">Changes kind</label>
+					<select id="convalidante_segstudprat_idchangeskind" class="custom-select d-block w-100"  data-source-name="changeskinddefaultview" data-value-member="idchangeskind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="convalidante.idchangeskind"   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalidante_segstudprat_idsostenimento">Sostenimento</label>
+					<div>
+						<input id="convalidante_segstudprat_idsostenimento" name="convalidante_segstudprat_idsostenimento" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sostenimentodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalidante_segstudprat_idtirocinioprogetto">Progetto del tirocinio</label>
+					<div>
+						<input id="convalidante_segstudprat_idtirocinioprogetto" name="convalidante_segstudprat_idtirocinioprogetto" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="tirocinioprogetto.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

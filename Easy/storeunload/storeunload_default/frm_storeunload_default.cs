@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -29,7 +28,7 @@ using ep_functions;
 using stockmail;
 
 namespace storeunload_default {
-    public partial class frmstoreunload_default : Form {
+    public partial class frmstoreunload_default : MetaDataForm {
         MetaData Meta;
         CQueryHelper QHC;
         QueryHelper QHS;
@@ -60,7 +59,7 @@ namespace storeunload_default {
 
             DataRow Curr = DS.storeunload.Rows[0];
             if (CfgFn.GetNoNullInt32(Curr["idstore"]) == 0) {
-                MessageBox.Show("Selezionare prima il magazzino.");
+                show("Selezionare prima il magazzino.");
                 return;
             }
 
@@ -113,7 +112,7 @@ namespace storeunload_default {
                 //DataTable T = Meta.Conn.RUN_SELECT("stockview", "*", "expiry asc, idstock asc", filterstock, null, false);
 
                 if (SViewRows.Length == 0) {
-                    MessageBox.Show("Non ho potuto aggiungere la riga di scarico relativa a:" + R["list"] + " perché non c'è giacenza sufficiente", "Errore");
+                    show("Non ho potuto aggiungere la riga di scarico relativa a:" + R["list"] + " perché non c'è giacenza sufficiente", "Errore");
                     continue;  //si riferisce ora al ciclo su dotry
                 }
                 DataRow RS;
@@ -158,7 +157,7 @@ namespace storeunload_default {
                 }
 
                 if (tounload > 0) {
-                    MessageBox.Show("Non ho potuto scaricare completamente la merce:" + R["list"] + " perché non c'è giacenza sufficiente", "Errore");
+                    show("Non ho potuto scaricare completamente la merce:" + R["list"] + " perché non c'è giacenza sufficiente", "Errore");
                 }
 
 
@@ -260,7 +259,7 @@ namespace storeunload_default {
 
             Post.InitClass(D, Meta.Conn);
             if (!Post.DO_POST()){
-                MessageBox.Show(this, "Errore durante la cancellazione delle scritture in PD");
+                show(this, "Errore durante la cancellazione delle scritture in PD");
             }
         }
 
@@ -296,7 +295,7 @@ namespace storeunload_default {
                 false);
             if (TT3.Rows.Count > 0)
             {
-                MessageBox.Show("Ci sono ratei associati alle scritture che saranno scollegati. Sarà " +
+                show("Ci sono ratei associati alle scritture che saranno scollegati. Sarà " +
                     "necessario ricollegarli a mano");
                 foreach (DataRow R3 in TT3.Rows) R3.Delete();
             }
@@ -308,7 +307,7 @@ namespace storeunload_default {
 
             DataRow Curr = DS.storeunload.Rows[0];
             if (CfgFn.GetNoNullInt32(Curr["idstore"]) == 0) {
-                MessageBox.Show("Selezionare prima il magazzino.");
+                show("Selezionare prima il magazzino.");
                 return;
             }
 
@@ -493,7 +492,7 @@ namespace storeunload_default {
             checkfilter = QHS.AppAnd(checkfilter, QHS.CmpEq("yentry", Meta.GetSys("esercizio")));
             ToMeta.ContextFilter = checkfilter;
             Form F = null;
-            if (Meta.LinkedForm != null) F = Meta.LinkedForm.ParentForm;
+            if (Meta.linkedForm != null) F = Meta.linkedForm.ParentForm;
             bool result = ToMeta.Edit(F, "default", false);
             string listtype = ToMeta.DefaultListType;
             DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
@@ -535,7 +534,7 @@ namespace storeunload_default {
 
             DataRow Curr = DS.storeunload.Rows[0];
             if (CfgFn.GetNoNullInt32(Curr["idstore"]) == 0) {
-                MessageBox.Show("Selezionare prima il magazzino.");
+                show("Selezionare prima il magazzino.");
                 return;
             }
 
@@ -570,4 +569,3 @@ namespace storeunload_default {
 
     }
 }
-

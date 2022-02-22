@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections;
@@ -30,7 +29,7 @@ namespace BackupRestore//BackupRestore//
 	/// <summary>
 	/// Summary description for frmDB.
 	/// </summary>
-	public class frmDB : System.Windows.Forms.Form
+	public class frmDB : MetaDataForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -734,7 +733,7 @@ namespace BackupRestore//BackupRestore//
                 if (MyConn != null) res = MyConn.Open();
                 if (!res) MyConn = null;
                 if (MyConn == null) {
-                    MessageBox.Show("Impossibile collegarsi con nome utente e password inseriti", "Attenzione",
+                    show("Impossibile collegarsi con nome utente e password inseriti", "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -809,20 +808,20 @@ namespace BackupRestore//BackupRestore//
                 if (MyConn != null) res = MyConn.Open();
                 if (!res) MyConn = null;
                 if (MyConn == null) {
-                    MessageBox.Show("Impossibile collegarsi con nome utente e password inseriti", "Attenzione",
+                    show("Impossibile collegarsi con nome utente e password inseriti", "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
             }
 
             if (MyConn == null) {
-				MessageBox.Show("Impossibile procedere, la connessione non è attiva", "Attenzione",
+				show("Impossibile procedere, la connessione non è attiva", "Attenzione",
 					MessageBoxButtons.OK, MessageBoxIcon.Information);
 				return;
 			}
 			
 			if (txtLastBackup.Text=="") {
-				MessageBox.Show("Specificare il nome del file del backup", "Attenzione",
+				show("Specificare il nome del file del backup", "Attenzione",
 					MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (Conn != MyConn) MyConn.Destroy();
                 return;
@@ -844,14 +843,14 @@ namespace BackupRestore//BackupRestore//
 				//0 = timeout illimitato
                 DataTable t = MyConn.SQLRunner(script, true, 0);
 				if (t==null)
-                    MessageBox.Show("Backup fallito\r\rDesc.: " + MyConn.LastError, "Info");
+                    show("Backup fallito\r\rDesc.: " + MyConn.LastError, "Info");
 				else {
-					MessageBox.Show("Operazione di Backup terminata", "Info");
+					show("Operazione di Backup terminata", "Info");
 					ImpostaRestore();
 				}
 			}
 			catch (Exception E) {
-				MessageBox.Show("Impossibile eseguire il backup\r\r"+E.Message, "Attenzione",
+				show("Impossibile eseguire il backup\r\r"+E.Message, "Attenzione",
 					MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			Cursor.Current=Cursors.Default;
@@ -1022,13 +1021,13 @@ namespace BackupRestore//BackupRestore//
 			if (T!=null && T.Rows.Count > 0) {
 				//la seconda colonna mi dice se è un file o directory
 				if (T.Rows[0][1].ToString()=="1") {
-					MessageBox.Show("Impossibile procedere, il supporto selezionato è una directory", "Attenzione",
+					show("Impossibile procedere, il supporto selezionato è una directory", "Attenzione",
 						MessageBoxButtons.OK, MessageBoxIcon.Information);
 					return false;
 				}
 				//la terza colonna mi dice se il path esiste
 				if (T.Rows[0][2].ToString()=="0") {
-					MessageBox.Show("Impossibile procedere, la directory contenente il file è inesistente", "Attenzione",
+					show("Impossibile procedere, la directory contenente il file è inesistente", "Attenzione",
 						MessageBoxButtons.OK, MessageBoxIcon.Information);
 					return false;
 				}
@@ -1046,7 +1045,7 @@ namespace BackupRestore//BackupRestore//
                 if (MyConn != null) res = MyConn.Open();
                 if (!res) MyConn = null;
                 if (MyConn == null) {
-                    MessageBox.Show("Impossibile collegarsi con nome utente e password inseriti", "Attenzione",
+                    show("Impossibile collegarsi con nome utente e password inseriti", "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -1074,7 +1073,7 @@ namespace BackupRestore//BackupRestore//
 				RestoreFromDB=false;
 			}
 			if (row==null) {
-				MessageBox.Show("Selezionare una riga", "Attenzione",
+				show("Selezionare una riga", "Attenzione",
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return;
 			}
@@ -1091,14 +1090,14 @@ namespace BackupRestore//BackupRestore//
 
 
 			if (MyConn==null) {
-				MessageBox.Show("Impossibile collegarsi con nome utente e password inseriti", "Attenzione",
+				show("Impossibile collegarsi con nome utente e password inseriti", "Attenzione",
 					MessageBoxButtons.OK, MessageBoxIcon.Information);
 				return;
 			}
            
 			if (rdoDB.Checked) {
 				if (LastSelRow==null) {
-					MessageBox.Show("Seleziona un database da ripristinare", "Attenzione",
+					show("Seleziona un database da ripristinare", "Attenzione",
 						MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MyConn.Close();
 					return;
@@ -1106,13 +1105,13 @@ namespace BackupRestore//BackupRestore//
 			}
 			else {
 				if (txtLastRestore.Text=="") {
-					MessageBox.Show("Specificare il file dal quale eseguire il restore", "Attenzione",
+					show("Specificare il file dal quale eseguire il restore", "Attenzione",
 						MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MyConn.Close();
 					return;
 				}
 				if (LastSelRowNum==null) {
-					MessageBox.Show("Seleziona un database da ripristinare", "Attenzione",
+					show("Seleziona un database da ripristinare", "Attenzione",
 						MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MyConn.Close();
 					return;
@@ -1123,7 +1122,7 @@ namespace BackupRestore//BackupRestore//
 
 			string msg="Chiudere tutte le finestre, tutti i dati non salvati verranno persi.\r"+
 				"Continuare con il ripristino del database?";
-            if (MessageBox.Show(msg, "Attenzione",
+            if (show(msg, "Attenzione",
                 MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) != DialogResult.Yes) {
                 MyConn.Close();
                 return;
@@ -1171,18 +1170,18 @@ namespace BackupRestore//BackupRestore//
 				}
 
                 if(t == null) {
-                    MessageBox.Show(this,"Restore fallito\r\rDesc.: " + MyConn.LastError, "Informazione",
+                    show(this,"Restore fallito\r\rDesc.: " + MyConn.LastError, "Informazione",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Cursor.Current = Cursors.Default;
                     MyConn.Close();
                     return;
                 }
                 else
-                    MessageBox.Show(this, "Operazione di Restore eseguita con successo.", "Informazione",
+                    show(this, "Operazione di Restore eseguita con successo.", "Informazione",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 			catch (Exception E) {
-                MessageBox.Show(this, "Impossibile eseguire il restore\r\r" + E.Message, "Attenzione",
+                show(this, "Impossibile eseguire il restore\r\r" + E.Message, "Attenzione",
 					MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Cursor.Current = Cursors.Default;
                 MyConn.Close();
@@ -1192,7 +1191,7 @@ namespace BackupRestore//BackupRestore//
 			ScriviRegistry(MyConn);
             MyConn.persisting = false;
             MyConn.Close();
-            MessageBox.Show(this, "Sarà necessario ora chiudere il programma.");
+            show(this, "Sarà necessario ora chiudere il programma.");
             Close();
             Application.Exit();
 
@@ -1311,4 +1310,3 @@ namespace BackupRestore//BackupRestore//
         }
 	}
 }
-

@@ -1,9 +1,27 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA payedtaxview
 IF EXISTS(select * from sysobjects where id = object_id(N'[payedtaxview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [payedtaxview]
 GO
 
-
+--select * from payedtaxview
+--setuser 'amm'
 
 
 CREATE   VIEW [payedtaxview]
@@ -53,6 +71,7 @@ CREATE   VIEW [payedtaxview]
 	datetaxpay,
 	ytaxpay,
 	ntaxpay,
+	start,stop,
 	cu,
 	ct,
 	lu,
@@ -123,6 +142,7 @@ CREATE   VIEW [payedtaxview]
 	END,
 	expensetax.ytaxpay, 
 	expensetax.ntaxpay,
+	taxpay.start, taxpay.stop,
 	expensetax.cu, expensetax.ct, expensetax.lu, expensetax.lt,
 	payment.idtreasurer,
 	isnull(treasurer.header,treasurer.description)
@@ -143,6 +163,7 @@ LEFT OUTER JOIN geo_nation		ON registryaddress.idnation = geo_nation.idnation
 LEFT OUTER JOIN geo_city pgc	ON pgc.idcity = expensetax.idcity
 LEFT OUTER JOIN fiscaltaxregion pftr		ON pftr.idfiscaltaxregion = expensetax.idfiscaltaxregion
 LEFT OUTER JOIN treasurer					ON payment.idtreasurer=treasurer.idtreasurer
+left outer join taxpay		ON expensetax.ytaxpay=taxpay.ytaxpay and expensetax.ntaxpay=taxpay.ntaxpay and expensetax.taxcode=taxpay.taxcode
 WHERE (registryaddress.idaddresskind IS NULL OR registryaddress.idaddresskind = 
 		(select top 1 idaddresskind 
 		   from registryaddress ci
@@ -163,3 +184,4 @@ WHERE (registryaddress.idaddresskind IS NULL OR registryaddress.idaddresskind =
 
 
 GO
+--select * from expensetax

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_sorting_tree" targetNamespace="http://tempuri.org/dsmeta_sorting_tree.xsd" xmlns:mstns="http://tempuri.org/dsmeta_sorting_tree.xsd" xmlns="http://tempuri.org/dsmeta_sorting_tree.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_sorting_tree" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="sortinglevel" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flag" type="xs:short" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sorting" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="sortcode" type="xs:string" />
+              <xs:element name="paridsor" type="xs:int" minOccurs="0" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="defaultn1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultn2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultn3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultn4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultn5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaults1" type="xs:string" minOccurs="0" />
+              <xs:element name="defaults2" type="xs:string" minOccurs="0" />
+              <xs:element name="defaults3" type="xs:string" minOccurs="0" />
+              <xs:element name="defaults4" type="xs:string" minOccurs="0" />
+              <xs:element name="defaults5" type="xs:string" minOccurs="0" />
+              <xs:element name="flagnodate" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:short" minOccurs="0" />
+              <xs:element name="stop" type="xs:short" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sortinglevel" />
+      <xs:field xpath="mstns:nlevel" />
+      <xs:field xpath="mstns:idsorkind" />
+    </xs:unique>
+    <xs:unique name="sorting_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sorting" />
+      <xs:field xpath="mstns:idsor" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="sortingsorting" msdata:parent="sorting" msdata:child="sorting" msdata:parentkey="idsor" msdata:childkey="paridsor" />
+      <msdata:Relationship name="sortinglevelsorting" msdata:parent="sortinglevel" msdata:child="sorting" msdata:parentkey="nlevel idsorkind" msdata:childkey="nlevel idsorkind" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

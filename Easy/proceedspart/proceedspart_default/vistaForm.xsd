@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistaassegnazioneincassi.xsd" xmlns:mstns="http://tempuri.org/Vistaassegnazioneincassi.xsd" xmlns="http://tempuri.org/Vistaassegnazioneincassi.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistaassegnazioneincassi.xsd" xmlns:mstns="http://tempuri.org/Vistaassegnazioneincassi.xsd" xmlns="http://tempuri.org/Vistaassegnazioneincassi.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -534,7 +534,7 @@
       <xs:selector xpath=".//mstns:incomephase" />
       <xs:field xpath="mstns:nphase" />
     </xs:unique>
-    <xs:unique name="finview_Constraint1" msdata:ConstraintName="Constraint1">
+    <xs:unique name="finview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:finview" />
       <xs:field xpath="mstns:idfin" />
     </xs:unique>
@@ -563,29 +563,15 @@
       <xs:selector xpath=".//mstns:upbincome" />
       <xs:field xpath="mstns:idupb" />
     </xs:unique>
-    <xs:keyref name="FK_treasurerincome_upbincome" refer="treasurerincome_Constraint1">
-      <xs:selector xpath=".//mstns:upbincome" />
-      <xs:field xpath="mstns:idtreasurer" />
-    </xs:keyref>
-    <xs:keyref name="FK_treasurer_upb" refer="treasurer_Constraint1">
-      <xs:selector xpath=".//mstns:upb" />
-      <xs:field xpath="mstns:idtreasurer" />
-    </xs:keyref>
-    <xs:keyref name="FK_upbincome_incomeview" refer="upbincome_Constraint1">
-      <xs:selector xpath=".//mstns:incomeview" />
-      <xs:field xpath="mstns:idupb" />
-    </xs:keyref>
-    <xs:keyref name="incomeviewproceedspart" refer="incomeview_Constraint1">
-      <xs:selector xpath=".//mstns:proceedspart" />
-      <xs:field xpath="mstns:idinc" />
-    </xs:keyref>
-    <xs:keyref name="finviewproceedspart" refer="finview_Constraint1">
-      <xs:selector xpath=".//mstns:proceedspart" />
-      <xs:field xpath="mstns:idfin" />
-    </xs:keyref>
-    <xs:keyref name="upb_proceedspart" refer="upb_Constraint1">
-      <xs:selector xpath=".//mstns:proceedspart" />
-      <xs:field xpath="mstns:idupb" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_treasurerincome_upbincome" msdata:parent="treasurerincome" msdata:child="upbincome" msdata:parentkey="idtreasurer" msdata:childkey="idtreasurer" />
+      <msdata:Relationship name="FK_treasurer_upb" msdata:parent="treasurer" msdata:child="upb" msdata:parentkey="idtreasurer" msdata:childkey="idtreasurer" />
+      <msdata:Relationship name="FK_upbincome_incomeview" msdata:parent="upbincome" msdata:child="incomeview" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="upb_proceedspart" msdata:parent="upb" msdata:child="proceedspart" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="finviewproceedspart" msdata:parent="finview" msdata:child="proceedspart" msdata:parentkey="idfin" msdata:childkey="idfin" />
+      <msdata:Relationship name="incomeviewproceedspart" msdata:parent="incomeview" msdata:child="proceedspart" msdata:parentkey="idinc" msdata:childkey="idinc" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

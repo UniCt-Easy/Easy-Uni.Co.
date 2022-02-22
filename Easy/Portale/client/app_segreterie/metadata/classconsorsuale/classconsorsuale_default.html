@@ -1,0 +1,73 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabclassconsorsuale_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabclassconsorsuale_default_0"><i class="fa fa-clipboard-list mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabclassconsorsuale_default_1" class="nav-link" data-toggle="pill" data-target="#tabclassconsorsuale_default_1"><i class="fa fa-clipboard-list mr-1"></i>Corsi che la abilitano</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabclassconsorsuale_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classconsorsuale_default_idclassconsorsuale">Codice</label>
+					<input id="classconsorsuale_default_idclassconsorsuale" type="text" class="form-control" data-tag="classconsorsuale.idclassconsorsuale?classconsorsualedefaultview.idclassconsorsuale" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classconsorsuale_default_title">Denominazione</label>
+					<input id="classconsorsuale_default_title" type="text" class="form-control" data-tag="classconsorsuale.title?classconsorsualedefaultview.title" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classconsorsuale_default_description">Descrizione</label>
+					<input id="classconsorsuale_default_description" type="text" class="form-control" data-tag="classconsorsuale.description?classconsorsualedefaultview.classconsorsuale_description" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classconsorsuale_default_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="classconsorsuale_default_activeSi" type="radio" name="classconsorsuale_default_active" class="custom-control-input" data-tag="classconsorsuale.active:S?classconsorsualedefaultview.classconsorsuale_active:Si" data-subentity  data-mandatory ><label for="classconsorsuale_default_activeSi"> Si</label>
+						<input id="classconsorsuale_default_activeNo" type="radio" name="classconsorsuale_default_active" class="custom-control-input" data-tag="classconsorsuale.active:N?classconsorsualedefaultview.classconsorsuale_active:No" data-subentity  data-mandatory ><label for="classconsorsuale_default_activeNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classconsorsuale_default_ambitodisci">Ambito Disciplinare</label>
+					<input id="classconsorsuale_default_ambitodisci" type="text" class="form-control" data-tag="classconsorsuale.ambitodisci?classconsorsualedefaultview.classconsorsuale_ambitodisci" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classconsorsuale_default_corr2592017">Corrispondenza</label>
+					<input id="classconsorsuale_default_corr2592017" type="text" class="form-control" data-tag="classconsorsuale.corr2592017?classconsorsualedefaultview.classconsorsuale_corr2592017" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="classconsorsuale_default_normativa">Normativa</label>
+					<input id="classconsorsuale_default_normativa" type="text" class="form-control" data-tag="classconsorsuale.normativa?classconsorsualedefaultview.classconsorsuale_normativa" data-subentity  data-mandatory />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabclassconsorsuale_default_1" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_didprogclassconsorsuale_iddidprog" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_didprogclassconsorsuale_iddidprog" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Corsi che la abilitano
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_didprogclassconsorsuale_default" data-tag="didprogclassconsorsuale.default.default" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

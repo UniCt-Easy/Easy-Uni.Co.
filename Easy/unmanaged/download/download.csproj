@@ -84,6 +84,9 @@
       <HintPath>..\..\dll\edtFTPnet.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="metadatalibrary">
+      <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>

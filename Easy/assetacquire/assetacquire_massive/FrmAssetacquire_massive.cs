@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -28,7 +27,7 @@ using metadatalibrary;
 using funzioni_configurazione;
 
 namespace assetacquire_massive {
-    public partial class FrmAssetacquire_massive : Form {
+    public partial class FrmAssetacquire_massive : MetaDataForm {
         public FrmAssetacquire_massive() {
             InitializeComponent();
             this.txtQuantita.LostFocus += new System.EventHandler(this.txtQuantita_LostFocus);
@@ -514,11 +513,29 @@ namespace assetacquire_massive {
                 DataTable MDAvailable = Meta.Conn.RUN_SELECT("mandatedetailavailable", "*", null, filtro_cp, null, false);
                 residuo = 0;
                 if (MDAvailable.Rows.Count == 0) {
-                    MessageBox.Show("Non ci sono dettagli dell'ordine specificato attivi. " +
+                    show("Non ci sono dettagli dell'ordine specificato attivi. " +
                                     "Presumibilmente i dettagli associati sono stati cancellati o annullati. " +
                                     "E' necessario correggere i dati del contratto passivo correlato.");
-                    Meta.LogError("AssetAcquireDefault - MetaData_BeforeFill -  condizione di errore 1322- filtro:" + filtro_cp + " carico chiave:" +
-                        QHS.CmpKey(R));
+                    //RIMOSSO PERCHE' GENERAVA ECCEZIONE MA C'E' GIA' MESSAGE BOX CHE AVVISA UTENTE 
+                    //Meta.LogError("AssetAcquireMassive - MetaData_BeforeFill -  condizione di errore 1322- filtro:" + filtro_cp + " carico chiave:" +
+                    //    QHS.CmpKey(R));
+                    if (Meta.InsertMode) {
+                        DS.asset.Clear();
+                        R["idmankind"] = DBNull.Value;
+                        R["yman"] = DBNull.Value;
+                        R["nman"] = DBNull.Value;
+                        R["rownum"] = DBNull.Value;
+                        txtNumriga.Text = "";
+                        txtNumordine.Text = "";
+                        txtEsercordine.Text = "";
+                        TotIvaGenerale = 0;
+                        TotIvaDetraibile = 0;
+                        IvaDetResiduo = 0;
+                        IvaGenResiduo = 0;
+                        totquantita = 0;
+                        cmbTipoOrdine.SelectedIndex = -1;
+                        return;
+                    }
                 }
                 else {
                     IDAvailable = Meta.Conn.RUN_SELECT("invoicedetailavailable", "*", null, filtro_Fattura, null, false);
@@ -650,7 +667,7 @@ namespace assetacquire_massive {
             {
                 string msg = "Si desidera aggiornare le ubicazioni specifiche del cespite in base a quelle del dettaglio del contratto passivo." +
                              "Confermi?";
-                DialogResult res = MessageBox.Show(msg, "Conferma",
+                DialogResult res = show(msg, "Conferma",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (res == DialogResult.Yes)
                 {
@@ -768,6 +785,7 @@ namespace assetacquire_massive {
 
         }
         bool verificaDivisibilita(decimal X, int N) {
+            if (N == 0) return false;
             decimal Xone = CfgFn.RoundValuta(X / N);
             decimal Xrebuilded = Xone * N;
             if (Xrebuilded == X) return true;
@@ -848,7 +866,7 @@ namespace assetacquire_massive {
                 if (!Meta.InsertMode) {
                     string msg = "La diminuizione della quantità di beni caricati " +
                         "produrrà la cancellazione di cespiti dall'inventario. Continuare?";
-                    DialogResult res = MessageBox.Show(msg, "Conferma",
+                    DialogResult res = show(msg, "Conferma",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (res != DialogResult.Yes) {
                         //rimetto a quantità il vecchio valore
@@ -1122,7 +1140,7 @@ namespace assetacquire_massive {
                     object newidman = R["idman"];
                     object selMan = Meta.GetAutoField(txtResponsabile);
                     if (selMan != DBNull.Value && selMan.ToString() != newidman.ToString()) {
-                        MessageBox.Show("Il responsabile è stato reimpostato in base all'ubicazione selezionata.");                        
+                        show("Il responsabile è stato reimpostato in base all'ubicazione selezionata.");                        
                     }
                     Meta.SetAutoField(newidman, txtResponsabile);                    
                 }
@@ -1153,7 +1171,7 @@ namespace assetacquire_massive {
             //leggo il valore quantita
             var quantita = CfgFn.GetNoNullInt32(HelpForm.GetObjectFromString(typeof(int), txtQuantita.Text, null));
             if (quantita <= 0) {
-                MessageBox.Show("Inserire una quantità maggiore o uguale a zero", "Attenzione",
+                show("Inserire una quantità maggiore o uguale a zero", "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 txtQuantita.Focus();
                 return;
@@ -1297,7 +1315,7 @@ namespace assetacquire_massive {
             object max = DS.asset.Compute("max(ninventory)", null);
 
             if (min == null || min == DBNull.Value) {
-                MessageBox.Show("Errori nel salvataggio");
+                show("Errori nel salvataggio");
                 return;
             }
             DataRow curr = DS.assetacquire.Rows[0];
@@ -1456,7 +1474,7 @@ namespace assetacquire_massive {
             }
 
             if (numiniziale < 0 || sNumIniziale == "" || NumInizIsLetter) {
-                //				MessageBox.Show("Inserire un numero iniziale maggiore o uguale a zero.","Attenzione",
+                //				show("Inserire un numero iniziale maggiore o uguale a zero.","Attenzione",
                 //					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 numiniziale = 0;
             }
@@ -1465,7 +1483,7 @@ namespace assetacquire_massive {
            
                 int oldnuminiziale = CfgFn.GetNoNullInt32(DS.Tables["assetacquire"].Rows[0]["startnumber"]);
                 if ((numiniziale == 0) && (oldnuminiziale > 0)) {
-                    MessageBox.Show("Il n. iniziale non può essere 0.");
+                    show("Il n. iniziale non può essere 0.");
                     txtNumIniz.Text = oldnuminiziale.ToString();
                     txtNumIniz.Focus();
                     return;
@@ -1479,7 +1497,7 @@ namespace assetacquire_massive {
                 string msg = "Questa operazione assegna un numero di inventario " +
                     "progressivo a tutti i cespiti del carico. Confermi?";
                 DialogResult res = DialogResult.Yes;
-                if ( (oldnuminiziale > 0)) res = MessageBox.Show(msg, "Conferma",
+                if ( (oldnuminiziale > 0)) res = show(msg, "Conferma",
                       MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (res == DialogResult.Yes) {
                     //aggiorno num. inventario
@@ -1717,4 +1735,4 @@ namespace assetacquire_massive {
 
 
     }
-}
+}

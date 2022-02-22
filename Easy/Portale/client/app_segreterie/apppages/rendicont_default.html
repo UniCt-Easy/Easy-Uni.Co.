@@ -1,0 +1,46 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabrendicont_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabrendicont_default_0"><i class="fa fa-calendar-check mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabrendicont_default_1" class="nav-link" data-toggle="pill" data-target="#tabrendicont_default_1"><i class="fa fa-clipboard-check mr-1"></i>Attività oltre le lezioni</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabrendicont_default_2" class="nav-link" data-toggle="pill" data-target="#tabrendicont_default_2"><i class="fa fa-chalkboard-teacher mr-1"></i>Registro elettronico</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabrendicont_default_0" role="tabpanel">
+					<input hidden id="rendicont_default_title" type="text" class="form-control" data-tag="rendicont.title" />
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="rendicont_default_aa">Anno accademico</label>
+					<select id="rendicont_default_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="rendicont.aa"  data-mandatory  > </select>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabrendicont_default_1" role="tabpanel">
+	<hr>
+		<div class="row">
+			<div class="col-md-12">
+				<div id="calendar7" data-tag="rendicontaltro.default.default" data-custom-control="calendar"  data-mdltitlecolumnname="!title"   data-mdlstartcolumnname="data"   data-mdlmaincolor="Brown"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdldragdrop ></div>
+			</div>
+		</div>
+	</div>
+	<div class="tab-pane fade" id="tabrendicont_default_2" role="tabpanel">
+	<hr>
+		<div class="row">
+			<div class="col-md-12">
+				<div id="calendar8" data-tag="lezione.rendicont.rendicont" data-custom-control="calendar"  data-mdltitlecolumnname="!title"   data-mdlstartcolumnname="start"   data-mdlstopcolumnname="stop" data-mdlbuttonedit data-mdldragdrop ></div>
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

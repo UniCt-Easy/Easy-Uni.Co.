@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[compute_environment]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_environment]
 GO
@@ -65,6 +82,7 @@ declare @titlesortingkind2 varchar(200)
 declare @titlesortingkind3 varchar(200)
 declare @codesorkind_siopespese varchar(20)
 declare @codesorkind_siopeentrate varchar(20)
+declare @attachment_max_size_mb int
 
 
 declare @flagproceeds char(1)
@@ -169,7 +187,8 @@ select @expensefinphase=expensefinphase,
 		@asFilter02 = isnull(uniconfig.sorkind02asfilter,'N'),	
 		@asFilter03 = isnull(uniconfig.sorkind03asfilter,'N'),	
 		@asFilter04 = isnull(uniconfig.sorkind04asfilter,'N'),	
-		@asFilter05 = isnull(uniconfig.sorkind05asfilter,'N')	
+		@asFilter05 = isnull(uniconfig.sorkind05asfilter,'N'),
+		@attachment_max_size_mb = isnull(attachment_max_size_mb, 1)
 		from uniconfig
 		left outer join sortingkind sortingkind1 on sortingkind1.idsorkind=uniconfig.idsorkind01
 		left outer join sortingkind sortingkind2 on sortingkind2.idsorkind=uniconfig.idsorkind02
@@ -226,7 +245,8 @@ select  @idflowchart as idflowchart, @ndetail as ndetail,
 			 isnull(@idsor01,0) as idsor01, isnull(@idsor02,0) as idsor02, isnull(@idsor03,0) as idsor03,
 					 isnull(@idsor04,0) as idsor04, isnull(@idsor05,0) as idsor05,
 			@defaultdepmail as defaultdepmail,
-			@codesorkind_siopespese as codesorkind_siopespese ,	@codesorkind_siopeentrate as codesorkind_siopeentrate
+			@codesorkind_siopespese as codesorkind_siopespese ,	@codesorkind_siopeentrate as codesorkind_siopeentrate,
+			@attachment_max_size_mb as attachment_max_size_mb
 			
 
 

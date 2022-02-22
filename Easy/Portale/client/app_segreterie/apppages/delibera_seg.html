@@ -1,0 +1,102 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabdelibera_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabdelibera_seg_0"><i class="fa fa-file-alt mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabdelibera_seg_1" class="nav-link" data-toggle="pill" data-target="#tabdelibera_seg_1"><i class="fa fa-file-alt mr-1"></i>Istanze deliberate</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabdelibera_seg_2" class="nav-link" data-toggle="pill" data-target="#tabdelibera_seg_2"><i class="fa fa-file-alt mr-1"></i>Pratiche deliberate</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabdelibera_seg_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#delibera_seg_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="delibera_seg_data">Data</label>
+					<input id="delibera_seg_data" type="text" class="form-control" data-tag="delibera.data.g?deliberasegview.delibera_data.g" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="delibera_seg_idstatuskind">Status</label>
+					<select id="delibera_seg_idstatuskind" class="custom-select d-block w-100"  data-source-name="statuskind" data-value-member="idstatuskind" data-display-member="title" data-custom-control="combo" data-tag="delibera.idstatuskind?deliberasegview.delibera_idstatuskind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="delibera_seg_oggetto">Oggetto</label>
+					<input id="delibera_seg_oggetto" type="text" class="form-control" data-tag="delibera.oggetto?deliberasegview.oggetto" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="delibera_seg_testo">Testo</label>
+					<textarea class="textarea form-control" id="delibera_seg_testo" type="text"  rows="4" data-tag="delibera.testo?deliberasegview.delibera_testo" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="delibera_seg_protnumero">Numero di protocollo</label>
+					<input id="delibera_seg_protnumero" type="text" class="form-control" data-tag="delibera.protnumero?deliberasegview.delibera_protnumero" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="delibera_seg_protanno">Anno di protocollo</label>
+					<input id="delibera_seg_protanno" type="text" class="form-control" data-tag="delibera.protanno?deliberasegview.delibera_protanno" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="delibera_seg_idstruttura">Struttura</label>
+					<div>
+						<input id="delibera_seg_idstruttura" name="delibera_seg_idstruttura" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="strutturadefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+ <button id="GetApprove" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-thumbs-up mr-1" ></i>Approva la delibera
+    </button>
+ <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-stamp mr-1" ></i>Protocolla
+    </button>
+	</div>
+	<div class="tab-pane fade" id="tabdelibera_seg_1" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_deliberaistanza_idistanza" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_deliberaistanza_idistanza" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Istanze deliberate
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_deliberaistanza_seg" data-tag="deliberaistanza.seg.seg" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+	</div>
+	<div class="tab-pane fade" id="tabdelibera_seg_2" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_deliberapratica_idpratica" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_deliberapratica_idpratica" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Pratiche deliberate
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_deliberapratica_seg" data-tag="deliberapratica.seg.seg" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -25,16 +24,17 @@ using System.Text;
 using System.Windows.Forms;
 using metadatalibrary;
 using funzioni_configurazione;
+using q = metadatalibrary.MetaExpression;
 
 namespace AskInfo {
-    public partial class FrmAskInfo : Form {
+    public partial class FrmAskInfo : MetaDataForm {
         QueryHelper QHS;
         QueryHelper QHC;
         DataAccess Conn;
         Manager_SelectionManager SelManager = null;
         UPB_SelectionManager SelUPB=null;
         Fin_SelectionManager SelFin = null;
-
+        
         //string fintable;
         MetaData M;
         bool busy = false;
@@ -238,11 +238,27 @@ namespace AskInfo {
                 object idman = Conn.DO_READ_VALUE("upb", QHS.CmpEq("idupb", idupb), "idman");
                 if (idman != DBNull.Value && SelectManager) {
                     SelManager.SetValue(idman);
-                    //EnableManagerSelection(false);
+                    EnableManagerSelection(false);
                 }
                 
             }
-            if (chkFilterAvailable.Checked) SelFin.SetValue(DBNull.Value);
+
+            int count = 0;
+            if (this.E_S == "S") {
+                count = CfgFn.GetNoNullInt32(Conn.count("finusable", q.bitClear("flag", 1) & q.bitSet("flag", 0) & q.eq("ayear", M.GetSys("esercizio"))));
+			}
+            else {
+                count = CfgFn.GetNoNullInt32(Conn.count("finusable", q.bitClear("flag", 1) & q.bitClear("flag", 0) & q.eq("ayear", M.GetSys("esercizio"))));
+			}
+            
+            if (chkFilterAvailable.Checked && count != 1) {
+                SelFin.SetValue(DBNull.Value);
+                EnableFinSelection(true);
+            }
+            else {
+                chkFilterAvailable.Checked = false;
+                EnableFinSelection(true);
+            }
         }
 
 
@@ -327,10 +343,6 @@ namespace AskInfo {
             if (destroyed) return;
             busy = true;
             string filterAll = GetFinFilterAll(fintable);
-            
-
-            
-
 
             if (chkListManager.Checked) {                
                 MetaFin.FilterLocked = true;
@@ -339,7 +351,6 @@ namespace AskInfo {
                 busy = false;
                 return;
             }
-
 
             if (chkListTitle.Checked) {
                 FrmAskDescr FR = new FrmAskDescr(0);
@@ -420,27 +431,27 @@ namespace AskInfo {
         private void btnOk_Click(object sender, EventArgs e) {
             if (destroyed) return;
             if (busy) {
-                MessageBox.Show("Attendere il completamento dell'operazione", "Avviso");
+                show("Attendere il completamento dell'operazione", "Avviso");
                 DialogResult = DialogResult.None;
                 return;
             }
             if (SelectManager && !allowNoManagerSelection) {
                 if (SelManager.GetValue() == DBNull.Value) {
-                    MessageBox.Show("Selezionare un responsabile");
+                    show("Selezionare un responsabile");
                     DialogResult = DialogResult.None;
                     return;
                 }
             }
             if (SelectUPB && !allowNoUpbSelection) {
                 if (SelUPB.GetValue() == DBNull.Value) {
-                    MessageBox.Show("Selezionare un UPB");
+                    show("Selezionare un UPB");
                     DialogResult = DialogResult.None;
                     return;
 
                 }
             }
             if (SelFin.GetValue() == DBNull.Value && ! allowNoFinSelection) {
-                MessageBox.Show("Selezionare una voce di bilancio");
+                show("Selezionare una voce di bilancio");
                 DialogResult = DialogResult.None;
                 return;
             }
@@ -454,7 +465,7 @@ namespace AskInfo {
         private void FrmAskInfo_FormClosing(object sender, FormClosingEventArgs e) {
             this.ActiveControl = null;
             if (busy) {
-                MessageBox.Show("Attendere il completamento dell'operazione", "Avviso");
+                show("Attendere il completamento dell'operazione", "Avviso");
                 e.Cancel = true;
                 return;
             }
@@ -462,7 +473,7 @@ namespace AskInfo {
 
         private void BtnAnnulla_Click(object sender, EventArgs e) {
             if (busy) {
-                MessageBox.Show("Attendere il completamento dell'operazione", "Avviso");
+                show("Attendere il completamento dell'operazione", "Avviso");
                 DialogResult = DialogResult.None;
                 return;
             }
@@ -529,7 +540,7 @@ namespace AskInfo {
             this.table = table;
             Meta = M.Dispatcher.Get(table);
             Meta.FilterLocked = true;
-            Meta.LinkedForm = F;
+            Meta.linkedForm = F;
             DataSet DS = new DataSet();
             DS.EnforceConstraints = false;
             DataTable TT = Conn.CreateTableByName(table,"*");
@@ -785,4 +796,4 @@ namespace AskInfo {
     }
     
 
-}
+}

@@ -1,4 +1,21 @@
 
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+
 --simulation_asset_ammortization_on_the_date 2011
  if exists (select * from dbo.sysobjects where id = object_id(N'[simulation_asset_ammortization_on_the_date]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure simulation_asset_ammortization_on_the_date
@@ -13,11 +30,14 @@ GO
 CREATE PROCEDURE simulation_asset_ammortization_on_the_date
 (
 	@ayear int,
-	@adate datetime
+	@adate datetime,
+	@idinventory int,
+	@ninvstart int,
+	@ninvstop int
 )
 AS BEGIN
 -- setuser 'amministrazione'
--- simulation_asset_ammortization_on_the_date 2015, '12-31-2015'
+-- simulation_asset_ammortization_on_the_date 2021, {d '2021-11-15'}, 9005495, 9005501
 --la stored procedure GetAssetValue è usata per valutare l'importo corrente dei cespiti
 --la stored procedure get_originalassetvalue è usata per valutare l'importo iniziale dei cespiti, su cui calcolare l'ammortamento
 -- se l'ammortamento calcolato è tale da rendere il valore corrente viene considerata una base per l'ammortamento opportunamente ridotta
@@ -79,6 +99,7 @@ DECLARE @reval decimal(19,2)
 DECLARE @reval_on_the_date decimal(19,2)
 declare @startvalue decimal(19,2)
 
+
 -- tabella per simulare gli ammortamenti alla data mediante il calcolo riattualizzato della quota 
 -- di ammortamento alla data impostata in input
 CREATE TABLE #simulated_assetamortization
@@ -136,7 +157,10 @@ WHERE   b.lifestart IS NULL
 	AND	((tr.valuemin is null or tr.valuemin<ISNULL(C.historicalvalue,AC.start) ) and (tr.valuemax is null or tr.valuemax>=ISNULL(C.historicalvalue,AC.start)))
 	AND (YEAR(assetload.ratificationdate)<=@ayear OR   ((c.flag & 1 = 0) AND (c.flag & 2 <> 0)) )
 	AND (AU.adate is null OR YEAR(AU.adate)>@ayear )
-	AND b.amortizationquota is null
+	AND b.amortizationquota is null	
+	and (b.ninventory >=  @ninvstart or @ninvstart is null)
+	and (b.ninventory <= @ninvstop or @ninvstop is null)
+	and c.idinventory = @idinventory
 FOR READ ONLY
 
 OPEN amt_crs
@@ -200,7 +224,7 @@ DEALLOCATE amt_crs
 
 -- Caso in cui il cespite ha valorizzata la quota di ammortamento direttamente sul cespite
 -- Applico direttamente quella a prescindere da quella configurata nella classificazione inventariale.
--- Assumo che la quota sia annuale
+-- Assumo che la quota sia annuale: NO, considero la tipologia di ammortamento
 DECLARE amt_crs INSENSITIVE CURSOR FOR
 SELECT  DISTINCT
 	tr.idinventoryamortization,
@@ -217,7 +241,7 @@ WHERE  (tr.flag & 2 <> 0) --ufficiale
 	AND ((tr.flag&8) <> 0) -- ammortamenti
 	AND ISNULL(tr.active,'S')= 'S'
 	AND (b.flag & 1 <> 0)
-	
+	AND (tr.flag & 1 = 0 ) --Ammortamenti annuali
 	AND NOT EXISTS(
 		SELECT * FROM assetamortization r join inventoryamortization tr1 
 			ON  r.idinventoryamortization = tr1.idinventoryamortization  
@@ -226,6 +250,42 @@ WHERE  (tr.flag & 2 <> 0) --ufficiale
 			AND (tr.flag&8) = (tr1.flag&8))
 	AND (YEAR(assetload.ratificationdate)<=@ayear OR   ((c.flag & 1 = 0) AND (c.flag & 2 <> 0)) )
 	AND (AU.adate is null OR YEAR(AU.adate)>@ayear )
+	and (b.ninventory >=  @ninvstart or @ninvstart is null)
+	and (b.ninventory <= @ninvstop or @ninvstop is null)
+	and c.idinventory = @idinventory
+union 
+
+	SELECT  DISTINCT
+	tr.idinventoryamortization,
+	b.idasset,	b.idpiece,
+	c.description,
+	ISNULL(b.amortizationquota, 0) /12 *
+	CASE 
+		WHEN DATEPART(YEAR,b.lifestart) = @ayear THEN DATEPART(MONTH,@dec_31) - DATEPART(MONTH,b.lifestart) + 1
+		WHEN DATEPART(YEAR,b.lifestart) < @ayear THEN 12
+	END
+FROM asset b
+JOIN assetacquire c							ON b.nassetacquire = C.nassetacquire
+JOIN assetview_current ac					ON ac.idasset = b.idasset and ac.idpiece=b.idpiece
+JOIN inventoryamortization tr				ON tr.idinventoryamortization = b.idinventoryamortization  -- <<<<
+LEFT OUTER JOIN assetload					ON assetload.idassetload = c.idassetload			
+LEFT OUTER JOIN assetunload AU				ON AU.idassetunload = B.idassetunload	
+WHERE  (tr.flag & 2 <> 0) --ufficiale
+	AND ((tr.flag&8) <> 0) -- ammortamenti
+	AND ISNULL(tr.active,'S')= 'S'
+	AND (b.flag & 1 <> 0)
+	AND (tr.flag & 1 <> 0 ) --Ammortamenti mensili
+	AND NOT EXISTS(
+		SELECT * FROM assetamortization r join inventoryamortization tr1 
+			ON  r.idinventoryamortization = tr1.idinventoryamortization  
+		WHERE r.idasset = b.idasset AND r.idpiece = b.idpiece
+			AND YEAR(r.adate) = @ayear
+			AND (tr.flag&8) = (tr1.flag&8))
+	AND (YEAR(assetload.ratificationdate)<=@ayear OR   ((c.flag & 1 = 0) AND (c.flag & 2 <> 0)) )
+	AND (AU.adate is null OR YEAR(AU.adate)>@ayear )
+	and (b.ninventory >=  @ninvstart or @ninvstart is null)
+	and (b.ninventory <= @ninvstop or @ninvstop is null)
+	and c.idinventory = @idinventory
 FOR READ ONLY
 
 OPEN amt_crs
@@ -350,6 +410,9 @@ BEGIN
 		AND (AU.adate is null OR YEAR(AU.adate)>@ayear )		
 		AND ( (inventorykind.flag&2)=0)
 		AND b.amortizationquota is null
+	and (b.ninventory >=  @ninvstart or @ninvstart is null)
+	and (b.ninventory <= @ninvstop or @ninvstop is null)
+	and c.idinventory = @idinventory
 	FOR READ ONLY
 	OPEN amt_crs
 	FETCH NEXT FROM amt_crs INTO @idinventoryamortization, @idasset, @idpiece, @description, @amortizationquota
@@ -466,6 +529,9 @@ BEGIN
 		AND (AU.adate is null OR YEAR(AU.adate)>@ayear )
 		AND ( (inventorykind.flag&2)=0)
 		AND b.amortizationquota is null
+	and (b.ninventory >=  @ninvstart or @ninvstart is null)
+	and (b.ninventory <= @ninvstop or @ninvstop is null)
+	and c.idinventory = @idinventory
 	FOR READ ONLY
 	OPEN amt_crs
 		FETCH NEXT FROM amt_crs INTO @idinventoryamortization, @idasset, @idpiece, @description, @amortizationquota
@@ -581,6 +647,9 @@ BEGIN
 		AND (AU.adate is null OR YEAR(AU.adate)>@ayear )
 		AND ( (inventorykind.flag&2)=0)
 		AND b.amortizationquota is null
+		and (b.ninventory >=  @ninvstart or @ninvstart is null)
+		and (b.ninventory <= @ninvstop or @ninvstop is null)
+		and c.idinventory = @idinventory
 	FOR READ ONLY
 	OPEN amt_crs
 	FETCH NEXT FROM amt_crs INTO @idinventoryamortization, @idasset, @idpiece, @description, @amortizationquota
@@ -681,6 +750,9 @@ BEGIN
 		AND (AU.adate is null OR YEAR(AU.adate)>@ayear )
 		AND ( (inventorykind.flag&2)=0)
 		AND b.amortizationquota is null
+		and (b.ninventory >=  @ninvstart or @ninvstart is null)
+		and (b.ninventory <= @ninvstop or @ninvstop is null)
+		and c.idinventory = @idinventory
 	FOR READ ONLY
 	OPEN amt_crs
 		FETCH NEXT FROM amt_crs INTO @idinventoryamortization, @idasset, @idpiece, @description, @amortizationquota
@@ -754,5 +826,5 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-
+--simulation_asset_ammortization_on_the_date 2021, {d '2021-11-15'}, 172, 9005495, 9005501 
  

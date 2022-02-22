@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -28,7 +27,7 @@ using System.Collections;
 using funzioni_configurazione;
 
 namespace ep_functions {
-    public partial class FrmImpegniBudget : Form {     
+    public partial class FrmImpegniBudget : MetaDataForm {     
         CQueryHelper QHC;
         QueryHelper QHS;
         MetaDataDispatcher Disp;
@@ -522,7 +521,7 @@ namespace ep_functions {
             string rowfilter;
             int maxfase = GetMaxFaseForSelection(RigheSelezionate, tableEp);
             if (maxfase < 1) {
-                MessageBox.Show("Non Ã¨ possibile collegare tutte le righe selezionate ad uno stesso movimento.\n" +
+                show("Non è possibile collegare tutte le righe selezionate ad uno stesso movimento.\n" +
                     "Le informazioni di U.P.B., conto, percipiente sono " +
                     "troppo diverse tra loro.", "Errore");
                 return;
@@ -546,8 +545,8 @@ namespace ep_functions {
             string parent = cicloAttivo ? "preaccertamento" : "preimpegno";
             foreach (DataRow R in RigheSelezionate) {
                 if (parentExists(tableEp,R["par"+ idTableEp, DataRowVersion.Original])) {
-                    MessageBox.Show("La riga non puÃ² essere scollegata dal relativo "+ parent +
-                        " poichÃ© giÃ  salvata in precedenza sul database.");
+                    show("La riga non può essere scollegata dal relativo "+ parent +
+                        " poiché già salvata in precedenza sul database.");
                     continue;
                 }
                 R["par"+idTableEp] = Choosen[idTableEp];
@@ -590,8 +589,7 @@ namespace ep_functions {
             var parent = cicloAttivo ? "preaccertamento" : "preimpegno";
             foreach (var r in righeSelezionate) {
                 if (parentExists(tableEp,r["par" + idTableEp, DataRowVersion.Original])) {
-                    MessageBox.Show(
-                        $"La riga n.{r["n" + tableEp]} non puÃ² essere scollegata dal relativo {parent} poichÃ© giÃ  salvata in precedenza sul database.");
+                    show($"La riga n.{r["n" + tableEp]} non può essere scollegata dal relativo {parent} poiché già salvata in precedenza sul database.");
                     continue;
                 }
                 //r.RejectChanges(); //	CambiaVoceBilancio(R,Automatismi[I]);
@@ -657,4 +655,3 @@ namespace ep_functions {
         }
     }
 }
-

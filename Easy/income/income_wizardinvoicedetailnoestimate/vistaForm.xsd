@@ -236,6 +236,8 @@
               <xs:element name="surname" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" />
               <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="ccp" type="xs:string" minOccurs="0" />
+              <xs:element name="flagbankitaliaproceeds" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -501,6 +503,45 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="incomesorted">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinc" type="xs:int" />
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="idsubclass" type="xs:short" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ayear" type="xs:short" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="flagnodate" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="paridsor" type="xs:int" minOccurs="0" />
+              <xs:element name="paridsubclass" type="xs:short" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="tobecontinued" type="xs:string" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="valuen1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="valuen2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="valuen3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="valuen4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="valuen5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="values1" type="xs:string" minOccurs="0" />
+              <xs:element name="values2" type="xs:string" minOccurs="0" />
+              <xs:element name="values3" type="xs:string" minOccurs="0" />
+              <xs:element name="values4" type="xs:string" minOccurs="0" />
+              <xs:element name="values5" type="xs:string" minOccurs="0" />
+              <xs:element name="valuev1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="valuev2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="valuev3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="valuev4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="valuev5" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -582,6 +623,12 @@
       <xs:field xpath="mstns:nivapay" />
       <xs:field xpath="mstns:idivaregisterkind" />
     </xs:unique>
+    <xs:unique name="incomesorted_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:incomesorted" />
+      <xs:field xpath="mstns:idinc" />
+      <xs:field xpath="mstns:idsor" />
+      <xs:field xpath="mstns:idsubclass" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -601,6 +648,7 @@
       <msdata:Relationship name="invoice_incomeinvoice" msdata:parent="invoice" msdata:child="incomeinvoice" msdata:parentkey="idinvkind yinv ninv" msdata:childkey="idinvkind yinv ninv" />
       <msdata:Relationship name="income_income" msdata:parent="income" msdata:child="income" msdata:parentkey="idinc" msdata:childkey="parentidinc" />
       <msdata:Relationship name="registry_income" msdata:parent="registry" msdata:child="income" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="income_incomesorted" msdata:parent="income" msdata:child="incomesorted" msdata:parentkey="idinc" msdata:childkey="idinc" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

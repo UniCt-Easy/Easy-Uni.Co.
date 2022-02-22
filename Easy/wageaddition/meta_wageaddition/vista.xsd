@@ -45,6 +45,9 @@
               <xs:element name="iddaliaposition" type="xs:int" minOccurs="0" />
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
               <xs:element name="iddaliarecruitmentmotive" type="xs:int" minOccurs="0" />
+              <xs:element name="iddalia_dipartimento" type="xs:int" minOccurs="0" />
+              <xs:element name="iddalia_funzionale" type="xs:int" minOccurs="0" />
+              <xs:element name="flagexcludefromcertificate" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

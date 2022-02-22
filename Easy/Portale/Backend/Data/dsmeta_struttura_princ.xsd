@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_struttura_princ" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_struttura_princ" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="upbdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="idupb_capofila" type="xs:string" minOccurs="0" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+              <xs:element name="upb_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="strutturakinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idstrutturakind" type="xs:int" />
+              <xs:element name="strutturakind_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sededefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idsede" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="aoodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idaoo" type="xs:int" />
+              <xs:element name="idsede" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="struttura" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codice" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceipa" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="fax" type="xs:string" minOccurs="0" />
+              <xs:element name="idaoo" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="idsede" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="idstrutturakind" type="xs:int" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="paridstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="pesoindicatori" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesoobiettivi" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesoprogaltreuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesoproguo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="telefono" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="title_en" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upbdefaultview" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="strutturakinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:strutturakinddefaultview" />
+      <xs:field xpath="mstns:idstrutturakind" />
+    </xs:unique>
+    <xs:unique name="sededefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sededefaultview" />
+      <xs:field xpath="mstns:idsede" />
+    </xs:unique>
+    <xs:unique name="aoodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:aoodefaultview" />
+      <xs:field xpath="mstns:idaoo" />
+    </xs:unique>
+    <xs:unique name="struttura_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:struttura" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_struttura_upbdefaultview_idupb" msdata:parent="upbdefaultview" msdata:child="struttura" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="FK_struttura_strutturakinddefaultview_idstrutturakind" msdata:parent="strutturakinddefaultview" msdata:child="struttura" msdata:parentkey="idstrutturakind" msdata:childkey="idstrutturakind" />
+      <msdata:Relationship name="FK_struttura_sededefaultview_idsede" msdata:parent="sededefaultview" msdata:child="struttura" msdata:parentkey="idsede" msdata:childkey="idsede" />
+      <msdata:Relationship name="FK_struttura_aoodefaultview_idaoo" msdata:parent="aoodefaultview" msdata:child="struttura" msdata:parentkey="idaoo" msdata:childkey="idaoo" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

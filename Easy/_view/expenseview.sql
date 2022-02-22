@@ -1,9 +1,30 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA expenseview
 IF EXISTS(select * from sysobjects where id = object_id(N'[expenseview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [expenseview]
 GO
+--setuser 'amministrazione' 
+--setuser 'amm'
+--select * from expenseview
+--select * from autokind
+--clear_table_info 'expenseview'
 
---setuser'amministrazione'
 CREATE      VIEW expenseview
 (
 	idexp,
@@ -21,6 +42,7 @@ CREATE      VIEW expenseview
 	idfin,
 	codefin,
 	finance,
+	finflag,
 	idupb,
 	codeupb,
 	upb,
@@ -95,7 +117,12 @@ CREATE      VIEW expenseview
 	lu,
 	lt,
 	external_reference,
-	netamount
+	netamount,
+	pagopanoticenum,
+	idinc_linked,
+	yinc_linked,
+	ninc_linked,
+	expenseflag
 )
 AS SELECT
 	expense.idexp,
@@ -113,6 +140,7 @@ AS SELECT
 	expenseyear.idfin,
 	fin.codefin,
 	fin.title,
+	fin.flag,
 	upb.idupb,
 	upb.codeupb,
 	upb.title,
@@ -195,9 +223,14 @@ AS SELECT
 				join incometotal IIT  with (nolock)  on II.idinc=IIT.idinc and IIT.ayear=expense.ymov	
 				join incomelast IL with (nolock) on IL.idinc=II.idinc 
 		WHERE expenselast.idexp=II.idpayment and 
-						((II.autokind=4 and II.idreg = expense.idreg ) or II.autokind in (6,14,20,21,30,31))
+						((II.autokind=4 and II.idreg = expense.idreg ) or II.autokind in (6,7,14,20,21,30,31))
+									--ritenute pari anagrafica, recuperi,generico,csariten,csalordi, NCSALORDI,NCSARITEN, reintegro fondo economale e chiusura
 		  
-         ),0)
+         ),0),
+	expenselast.pagopanoticenum,
+	income.idinc,income.ymov,income.nmov,
+	expense.flag
+
 FROM expense
 JOIN expensephase with(nolock)		ON expensephase.nphase = expense.nphase
 JOIN expenseyear with(nolock)		ON expenseyear.idexp = expense.idexp
@@ -221,6 +254,7 @@ LEFT OUTER JOIN expenseyear expenseyear_starting with(nolock) 	ON expenseyear_st
   										AND expenseyear_starting.ayear = expensetotal_firstyear.ayear
 LEFT OUTER JOIN paymenttransmission with(nolock) 	ON paymenttransmission.kpaymenttransmission = payment.kpaymenttransmission
 LEFT OUTER JOIN account			ON account.idacc =  expenselast.idaccdebit
+LEFT OUTER JOIN income (nolock)			ON expense.idinc_linked =  income.idinc
 
 
 

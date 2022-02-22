@@ -1,0 +1,496 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_registry_aziende" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_registry_aziende" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="geo_city_alias2" msprop:TableForReading="geo_city" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcity" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sede" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="annotations" type="xs:string" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="idsede" type="xs:int" />
+              <xs:element name="idsedemiur" type="xs:int" minOccurs="0" />
+              <xs:element name="latitude" type="xs:decimal" minOccurs="0" />
+              <xs:element name="longitude" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idcity_geo_city_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registryreference" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="activeweb" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="faxnumber" type="xs:string" minOccurs="0" />
+              <xs:element name="flagdefault" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistryreference" type="xs:int" />
+              <xs:element name="iterweb" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="mobilenumber" type="xs:string" minOccurs="0" />
+              <xs:element name="msnnumber" type="xs:string" minOccurs="0" />
+              <xs:element name="passwordweb" type="xs:string" minOccurs="0" />
+              <xs:element name="pec" type="xs:string" minOccurs="0" />
+              <xs:element name="phonenumber" type="xs:string" minOccurs="0" />
+              <xs:element name="referencename" type="xs:string" />
+              <xs:element name="registryreferencerole" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="saltweb" type="xs:string" minOccurs="0" />
+              <xs:element name="skypenumber" type="xs:string" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="userweb" type="xs:string" minOccurs="0" />
+              <xs:element name="website" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registryprogfinbandoattach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistryprogfin" type="xs:int" />
+              <xs:element name="idregistryprogfinbando" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registryprogfinbando" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistryprogfin" type="xs:int" />
+              <xs:element name="idregistryprogfinbando" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="number" type="xs:string" minOccurs="0" />
+              <xs:element name="scadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registryprogfin" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistryprogfin" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="geo_nation_alias5" msprop:TableForReading="geo_nation" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idnation" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="geo_city_alias5" msprop:TableForReading="geo_city" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcity" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="address" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idaddress" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registryaddress" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="annotations" type="xs:string" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="flagforeign" type="xs:string" minOccurs="0" />
+              <xs:element name="idaddresskind" type="xs:int" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="officename" type="xs:string" minOccurs="0" />
+              <xs:element name="recipientagency" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idaddresskind_address_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idcity_geo_city_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idnation_geo_nation_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ccnl" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="area" type="xs:string" />
+              <xs:element name="contraenti" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="decorrenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idccnl" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="scadec" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="scadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="sortcode" type="xs:int" />
+              <xs:element name="stipula" type="xs:dateTime" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ccnlregistry_aziende" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idccnl" type="xs:int" />
+              <xs:element name="idreg_aziende" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idccnl_ccnl_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idccnl_ccnl_active" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idccnl_ccnl_area" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idccnl_ccnl_decorrenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idccnl_ccnl_scadec" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idccnl_ccnl_scadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idccnl_ccnl_sortcode" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idccnl_ccnl_stipula" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="numerodip" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idnumerodip" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="naturagiurdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idnaturagiur" type="xs:int" />
+              <xs:element name="naturagiur_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="nacedefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idnace" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="atecodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idateco" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="geo_city" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcity" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="geo_nation" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idnation" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="residence" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idresidence" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registryclassaziendeview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idregistryclass" type="xs:string" />
+              <xs:element name="registryclass_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="category" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idcategory" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrykind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idregistrykind" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="annotation" type="xs:string" minOccurs="0" />
+              <xs:element name="authorization_free" type="xs:string" minOccurs="0" />
+              <xs:element name="badgecode" type="xs:string" minOccurs="0" />
+              <xs:element name="birthdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ccp" type="xs:string" minOccurs="0" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="email_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="extension" type="xs:string" minOccurs="0" />
+              <xs:element name="extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_pa" type="xs:string" minOccurs="0" />
+              <xs:element name="flagbankitaliaproceeds" type="xs:string" minOccurs="0" />
+              <xs:element name="foreigncf" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="gender" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcentralizedcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idexternal" type="xs:int" minOccurs="0" />
+              <xs:element name="idmaritalstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
+              <xs:element name="idregistrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_perlapa" type="xs:string" minOccurs="0" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="maritalsurname" type="xs:string" minOccurs="0" />
+              <xs:element name="multi_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="p_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="pec_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="residence" type="xs:int" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="sdi_defrifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="sdi_norifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="toredirect" type="xs:int" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry_aziende" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idateco" type="xs:int" minOccurs="0" />
+              <xs:element name="idnace" type="xs:string" minOccurs="0" />
+              <xs:element name="idnaturagiur" type="xs:int" minOccurs="0" />
+              <xs:element name="idnumerodip" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="pic" type="xs:string" minOccurs="0" />
+              <xs:element name="title_en" type="xs:string" minOccurs="0" />
+              <xs:element name="txt_en" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_city_alias2" />
+      <xs:field xpath="mstns:idcity" />
+    </xs:unique>
+    <xs:unique name="sede_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sede" />
+      <xs:field xpath="mstns:idsede" />
+    </xs:unique>
+    <xs:unique name="registryreference_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registryreference" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistryreference" />
+    </xs:unique>
+    <xs:unique name="registryprogfinbandoattach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registryprogfinbandoattach" />
+      <xs:field xpath="mstns:idattach" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistryprogfin" />
+      <xs:field xpath="mstns:idregistryprogfinbando" />
+    </xs:unique>
+    <xs:unique name="registryprogfinbando_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registryprogfinbando" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistryprogfin" />
+      <xs:field xpath="mstns:idregistryprogfinbando" />
+    </xs:unique>
+    <xs:unique name="registryprogfin_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registryprogfin" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistryprogfin" />
+    </xs:unique>
+    <xs:unique name="geo_nation_alias5_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_nation_alias5" />
+      <xs:field xpath="mstns:idnation" />
+    </xs:unique>
+    <xs:unique name="geo_city_alias5_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_city_alias5" />
+      <xs:field xpath="mstns:idcity" />
+    </xs:unique>
+    <xs:unique name="address_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:address" />
+      <xs:field xpath="mstns:idaddress" />
+    </xs:unique>
+    <xs:unique name="registryaddress_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registryaddress" />
+      <xs:field xpath="mstns:idaddresskind" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:start" />
+    </xs:unique>
+    <xs:unique name="ccnl_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ccnl" />
+      <xs:field xpath="mstns:idccnl" />
+    </xs:unique>
+    <xs:unique name="ccnlregistry_aziende_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ccnlregistry_aziende" />
+      <xs:field xpath="mstns:idccnl" />
+      <xs:field xpath="mstns:idreg_aziende" />
+    </xs:unique>
+    <xs:unique name="numerodip_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:numerodip" />
+      <xs:field xpath="mstns:idnumerodip" />
+    </xs:unique>
+    <xs:unique name="naturagiurdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:naturagiurdefaultview" />
+      <xs:field xpath="mstns:idnaturagiur" />
+    </xs:unique>
+    <xs:unique name="nacedefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:nacedefaultview" />
+      <xs:field xpath="mstns:idnace" />
+    </xs:unique>
+    <xs:unique name="atecodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:atecodefaultview" />
+      <xs:field xpath="mstns:idateco" />
+    </xs:unique>
+    <xs:unique name="geo_city_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_city" />
+      <xs:field xpath="mstns:idcity" />
+    </xs:unique>
+    <xs:unique name="geo_nation_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_nation" />
+      <xs:field xpath="mstns:idnation" />
+    </xs:unique>
+    <xs:unique name="residence_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:residence" />
+      <xs:field xpath="mstns:idresidence" />
+    </xs:unique>
+    <xs:unique name="registryclassaziendeview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registryclassaziendeview" />
+      <xs:field xpath="mstns:idregistryclass" />
+    </xs:unique>
+    <xs:unique name="category_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:category" />
+      <xs:field xpath="mstns:idcategory" />
+    </xs:unique>
+    <xs:unique name="registrykind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrykind" />
+      <xs:field xpath="mstns:idregistrykind" />
+    </xs:unique>
+    <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="registry_aziende_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry_aziende" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_sede_registry_idreg" msdata:parent="registry" msdata:child="sede" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_sede_geo_city_alias2_idcity" msdata:parent="geo_city_alias2" msdata:child="sede" msdata:parentkey="idcity" msdata:childkey="idcity" />
+      <msdata:Relationship name="FK_registryreference_registry_idreg" msdata:parent="registry" msdata:child="registryreference" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_registryprogfin_registry_idreg" msdata:parent="registry" msdata:child="registryprogfin" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_registryprogfinbando_registryprogfin_idreg-idregistryprogfin" msdata:parent="registryprogfin" msdata:child="registryprogfinbando" msdata:parentkey="idreg idregistryprogfin" msdata:childkey="idreg idregistryprogfin" />
+      <msdata:Relationship name="FK_registryprogfinbandoattach_registryprogfinbando_idreg-idregistryprogfin-idregistryprogfinbando" msdata:parent="registryprogfinbando" msdata:child="registryprogfinbandoattach" msdata:parentkey="idreg idregistryprogfin idregistryprogfinbando" msdata:childkey="idreg idregistryprogfin idregistryprogfinbando" />
+      <msdata:Relationship name="FK_registryaddress_registry_idreg" msdata:parent="registry" msdata:child="registryaddress" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_registryaddress_geo_nation_alias5_idnation" msdata:parent="geo_nation_alias5" msdata:child="registryaddress" msdata:parentkey="idnation" msdata:childkey="idnation" />
+      <msdata:Relationship name="FK_registryaddress_geo_city_alias5_idcity" msdata:parent="geo_city_alias5" msdata:child="registryaddress" msdata:parentkey="idcity" msdata:childkey="idcity" />
+      <msdata:Relationship name="FK_registryaddress_address_idaddresskind" msdata:parent="address" msdata:child="registryaddress" msdata:parentkey="idaddress" msdata:childkey="idaddresskind" />
+      <msdata:Relationship name="FK_ccnlregistry_aziende_registry_idreg_aziende" msdata:parent="registry" msdata:child="ccnlregistry_aziende" msdata:parentkey="idreg" msdata:childkey="idreg_aziende" />
+      <msdata:Relationship name="FK_ccnlregistry_aziende_ccnl_idccnl" msdata:parent="ccnl" msdata:child="ccnlregistry_aziende" msdata:parentkey="idccnl" msdata:childkey="idccnl" />
+      <msdata:Relationship name="FK_registry_aziende_numerodip_idnumerodip" msdata:parent="numerodip" msdata:child="registry_aziende" msdata:parentkey="idnumerodip" msdata:childkey="idnumerodip" />
+      <msdata:Relationship name="FK_registry_aziende_naturagiurdefaultview_idnaturagiur" msdata:parent="naturagiurdefaultview" msdata:child="registry_aziende" msdata:parentkey="idnaturagiur" msdata:childkey="idnaturagiur" />
+      <msdata:Relationship name="FK_registry_aziende_nacedefaultview_idnace" msdata:parent="nacedefaultview" msdata:child="registry_aziende" msdata:parentkey="idnace" msdata:childkey="idnace" />
+      <msdata:Relationship name="FK_registry_aziende_atecodefaultview_idateco" msdata:parent="atecodefaultview" msdata:child="registry_aziende" msdata:parentkey="idateco" msdata:childkey="idateco" />
+      <msdata:Relationship name="FK_registry_geo_city_idcity" msdata:parent="geo_city" msdata:child="registry" msdata:parentkey="idcity" msdata:childkey="idcity" />
+      <msdata:Relationship name="FK_registry_geo_nation_idnation" msdata:parent="geo_nation" msdata:child="registry" msdata:parentkey="idnation" msdata:childkey="idnation" />
+      <msdata:Relationship name="FK_registry_residence_residence" msdata:parent="residence" msdata:child="registry" msdata:parentkey="idresidence" msdata:childkey="residence" />
+      <msdata:Relationship name="FK_registry_registryclassaziendeview_idregistryclass" msdata:parent="registryclassaziendeview" msdata:child="registry" msdata:parentkey="idregistryclass" msdata:childkey="idregistryclass" />
+      <msdata:Relationship name="FK_registry_category_idcategory" msdata:parent="category" msdata:child="registry" msdata:parentkey="idcategory" msdata:childkey="idcategory" />
+      <msdata:Relationship name="FK_registry_registrykind_idregistrykind" msdata:parent="registrykind" msdata:child="registry" msdata:parentkey="idregistrykind" msdata:childkey="idregistrykind" />
+      <msdata:Relationship name="FK_registry_aziende_registry_idreg" msdata:parent="registry" msdata:child="registry_aziende" msdata:parentkey="idreg" msdata:childkey="idreg" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

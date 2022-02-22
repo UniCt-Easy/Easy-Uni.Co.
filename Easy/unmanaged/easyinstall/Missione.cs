@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -119,7 +118,7 @@ namespace EasyInstall {
             Hashtable htCodiciClass;
             DataTable tSorting = popolaSorting(form, sourceConn, destConn, out htCodiciClass);
             if (tSorting == null) {
-                MessageBox.Show(form, "Errore nel riempimento della tabella SORTING", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore nel riempimento della tabella SORTING", "Errore");
                 return false;
             }
             DataTable tItinerationSorting = popolaItinerationSorting(form, sourceConn, destConn, htCodiciClass);
@@ -168,7 +167,7 @@ namespace EasyInstall {
             DataTable tMissione = DataAccess.CreateTableByName(sourceConn, "missione", "esercmissione, nummissione, codiceclass");
             sourceConn.RUN_SELECT_INTO_TABLE(tMissione, "esercmissione, nummissione", "(codiceclass is not null)", null, true);
             if (tMissione == null) {
-                MessageBox.Show(form, "Errore nell'estrazione dei dati della classificazione diretta della missione", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore nell'estrazione dei dati della classificazione diretta della missione", "Errore");
                 return null;
             }
             foreach (DataRow rMissione in tMissione.Rows) {
@@ -194,14 +193,14 @@ namespace EasyInstall {
             DataTable tItinerationSetup = Migrazione.leggiETraduciTabella("persmissione", 
 				sourceConn, tColName, form,	null, "foreignhours = null");
             if (tItinerationSetup == null) {
-                MessageBox.Show(form, "Errore nella migrazione di itinerationsetup", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore nella migrazione di itinerationsetup", "Errore");
                 return false;
             }
 
             DataTable tGeneralitaMissioni = DataAccess.CreateTableByName(sourceConn, "generalitamissioni", "datainizio, oreestero");
             DataAccess.RUN_SELECT_INTO_TABLE(sourceConn, tGeneralitaMissioni, "datainizio", null, null, true);
             if (tGeneralitaMissioni == null) {
-                MessageBox.Show(form, "Errore nell'estrazione dei dati di generalitamissioni", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore nell'estrazione dei dati di generalitamissioni", "Errore");
                 return false;
             }
 
@@ -225,7 +224,7 @@ namespace EasyInstall {
             DataTable tItinerationLap = Migrazione.leggiETraduciTabella("missionetappa", 
 				sourceConn, tColName, form,	"'allowance'", "allowance = round(indennitacorrisposta * isnull(tassocambio,1),2)");
             if (tItinerationLap == null) {
-                MessageBox.Show(form, "Errore nella migrazione di itinerationlap", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore nella migrazione di itinerationlap", "Errore");
                 return false;
             }
             tItinerationLap.TableName = "itinerationlap";
@@ -253,7 +252,7 @@ namespace EasyInstall {
             DataAccess.RUN_SELECT_INTO_TABLE(destConn, tForeignCountry, "idforeigncountry", null, null, true);
 
             if (tForeignCountry == null) {
-                MessageBox.Show(form, "Errore nell'estrazione dei dati da foreigncountry", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore nell'estrazione dei dati da foreigncountry", "Errore");
                 return false;
             }
             Hashtable htFC = new Hashtable();
@@ -277,4 +276,3 @@ namespace EasyInstall {
         
     }
 }
-

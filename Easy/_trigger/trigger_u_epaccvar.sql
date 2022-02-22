@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
@@ -22,7 +39,7 @@ AS BEGIN
 	SELECT
 		@yvar = yvar, 
 		@idepacc = idepacc, 
-		@newamount = amount,
+		@newamount = isnull(amount,0),
 		@newamount2 = isnull(amount2,0),
 		@newamount3 = isnull(amount3,0),
 		@newamount4 = isnull(amount4,0),
@@ -37,7 +54,7 @@ AS BEGIN
 	DECLARE @oldamount4 decimal(19,2)
 	DECLARE @oldamount5 decimal(19,2)
 	
-	SELECT @oldamount = -amount, 
+	SELECT @oldamount = -isnull(amount,0), 
 			@oldamount2 = - isnull(amount2,0),
 			@oldamount3 = - isnull(amount3,0),
 			@oldamount4 = - isnull(amount4,0),

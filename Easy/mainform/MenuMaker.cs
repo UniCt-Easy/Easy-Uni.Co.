@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -150,7 +149,7 @@ namespace mainform //MenuMaker//
             r["metadata"] = metadata;
             r["edittype"] = edittype;
             tMenu.Rows.Add(r);
-            return DA.CanSelect(r);
+            return DA.Security.CanSelect(r);
         }
         bool stampaConsentita(string modulo, string gruppo) {
             if (stampeConsentite == null) return true;
@@ -283,7 +282,7 @@ namespace mainform //MenuMaker//
             string filteresercizio = QHS.CmpEq("ayear", Conn.GetSys("esercizio"));
             DataTable tConfig = DS.config;
             if (tConfig.Rows.Count == 0) {
-                MessageBox.Show("NON ESISTE ALCUNA CONFIGURAZIONE PER L'ESERCIZIO CORRENTE!", "Attenzione",
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("NON ESISTE ALCUNA CONFIGURAZIONE PER L'ESERCIZIO CORRENTE!", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 DisableMenu(mainMenu, "Compensi");
                 DisableMenu(mainMenu, "Entrate");
@@ -305,7 +304,7 @@ namespace mainform //MenuMaker//
                 abilitaBilancio = true;
             }
             if (!abilitaBilancio) {
-                MessageBox.Show("La configurazione del BILANCIO non è stata definita per l'esercizio corrente. " +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("La configurazione del BILANCIO non è stata definita per l'esercizio corrente. " +
                                 "Non sarà possibile accedere ai menu Bilancio/Entrate/Spese", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 DisableMenu(mainMenu, "Bilancio");
@@ -323,7 +322,7 @@ namespace mainform //MenuMaker//
             }
 
             if (!abilitaMiss) {
-                MessageBox.Show("La configurazione delle MISSIONI non è stata definita per l'esercizio corrente!",
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("La configurazione delle MISSIONI non è stata definita per l'esercizio corrente!",
                     "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 DisableMenu(mainMenu, "Compensi");
@@ -343,7 +342,7 @@ namespace mainform //MenuMaker//
             }
 
             if ((SpeseEntrateEnabled == true) && (!abilitaEntrata)) {
-                MessageBox.Show("La configurazione delle ENTRATE non è stata definita per l'esercizio corrente. " +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("La configurazione delle ENTRATE non è stata definita per l'esercizio corrente. " +
                                 "Non sarà possibile accedere ai menu Entrate/Spese", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 SpeseEntrateEnabled = false;
@@ -360,7 +359,7 @@ namespace mainform //MenuMaker//
             }
 
             if ((SpeseEntrateEnabled == true) && (!abilitaSpesa)) {
-                MessageBox.Show("La configurazione delle SPESE non è stata definita per l'esercizio corrente. " +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("La configurazione delle SPESE non è stata definita per l'esercizio corrente. " +
                                 "Non sarà possibile accedere ai menu Entrate/Spese", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 SpeseEntrateEnabled = false;
@@ -383,7 +382,7 @@ namespace mainform //MenuMaker//
             }
 
             if (!abilitaPatrimonio) {
-                //MessageBox.Show("La configurazione del PATRIMONIO non è stata definita per l'esercizio corrente!", "Attenzione",
+                //MetaFactory.factory.getSingleton<IMessageShower>().Show("La configurazione del PATRIMONIO non è stata definita per l'esercizio corrente!", "Attenzione",
                 //	MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 DisableMenu(mainMenu, "Cespiti");
             }
@@ -499,7 +498,13 @@ namespace mainform //MenuMaker//
                     "idsorkind", "description", "main", "expensesorted", false);
                 return true;
             }
-            if (menucode == "classhist") {
+			if (menucode == "classaccount") {
+				parent.setTitle("Classificazione piano dei conti");
+				createSubMenu(parent, "sortingapplicabilityview", null, "(tablename='account')",
+				"idsorkind", "description", "default", "accountsorting", false);
+				return true;
+			}
+			if (menucode == "classhist") {
                 parent.setTitle("Classificazioni");
                 createSubMenu(parent, "sortingkind", null,null,
                     "idsorkind", "description", "history", "sorting", false);
@@ -827,8 +832,8 @@ namespace mainform //MenuMaker//
         private void menuItem_Click(object sender, System.EventArgs e) {
             if (Dispatcher == null) return;
             if (Dispatcher.Conn == null) return;
-            if (Dispatcher.Conn.OpenError) {
-                MessageBox.Show("La connessione col db è stata interrotta. E' necessario ricollegarsi.", "Errore");
+            if (Dispatcher.Conn.openError) {
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("La connessione col db è stata interrotta. E' necessario ricollegarsi.", "Errore");
                 return;
             }
             object dbversion = Dispatcher.GetSys("dbversion");
@@ -836,7 +841,7 @@ namespace mainform //MenuMaker//
                 dbversion = Dispatcher.Conn.DO_READ_VALUE("updatedbversion", null, "max(versionname)") as string;               
             }
             if (dbversion != null && dbversion.ToString()!="" && dbversion.ToString().CompareTo("2.4.100")<0) {
-                MessageBox.Show("Attendere che il db si aggiorni per continuare ad usare il programma.", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Attendere che il db si aggiorni per continuare ad usare il programma.", "Avviso");
                 return;
             }
             Dispatcher.SetSys("dbversion", dbversion);
@@ -900,4 +905,3 @@ namespace mainform //MenuMaker//
 
 
 } //fine namespace
-

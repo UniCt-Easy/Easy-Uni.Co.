@@ -1,0 +1,32 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+					<input hidden id="rendicontattivitaprogettoora_seg_titleancestor" type="text" class="form-control" data-tag="rendicontattivitaprogettoora.!titleancestor" />
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#rendicontattivitaprogettoora_seg_data").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="rendicontattivitaprogettoora_seg_data">Data</label>
+					<input id="rendicontattivitaprogettoora_seg_data" type="text" class="form-control" data-tag="rendicontattivitaprogettoora.data?rendicontattivitaprogettoorasegview.rendicontattivitaprogettoora_data" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="rendicontattivitaprogettoora_seg_ore">Numero di ore</label>
+					<input id="rendicontattivitaprogettoora_seg_ore" type="text" class="form-control" data-tag="rendicontattivitaprogettoora.ore?rendicontattivitaprogettoorasegview.rendicontattivitaprogettoora_ore" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="rendicontattivitaprogettoora_seg_idsal">Stato di avanzamento lavori</label>
+					<select id="rendicontattivitaprogettoora_seg_idsal" class="custom-select d-block w-100"  data-source-name="saldefaultview" data-value-member="idsal" data-display-member="dropdown_title" data-custom-control="combo" data-tag="rendicontattivitaprogettoora.idsal?rendicontattivitaprogettoorasegview.rendicontattivitaprogettoora_idsal" data-subentity   > </select>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

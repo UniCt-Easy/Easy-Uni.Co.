@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -32,7 +31,7 @@ namespace pettycashoperation_wiz_reintegro {//wizard_reintegrofondops//
 	/// <summary>
 	/// Summary description for frmwizard_reintegrofondops.
 	/// </summary>
-	public class Frm_pettycashoperation_wiz_reintegro : System.Windows.Forms.Form {
+	public class Frm_pettycashoperation_wiz_reintegro : MetaDataForm {
 		private Crownwood.Magic.Controls.TabControl tabController;
 		private Crownwood.Magic.Controls.TabPage tabpage1;
 		private System.Windows.Forms.ComboBox cmbFondoPS;
@@ -320,7 +319,7 @@ namespace pettycashoperation_wiz_reintegro {//wizard_reintegrofondops//
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 16;
-            this.btnCancel.Text = "Cancel";
+            this.btnCancel.Text = "Annulla";
             // 
             // btnNext
             // 
@@ -570,7 +569,7 @@ namespace pettycashoperation_wiz_reintegro {//wizard_reintegrofondops//
 			}
 
 			if (!CheckAperturaFondo(cmbFondoPS.SelectedValue)) {
-				DialogResult res = MessageBox.Show(this, Messaggi["warn_fondoaperto"].ToString()+"\nContinuare?", 
+				DialogResult res = show(this, Messaggi["warn_fondoaperto"].ToString()+"\nContinuare?", 
 					"Avvertimento", MessageBoxButtons.YesNo);
 				if (res!=DialogResult.Yes) {
 					lblMessaggi.Text=Messaggi["err_fondoaperto"].ToString();
@@ -580,7 +579,7 @@ namespace pettycashoperation_wiz_reintegro {//wizard_reintegrofondops//
 			}
 			
 			if (!CheckChiusuraFondo(cmbFondoPS.SelectedValue)) {
-				DialogResult res = MessageBox.Show(this, Messaggi["warn_fondochiuso"].ToString()+"\nContinuare?", 
+				DialogResult res = show(this, Messaggi["warn_fondochiuso"].ToString()+"\nContinuare?", 
 					"Avvertimento", MessageBoxButtons.YesNo);
 				if (res!=DialogResult.Yes) {
 					lblMessaggi.Text=Messaggi["err_fondochiuso"].ToString();
@@ -666,7 +665,7 @@ namespace pettycashoperation_wiz_reintegro {//wizard_reintegrofondops//
                     QHC.CmpEq("idexp", r["parentidexp"]));
                 if (rrFound.Length == 0) {
                     string err = $"La riga di spesa avente id {r["parentidexp"]} non appartiene all'esercizio {esercizio}";
-                    MessageBox.Show(err, "Errore");
+                    show(err, "Errore");
                     MetaData.mainLogError(Meta, Conn, err, null);
                     continue;
                 }
@@ -920,7 +919,7 @@ namespace pettycashoperation_wiz_reintegro {//wizard_reintegrofondops//
                         object codicecreddeb = R["idreg"];
                         DataRow ModPagam = CfgFn.ModalitaPagamentoDefault(Meta.Conn, codicecreddeb);
                         if (ModPagam == null) {
-                            MessageBox.Show(this,
+                            show(this,
                                 "E' necessario che sia definita almeno una modalità di pagamento per il percipiente " +
                                 "\"" + R["registry"].ToString() + "\"\n\n" +
                                 "Dati non salvati", "Errore", MessageBoxButtons.OK);
@@ -1068,7 +1067,7 @@ namespace pettycashoperation_wiz_reintegro {//wizard_reintegrofondops//
             CalcolaFinanziamenti(Conn, DS);
 
 			if (DS.expense.Rows.Count==0){
-				MessageBox.Show("Non sono state selezionate righe da reintegrare.");
+				show("Non sono state selezionate righe da reintegrare.");
 				DS.AcceptChanges();
 				return;
 			}
@@ -1081,12 +1080,12 @@ namespace pettycashoperation_wiz_reintegro {//wizard_reintegrofondops//
             // infatti chiama indirettamente GeneraClassificazioniIndirette( ,false) che comunque opera sugli automatismi
             bool res = ga.GeneraAutomatismiAfterPost(true); 
 			if (!res) {
-				MessageBox.Show(this, "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
+				show(this, "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
 				return;
 			}
 
             if (Meta.Conn.RUN_SELECT_COUNT("sortingtranslation", null, false) > 0 && !automatiche) {
-                if (MessageBox.Show(this, "Calcolo le classificazioni indirette a partire da quelle presenti?", "Conferma",
+                if (show(this, "Calcolo le classificazioni indirette a partire da quelle presenti?", "Conferma",
                         MessageBoxButtons.YesNo) ==
                     DialogResult.Yes) {
                     //GeneraClassificazioniIndiretteMov(DS, "expense");
@@ -1157,7 +1156,7 @@ namespace pettycashoperation_wiz_reintegro {//wizard_reintegrofondops//
 									});
 				}
 				catch (Exception E) {
-					MessageBox.Show(E.Message);
+					show(E.Message);
 					return;
 				}
 				if ((OutDS==null) ||(OutDS.Tables.Count==0)) return; //no autoclass
@@ -1255,7 +1254,7 @@ namespace pettycashoperation_wiz_reintegro {//wizard_reintegrofondops//
 								});
 			}
 			catch (Exception E) {
-				MessageBox.Show(E.Message);
+				show(E.Message);
 				return;
 			}
 			if ((OutDS==null)||(OutDS.Tables.Count==0)) return; //no autoclass
@@ -1311,6 +1310,7 @@ namespace pettycashoperation_wiz_reintegro {//wizard_reintegrofondops//
                 }
 
                 string filter = QHC.CmpEq("idsorkind", idsorkind);
+				if (AllTipoClassMov.Select(filter).Length == 0) continue;
                 DataRow TipoR = AllTipoClassMov.Select(filter)[0];
                 int nphase;
                 string filterAutoMov;
@@ -1430,11 +1430,13 @@ namespace pettycashoperation_wiz_reintegro {//wizard_reintegrofondops//
         }
 
 		bool CalcolaClassificazioni(DataAccess Conn,DataSet Auto){
+	 
 			DataTable AllTipoClassMov=DS.sortingkind;
 			DataRow rPettyCashSetup = Auto.Tables["pettycashsetup"].Select(QHC.CmpEq("idpettycash", cmbFondoPS.SelectedValue))[0];
 			string autoClassify = rPettyCashSetup["autoclassify"].ToString().ToUpper();
 			if (autoClassify == "S") {
 				GeneraClassificazioniAutomatiche();
+			 
 				return true;
 			}
 			//Genera le class.automatiche per ogni automatismo di spesa
@@ -1663,7 +1665,7 @@ namespace pettycashoperation_wiz_reintegro {//wizard_reintegrofondops//
 			string rowfilter;
 			int maxfase = GetMaxFaseForSelection(RigheSelezionate, "expense");
 			if (maxfase<1){
-				MessageBox.Show("Non è possibile collegare tutte le righe selezionate ad uno stesso movimento.\n"+
+				show("Non è possibile collegare tutte le righe selezionate ad uno stesso movimento.\n"+
 					"Le informazioni di bilancio, percipiente e UPB sono "+
 					"troppo diverse tra loro.","Errore");
 				return;
@@ -1741,7 +1743,7 @@ namespace pettycashoperation_wiz_reintegro {//wizard_reintegrofondops//
 
                     DataRow Sup = RighePadri[livsup] as DataRow;
                     if (Sup==null) {
-                        MessageBox.Show($"Il movimento di spesa {nomefasesup} di id {livsup} non esiste o non è accessibile con il ruolo corrente", 
+                        show($"Il movimento di spesa {nomefasesup} di id {livsup} non esiste o non è accessibile con il ruolo corrente", 
                                 "Errore");
                         RS["!livprecedente"] = $"{nomefasesup} di id {livsup} inaccessibile";                    
                     }
@@ -1830,4 +1832,4 @@ namespace pettycashoperation_wiz_reintegro {//wizard_reintegrofondops//
 			btnScollegaS.Enabled = esisteSelezione&& esisteSelezioneCollegata && ! esisteSelezioneBloccata;
 		}
 	}
-}
+}

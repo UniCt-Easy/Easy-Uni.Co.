@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -22,6 +21,8 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using metadatalibrary;
 #pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_payment {
 public class paymentRow: MetaRow  {
 	public paymentRow(DataRowBuilder rb) : base(rb) {} 
@@ -400,34 +401,33 @@ public class paymentRow: MetaRow  {
 public class paymentTable : MetaTableBase<paymentRow> {
 	public paymentTable() : base("payment"){
 		baseColumns = new Dictionary<string, DataColumn>(){
-			{"npay",createColumn("npay",typeof(Int32),false,false)},
-			{"ypay",createColumn("ypay",typeof(Int16),false,false)},
+			{"npay",createColumn("npay",typeof(int),false,false)},
+			{"ypay",createColumn("ypay",typeof(short),false,false)},
 			{"adate",createColumn("adate",typeof(DateTime),true,false)},
 			{"annulmentdate",createColumn("annulmentdate",typeof(DateTime),true,false)},
 			{"ct",createColumn("ct",typeof(DateTime),false,false)},
-			{"cu",createColumn("cu",typeof(String),false,false)},
-			{"idreg",createColumn("idreg",typeof(Int32),true,false)},
+			{"cu",createColumn("cu",typeof(string),false,false)},
+			{"idreg",createColumn("idreg",typeof(int),true,false)},
 			{"lt",createColumn("lt",typeof(DateTime),true,false)},
-			{"lu",createColumn("lu",typeof(String),false,false)},
+			{"lu",createColumn("lu",typeof(string),false,false)},
 			{"printdate",createColumn("printdate",typeof(DateTime),true,false)},
 			{"rtf",createColumn("rtf",typeof(Byte[]),true,false)},
-			{"txt",createColumn("txt",typeof(String),true,false)},
-			{"idfin",createColumn("idfin",typeof(Int32),true,false)},
-			{"idman",createColumn("idman",typeof(Int32),true,false)},
-			{"idstamphandling",createColumn("idstamphandling",typeof(Int32),true,false)},
-			{"idtreasurer",createColumn("idtreasurer",typeof(Int32),true,false)},
-			{"flag",createColumn("flag",typeof(Byte),false,false)},
-			{"kpay",createColumn("kpay",typeof(Int32),false,false)},
-			{"kpaymenttransmission",createColumn("kpaymenttransmission",typeof(Int32),true,false)},
-			{"idsor01",createColumn("idsor01",typeof(Int32),true,false)},
-			{"idsor02",createColumn("idsor02",typeof(Int32),true,false)},
-			{"idsor03",createColumn("idsor03",typeof(Int32),true,false)},
-			{"idsor04",createColumn("idsor04",typeof(Int32),true,false)},
-			{"idsor05",createColumn("idsor05",typeof(Int32),true,false)},
-			{"external_reference",createColumn("external_reference",typeof(String),true,false)},
-			{"npay_treasurer",createColumn("npay_treasurer",typeof(Int32),true,false)},
+			{"txt",createColumn("txt",typeof(string),true,false)},
+			{"idfin",createColumn("idfin",typeof(int),true,false)},
+			{"idman",createColumn("idman",typeof(int),true,false)},
+			{"idstamphandling",createColumn("idstamphandling",typeof(int),true,false)},
+			{"idtreasurer",createColumn("idtreasurer",typeof(int),true,false)},
+			{"flag",createColumn("flag",typeof(byte),false,false)},
+			{"kpay",createColumn("kpay",typeof(int),false,false)},
+			{"kpaymenttransmission",createColumn("kpaymenttransmission",typeof(int),true,false)},
+			{"idsor01",createColumn("idsor01",typeof(int),true,false)},
+			{"idsor02",createColumn("idsor02",typeof(int),true,false)},
+			{"idsor03",createColumn("idsor03",typeof(int),true,false)},
+			{"idsor04",createColumn("idsor04",typeof(int),true,false)},
+			{"idsor05",createColumn("idsor05",typeof(int),true,false)},
+			{"external_reference",createColumn("external_reference",typeof(string),true,false)},
+			{"npay_treasurer",createColumn("npay_treasurer",typeof(int),true,false)},
 		};
 	}
 }
 }
-

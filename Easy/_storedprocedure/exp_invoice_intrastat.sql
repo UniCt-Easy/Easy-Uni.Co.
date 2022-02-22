@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 --setuser 'amministrazione'
 
 --exp_invoice_intrastatunified '2019', null, null, 'A', 'M', 'B', 'N'
@@ -552,6 +569,7 @@ LEFT OUTER JOIN geo_country as geo_country_destination		ON I.idcountry_destinati
 LEFT OUTER JOIN geo_country as geo_country_origin			ON I.idcountry_origin = geo_country_origin.idcountry
 LEFT OUTER JOIN intrastatnation								ON I.iso_payment = intrastatnation.idintrastatnation
 LEFT OUTER JOIN intrastatpaymethod							ON I.idintrastatpaymethod = intrastatpaymethod.idintrastatpaymethod
+	WHERE IRK.registerclass = @flagAV
 ORDER BY MONTH(D.meserif), I.idinvkind, I.yinv, I.ninv, InvDet.rownum
 END
 IF(@tiporecord = 'S')
@@ -678,6 +696,7 @@ LEFT OUTER JOIN intrastatnation
 	ON I.iso_payment = intrastatnation.idintrastatnation
 LEFT OUTER JOIN intrastatpaymethod 
 	ON I.idintrastatpaymethod = intrastatpaymethod.idintrastatpaymethod
+	WHERE IRK.registerclass = @flagAV
 ORDER BY MONTH(D.meserif), I.idinvkind, I.yinv, I.ninv, InvDet.rownum
 END
 IF(@tiporecord = 'T')
@@ -805,6 +824,7 @@ LEFT OUTER JOIN intrastatnation
 	ON I.iso_payment = intrastatnation.idintrastatnation
 LEFT OUTER JOIN intrastatpaymethod 
 	ON I.idintrastatpaymethod = intrastatpaymethod.idintrastatpaymethod
+	WHERE IRK.registerclass = @flagAV
 UNION
 	SELECT
 		'Serv.' as 'Tipo',
@@ -930,6 +950,7 @@ LEFT OUTER JOIN intrastatnation
 	ON I.iso_payment = intrastatnation.idintrastatnation
 LEFT OUTER JOIN intrastatpaymethod 
 	ON I.idintrastatpaymethod = intrastatpaymethod.idintrastatpaymethod
+	WHERE IRK.registerclass = @flagAV
 END
 
 	

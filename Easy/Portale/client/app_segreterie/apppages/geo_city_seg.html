@@ -1,0 +1,56 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="geo_city_seg_title">Denominazione</label>
+					<input id="geo_city_seg_title" type="text" class="form-control" data-tag="geo_city.title?geo_citysegview.title" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="geo_city_seg_idcountry">Provincia</label>
+					<div>
+						<input id="geo_city_seg_idcountry" name="geo_city_seg_idcountry" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_country.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="geo_city_seg_newcity">Nuovo comune in cui questo è confluito</label>
+					<div>
+						<input id="geo_city_seg_newcity" name="geo_city_seg_newcity" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city_alias1.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="geo_city_seg_oldcity">id comune da cui questo è confluito</label>
+					<div>
+						<input id="geo_city_seg_oldcity" name="geo_city_seg_oldcity" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city_alias2.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#geo_city_seg_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="geo_city_seg_start">data inizio</label>
+					<input id="geo_city_seg_start" type="text" class="form-control" data-tag="geo_city.start?geo_citysegview.geo_city_start" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#geo_city_seg_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="geo_city_seg_stop">data fine</label>
+					<input id="geo_city_seg_stop" type="text" class="form-control" data-tag="geo_city.stop?geo_citysegview.geo_city_stop" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

@@ -1,8 +1,26 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA expenselastview
 IF EXISTS(select * from sysobjects where id = object_id(N'[expenselastview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [expenselastview]
 GO
-
+--setuser'amm'
+--setuser'amministrazione'
 CREATE     VIEW expenselastview
 (
 	idexp,
@@ -38,6 +56,8 @@ CREATE     VIEW expenselastview
 	available,
 	linkedincome,
 	net,
+	performed,
+	notperformed,
 	idregistrypaymethod,
 	idpaymethod,
 	iban,
@@ -78,7 +98,8 @@ CREATE     VIEW expenselastview
 	ct,
 	lu,
 	lt,
-	idsor01,idsor02,idsor03,idsor04,idsor05
+	idsor01,idsor02,idsor03,idsor04,idsor05,
+	pagopanoticenum
 )
 AS SELECT
 	expense.idexp,
@@ -118,7 +139,7 @@ AS SELECT
 					join incometotal IIT  with (nolock)  on II.idinc=IIT.idinc and IIT.ayear=expenseyear.ayear	
 					join incomelast IL with (nolock) on IL.idinc=II.idinc 
 			WHERE  expenselast.idexp=II.idpayment and 
-							((II.autokind=4 and II.idreg = expense.idreg ) or II.autokind in (6,14,20,21,30,31)) 
+							((II.autokind=4 and II.idreg = expense.idreg ) or II.autokind in (6,7,14,20,21,30,31)) 
 							 ) ,0),
 	(
 		expensetotal.curramount - 
@@ -128,9 +149,18 @@ AS SELECT
 					join incometotal IIT  with (nolock)  on II.idinc=IIT.idinc and IIT.ayear=expenseyear.ayear	
 					join incomelast IL with (nolock) on IL.idinc=II.idinc 
 			WHERE  expenselast.idexp=II.idpayment and 
-							((II.autokind=4 and II.idreg = expense.idreg ) or II.autokind in (6,14,20,21,30,31)) 
+							((II.autokind=4 and II.idreg = expense.idreg ) or II.autokind in (6,7,14,20,21,30,31)) 
 							 ) ,0)
 	),
+	-- ESITATO PERFORMED
+	ISNULL((SELECT SUM(amount) from banktransaction P where
+		P.idexp=expenselast.idexp),0),
+	-- NON ESITATO NOT PERFORMED
+	(SELECT SUM(curramount) from expensetotal I join expense S on I.idexp=S.idexp 
+		JOIN expenselast EL ON EL.idexp = S.idexp
+	  WHERE EL.idexp=expenselast.idexp AND I.ayear = payment.ypay)
+	  -ISNULL( (SELECT SUM(amount) from banktransaction P where
+		P.idexp=expenselast.idexp),0),
 	expenselast.idregistrypaymethod,
 	expenselast.idpaymethod,
 	expenselast.iban,
@@ -174,7 +204,8 @@ AS SELECT
 	expenselast.ct,
 	expenselast.lu,
 	expenselast.lt,
-	upb.idsor01,upb.idsor02,upb.idsor03,upb.idsor04,upb.idsor05
+	upb.idsor01,upb.idsor02,upb.idsor03,upb.idsor04,upb.idsor05,
+	expenselast.pagopanoticenum
 FROM expense (nolock)
 JOIN expensephase	(nolock)		ON expensephase.nphase = expense.nphase
 JOIN expenseyear	(nolock)		ON expenseyear.idexp = expense.idexp

@@ -90,6 +90,9 @@
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="meta_finvardetail">
+      <HintPath>..\meta_finvardetail\bin\Debug\meta_finvardetail.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -104,12 +107,6 @@
     </Reference>
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
-    </Reference>
-    <Reference Include="meta_finvardetail">
-      <HintPath>..\meta_finvardetail\bin\Debug\meta_finvardetail.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_finvardetail</Name>
-      <Private>False</Private>
     </Reference>
     <Reference Include="meta_lcard">
       <HintPath>..\..\lcard\meta_lcard\bin\Debug\meta_lcard.dll</HintPath>

@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[compute_pccsend]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_pccsend]
 GO
@@ -80,14 +97,11 @@ create table #dettfatturacigcup(
 	insert into #dettfatturacigcup(idinvkind, yinv, ninv,  rownum, cigcode, cupcode )
 	SELECT ID.idinvkind, ID.yinv, ID.ninv, ID.rownum, ID.cigcode, ID.cupcode
 	FROM invoice I
-	join invoicekind IK
-		on I.idinvkind = IK.idinvkind
-	join invoicedetailview ID
-			on I.idinvkind = ID.idinvkind and I.yinv = ID.yinv	and I.ninv = ID.ninv	
-	join uniqueregister RU
-		on RU.idinvkind = I.idinvkind and RU.yinv = I.yinv and RU.ninv = I.ninv
-	join registry R on I.idreg = R.idreg
-	join residence RR  on R.residence=RR.idresidence
+	join invoicekind IK				on I.idinvkind = IK.idinvkind
+	join invoicedetailview ID		on I.idinvkind = ID.idinvkind and I.yinv = ID.yinv	and I.ninv = ID.ninv	
+	join uniqueregister RU			on RU.idinvkind = I.idinvkind and RU.yinv = I.yinv and RU.ninv = I.ninv
+	join registry R					on I.idreg = R.idreg
+	join residence RR				on R.residence=RR.idresidence
 	where ID.idmankind is null -- > Fatture non collegate a Ordini
 		and (ID.cigcode is not null OR ID.cupcode is not null)
 		and I.docdate between @1luglio2014 and @adate 
@@ -112,26 +126,17 @@ create table #dettfatturacigcup(
 		isnull(E1.cigcode, ISNULL(MD.cigcode, ISNULL(M.cigcode,ISNULL(U.cigcode,'')))),
 		ISNULL(E1.cupcode, ISNULL(MD.cupcode, ISNULL(U.cupcode, ISNULL(F.cupcode,''))))
 	FROM invoice I
-	join invoicekind IK
-		on I.idinvkind = IK.idinvkind
-	join invoicedetailview ID
-		on I.idinvkind = ID.idinvkind and I.yinv = ID.yinv	 and I.ninv = ID.ninv	
-	join uniqueregister RU
-		on RU.idinvkind = I.idinvkind and RU.yinv = I.yinv and RU.ninv = I.ninv
-	join mandatedetail MD
-		on ID.idmankind = MD.idmankind and ID.yman = MD.yman and ID.nman = MD.nman and ID.manrownum = MD.rownum
-	join mandate M
-		on M.idmankind = MD.idmankind and M.yman = MD.yman and M.nman = MD.nman
-	left outer join expense E1
-		on E1.idexp = MD.idexp_taxable
-	left outer join expenseyear EY1
-		on E1.idexp = EY1.idexp and E1.ymov = EY1.ayear
-	left outer join upb U
-		on EY1.idupb = U.idupb
-	left outer join finlast F
-		on EY1.idfin = F.idfin
-	join registry R on I.idreg = R.idreg
-	join residence RR  on R.residence=RR.idresidence
+	join invoicekind IK					on I.idinvkind = IK.idinvkind
+	join invoicedetailview ID			on I.idinvkind = ID.idinvkind and I.yinv = ID.yinv	 and I.ninv = ID.ninv	
+	join uniqueregister RU				on RU.idinvkind = I.idinvkind and RU.yinv = I.yinv and RU.ninv = I.ninv
+	join mandatedetail MD				on ID.idmankind = MD.idmankind and ID.yman = MD.yman and ID.nman = MD.nman and ID.manrownum = MD.rownum
+	join mandate M						on M.idmankind = MD.idmankind and M.yman = MD.yman and M.nman = MD.nman
+	left outer join expense E1			on E1.idexp = MD.idexp_taxable
+	left outer join expenseyear EY1		on E1.idexp = EY1.idexp and E1.ymov = EY1.ayear
+	left outer join upb U				on EY1.idupb = U.idupb
+	left outer join finlast F			on EY1.idfin = F.idfin
+	join registry R						on I.idreg = R.idreg
+	join residence RR					on R.residence=RR.idresidence
 	where I.docdate between @1luglio2014 and @adate 
 		-- DOCUM, IMPON, o nessuna contabilizzazione
 		and ( MD.idexp_iva = MD.idexp_taxable or MD.idexp_taxable is not null or ( MD.idexp_iva is null and  MD.idexp_taxable is null ))
@@ -153,26 +158,17 @@ create table #dettfatturacigcup(
 		isnull(E1.cigcode, ISNULL(MD.cigcode, ISNULL(M.cigcode,ISNULL(U.cigcode,'')))),
 		ISNULL(E1.cupcode, ISNULL(MD.cupcode, ISNULL(U.cupcode, ISNULL(F.cupcode,''))))
 	FROM invoice I
-	join invoicekind IK
-		on I.idinvkind = IK.idinvkind
-	join invoicedetailview ID
-		on I.idinvkind = ID.idinvkind and I.yinv = ID.yinv	 and I.ninv = ID.ninv	
-	join uniqueregister RU
-		on RU.idinvkind = I.idinvkind and RU.yinv = I.yinv and RU.ninv = I.ninv
-	join mandatedetail MD
-		on ID.idmankind = MD.idmankind and ID.yman = MD.yman and ID.nman = MD.nman and ID.manrownum = MD.rownum
-	join mandate M
-		on M.idmankind = MD.idmankind and M.yman = MD.yman and M.nman = MD.nman
-	left outer join expense E1
-		on E1.idexp = MD.idexp_iva
-	left outer join expenseyear EY1
-		on E1.idexp = EY1.idexp and E1.ymov = EY1.ayear
-	left outer join upb U
-		on EY1.idupb = U.idupb
-	left outer join finlast F
-		on EY1.idfin = F.idfin
-	join registry R on I.idreg = R.idreg
-	join residence RR  on R.residence=RR.idresidence
+	join invoicekind IK						on I.idinvkind = IK.idinvkind
+	join invoicedetailview ID				on I.idinvkind = ID.idinvkind and I.yinv = ID.yinv	 and I.ninv = ID.ninv	
+	join uniqueregister RU					on RU.idinvkind = I.idinvkind and RU.yinv = I.yinv and RU.ninv = I.ninv
+	join mandatedetail MD					on ID.idmankind = MD.idmankind and ID.yman = MD.yman and ID.nman = MD.nman and ID.manrownum = MD.rownum
+	join mandate M							on M.idmankind = MD.idmankind and M.yman = MD.yman and M.nman = MD.nman
+	left outer join expense E1				on E1.idexp = MD.idexp_iva
+	left outer join expenseyear EY1			on E1.idexp = EY1.idexp and E1.ymov = EY1.ayear
+	left outer join upb U					on EY1.idupb = U.idupb
+	left outer join finlast F				on EY1.idfin = F.idfin
+	join registry R							on I.idreg = R.idreg
+	join residence RR						on R.residence=RR.idresidence
 	where I.docdate between @1luglio2014 and @adate 
 		-- IMPOS
 		and  MD.idexp_iva is not null AND  (MD.idexp_taxable IS NULL OR MD.idexp_taxable<>MD.idexp_iva) 
@@ -304,20 +300,14 @@ select
 	I.autoinvoice,
 	I.flag_enable_split_payment
 from invoiceview I 
-join invoicekind IK
-	ON IK.idinvkind = I.idinvkind
-join invoicedetailview ID
-	on I.ninv = ID.ninv and I.yinv = ID.yinv and I.idinvkind = ID.idinvkind
-join ivakind
-	on ivakind.idivakind = ID.idivakind
-join uniqueregister RU
-	on RU.idinvkind = I.idinvkind and RU.yinv = I.yinv and RU.ninv = I.ninv
-left outer join profservice P
-	on P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv
-left outer join #dettfatturacigcup DCG
-		on DCG.ninv = ID.ninv and DCG.yinv = ID.yinv and DCG.idinvkind = ID.idinvkind and DCG.rownum = ID.rownum
-join registry R on I.idreg = R.idreg
-	join residence RR  on R.residence=RR.idresidence
+join invoicekind IK					ON IK.idinvkind = I.idinvkind
+join invoicedetailview ID			on I.ninv = ID.ninv and I.yinv = ID.yinv and I.idinvkind = ID.idinvkind
+join ivakind						on ivakind.idivakind = ID.idivakind
+join uniqueregister RU				on RU.idinvkind = I.idinvkind and RU.yinv = I.yinv and RU.ninv = I.ninv
+left outer join profservice P		on P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv
+left outer join #dettfatturacigcup DCG			on DCG.ninv = ID.ninv and DCG.yinv = ID.yinv and DCG.idinvkind = ID.idinvkind and DCG.rownum = ID.rownum
+join registry R						on I.idreg = R.idreg
+join residence RR					on R.residence=RR.idresidence
 where I.docdate between @1luglio2014 and @adate 
 	and ( not exists (select * from pccsend P where P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv)
 	OR 	isnull(I.resendingpcc,'N') = 'S'		)
@@ -346,24 +336,16 @@ create table #dettmandatedetcigcup(
 		isnull(E.cigcode, ISNULL(MD.cigcode, ISNULL(M.cigcode,ISNULL(U.cigcode,'')))),
 		ISNULL(E.cupcode, ISNULL(MD.cupcode, ISNULL(U.cupcode, ISNULL(F.cupcode,''))))
 	FROM mandatedetailview MD
-	join mandate M
-		on M.idmankind = MD.idmankind and M.yman = MD.yman and M.nman = MD.nman
-	join mandatekind MK
-		on M.idmankind = MK.idmankind
-	join uniqueregister RU
-		on RU.idmankind = M.idmankind and RU.yman = M.yman and RU.nman = M.nman
-	left outer join expensemandate EM
-		on EM.idmankind = MD.idmankind and EM.yman = MD.yman and EM.nman = MD.nman
-	left outer join expense E
-		on EM.idexp = E.idexp
-	left outer join expenseyear EY
-		on E.idexp = EY.idexp and E.ymov = EY.ayear
-	left outer join upb U
-		on EY.idupb = U.idupb
-	left outer join finlast F
-		on EY.idfin = F.idfin
-	join registry R on isnull(M.idreg,MD.idreg) = R.idreg
-	join residence RR  on R.residence=RR.idresidence
+	join mandate M				on M.idmankind = MD.idmankind and M.yman = MD.yman and M.nman = MD.nman
+	join mandatekind MK			on M.idmankind = MK.idmankind
+	join uniqueregister RU		on RU.idmankind = M.idmankind and RU.yman = M.yman and RU.nman = M.nman
+	left outer join expensemandate EM		on EM.idmankind = MD.idmankind and EM.yman = MD.yman and EM.nman = MD.nman
+	left outer join expense E				on EM.idexp = E.idexp
+	left outer join expenseyear EY			on E.idexp = EY.idexp and E.ymov = EY.ayear
+	left outer join upb U					on EY.idupb = U.idupb
+	left outer join finlast F				on EY.idfin = F.idfin
+	join registry R							on isnull(M.idreg,MD.idreg) = R.idreg
+	join residence RR						on R.residence=RR.idresidence
 	where M.docdate between @1luglio2014 and @adate 
 		and isnull(MK.linktoinvoice,'N') = 'N'
 		and ( not exists (select * from pccsend P where P.idmankind = M.idmankind and P.yman = M.yman and P.nman = M.nman)
@@ -460,19 +442,12 @@ select
 	DCG.cigcode, DCG.cupcode,
 	MK.ipa_fe
 from mandateview M 
-join mandatedetailview MD
-	on M.nman = MD.nman and M.yman = MD.yman and M.idmankind = MD.idmankind
-join ivakind
-	on ivakind.idivakind = MD.idivakind
-join mandatekind MK
-	ON MK.idmankind = M.idmankind
-	join uniqueregister RU
-		on RU.idmankind = M.idmankind
-		and RU.yman = M.yman
-		and RU.nman = M.nman
-left outer join #dettmandatedetcigcup DCG
-	on DCG.nman = MD.nman and DCG.yman = MD.yman and DCG.idmankind = MD.idmankind and DCG.rownum = MD.rownum
-join registry R on isnull(M.idreg,MD.idreg) = R.idreg
+join mandatedetailview MD			on M.nman = MD.nman and M.yman = MD.yman and M.idmankind = MD.idmankind
+join ivakind						on ivakind.idivakind = MD.idivakind
+join mandatekind MK					ON MK.idmankind = M.idmankind
+join uniqueregister RU				on RU.idmankind = M.idmankind	and RU.yman = M.ymanand RU.nman = M.nman
+left outer join #dettmandatedetcigcup DCG	on DCG.nman = MD.nman and DCG.yman = MD.yman and DCG.idmankind = MD.idmankind and DCG.rownum = MD.rownum
+join registry R						on isnull(M.idreg,MD.idreg) = R.idreg
 	join residence RR  on R.residence=RR.idresidence
 where M.docdate between @1luglio2014 and @adate 
 	and MK.linktoinvoice = 'N'
@@ -635,12 +610,9 @@ select
 from #dati D
 join ipa --- IMPORTANTE!!! Deve essere un JOIN
 	on D.ipa = ipa.ipa_fe
-join Fornitore R
-	on R.idreg = D.idreg
-left outer join invoicekind IK
-	on IK.idinvkind = D.idinvkind
-left outer join mandatekind MK
-	on MK.idmankind = D.idmankind
+join Fornitore R					on R.idreg = D.idreg
+left outer join invoicekind IK		on IK.idinvkind = D.idinvkind
+left outer join mandatekind MK		on MK.idmankind = D.idmankind
 order by D.idinvkind, D.yinv, D.ninv, D.idmankind, D.yman, D.nman, D.ycon, D.ncon
 
 end

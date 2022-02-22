@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,6 +26,8 @@ using funzioni_configurazione;
 using System.IO;
 using System.Net;
 using System.Xml;
+using System.Diagnostics;
+using System.Reflection;
 
 /// <summary>
 /// Summary description for SendMail
@@ -115,6 +116,7 @@ namespace funzioni_configurazione
         private string SMTPPassword;
         private string sqlAttachmentsPath;
         private int SMTPPort;
+        private string SMTPSignature;
         public DataAccess Conn;
         public bool NoConfig = false;
         private string postfix = "";
@@ -124,6 +126,18 @@ namespace funzioni_configurazione
         }
         public bool Send()
         {
+            string callerMethod = "";            
+            string allegato = "N";
+            
+            //mostro lo stack dal primo chiamante del metodo Send, fino al livello 8
+            for (int i = 1; i < 9; i++) {
+                MethodBase methods = new StackFrame(i,true).GetMethod();
+                if (methods.Name == null || methods.Name == "") 
+                    break;
+                Type declaringTypes = methods.DeclaringType;
+                callerMethod += declaringTypes.FullName + "; ";
+			}			
+            
             if (!GetSMTPConnData())
             {
                 //ErrorMessage = "Nessuna connessione SMTP presente nel Database.";
@@ -131,7 +145,7 @@ namespace funzioni_configurazione
                 return false;
             }
             if (SMTPLogin.StartsWith("$$")) {
-                SqlSend(SMTPLogin.Substring(2));
+                SqlSend(SMTPLogin.Substring(2));               
                 return true;
             }
             bool Tls = false;
@@ -145,14 +159,14 @@ namespace funzioni_configurazione
                 SMTPLogin = SMTPLogin.Substring(6);
                 Tls11 = true;
             }
-            bool Tls12 = false;
+            bool Tls12 = false;            
             if (SMTPLogin.StartsWith("Tls12:")) {
                 SMTPLogin = SMTPLogin.Substring(6);
                 Tls12 = true;
             }
             bool Ssl3 = false;
             if (SMTPLogin.StartsWith("Ssl3:")) {
-                SMTPLogin = SMTPLogin.Substring(5);
+                SMTPLogin = SMTPLogin.Substring(5);               
                 Ssl3 = true;
             }
             string EffectiveFrom;
@@ -167,12 +181,13 @@ namespace funzioni_configurazione
                 return false;
             }
             System.Net.Mail.MailMessage message = null;
-            try {
+            
+            try {          
                 message = new System.Net.Mail.MailMessage(
                     EffectiveFrom,
                     To.Replace(';', ','),
                     Subject,
-                    MessageBody);
+                    MessageBody + "\r\n" + SMTPSignature);
             }
             catch (Exception e) {
                 ErrorMessage = "Errore nell'invio del messaggio " + " DA: " + EffectiveFrom +"\r\n" + "A: " + To.Replace(';', ',') + 
@@ -209,10 +224,16 @@ namespace funzioni_configurazione
             if (SMTPLogin!="")  mailClient.Credentials = new System.Net.NetworkCredential(SMTPLogin, SMTPPassword);            
             mailClient.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
 
+            
+            if (message.Attachments.Count > 0) {
+                allegato = "S";
+			}
+
             try
             {
                 mailClient.Send(message);
                 mailClient.Dispose();
+                insertLogEmail(EffectiveFrom, "", "S", allegato, callerMethod);
                 return true;
             }
             catch (System.Net.Mail.SmtpFailedRecipientException F)
@@ -220,6 +241,7 @@ namespace funzioni_configurazione
                 mailClient.Dispose();
                 ErrorMessage = "Impossibile recapitare il messaggio ad uno o più destinatari. Invio messaggio fallito."
                     +"\r\n"+F.ToString();
+                insertLogEmail(EffectiveFrom, ErrorMessage, "N", allegato, callerMethod);
                 return false;
             }
             catch (System.Net.Mail.SmtpException E)
@@ -227,11 +249,13 @@ namespace funzioni_configurazione
                 mailClient.Dispose();
                 ErrorMessage = "Impossibile Contattare il server SMTP.Invio messaggio fallito."
                         + "\r\n" + E.ToString();
+                insertLogEmail(EffectiveFrom, ErrorMessage, "N", allegato, callerMethod);
                 return false;
             }
             catch (Exception E){
                 mailClient.Dispose();
-                ErrorMessage = QueryCreator.GetErrorString(E);
+                ErrorMessage = QueryCreator.GetErrorString(E);       
+                insertLogEmail(EffectiveFrom, ErrorMessage, "N", allegato, callerMethod);
                 return false;
             }
         }
@@ -299,8 +323,6 @@ namespace funzioni_configurazione
 
         }
 
-    
-
         private bool GetSMTPConnData()
         {
             NoConfig = true;
@@ -311,6 +333,7 @@ namespace funzioni_configurazione
                 SMTPLogin = T.Rows[0]["login"+postfix].ToString();
                 SMTPPassword = T.Rows[0]["password"+postfix].ToString();
                 SMTPPort = CfgFn.GetNoNullInt32(T.Rows[0]["port"+postfix]);
+                SMTPSignature = T.Rows[0]["signature"].ToString();
                 sqlAttachmentsPath = T.Rows[0]["sqlattachmentspath"+postfix].ToString();
                 NoConfig = false;
                 return true;
@@ -318,5 +341,54 @@ namespace funzioni_configurazione
             else
                 return false;
         }
+
+        private void insertLogEmail(string effectiveFrom, string errorMessage, string send, string allegato, string callerMethod) {
+            DataSet DS = new DataSet();
+            DataTable logemail = new DataTable();
+            EntityDispatcher Disp = new EntityDispatcher(Conn);
+
+            logemail.Columns.Add("id", typeof(System.Int16), "");
+            logemail.Columns.Add("sender", typeof(System.String), "");
+            logemail.Columns.Add("receiver", typeof(System.String), "");
+            logemail.Columns.Add("cc", typeof(System.String), "");
+            logemail.Columns.Add("bcc", typeof(System.String), "");
+            logemail.Columns.Add("message", typeof(System.String), "");
+            logemail.Columns.Add("errorMessage", typeof(System.String), "");
+            logemail.Columns.Add("sent", typeof(System.String), "");
+            logemail.Columns.Add("subject", typeof(System.String), "");
+            logemail.Columns.Add("allegato", typeof(System.String), "");
+            logemail.Columns.Add("moduleContext", typeof(System.String), "");
+            logemail.Columns.Add("ct", typeof(System.DateTime), "");
+            logemail.Columns.Add("cu", typeof(System.String), "");
+            logemail.Columns.Add("lt", typeof(System.DateTime), "");
+            logemail.Columns.Add("lu", typeof(System.String), "");
+
+            logemail.TableName = "logemail";
+            DS.Tables.Add(logemail);
+            MetaData MetaLogEmail = Disp.Get("logemail");
+		    //MetaData MetaLogEmail = MetaData.GetMetaData(null , "logemail");
+            //MetaLogEmail.SetDefaults(DS.Tables["logemail"]);
+			DataRow Rlogemail = MetaLogEmail.Get_New_Row(null, DS.Tables["logemail"]);
+            Rlogemail["sender"] = effectiveFrom;
+            Rlogemail["receiver"] = To;
+            Rlogemail["cc"] = Cc;
+            Rlogemail["bcc"] = Bcc;
+            Rlogemail["message"] = MessageBody;
+            Rlogemail["errorMessage"] = errorMessage;
+            Rlogemail["sent"] = send;
+            Rlogemail["subject"] = Subject;
+            Rlogemail["allegato"] = allegato;
+            Rlogemail["moduleContext"] = callerMethod;
+			//Rlogemail["cu"] = "assistenza" + postfix; //da mettere l'utente corrente e non assistenza
+            Rlogemail["ct"] = DateTime.Now;
+            //Rlogemail["lu"] = "assistenza" + postfix; //da mettere l'utente corrente e non assistenza
+            Rlogemail["lt"] = DateTime.Now;
+            
+            Easy_PostData MyPostData = new Easy_PostData();
+			MyPostData.InitClass(DS, Conn);
+			MyPostData.DO_POST();            
+            
+            Rlogemail.AcceptChanges();
+		}
     }
-}
+}

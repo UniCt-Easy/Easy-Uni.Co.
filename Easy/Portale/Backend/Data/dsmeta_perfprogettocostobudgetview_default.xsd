@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_perfprogettocostobudgetview_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_perfprogettocostobudgetview_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="perfprogettocostobudgetview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="annotation" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc" type="xs:string" />
+              <xs:element name="idaccmotive" type="xs:string" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
+              <xs:element name="idinv" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nvar" type="xs:int" />
+              <xs:element name="prevcassa" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rownum" type="xs:int" />
+              <xs:element name="underwritingkind" type="xs:string" minOccurs="0" />
+              <xs:element name="underwritingkind_desc" type="xs:string" minOccurs="0" />
+              <xs:element name="yvar" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettocostobudgetview" />
+      <xs:field xpath="mstns:nvar" />
+      <xs:field xpath="mstns:rownum" />
+      <xs:field xpath="mstns:yvar" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

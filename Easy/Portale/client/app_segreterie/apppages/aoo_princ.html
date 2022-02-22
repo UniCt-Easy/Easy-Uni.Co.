@@ -1,0 +1,28 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aoo_princ_title">Denominazione</label>
+					<input id="aoo_princ_title" type="text" class="form-control" data-tag="aoo.title?aooprincview.title" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aoo_princ_codiceaooipa">Codice IPA</label>
+					<input id="aoo_princ_codiceaooipa" type="text" class="form-control" data-tag="aoo.codiceaooipa?aooprincview.aoo_codiceaooipa" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="aoo_princ_idsede">Sede</label>
+					<div>
+						<input id="aoo_princ_idsede" name="aoo_princ_idsede" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sededefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

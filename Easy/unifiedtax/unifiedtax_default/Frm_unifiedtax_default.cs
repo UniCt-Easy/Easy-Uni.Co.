@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,7 +26,7 @@ using metadatalibrary;
 
 namespace unifiedtax_default// Ritenute centralizzate
 {
-    public partial class Frm_unifiedtax_default : Form
+    public partial class Frm_unifiedtax_default : MetaDataForm
     {
         private TextBox textBox19;
         private Label label13;
@@ -730,7 +729,7 @@ namespace unifiedtax_default// Ritenute centralizzate
         }
 
         private void btnScollega_Click(object sender, EventArgs e){
-            if (MessageBox.Show(this, "Si è deciso di scollegare il dettaglio della ritenuta dall'E24EP'.\r" +
+            if (show(this, "Si è deciso di scollegare il dettaglio della ritenuta dall'E24EP'.\r" +
                 "Procedo a rimuovere il dettaglio?", "Avviso", MessageBoxButtons.YesNo) != DialogResult.Yes)
                 return;
 
@@ -740,4 +739,4 @@ namespace unifiedtax_default// Ritenute centralizzate
             txtEserc.Text = "";
         }
     }
-}
+}

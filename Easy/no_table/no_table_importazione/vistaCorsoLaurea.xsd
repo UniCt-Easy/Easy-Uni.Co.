@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaCorsoLaurea" targetNamespace="http://tempuri.org/vistaCorsoLaurea.xsd" xmlns:mstns="http://tempuri.org/vistaCorsoLaurea.xsd" xmlns="http://tempuri.org/vistaCorsoLaurea.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaCorsoLaurea" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="stip_corsolaurea">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstipcorsolaurea" type="xs:int" />
+              <xs:element name="codicecorsolaurea" type="xs:string" />
+              <xs:element name="descrizionecorsolaurea" type="xs:string" minOccurs="0" />
+              <xs:element name="codicedipartimento" type="xs:string" />
+              <xs:element name="dipartimento" type="xs:string" minOccurs="0" />
+              <xs:element name="codicesede" type="xs:string" />
+              <xs:element name="sede" type="xs:string" minOccurs="0" />
+              <xs:element name="codicepercorso" type="xs:string" />
+              <xs:element name="percorso" type="xs:string" minOccurs="0" />
+              <xs:element name="anno" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="codicecausale" type="xs:string" minOccurs="0" />
+              <xs:element name="causale" type="xs:string" minOccurs="0" />
+              <xs:element name="idstiptassa" type="xs:int" minOccurs="0" />
+              <xs:element name="idstipvoce" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:stip_corsolaurea" />
+      <xs:field xpath="mstns:idstipcorsolaurea" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

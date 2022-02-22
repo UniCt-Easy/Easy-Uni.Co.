@@ -81,14 +81,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="metadatalibrary">
-      <Name>metadatalibrary</Name>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="metaeasylibrary">
-      <Name>metaeasylibrary</Name>
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
-      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_mandate">
+      <HintPath>..\meta_mandate\bin\Debug\meta_mandate.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_mandatedetail">
+      <HintPath>..\..\mandatedetail\meta_mandatedetail\bin\Debug\meta_mandatedetail.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_registry">
+      <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -135,88 +140,76 @@
       <Project>{42D2BFEA-1727-4039-A978-5D366E5479D3}</Project>
       <Private>False</Private>
     </ProjectReference>
-    <Reference Include="meta_mandate">
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_mandate</Name>
-      <HintPath>..\meta_mandate\bin\Debug\meta_mandate.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="meta_manager">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_manager</Name>
       <HintPath>..\..\manager\meta_manager\bin\Debug\meta_manager.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="meta_mandatedetail">
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_mandatedetail</Name>
-      <HintPath>..\..\mandatedetail\meta_mandatedetail\bin\Debug\meta_mandatedetail.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_invoicedetail">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_invoicedetail</Name>
       <HintPath>..\..\invoicedetail\meta_invoicedetail\bin\Debug\meta_invoicedetail.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_config">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_config</Name>
       <HintPath>..\..\config\meta_config\bin\Debug\meta_config.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_expensevar">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_expensevar</Name>
       <HintPath>..\..\expensevar\meta_expensevar\bin\Debug\meta_expensevar.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="meta_registry">
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_registry</Name>
-      <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_expensesorted">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_expensesorted</Name>
       <HintPath>..\..\expensesorted\meta_expensesorted\bin\Debug\meta_expensesorted.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_ivakind">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_ivakind</Name>
       <HintPath>..\..\ivakind\meta_ivakind\bin\Debug\meta_ivakind.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_upb">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_upb</Name>
       <HintPath>..\..\upb\meta_upb\bin\Debug\meta_upb.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_inventorytree">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_inventorytree</Name>
       <HintPath>..\..\inventorytree\meta_inventorytree\bin\Debug\meta_inventorytree.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_accmotive">
       <HintPath>..\..\accmotive\meta_accmotive\bin\Debug\meta_accmotive.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_accmotive</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_list">
       <HintPath>..\..\list\meta_list\bin\Debug\meta_list.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_list</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FrmAnnullaDettaglio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAnnullaDettaglio.Designer.cs">
+      <DependentUpon>FrmAnnullaDettaglio.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmShowTracciato.cs">
       <SubType>Form</SubType>
@@ -283,6 +276,9 @@
     <Compile Include="WizSostituisciDettaglio.Designer.cs">
       <DependentUpon>WizSostituisciDettaglio.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="FrmAnnullaDettaglio.resx">
+      <DependentUpon>FrmAnnullaDettaglio.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmShowTracciato.resx">
       <DependentUpon>FrmShowTracciato.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -339,7 +335,9 @@
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

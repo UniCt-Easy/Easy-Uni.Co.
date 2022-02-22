@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 UPDATE registry SET idregistryclass =  CASE  WHEN idregistryclass IN ('01','02','08','09') THEN '21'  WHEN idregistryclass IN ('05','06','07') THEN '22'  WHEN idregistryclass IN ('03','04') THEN '23'  WHEN idregistryclass IN ('10','00') THEN '24'  ELSE '24' END
 GO
 DELETE FROM registryclass WHERE idregistryclass NOT IN ('21','22','23','24')

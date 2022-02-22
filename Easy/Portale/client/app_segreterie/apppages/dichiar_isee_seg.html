@@ -1,0 +1,93 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_isee_seg_aa">Anno Accademico</label>
+					<select id="dichiar_isee_seg_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="dichiar.aa?dichiarisee_segview.aa" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#dichiar_isee_seg_date").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="dichiar_isee_seg_date">Data</label>
+					<input id="dichiar_isee_seg_date" type="text" class="form-control" data-tag="dichiar.date?dichiarisee_segview.dichiar_date" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_isee_seg_idreg">Studente</label>
+					<div>
+						<input id="dichiar_isee_seg_idreg" name="dichiar_isee_seg_idreg" type="text" data-listtype="studenti"  class="form-control" data-minchar="2" data-tag="registrystudentiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_isee_seg_protanno">Anno Protocollo</label>
+					<input id="dichiar_isee_seg_protanno" type="text" class="form-control" data-tag="dichiar.protanno?dichiarisee_segview.dichiar_protanno" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_isee_seg_protnumero">Numero Protocollo</label>
+					<input id="dichiar_isee_seg_protnumero" type="text" class="form-control" data-tag="dichiar.protnumero?dichiarisee_segview.dichiar_protnumero" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_isee_seg_anno">Anno</label>
+					<input id="dichiar_isee_seg_anno" type="text" class="form-control" data-tag="dichiar_isee.anno?dichiarisee_segview.dichiar_isee_anno" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_isee_seg_conforme">Conformità</label>
+					<div class="custom-control custom-radio">
+						<input id="dichiar_isee_seg_conformeSi" type="radio" name="dichiar_isee_seg_conforme" class="custom-control-input" data-tag="dichiar_isee.conforme:S?dichiarisee_segview.dichiar_isee_conforme:Si" data-subentity  data-mandatory ><label for="dichiar_isee_seg_conformeSi"> Si</label>
+						<input id="dichiar_isee_seg_conformeNo" type="radio" name="dichiar_isee_seg_conforme" class="custom-control-input" data-tag="dichiar_isee.conforme:N?dichiarisee_segview.dichiar_isee_conforme:No" data-subentity  data-mandatory ><label for="dichiar_isee_seg_conformeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#dichiar_isee_seg_dataauthdiff").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="dichiar_isee_seg_dataauthdiff">Data autorizzazione</label>
+					<input id="dichiar_isee_seg_dataauthdiff" type="text" class="form-control" data-tag="dichiar_isee.dataauthdiff?dichiarisee_segview.dichiar_isee_dataauthdiff" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#dichiar_isee_seg_datasottoscriz").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="dichiar_isee_seg_datasottoscriz">Data di sottoscrizione</label>
+					<input id="dichiar_isee_seg_datasottoscriz" type="text" class="form-control" data-tag="dichiar_isee.datasottoscriz?dichiarisee_segview.dichiar_isee_datasottoscriz" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_isee_seg_enterilascio">Ente del rilascio</label>
+					<input id="dichiar_isee_seg_enterilascio" type="text" class="form-control" data-tag="dichiar_isee.enterilascio?dichiarisee_segview.dichiar_isee_enterilascio" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_isee_seg_isee">Valore ISEE</label>
+					<input id="dichiar_isee_seg_isee" type="text" class="form-control" data-tag="dichiar_isee.isee.fixed.2?dichiarisee_segview.dichiar_isee_isee" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_isee_seg_numeroprot">Numero protocollo dell'ente di rilascio</label>
+					<input id="dichiar_isee_seg_numeroprot" type="text" class="form-control" data-tag="dichiar_isee.numeroprot?dichiarisee_segview.dichiar_isee_numeroprot" data-subentity  data-mandatory />
+				</div>
+			</div>
+ <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-stamp mr-1" ></i>Protocolla
+    </button>
+</form>
+
+</div>
+<!--footer-->

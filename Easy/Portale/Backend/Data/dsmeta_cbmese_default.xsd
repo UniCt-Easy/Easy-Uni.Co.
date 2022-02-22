@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_cbmese_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_cbmese_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="cbflussiviewdettaglio" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="_x0021_credkind" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_monthscadenza" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_yearscadenza" type="xs:int" minOccurs="0" />
+              <xs:element name="cbflussiviewbasekind" type="xs:string" />
+              <xs:element name="cliente" type="xs:string" minOccurs="0" />
+              <xs:element name="dareavere" type="xs:string" minOccurs="0" />
+              <xs:element name="idcbflussiview" type="xs:int" />
+              <xs:element name="idcbflussiviewdettaglio" type="xs:int" />
+              <xs:element name="idcbmese" type="xs:int" />
+              <xs:element name="idpagamentokind" type="xs:int" minOccurs="0" />
+              <xs:element name="importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="inizio" type="xs:string" minOccurs="0" />
+              <xs:element name="note" type="xs:string" minOccurs="0" />
+              <xs:element name="scadenza" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cbflussiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="disponibilita" type="xs:decimal" minOccurs="0" />
+              <xs:element name="disponibilitainiziale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="entrate" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flusso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idcbflussiview" type="xs:int" />
+              <xs:element name="idcbmese" type="xs:int" />
+              <xs:element name="scadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="uscite" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="pagamentokind_alias2" msprop:TableForReading="pagamentokind" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idpagamentokind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cbscadenziario" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="_x0021_credkind" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_importoflussi" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_monthscadenza" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_scadenzaflussi" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_yeardoc" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_yearscadenza" type="xs:int" minOccurs="0" />
+              <xs:element name="cliente" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceconto" type="xs:string" minOccurs="0" />
+              <xs:element name="dareavere" type="xs:string" minOccurs="0" />
+              <xs:element name="datadocumeto" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="dataparte" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="dataprevistaincasso" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcbmese" type="xs:int" />
+              <xs:element name="idcbscadenziario" type="xs:int" />
+              <xs:element name="idpagamentokind" type="xs:int" minOccurs="0" />
+              <xs:element name="importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importodaincassare" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importooriginale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="note" type="xs:string" minOccurs="0" />
+              <xs:element name="nprotocollo" type="xs:string" minOccurs="0" />
+              <xs:element name="numerodocumento" type="xs:string" minOccurs="0" />
+              <xs:element name="numeroparte" type="xs:string" minOccurs="0" />
+              <xs:element name="scadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="scadenzaoriginale" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idpagamentokind_pagamentokind_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="pagamentokind_alias1" msprop:TableForReading="pagamentokind" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idpagamentokind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cbscadenziariofornitori" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="_x0021_credkind" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_importoflussi" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_monthscadenza" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_scadenzaflussi" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_yeardoc" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_yearscadenza" type="xs:int" minOccurs="0" />
+              <xs:element name="anomaliaimport" type="xs:string" minOccurs="0" />
+              <xs:element name="cliente" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceconto" type="xs:string" minOccurs="0" />
+              <xs:element name="dareavere" type="xs:string" minOccurs="0" />
+              <xs:element name="datadocumeto" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="dataparte" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="dataprevistaincasso" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcbmese" type="xs:int" />
+              <xs:element name="idcbscadenziariofornitori" type="xs:int" />
+              <xs:element name="idpagamentokind" type="xs:int" minOccurs="0" />
+              <xs:element name="importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importodaincassare" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importooriginale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="note" type="xs:string" minOccurs="0" />
+              <xs:element name="nprotocollo" type="xs:string" minOccurs="0" />
+              <xs:element name="numerodocumento" type="xs:string" minOccurs="0" />
+              <xs:element name="numeroparte" type="xs:string" minOccurs="0" />
+              <xs:element name="numeroregistrazione" type="xs:decimal" minOccurs="0" />
+              <xs:element name="scadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="scadenzaoriginale" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idpagamentokind_pagamentokind_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="mese" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idmese" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="year" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="pagamentokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idpagamentokind" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="sortcode" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="scadenziarioclienti" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="_x0021_credkind" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_importoflussi" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_monthscadenza" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_scadenzaflussi" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_yeardoc" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_yearscadenza" type="xs:int" minOccurs="0" />
+              <xs:element name="anomaliaimport" type="xs:string" minOccurs="0" />
+              <xs:element name="cliente" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceconto" type="xs:string" minOccurs="0" />
+              <xs:element name="dareavere" type="xs:string" minOccurs="0" />
+              <xs:element name="datadocumeto" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="dataparte" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="dataprevistaincasso" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcbmese" type="xs:int" />
+              <xs:element name="idpagamentokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idscadenziarioclienti" type="xs:int" />
+              <xs:element name="importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importodaincassare" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importooriginale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="note" type="xs:string" minOccurs="0" />
+              <xs:element name="nprotocollo" type="xs:string" minOccurs="0" />
+              <xs:element name="numerodocumento" type="xs:string" minOccurs="0" />
+              <xs:element name="numeroparte" type="xs:string" minOccurs="0" />
+              <xs:element name="scadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="scadenzaoriginale" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idpagamentokind_pagamentokind_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cbmese" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idcbmese" type="xs:int" />
+              <xs:element name="idmese" type="xs:int" minOccurs="0" />
+              <xs:element name="importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="year" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:cbflussiviewdettaglio" />
+      <xs:field xpath="mstns:idcbflussiview" />
+      <xs:field xpath="mstns:idcbflussiviewdettaglio" />
+      <xs:field xpath="mstns:idcbmese" />
+    </xs:unique>
+    <xs:unique name="cbflussiview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:cbflussiview" />
+      <xs:field xpath="mstns:idcbflussiview" />
+      <xs:field xpath="mstns:idcbmese" />
+    </xs:unique>
+    <xs:unique name="pagamentokind_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pagamentokind_alias2" />
+      <xs:field xpath="mstns:idpagamentokind" />
+    </xs:unique>
+    <xs:unique name="cbscadenziario_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:cbscadenziario" />
+      <xs:field xpath="mstns:idcbmese" />
+      <xs:field xpath="mstns:idcbscadenziario" />
+    </xs:unique>
+    <xs:unique name="pagamentokind_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pagamentokind_alias1" />
+      <xs:field xpath="mstns:idpagamentokind" />
+    </xs:unique>
+    <xs:unique name="cbscadenziariofornitori_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:cbscadenziariofornitori" />
+      <xs:field xpath="mstns:idcbmese" />
+      <xs:field xpath="mstns:idcbscadenziariofornitori" />
+    </xs:unique>
+    <xs:unique name="mese_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:mese" />
+      <xs:field xpath="mstns:idmese" />
+    </xs:unique>
+    <xs:unique name="year_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:year" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="pagamentokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pagamentokind" />
+      <xs:field xpath="mstns:idpagamentokind" />
+    </xs:unique>
+    <xs:unique name="scadenziarioclienti_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:scadenziarioclienti" />
+      <xs:field xpath="mstns:idcbmese" />
+      <xs:field xpath="mstns:idscadenziarioclienti" />
+    </xs:unique>
+    <xs:unique name="cbmese_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:cbmese" />
+      <xs:field xpath="mstns:idcbmese" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_cbflussiview_cbmese_idcbmese" msdata:parent="cbmese" msdata:child="cbflussiview" msdata:parentkey="idcbmese" msdata:childkey="idcbmese" />
+      <msdata:Relationship name="FK_cbflussiviewdettaglio_cbflussiview_idcbflussiview-idcbmese" msdata:parent="cbflussiview" msdata:child="cbflussiviewdettaglio" msdata:parentkey="idcbflussiview idcbmese" msdata:childkey="idcbflussiview idcbmese" />
+      <msdata:Relationship name="FK_cbscadenziario_cbmese_idcbmese" msdata:parent="cbmese" msdata:child="cbscadenziario" msdata:parentkey="idcbmese" msdata:childkey="idcbmese" />
+      <msdata:Relationship name="FK_cbscadenziario_pagamentokind_alias2_idpagamentokind" msdata:parent="pagamentokind_alias2" msdata:child="cbscadenziario" msdata:parentkey="idpagamentokind" msdata:childkey="idpagamentokind" />
+      <msdata:Relationship name="FK_cbscadenziariofornitori_cbmese_idcbmese" msdata:parent="cbmese" msdata:child="cbscadenziariofornitori" msdata:parentkey="idcbmese" msdata:childkey="idcbmese" />
+      <msdata:Relationship name="FK_cbscadenziariofornitori_pagamentokind_alias1_idpagamentokind" msdata:parent="pagamentokind_alias1" msdata:child="cbscadenziariofornitori" msdata:parentkey="idpagamentokind" msdata:childkey="idpagamentokind" />
+      <msdata:Relationship name="FK_cbmese_mese_idmese" msdata:parent="mese" msdata:child="cbmese" msdata:parentkey="idmese" msdata:childkey="idmese" />
+      <msdata:Relationship name="FK_cbmese_year_year" msdata:parent="year" msdata:child="cbmese" msdata:parentkey="year" msdata:childkey="year" />
+      <msdata:Relationship name="FK_scadenziarioclienti_cbmese_idcbmese" msdata:parent="cbmese" msdata:child="scadenziarioclienti" msdata:parentkey="idcbmese" msdata:childkey="idcbmese" />
+      <msdata:Relationship name="FK_scadenziarioclienti_pagamentokind_idpagamentokind" msdata:parent="pagamentokind" msdata:child="scadenziarioclienti" msdata:parentkey="idpagamentokind" msdata:childkey="idpagamentokind" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

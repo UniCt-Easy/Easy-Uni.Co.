@@ -55,6 +55,9 @@
               <xs:element name="p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="annotations" type="xs:string" minOccurs="0" />
               <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="codicetassonomia" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_showcase" type="xs:int" minOccurs="0" />
+              <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

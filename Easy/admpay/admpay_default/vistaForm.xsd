@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -294,10 +294,6 @@
       <xs:selector xpath=".//mstns:upb" />
       <xs:field xpath="mstns:idupb" />
     </xs:unique>
-    <xs:unique name="incomeview_Constraint1" msdata:ConstraintName="Constraint1">
-      <xs:selector xpath=".//mstns:incomeview" />
-      <xs:field xpath="mstns:idinc" />
-    </xs:unique>
     <xs:unique name="expenseview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:expenseview" />
       <xs:field xpath="mstns:idexp" />
@@ -330,61 +326,21 @@
       <xs:field xpath="mstns:nexpense" />
       <xs:field xpath="mstns:yadmpay" />
     </xs:unique>
-    <xs:keyref name="admpay_expense_admpay_expensesorted" refer="admpay_expense_Constraint1">
-      <xs:selector xpath=".//mstns:admpay_expensesorted" />
-      <xs:field xpath="mstns:nexpense" />
-      <xs:field xpath="mstns:nadmpay" />
-      <xs:field xpath="mstns:yadmpay" />
-    </xs:keyref>
-    <xs:keyref name="admpay_income_admpay_incomesorted" refer="admpay_income_Constraint1">
-      <xs:selector xpath=".//mstns:admpay_incomesorted" />
-      <xs:field xpath="mstns:nincome" />
-      <xs:field xpath="mstns:nadmpay" />
-      <xs:field xpath="mstns:yadmpay" />
-    </xs:keyref>
-    <xs:keyref name="admpay_admpay_income" refer="Constraint1">
-      <xs:selector xpath=".//mstns:admpay_income" />
-      <xs:field xpath="mstns:yadmpay" />
-      <xs:field xpath="mstns:nadmpay" />
-    </xs:keyref>
-    <xs:keyref name="admpay_admpay_expense" refer="Constraint1">
-      <xs:selector xpath=".//mstns:admpay_expense" />
-      <xs:field xpath="mstns:yadmpay" />
-      <xs:field xpath="mstns:nadmpay" />
-    </xs:keyref>
-    <xs:keyref name="upb_admpay_assessment" refer="upb_Constraint1">
-      <xs:selector xpath=".//mstns:admpay_assessment" />
-      <xs:field xpath="mstns:idupb" />
-    </xs:keyref>
-    <xs:keyref name="fin_admpay_assessment" refer="fin_Constraint1">
-      <xs:selector xpath=".//mstns:admpay_assessment" />
-      <xs:field xpath="mstns:idfin" />
-    </xs:keyref>
-    <xs:keyref name="incomeview_admpay_assessment" refer="incomeview_Constraint1">
-      <xs:selector xpath=".//mstns:admpay_assessment" />
-      <xs:field xpath="mstns:idinc" />
-    </xs:keyref>
-    <xs:keyref name="admpay_admpay_assessment" refer="Constraint1">
-      <xs:selector xpath=".//mstns:admpay_assessment" />
-      <xs:field xpath="mstns:yadmpay" />
-      <xs:field xpath="mstns:nadmpay" />
-    </xs:keyref>
-    <xs:keyref name="upb_admpay_appropriation" refer="upb_Constraint1">
-      <xs:selector xpath=".//mstns:admpay_appropriation" />
-      <xs:field xpath="mstns:idupb" />
-    </xs:keyref>
-    <xs:keyref name="fin_admpay_appropriation" refer="fin_Constraint1">
-      <xs:selector xpath=".//mstns:admpay_appropriation" />
-      <xs:field xpath="mstns:idfin" />
-    </xs:keyref>
-    <xs:keyref name="expenseviewadmpay_appropriation" refer="expenseview_Constraint1">
-      <xs:selector xpath=".//mstns:admpay_appropriation" />
-      <xs:field xpath="mstns:idexp" />
-    </xs:keyref>
-    <xs:keyref name="admpayadmpay_appropriation" refer="Constraint1">
-      <xs:selector xpath=".//mstns:admpay_appropriation" />
-      <xs:field xpath="mstns:yadmpay" />
-      <xs:field xpath="mstns:nadmpay" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="admpay_expense_admpay_expensesorted" msdata:parent="admpay_expense" msdata:child="admpay_expensesorted" msdata:parentkey="yadmpay nadmpay nexpense" msdata:childkey="nexpense nadmpay yadmpay" />
+      <msdata:Relationship name="admpay_income_admpay_incomesorted" msdata:parent="admpay_income" msdata:child="admpay_incomesorted" msdata:parentkey="yadmpay nadmpay nincome" msdata:childkey="nincome nadmpay yadmpay" />
+      <msdata:Relationship name="admpay_admpay_income" msdata:parent="admpay" msdata:child="admpay_income" msdata:parentkey="yadmpay nadmpay" msdata:childkey="yadmpay nadmpay" />
+      <msdata:Relationship name="admpay_admpay_expense" msdata:parent="admpay" msdata:child="admpay_expense" msdata:parentkey="yadmpay nadmpay" msdata:childkey="yadmpay nadmpay" />
+      <msdata:Relationship name="upb_admpay_assessment" msdata:parent="upb" msdata:child="admpay_assessment" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="fin_admpay_assessment" msdata:parent="fin" msdata:child="admpay_assessment" msdata:parentkey="idfin" msdata:childkey="idfin" />
+      <msdata:Relationship name="incomeview_admpay_assessment" msdata:parent="incomeview" msdata:child="admpay_assessment" msdata:parentkey="idinc" msdata:childkey="idinc" />
+      <msdata:Relationship name="admpay_admpay_assessment" msdata:parent="admpay" msdata:child="admpay_assessment" msdata:parentkey="yadmpay nadmpay" msdata:childkey="yadmpay nadmpay" />
+      <msdata:Relationship name="upb_admpay_appropriation" msdata:parent="upb" msdata:child="admpay_appropriation" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="fin_admpay_appropriation" msdata:parent="fin" msdata:child="admpay_appropriation" msdata:parentkey="idfin" msdata:childkey="idfin" />
+      <msdata:Relationship name="expenseviewadmpay_appropriation" msdata:parent="expenseview" msdata:child="admpay_appropriation" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="admpayadmpay_appropriation" msdata:parent="admpay" msdata:child="admpay_appropriation" msdata:parentkey="yadmpay nadmpay" msdata:childkey="yadmpay nadmpay" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

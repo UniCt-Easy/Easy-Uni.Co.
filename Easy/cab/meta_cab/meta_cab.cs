@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -32,7 +31,7 @@ namespace meta_cab//meta_sportellobanca//
 	{
         public Meta_cab(DataAccess Conn, MetaDataDispatcher Dispatcher):
             base(Conn, Dispatcher, "cab") {		
-            Name= "Sportello Banca";
+            Name= "CAB (Filiale)";
 //          EditTypes.Add("default");			
 //			EditTypes.Add("lista");
 			ListingTypes.Add("default");
@@ -44,7 +43,6 @@ namespace meta_cab//meta_sportellobanca//
         protected override Form GetForm(string FormName){
 
 			if (FormName=="default_anag") {
-				Name="Sportello di una Banca";
 				return GetFormByDllName("cab_default_anag");
 				//return new frmsportellobanca_anagrafica();
 			}
@@ -70,7 +68,7 @@ namespace meta_cab//meta_sportellobanca//
                 int nPos = 1;
                 DescribeAColumn(T, "idcab", "Sportello", nPos++);
                 DescribeAColumn(T, "idbank", "Banca", nPos++);
-				if (T.DataSet.Tables["bank"]!=null) 
+				if (T.DataSet != null && T.DataSet.Tables["bank"]!=null) 
 					DescribeAColumn(T, "idbank", "", -1);
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
                 DescribeAColumn(T, "address", "Indirizzo", nPos++);
@@ -100,4 +98,3 @@ namespace meta_cab//meta_sportellobanca//
 	            	
 
 }
-

@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_tipologiastudentestruttura_seg" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_tipologiastudentestruttura_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="strutturadefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aoo_title" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="paridstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="sede_title" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_codice" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_codiceipa" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_ct" type="xs:dateTime" />
+              <xs:element name="struttura_cu" type="xs:string" />
+              <xs:element name="struttura_email" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_fax" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_idaoo" type="xs:int" minOccurs="0" />
+              <xs:element name="struttura_idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="struttura_idsede" type="xs:int" />
+              <xs:element name="struttura_idstrutturakind" type="xs:int" />
+              <xs:element name="struttura_lt" type="xs:dateTime" />
+              <xs:element name="struttura_lu" type="xs:string" />
+              <xs:element name="struttura_pesoindicatori" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_pesoobiettivi" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_pesoprogaltreuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_pesoproguo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_telefono" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_title_en" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturakind_struttura_title" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturakind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturaparent_idstrutturakind" type="xs:int" minOccurs="0" />
+              <xs:element name="strutturaparent_title" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="upb_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tipologiastudentestruttura" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idbandods" type="xs:int" />
+              <xs:element name="idbandodsservizio" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="idtipologiastudente" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:strutturadefaultview" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+    <xs:unique name="tipologiastudentestruttura_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tipologiastudentestruttura" />
+      <xs:field xpath="mstns:idbandods" />
+      <xs:field xpath="mstns:idbandodsservizio" />
+      <xs:field xpath="mstns:idstruttura" />
+      <xs:field xpath="mstns:idtipologiastudente" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_tipologiastudentestruttura_strutturadefaultview_idstruttura" msdata:parent="strutturadefaultview" msdata:child="tipologiastudentestruttura" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

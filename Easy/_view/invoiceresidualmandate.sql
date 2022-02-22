@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA invoiceresidualmandate
 IF EXISTS(select * from sysobjects where id = object_id(N'[invoiceresidualmandate]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [invoiceresidualmandate]
@@ -286,33 +303,15 @@ CREATE       VIEW [invoiceresidualmandate]
 	invoice.idsor05,
 	invoice.flagbit
 	FROM invoicedetail (NOLOCK)
-	JOIN invoice (NOLOCK)
-  	ON invoicedetail.idinvkind = invoice.idinvkind
-	AND invoicedetail.yinv = invoice.yinv
-  	AND invoicedetail.ninv = invoice.ninv
-	JOIN invoicekind (NOLOCK)
-	ON invoicekind.idinvkind = invoice.idinvkind
-	JOIN registry (NOLOCK)
-	ON registry.idreg = invoice.idreg
-	LEFT OUTER JOIN upb
-	on upb.idupb=invoicedetail.idupb
-	LEFT OUTER JOIN upb upbiva
-	on upbiva.idupb=invoicedetail.idupb_iva
-	LEFT OUTER JOIN mandatedetail
-	ON  mandatedetail.idmankind=invoicedetail.idmankind 
-	and mandatedetail.yman=invoicedetail.yman 
-	and mandatedetail.nman=invoicedetail.nman
-	and mandatedetail.rownum=invoicedetail.manrownum
-	LEFT OUTER JOIN mandatekind
-	ON mandatekind.idmankind = mandatedetail.idmankind
-	LEFT OUTER JOIN  pettycashoperationinvoice
-	ON pettycashoperationinvoice.idinvkind=invoice.idinvkind 
-	and pettycashoperationinvoice.yinv=invoice.yinv 
-	and pettycashoperationinvoice.ninv=invoice.ninv
-	LEFT OUTER JOIN profservice
-		ON profservice.ycon = invoicedetail.ycon
-		AND profservice.ncon = invoicedetail.ncon
-		AND invoicedetail.ncon IS NOT NULL
+	JOIN invoice (NOLOCK)	  	ON invoicedetail.idinvkind = invoice.idinvkind	AND invoicedetail.yinv = invoice.yinv  	AND invoicedetail.ninv = invoice.ninv
+	JOIN invoicekind (NOLOCK)		ON invoicekind.idinvkind = invoice.idinvkind
+	JOIN registry (NOLOCK)			ON registry.idreg = invoice.idreg
+	LEFT OUTER JOIN upb				on upb.idupb=invoicedetail.idupb
+	LEFT OUTER JOIN upb upbiva		on upbiva.idupb=invoicedetail.idupb_iva
+	LEFT OUTER JOIN mandatedetail 	ON  mandatedetail.idmankind=invoicedetail.idmankind 	and mandatedetail.yman=invoicedetail.yman 	and mandatedetail.nman=invoicedetail.nman	and mandatedetail.rownum=invoicedetail.manrownum
+	LEFT OUTER JOIN mandatekind		ON mandatekind.idmankind = mandatedetail.idmankind
+	LEFT OUTER JOIN  pettycashoperationinvoice	ON pettycashoperationinvoice.idinvkind=invoice.idinvkind 	and pettycashoperationinvoice.yinv=invoice.yinv 	and pettycashoperationinvoice.ninv=invoice.ninv
+	LEFT OUTER JOIN profservice		ON profservice.ycon = invoicedetail.ycon	AND profservice.ncon = invoicedetail.ncon		AND invoicedetail.ncon IS NOT NULL
 	GROUP BY invoice.idinvkind, invoicekind.codeinvkind, invoice.yinv, invoice.ninv,invoice.doc,invoice.docdate,
 	invoicedetail.idmankind, invoicedetail.yman, invoicedetail.nman,
 	mandatedetail.idexp_taxable,mandatedetail.idexp_iva,

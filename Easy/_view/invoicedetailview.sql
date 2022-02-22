@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA invoicedetailview
 IF EXISTS(select * from sysobjects where id = object_id(N'[invoicedetailview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [invoicedetailview]
@@ -72,6 +89,8 @@ CREATE  VIEW [invoicedetailview]
 	paymentcompetency,
 	yinv_main,
 	ninv_main,
+	codeinvkind_main,
+	invoicekind_main,
 	description,
 	idaccmotive,
 	codemotive,
@@ -98,6 +117,7 @@ CREATE  VIEW [invoicedetailview]
 	intrastatsupplymethod,
 	idlist,
 	intcode,
+	idtassonomia,codicetassonomia,
 	idunit,
 	idpackage,
 	unitsforpackage,
@@ -145,6 +165,7 @@ CREATE  VIEW [invoicedetailview]
 	nmov_iva,
 	flagbit,
 	idfinmotive,
+	idfinmotive_iva,
 	iduniqueformcode,
 	idflussocrediti,
 	idflussocreditidetail,
@@ -240,6 +261,9 @@ CREATE  VIEW [invoicedetailview]
 	invoicedetail.paymentcompetency,
 	invoicedetail.yinv_main,
 	invoicedetail.ninv_main,
+
+	invoicekind_main.codeinvkind,
+	invoicekind_main.description,
 	invoice.description,
 	invoicedetail.idaccmotive,
 	accmotive.codemotive,
@@ -274,6 +298,7 @@ intrastatsupplymethod.idintrastatsupplymethod,
 intrastatsupplymethod.description,
 invoicedetail.idlist,
 list.intcode,
+tassonomia_pagopa.idtassonomia,tassonomia_pagopa.causale,
 invoicedetail.idunit,
 invoicedetail.idpackage,
 invoicedetail.unitsforpackage,
@@ -337,6 +362,7 @@ invoicedetail.lt,
 	END,
 	invoicedetail.flagbit , 
 	invoicedetail.idfinmotive,
+	invoicedetail.idfinmotive_iva,
 	invoicedetail.iduniqueformcode,
 	flussocreditidetail.idflusso,
 	flussocreditidetail.iddetail,
@@ -358,6 +384,8 @@ LEFT OUTER JOIN mandatekind  WITH (NOLOCK)	ON mandatekind.idmankind = mandatedet
 LEFT OUTER JOIN estimatedetail WITH (NOLOCK)	ON invoicedetail.idestimkind = estimatedetail.idestimkind AND invoicedetail.yestim = estimatedetail.yestim
 													AND invoicedetail.nestim = estimatedetail.nestim AND invoicedetail.estimrownum = estimatedetail.rownum
 LEFT OUTER JOIN estimatekind  WITH (NOLOCK)		ON estimatekind.idestimkind = estimatedetail.idestimkind
+LEFT OUTER JOIN invoice invoice_main WITH (NOLOCK)		ON invoice_main.ninv = invoicedetail.ninv_main	AND invoice_main.yinv = invoicedetail.yinv	AND invoice_main.idinvkind = invoicedetail.idinvkind
+LEFT OUTER JOIN invoicekind invoicekind_main WITH (NOLOCK)	ON invoicedetail.idinvkind_main = invoicekind_main.idinvkind
 LEFT OUTER JOIN upb WITH (NOLOCK) 	ON upb.idupb = invoicedetail.idupb
 LEFT OUTER JOIN upb upb_iva  WITH (NOLOCK) 	ON upb_iva.idupb = invoicedetail.idupb_iva
 LEFT OUTER JOIN accmotive WITH (NOLOCK)	ON accmotive.idaccmotive = invoicedetail.idaccmotive
@@ -370,6 +398,7 @@ LEFT OUTER JOIN	intrastatmeasure WITH (NOLOCK)	ON 	intrastatmeasure.idintrastatm
 LEFT OUTER JOIN intrastatservice WITH (NOLOCK)	ON invoicedetail.idintrastatservice=intrastatservice.idintrastatservice 
 LEFT OUTER JOIN intrastatsupplymethod WITH (NOLOCK)	ON invoicedetail.idintrastatsupplymethod = intrastatsupplymethod.idintrastatsupplymethod
 LEFT OUTER JOIN list  WITH (NOLOCK)		ON list.idlist = invoicedetail.idlist
+LEFT OUTER JOIN tassonomia_pagopa WITH (NOLOCK) on list.idtassonomia= tassonomia_pagopa.idtassonomia
 LEFT OUTER JOIN fetransfer		ON fetransfer.idfetransfer = invoicedetail.idfetransfer
 LEFT OUTER JOIN  epexp			ON invoicedetail.idepexp= epexp.idepexp
 LEFT OUTER JOIN  epexp	epexp_pre		ON invoicedetail.idepexp= epexp_pre.idepexp
@@ -380,6 +409,7 @@ LEFT OUTER JOIN  income income_taxable		ON invoicedetail.idinc_taxable = income_
 LEFT OUTER JOIN  income income_iva			ON invoicedetail.idinc_iva = income_iva.idinc
 left outer join flussocreditidetail on flussocreditidetail.idinvkind = invoicedetail.idinvkind 
 								   and flussocreditidetail.yinv = invoicedetail.yinv and flussocreditidetail.ninv = invoicedetail.ninv and flussocreditidetail.invrownum = invoicedetail.rownum
+								   and flussocreditidetail.stop is null
 
 GO
 

@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
@@ -44,6 +43,7 @@ namespace HDSGeneVSIX
 		/**/
 		private string codeFileNameSpace = String.Empty;
 		private string codeFilePath = String.Empty;
+		public SqlConnection extConn = null;
 
 		/// <summary>
 		/// namespace for the file.
@@ -90,13 +90,18 @@ namespace HDSGeneVSIX
 
             }
         }
-        DataSet getDataSetFromString(string fileContent)
+
+        DataSet getDataSetFromString(string fileContent, string inputFileName)
         {
             log("getDataSetFromString 1");
             var sr = new StringReader(fileContent);
             var d = new DataSet();
-            d.ReadXmlSchema(sr);
-            sr.Close();
+			try {
+				d.ReadXmlSchema(sr);
+			} catch (Exception e ){
+				Console.WriteLine("ERROR: Impossibile costruire file di codice per il dataset  " + inputFileName + ". " + e.Message);
+			}
+			sr.Close();
             return d;
         }
 
@@ -111,7 +116,7 @@ namespace HDSGeneVSIX
         public byte[] iGenerateCode(string inputFileName, string inputFileContent) /*da private a public */
         {
             log("iGenerateCode 0");
-            var d = getDataSetFromString(inputFileContent);
+            var d = getDataSetFromString(inputFileContent, inputFileName);
 
             _compilazioneConMetaData = false;
             _hdsGenePath = Path.GetDirectoryName(findHDSGeneIniFile(inputFileName));
@@ -176,12 +181,16 @@ namespace HDSGeneVSIX
             if (_hdsGenePath == null) return null;
             var dbIniFile = Path.Combine(_hdsGenePath, "HDSGene.db");
             if (!File.Exists(dbIniFile)) return null;
-            var connString = File.ReadAllText(dbIniFile);
-            var d = new DataSet(meta);
+			var connString = File.ReadAllText(dbIniFile);
+			//var conn = new SqlConnection(connString);
+			var d = new DataSet(meta);
             log("getMetadataDescriptor 3");
-            using (var conn = new SqlConnection(connString))
+
+			var conn = extConn;
+
+			//using (conn)
             {
-                conn.Open();
+                //conn.Open();
                 var cmd1 = $"SELECT * from columntypes where tablename ='{meta}'";
                 var colTypes = new SqlDataAdapter(cmd1, conn);
                 colTypes.Fill(d, "columntypes");
@@ -414,7 +423,7 @@ namespace HDSGeneVSIX
                 var linked = new Dictionary<string, bool>();
                 foreach (DataTable t in d.Tables)
                 {
-                    var tableAlias = t.TableName;      //tableAlias √® nome della tabella VERA, ossia del meta e del tipo
+                    var tableAlias = t.TableName;      //tableAlias Ë nome della tabella VERA, ossia del meta e del tipo
                     if (t.ExtendedProperties["TableForReading"] != null &&
                         t.ExtendedProperties["TableForReading"].ToString() != "") tableAlias = t.ExtendedProperties["TableForReading"].ToString();
 
@@ -472,7 +481,7 @@ namespace HDSGeneVSIX
             }
             foreach (DataTable T in d.Tables)
             {
-                var tableAlias = T.TableName;      //tableAlias √® nome della tabella VERA, ossia del meta e del tipo
+                var tableAlias = T.TableName;      //tableAlias Ë nome della tabella VERA, ossia del meta e del tipo
                 if (T.ExtendedProperties["TableForReading"] != null
                          && T.ExtendedProperties["TableForReading"].ToString() != ""
                     ) tableAlias = T.ExtendedProperties["TableForReading"].ToString();
@@ -640,7 +649,7 @@ namespace HDSGeneVSIX
 
                     foreach (DataTable t in d.Tables)
                     {
-                        var tableAlias = t.TableName;      //tableAlias √® nome della tabella VERA, ossia del meta e del tipo
+                        var tableAlias = t.TableName;      //tableAlias Ë nome della tabella VERA, ossia del meta e del tipo
                         if (t.ExtendedProperties["TableForReading"] != null &&
                             t.ExtendedProperties["TableForReading"].ToString() != "") tableAlias = t.ExtendedProperties["TableForReading"].ToString();
                         someChange |= addReferenceToMetaDataProject(currProj, relativeProjFileName, tableAlias);
@@ -707,7 +716,7 @@ namespace HDSGeneVSIX
         {
             if (!_metaDataList.ContainsKey(metaDataName)) return false;
             //if (metaDataList[metaDataName] == "*") return false;
-            var metaDataProjFilePath = _metaDataList[metaDataName]; //si intende gi√† relativo rispetto ad HDSGene.ini            
+            var metaDataProjFilePath = _metaDataList[metaDataName]; //si intende gi‡ relativo rispetto ad HDSGene.ini            
             var relativeMetaDataPath = getRelativePath(relativeProjFilePath, metaDataProjFilePath);
             if (metaDataProjFilePath == "*") relativeMetaDataPath = "dll\\";
             return addReferenceToProject(projFile, "meta_" + metaDataName, relativeMetaDataPath, metaDataName);
@@ -865,7 +874,7 @@ namespace HDSGeneVSIX
             var toComponents = toPath.Split(Path.DirectorySeparatorChar);
             var toLevel = toComponents.Length;
             if (toComponents[toLevel - 1] == "") toLevel = toLevel - 1;
-            //Se la root √® diversa, restituisci il path assoluto 
+            //Se la root Ë diversa, restituisci il path assoluto 
             //if (fromComponents[0].ToLowerInvariant() != toComponents[0].ToLowerInvariant()) return toPath;
 
             //vede a quale livello occorre risalire prima di ridiscendere
@@ -879,7 +888,7 @@ namespace HDSGeneVSIX
                 }
                 break;
             }
-            var commonLevel = i - 1; //il livello comune √® i, che √® -1 se non c'√® livello comune
+            var commonLevel = i - 1; //il livello comune Ë i, che Ë -1 se non c'Ë livello comune
             var relativePath = "";
             //prima risale n volte da fromLevel a commonLevel
             var currLevel = fromLevel - 1;
@@ -987,7 +996,7 @@ namespace HDSGeneVSIX
             //if (AnyKey(D))SB.AppendLine("\tDataColumn [] key;");
             foreach (DataTable T in d.Tables)
             {
-                var tableAlias = T.TableName;      //tableAlias √® nome della tabella VERA, ossia del meta e del tipo
+                var tableAlias = T.TableName;      //tableAlias Ë nome della tabella VERA, ossia del meta e del tipo
                 if (T.ExtendedProperties["TableForReading"] != null
                      && T.ExtendedProperties["TableForReading"].ToString() != ""
                     ) tableAlias = T.ExtendedProperties["TableForReading"].ToString();
@@ -1198,7 +1207,7 @@ namespace HDSGeneVSIX
         /// <summary>
         /// Restituisce il nome del metadato a partire dalla cartella in cui si trova  il DataSet oggetto dell'elaborazione
         /// Assume che il dataset da processare, nel caso di metadato, si trovi in una cartella il cui nome inizia con meta_
-        /// Se per esempio il DataSet si trova in una cartella meta_expense, √® restituita la stringa "expense"
+        /// Se per esempio il DataSet si trova in una cartella meta_expense, Ë restituita la stringa "expense"
         /// </summary>
         /// <param name="dataSetFileName"></param>
         /// <returns></returns>
@@ -1213,7 +1222,7 @@ namespace HDSGeneVSIX
 
 
         /// <summary>
-        /// Calcola un nuovo DataSet  (file XSD) senza i miliardi di propriet√† che aggiunge MS
+        /// Calcola un nuovo DataSet  (file XSD) senza i miliardi di propriet‡ che aggiunge MS
         /// Eventualmente, se diverso dall'originario, lo scrive anche sul disco
         /// </summary>
         /// <param name="filename"></param>
@@ -1361,7 +1370,7 @@ namespace HDSGeneVSIX
                     }
                 }
 
-                //Elimina i warning ma il dataset non √® pi√π leggibile da visual studio
+                //Elimina i warning ma il dataset non Ë pi˘ leggibile da visual studio
                 //if (x.DocumentElement.ChildNodes.Count > 1) {
                 //    XmlNode elAnnotation = x.DocumentElement.ChildNodes[1];
                 //    XmlNode elAppInfo = elAnnotation.ChildNodes[0];
@@ -1641,7 +1650,7 @@ namespace HDSGeneVSIX
                 }
                 catch (Exception e)
                 {
-                    throw new Exception($"Errore {e} cercando di leggere l\'xml cos√¨ formato:\r\n{prog}", e);
+                    throw new Exception($"Errore {e} cercando di leggere l\'xml cosÏ formato:\r\n{prog}", e);
                 }
 
             }
@@ -1653,4 +1662,3 @@ namespace HDSGeneVSIX
 
 }
 
-

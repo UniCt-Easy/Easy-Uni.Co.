@@ -63,6 +63,7 @@
               <xs:element name="idlocation" type="xs:int" minOccurs="0" />
               <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
+              <xs:element name="rownum_main" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -551,6 +552,7 @@
               <xs:element name="listclass" type="xs:string" />
               <xs:element name="package" type="xs:string" minOccurs="0" />
               <xs:element name="unit" type="xs:string" minOccurs="0" />
+              <xs:element name="price" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

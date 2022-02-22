@@ -1,0 +1,50 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettoudrmembro_seg_idreg">Membro</label>
+					<div>
+						<input id="progettoudrmembro_seg_idreg" name="progettoudrmembro_seg_idreg" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="getregistrydocentiamministratividefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettoudrmembro_seg_idprogettoudrmembrokind">Ruolo</label>
+					<select id="progettoudrmembro_seg_idprogettoudrmembrokind" class="custom-select d-block w-100"  data-source-name="progettoudrmembrokinddefaultview" data-value-member="idprogettoudrmembrokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="progettoudrmembro.idprogettoudrmembrokind"   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogettoudrmembro_seg_costoorario" >Indicare il costo orario del membro del personale qualora sia noto che, riguardo al progetto o attività, ha un costo fisso che non corrisponde alla divisione tra la retribuzione annuale lorda e il monte ore annuale.  Qualora non fosse indicato alcun valore verrà considerata la divisione tra la retribuzione annuale lorda e il monte ore annuale.</div>
+					<label class="col-form-label col-md-12" for="progettoudrmembro_seg_costoorario">Costo orario</label>
+					<input id="progettoudrmembro_seg_costoorario" type="text" class="form-control" data-tag="progettoudrmembro.costoorario.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogettoudrmembro_seg_ricavoorario" >Indicare il ricavo orario del membro del personale.  Qualora non fosse indicato alcun valore, ed è stato attivato nella tipologia di progetto l’utilizzo dello stipendio come ricavo verrà considerata la divisione tra la retribuzione annuale lorda e il monte ore annuale, solo se è stato indicato nel modello di progetto che i costi derivati dagli stipendi vanno considerati come ricavi, altrimenti non produrrà alcun ricavo.</div>
+					<label class="col-form-label col-md-12" for="progettoudrmembro_seg_ricavoorario">Ricavo orario</label>
+					<input id="progettoudrmembro_seg_ricavoorario" type="text" class="form-control" data-tag="progettoudrmembro.ricavoorario.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettoudrmembro_seg_orepreventivate">Ore/uomo preventivate</label>
+					<input id="progettoudrmembro_seg_orepreventivate" type="text" class="form-control" data-tag="progettoudrmembro.orepreventivate"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettoudrmembro_seg_orerendicontate">Ore rendicontate</label>
+					<input id="progettoudrmembro_seg_orerendicontate" type="text" class="form-control" data-tag="progettoudrmembro.!orerendicontate"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettoudrmembro_seg_impegno">Mesi/uomo preventivati</label>
+					<input id="progettoudrmembro_seg_impegno" type="text" class="form-control" data-tag="progettoudrmembro.impegno.fixed.2"  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

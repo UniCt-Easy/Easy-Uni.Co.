@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.Text;
@@ -90,7 +89,7 @@ namespace bankdispositionsetup_importnew {
             if (altriEsercizi.Count > 0) {
                 string messaggio = "Nel file ci sono esitazioni relative ad esercizi diversi.\nDopo aver esitato nel "
                 + Conn.GetSys("esercizio")
-                + ", se necessario, occorrerÃ  ripetere l'operazione anche per ";
+                + ", se necessario, occorrerà ripetere l'operazione anche per ";
                 if (altriEsercizi.Count == 1) {
                     messaggio += "l'esercizio " + altriEsercizi[0];
                 }
@@ -102,8 +101,8 @@ namespace bankdispositionsetup_importnew {
                     messaggio += " e " + altriEsercizi[altriEsercizi.Count - 1];
                     
                 }
-                messaggio += ". Non Ã¨ necessario a tal fine manipolare il file in alcun modo.";
-                MessageBox.Show(messaggio,"Avviso");
+                messaggio += ". Non è necessario a tal fine manipolare il file in alcun modo.";
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(messaggio,"Avviso");
             }
             return true;
         }
@@ -200,7 +199,7 @@ namespace bankdispositionsetup_importnew {
                 //				r[""] = s["GIROFONDI"];
                 //				r[""] = s["DIVISA OPERAZIONE"];
                 //				r[""] = s["CONTROVALORE DIVISA OPERAZIONE"];
-                //				r[""] = s["DATI RISERVATI ALLâ€™ENTE"];
+                //				r[""] = s["DATI RISERVATI ALL’ENTE"];
                 //				r[""] = s["CRO/NUMERO ASSEGNO"];
                 //				r[""] = s["GIROFONDI"];
                 //				r[""] = s["FILLER"];
@@ -219,13 +218,13 @@ namespace bankdispositionsetup_importnew {
         bool leggiRecordDiTesta(TextReader tr, DataRow r) {
             int tipoRecord = leggiNumerico(tr, 2);
             r["TIPORECORD1"] = tipoRecord;//NUMERICO		 2		 1
-            r["PROGRESSIVODIFLUSSO1"] = leggiNumerico(tr, 5);//	NUMERICO		 5		 2 PROGRESSIVO DEL RECORD ALLâ€™INTERNO DEL FLUSSO
+            r["PROGRESSIVODIFLUSSO1"] = leggiNumerico(tr, 5);//	NUMERICO		 5		 2 PROGRESSIVO DEL RECORD ALL’INTERNO DEL FLUSSO
             int tipoFlusso = leggiNumerico(tr, 3);
             r["TIPOFLUSSO"] = tipoFlusso;//NUMERICO		 3		 3 INDICA LA TIPOLOGIA DEL FLUSSO IN TRASMISSIONE:      011    GIORNALE DI CASSA
             r["DATAPRODUZIONEFLUSSO"] = leggiDataAMG(tr, 8);//NUMERICO		 8		 4 ESPRESSO NEL FORMATO DATA   AAAAMMGG
-            r["PROGRESSIVOPERDATA"] = leggiNumerico(tr, 1);//NUMERICO		 1		 5 UTILIZZATO IN CASO DI PIUâ€™ FLUSSI INVIATI NELLA STESSA DATA ( PRIMO INVIO = 0 ) 
+            r["PROGRESSIVOPERDATA"] = leggiNumerico(tr, 1);//NUMERICO		 1		 5 UTILIZZATO IN CASO DI PIU’ FLUSSI INVIATI NELLA STESSA DATA ( PRIMO INVIO = 0 ) 
             r["CODICEFILIALE"] = leggiNumerico(tr, 5);//NUMERICO		 5		 6 CODICE DELLA FILIALE CHE EFFETTUA IL  SERVIZIO DI TESORERIA 
-            r["CODICEENTE"] = leggiNumerico(tr, 3);//NUMERICO		 3		 7 CODICE DELLâ€™ENTE FORNITO DALLA DIPENDENZA CHE EFFETTUA IL SERVIZIO DI TESORERIA 
+            r["CODICEENTE"] = leggiNumerico(tr, 3);//NUMERICO		 3		 7 CODICE DELL’ENTE FORNITO DALLA DIPENDENZA CHE EFFETTUA IL SERVIZIO DI TESORERIA 
             r["ANAGRAFICAENTE"] = leggiAlfanumerico(tr, 35);//CARATTERE		35
             r["ESERCIZIOFINANZIARIO"] = leggiNumerico(tr, 4);//(AAAA)			NUMERICO		 4
             r["DATADIRIFERIMENTO"] = leggiDataAMG(tr, 8);//NUMERICO		 8		 8 GIORNATA A CUI SI RIFERISCONO LE INFORMAZIONI CONTENUTE NEL FLUSSO (AAAAMMGG)
@@ -250,26 +249,26 @@ namespace bankdispositionsetup_importnew {
         /// <returns></returns>
         bool leggiRecordDiDettaglio(TextReader tr, DataRow r) {
             //			r["TIPORECORD"] = leggiNumerico(tr, 2);//NUMERICO		 2		 1
-            r["PROGRESSIVODIFLUSSO"] = leggiNumerico(tr, 5);//NUMERICO		 5		 2 PROGRESSIVO DEL RECORD ALLâ€™INTERNO DEL FLUSSO
+            r["PROGRESSIVODIFLUSSO"] = leggiNumerico(tr, 5);//NUMERICO		 5		 2 PROGRESSIVO DEL RECORD ALL’INTERNO DEL FLUSSO
             r["NUMEROORDINATIVO_O_CARTACONTABILE"] = leggiNumerico(tr, 7);//NUMERICO		 7
-            r["PROGRESSIVODISPOSIZIONE"] = leggiNumerico(tr, 5);//NUMERICO		 5		10 INDICA Lâ€™ESECUZIONE DI UN SUB_ORDINATIVO
+            r["PROGRESSIVODISPOSIZIONE"] = leggiNumerico(tr, 5);//NUMERICO		 5		10 INDICA L’ESECUZIONE DI UN SUB_ORDINATIVO
             r["FLAGORDINATIVO_CARTACONTABILE"] = leggiNumerico(tr, 1);//NUMERICO		 1		11 0   =   ORDINATIVO;		1   =  CARTA CONTABILE
             r["BENEFICIARIO_O_OBBLIGATO"] = leggiAlfanumerico(tr, 60);//CARATTERE		60
             r["FLAGCOMPETENZA_RESIDUI"] = leggiNumerico(tr, 1);//NUMERICO		 1		12	0   =   COMPETENZA;		1   =   RESIDUI		
             r["FLAGENTRATE_USCITE"] = leggiNumerico(tr, 1);//NUMERICO		 1		13 0   =   ENTRATE;		1   =   USCITE
-            r["IMPORTO"] = leggiDecimale(tr, 15);//NUMERICO		15		14 IMPORTO DELLâ€™OPERAZIONE ESPRESSO NELLA DIVISA CON CUI Lâ€™ENTE INTRATTIENE IL 	RAPPORTO CON IL TESORIERE
+            r["IMPORTO"] = leggiDecimale(tr, 15);//NUMERICO		15		14 IMPORTO DELL’OPERAZIONE ESPRESSO NELLA DIVISA CON CUI L’ENTE INTRATTIENE IL 	RAPPORTO CON IL TESORIERE
             r["FLAGFRUTTIFERO_INFRUTTIFERO"] = leggiNumerico(tr, 1);//NUMERICO		 1		15 1   =   FRUTTIFERO;		2   =   INFRUTTIFERO;    PER GLI ENTI IN T.U.   ZERO PER GLI ALTRI
-            r["IMPORTOFRUTTIFERO"] = leggiDecimale(tr, 15);//NUMERICO		15		16 EVENTUALE PARTE FRUTTIFERA DELLâ€™IMPORTO TOTALE (14); 	SOLO PER LE USCITE DEGLI ENTI IN T.U.
+            r["IMPORTOFRUTTIFERO"] = leggiDecimale(tr, 15);//NUMERICO		15		16 EVENTUALE PARTE FRUTTIFERA DELL’IMPORTO TOTALE (14); 	SOLO PER LE USCITE DEGLI ENTI IN T.U.
             r["STORNO"] = leggiNumerico(tr, 1);//NUMERICO		 1		17 1   =   OPERAZIONE STORNATA;	 ZERO NEGLI ALTRI CASI  
             r["BOLLETTA"] = leggiNumerico(tr, 9);//NUMERICO		 9		18 NUMERO DELLA BOLLETTA EMESSA IN AUTOMATICO A FRONTE DI UN INCASSO
-            r["CONTOCORRENTE"] = leggiNumerico(tr, 7);//NUMERICO		 7		19 CONTO CORRENTE A CUI Eâ€™ IMPUTATA Lâ€™OPERAZIONE;	VALORIZZATO SOLO SE CONTO VINCOLO O DI EVIDENZA
-            r["DATAVALUTA"] = leggiDataAMG(tr, 8);//NUMERICO		 8		20 VALUTA DELLâ€™OPERAZIONE (AAAAMMGG);   NON VALORIZZATO PER GLI ENTI IN T.U. TAB. A
+            r["CONTOCORRENTE"] = leggiNumerico(tr, 7);//NUMERICO		 7		19 CONTO CORRENTE A CUI E’ IMPUTATA L’OPERAZIONE;	VALORIZZATO SOLO SE CONTO VINCOLO O DI EVIDENZA
+            r["DATAVALUTA"] = leggiDataAMG(tr, 8);//NUMERICO		 8		20 VALUTA DELL’OPERAZIONE (AAAAMMGG);   NON VALORIZZATO PER GLI ENTI IN T.U. TAB. A
             r["VALUTASPECIALE"] = leggiNumerico(tr, 1);//NUMERICO		 1		21 INDICA UNA VALUTA FUORI DAGLI STANDARD; NON VALORIZZATO PER ENTI IN T.U. TAB. A  
-            r["GIROFONDI"] = leggiNumerico(tr, 1);//NUMERICO		 1		22 INDICA CHE Lâ€™OPERAZIONE Eâ€™ AVVENUTA CON MODALITAâ€™ GIROFONDI
-            r["DIVISAOPERAZIONE"] = leggiAlfanumerico(tr, 1);//CARATTERE		 1		23 INDICA LA DIVISA DELLâ€™OPERAZIONE SE DIVERSA DALLA DIVISA CON CUI Lâ€™ENTE INTRATTIENE IL RAPPORTO CON IL TESORIERE (9);	E   =   EURO	L   =   LIRE ; 	  BLANK NEGLI ALTRI CASI
+            r["GIROFONDI"] = leggiNumerico(tr, 1);//NUMERICO		 1		22 INDICA CHE L’OPERAZIONE E’ AVVENUTA CON MODALITA’ GIROFONDI
+            r["DIVISAOPERAZIONE"] = leggiAlfanumerico(tr, 1);//CARATTERE		 1		23 INDICA LA DIVISA DELL’OPERAZIONE SE DIVERSA DALLA DIVISA CON CUI L’ENTE INTRATTIENE IL RAPPORTO CON IL TESORIERE (9);	E   =   EURO	L   =   LIRE ; 	  BLANK NEGLI ALTRI CASI
             r["CONTROVALOREDIVISAOPERAZIONE"] = leggiDecimale(tr, 15);//NUMERICO		15		24 24)	CONTROVALORE DERIVATO DALLA CONVERSIONE TRA LE DUE DIVISE ZERO NEL CASO NON SIA STATA EFFETTUATA ALCUNA CONVERSIONE
             r["MODALITADIESECUZIONE"] = leggiAlfanumerico(tr, 1);//CARATTERE		 1		27
-            //27)	MODALITAâ€™ DI ESECUZIONE:
+            //27)	MODALITA’ DI ESECUZIONE:
             //A = ASSEGNO CIRCOLARE
             //B = BONIFICO
             //C = CASSA
@@ -280,10 +279,10 @@ namespace bankdispositionsetup_importnew {
             //R = REGOLARIZZAZIONE CARTA CONTABILE
             //S = STORNO
             //T = TRATTENUTE
-            r["CARTACONTABILE"] = leggiNumerico(tr, 7);//NUMERICO		 7		28 CARTA CONTABILE REGOLARIZZATA DALLâ€™ORDINATIVO/SUB INDICATO
-            r["DATIRISERVATIALLENTE"] = leggiAlfanumerico(tr, 7);//CARATTERE		 7		29	 29)	DATI CHE Lâ€™ENTE HA INVIATO PER SUOI USI INTERNI
+            r["CARTACONTABILE"] = leggiNumerico(tr, 7);//NUMERICO		 7		28 CARTA CONTABILE REGOLARIZZATA DALL’ORDINATIVO/SUB INDICATO
+            r["DATIRISERVATIALLENTE"] = leggiAlfanumerico(tr, 7);//CARATTERE		 7		29	 29)	DATI CHE L’ENTE HA INVIATO PER SUOI USI INTERNI
             r["DESCRIZIONEOPERAZIONE"] = leggiAlfanumerico(tr, 50);//CARATTERE 		50
-            r["CRO_NUMEROASSEGNO"] = leggiLong(tr, 13);//NUMERICO		13		30 30)	SE LA MODALITAâ€™ DI ESECUZIONE Eâ€™  BONIFICO, Eâ€™ VALORIZZATO CON IL CRO, SE Eâ€™ ASSEGNO CIRCOLARE CON IL NUMERO DELLâ€™ASSEGNO. 
+            r["CRO_NUMEROASSEGNO"] = leggiLong(tr, 13);//NUMERICO		13		30 30)	SE LA MODALITA’ DI ESECUZIONE E’  BONIFICO, E’ VALORIZZATO CON IL CRO, SE E’ ASSEGNO CIRCOLARE CON IL NUMERO DELL’ASSEGNO. 
             r["FILLER"] = leggiAlfanumerico(tr, 16);//CARATTERE		16
             return vaiACapo(tr);
         }
@@ -297,7 +296,7 @@ namespace bankdispositionsetup_importnew {
         bool leggiRecordDiTotali(TextReader tr, DataRow r) {
             string segno;
             //			r["TIPORECORD"] = leggiNumerico(tr, 2);//NUMERICO		 2		 1
-            r["PROGRESSIVODIFLUSSO3"] = leggiNumerico(tr, 5);//NUMERICO		 5		 2 PROGRESSIVO DEL RECORD ALLâ€™INTERNO DEL FLUSSO
+            r["PROGRESSIVODIFLUSSO3"] = leggiNumerico(tr, 5);//NUMERICO		 5		 2 PROGRESSIVO DEL RECORD ALL’INTERNO DEL FLUSSO
             r["RISCOSSIONIGIORNATA"] = leggiDecimaleConSegno(tr, 16, out segno);//NUMERICO		15
             r["PAGAMENTIGIORNATA"] = leggiDecimaleConSegno(tr, 16, out segno);//NUMERICO		15
             r["RISCOSSIONIGIORNATEPRECEDENTI"] = leggiDecimaleConSegno(tr, 16, out segno);//NUMERICO		15
@@ -318,12 +317,12 @@ namespace bankdispositionsetup_importnew {
             Hashtable r = new Hashtable();
             //			r["TIPORECORD"] = tipoRecord;//NUMERICO		 2		 1
             /*r["PROGRESSIVODIFLUSSO1"] =*/
-            leggiNumerico(tr, 5);//	NUMERICO		 5		 2 PROGRESSIVO DEL RECORD ALLâ€™INTERNO DEL FLUSSO
+            leggiNumerico(tr, 5);//	NUMERICO		 5		 2 PROGRESSIVO DEL RECORD ALL’INTERNO DEL FLUSSO
             r["TIPOFLUSSO"] = leggiNumerico(tr, 3);//NUMERICO		 3		 3 INDICA LA TIPOLOGIA DEL FLUSSO IN TRASMISSIONE:      011    GIORNALE DI CASSA
             r["DATAPRODUZIONEFLUSSO"] = leggiDataAMG(tr, 8);//NUMERICO		 8		 4 ESPRESSO NEL FORMATO DATA   AAAAMMGG
-            r["PROGRESSIVOPERDATA"] = leggiNumerico(tr, 1);//NUMERICO		 1		 5 UTILIZZATO IN CASO DI PIUâ€™ FLUSSI INVIATI NELLA STESSA DATA ( PRIMO INVIO = 0 ) 
+            r["PROGRESSIVOPERDATA"] = leggiNumerico(tr, 1);//NUMERICO		 1		 5 UTILIZZATO IN CASO DI PIU’ FLUSSI INVIATI NELLA STESSA DATA ( PRIMO INVIO = 0 ) 
             r["CODICEFILIALE"] = leggiNumerico(tr, 5);//NUMERICO		 5		 6 CODICE DELLA FILIALE CHE EFFETTUA IL  SERVIZIO DI TESORERIA 
-            r["CODICEENTE"] = leggiNumerico(tr, 3);//NUMERICO		 3		 7 CODICE DELLâ€™ENTE FORNITO DALLA DIPENDENZA CHE EFFETTUA IL SERVIZIO DI TESORERIA 
+            r["CODICEENTE"] = leggiNumerico(tr, 3);//NUMERICO		 3		 7 CODICE DELL’ENTE FORNITO DALLA DIPENDENZA CHE EFFETTUA IL SERVIZIO DI TESORERIA 
             r["ANAGRAFICAENTE"] = leggiAlfanumerico(tr, 35);//CARATTERE		35
             r["ESERCIZIOFINANZIARIO"] = leggiNumerico(tr, 4);//(AAAA)			NUMERICO		 4
             r["DATADIRIFERIMENTO"] = leggiDataAMG(tr, 8);//NUMERICO		 8		 8 GIORNATA A CUI SI RIFERISCONO LE INFORMAZIONI CONTENUTE NEL FLUSSO (AAAAMMGG)
@@ -366,4 +365,3 @@ namespace bankdispositionsetup_importnew {
         }
     }
 }
-

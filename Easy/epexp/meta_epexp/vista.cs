@@ -1,25 +1,28 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using metadatalibrary;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_epexp {
 public class epexpRow: MetaRow  {
 	public epexpRow(DataRowBuilder rb) : base(rb) {} 
@@ -321,6 +324,9 @@ public class epexpRow: MetaRow  {
 	public String flagvariationOriginal { 
 		get {if (this["flagvariation",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["flagvariation",DataRowVersion.Original];}
 	}
+	///<summary>
+	///ID causale EP 
+	///</summary>
 	public String idaccmotive{ 
 		get {if (this["idaccmotive"]==DBNull.Value)return null; return  (String)this["idaccmotive"];}
 		set {if (value==null) this["idaccmotive"]= DBNull.Value; else this["idaccmotive"]= value;}
@@ -339,81 +345,31 @@ public class epexpRow: MetaRow  {
 ///Impegno di Budget
 ///</summary>
 public class epexpTable : MetaTableBase<epexpRow> {
-	public epexpTable() : base("epexp"){}
-	public override void addBaseColumns(params string [] cols){
-		Dictionary<string,bool> definedColums=new Dictionary<string, bool>();
-		foreach(string col in cols) definedColums[col] = true;
-
-		#region add DataColumns
-		if (definedColums.ContainsKey("idepexp")){ 
-			defineColumn("idepexp", typeof(System.Int32),false);
-		}
-		if (definedColums.ContainsKey("adate")){ 
-			defineColumn("adate", typeof(System.DateTime),false);
-		}
-		if (definedColums.ContainsKey("ct")){ 
-			defineColumn("ct", typeof(System.DateTime),false);
-		}
-		if (definedColums.ContainsKey("cu")){ 
-			defineColumn("cu", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("description")){ 
-			defineColumn("description", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("doc")){ 
-			defineColumn("doc", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("docdate")){ 
-			defineColumn("docdate", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("idman")){ 
-			defineColumn("idman", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idreg")){ 
-			defineColumn("idreg", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idrelated")){ 
-			defineColumn("idrelated", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("lt")){ 
-			defineColumn("lt", typeof(System.DateTime),false);
-		}
-		if (definedColums.ContainsKey("lu")){ 
-			defineColumn("lu", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("nepexp")){ 
-			defineColumn("nepexp", typeof(System.Int32),false);
-		}
-		if (definedColums.ContainsKey("nphase")){ 
-			defineColumn("nphase", typeof(System.Int16),false);
-		}
-		if (definedColums.ContainsKey("paridepexp")){ 
-			defineColumn("paridepexp", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("rtf")){ 
-			defineColumn("rtf", typeof(System.Byte[]));
-		}
-		if (definedColums.ContainsKey("start")){ 
-			defineColumn("start", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("stop")){ 
-			defineColumn("stop", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("txt")){ 
-			defineColumn("txt", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("yepexp")){ 
-			defineColumn("yepexp", typeof(System.Int16),false);
-		}
-		if (definedColums.ContainsKey("flagvariation")){ 
-			defineColumn("flagvariation", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("idaccmotive")){ 
-			defineColumn("idaccmotive", typeof(System.String));
-		}
-		#endregion
-
+	public epexpTable() : base("epexp"){
+		baseColumns = new Dictionary<string, DataColumn>(){
+			{"idepexp",createColumn("idepexp",typeof(int),false,false)},
+			{"adate",createColumn("adate",typeof(DateTime),false,false)},
+			{"ct",createColumn("ct",typeof(DateTime),false,false)},
+			{"cu",createColumn("cu",typeof(string),false,false)},
+			{"description",createColumn("description",typeof(string),false,false)},
+			{"doc",createColumn("doc",typeof(string),true,false)},
+			{"docdate",createColumn("docdate",typeof(DateTime),true,false)},
+			{"idman",createColumn("idman",typeof(int),true,false)},
+			{"idreg",createColumn("idreg",typeof(int),true,false)},
+			{"idrelated",createColumn("idrelated",typeof(string),true,false)},
+			{"lt",createColumn("lt",typeof(DateTime),false,false)},
+			{"lu",createColumn("lu",typeof(string),false,false)},
+			{"nepexp",createColumn("nepexp",typeof(int),false,false)},
+			{"nphase",createColumn("nphase",typeof(short),false,false)},
+			{"paridepexp",createColumn("paridepexp",typeof(int),true,false)},
+			{"rtf",createColumn("rtf",typeof(Byte[]),true,false)},
+			{"start",createColumn("start",typeof(DateTime),true,false)},
+			{"stop",createColumn("stop",typeof(DateTime),true,false)},
+			{"txt",createColumn("txt",typeof(string),true,false)},
+			{"yepexp",createColumn("yepexp",typeof(short),false,false)},
+			{"flagvariation",createColumn("flagvariation",typeof(string),true,false)},
+			{"idaccmotive",createColumn("idaccmotive",typeof(string),true,false)},
+		};
 	}
 }
 }
-

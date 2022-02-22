@@ -1,11 +1,29 @@
 
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+
 -- CREAZIONE VISTA assetpieceview
 IF EXISTS(select * from sysobjects where id = object_id(N'[assetpieceview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [assetpieceview]
 GO
 
+--setuser 'amministrazione'
 --setuser 'amm'
---select top 10 * from assetpieceview
+--select * from assetpieceview
 
 
 CREATE    VIEW [assetpieceview]
@@ -81,7 +99,8 @@ CREATE    VIEW [assetpieceview]
 	lt,
 	idlist,
 	intcode,
-	list
+	list,
+	inventorykind
 )
 AS SELECT
 	asset.idasset,
@@ -161,7 +180,8 @@ AS SELECT
 	asset.lt,
 	assetacquire.idlist,
 	list.intcode,
-	list.description
+	list.description,
+	inventorykind.description
 FROM asset
 JOIN assetacquire					ON assetacquire.nassetacquire = asset.nassetacquire
 LEFT OUTER JOIN upb					ON upb.idupb = assetacquire.idupb	
@@ -201,6 +221,7 @@ LEFT OUTER JOIN manager CMsub		ON CMsub.idman =
 										FROM assetsubmanager
 										WHERE assetsubmanager.idasset = assetmain.idasset
 										ORDER BY start desc)
+left outer JOIN inventorykind	(nolock)	 		    ON inventory.idinventorykind= inventorykind.idinventorykind  
 WHERE (assetmain.idpiece = 1)
 
 

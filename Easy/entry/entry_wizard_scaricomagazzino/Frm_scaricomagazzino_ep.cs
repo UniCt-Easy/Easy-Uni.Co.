@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -33,7 +32,7 @@ using System.Globalization;
 
 
 namespace entry_wizard_scaricomagazzino{
-    public partial class Frm_scaricomagazzino_ep : Form   {
+    public partial class Frm_scaricomagazzino_ep : MetaDataForm   {
         MetaData Meta;
         DataAccess Conn;
         string CustomTitle;
@@ -259,7 +258,7 @@ namespace entry_wizard_scaricomagazzino{
 
             Tinvoicedetail = Meta.Conn.SQLRunner(sqlCmd);
             if (Tinvoicedetail.Rows.Count == 0){
-                MessageBox.Show("Non ci sono elementi da elaboarare");
+                show("Non ci sono elementi da elaboarare");
                 return;
             }
             // Per ogni dettaglio fattura visualizziamo la scrittura in EP
@@ -398,28 +397,28 @@ namespace entry_wizard_scaricomagazzino{
             if (invkind_idacc_iva == DBNull.Value && valore_iva_detraibile > 0){
                 string tipo = deferred ? "differita" : "immediata";
                 // I messaggi nella generazine delle scritture NON verranno visualizzati
-                MessageBox.Show("Non è stata trovato il conto per l'iva " + tipo + " per il tipo documento " +
+                show("Non è stata trovato il conto per l'iva " + tipo + " per il tipo documento " +
                     rDetail["idinvkind"].ToString());
                 valore_costo = valore_costo + valore_iva_detraibile;
                 valore_iva_detraibile = 0;
             }
 
             if (invkind_idacc_iva == DBNull.Value && isIntraCom && istituzionale && iva_indetraibile > 0){
-                MessageBox.Show("Non è stata trovato il conto per l'iva  per il tipo documento " +
+                show("Non è stata trovato il conto per l'iva  per il tipo documento " +
                     rDetail["idinvkind"].ToString());
                 iva_indetraibile = 0;
             }
 
             object idaccmotive = rDetail["idaccmotive"];
             if (idaccmotive == DBNull.Value){
-                MessageBox.Show("Attenzione, il dettaglio " + rDetail["detaildescription"].ToString() +
+                show("Attenzione, il dettaglio " + rDetail["detaildescription"].ToString() +
                     " non ha la causale!");
                 return;//continue; Diventa un return perchè siamo già nel dettaglio
             }
 
             DataRow[] REntries = EP.GetAccMotiveDetails(idaccmotive);
             if (REntries.Length == 0){
-                MessageBox.Show("Non è stato configurata la causale di costo del dettaglio n." +
+                show("Non è stato configurata la causale di costo del dettaglio n." +
                     rDetail["rownum"].ToString() + ". La scrittura non pareggerà.", "Errore");
             }
 
@@ -452,7 +451,7 @@ namespace entry_wizard_scaricomagazzino{
      
 
         bool GeneraScritture(){
-            if (MessageBox.Show("Si vuole procedere alla generazione delle scritture in partita doppia ?", "Avviso",
+            if (show("Si vuole procedere alla generazione delle scritture in partita doppia ?", "Avviso",
                     MessageBoxButtons.OKCancel) == DialogResult.Cancel) return false;
             DataTable storeunloaddetail = Conn.CreateTableByName("storeunloaddetail", "*");
 
@@ -596,7 +595,7 @@ namespace entry_wizard_scaricomagazzino{
                 if (invkind_idacc_iva == DBNull.Value && valore_iva_detraibile > 0)
                 {
                     string tipo = deferred ? "differita" : "immediata";
-                    //////MessageBox.Show("Non è stata trovato il conto per l'iva " + tipo + " per il tipo documento " +
+                    //////show("Non è stata trovato il conto per l'iva " + tipo + " per il tipo documento " +
                     //////    rDetail["idinvkind"].ToString());
                     valore_costo = valore_costo + valore_iva_detraibile;
                     valore_iva_detraibile = 0;
@@ -604,7 +603,7 @@ namespace entry_wizard_scaricomagazzino{
                 }
 
                 if (invkind_idacc_iva == DBNull.Value && isIntraCom && istituzionale && iva_indetraibile > 0){
-                    //////MessageBox.Show("Non è stata trovato il conto per l'iva  per il tipo documento " +
+                    //////show("Non è stata trovato il conto per l'iva  per il tipo documento " +
                     //////    rDetail["idinvkind"].ToString());
                     iva_indetraibile = 0;
                 }
@@ -612,7 +611,7 @@ namespace entry_wizard_scaricomagazzino{
                 object idaccmotive = rDetail["idaccmotive"];
                 if (idaccmotive == DBNull.Value)
                 {
-                    //////MessageBox.Show("Attenzione, il dettaglio " + rDetail["detaildescription"].ToString() +
+                    //////show("Attenzione, il dettaglio " + rDetail["detaildescription"].ToString() +
                     //////    " non ha la causale!");
                     continue; 
                 }
@@ -623,7 +622,7 @@ namespace entry_wizard_scaricomagazzino{
                 }
                 DataRow[] REntries = EP.GetAccMotiveDetails(idaccmotive);
                 if (REntries.Length == 0){
-                    //////MessageBox.Show("Non è stato configurata la causale di costo del dettaglio n." +
+                    //////show("Non è stato configurata la causale di costo del dettaglio n." +
                     //////    rDetail["rownum"].ToString() + ". La scrittura non pareggerà.", "Errore");
                 }
 
@@ -704,4 +703,4 @@ namespace entry_wizard_scaricomagazzino{
         }
 
     }
-}
+}

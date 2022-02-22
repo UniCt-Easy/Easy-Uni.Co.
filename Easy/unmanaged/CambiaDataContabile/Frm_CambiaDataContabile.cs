@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -29,7 +28,7 @@ namespace CambiaDataContabile//CambiaDataContabile//
 	/// <summary>
 	/// Summary description for frmCambiaDataContabile.
 	/// </summary>
-	public class frmCambiaDataContabile : System.Windows.Forms.Form
+	public class frmCambiaDataContabile : MetaDataForm
 	{
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox txtDataContabile;
@@ -148,19 +147,26 @@ namespace CambiaDataContabile//CambiaDataContabile//
 					txtDataContabile.Text.ToString(), "x.y");
 			}
 			catch {
-				MessageBox.Show("E' necessario inserire una data valida");
+				show("E' necessario inserire una data valida");
 				txtDataContabile.Focus();
 				return false;
 			}
             DateTime T = (DateTime)HelpForm.GetObjectFromString(typeof(DateTime),
                     txtDataContabile.Text.ToString(), "x.y");
             int esercizio = T.Year;
+
+            if (esercizio < 2000 || esercizio > 2099) {
+                show("L'esercizio " + esercizio + " non è presente.");
+                txtDataContabile.Focus();
+                return false;
+            }
+
             string filteresercizio = "(ayear=" + QueryCreator.quotedstrvalue(esercizio, true) + ")";
             DataTable EsercizioTable =
                 DataAccessLocale.RUN_SELECT("accountingyear", "*", null, filteresercizio, null, true);
 
             if (EsercizioTable.Rows.Count == 0) {
-                MessageBox.Show("L'esercizio " + esercizio + " non è stato creato.");
+                show("L'esercizio " + esercizio + " non è stato creato.");
                 txtDataContabile.Focus();
                 return false;
             }
@@ -191,11 +197,11 @@ namespace CambiaDataContabile//CambiaDataContabile//
 			DateTime TT = (DateTime) HelpForm.GetObjectFromString(typeof(DateTime),
 				txtDataContabile.Text.ToString(), "x.y");
 		    if (TT == null || ((DateTime) TT).Year > 2099 || ((DateTime) TT).Year < 2000) {
-		        MessageBox.Show("Data non valida", "Errore");
+		        show("Data non valida", "Errore");
                 return;
 		    }
             if (!CambioDataConsentita(DataAccessLocale, TT)) {
-                MessageBox.Show("Accesso non consentito in tale data in base alla gestione della sicurezza");
+                show("Accesso non consentito in tale data in base alla gestione della sicurezza");
                 return;
 
             }
@@ -206,7 +212,7 @@ namespace CambiaDataContabile//CambiaDataContabile//
 			//DataAccessLocale.SetDataContabile(TT);
 			//DataAccessLocale.SetEsercizio(TT.Year);
 			if (TT.Year!=CurrentEsercizio)
-				MessageBox.Show("Avvertimento: l'esercizio è stato automaticamente impostato al "+
+				show("Avvertimento: l'esercizio è stato automaticamente impostato al "+
 					E.GetSys("esercizio").ToString());
 
 			DialogResult = DialogResult.OK;
@@ -214,4 +220,3 @@ namespace CambiaDataContabile//CambiaDataContabile//
 
 	}
 }
-

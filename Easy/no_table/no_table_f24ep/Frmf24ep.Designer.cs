@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 namespace no_table_f24ep {
     partial class Frmf24ep {
@@ -41,12 +40,13 @@ namespace no_table_f24ep {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+
             this.DS = new no_table_f24ep.vistaForm();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtInputFile = new System.Windows.Forms.TextBox();
             this.btnFileInput = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
+            this._openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
             this.saveOutputFileDlg = new System.Windows.Forms.SaveFileDialog();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtContoDiAddebito = new System.Windows.Forms.TextBox();
@@ -66,6 +66,8 @@ namespace no_table_f24ep {
             this.btnElabora = new System.Windows.Forms.Button();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.label = new System.Windows.Forms.Label();
+            this.CMenu = new System.Windows.Forms.ContextMenu();
+			this.MenuEnterPwd = new System.Windows.Forms.MenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -300,6 +302,18 @@ namespace no_table_f24ep {
             this.label.TabIndex = 5;
             this.label.Text = "Email";
             // 
+			// CMenu
+			// 
+			this.CMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.MenuEnterPwd});
+			// 
+			// MenuEnterPwd
+			// 
+			this.MenuEnterPwd.Index = 0;
+			this.MenuEnterPwd.Text = "Visualizza tracciato";
+			this.MenuEnterPwd.Click += new System.EventHandler(this.MenuEnterPwd_Click);
+			 
+            // 
             // Frmf24ep
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -327,6 +341,11 @@ namespace no_table_f24ep {
         #endregion
 
         public vistaForm DS;
+        private System.Windows.Forms.ContextMenu CMenu;
+        private System.Windows.Forms.MenuItem MenuEnterPwd;
+
+
+
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox txtInputFile;
         private System.Windows.Forms.Button btnFileInput;
@@ -337,7 +356,7 @@ namespace no_table_f24ep {
         //private System.Windows.Forms.OpenFileDialog MyOpenFile;
         //private System.Windows.Forms.ProgressBar progressBarImport;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.OpenFileDialog openInputFileDlg;
+        private System.Windows.Forms.OpenFileDialog _openInputFileDlg;
         private System.Windows.Forms.SaveFileDialog saveOutputFileDlg;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox txtContoDiAddebito;
@@ -358,4 +377,4 @@ namespace no_table_f24ep {
         private System.Windows.Forms.Label label;
         private System.Windows.Forms.TextBox txtEmail;
     }
-}
+}

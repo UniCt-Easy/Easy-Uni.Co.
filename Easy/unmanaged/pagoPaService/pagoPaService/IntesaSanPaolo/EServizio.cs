@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -45,50 +44,51 @@ namespace IntesaSanPaolo {
 
         public IServizio Create(string user, string password, string url, bool test) {
             //con TLS12 da Could not establish secure channel for SSL/TLS with authority 'solutionpa-coll.intesasanpaolo.com'.
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-            ServicePointManager.ServerCertificateValidationCallback +=
-                (sender, certificate, chain, sslPolicyErrors) => {
-                    String rootCAThumbprint =
-                        "786A74AC76AB147F9C6A3050BA9EA87EFE9ACE3C"; // write your code to get your CA's thumbprint
-                    // CN=[DESARROLLO] Global Chambersign Root - 2008, O=AC Camerfirma S.A.,...
-                    // remove this line if commercial CAs are not allowed to issue certificate for your service.
-                    if ((sslPolicyErrors & (SslPolicyErrors.None)) > 0) {
-                        return true;
-                    }
+            //ServicePointManager.ServerCertificateValidationCallback +=
+            //    (sender, certificate, chain, sslPolicyErrors) => {
+            //        String rootCAThumbprint =
+            //            "786A74AC76AB147F9C6A3050BA9EA87EFE9ACE3C"; // write your code to get your CA's thumbprint
+            //        //la seconda volta è 2B8F1B57330DBBA2D07A6C51F70EE90DDAB9AD8E
+            //        // CN=[DESARROLLO] Global Chambersign Root - 2008, O=AC Camerfirma S.A.,...
+            //        // remove this line if commercial CAs are not allowed to issue certificate for your service.
+            //        if ((sslPolicyErrors & (SslPolicyErrors.None)) > 0) {
+            //            return true;
+            //        }
 
-                    if (
-                        (sslPolicyErrors & (SslPolicyErrors.RemoteCertificateNameMismatch)) > 0 ||
-                        (sslPolicyErrors & (SslPolicyErrors.RemoteCertificateNotAvailable)) > 0
-                    ) {
-                        return false;
-                    }
+            //        if (
+            //            (sslPolicyErrors & (SslPolicyErrors.RemoteCertificateNameMismatch)) > 0 ||
+            //            (sslPolicyErrors & (SslPolicyErrors.RemoteCertificateNotAvailable)) > 0
+            //        ) {
+            //            return false;
+            //        }
 
-                    // get last chain element that should contain root CA certificate
-                    // but this may not be the case in partial chains
-                    X509Certificate2 projectedRootCert = chain.ChainElements[chain.ChainElements.Count - 1].Certificate;
-                    if (projectedRootCert.Thumbprint != rootCAThumbprint) {
-                        return false;
-                    }
+            //        // get last chain element that should contain root CA certificate
+            //        // but this may not be the case in partial chains
+            //        X509Certificate2 projectedRootCert = chain.ChainElements[chain.ChainElements.Count - 1].Certificate;
+            //        if (projectedRootCert.Thumbprint != rootCAThumbprint) {
+            //            return false;
+            //        }
 
-                    //X509Certificate2 firstRootCert = chain.ChainElements[0].Certificate;
-                    //if (firstRootCert.Thumbprint != "3ED8765D55F336BC43F08E0DECD9573C64866049") {//"CN=solutionpa-coll.intesasanpaolo.com, O=Intesa Sanpaolo S.p.A. - Test SSL, S=Italia, C=IT"
-                    //    return false;
-                    //}
+            //        //X509Certificate2 firstRootCert = chain.ChainElements[0].Certificate;
+            //        //if (firstRootCert.Thumbprint != "3ED8765D55F336BC43F08E0DECD9573C64866049") {//"CN=solutionpa-coll.intesasanpaolo.com, O=Intesa Sanpaolo S.p.A. - Test SSL, S=Italia, C=IT"
+            //        //    return false;
+            //        //}
 
-                    // execute certificate chaining engine and ignore only "UntrustedRoot" error
-                    //X509Chain customChain = new X509Chain {
-                    //    ChainPolicy = {
-                    //        VerificationFlags = X509VerificationFlags.AllFlags
-                    //    }
-                    //};
-                    //Boolean retValue = customChain.Build(chain.ChainElements[0].Certificate);
-                    //// RELEASE unmanaged resources behind X509Chain class.
-                    //customChain.Reset();
-                    return true;
+            //        // execute certificate chaining engine and ignore only "UntrustedRoot" error
+            //        //X509Chain customChain = new X509Chain {
+            //        //    ChainPolicy = {
+            //        //        VerificationFlags = X509VerificationFlags.AllFlags
+            //        //    }
+            //        //};
+            //        //Boolean retValue = customChain.Build(chain.ChainElements[0].Certificate);
+            //        //// RELEASE unmanaged resources behind X509Chain class.
+            //        //customChain.Reset();
+            //        return true;
 
-                    //return sslPolicyErrors == SslPolicyErrors.None;
-                };
+            //        //return sslPolicyErrors == SslPolicyErrors.None;
+            //    };
             var binding = new CustomBinding(
                 new TextMessageEncodingBindingElement(MessageVersion.Soap12, Encoding.UTF8),
                 new HttpsTransportBindingElement() {
@@ -97,8 +97,8 @@ namespace IntesaSanPaolo {
                     MaxReceivedMessageSize = int.MaxValue
                 }
             );
-
-            var hPwd = AddressHeader.CreateAddressHeader("Authorization", "", "Basic " +
+            binding.SendTimeout = new TimeSpan(0, 30, 0);
+            var hPwd = AddressHeader.CreateAddressHeader("Authorization", "http://easybridge.eu/bridge/", "Basic " +
                                                                               Convert.ToBase64String(
                                                                                   Encoding.ASCII.GetBytes(
                                                                                       (user ?? Username) + ":" +
@@ -206,4 +206,3 @@ namespace IntesaSanPaolo {
         }
     }
 }
-

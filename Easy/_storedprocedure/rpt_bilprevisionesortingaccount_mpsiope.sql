@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilprevisionesortingaccount_mpsiope]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_bilprevisionesortingaccount_mpsiope]
 GO
@@ -89,18 +106,12 @@ IF 	(@showchildupb = 'S') set @idupb=@idupb+'%'
 		ISNULL(SUM(accountvardetail.prevcassa*ISNULL(US.quota,0)*ISNULL(ACCS.quota,0)),0)	
 	FROM upbsorting US
 	cross join accountsorting ACCS
-	join accountvardetail
-			on US.idupb = accountvardetail.idupb and ACCS.idacc = accountvardetail.idacc
-	join sorting SortUpb
-		ON SortUpb.idsor = US.idsor	
-	JOIN sorting sortAcc
-			ON sortAcc.idsor = ACCS.idsor		
-	JOIN upb U
-		ON accountvardetail.idupb = U.idupb
-	JOIN account A
-		ON accountvardetail.idacc = A.idacc
-	join placcount
-		on A.idplaccount = placcount.idplaccount
+	join accountvardetail 			on US.idupb = accountvardetail.idupb and ACCS.idacc = accountvardetail.idacc
+	join sorting SortUpb			ON SortUpb.idsor = US.idsor	
+	JOIN sorting sortAcc			ON sortAcc.idsor = ACCS.idsor		
+	JOIN upb U						ON accountvardetail.idupb = U.idupb
+	JOIN account A					ON accountvardetail.idacc = A.idacc
+	join placcount					on A.idplaccount = placcount.idplaccount
 	WHERE /*((F.flag & 1)= @finpart_bit) 
 		AND */(A.ayear = @ayear)
 		AND (U.idupb LIKE @idupb)
@@ -147,16 +158,12 @@ BEGIN
 		S2.description as sorting_siope,
 		isnull(sum(#situation.prevision_curr),0) as prevision_curr
  	FROM #situation 
-	JOIN upb U
-		on #situation.idupb = U.idupb
+	JOIN upb U 		on #situation.idupb = U.idupb
 -- Missione e Programmi
-	left outer join sorting S1
-		ON S1.idsor = #situation.idsor_MissProg	and S1.idsorkind = @idsorkind_MissProg		
-	left outer join sorting SortPar1 
-		on S1.paridsor = SortPar1.idsor	 and SortPar1.idsorkind = @idsorkind_MissProg		
+	left outer join sorting S1			ON S1.idsor = #situation.idsor_MissProg	and S1.idsorkind = @idsorkind_MissProg		
+	left outer join sorting SortPar1 	on S1.paridsor = SortPar1.idsor	 and SortPar1.idsorkind = @idsorkind_MissProg		
 -- Siope 
-	left outer join sorting S2
-		ON S2.idsor = #situation.idsor_siope	and S2.idsorkind = @idsorkind_siope
+	left outer join sorting S2			ON S2.idsor = #situation.idsor_siope	and S2.idsorkind = @idsorkind_siope
 	GROUP BY U.codeupb,
 		#situation.idupb,
 		U.title,	U.printingorder,
@@ -213,13 +220,10 @@ BEGIN
 		isnull(sum(prevision_curr),0) as prevision_curr
  	FROM #situation 
 -- Missione e Programmi
-	left outer join sorting S1
-		ON S1.idsor = #situation.idsor_MissProg	and S1.idsorkind = @idsorkind_MissProg		
-	left outer join sorting SortPar1 
-		on S1.paridsor = SortPar1.idsor	 and SortPar1.idsorkind = @idsorkind_MissProg		
+	left outer join sorting S1				ON S1.idsor = #situation.idsor_MissProg	and S1.idsorkind = @idsorkind_MissProg		
+	left outer join sorting SortPar1 		on S1.paridsor = SortPar1.idsor	 and SortPar1.idsorkind = @idsorkind_MissProg		
 -- Siope 
-	left outer join sorting S2
-		ON S2.idsor = #situation.idsor_siope	and S2.idsorkind = @idsorkind_siope
+	left outer join sorting S2				ON S2.idsor = #situation.idsor_siope	and S2.idsorkind = @idsorkind_siope
 	GROUP BY S1.sortcode,		S1.description,		SortPar1.description,		SortPar1.sortcode,
 		S2.sortcode ,		S2.description 
 	ORDER BY S1.sortcode

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -49,84 +48,45 @@ using metadatalibrary;
 namespace income_procedura {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Movimento di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public incomeTable income 		=> (incomeTable)Tables["income"];
 
-	///<summary>
-	///Fasi di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable incomephase 		=> (MetaTable)Tables["incomephase"];
 
-	///<summary>
-	///Responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public managerTable manager 		=> (managerTable)Tables["manager"];
 
-	///<summary>
-	///totalizzatore su mov. di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable incometotal 		=> (MetaTable)Tables["incometotal"];
 
-	///<summary>
-	///Informazioni annuali su mov. di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public incomeyearTable incomeyear 		=> (incomeyearTable)Tables["incomeyear"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable registry 		=> (registryTable)Tables["registry"];
 
-	///<summary>
-	///Classificazione Movimenti di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public incomesortedTable incomesorted 		=> (incomesortedTable)Tables["incomesorted"];
 
-	///<summary>
-	///Tipo di Rilevanza analitica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingkindTable sortingkind 		=> (sortingkindTable)Tables["sortingkind"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting 		=> (sortingTable)Tables["sorting"];
 
-	///<summary>
-	///Documento di incasso
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public proceedsTable proceeds 		=> (proceedsTable)Tables["proceeds"];
 
-	///<summary>
-	///Tesoriere
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public treasurerTable treasurer 		=> (treasurerTable)Tables["treasurer"];
 
-	///<summary>
-	///Assegnazione credito al bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable creditpart 		=> (MetaTable)Tables["creditpart"];
 
-	///<summary>
-	///Assegnazione incasso al bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public proceedspartTable proceedspart 		=> (proceedspartTable)Tables["proceedspart"];
 
@@ -139,63 +99,36 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable tipomovimento 		=> (MetaTable)Tables["tipomovimento"];
 
-	///<summary>
-	///Fasi di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expensephase 		=> (MetaTable)Tables["expensephase"];
 
-	///<summary>
-	///Contabilizzazione contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable incomeinvoice 		=> (MetaTable)Tables["incomeinvoice"];
 
-	///<summary>
-	///Fattura
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public invoiceTable invoice 		=> (invoiceTable)Tables["invoice"];
 
-	///<summary>
-	///Tipo di documento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public invoicekindTable invoicekind 		=> (invoicekindTable)Tables["invoicekind"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public upbTable upb 		=> (upbTable)Tables["upb"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public finviewTable finview 		=> (finviewTable)Tables["finview"];
 
-	///<summary>
-	///Partita pendente
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public billTable bill 		=> (billTable)Tables["bill"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable billview 		=> (MetaTable)Tables["billview"];
 
-	///<summary>
-	///Contabilizzazione contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable incomeestimate 		=> (MetaTable)Tables["incomeestimate"];
 
-	///<summary>
-	///Contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public estimateTable estimate 		=> (estimateTable)Tables["estimate"];
 
-	///<summary>
-	///Tipo di Contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public estimatekindTable estimatekind 		=> (estimatekindTable)Tables["estimatekind"];
 
@@ -211,27 +144,15 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable invoicedetail_iva 		=> (MetaTable)Tables["invoicedetail_iva"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public configTable config 		=> (configTable)Tables["config"];
 
-	///<summary>
-	///Movimento di entrata - Dettaglio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public incomelastTable incomelast 		=> (incomelastTable)Tables["incomelast"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account 		=> (accountTable)Tables["account"];
 
-	///<summary>
-	///Trattamento del bollo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable stamphandling 		=> (MetaTable)Tables["stamphandling"];
 
@@ -241,17 +162,17 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable upbincassi 		=> (MetaTable)Tables["upbincassi"];
 
-	///<summary>
-	///Finanziamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public underwritingTable underwriting 		=> (underwritingTable)Tables["underwriting"];
 
-	///<summary>
-	///Sospeso attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable incomebill 		=> (MetaTable)Tables["incomebill"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable incomelastestimatedetail 		=> (MetaTable)Tables["incomelastestimatedetail"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable estimatedetail_incassi 		=> (MetaTable)Tables["estimatedetail_incassi"];
 
 	#endregion
 
@@ -280,7 +201,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// INCOME /////////////////////////////////
 	var tincome= new incomeTable();
-	tincome.addBaseColumns("idinc","nphase","ymov","nmov","parentidinc","idreg","idman","doc","docdate","description","autokind","autocode","idpayment","expiration","adate","txt","rtf","cupcode","cu","ct","lu","lt","idunderwriting");
+	tincome.addBaseColumns("idinc","nphase","ymov","nmov","parentidinc","idreg","idman","doc","docdate","description","autokind","autocode","idpayment","expiration","adate","txt","rtf","cupcode","cu","ct","lu","lt","idunderwriting","flag");
 	Tables.Add(tincome);
 	tincome.defineKey("idinc");
 
@@ -336,7 +257,7 @@ private void initClass() {
 
 	//////////////////// SORTINGKIND /////////////////////////////////
 	var tsortingkind= new sortingkindTable();
-	tsortingkind.addBaseColumns("idsorkind","description","nphaseincome","nphaseexpense","cu","ct","lu","lt","labeln1","lockedn1","forcedn1","labeln2","lockedn2","forcedn2","labeln3","lockedn3","forcedn3","labeln4","lockedn4","forcedn4","labeln5","lockedn5","forcedn5","labels1","lockeds1","forceds1","labels2","lockeds2","forceds2","labels3","lockeds3","forceds3","labels4","lockeds4","forceds4","labels5","lockeds5","forceds5","labelv1","lockedv1","forcedv1","labelv2","lockedv2","forcedv2","labelv3","lockedv3","forcedv3","labelv4","lockedv4","forcedv4","labelv5","lockedv5","forcedv5","flagdate","labelfordate","nodatelabel","totalexpression");
+	tsortingkind.addBaseColumns("active","ct","cu","description","flagdate","forcedN1","forcedN2","forcedN3","forcedN4","forcedN5","forcedS1","forcedS2","forcedS3","forcedS4","forcedS5","forcedv1","forcedv2","forcedv3","forcedv4","forcedv5","labelfordate","labeln1","labeln2","labeln3","labeln4","labeln5","labels1","labels2","labels3","labels4","labels5","labelv1","labelv2","labelv3","labelv4","labelv5","lockedN1","lockedN2","lockedN3","lockedN4","lockedN5","lockedS1","lockedS2","lockedS3","lockedS4","lockedS5","lockedv1","lockedv2","lockedv3","lockedv4","lockedv5","lt","lu","nodatelabel","totalexpression","nphaseexpense","nphaseincome","codesorkind","idsorkind","flag","start","stop","idparentkind","allowedS1","allowedS2","allowedS3","allowedS4","allowedS5");
 	tsortingkind.defineColumn("!importo", typeof(decimal));
 	Tables.Add(tsortingkind);
 	tsortingkind.defineKey("idsorkind");
@@ -860,6 +781,76 @@ private void initClass() {
 	Tables.Add(tincomebill);
 	tincomebill.defineKey("idinc", "ybill", "nbill");
 
+	//////////////////// INCOMELASTESTIMATEDETAIL /////////////////////////////////
+	var tincomelastestimatedetail= new MetaTable("incomelastestimatedetail");
+	tincomelastestimatedetail.defineColumn("idinc", typeof(int),false);
+	tincomelastestimatedetail.defineColumn("idestimkind", typeof(string),false);
+	tincomelastestimatedetail.defineColumn("yestim", typeof(short),false);
+	tincomelastestimatedetail.defineColumn("nestim", typeof(int),false);
+	tincomelastestimatedetail.defineColumn("rownum", typeof(int),false);
+	tincomelastestimatedetail.defineColumn("amount", typeof(decimal),false);
+	tincomelastestimatedetail.defineColumn("ct", typeof(DateTime),false);
+	tincomelastestimatedetail.defineColumn("cu", typeof(string),false);
+	tincomelastestimatedetail.defineColumn("lt", typeof(DateTime),false);
+	tincomelastestimatedetail.defineColumn("lu", typeof(string),false);
+	tincomelastestimatedetail.defineColumn("originalamount", typeof(decimal));
+	tincomelastestimatedetail.defineColumn("!estimkind", typeof(string));
+	tincomelastestimatedetail.defineColumn("!description", typeof(string));
+	Tables.Add(tincomelastestimatedetail);
+	tincomelastestimatedetail.defineKey("idinc", "idestimkind", "yestim", "nestim", "rownum");
+
+	//////////////////// ESTIMATEDETAIL_INCASSI /////////////////////////////////
+	var testimatedetail_incassi= new MetaTable("estimatedetail_incassi");
+	testimatedetail_incassi.defineColumn("idestimkind", typeof(string),false);
+	testimatedetail_incassi.defineColumn("yestim", typeof(short),false);
+	testimatedetail_incassi.defineColumn("nestim", typeof(int),false);
+	testimatedetail_incassi.defineColumn("rownum", typeof(int),false);
+	testimatedetail_incassi.defineColumn("annotations", typeof(string));
+	testimatedetail_incassi.defineColumn("ct", typeof(DateTime),false);
+	testimatedetail_incassi.defineColumn("cu", typeof(string),false);
+	testimatedetail_incassi.defineColumn("detaildescription", typeof(string));
+	testimatedetail_incassi.defineColumn("discount", typeof(double));
+	testimatedetail_incassi.defineColumn("idupb", typeof(string));
+	testimatedetail_incassi.defineColumn("lt", typeof(DateTime),false);
+	testimatedetail_incassi.defineColumn("lu", typeof(string),false);
+	testimatedetail_incassi.defineColumn("ninvoiced", typeof(decimal));
+	testimatedetail_incassi.defineColumn("number", typeof(decimal));
+	testimatedetail_incassi.defineColumn("start", typeof(DateTime));
+	testimatedetail_incassi.defineColumn("stop", typeof(DateTime));
+	testimatedetail_incassi.defineColumn("tax", typeof(decimal));
+	testimatedetail_incassi.defineColumn("taxable", typeof(decimal));
+	testimatedetail_incassi.defineColumn("taxrate", typeof(double));
+	testimatedetail_incassi.defineColumn("toinvoice", typeof(string));
+	testimatedetail_incassi.defineColumn("idaccmotive", typeof(string));
+	testimatedetail_incassi.defineColumn("idreg", typeof(int));
+	testimatedetail_incassi.defineColumn("idgroup", typeof(int));
+	testimatedetail_incassi.defineColumn("competencystart", typeof(DateTime));
+	testimatedetail_incassi.defineColumn("competencystop", typeof(DateTime));
+	testimatedetail_incassi.defineColumn("idinc_taxable", typeof(int));
+	testimatedetail_incassi.defineColumn("idinc_iva", typeof(int));
+	testimatedetail_incassi.defineColumn("idivakind", typeof(int));
+	testimatedetail_incassi.defineColumn("idsor1", typeof(int));
+	testimatedetail_incassi.defineColumn("idsor2", typeof(int));
+	testimatedetail_incassi.defineColumn("idsor3", typeof(int));
+	testimatedetail_incassi.defineColumn("idaccmotiveannulment", typeof(string));
+	testimatedetail_incassi.defineColumn("epkind", typeof(string));
+	testimatedetail_incassi.defineColumn("idrevenuepartition", typeof(int));
+	testimatedetail_incassi.defineColumn("idepacc", typeof(int));
+	testimatedetail_incassi.defineColumn("idupb_iva", typeof(string));
+	testimatedetail_incassi.defineColumn("idlist", typeof(int));
+	testimatedetail_incassi.defineColumn("cigcode", typeof(string));
+	testimatedetail_incassi.defineColumn("idfinmotive", typeof(string));
+	testimatedetail_incassi.defineColumn("iduniqueformcode", typeof(string));
+	testimatedetail_incassi.defineColumn("flag", typeof(int));
+	testimatedetail_incassi.defineColumn("proceedsexpiring", typeof(DateTime));
+	testimatedetail_incassi.defineColumn("nform", typeof(string));
+	testimatedetail_incassi.defineColumn("idsor_siope", typeof(int));
+	testimatedetail_incassi.defineColumn("idepacc_pre", typeof(int));
+	testimatedetail_incassi.defineColumn("rownum_main", typeof(int));
+	testimatedetail_incassi.defineColumn("idtassonomia", typeof(int));
+	Tables.Add(testimatedetail_incassi);
+	testimatedetail_incassi.defineKey("idestimkind", "yestim", "nestim", "rownum");
+
 	#endregion
 
 
@@ -920,9 +911,12 @@ private void initClass() {
 	this.defineRelation("incomephaseincome","incomephase","income","nphase");
 	this.defineRelation("managerincome","manager","income","idman");
 	this.defineRelation("registryincome","registry","income","idreg");
+	this.defineRelation("income_incomelastestimatedetail","income","incomelastestimatedetail","idinc");
+	this.defineRelation("estimatekind_incomelastestimatedetail","estimatekind","incomelastestimatedetail","idestimkind");
+	this.defineRelation("estimatedetail_taxable_incomelastestimatedetail","estimatedetail_taxable","incomelastestimatedetail","idestimkind","yestim","nestim","rownum");
+	this.defineRelation("estimatedetail_incassi_incomelastestimatedetail","estimatedetail_incassi","incomelastestimatedetail","idestimkind","yestim","nestim","rownum");
 	#endregion
 
 }
 }
 }
-

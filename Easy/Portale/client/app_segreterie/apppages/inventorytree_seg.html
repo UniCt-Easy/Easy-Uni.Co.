@@ -1,0 +1,70 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="inventorytree_seg_description">Denominazione</label>
+					<input id="inventorytree_seg_description" type="text" class="form-control" data-tag="inventorytree.description?inventorytreesegview.inventorytree_description" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="inventorytree_seg_codeinv">Codice</label>
+					<input id="inventorytree_seg_codeinv" type="text" class="form-control" data-tag="inventorytree.codeinv?inventorytreesegview.codeinv" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="inventorytree_seg_idaccmotivediscount">Causale ricavo in applicazione sconto</label>
+					<input id="inventorytree_seg_idaccmotivediscount" type="text" class="form-control" data-tag="inventorytree.idaccmotivediscount?inventorytreesegview.inventorytree_idaccmotivediscount" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="inventorytree_seg_idaccmotiveload">causale di carico</label>
+					<div>
+						<input id="inventorytree_seg_idaccmotiveload" name="inventorytree_seg_idaccmotiveload" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="accmotivedefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="inventorytree_seg_idaccmotivetransfer">Causale carico/scarico per trasferimento</label>
+					<input id="inventorytree_seg_idaccmotivetransfer" type="text" class="form-control" data-tag="inventorytree.idaccmotivetransfer?inventorytreesegview.inventorytree_idaccmotivetransfer" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="inventorytree_seg_idaccmotiveunload">causale di scarico</label>
+					<input id="inventorytree_seg_idaccmotiveunload" type="text" class="form-control" data-tag="inventorytree.idaccmotiveunload?inventorytreesegview.inventorytree_idaccmotiveunload" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="inventorytree_seg_lookupcode">lookup usato in alcune migrazioni</label>
+					<input id="inventorytree_seg_lookupcode" type="text" class="form-control" data-tag="inventorytree.lookupcode?inventorytreesegview.inventorytree_lookupcode" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="inventorytree_seg_nlevel">N. livello</label>
+					<input id="inventorytree_seg_nlevel" type="text" class="form-control" data-tag="inventorytree.nlevel?inventorytreesegview.inventorytree_nlevel" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="inventorytree_seg_paridinv">id class.parent</label>
+					<div>
+						<input id="inventorytree_seg_paridinv" name="inventorytree_seg_paridinv" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="inventorytreesegview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="inventorytree_seg_rtf">allegati</label>
+					<input id="inventorytree_seg_rtf" type="file" class="form-control"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="inventorytree_seg_txt">note testuali</label>
+					<textarea class="textarea form-control" id="inventorytree_seg_txt" type="text"  rows="4" data-tag="inventorytree.txt?inventorytreesegview.inventorytree_txt" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

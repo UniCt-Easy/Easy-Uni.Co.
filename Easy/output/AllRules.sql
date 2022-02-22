@@ -1,4 +1,21 @@
 
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+
 -- GENERAZIONE DATI PER audit --
 INSERT INTO [audit] (idaudit,consequence,flagsystem,lt,lu,severity,title) VALUES ('ANAGR001','','N',{ts '2008-02-08 10:54:54.627'},'NINO','I','ANAGR001 - Anagrafica già presente nel database')
 INSERT INTO [audit] (idaudit,consequence,flagsystem,lt,lu,severity,title) VALUES ('ANAGR003','Il dato impostato con flag attivo disabilitato non verrà considerato negli inserimenti','N',{ts '2006-01-01 00:00:00.000'},'Software and more','E','ANAGR003 - L''oggetto selezionato non puo'' essere usato perché non è attivo.')

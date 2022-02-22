@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 UniversitÃ  degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
  if exists (select * from dbo.sysobjects where id = object_id(N'[exp_fatture_acquisto]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_fatture_acquisto]
 GO
@@ -83,8 +100,8 @@ select
     D.numero_dettaglio_f as 'nriga_fatt',
 	substring(D.DESCRIZIONE_BENE,1,150) as 'descrdettaglio',
 	CASE when (len(D.DESCRIZIONE_BENE)>150 and I.ymov is not null)
-		then 'Mov.eserc.'+convert(varchar(4), I.ymov) + ' N.'+ convert(varchar(20),I.nmov)+ '.'+' Descr.Bene (2°parte): '+	substring(D.DESCRIZIONE_BENE, 151, len(D.DESCRIZIONE_BENE)-150) 
-		when len(D.DESCRIZIONE_BENE)>150 then  'Descr.Bene (2°parte): '+	substring(D.DESCRIZIONE_BENE, 151, len(D.DESCRIZIONE_BENE)-150)
+		then 'Mov.eserc.'+convert(varchar(4), I.ymov) + ' N.'+ convert(varchar(20),I.nmov)+ '.'+' Descr.Bene (2Â°parte): '+	substring(D.DESCRIZIONE_BENE, 151, len(D.DESCRIZIONE_BENE)-150) 
+		when len(D.DESCRIZIONE_BENE)>150 then  'Descr.Bene (2Â°parte): '+	substring(D.DESCRIZIONE_BENE, 151, len(D.DESCRIZIONE_BENE)-150)
 		when I.ymov is not null then 'Mov.eserc.' + convert(varchar(4), I.ymov) + ' N.'+ convert(varchar(20),I.nmov) + '.'
 		else null
 	END as 'annotazioni',
@@ -194,5 +211,5 @@ GO
 ------------------------------------------------------------------------------------------------------------------------------------------------------------	
 
  --	exec exp_fatture_acquisto 'A.AMCEN'
- -- amministrazione;27;exec [giove2-pc\cp1,1435].[TEST].[dbo].exp_fatture_acquisto 'A.AMMCE'
+ -- amministrazione;27;exec [SERVER\cp1,1435].[TEST].[dbo].exp_fatture_acquisto 'A.AMMCE'
 ------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,206 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		<!--tabString-->
+	</ul>
+	<form>
+	<div class="row">
+		<div class="col-md-4" style="background-color: white; align-self:flex-start">
+			<div id="menuweb_upb" data-tag="upb.default" data-custom-control="tree"></div>
+		</div>
+		<div class="col-md-8"  style="background-color: white; align-self:flex-start">
+		<ul class="nav nav-tabs">
+			
+		</ul>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_idupb">id voce upb (tabella upb)</label>
+					<input id="upb_default_idupb" type="text" class="form-control" data-tag="upb.idupb?upbdefaultview.idupb" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_title">Denominazione</label>
+					<input id="upb_default_title" type="text" class="form-control" data-tag="upb.title?upbdefaultview.title" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="upb_default_activeSi" type="radio" name="upb_default_active" class="custom-control-input" data-tag="upb.active:S?upbdefaultview.upb_active:Si" data-subentity  ><label for="upb_default_activeSi"> Si</label>
+						<input id="upb_default_activeNo" type="radio" name="upb_default_active" class="custom-control-input" data-tag="upb.active:N?upbdefaultview.upb_active:No" data-subentity  ><label for="upb_default_activeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_assured">Finanziamento certo (Non gestire assegnazione crediti/incassi)</label>
+					<div class="custom-control custom-radio">
+						<input id="upb_default_assuredSi" type="radio" name="upb_default_assured" class="custom-control-input" data-tag="upb.assured:S?upbdefaultview.upb_assured:Si" data-subentity  ><label for="upb_default_assuredSi"> Si</label>
+						<input id="upb_default_assuredNo" type="radio" name="upb_default_assured" class="custom-control-input" data-tag="upb.assured:N?upbdefaultview.upb_assured:No" data-subentity  ><label for="upb_default_assuredNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_cigcode">Codice CIG, Codice identificativo di gara</label>
+					<input id="upb_default_cigcode" type="text" class="form-control" data-tag="upb.cigcode?upbdefaultview.upb_cigcode" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_codeupb">Codice</label>
+					<input id="upb_default_codeupb" type="text" class="form-control" data-tag="upb.codeupb?upbdefaultview.upb_codeupb" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_cupcode">Codice CUP, Codice unico di progetto</label>
+					<input id="upb_default_cupcode" type="text" class="form-control" data-tag="upb.cupcode?upbdefaultview.upb_cupcode" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#upb_default_expiration").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="upb_default_expiration">scadenza</label>
+					<input id="upb_default_expiration" type="text" class="form-control" data-tag="upb.expiration?upbdefaultview.upb_expiration" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_flag">flag vari</label>
+					<input id="upb_default_flag" type="text" class="form-control" data-tag="upb.flag?upbdefaultview.upb_flag" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_flagactivity">Tipo attività</label>
+					<input id="upb_default_flagactivity" type="text" class="form-control" data-tag="upb.flagactivity?upbdefaultview.upb_flagactivity" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_flagkind">Funzione</label>
+					<input id="upb_default_flagkind" type="text" class="form-control" data-tag="upb.flagkind?upbdefaultview.upb_flagkind" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_granted">Finanziamento concesso</label>
+					<input id="upb_default_granted" type="text" class="form-control" data-tag="upb.granted.fixed.2?upbdefaultview.upb_granted" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_idepupbkind">ID Tipo UPB nell'economico patrimoniale (tabella epupbkind)</label>
+					<select id="upb_default_idepupbkind" class="custom-select d-block w-100"  data-source-name="epupbkind" data-value-member="idepupbkind" data-display-member="title" data-custom-control="combo" data-tag="upb.idepupbkind?upbdefaultview.upb_idepupbkind" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_idtreasurer">Id cassiere (tabella treasurer)</label>
+					<div>
+						<input id="upb_default_idtreasurer" name="upb_default_idtreasurer" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="treasurer.description" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_idunderwriter">ID Ente finanziatore (tabella underwriter)</label>
+					<div>
+						<input id="upb_default_idunderwriter" name="upb_default_idunderwriter" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="underwriter.description" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_newcodeupb">Codice di consolidamento</label>
+					<input id="upb_default_newcodeupb" type="text" class="form-control" data-tag="upb.newcodeupb?upbdefaultview.upb_newcodeupb" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_paridupb">chiave parent U.P.B. (tabella upb) </label>
+					<div>
+						<input id="upb_default_paridupb" name="upb_default_paridupb" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="upbdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_previousappropriation">Totale impegnato pregresso (previa informatizzazione)</label>
+					<input id="upb_default_previousappropriation" type="text" class="form-control" data-tag="upb.previousappropriation.fixed.2?upbdefaultview.upb_previousappropriation" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_previousassessment">Totale accertato pregresso (previa informatizzazione)</label>
+					<input id="upb_default_previousassessment" type="text" class="form-control" data-tag="upb.previousassessment.fixed.2?upbdefaultview.upb_previousassessment" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_printingorder">Ordine di stampa</label>
+					<input id="upb_default_printingorder" type="text" class="form-control" data-tag="upb.printingorder?upbdefaultview.upb_printingorder" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_requested">Finanziamento richiesto</label>
+					<input id="upb_default_requested" type="text" class="form-control" data-tag="upb.requested.fixed.2?upbdefaultview.upb_requested" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_rtf">allegati</label>
+					<input id="upb_default_rtf" type="file" class="form-control"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#upb_default_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="upb_default_start">data inizio</label>
+					<input id="upb_default_start" type="text" class="form-control" data-tag="upb.start?upbdefaultview.upb_start" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#upb_default_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="upb_default_stop">data fine</label>
+					<input id="upb_default_stop" type="text" class="form-control" data-tag="upb.stop?upbdefaultview.upb_stop" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="upb_default_txt">note testuali</label>
+					<textarea class="textarea form-control" id="upb_default_txt" type="text"  rows="4" data-tag="upb.txt?upbdefaultview.upb_txt" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_cofogmpcode">Cofogmpcode</label>
+					<input id="upb_default_cofogmpcode" type="text" class="form-control" data-tag="upb.cofogmpcode?upbdefaultview.upb_cofogmpcode" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_idupb_capofila">Idupb_capofila</label>
+					<div>
+						<input id="upb_default_idupb_capofila" name="upb_default_idupb_capofila" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="upbdefaultview_alias1.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_ri_rb_quota">Ri_rb_quota</label>
+					<input id="upb_default_ri_rb_quota" type="text" class="form-control" data-tag="upb.ri_rb_quota.fixed.6?upbdefaultview.upb_ri_rb_quota" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_ri_sa_quota">Ri_sa_quota</label>
+					<input id="upb_default_ri_sa_quota" type="text" class="form-control" data-tag="upb.ri_sa_quota.fixed.6?upbdefaultview.upb_ri_sa_quota" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_uesiopecode">Uesiopecode</label>
+					<input id="upb_default_uesiopecode" type="text" class="form-control" data-tag="upb.uesiopecode?upbdefaultview.upb_uesiopecode" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="upb_default_ri_ra_quota">Ri_ra_quota</label>
+					<input id="upb_default_ri_ra_quota" type="text" class="form-control" data-tag="upb.ri_ra_quota.fixed.6?upbdefaultview.upb_ri_ra_quota" data-subentity  />
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+</div>
+<!--footer-->

@@ -102,6 +102,16 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="csa_bill_sosp_tocoverview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ybill" type="xs:short" />
+              <xs:element name="nbill" type="xs:int" />
+              <xs:element name="billkind" type="xs:string" />
+              <xs:element name="tocover" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -123,12 +133,19 @@
       <xs:field xpath="mstns:nbill" />
       <xs:field xpath="mstns:billkind" />
     </xs:unique>
+    <xs:unique name="csa_bill_sosp_tocoverview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:csa_bill_sosp_tocoverview" />
+      <xs:field xpath="mstns:ybill" />
+      <xs:field xpath="mstns:nbill" />
+      <xs:field xpath="mstns:billkind" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
       <msdata:Relationship name="csa_import_csa_bill" msdata:parent="csa_import" msdata:child="csa_bill" msdata:parentkey="idcsa_import" msdata:childkey="idcsa_import" />
       <msdata:Relationship name="registry_csa_bill" msdata:parent="registry" msdata:child="csa_bill" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="bill_csa_bill" msdata:parent="bill" msdata:child="csa_bill" msdata:parentkey="nbill" msdata:childkey="nbill" />
+      <msdata:Relationship name="bill_csa_bill_sosp_tocoverview" msdata:parent="bill" msdata:child="csa_bill_sosp_tocoverview" msdata:parentkey="ybill nbill billkind" msdata:childkey="ybill nbill billkind" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

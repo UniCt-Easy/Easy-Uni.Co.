@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -26,7 +25,7 @@ using System.Windows.Forms;
 using metadatalibrary;
 
 namespace no_table_unifica_anagrafiche {
-    public partial class FrmNoTable_Unifica_Anagrafiche : Form {
+    public partial class FrmNoTable_Unifica_Anagrafiche : MetaDataForm {
         CQueryHelper QHC;
         QueryHelper QHS;
         MetaData Meta;
@@ -44,16 +43,36 @@ namespace no_table_unifica_anagrafiche {
             }
 
             Meta.Conn.RUN_SELECT_INTO_TABLE(DS.registrymainview, "title", QHS.IsNotNull("toredirect"), null, false);
-            /*DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.registrymainview,
+			/*DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.registrymainview,
                "title ASC", QHS.IsNotNull("toredirect"),
                null, false);*/
-            PostData.MarkAsTemporaryTable(DS.registrymainview, false); 
+			ImpostaCaption();
+			PostData.MarkAsTemporaryTable(DS.registrymainview, false); 
             if (GridAnagrafiche.DataSource == null) {
                 HelpForm.SetDataGrid(GridAnagrafiche, DS.registrymainview);
-                new formatgrids(GridAnagrafiche).AutosizeColumnWidth();
+
+				new formatgrids(GridAnagrafiche).AutosizeColumnWidth();
             }
         }
 
+		private void ImpostaCaption() {
+			foreach (DataColumn C in DS.registrymainview.Columns) {
+				string colName = C.ColumnName;
+				MetaData.DescribeAColumn(DS.registrymainview, colName, "");
+			}
+
+			DS.registrymainview.Columns["idreg"].Caption = "Codice";
+			DS.registrymainview.Columns["toredirect"].Caption = "Da unificare con";
+			DS.registrymainview.Columns["title"].Caption = "Denominazione";
+			DS.registrymainview.Columns["surname"].Caption = "Cognome";
+			DS.registrymainview.Columns["forename"].Caption = "Nome";
+			DS.registrymainview.Columns["cf"].Caption = "Cod. Fiscale";
+			DS.registrymainview.Columns["p_iva"].Caption = "Partita IVA";
+			DS.registrymainview.Columns["registryclass"].Caption = "Tipologia";
+			DS.registrymainview.Columns["lt"].Caption = "lt";
+			DS.registrymainview.Columns["lu"].Caption = "lu";
+			DS.registrymainview.Columns["active"].Caption = "attiva";
+		}
         private void impostaColoreBottoni() {
             btnUnifica.BackColor = formcolors.GridButtonBackColor();
             btnUnifica.ForeColor = formcolors.GridButtonForeColor();
@@ -82,7 +101,7 @@ namespace no_table_unifica_anagrafiche {
 
         private void btnUnifica_Click (object sender, EventArgs e) {
             Meta.Conn.CallSP("unify_registry", new object[] {}, false, 600);
-            MessageBox.Show("Operazione eseguita.");
+            show("Operazione eseguita.");
         }
 
         DataRow GetGridRow (int index) {
@@ -113,4 +132,4 @@ namespace no_table_unifica_anagrafiche {
             if (RR != null) Registry.SelectRow(RR, listtype);
         }
     }
-}
+}

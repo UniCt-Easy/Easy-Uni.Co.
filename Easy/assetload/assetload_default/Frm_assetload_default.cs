@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -34,7 +33,7 @@ namespace assetload_default//buonocaricoinventario//
     /// <summary>
     /// Summary description for frmbuonocaricoinventario.
     /// </summary>
-    public class Frm_assetload_default : System.Windows.Forms.Form {
+    public class Frm_assetload_default : MetaDataForm {
         DataTable tInventoryTree;
 
         public MetaData Meta;
@@ -254,6 +253,7 @@ namespace assetload_default//buonocaricoinventario//
             // 
             this.DS.DataSetName = "vistaForm";
             this.DS.EnforceConstraints = false;
+            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
             // 
             // tabControl1
             // 
@@ -1333,7 +1333,7 @@ namespace assetload_default//buonocaricoinventario//
         private void EsaminaFlag() {
             if (Warning) return;
             if (DS.config.Rows.Count == 0) {
-                MessageBox.Show("La configurazione del PATRIMONIO non è stata definita per l'esercizio corrente. " +
+                show("La configurazione del PATRIMONIO non è stata definita per l'esercizio corrente. " +
                     "Non sarà possibile salvare il buono di carico.\r" +
                     @"La configurazione si trova alla voce di menu Configurazione\Operazioni inventariabili\Configurazione", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -1344,7 +1344,7 @@ namespace assetload_default//buonocaricoinventario//
             DataRow r = DS.Tables["config"].Rows[0];
             string flagnumerazione = r["asset_flagnumbering"].ToString().ToUpper();
             if (flagnumerazione == "" || flagnumerazione == "N") {
-                MessageBox.Show("Non è stato definito il tipo di numerazione per la configurazione " +
+                show("Non è stato definito il tipo di numerazione per la configurazione " +
                     "del PATRIMONIO per l'esercizio corrente. " +
                     "Non sarà possibile salvare il buono di carico.\r" +
                     @"La configurazione si trova alla voce di menu Configurazione\Operazioni inventariabili\Configurazione", "Attenzione",
@@ -1449,7 +1449,7 @@ namespace assetload_default//buonocaricoinventario//
         private void Collega(string tipo) {
             if (MetaData.Empty(this)) return;
             if (cboTipo.SelectedIndex <= 0) {
-                MessageBox.Show("E' necessario selezionare prima il tipo buono.");
+                show("E' necessario selezionare prima il tipo buono.");
                 tabControl1.SelectedTab = tabBuono;
                 cboTipo.Focus();
                 return;
@@ -1598,7 +1598,7 @@ namespace assetload_default//buonocaricoinventario//
             }
             else {
                 if (!currLoad.ratificationdate.Equals(compDate)) {
-                    if (MessageBox.Show("Sostituire la data ratifica con la data di competenza " + HelpForm.StringValue(compDate, tag) +
+                    if (show("Sostituire la data ratifica con la data di competenza " + HelpForm.StringValue(compDate, tag) +
                                         " del movimento selezionato?",
                     "Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                         currLoad.ratificationdate = (DateTime)compDate;
@@ -1664,7 +1664,7 @@ namespace assetload_default//buonocaricoinventario//
                 //    NewIdInv = T.Rows[i]["idinventory"];
                 //    if (!PrimoIdInv.Equals(NewIdInv))
                 //    {
-                //        MessageBox.Show("Attenzione! I cespiti selezionati appartengono a diversi tipi di inventario");
+                //        show("Attenzione! I cespiti selezionati appartengono a diversi tipi di inventario");
                 //        return;
                 //    }
                 //}
@@ -1673,7 +1673,8 @@ namespace assetload_default//buonocaricoinventario//
                 if ((Meta.InsertMode) && (CfgFn.GetNoNullInt32(Curr.idassetloadkind) == 0)) {
                     DS.assetloadkind._IfExists(q.eq("idinventory", PrimoIdInv),
                         found => {
-                            Curr.idassetloadkind = found.idassetloadkind;
+                            
+                            Curr.idassetloadkind =found.idassetloadkind;
                             cboTipo.SelectedValue = found.idassetloadkind;
                         }
                      );
@@ -1751,7 +1752,7 @@ namespace assetload_default//buonocaricoinventario//
             var curr = DS.assetload.First();
 
             if (cboTipo.SelectedIndex <= 0) {
-                MessageBox.Show("E' necessario selezionare prima il tipo buono.");
+                show("E' necessario selezionare prima il tipo buono.");
                 tabControl1.SelectedTab = tabBuono;
                 cboTipo.Focus();
                 return;
@@ -1789,7 +1790,7 @@ namespace assetload_default//buonocaricoinventario//
                                       & (flagcausale ? q.eq("idmot", curr.idmotValue) : q.constant(true))
                                     );
                 if (lista.Length == 0) {
-                    MessageBox.Show("Non è stata trovato alcun carico associato alla fattura indicata coerente con " +
+                    show("Non è stata trovato alcun carico associato alla fattura indicata coerente con " +
                         "il tipo buono carico e con la causale di carico selezionati", "Avviso");
                 }
                 else {
@@ -1802,4 +1803,3 @@ namespace assetload_default//buonocaricoinventario//
         }
     }
 }
-

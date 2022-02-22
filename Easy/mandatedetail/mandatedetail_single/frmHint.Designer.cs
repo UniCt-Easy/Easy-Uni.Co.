@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªønamespace mandatedetail_single {
+
+namespace mandatedetail_single {
     partial class frmHint {
         /// <summary>
         /// Required designer variable.
@@ -42,7 +41,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.label5 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnCausaleAnnullamento = new System.Windows.Forms.Button();
             this.IvaDet3 = new System.Windows.Forms.TextBox();
             this.Iva3 = new System.Windows.Forms.TextBox();
             this.Q3 = new System.Windows.Forms.TextBox();
@@ -73,18 +72,18 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(455, 25);
             this.label5.TabIndex = 29;
-            this.label5.Text = "Pu√≤ essere importante per fare quadrare le imposte e gli imponibili unitari con q" +
+            this.label5.Text = "PuÚ essere importante per fare quadrare le imposte e gli imponibili unitari con q" +
     "uelle totali";
             // 
-            // button1
+            // btnCausaleAnnullamento
             // 
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(648, 276);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 28;
-            this.button1.Text = "Chiudi";
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnCausaleAnnullamento.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnCausaleAnnullamento.Location = new System.Drawing.Point(648, 276);
+            this.btnCausaleAnnullamento.Name = "btnCausaleAnnullamento";
+            this.btnCausaleAnnullamento.Size = new System.Drawing.Size(75, 23);
+            this.btnCausaleAnnullamento.TabIndex = 28;
+            this.btnCausaleAnnullamento.Text = "Chiudi";
+            this.btnCausaleAnnullamento.Click += new System.EventHandler(this.btnCausaleAnnullamento_Click);
             // 
             // IvaDet3
             // 
@@ -195,7 +194,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 16);
             this.label2.TabIndex = 16;
-            this.label2.Text = "Quantit√†";
+            this.label2.Text = "Quantit‡";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label1
@@ -304,7 +303,7 @@
             this.Controls.Add(this.imponibile1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnCausaleAnnullamento);
             this.Controls.Add(this.IvaDet3);
             this.Controls.Add(this.Iva3);
             this.Controls.Add(this.Q3);
@@ -328,7 +327,7 @@
         #endregion
 
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnCausaleAnnullamento;
         private System.Windows.Forms.TextBox IvaDet3;
         private System.Windows.Forms.TextBox Iva3;
         private System.Windows.Forms.TextBox Q3;
@@ -352,4 +351,4 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
     }
-}
+}

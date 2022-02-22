@@ -1,3 +1,21 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[check_csa_individuazione_partition]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [check_csa_individuazione_partition]
 GO
@@ -16,7 +34,9 @@ AS BEGIN
 /*
 setuser 'amm'
 setuser 'amministrazione'
-exec [check_csa_individuazione_partition] 29,2018 
+exec check_csa_individuazione_partition 654,2020
+exec exp_csa_expense_available_partition 2020, 654
+exec exp_csa_fin_upb_available 2020, 654
 */
 --- deve partire da 58
 --SET      @res = 0	
@@ -204,7 +224,8 @@ end
  --17) Upb non presente sulle righe di versamento per recuperi non figurativi
  if exists (   SELECT * FROM csa_importver WHERE idcsa_import = @idcsa_import AND
   ISNULL(csa_importver.flagclawback,'N') = 'S' 
-  AND idcsa_contracttax is  null and idcsa_contractkinddata is   null  and idcsa_incomesetup is not null 
+  AND idcsa_contracttax is  null and idcsa_contractkinddata is   null  
+	--and idcsa_incomesetup is not null 
   AND
    ( not exists (select * from csa_importver_partition CP where  
                             CP.idcsa_import= csa_importver.idcsa_import and
@@ -301,6 +322,9 @@ CREATE TABLE #output
 	available_2  decimal(19,2),
 	available_3  decimal(19,2),		
 	available_4  decimal(19,2),
+	available_5 decimal(19,2),
+	available_6 decimal(19,2),
+	available_7 decimal(19,2),
 	flagcr char(1),
 	idexp int
 )
@@ -335,7 +359,11 @@ CREATE TABLE #output_1
 	available_5  decimal(19,2),
 	available_6  decimal(19,2),
 	available_7  decimal(19,2),
-	available_8  decimal(19,2)  
+	available_8  decimal(19,2) ,
+	available_9  decimal(19,2),
+	available_10  decimal(19,2) ,
+	available_11  decimal(19,2) ,
+	available_12  decimal(19,2) 
 )
 CREATE TABLE #output_2
 (
@@ -349,7 +377,9 @@ CREATE TABLE #output_2
 	available_1  decimal(19,2),
 	available_2  decimal(19,2),
 	available_3  decimal(19,2),		
-	available_4  decimal(19,2)
+	available_4  decimal(19,2),
+	available_5  decimal(19,2),
+	available_6  decimal(19,2)
 )
 if (@fin_kind=3) begin
 insert into #output_1	exec exp_csa_fin_upb_available @ayear, @idcsa_import 
@@ -493,7 +523,8 @@ end
                        where CE.idexp is not null AND C.ayear = @ayear  and C.active = 'S' 
 					   and not exists (select * from expenseyear EY where 
 										EY.idexp = CE.idexp AND
-							            C.ayear = EY.ayear)                
+							            C.ayear = EY.ayear)            
+					  and exists (select * from csa_importriep R where idcsa_import = @idcsa_import and idcsa_contract=C.idcsa_contract )				    
 ) 
 begin
 	INSERT INTO #errors VALUES( 'Movimento di spesa impostato nella ripartizione delle Regole Specifiche senza imputazione nell''esercizio corrente' , 52,'S')
@@ -511,6 +542,7 @@ end
 					 and not exists (select * from expenseyear EY where 
 										EY.idexp = CTE.idexp AND
 							            C.ayear = EY.ayear)
+					and exists (select * from csa_importriep R where idcsa_import = @idcsa_import and idcsa_contract=C.idcsa_contract )	
 )
 begin
 	INSERT INTO #errors VALUES('Movimento di spesa impostato nella ripartizione dei contributi senza imputazione nell''esercizio corrente', 53,'S')
@@ -703,6 +735,151 @@ begin
 	INSERT INTO #errors VALUES( 'Contributi con importo negativo senza capitolo di entrata o classificazione Siope entrata configurati' , 76,'S')
 end
 
+
+
+  
+--77) Riepiloghi senza capitolo ,   
+ if exists (SELECT * FROM csa_importriep WHERE idcsa_import = @idcsa_import  			
+  AND
+   ( not exists (select * from csa_importriep_partition CP where  
+                            CP.idcsa_import= csa_importriep.idcsa_import and
+							CP.idriep= csa_importriep.idriep 
+                        )  OR
+    exists (select * from csa_importriep_partition CP where  
+                            CP.idcsa_import= csa_importriep.idcsa_import and
+							CP.idriep= csa_importriep.idriep and
+                            CP.idfin is null  
+                        ) 
+						)
+                           
+) 
+begin
+	INSERT INTO #errors VALUES('Riepiloghi senza Capitolo nella ripartizione' ,77,'S' )
+end
+
+--78) Anagrafiche enti di versamento non sono a regolarizzazione e non hanno il tipo trattamento spese nella modalità predefinita  
+ if exists (  SELECT * FROM csa_importver 
+				JOIN csa_agency 
+				  ON csa_agency.idcsa_agency = csa_importver.idcsa_agency
+			   WHERE idcsa_import = @idcsa_import AND (ISNULL(csa_agency.flag, 0)&2) <> 0 /*_agency_not_use_nbill*/
+			     AND (csa_importver.idreg_agency is not null)
+				 AND (csa_importver.idcsa_agencypaymethod IS NULL) /*non ho configurato una modalità specifica*/
+				 AND NOT EXISTS (SELECT * FROM registrypaymethod  RGP WHERE RGP.idreg = csa_importver.idreg_agency AND RGP.flagstandard= 'S' AND RGP.idchargehandling IS NOT NULL )
+) 
+begin
+	INSERT INTO #errors VALUES('Versamenti con Anagrafiche Enti che non hanno il tipo trattamento spese nella modalità di pagamento predefinita' ,78,'S' )
+end
+ 
+ 
+--79) Anagrafiche enti di versamento non sono a regolarizzazione e non hanno il tipo trattamento spese nella modalità specifica configurata per il CSA 
+ if exists (  SELECT * FROM csa_importver 
+				JOIN csa_agency 
+				  ON csa_agency.idcsa_agency = csa_importver.idcsa_agency
+				JOIN csa_agencypaymethod 
+				  ON csa_agencypaymethod.idcsa_agency = csa_importver.idcsa_agency
+				 AND csa_agencypaymethod.idcsa_agencypaymethod = csa_importver.idcsa_agencypaymethod
+			   WHERE idcsa_import = @idcsa_import AND (ISNULL(csa_agency.flag, 0)&2) <> 0 /*_agency_not_use_nbill*/
+				 /*ho configurato una modalità specifica*/
+				 AND NOT EXISTS (SELECT * FROM registrypaymethod  RGP WHERE RGP.idreg = csa_importver.idreg_agency AND RGP.idregistrypaymethod = csa_agencypaymethod.idregistrypaymethod AND RGP.idchargehandling IS NOT NULL )
+) 
+begin
+	INSERT INTO #errors VALUES('Versamenti con Anagrafiche Enti che non hanno il tipo trattamento spese nella modalità specifica configurata per il CSA' ,79,'S' )
+end
+
+-------------------- SEZIONE SIOPE --------------------------------------
+--80) ( 12 siope )  Ritenuta : idfin_expense --> idfin_income
+ if exists (SELECT * FROM csa_importver WHERE idcsa_import = @idcsa_import  
+  AND ISNULL(flagclawback,'N') = 'N' and
+  (idcsa_contractkinddata is null) and   (idcsa_contracttax is not null)
+  and idsor_siope_expense is null   and idfin_expense is NOT null
+) 
+begin
+	INSERT INTO #errors VALUES( 'Ritenute senza SIOPE Cap. Entrata' , 80,'N')
+end
+
+
+-- 81 (13 siope )  Ritenuta: idfin_income --> idfin_expense
+ if exists (SELECT * FROM csa_importver WHERE idcsa_import = @idcsa_import  
+   AND ISNULL(flagclawback,'N') = 'N' and
+  (idcsa_contractkinddata is null) and   (idcsa_contracttax is not null)
+  and idfin_income is  not null   and idsor_siope_income is null
+) 
+begin
+	INSERT INTO #errors VALUES( 'Ritenute senza SIOPE Cap. Spesa' , 81,'N')
+end
+
+
+--- I Recuperi saranno tutti diretti con la nuiva gestione, sono state eliminate
+--- le partite di giro
+--  82 (7 siope) Recupero Senza Capitolo di Entrata Lordi  idfin_incomeclawback 
+ if exists (SELECT * FROM csa_importver WHERE idcsa_import = @idcsa_import 
+AND ISNULL(flagclawback,'N') = 'S' 
+AND (idfin_incomeclawback IS not NULL)  --recupero diretto
+and (idsor_siope_incomeclawback is null )
+) 
+begin
+	INSERT INTO #errors VALUES('Recupero senza SIOPE di Entrata (Lordi)', 82,'N')
+end
+
+
+-- 83( 9 siope ) Recupero, capitolo spesa non valorizzato per le righe negative
+ if exists (SELECT * FROM csa_importver WHERE idcsa_import = @idcsa_import 
+ AND ISNULL(flagclawback,'N') = 'S'  AND ISNULL(importo,0)< 0 
+ AND
+    exists (select * from csa_importver_partition CP where  
+                            CP.idcsa_import= csa_importver.idcsa_import and
+							CP.idver= csa_importver.idver and
+                              (CP.idfin is not null  and CP.idsor_siope is null)
+                        ) 
+) 
+
+begin
+	INSERT INTO #errors VALUES('Recupero senza SIOPE sul capitolo di spesa' , 83,'N')
+end
+
+-- 84 (11 siope) Contributi senza Capitolo di Costo  ,   
+ if exists (SELECT * FROM csa_importver WHERE idcsa_import = @idcsa_import  
+			AND ISNULL(flagclawback,'N') = 'N' and
+			((idcsa_contractkinddata is not null) or (idcsa_contracttax is not null))
+		  AND
+
+    exists (select * from csa_importver_partition CP where  
+                            CP.idcsa_import= csa_importver.idcsa_import and
+							CP.idver= csa_importver.idver and
+                            ((CP.idfin is not null or CP.idexp is not null)  and CP.idsor_siope is null)
+                        ) 
+						
+) 
+begin
+	INSERT INTO #errors VALUES('Contributi senza SIOPE sul Capitolo di Costo' ,84,'N' )
+end
+
+--- controllo esistenza anagrafica se è configurata la generazione di movimenti finanziari nominativi
+declare @mandatinominativi char(1)
+set @mandatinominativi='S'
+select @mandatinominativi = isnull(csa_nominativo,'N') from config where ayear=@ayear
+if (@mandatinominativi='S') 
+begin
+	
+	--85) Riepiloghi con   Anagrafica Ente non valorizzati
+	 if exists (  SELECT * FROM csa_importriep WHERE idcsa_import = @idcsa_import 
+	  and ( idreg is null or idreg = 0)
+	) 
+	begin
+		INSERT INTO #errors VALUES('Riepiloghi con Anagrafica non valorizzata', 85,'S')
+	end
+	
+	--86) Controllo esistenza modalità di pagamento per l'anagrafica (se è configurata la generazione di movimenti finanziari nominativi)
+	if exists ( select * from csa_importriep where csa_importriep.idcsa_import = @idcsa_import and not exists
+					( select * from registrypaymethod where registrypaymethod.idreg =  csa_importriep.idreg and isnull(active, 'S') = 'S'
+						and ISNULL(flagstandard, 'N') = 'S')
+				)
+	begin
+		INSERT INTO #errors VALUES('Riepiloghi con Anagrafica senza modalità di pagamento', 86,'S')
+	end
+ 
+ 
+end
 --DROP TABLE #output   
 --DROP TABLE #output_1       
 SELECT * FROM #errors
@@ -718,4 +895,6 @@ GO
 SET ANSI_NULLS ON 
 GO
  
- 
+
+
+

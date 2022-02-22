@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ep_functions">
-      <HintPath>..\..\unmanaged\ep_functions\bin\Debug\ep_functions.dll</HintPath>
-    </Reference>
     <Reference Include="gestioneclassificazioni">
       <HintPath>..\..\unmanaged\gestioneclassificazioni\bin\Debug\gestioneclassificazioni.dll</HintPath>
     </Reference>
@@ -42,6 +39,7 @@
     <Reference Include="metaeasylibrary">
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -61,6 +59,10 @@
     <ProjectReference Include="..\..\mainform\mainform.csproj">
       <Project>{e04c2cef-078b-4b25-904c-6374c88e0ee7}</Project>
       <Name>mainform</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\unmanaged\ep_functions\ep_functions.csproj">
+      <Project>{13e495ef-b62d-494e-aec7-e06e7826dce6}</Project>
+      <Name>ep_functions</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
       <Project>{c0dacf4d-2f3e-44d6-a718-7c9821a1bdcd}</Project>

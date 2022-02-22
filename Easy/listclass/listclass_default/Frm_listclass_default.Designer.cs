@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 namespace listclass_default
 {
@@ -120,6 +119,10 @@ namespace listclass_default
             this.radioServizi = new System.Windows.Forms.RadioButton();
             this.radioInvent = new System.Windows.Forms.RadioButton();
             this.radioNonInvent = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtCodiceCausalefinanziariaIVA = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabIntrastat.SuspendLayout();
             this.grpComunicazioni.SuspendLayout();
             this.grpIntra12.SuspendLayout();
@@ -138,6 +141,7 @@ namespace listclass_default
             this.tabPage2.SuspendLayout();
             this.grpInventario.SuspendLayout();
             this.grpTipoBene.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeView1
@@ -460,6 +464,7 @@ namespace listclass_default
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Controls.Add(this.gboxCausale);
             this.tabPage1.Controls.Add(this.groupBox2);
@@ -521,9 +526,9 @@ namespace listclass_default
             this.gboxCausale.Controls.Add(this.TxtDescr_Causalefinanziaria);
             this.gboxCausale.Controls.Add(this.txtCodiceCausalefinanziaria);
             this.gboxCausale.Controls.Add(this.button6);
-            this.gboxCausale.Location = new System.Drawing.Point(16, 162);
+            this.gboxCausale.Location = new System.Drawing.Point(16, 147);
             this.gboxCausale.Name = "gboxCausale";
-            this.gboxCausale.Size = new System.Drawing.Size(477, 104);
+            this.gboxCausale.Size = new System.Drawing.Size(233, 104);
             this.gboxCausale.TabIndex = 37;
             this.gboxCausale.TabStop = false;
             this.gboxCausale.Tag = "AutoManage.txtCodiceCausalefinanziaria.tree.(active = \'S\')";
@@ -532,28 +537,28 @@ namespace listclass_default
             // 
             // TxtDescr_Causalefinanziaria
             // 
-            this.TxtDescr_Causalefinanziaria.Location = new System.Drawing.Point(120, 16);
+            this.TxtDescr_Causalefinanziaria.Location = new System.Drawing.Point(112, 16);
             this.TxtDescr_Causalefinanziaria.Multiline = true;
             this.TxtDescr_Causalefinanziaria.Name = "TxtDescr_Causalefinanziaria";
             this.TxtDescr_Causalefinanziaria.ReadOnly = true;
-            this.TxtDescr_Causalefinanziaria.Size = new System.Drawing.Size(351, 56);
+            this.TxtDescr_Causalefinanziaria.Size = new System.Drawing.Size(118, 56);
             this.TxtDescr_Causalefinanziaria.TabIndex = 0;
             this.TxtDescr_Causalefinanziaria.TabStop = false;
             this.TxtDescr_Causalefinanziaria.Tag = "finmotive.title";
             // 
             // txtCodiceCausalefinanziaria
             // 
-            this.txtCodiceCausalefinanziaria.Location = new System.Drawing.Point(8, 78);
+            this.txtCodiceCausalefinanziaria.Location = new System.Drawing.Point(6, 78);
             this.txtCodiceCausalefinanziaria.Name = "txtCodiceCausalefinanziaria";
-            this.txtCodiceCausalefinanziaria.Size = new System.Drawing.Size(463, 20);
+            this.txtCodiceCausalefinanziaria.Size = new System.Drawing.Size(224, 20);
             this.txtCodiceCausalefinanziaria.TabIndex = 5;
             this.txtCodiceCausalefinanziaria.Tag = "finmotive.codemotive?x";
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(10, 45);
+            this.button6.Location = new System.Drawing.Point(8, 45);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(104, 23);
+            this.button6.Size = new System.Drawing.Size(100, 23);
             this.button6.TabIndex = 0;
             this.button6.TabStop = false;
             this.button6.Tag = "manage.finmotive.tree";
@@ -936,6 +941,49 @@ namespace listclass_default
             this.radioNonInvent.Text = "Aumento di Valore";
             this.radioNonInvent.CheckedChanged += new System.EventHandler(this.radioNonInvent_CheckedChanged);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.txtCodiceCausalefinanziariaIVA);
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Location = new System.Drawing.Point(255, 147);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(238, 104);
+            this.groupBox1.TabIndex = 50;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Tag = "AutoManage.txtCodiceCausalefinanziariaIVA.tree.(active = \'S\')";
+            this.groupBox1.Text = "Causale finanziaria per IVA";
+            this.groupBox1.UseCompatibleTextRendering = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(116, 16);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(118, 56);
+            this.textBox1.TabIndex = 0;
+            this.textBox1.TabStop = false;
+            this.textBox1.Tag = "finmotive_iva.title";
+            // 
+            // txtCodiceCausalefinanziariaIVA
+            // 
+            this.txtCodiceCausalefinanziariaIVA.Location = new System.Drawing.Point(5, 78);
+            this.txtCodiceCausalefinanziariaIVA.Name = "txtCodiceCausalefinanziariaIVA";
+            this.txtCodiceCausalefinanziariaIVA.Size = new System.Drawing.Size(229, 20);
+            this.txtCodiceCausalefinanziariaIVA.TabIndex = 5;
+            this.txtCodiceCausalefinanziariaIVA.Tag = "finmotive_iva.codemotive?x";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(7, 45);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(104, 23);
+            this.button1.TabIndex = 0;
+            this.button1.TabStop = false;
+            this.button1.Tag = "manage.finmotive_iva.tree";
+            this.button1.Text = "Causale";
+            // 
             // Frm_listclass_default
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -976,6 +1024,8 @@ namespace listclass_default
             this.grpInventario.ResumeLayout(false);
             this.grpInventario.PerformLayout();
             this.grpTipoBene.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1054,5 +1104,9 @@ namespace listclass_default
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox txtCodiceCausaleCredit;
         private System.Windows.Forms.Button button10;
-	}
-}
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtCodiceCausalefinanziariaIVA;
+        private System.Windows.Forms.Button button1;
+    }
+}

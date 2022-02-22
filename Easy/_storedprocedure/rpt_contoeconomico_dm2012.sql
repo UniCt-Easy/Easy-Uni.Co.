@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_contoeconomico_dm2012]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_contoeconomico_dm2012]
 GO
@@ -1016,6 +1033,9 @@ END
 	-- Sezione RICAVI
 	--> A) I - PROVENTI PROPRI
 	
+	-- Sono costi che si desidera visualizzare col segno negativo.15333
+	SET @PY_C_F = - @PY_C_F
+
 	DECLARE @PY_R_AI1 decimal(19,2)
 	SET @PY_R_AI1 =
 	ISNULL(
@@ -2572,11 +2592,14 @@ END
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
 	)
 	,0)
-	
+
 	DECLARE @TOTCOSTI decimal(19,2)
 	SET @TOTCOSTI = @C_BVIII + @C_BIX + @C_BX +  @C_BXI  + @C_BXII +
 	@C_C + @C_D + @C_E + @C_F
-	
+
+	-- Sono costi che si desidera visualizzare col segno negativo.15333
+	SET @C_F = - @C_F
+		
 	-- Sezione RICAVI
 	--> A) I - PROVENTI PROPRI
 	
@@ -2799,6 +2822,33 @@ END
 	)
 	,0)
 	
+	--SELECT amount,entry.*, entrydetail.*,upb.idsor01
+	--FROM entrydetail
+	--JOIN entry
+	--ON entry.yentry = entrydetail.yentry
+	--AND entry.nentry = entrydetail.nentry
+	--JOIN account
+	--ON account.idacc = entrydetail.idacc
+	--left outer JOIN upb
+	--ON upb.idupb  = entrydetail.idupb
+	--JOIN placcount
+	--ON placcount.idplaccount = account.idplaccount
+	---- left outer join sortinglink SLK1 on SLK1.idchild = entrydetail.idsor1 
+	--WHERE entry.adate BETWEEN @start AND @stop
+	--AND  (entrydetail.idupb like @idupb  OR @idupb = '%')
+	--AND entry.identrykind  not in (6,11,12) -- DEVO ESCLUDERE LE SCRITTURE DI EPILOGO
+	--AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE
+	--AND placcount.codeplaccount = 'A) II 5)'
+	--AND placcount.placcpart = 'R'
+	--AND (entrydetail.idsor1 IN (SELECT idchild FROM #sortinglink1) OR @idsor1 IS NULL) AND (@idsor2 IS NULL OR entrydetail.idsor2 = @idsor2)AND (@idsor3 IS NULL OR entrydetail.idsor3 = @idsor3)
+	--AND placcount.ayear = @ayear
+	----AND (@idsor01 IS NULL OR upb.idsor01 = @idsor01)
+	--AND (@idsor02 IS NULL OR upb.idsor02 = @idsor02)
+	--AND (@idsor03 IS NULL OR upb.idsor03 = @idsor03)
+	--AND (@idsor04 IS NULL OR upb.idsor04 = @idsor04)
+	--AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
+
+
 	DECLARE @R_AII5 decimal(19,2)
 	SET @R_AII5 =
 	ISNULL(
@@ -3203,7 +3253,13 @@ END
 	@title = title
 	FROM	upb
 	WHERE	idupb = @idupboriginal
-	
+	-- Sono costi che si desidera visualizzare col segno negativo.15333
+	set @PY_C_C2 = - @PY_C_C2
+	set @C_C2 = - @C_C2
+	set @PY_C_D = - @PY_C_D
+	set @C_D = - @C_D
+	set @C_E = -@C_E
+	set @PY_C_E = -@PY_C_E
 	SELECT
 	@ayear				  AS ayear         ,
 	@idupboriginal		  as idupb         ,

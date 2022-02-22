@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -24,11 +23,13 @@ using System.Windows.Forms;
 using System.Data;
 using metadatalibrary;
 using funzioni_configurazione;
+using System.Collections.Generic;
+
 namespace csa_bill_detail
 {
 	/// <summary>
 	/// </summary>
-    public class Frm_csa_bill_detail : System.Windows.Forms.Form {
+    public class Frm_csa_bill_detail : MetaDataForm {
         private System.Windows.Forms.ImageList images;
         public vistaForm DS;
         MetaData Meta;
@@ -55,6 +56,7 @@ namespace csa_bill_detail
         private TextBox txtBolletta;
         private Button btnBolletta;
         private System.ComponentModel.IContainer components;
+        private DataAccess Conn;
 
 		public Frm_csa_bill_detail()
 		{
@@ -80,20 +82,44 @@ namespace csa_bill_detail
 		
         public void MetaData_AfterLink () {
             Meta = MetaData.GetMetaData(this);
+            Conn = Meta.Conn;
+
             QHC = new CQueryHelper();
             QHS = Meta.Conn.GetQueryHelper();
             DS.bill.setStaticFilter(QHS.CmpEq("billkind", "D"));
             DS.bill.setStaticFilter(QHS.CmpEq("ybill", Meta.GetSys("esercizio")));
+
+            this.btnBolletta.Tag = "choose.bill.default.((billkind = \'D\') AND(active= \'S\') AND (isnull(total,0)-isnul" +
+    "l(reduction,0)>covered ) AND (ISNULL(toregularize,0)>0))" + $" AND (ybill = \'{Meta.GetSys("esercizio")}\')";
         }
 
-        public void MetaData_AfterFill () {
-           // EnableDisableControls(false);
-        }
+        public void MetaData_AfterRowSelect(DataTable T, DataRow R)
+        {
+            if (Meta.IsEmpty) return;
 
-        public void MetaData_AfterClear() {
-            //EnableDisableControls(true);
-        }
+            if (T.TableName == "bill")
+            {
+                if (R == null) return;
+                if (Meta.InsertMode) {
+                    string filter = QueryCreator.WHERE_KEY_CLAUSE(R, DataRowVersion.Default, true);
+                    Conn.RUN_SELECT_INTO_TABLE(DS.csa_bill_sosp_tocoverview, null, filter, null, true);
 
+                    DataRow[] allresults = DS.csa_bill_sosp_tocoverview.Select(QHC.CmpKey(R));
+                    if (allresults.Length > 0) {
+                        DataRow selected = allresults[0];
+
+                        /*decimal alreadyadded = 0;
+                        DataTable dataorigin =  Meta.SourceRow.Table;
+                        foreach (DataRow temp in dataorigin.Rows)
+                            //righe non ancora salvate
+                            if (temp.RowState == DataRowState.Added && temp["nbill"] == selected["nbill"])
+                                alreadyadded += CfgFn.GetNoNullDecimal(temp["amount"]);*/
+
+                        this.txtAmount.Text = (CfgFn.GetNoNullDecimal(selected["tocover"]) /*- alreadyadded*/).ToString();
+                    }
+                }
+            }
+        }
 
         void EnableDisableControls(bool enable) {
 
@@ -348,6 +374,7 @@ namespace csa_bill_detail
             this.txtAmount.Name = "txtAmount";
             this.txtAmount.Size = new System.Drawing.Size(100, 20);
             this.txtAmount.TabIndex = 16;
+            // riporto la creazione del tag anche nella afterfill in maniera dinamica
             this.txtAmount.Tag = "csa_bill.amount";
             // 
             // btnOk
@@ -404,8 +431,9 @@ namespace csa_bill_detail
             this.btnBolletta.Name = "btnBolletta";
             this.btnBolletta.Size = new System.Drawing.Size(104, 23);
             this.btnBolletta.TabIndex = 2;
-            this.btnBolletta.Tag = "choose.bill.default.((billkind = \'D\') AND(active= \'S\') AND (isnull(total,0)-isnul" +
-    "l(reduction,0)>covered ) AND (ISNULL(toregularize,0)>0) )";
+            // riporto la creazione del tag nella afterlink in maniera dinamica
+            //this.btnBolletta.Tag = "choose.bill.default.((billkind = \'D\') AND(active= \'S\') AND (isnull(total,0)-isnul" +
+    //"l(reduction,0)>covered ) AND (ISNULL(toregularize,0)>0) )";
             this.btnBolletta.Text = "N.bolletta";
             this.btnBolletta.UseVisualStyleBackColor = true;
             // 
@@ -441,4 +469,3 @@ namespace csa_bill_detail
  
     }
 }
-

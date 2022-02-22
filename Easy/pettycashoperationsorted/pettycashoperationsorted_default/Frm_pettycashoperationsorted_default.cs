@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -30,7 +29,7 @@ namespace pettycashoperationsorted_default {
 	/// <summary>
 	/// Summary description for Frm_pettycashoperationsorted_default.
 	/// </summary>
-	public class Frm_pettycashoperationsorted_default : System.Windows.Forms.Form {
+	public class Frm_pettycashoperationsorted_default : MetaDataForm {
 		public MetaData Meta;
 		decimal importototale;
 		decimal importoresiduo;
@@ -417,6 +416,7 @@ namespace pettycashoperationsorted_default {
 			// DS
 			// 
 			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
 			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
 			// 
 			// btnCancel
@@ -442,7 +442,7 @@ namespace pettycashoperationsorted_default {
 			// 
 			// label1
 			// 
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label1.Location = new System.Drawing.Point(252, 189);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(40, 24);
@@ -453,9 +453,9 @@ namespace pettycashoperationsorted_default {
 			// chkIncompleto
 			// 
 			this.chkIncompleto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.chkIncompleto.Location = new System.Drawing.Point(12, 311);
+			this.chkIncompleto.Location = new System.Drawing.Point(12, 330);
 			this.chkIncompleto.Name = "chkIncompleto";
-			this.chkIncompleto.Size = new System.Drawing.Size(152, 32);
+			this.chkIncompleto.Size = new System.Drawing.Size(152, 16);
 			this.chkIncompleto.TabIndex = 279;
 			this.chkIncompleto.Tag = "pettycashoperationsorted.tobecontinued:S:N";
 			this.chkIncompleto.Text = "Da completare in seguito";
@@ -466,7 +466,6 @@ namespace pettycashoperationsorted_default {
 			this.txtPercentuale.Name = "txtPercentuale";
 			this.txtPercentuale.Size = new System.Drawing.Size(80, 20);
 			this.txtPercentuale.TabIndex = 250;
-			this.txtPercentuale.Text = "";
 			this.txtPercentuale.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.txtPercentuale.Leave += new System.EventHandler(this.txtPercentuale_Leave);
 			// 
@@ -477,7 +476,6 @@ namespace pettycashoperationsorted_default {
 			this.txtImporto.Size = new System.Drawing.Size(144, 20);
 			this.txtImporto.TabIndex = 249;
 			this.txtImporto.Tag = "pettycashoperationsorted.amount";
-			this.txtImporto.Text = "";
 			this.txtImporto.Leave += new System.EventHandler(this.txtImporto_Leave);
 			// 
 			// txtDescrizione
@@ -488,16 +486,15 @@ namespace pettycashoperationsorted_default {
 			this.txtDescrizione.Size = new System.Drawing.Size(248, 48);
 			this.txtDescrizione.TabIndex = 248;
 			this.txtDescrizione.Tag = "pettycashoperationsorted.description";
-			this.txtDescrizione.Text = "";
 			// 
 			// txtSubmovimento
 			// 
 			this.txtSubmovimento.Location = new System.Drawing.Point(12, 117);
 			this.txtSubmovimento.Name = "txtSubmovimento";
 			this.txtSubmovimento.ReadOnly = true;
+			this.txtSubmovimento.Size = new System.Drawing.Size(100, 20);
 			this.txtSubmovimento.TabIndex = 251;
 			this.txtSubmovimento.Tag = "pettycashoperationsorted.idsubclass";
-			this.txtSubmovimento.Text = "";
 			// 
 			// panel1
 			// 
@@ -532,7 +529,7 @@ namespace pettycashoperationsorted_default {
 			// 
 			// labelslash
 			// 
-			this.labelslash.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.labelslash.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.labelslash.Location = new System.Drawing.Point(172, 50);
 			this.labelslash.Name = "labelslash";
 			this.labelslash.Size = new System.Drawing.Size(12, 16);
@@ -556,7 +553,6 @@ namespace pettycashoperationsorted_default {
 			this.DataFine.Size = new System.Drawing.Size(144, 20);
 			this.DataFine.TabIndex = 6;
 			this.DataFine.Tag = "pettycashoperationsorted.stop";
-			this.DataFine.Text = "";
 			// 
 			// DataInizio
 			// 
@@ -565,12 +561,12 @@ namespace pettycashoperationsorted_default {
 			this.DataInizio.Size = new System.Drawing.Size(144, 20);
 			this.DataInizio.TabIndex = 5;
 			this.DataInizio.Tag = "pettycashoperationsorted.start";
-			this.DataInizio.Text = "";
 			// 
 			// lblPercentuale
 			// 
 			this.lblPercentuale.Location = new System.Drawing.Point(172, 173);
 			this.lblPercentuale.Name = "lblPercentuale";
+			this.lblPercentuale.Size = new System.Drawing.Size(100, 23);
 			this.lblPercentuale.TabIndex = 255;
 			this.lblPercentuale.Text = "Percentuale";
 			// 
@@ -578,6 +574,7 @@ namespace pettycashoperationsorted_default {
 			// 
 			this.lblImporto.Location = new System.Drawing.Point(12, 173);
 			this.lblImporto.Name = "lblImporto";
+			this.lblImporto.Size = new System.Drawing.Size(100, 23);
 			this.lblImporto.TabIndex = 254;
 			this.lblImporto.Text = "Importo";
 			// 
@@ -616,9 +613,9 @@ namespace pettycashoperationsorted_default {
 			// 
 			this.txtCodiceClass.Location = new System.Drawing.Point(112, 24);
 			this.txtCodiceClass.Name = "txtCodiceClass";
+			this.txtCodiceClass.Size = new System.Drawing.Size(100, 20);
 			this.txtCodiceClass.TabIndex = 155;
 			this.txtCodiceClass.Tag = "sorting.sortcode?x";
-			this.txtCodiceClass.Text = "";
 			// 
 			// txtDescrizioneClass
 			// 
@@ -629,7 +626,6 @@ namespace pettycashoperationsorted_default {
 			this.txtDescrizioneClass.Size = new System.Drawing.Size(208, 48);
 			this.txtDescrizioneClass.TabIndex = 156;
 			this.txtDescrizioneClass.Tag = "sorting.description";
-			this.txtDescrizioneClass.Text = "";
 			// 
 			// label3
 			// 
@@ -646,7 +642,6 @@ namespace pettycashoperationsorted_default {
 			this.valoreV5.Size = new System.Drawing.Size(144, 20);
 			this.valoreV5.TabIndex = 290;
 			this.valoreV5.Tag = "";
-			this.valoreV5.Text = "";
 			this.valoreV5.Visible = false;
 			// 
 			// valoreV4
@@ -656,7 +651,6 @@ namespace pettycashoperationsorted_default {
 			this.valoreV4.Size = new System.Drawing.Size(144, 20);
 			this.valoreV4.TabIndex = 289;
 			this.valoreV4.Tag = "";
-			this.valoreV4.Text = "";
 			this.valoreV4.Visible = false;
 			// 
 			// valoreV3
@@ -666,7 +660,6 @@ namespace pettycashoperationsorted_default {
 			this.valoreV3.Size = new System.Drawing.Size(144, 20);
 			this.valoreV3.TabIndex = 286;
 			this.valoreV3.Tag = "";
-			this.valoreV3.Text = "";
 			this.valoreV3.Visible = false;
 			// 
 			// valoreV2
@@ -676,7 +669,6 @@ namespace pettycashoperationsorted_default {
 			this.valoreV2.Size = new System.Drawing.Size(144, 20);
 			this.valoreV2.TabIndex = 285;
 			this.valoreV2.Tag = "";
-			this.valoreV2.Text = "";
 			this.valoreV2.Visible = false;
 			// 
 			// valoreV1
@@ -686,7 +678,6 @@ namespace pettycashoperationsorted_default {
 			this.valoreV1.Size = new System.Drawing.Size(144, 20);
 			this.valoreV1.TabIndex = 284;
 			this.valoreV1.Tag = "";
-			this.valoreV1.Text = "";
 			this.valoreV1.Visible = false;
 			// 
 			// labelV5
@@ -746,7 +737,6 @@ namespace pettycashoperationsorted_default {
 			this.valoreS5.Size = new System.Drawing.Size(144, 20);
 			this.valoreS5.TabIndex = 276;
 			this.valoreS5.Tag = "";
-			this.valoreS5.Text = "";
 			this.valoreS5.Visible = false;
 			// 
 			// valoreN5
@@ -756,7 +746,6 @@ namespace pettycashoperationsorted_default {
 			this.valoreN5.Size = new System.Drawing.Size(144, 20);
 			this.valoreN5.TabIndex = 275;
 			this.valoreN5.Tag = "";
-			this.valoreN5.Text = "";
 			this.valoreN5.Visible = false;
 			// 
 			// valoreS4
@@ -766,7 +755,6 @@ namespace pettycashoperationsorted_default {
 			this.valoreS4.Size = new System.Drawing.Size(144, 20);
 			this.valoreS4.TabIndex = 274;
 			this.valoreS4.Tag = "";
-			this.valoreS4.Text = "";
 			this.valoreS4.Visible = false;
 			// 
 			// valoreN4
@@ -776,7 +764,6 @@ namespace pettycashoperationsorted_default {
 			this.valoreN4.Size = new System.Drawing.Size(144, 20);
 			this.valoreN4.TabIndex = 273;
 			this.valoreN4.Tag = "";
-			this.valoreN4.Text = "";
 			this.valoreN4.Visible = false;
 			// 
 			// valoreN2
@@ -786,7 +773,6 @@ namespace pettycashoperationsorted_default {
 			this.valoreN2.Size = new System.Drawing.Size(144, 20);
 			this.valoreN2.TabIndex = 261;
 			this.valoreN2.Tag = "";
-			this.valoreN2.Text = "";
 			this.valoreN2.Visible = false;
 			// 
 			// valoreS3
@@ -796,7 +782,6 @@ namespace pettycashoperationsorted_default {
 			this.valoreS3.Size = new System.Drawing.Size(144, 20);
 			this.valoreS3.TabIndex = 270;
 			this.valoreS3.Tag = "";
-			this.valoreS3.Text = "";
 			this.valoreS3.Visible = false;
 			// 
 			// valoreS2
@@ -806,7 +791,6 @@ namespace pettycashoperationsorted_default {
 			this.valoreS2.Size = new System.Drawing.Size(144, 20);
 			this.valoreS2.TabIndex = 269;
 			this.valoreS2.Tag = "";
-			this.valoreS2.Text = "";
 			this.valoreS2.Visible = false;
 			// 
 			// valoreN1
@@ -816,7 +800,6 @@ namespace pettycashoperationsorted_default {
 			this.valoreN1.Size = new System.Drawing.Size(144, 20);
 			this.valoreN1.TabIndex = 260;
 			this.valoreN1.Tag = "";
-			this.valoreN1.Text = "";
 			this.valoreN1.Visible = false;
 			// 
 			// valoreN3
@@ -826,7 +809,6 @@ namespace pettycashoperationsorted_default {
 			this.valoreN3.Size = new System.Drawing.Size(144, 20);
 			this.valoreN3.TabIndex = 262;
 			this.valoreN3.Tag = "";
-			this.valoreN3.Text = "";
 			this.valoreN3.Visible = false;
 			// 
 			// valoreS1
@@ -836,7 +818,6 @@ namespace pettycashoperationsorted_default {
 			this.valoreS1.Size = new System.Drawing.Size(144, 20);
 			this.valoreS1.TabIndex = 268;
 			this.valoreS1.Tag = "";
-			this.valoreS1.Text = "";
 			this.valoreS1.Visible = false;
 			// 
 			// labelS5
@@ -992,8 +973,11 @@ namespace pettycashoperationsorted_default {
 			this.Text = "Frm_pettycashoperationsorted_default";
 			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.panel1.ResumeLayout(false);
+			this.panel1.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 		#endregion
@@ -1033,7 +1017,7 @@ namespace pettycashoperationsorted_default {
 					NumberStyles.Number,
 					NumberFormatInfo.CurrentInfo);
 				if ((percent < 0) || (percent > percentmax)) {
-					OK = (MessageBox.Show(errmsg,"Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
+					OK = (show(errmsg,"Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
 				}
 				else {
 					OK=true;
@@ -1041,7 +1025,7 @@ namespace pettycashoperationsorted_default {
   
 			}
 			catch {                
-				MessageBox.Show("E' necessario digitare un numero" ,"Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
+				show("E' necessario digitare un numero" ,"Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
 				return false;
 			}            
 			return OK;
@@ -1080,12 +1064,12 @@ namespace pettycashoperationsorted_default {
 					OK = true;
 				}
 				else{
-					OK = (MessageBox.Show(errmsg,"Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
+					OK = (show(errmsg,"Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
 				}
   
 			}
 			catch {                
-				MessageBox.Show("E' necessario inserire un numero","Avviso",
+				show("E' necessario inserire un numero","Avviso",
 					System.Windows.Forms.MessageBoxButtons.OK,
 					System.Windows.Forms.MessageBoxIcon.Exclamation);
 				return false;
@@ -1109,4 +1093,4 @@ namespace pettycashoperationsorted_default {
 			AnalizzaCheckIgnoraDate();
 		}
 	}
-}
+}

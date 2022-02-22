@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -32,7 +31,7 @@ namespace ToolOnDemand//ToolOnDemand//
 	/// <summary>
 	/// Summary description for frmToolOnDemand.
 	/// </summary>
-	public class Frm_ToolOnDemand : System.Windows.Forms.Form
+	public class Frm_ToolOnDemand : MetaDataForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -702,11 +701,11 @@ namespace ToolOnDemand//ToolOnDemand//
 		}
 
 		private void ShowMsg(string msg) {
-			MessageBox.Show(msg,"Attenzione",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+			show(msg,"Attenzione",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 		}
 
 		private DialogResult ShowQuestion(string msg) {
-			return MessageBox.Show(msg,"Domanda",
+			return show(msg,"Domanda",
 				MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question);
 		}
 
@@ -898,7 +897,7 @@ namespace ToolOnDemand//ToolOnDemand//
 			foreach (DataColumn C in DS.fileupdate.Columns) {
 				C.Caption="";
 			}
-			DS.fileupdate.progressivoColumn.Caption="Progressivo";
+			DS.fileupdate.Columns["progressivo"].Caption="Progressivo";
 			DS.fileupdate.Columns["filename"].Caption="Nome file";
 			DS.fileupdate.Columns["filekind"].Caption="Tipo file";
 			HelpForm.SetDataGrid(gridDetail, DS.fileupdate);
@@ -1043,7 +1042,7 @@ namespace ToolOnDemand//ToolOnDemand//
 
 		private bool Chiudi() {
 			if (modified) {
-				DialogResult res=MessageBox.Show("Ci sono modifche, vuoi salvare?","Attenzione",
+				DialogResult res=show("Ci sono modifche, vuoi salvare?","Attenzione",
 					MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question);
 				if (res==DialogResult.Cancel) return true;
 				if (res==DialogResult.Yes) btnSalva_Click(null,null);
@@ -1064,4 +1063,3 @@ namespace ToolOnDemand//ToolOnDemand//
 
 	}
 }
-

@@ -1,0 +1,88 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_isee_seganagstu_aa">Anno Accademico</label>
+					<select id="dichiar_isee_seganagstu_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="dichiar.aa?dichiarisee_seganagstuview.aa" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#dichiar_isee_seganagstu_date").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="dichiar_isee_seganagstu_date">Data</label>
+					<input id="dichiar_isee_seganagstu_date" type="text" class="form-control" data-tag="dichiar.date?dichiarisee_seganagstuview.dichiar_date" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_isee_seganagstu_iddichiarkind">Tipologia</label>
+					<select id="dichiar_isee_seganagstu_iddichiarkind" class="custom-select d-block w-100"  data-source-name="dichiarkinddefaultview" data-value-member="iddichiarkind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="dichiar.iddichiarkind?dichiarisee_seganagstuview.dichiar_iddichiarkind" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_isee_seganagstu_protnumero">NumeroProtocollo</label>
+					<input id="dichiar_isee_seganagstu_protnumero" type="text" class="form-control" data-tag="dichiar.protnumero?dichiarisee_seganagstuview.dichiar_protnumero" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_isee_seganagstu_protanno">Anno Protocollo</label>
+					<input id="dichiar_isee_seganagstu_protanno" type="text" class="form-control" data-tag="dichiar.protanno?dichiarisee_seganagstuview.dichiar_protanno" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_isee_seganagstu_anno">Anno</label>
+					<input id="dichiar_isee_seganagstu_anno" type="text" class="form-control" data-tag="dichiar_isee.anno?dichiarisee_seganagstuview.dichiar_isee_anno" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_isee_seganagstu_conforme">Conformità</label>
+					<div class="custom-control custom-radio">
+						<input id="dichiar_isee_seganagstu_conformeSi" type="radio" name="dichiar_isee_seganagstu_conforme" class="custom-control-input" data-tag="dichiar_isee.conforme:S?dichiarisee_seganagstuview.dichiar_isee_conforme:Si" data-subentity  data-mandatory ><label for="dichiar_isee_seganagstu_conformeSi"> Si</label>
+						<input id="dichiar_isee_seganagstu_conformeNo" type="radio" name="dichiar_isee_seganagstu_conforme" class="custom-control-input" data-tag="dichiar_isee.conforme:N?dichiarisee_seganagstuview.dichiar_isee_conforme:No" data-subentity  data-mandatory ><label for="dichiar_isee_seganagstu_conformeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#dichiar_isee_seganagstu_dataauthdiff").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="dichiar_isee_seganagstu_dataauthdiff">Data autorizzazione</label>
+					<input id="dichiar_isee_seganagstu_dataauthdiff" type="text" class="form-control" data-tag="dichiar_isee.dataauthdiff?dichiarisee_seganagstuview.dichiar_isee_dataauthdiff" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#dichiar_isee_seganagstu_datasottoscriz").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="dichiar_isee_seganagstu_datasottoscriz">Data di sottoscrizione</label>
+					<input id="dichiar_isee_seganagstu_datasottoscriz" type="text" class="form-control" data-tag="dichiar_isee.datasottoscriz?dichiarisee_seganagstuview.dichiar_isee_datasottoscriz" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_isee_seganagstu_enterilascio">Ente del rilascio</label>
+					<input id="dichiar_isee_seganagstu_enterilascio" type="text" class="form-control" data-tag="dichiar_isee.enterilascio?dichiarisee_seganagstuview.dichiar_isee_enterilascio" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_isee_seganagstu_isee">Valore ISEE</label>
+					<input id="dichiar_isee_seganagstu_isee" type="text" class="form-control" data-tag="dichiar_isee.isee.fixed.2?dichiarisee_seganagstuview.dichiar_isee_isee" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="dichiar_isee_seganagstu_numeroprot">Numero protocollo</label>
+					<input id="dichiar_isee_seganagstu_numeroprot" type="text" class="form-control" data-tag="dichiar_isee.numeroprot?dichiarisee_seganagstuview.dichiar_isee_numeroprot" data-subentity  data-mandatory />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

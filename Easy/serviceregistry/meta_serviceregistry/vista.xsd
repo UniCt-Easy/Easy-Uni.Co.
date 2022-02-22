@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xs:schema id="vista" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vista" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
     <xs:complexType>
@@ -91,9 +91,13 @@
               <xs:element name="idsor02" type="xs:int" minOccurs="0" />
               <xs:element name="idsor03" type="xs:int" minOccurs="0" />
               <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="codicepaipa" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceaooipa" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceuoipa" type="xs:string" minOccurs="0" />
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="certinterestconflicts" type="xs:string" minOccurs="0" />
               <xs:element name="website_annulled" type="xs:string" minOccurs="0" />
+              <xs:element name="perla_error" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

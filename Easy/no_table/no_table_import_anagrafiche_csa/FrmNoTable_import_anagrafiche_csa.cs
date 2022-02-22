@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -28,12 +27,13 @@ using metaeasylibrary;
 using funzioni_configurazione;
 using System.Text;
 using System.Globalization;
+using q= metadatalibrary.MetaExpression;
 
 namespace no_table_import_anagrafiche_csa {
     /// <summary>
     /// Summary description for no_table_import_anagrafiche_csa.
     /// </summary>
-    public class FrmNoTable_import_anagrafiche_csa : System.Windows.Forms.Form {
+    public class FrmNoTable_import_anagrafiche_csa : MetaDataForm {
         MetaData Meta;
         QueryHelper QHS;
         CQueryHelper QHC;
@@ -54,6 +54,8 @@ namespace no_table_import_anagrafiche_csa {
         MetaData MetaRegistryPay;
         MetaData MetaRegistryLegalStatus;
         MetaData MetaRegistryTaxableStatus;
+        MetaData MetaRegistryDocenti;
+        MetaData MetaRegistryAamministrativi;
 
         DataTable Residence;
         Hashtable Hres;
@@ -308,6 +310,12 @@ namespace no_table_import_anagrafiche_csa {
             MetaRegistryLegalStatus = Meta.Dispatcher.Get("registrylegalstatus");
             MetaRegistryLegalStatus.SetDefaults(D.Tables["registrylegalstatus"]);
 
+            MetaRegistryDocenti = Meta.Dispatcher.Get("registry_docenti");
+            MetaRegistryDocenti.SetDefaults(D.Tables["registry_docenti"]);
+
+            MetaRegistryAamministrativi = Meta.Dispatcher.Get("registry_amministrativi");
+            MetaRegistryAamministrativi.SetDefaults(D.Tables["registry_amministrativi"]);
+
             MetaRegistryTaxableStatus = Meta.Dispatcher.Get("registrytaxablestatus");
             MetaRegistryTaxableStatus.SetDefaults(D.Tables["registrytaxablestatus"]);
 
@@ -329,16 +337,16 @@ namespace no_table_import_anagrafiche_csa {
             object LinkedServerName = Conn.DO_READ_VALUE("linkedserveraccess", null, "linkedservername");
             object DBServerName = Conn.DO_READ_VALUE("linkedserveraccess", null, "dbservername");
             if ((LinkedServerName == null) && (DBServerName == null)) {
-                MessageBox.Show(this,
+                show(this,
                     "Non è stato trovato né il nome del LinkedServer né il nome del DB da cui leggere le Anagrafiche.",
                     "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             progressBar1.Value = 0;
             if (!ImportaAnagrafiche(LinkedServerName, DBServerName))
-                MessageBox.Show("Operazione non eseguita.");
+                show("Operazione non eseguita.");
             else
-                MessageBox.Show("Operazione eseguita.");
+                show("Operazione eseguita.");
         }
 
         private bool isNumeric(string str, out int valore) {
@@ -375,20 +383,20 @@ namespace no_table_import_anagrafiche_csa {
             DataSet DSOut = Meta.Conn.CallSP("import_anagrafiche_csa",
                 new object[] {linkedServerName, DBServerName, imatricola_da, imatricola_a}, 1000, out errMess);
             if (errMess != null) {
-                MessageBox.Show(this, "Errore nella chiamata della procedura che importa le Anagrafiche " +
+                show(this, "Errore nella chiamata della procedura che importa le Anagrafiche " +
                                       "\r\rContattare il servizio assistenza"
                                       + "\r\rDettaglio dell'errore :\r\r" + errMess, "Errore");
                 return false;
             }
 
             if ((DSOut == null) || (DSOut.Tables.Count == 0)) {
-                MessageBox.Show(this, "Non ci sono anagrafiche da importare.", "Informazione", MessageBoxButtons.OK,
+                show(this, "Non ci sono anagrafiche da importare.", "Informazione", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
                 return false;
             }
             DataTable Out = DSOut.Tables[0];
             if (Out.Rows.Count == 0) {
-                MessageBox.Show(this, "Non ci sono anagrafiche da importare.", "Informazione", MessageBoxButtons.OK,
+                show(this, "Non ci sono anagrafiche da importare.", "Informazione", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
                 return false;
             }
@@ -396,7 +404,7 @@ namespace no_table_import_anagrafiche_csa {
             DataSet DSOutPos = Meta.Conn.CallSP("import_inquadranagrafiche_csa",
                 new object[] {linkedServerName, DBServerName, imatricola_da, imatricola_a}, 10000, out errMess);
             if (errMess != null) {
-                MessageBox.Show(this,
+                show(this,
                     "Errore nella chiamata della procedura che importa gli inquadramenti delle Anagrafiche " +
                     "\r\rContattare il servizio assistenza"
                     + "\r\rDettaglio dell'errore :\r\r" + errMess, "Errore");
@@ -406,7 +414,7 @@ namespace no_table_import_anagrafiche_csa {
             DataTable OutPos = null;
 
             if ((DSOutPos == null) || (DSOutPos.Tables.Count == 0)) {
-                MessageBox.Show(this, "Non ci sono inquadramenti delle anagrafiche da importare.", "Informazione",
+                show(this, "Non ci sono inquadramenti delle anagrafiche da importare.", "Informazione",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //return false;
             }
@@ -414,7 +422,7 @@ namespace no_table_import_anagrafiche_csa {
                 OutPos = DSOutPos.Tables[0];
             }
             //if (OutPos.Rows.Count == 0){
-            //    MessageBox.Show(this, "Non ci sono inquadramenti delle anagrafiche da importare.", "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    show(this, "Non ci sono inquadramenti delle anagrafiche da importare.", "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
             //    return false;
             //}
 
@@ -442,59 +450,59 @@ namespace no_table_import_anagrafiche_csa {
                 filterAnagrafica = QHS.AppAnd(QHS.CmpEq("active", "S"), QHS.CmpEq("cf", rCSA["cf"]));
                 bool inMemory = regs.ContainsKey(rCSA["cf"].ToString().ToUpper());
                 int countReg = Conn.RUN_SELECT_COUNT("registry", filterAnagrafica, true);
-                if (countReg == 1 | inMemory) {  // Solo se la riga è unica
-                    QueryCreator.MarkEvent("Considero matricola "+rCSA["matricola"]);
+				if (countReg == 1 | inMemory) {  // Solo se la riga è unica
+					QueryCreator.MarkEvent("Considero matricola " + rCSA["matricola"]);
 
-                    updated = false;
-                    DataRow rRegistry;
-                    if (inMemory) {
-                        rRegistry = regs[rCSA["cf"].ToString().ToUpper()];
-                    }
-                    else {
-                        DataAccess.RUN_SELECT_INTO_TABLE(Conn, D.Tables["registry"], null, filterAnagrafica, null, true);
-                        filterAnagraficaDS = QHC.AppAnd(QHC.CmpEq("active", "S"), QHC.CmpEq("cf", rCSA["cf"]));
-                        rRegistry = D.Tables["registry"].Select(filterAnagraficaDS)[0];
-                        regs[rCSA["cf"].ToString().ToUpper()]=rRegistry;
-                    }
-                    updated = AggiornaAnagrafica(rCSA, rRegistry) | updated;
-                    updated = AggiornaIndirizzoRes(rCSA, rRegistry) | updated;
+					updated = false;
+					DataRow rRegistry;
+					if (inMemory) {
+						rRegistry = regs[rCSA["cf"].ToString().ToUpper()];
+					}
+					else {
+						DataAccess.RUN_SELECT_INTO_TABLE(Conn, D.Tables["registry"], null, filterAnagrafica, null, true);
+						filterAnagraficaDS = QHC.AppAnd(QHC.CmpEq("active", "S"), QHC.CmpEq("cf", rCSA["cf"]));
+						rRegistry = D.Tables["registry"].Select(filterAnagraficaDS)[0];
+						regs[rCSA["cf"].ToString().ToUpper()] = rRegistry;
+					}
+					updated = AggiornaAnagrafica(rCSA, rRegistry) | updated;
+					updated = AggiornaIndirizzoRes(rCSA, rRegistry) | updated;
 
-                    updated = AggiornaIndirizzoDom(rCSA, rRegistry) | updated;
-                    redditoannuo = 0;
-                    // Solo se ci sono inquadramenti da importare, esegue questo segmento di codice
-                    if (OutPos != null) {
-                        QueryCreator.MarkEvent("Esamino pos. giuridiche matricola "+rCSA["matricola"]);
-                        foreach (DataRow rCSADati in OutPos.Select( QHC.AppAnd(filterMatricola, QHC.CmpEq("rowkind", "I")))) {
-                            updated = (AggiornaPosGiuridica(rCSADati, rRegistry)) | updated;
+					updated = AggiornaIndirizzoDom(rCSA, rRegistry) | updated;
+					redditoannuo = 0;
+					// Solo se ci sono inquadramenti da importare, esegue questo segmento di codice
+					if (OutPos != null) {
+						QueryCreator.MarkEvent("Esamino pos. giuridiche matricola " + rCSA["matricola"]);
+						foreach (DataRow rCSADati in OutPos.Select(QHC.AppAnd(filterMatricola, QHC.CmpEq("rowkind", "I")))) {
+							updated = (AggiornaPosGiuridica(rCSADati, rRegistry)) | updated;
 
-                            if (CfgFn.GetNoNullDecimal(rCSADati["imponpresunto"]) > redditoannuo) {
-                                redditoannuo = CfgFn.GetNoNullDecimal(rCSADati["imponpresunto"]);
-                                datavalidita = rCSADati["in_vigore_giur"];
-                            }
-                            if (rCSADati["avviso"].ToString() == "S") {
-                                avviso =  true;
-                            }
-                            updated = (AggiornaRedditoPresunto(rCSADati, rRegistry, redditoannuo, datavalidita)) ||
-                                      updated;
-                        }
-                        
-                        QueryCreator.MarkEvent("Esamino Mod. Pagamento "+rCSA["matricola"]);
-                        foreach (DataRow rDati in OutPos.Select( QHC.AppAnd(filterMatricola, QHC.CmpEq("rowkind", "P")))) {
-                            QueryCreator.MarkEvent("Mod. Pagamento rowkind è "+rCSA["matricola"]);
-                            updated = AggiornaModPagamento(rDati, rRegistry) | updated;
-                        }
-                     
-                    }
+							if (CfgFn.GetNoNullDecimal(rCSADati["imponpresunto"]) > redditoannuo) {
+								redditoannuo = CfgFn.GetNoNullDecimal(rCSADati["imponpresunto"]);
+								datavalidita = rCSADati["in_vigore_giur"];
+							}
+							if (rCSADati["avviso"].ToString() == "S") {
+								avviso = true;
+							}
+							updated = (AggiornaRedditoPresunto(rCSADati, rRegistry, redditoannuo, datavalidita)) ||
+									  updated;
+						}
 
-                    if (!updated) {
-                        rRegistry.Delete();
-                        rRegistry.AcceptChanges();
-                    }
-                    else {
-                        countrow_forsave++;
-                    }
-                }
-                if (countReg > 1) {
+						QueryCreator.MarkEvent("Esamino Mod. Pagamento " + rCSA["matricola"]);
+						foreach (DataRow rDati in OutPos.Select(QHC.AppAnd(filterMatricola, QHC.CmpEq("rowkind", "P")))) {
+							QueryCreator.MarkEvent("Mod. Pagamento rowkind è " + rCSA["matricola"]);
+							updated = AggiornaModPagamento(rDati, rRegistry) | updated;
+						}
+
+					}
+
+					if (!updated) {
+						rRegistry.Delete();
+						rRegistry.AcceptChanges();
+					}
+					else {
+						countrow_forsave++;
+					}
+				}
+				if (countReg > 1) {
                     //ci sono + righe attive con quel CF. Scarta l'anagrafica.
                     counterr++;
 
@@ -540,7 +548,7 @@ namespace no_table_import_anagrafiche_csa {
                 }
 
             } // Fine ciclo sulle Anagrafiche.
-            MessageBox.Show(this, "Salva quelle residue", "Informazione", MessageBoxButtons.OK,
+            show(this, "Salva quelle residue", "Informazione", MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
             // Salva le righe residue
             if (!SaveTrance(D, Tavviso, TanagraficheError, countavviso, counterr)) {
@@ -553,7 +561,7 @@ namespace no_table_import_anagrafiche_csa {
 
         private bool SaveTrance(DataSet D, DataTable Tavviso, DataTable TanagraficheError, int countavviso, int counterr) {
             if (countavviso > 0) {
-                MessageBox.Show(this, "Avviso vale S. Siamo in SaveTrance", "Informazione", MessageBoxButtons.OK,
+                show(this, "Avviso vale S. Siamo in SaveTrance", "Informazione", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
                 Tavviso.Columns["cf"].Caption = "CF";
                 Tavviso.Columns["nominativo"].Caption = "Nominativo";
@@ -563,6 +571,7 @@ namespace no_table_import_anagrafiche_csa {
                                + " è stato usato un criterio di ordinamento sui vari campi disponibili.";
                 FrmDettaglioRisultati X = new FrmDettaglioRisultati(DSAvviso.Tables["Tavviso"], intestazione);
                 X.Text = "Anagrafiche";
+                createForm(X, this);
                 X.ShowDialog(this);
                 DSAvviso.Tables.Remove(Tavviso);
             }
@@ -575,11 +584,12 @@ namespace no_table_import_anagrafiche_csa {
                                + " inquanto esisto due anagrafiche con lo stesso CF.";
                 FrmDettaglioRisultati X = new FrmDettaglioRisultati(DSError.Tables["TanagraficheError"], intestazione);
                 X.Text = "Anagrafiche scartate";
+                createForm(X, this);
                 X.ShowDialog(this);
                 DSError.Tables.Remove(TanagraficheError);
 
                 // Se vi sono stati errori, prima di salvare, chiede se importare o meno le anagrafiche. Se "no" azzera tutto, altrimenti Salva..
-                DialogResult RES = MessageBox.Show("Si desidera procedere all'importazione?", "Informazione",
+                DialogResult RES = show("Si desidera procedere all'importazione?", "Informazione",
                     MessageBoxButtons.OKCancel);
                 if (RES == DialogResult.OK) {
                     // Procede col salvataggio
@@ -847,6 +857,48 @@ namespace no_table_import_anagrafiche_csa {
                 //}
 
             }
+            //Aggiunge le righe in "registry_docenti" o  "registry_amministrativi" ove assenti
+            foreach (DataRow R in CSADati) {
+                if (R["rowkind"].ToString() != "I") //Deve agire solo se crea le righe dell'inquadramento
+                    continue;
+                int n_regdoc_amm = Conn.RUN_SELECT_COUNT("registry_docenti", QHS.CmpEq("idreg", Reg["idreg"]), true);
+                if (n_regdoc_amm > 0) continue;
+                n_regdoc_amm = Conn.RUN_SELECT_COUNT("registry_amministrativi", QHS.CmpEq("idreg", Reg["idreg"]), true);
+                if (n_regdoc_amm > 0) continue;
+                
+                object idposition = R["codicequalifica"];
+                if ((idposition != DBNull.Value) && (idposition != null)) {
+                    object idcontrattokind = Conn.DO_READ_VALUE("contrattokindposition", QHS.CmpEq("idposition", idposition), "idcontrattokind");
+                    object siglaimportazione = Conn.DO_READ_VALUE("contrattokind", QHS.CmpEq("idcontrattokind", idcontrattokind), "siglaimportazione");
+                    bool creatoAmministrativo = false;
+                    string[] amministrativi = new string[] { "B", "C", "D", "Dir.", "EP" };
+                    foreach (string S in amministrativi) { 
+                        if (siglaimportazione.Equals(S)) {
+                            DataRow RegAmm = MetaRegistryAamministrativi.Get_New_Row(Reg, D.Tables["registry_amministrativi"]);
+                            RegAmm["idreg"] = Reg["idreg"];
+                        RegAmm["idcontrattokind"] = idcontrattokind;
+                            RegAmm["ct"] = DateTime.Now;
+                            RegAmm["lt"] = DateTime.Now;
+                            RegAmm["cu"] = "importazioneCSA";
+                            RegAmm["lu"] = "importazioneCSA";
+                            creatoAmministrativo = true;
+                            break;
+                        } 
+                    }
+                     if(!creatoAmministrativo) {
+                            DataRow RegDoc = MetaRegistryDocenti.Get_New_Row(Reg, D.Tables["registry_docenti"]);
+                            RegDoc["idreg"] = Reg["idreg"];
+                            RegDoc["idcontrattokind"] = idcontrattokind;
+                            RegDoc["idreg_istituti"] = Conn.DO_READ_VALUE("istitutoprinc", null, "idreg");
+                            RegDoc["ct"] = DateTime.Now;
+                            RegDoc["lt"] = DateTime.Now;
+                            RegDoc["cu"] = "importazioneCSA";
+                            RegDoc["lu"] = "importazioneCSA";
+                        }
+                    
+                }
+              }
+
             if (redditoannuo != 0) {
                 DataRow RTS = MetaRegistryTaxableStatus.Get_New_Row(Reg, D.Tables["registrytaxablestatus"]);
                 RTS["idreg"] = Reg["idreg"];
@@ -867,8 +919,8 @@ namespace no_table_import_anagrafiche_csa {
             P.InitClass(D, Conn);
             bool res = P.DO_POST();
             if (displayMsg) {
-                if (res) MessageBox.Show("Dati salvati correttamente");
-                else MessageBox.Show("Dati non salvati.");
+                if (res) show("Dati salvati correttamente");
+                else show("Dati non salvati.");
             }
             metaprofiler.StopTimer(hSaveData);
             Application.DoEvents();
@@ -908,7 +960,7 @@ namespace no_table_import_anagrafiche_csa {
                             ), "idnation", null);
                     if (idnation == null) {
                         idnation = DBNull.Value;
-                        MessageBox.Show("Codice catastale :" + codice.ToString() +
+                        show("Codice catastale :" + codice.ToString() +
                                         " non trovato per l'anagrafica avente CF = " + codiceanag, "Errore");
                     }
                 }
@@ -1203,29 +1255,55 @@ namespace no_table_import_anagrafiche_csa {
             //if (idposition == DBNull.Value) return false;
 
             object idReg = Reg["idreg"];
-
+            
             string filterkey = QHS.AppAnd(QHS.CmpEq("idreg", idReg),
                 QHS.CmpEq("csa_compartment", rCSADati["comparto"]), QHS.CmpEq("csa_role", rCSADati["ruolo"]),
                 QHS.CmpEq("start", rCSADati["in_vigore_giur"]), QHS.CmpEq("incomeclass", rCSADati["classestipendiale"]));
+         
             int rKey = Conn.RUN_SELECT_COUNT("registrylegalstatus", filterkey, true);
-            DataRow R;
+            DataRow R=null;
             if (rKey > 0) {
                 // Aggiornerà solo i campi NON chiave, in realtà sta controllando i campi principali.
                 DataAccess.RUN_SELECT_INTO_TABLE(Conn, D.Tables["registrylegalstatus"], null, filterkey, null, true);
-                string filterkeyDS = QHC.AppAnd(QHC.CmpEq("idreg", idReg),
-                    QHC.CmpEq("csa_compartment", rCSADati["comparto"]), QHC.CmpEq("csa_role", rCSADati["ruolo"]),
-                    QHC.CmpEq("start", rCSADati["in_vigore_giur"]),
-                    QHC.CmpEq("incomeclass", rCSADati["classestipendiale"]));
-                DataRow[] rFound = D.Tables["registrylegalstatus"].Select(filterkeyDS);
+                DataRow[] rFound = D.Tables["registrylegalstatus"].Select(
+	                QHC.AppAnd(QHS.CmpEq("idreg", idReg),
+		                QHC.CmpEq("csa_compartment", rCSADati["comparto"]), QHC.CmpEq("csa_role", rCSADati["ruolo"]),
+		                QHC.CmpEq("start", rCSADati["in_vigore_giur"]), QHC.CmpEq("incomeclass", rCSADati["classestipendiale"]))
+	                );
                 R = rFound[0];
             }
             else {
-                // Inserisce un nuovo inquadramento, perchè nel DB non ne esiste uno con quei campi.
-                R = MetaRegistryLegalStatus.Get_New_Row(Reg, D.Tables["registrylegalstatus"]);
-                R["idreg"] = idReg;
+	            bool foundprec = false;
+	            if (rCSADati["in_vigore_giur"] != DBNull.Value) {
+		            DateTime oldStart = (DateTime) rCSADati["in_vigore_giur"];
+		            oldStart = oldStart.AddDays(-1);
+		            //Cerca l'inquadramento che finisce nel giorno precedente
+		            string filterkeyOld = QHS.AppAnd(QHS.CmpEq("idreg", idReg),
+			            QHS.CmpEq("csa_compartment", rCSADati["comparto"]), QHS.CmpEq("csa_role", rCSADati["ruolo"]),
+			            QHS.CmpEq("stop",oldStart), 
+			            QHS.CmpEq("incomeclass", rCSADati["classestipendiale"]));
+		            DataAccess.RUN_SELECT_INTO_TABLE(Conn, D.Tables["registrylegalstatus"],"start desc", filterkeyOld, "1", true);
+		            DataRow[] rFound = D.Tables["registrylegalstatus"].Select(
+			            QHC.AppAnd(QHC.CmpEq("idreg", idReg),
+				            QHC.CmpEq("csa_compartment", rCSADati["comparto"]),
+				            QHC.CmpEq("csa_role", rCSADati["ruolo"]),
+				            QHC.CmpEq("stop",oldStart), 
+				            QHC.CmpEq("incomeclass", rCSADati["classestipendiale"])));
+		            if (rFound.Length > 0) {
+			            R = rFound[0];
+			            foundprec = true;
+		            }
+	            }
+
+	            if (!foundprec) {
+		            // Inserisce un nuovo inquadramento, perchè nel DB non ne esiste uno con quei campi.
+		            R = MetaRegistryLegalStatus.Get_New_Row(Reg, D.Tables["registrylegalstatus"]);
+		            R["idreg"] = idReg;
+		            R["start"] = rCSADati["in_vigore_giur"];
+	            }
             }
 
-            R["start"] = rCSADati["in_vigore_giur"];
+          
             R["stop"] = rCSADati["termine"];
             R["active"] = "S";
             R["idposition"] = idposition;
@@ -1244,48 +1322,60 @@ namespace no_table_import_anagrafiche_csa {
             if (supposedincome == 0) return false;
             DataRow R = null;
             object idReg = Reg["idreg"];
-            string filter = QHS.AppAnd(QHS.CmpEq("idreg", idReg), QHS.CmpEq("start", start),
-                QHS.CmpEq("supposedincome", supposedincome));
+            // Controlla che nel DB ci sia una riga con quei dati identica, se c'è esce.
+            string filter = QHS.AppAnd(QHS.CmpEq("idreg", idReg), QHS.CmpEq("start", start),QHS.CmpEq("active","S"), QHS.CmpEq("supposedincome", supposedincome));
             int N = Conn.RUN_SELECT_COUNT("registrytaxablestatus", filter, true);
-            // Controlla che nel DB ci sia una riga con quei dati, se c'è esce.
             if (N > 0) return false;
+
+            DateTime dPrec = (DateTime) start;
+            dPrec = dPrec.AddDays(-1);
 
             bool toCreate = false;
             // controlla se la riga del DB ha importo  >. Se lo è esce.
             string filterkey = QHS.CmpEq("idreg", idReg);
-            DataTable ReddPres = Meta.Conn.RUN_SELECT("registrytaxablestatus", "idreg, start,supposedincome ",
-                "start DESC", filterkey, "1", false);
+            DataTable ReddPres = Meta.Conn.RUN_SELECT("registrytaxablestatus", "idreg, start,supposedincome ","start DESC",
+					QHS.AppAnd(QHS.CmpEq("active","S"),filterkey), "1", false);
 
             if (ReddPres.Select(QHC.CmpEq("start", start)).Length == 1) {
+                //Esiste un reddito con uguale start
+	            decimal redditoPrecedente = CfgFn.GetNoNullDecimal(ReddPres.Rows[0]["supposedincome"]);
+	            if (redditoPrecedente == supposedincome) return false; //Non c'è bisogno di aggiornarlo
+
                 DataAccess.RUN_SELECT_INTO_TABLE(Conn, D.Tables["registrytaxablestatus"], "start DESC",
-                    QHS.AppAnd(QHS.CmpEq("idreg", idReg), QHS.CmpEq("start", start)), "1", false);
+								QHS.AppAnd(QHS.CmpEq("idreg", idReg), QHS.CmpEq("start", start)), "1", false);
                 string filterkeyDS = QHC.AppAnd(QHC.CmpEq("idreg", idReg), QHC.CmpEq("start", start));
                 DataRow[] rFound = D.Tables["registrytaxablestatus"].Select(filterkeyDS);
                 if (rFound.Length > 0) {
-                    R = rFound[0];
+	                var RR = rFound[0];
+	                RR["active"] = "N";
                 }
             }
-			// Si cerca di aggiornare il reddito alla riga più recente
-			//if (R == null && ReddPres.Rows.Count > 0) {
-			//	// Se la riga è nel DB.l'importo o è >= o è <.
-			//	if (CfgFn.GetNoNullDecimal(ReddPres.Rows[0]["supposedincome"]) >= supposedincome) return false;
-			//	DataAccess.RUN_SELECT_INTO_TABLE(Conn, D.Tables["registrytaxablestatus"], "start DESC",
-			//		filterkey, "1", false);
-			//	string filterkeyDS = QHC.CmpEq("idreg", idReg);
-			//	DataRow[] rFound = D.Tables["registrytaxablestatus"].Select(filterkeyDS, "start DESC");
-			//	if (rFound.Length > 0)
-			//		R = rFound[0];
-			//}
+            else {
+	            var precRedd = ReddPres.Select(QHC.CmpLe("start", start), "start desc");
+	            if (precRedd.Length > 1) {
+		            object startFound = precRedd[0]["start"];
+		            //Esiste un reddito precedente attivo
+		            decimal redditoPrecedente = CfgFn.GetNoNullDecimal(precRedd[0]["supposedincome"]);
+		            if (redditoPrecedente == supposedincome) return false; //Non c'è bisogno di aggiornarlo
 
+                    //Crea il nuovo e rende il precedente non attivo
+		            DataAccess.RUN_SELECT_INTO_TABLE(Conn, D.Tables["registrytaxablestatus"], "start DESC",
+			            QHS.AppAnd(QHS.CmpEq("idreg", idReg), QHS.CmpEq("start",startFound )), "1", false);
+		            string filterkeyDS = QHC.AppAnd(QHC.CmpEq("idreg", idReg), QHC.CmpEq("start", startFound));
+		            DataRow[] rFound = D.Tables["registrytaxablestatus"].Select(filterkeyDS);
+		            if (rFound.Length > 0) {
+			            var RR = rFound[0];
+			            RR["active"] = "N";
+		            }
+	            }
+            }
 
-			if (R == null) {
+            if (R == null) {
                 // Inserisce una nuova riga, perchè nel DB non ne esiste uno con quei campi chiave.
-
                 // Controlla che non esista già in memoria:
                 string filterDS = QHC.AppAnd(QHC.CmpEq("idreg", idReg), QHC.CmpEq("start", start));
                 DataRow[] rDSFound = D.Tables["registrytaxablestatus"].Select(filterDS);
-                if (rDSFound.Length > 0)
-                    return false;
+                if (rDSFound.Length > 0) return false;//non effettua l'aggiornamento
 
                 R = MetaRegistryTaxableStatus.Get_New_Row(Reg, D.Tables["registrytaxablestatus"]);
                 R["idreg"] = Reg["idreg"];
@@ -1325,4 +1415,3 @@ namespace no_table_import_anagrafiche_csa {
     }
 }
 
-

@@ -1,247 +1,268 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace itinerationrefund_default {
+
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable currency{get { return Tables["currency"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable itinerationrefund{get { return Tables["itinerationrefund"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable itinerationrefundkind{get { return Tables["itinerationrefundkind"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable foreigncountry{get { return Tables["foreigncountry"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace itinerationrefund_default {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public partial class vistaForm: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	///<summary>
+	///Valuta
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable currency 		=> Tables["currency"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataRelationCollection Relations {get {return base.Relations; } } 
+	///<summary>
+	///Spesa
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable itinerationrefund 		=> Tables["itinerationrefund"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	///<summary>
+	///Rimborso Spese
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable itinerationrefundkind 		=> Tables["itinerationrefundkind"];
+
+	///<summary>
+	///Localit√† Estere
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable foreigncountry 		=> Tables["foreigncountry"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable itinerationrefundattachment 		=> Tables["itinerationrefundattachment"];
+
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaForm(){
-BeginInit();
-InitClass();
-EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-DataSetName = "vistaForm";
-Prefix = "";
-Namespace = "http://tempuri.org/vistaForm.xsd";
-EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaForm";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaForm.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("currency");
-	C= new DataColumn("idcurrency", typeof(System.Int32), "");
+	//////////////////// CURRENCY /////////////////////////////////
+	var tcurrency= new DataTable("currency");
+	C= new DataColumn("idcurrency", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tcurrency.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tcurrency.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tcurrency.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tcurrency.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tcurrency.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tcurrency.Columns.Add(C);
+	Tables.Add(tcurrency);
+	tcurrency.PrimaryKey =  new DataColumn[]{tcurrency.Columns["idcurrency"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idcurrency"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("itinerationrefund");
-	C= new DataColumn("nrefund", typeof(System.Int16), "");
+	//////////////////// ITINERATIONREFUND /////////////////////////////////
+	var titinerationrefund= new DataTable("itinerationrefund");
+	C= new DataColumn("nrefund", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	titinerationrefund.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	titinerationrefund.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("description", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("exchangerate", typeof(System.Double), ""));
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	titinerationrefund.Columns.Add(C);
+	titinerationrefund.Columns.Add( new DataColumn("description", typeof(string)));
+	titinerationrefund.Columns.Add( new DataColumn("exchangerate", typeof(double)));
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	titinerationrefund.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("extraallowance", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("advancepercentage", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("starttime", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("stoptime", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("flag_geo", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("amount", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("iditinerationrefundkind", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idcurrency", typeof(System.Int32), ""));
-	C= new DataColumn("iditineration", typeof(System.Int32), "");
+	titinerationrefund.Columns.Add(C);
+	titinerationrefund.Columns.Add( new DataColumn("extraallowance", typeof(decimal)));
+	titinerationrefund.Columns.Add( new DataColumn("advancepercentage", typeof(decimal)));
+	titinerationrefund.Columns.Add( new DataColumn("starttime", typeof(DateTime)));
+	titinerationrefund.Columns.Add( new DataColumn("stoptime", typeof(DateTime)));
+	titinerationrefund.Columns.Add( new DataColumn("flag_geo", typeof(string)));
+	titinerationrefund.Columns.Add( new DataColumn("amount", typeof(decimal)));
+	titinerationrefund.Columns.Add( new DataColumn("iditinerationrefundkind", typeof(int)));
+	titinerationrefund.Columns.Add( new DataColumn("idcurrency", typeof(int)));
+	C= new DataColumn("iditineration", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	titinerationrefund.Columns.Add(C);
+	titinerationrefund.Columns.Add( new DataColumn("flagitalian", typeof(string)));
+	titinerationrefund.Columns.Add( new DataColumn("flagadvancebalance", typeof(string)));
+	titinerationrefund.Columns.Add( new DataColumn("doc", typeof(string)));
+	titinerationrefund.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	titinerationrefund.Columns.Add( new DataColumn("requiredamount", typeof(decimal)));
+	titinerationrefund.Columns.Add( new DataColumn("docamount", typeof(decimal)));
+	titinerationrefund.Columns.Add( new DataColumn("webwarn", typeof(string)));
+	titinerationrefund.Columns.Add( new DataColumn("idforeigncountry", typeof(int)));
+	titinerationrefund.Columns.Add( new DataColumn("noaccount", typeof(decimal)));
+	Tables.Add(titinerationrefund);
+	titinerationrefund.PrimaryKey =  new DataColumn[]{titinerationrefund.Columns["nrefund"], titinerationrefund.Columns["iditineration"]};
 
-	T.Columns.Add(new DataColumn("flagitalian", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("flagadvancebalance", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("doc", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("docdate", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("requiredamount", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("docamount", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("webwarn", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idforeigncountry", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("noaccount", typeof(System.Decimal), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["nrefund"], 	T.Columns["iditineration"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("itinerationrefundkind");
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	//////////////////// ITINERATIONREFUNDKIND /////////////////////////////////
+	var titinerationrefundkind= new DataTable("itinerationrefundkind");
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	titinerationrefundkind.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	titinerationrefundkind.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	titinerationrefundkind.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	titinerationrefundkind.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("idaccmotive", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("iditinerationrefundkindgroup", typeof(System.Int32), ""));
-	C= new DataColumn("codeitinerationrefundkind", typeof(System.String), "");
+	titinerationrefundkind.Columns.Add(C);
+	titinerationrefundkind.Columns.Add( new DataColumn("idaccmotive", typeof(string)));
+	titinerationrefundkind.Columns.Add( new DataColumn("iditinerationrefundkindgroup", typeof(int)));
+	C= new DataColumn("codeitinerationrefundkind", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("iditinerationrefundkind", typeof(System.Int32), "");
+	titinerationrefundkind.Columns.Add(C);
+	C= new DataColumn("iditinerationrefundkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	titinerationrefundkind.Columns.Add(C);
+	titinerationrefundkind.Columns.Add( new DataColumn("active", typeof(string)));
+	titinerationrefundkind.Columns.Add( new DataColumn("flagadvance", typeof(string)));
+	titinerationrefundkind.Columns.Add( new DataColumn("flagbalance", typeof(string)));
+	Tables.Add(titinerationrefundkind);
+	titinerationrefundkind.PrimaryKey =  new DataColumn[]{titinerationrefundkind.Columns["iditinerationrefundkind"]};
 
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("flagadvance", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("flagbalance", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["iditinerationrefundkind"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("foreigncountry");
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	//////////////////// FOREIGNCOUNTRY /////////////////////////////////
+	var tforeigncountry= new DataTable("foreigncountry");
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tforeigncountry.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tforeigncountry.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tforeigncountry.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tforeigncountry.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("flag_ue", typeof(System.String), ""));
-	C= new DataColumn("codeforeigncountry", typeof(System.String), "");
+	tforeigncountry.Columns.Add(C);
+	tforeigncountry.Columns.Add( new DataColumn("flag_ue", typeof(string)));
+	C= new DataColumn("codeforeigncountry", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idforeigncountry", typeof(System.Int32), "");
+	tforeigncountry.Columns.Add(C);
+	C= new DataColumn("idforeigncountry", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("idmacroarea", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idforeigncountry"]};
-	T.PrimaryKey = key;
+	tforeigncountry.Columns.Add(C);
+	tforeigncountry.Columns.Add( new DataColumn("idmacroarea", typeof(int)));
+	Tables.Add(tforeigncountry);
+	tforeigncountry.PrimaryKey =  new DataColumn[]{tforeigncountry.Columns["idforeigncountry"]};
 
 
-//Relations
-DataTable TPar;
-DataTable TChild;
-DataColumn []CPar;
-DataColumn []CChild;
-TPar= Tables["currency"];
-TChild= Tables["itinerationrefund"];
-CPar = new DataColumn[1]{TPar.Columns["idcurrency"]};
-CChild = new DataColumn[1]{TChild.Columns["idcurrency"]};
-Relations.Add(new DataRelation("currency_itinerationrefund",CPar,CChild));
+	//////////////////// ITINERATIONREFUNDATTACHMENT /////////////////////////////////
+	var titinerationrefundattachment= new DataTable("itinerationrefundattachment");
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	titinerationrefundattachment.Columns.Add(C);
+	C= new DataColumn("iditineration", typeof(int));
+	C.AllowDBNull=false;
+	titinerationrefundattachment.Columns.Add(C);
+	C= new DataColumn("nrefund", typeof(short));
+	C.AllowDBNull=false;
+	titinerationrefundattachment.Columns.Add(C);
+	titinerationrefundattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	titinerationrefundattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	titinerationrefundattachment.Columns.Add( new DataColumn("description", typeof(string)));
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	titinerationrefundattachment.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	titinerationrefundattachment.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	titinerationrefundattachment.Columns.Add(C);
+	C= new DataColumn("lt", typeof(string));
+	C.AllowDBNull=false;
+	titinerationrefundattachment.Columns.Add(C);
+	titinerationrefundattachment.Columns.Add( new DataColumn("active", typeof(string)));
+	Tables.Add(titinerationrefundattachment);
+	titinerationrefundattachment.PrimaryKey =  new DataColumn[]{titinerationrefundattachment.Columns["idattachment"], titinerationrefundattachment.Columns["iditineration"], titinerationrefundattachment.Columns["nrefund"]};
 
-TPar= Tables["itinerationrefundkind"];
-TChild= Tables["itinerationrefund"];
-CPar = new DataColumn[1]{TPar.Columns["iditinerationrefundkind"]};
-CChild = new DataColumn[1]{TChild.Columns["iditinerationrefundkind"]};
-Relations.Add(new DataRelation("itinerationrefundkind_itinerationrefund",CPar,CChild));
 
-TPar= Tables["foreigncountry"];
-TChild= Tables["itinerationrefund"];
-CPar = new DataColumn[1]{TPar.Columns["idforeigncountry"]};
-CChild = new DataColumn[1]{TChild.Columns["idforeigncountry"]};
-Relations.Add(new DataRelation("FK_foreigncountry_itinerationrefund",CPar,CChild));
+	#endregion
+
+
+	#region DataRelation creation
+	var cPar = new []{foreigncountry.Columns["idforeigncountry"]};
+	var cChild = new []{itinerationrefund.Columns["idforeigncountry"]};
+	Relations.Add(new DataRelation("FK_foreigncountry_itinerationrefund",cPar,cChild,false));
+
+	cPar = new []{itinerationrefundkind.Columns["iditinerationrefundkind"]};
+	cChild = new []{itinerationrefund.Columns["iditinerationrefundkind"]};
+	Relations.Add(new DataRelation("itinerationrefundkind_itinerationrefund",cPar,cChild,false));
+
+	cPar = new []{currency.Columns["idcurrency"]};
+	cChild = new []{itinerationrefund.Columns["idcurrency"]};
+	Relations.Add(new DataRelation("currency_itinerationrefund",cPar,cChild,false));
+
+	cPar = new []{itinerationrefund.Columns["iditineration"], itinerationrefund.Columns["nrefund"]};
+	cChild = new []{itinerationrefundattachment.Columns["iditineration"], itinerationrefundattachment.Columns["nrefund"]};
+	Relations.Add(new DataRelation("itinerationrefundattachment_itinerationrefund",cPar,cChild,false));
+
+	#endregion
 
 }
 }
 }
-

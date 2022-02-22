@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mainform", "mainform\mainform.csproj", "{E04C2CEF-078B-4B25-904C-6374C88E0EE7}"
 EndProject
@@ -51,6 +51,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "f24epdetail_single", "f24epdetail\f24epdetail_single\f24epdetail_single.csproj", "{FECCAEC9-950C-403D-AB20-F3B63212301E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "calcolooccasionale", "casualcontract\calcolooccasionale\calcolooccasionale.csproj", "{EF1D2FBE-1425-40E7-94EC-5ABFB69A7CAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_wageadditionattachment", "wageadditionattachment\meta_wageadditionattachment\meta_wageadditionattachment.csproj", "{3E330FFF-CA46-470D-8EAC-AA19550B561C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wageadditionattachment_detail", "wageadditionattachment\wageadditionattachment_detail\wageadditionattachment_detail.csproj", "{267AE9EC-29D2-46DD-B122-07CD2E2B1A6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -158,8 +162,19 @@ Global
 		{EF1D2FBE-1425-40E7-94EC-5ABFB69A7CAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF1D2FBE-1425-40E7-94EC-5ABFB69A7CAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF1D2FBE-1425-40E7-94EC-5ABFB69A7CAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E330FFF-CA46-470D-8EAC-AA19550B561C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E330FFF-CA46-470D-8EAC-AA19550B561C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E330FFF-CA46-470D-8EAC-AA19550B561C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E330FFF-CA46-470D-8EAC-AA19550B561C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{267AE9EC-29D2-46DD-B122-07CD2E2B1A6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{267AE9EC-29D2-46DD-B122-07CD2E2B1A6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{267AE9EC-29D2-46DD-B122-07CD2E2B1A6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{267AE9EC-29D2-46DD-B122-07CD2E2B1A6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {02A57701-627D-4927-B291-7594D679B940}
 	EndGlobalSection
 EndGlobal

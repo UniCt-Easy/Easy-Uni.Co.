@@ -1,11 +1,39 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA upbitinerationavailable
 IF EXISTS(select * from sysobjects where id = object_id(N'[upbitinerationavailable]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [upbitinerationavailable]
 GO
- -- sp_help upbitinerationavailable
+-- setuser'amm'
+-- setuser'amministrazione'
+-- sp_help upbitinerationavailable
 -- clear_table_info 'upbitinerationavailable'
 -- select * from upbitinerationavailable where ayear = 2018
---select * from columntypes where tablename='upbitinerationavailable'
+-- select * from columntypes where tablename='upbitinerationavailable'
+
+-- VERSIONE MODIFICATA DA GIANNI E APPPROVATA DA SONIA LOMBARDO
+-- aggiunto filtro sui capitoli, non si deve calcolare la disponibilità di quelli che iniziano per 5 e 6
+-- and fin.codefin not like '5%'
+-- and fin.codefin not like '6%'
+
+-- VERSIONE MODIFICA DA GIANNI
+-- aggiunto filtro "AND iditinerationstatus <> 7 --Non considero le missioni annullate"
+-- per escludere sempre le missioni annullate ( analogamente al controllo sul flag active )
 CREATE VIEW [upbitinerationavailable]
 (
 	idupb,
@@ -41,6 +69,7 @@ CREATE VIEW [upbitinerationavailable]
 	idepupbkind,
 	flag,
 	ayear,
+	--totresidual,
 	previsionedisponibile_impegni,  --> (A) disponibile ad impegnare (creare una nuova fase 1)
     disponibilita_impegni,			--> (B) disponibilità degli impegni
     missioniupbnoncontabilizzate,	--> (C) missioni attribuite all'UPB ma non contabilizzate (in anticipo o saldo)
@@ -85,7 +114,7 @@ SELECT
 	treasurer.codetreasurer,
 	upb.idepupbkind,
 	upb.flag,
-	accountingyear.ayear,
+	accountingyear.ayear, 
 	-- previsionedisponibile_impegni:  (A) disponibile ad impegnare (creare una nuova fase 1)
 	ISNULL(
 		(SELECT SUM(upbtotal.currentprev)
@@ -97,6 +126,9 @@ SELECT
 					 FROM finlevel 
 					WHERE ayear = fin.ayear AND flag&2 <> 0)
 		AND     fin.ayear = accountingyear.ayear
+		-- 11/05/2021
+		AND		fin.codefin not like '5%'
+		AND		fin.codefin not like '6%'
 		GROUP BY upbtotal.idupb)
 	,0)
 	+
@@ -110,6 +142,9 @@ SELECT
 					 FROM finlevel 
 					WHERE ayear = fin.ayear  AND  flag&2 <> 0)
 		AND     fin.ayear = accountingyear.ayear
+		-- 11/05/2021
+		AND		fin.codefin not like '5%'
+		AND		fin.codefin not like '6%'
 		GROUP BY upbtotal.idupb)
 	,0)
 	-
@@ -130,9 +165,12 @@ SELECT
 			FROM finlevel 
 			WHERE ayear = fin.ayear AND flag&2 <> 0)
 		AND fin.ayear = accountingyear.ayear
+		-- 11/05/2021
+		AND		fin.codefin not like '5%'
+		AND		fin.codefin not like '6%'
 		GROUP BY upbexpensetotal.idupb)
 	,0),
-    -- disponibilita_impegni :  (B) disponibile della fase 1
+    -- disponibilita_impegni :  (B) disponibile della fase 1  rispetto alla fase 2
 	ISNULL(
 		(SELECT
 			ISNULL(SUM(upbexpensetotal.totalcompetency),0)  +
@@ -150,6 +188,9 @@ SELECT
 			FROM finlevel 
 			WHERE ayear = fin.ayear AND flag&2 <> 0)
 		AND fin.ayear = accountingyear.ayear
+		-- 11/05/2021
+		AND		fin.codefin not like '5%'
+		AND		fin.codefin not like '6%'
 		GROUP BY upbexpensetotal.idupb)
 	,0)
 	-
@@ -170,20 +211,84 @@ SELECT
 			FROM finlevel 
 			WHERE ayear = fin.ayear AND flag&2 <> 0)
 		AND fin.ayear = accountingyear.ayear
+		-- 11/05/2021
+		AND		fin.codefin not like '5%'
+		AND		fin.codefin not like '6%'
 		GROUP BY upbexpensetotal.idupb)
 	,0),
     -- missioniupbnoncontabilizzate:  (C) missioni attribuite all'UPB ma non contabilizzate (in anticipo o saldo)
-	ISNULL( (SELECT SUM(itineration.totalgross) 
-		FROM itineration
-		WHERE itineration.idupb = upb.idupb
-			and (select count(expenseitineration.iditineration) 
-					from expenseitineration	
-					where expenseitineration.iditineration = itineration.iditineration) = 0
-			and (select count(pettycashoperationitineration.iditineration) 
-					from pettycashoperationitineration	
-					where pettycashoperationitineration.iditineration = itineration.iditineration) = 0
-		),0),
 
+	
+		ISNULL( (SELECT SUM (ISNULL(itineration.supposedamount,0) +  ISNULL(itineration.supposedfood,0) + ISNULL(itineration.supposedliving,0) + ISNULL(itineration.supposedtravel,0) )
+		 FROM itineration
+		WHERE itineration.idupb = upb.idupb 
+		and itineration.yitineration<= accountingyear.ayear	
+		and isnull(itineration.active,'S') <> 'N' 
+		AND iditinerationstatus <> 7 --Non considero le missioni annullate
+		--- MISSIONE NON SALDATA  
+		AND NOT EXISTS (SELECT * FROM   expenseitineration mov					(nolock)
+										JOIN expense s							(nolock)		ON s.idexp = mov.idexp
+										LEFT OUTER JOIN expenseyear EY_start	(NOLOCK) 		ON EY_start.idexp = mov.idexp AND EY_start.ayear = s.ymov
+			 							WHERE itineration.iditineration= mov.iditineration and EY_start.ayear <= accountingyear.ayear	AND (mov.movkind = 4))
+		AND NOT EXISTS
+						(SELECT * FROM itinerationsorting (NOLOCK) 
+						WHERE iditineration = itineration.iditineration 
+						AND idsor = (SELECT idsor FROM sorting (NOLOCK) WHERE sortcode = 'Missione_Impegnata'))
+			)
+		 ,0)
+ 
+ 		-
+		ISNULL(	
+			(SELECT SUM(EY_start.amount)
+			FROM expenseitineration mov			(nolock)
+			JOIN expense s						(nolock)		ON s.idexp = mov.idexp
+			JOIN itineration 					(nolock)		ON itineration.iditineration= mov.iditineration
+			LEFT OUTER JOIN expenseyear EY_start (NOLOCK) 		ON EY_start.idexp = mov.idexp AND EY_start.ayear = s.ymov
+			WHERE (/*(mov.movkind = 4)OR*/(mov.movkind = 6)) 
+			AND itineration.idupb = upb.idupb	
+			and EY_start.ayear <= accountingyear.ayear	 
+			and itineration.yitineration<= accountingyear.ayear	 
+			and isnull(itineration.active,'S') <> 'N'  
+			AND iditinerationstatus <> 7 --Non considero le missioni annullate
+			--- MISSIONE NON SALDATA  
+			AND NOT EXISTS (SELECT * FROM   expenseitineration mov					(nolock)
+										JOIN expense s							(nolock)		ON s.idexp = mov.idexp
+										LEFT OUTER JOIN expenseyear EY_start	(NOLOCK) 		ON EY_start.idexp = mov.idexp AND EY_start.ayear = s.ymov
+			 							WHERE itineration.iditineration= mov.iditineration and EY_start.ayear <= accountingyear.ayear	AND (mov.movkind = 4))
+			AND NOT EXISTS
+						(SELECT * FROM itinerationsorting (NOLOCK) 
+						WHERE iditineration = itineration.iditineration 
+						AND idsor = (SELECT idsor FROM sorting (NOLOCK) WHERE sortcode = 'Missione_Impegnata'))
+			)
+		,0) 
+		-
+ 
+		ISNULL(
+			(SELECT SUM(p.amount)
+			FROM pettycashoperationitineration mov (NOLOCK) 
+			JOIN pettycashoperation p (NOLOCK) 	ON mov.idpettycash = p.idpettycash
+													AND mov.yoperation = p.yoperation
+													AND mov.noperation = p.noperation
+			JOIN itineration 					(nolock)		ON itineration.iditineration= mov.iditineration
+			WHERE   mov.movkind = 6  
+			AND itineration.idupb = upb.idupb	 
+			and p.yoperation <= accountingyear.ayear 
+			and itineration.yitineration<= accountingyear.ayear	
+			and isnull(itineration.active,'S') <> 'N' 
+			AND iditinerationstatus <> 7 --Non considero le missioni annullate
+			--- MISSIONE NON SALDATA  
+			AND NOT EXISTS (SELECT * FROM   expenseitineration mov					(nolock)
+										JOIN expense s							(nolock)		ON s.idexp = mov.idexp
+										LEFT OUTER JOIN expenseyear EY_start	(NOLOCK) 		ON EY_start.idexp = mov.idexp AND EY_start.ayear = s.ymov
+			 							WHERE itineration.iditineration= mov.iditineration and EY_start.ayear <= accountingyear.ayear	AND (mov.movkind = 4))
+			AND NOT EXISTS
+						(SELECT * FROM itinerationsorting (NOLOCK) 
+						WHERE iditineration = itineration.iditineration 
+						AND idsor = (SELECT idsor FROM sorting (NOLOCK) WHERE sortcode = 'Missione_Impegnata'))
+			) 			
+		,0)
+	,
+ 
     -- Disptotale: somma dei precedenti (A+B+C)
 
 	-- (A) disponibile ad impegnare 
@@ -197,6 +302,9 @@ SELECT
 					 FROM finlevel 
 					WHERE ayear = fin.ayear AND flag&2 <> 0)
 		AND     fin.ayear = accountingyear.ayear
+		-- 11/05/2021
+		AND		fin.codefin not like '5%'
+		AND		fin.codefin not like '6%'
 		GROUP BY upbtotal.idupb)
 	,0)
 	+
@@ -210,6 +318,9 @@ SELECT
 					 FROM finlevel 
 					WHERE ayear = fin.ayear  AND  flag&2 <> 0)
 		AND     fin.ayear = accountingyear.ayear
+		-- 11/05/2021
+		AND		fin.codefin not like '5%'
+		AND		fin.codefin not like '6%'
 		GROUP BY upbtotal.idupb)
 	,0)
 	-
@@ -230,6 +341,9 @@ SELECT
 			FROM finlevel 
 			WHERE ayear = fin.ayear AND flag&2 <> 0)
 		AND fin.ayear = accountingyear.ayear
+		-- 11/05/2021
+		AND		fin.codefin not like '5%'
+		AND		fin.codefin not like '6%'
 		GROUP BY upbexpensetotal.idupb)
 	,0)
 	+
@@ -251,6 +365,9 @@ SELECT
 			FROM finlevel 
 			WHERE ayear = fin.ayear AND flag&2 <> 0)
 		AND fin.ayear = accountingyear.ayear
+		-- 11/05/2021
+		AND		fin.codefin not like '5%'
+		AND		fin.codefin not like '6%'
 		GROUP BY upbexpensetotal.idupb)
 	,0)
 	-
@@ -271,20 +388,82 @@ SELECT
 			FROM finlevel 
 			WHERE ayear = fin.ayear AND flag&2 <> 0)
 		AND fin.ayear = accountingyear.ayear
+		-- 11/05/2021
+		AND		fin.codefin not like '5%'
+		AND		fin.codefin not like '6%'
 		GROUP BY upbexpensetotal.idupb)
 	,0)
 	+
     -- (C) missioni attribuite all'UPB ma non contabilizzate (in anticipo o saldo)
-	ISNULL( (SELECT SUM(itineration.totalgross) 
-		FROM itineration
-		WHERE itineration.idupb = upb.idupb
-			and (select count(expenseitineration.iditineration) 
-					from expenseitineration	
-					where expenseitineration.iditineration = itineration.iditineration) = 0
-			and (select count(pettycashoperationitineration.iditineration) 
-					from pettycashoperationitineration	
-					where pettycashoperationitineration.iditineration = itineration.iditineration) = 0
-		),0),
+	ISNULL( (SELECT SUM (ISNULL(itineration.supposedamount,0) +  ISNULL(itineration.supposedfood,0) + ISNULL(itineration.supposedliving,0) + ISNULL(itineration.supposedtravel,0) )
+		 FROM itineration
+		WHERE itineration.idupb = upb.idupb 
+		and itineration.yitineration<= accountingyear.ayear	  
+		and isnull(itineration.active,'S') <> 'N' 
+		AND iditinerationstatus <> 7 --Non considero le missioni annullate
+		--- MISSIONE NON SALDATA  
+		AND NOT EXISTS (SELECT * FROM   expenseitineration mov					(nolock)
+										JOIN expense s							(nolock)		ON s.idexp = mov.idexp
+										LEFT OUTER JOIN expenseyear EY_start	(NOLOCK) 		ON EY_start.idexp = mov.idexp AND EY_start.ayear = s.ymov
+			 							WHERE itineration.iditineration= mov.iditineration and EY_start.ayear <= accountingyear.ayear	AND (mov.movkind = 4))
+		AND NOT EXISTS
+						(SELECT * FROM itinerationsorting (NOLOCK) 
+						WHERE iditineration = itineration.iditineration 
+						AND idsor = (SELECT idsor FROM sorting (NOLOCK) WHERE sortcode = 'Missione_Impegnata'))
+		)
+		 ,0)
+ 
+ 		-
+		ISNULL(	
+			(SELECT SUM(EY_start.amount)
+			FROM expenseitineration mov			(nolock)
+			JOIN expense s						(nolock)		ON s.idexp = mov.idexp
+			JOIN itineration 					(nolock)		ON itineration.iditineration= mov.iditineration
+			LEFT OUTER JOIN expenseyear EY_start (NOLOCK) 		ON EY_start.idexp = mov.idexp AND EY_start.ayear = s.ymov
+			WHERE (/*(mov.movkind = 4)OR*/(mov.movkind = 6)) 
+			AND itineration.idupb = upb.idupb	
+			and EY_start.ayear <= accountingyear.ayear	 
+			and itineration.yitineration<= accountingyear.ayear	
+			and isnull(itineration.active,'S') <> 'N' 
+			AND iditinerationstatus <> 7 --Non considero le missioni annullate
+			--- MISSIONE NON SALDATA  
+			AND NOT EXISTS (SELECT * FROM   expenseitineration mov					(nolock)
+										JOIN expense s							(nolock)		ON s.idexp = mov.idexp
+										LEFT OUTER JOIN expenseyear EY_start	(NOLOCK) 		ON EY_start.idexp = mov.idexp AND EY_start.ayear = s.ymov
+			 							WHERE itineration.iditineration= mov.iditineration and EY_start.ayear <= accountingyear.ayear	AND (mov.movkind = 4)) 
+			AND NOT EXISTS
+						(SELECT * FROM itinerationsorting (NOLOCK) 
+						WHERE iditineration = itineration.iditineration 
+						AND idsor = (SELECT idsor FROM sorting (NOLOCK) WHERE sortcode = 'Missione_Impegnata'))
+			)
+		,0) 
+		-
+ 
+		ISNULL(
+			(SELECT SUM(p.amount)
+			FROM pettycashoperationitineration mov (NOLOCK) 
+			JOIN pettycashoperation p (NOLOCK) 	ON mov.idpettycash = p.idpettycash
+													AND mov.yoperation = p.yoperation
+													AND mov.noperation = p.noperation
+			JOIN itineration 					(nolock)		ON itineration.iditineration= mov.iditineration
+			WHERE   mov.movkind = 6  
+			AND itineration.idupb = upb.idupb	 
+			and p.yoperation <= accountingyear.ayear 
+			and itineration.yitineration<= accountingyear.ayear	
+			and isnull(itineration.active,'S') <> 'N' 
+			AND iditinerationstatus <> 7 --Non considero le missioni annullate
+			--- MISSIONE NON SALDATA  
+			AND NOT EXISTS (SELECT * FROM   expenseitineration mov					(nolock)
+										JOIN expense s							(nolock)		ON s.idexp = mov.idexp
+										LEFT OUTER JOIN expenseyear EY_start	(NOLOCK) 		ON EY_start.idexp = mov.idexp AND EY_start.ayear = s.ymov
+			 							WHERE itineration.iditineration= mov.iditineration and EY_start.ayear <= accountingyear.ayear	AND (mov.movkind = 4))
+			AND NOT EXISTS
+						(SELECT * FROM itinerationsorting (NOLOCK) 
+						WHERE iditineration = itineration.iditineration 
+						AND idsor = (SELECT idsor FROM sorting (NOLOCK) WHERE sortcode = 'Missione_Impegnata'))
+		) 			
+		,0)
+		,
 
 	 -- Differenza Disponibilità = come B-C 
     --  (B) disponibile della fase 1
@@ -305,6 +484,9 @@ SELECT
 			FROM finlevel 
 			WHERE ayear = fin.ayear AND flag&2 <> 0)
 		AND fin.ayear = accountingyear.ayear
+		-- 11/05/2021
+		AND		fin.codefin not like '5%'
+		AND		fin.codefin not like '6%'
 		GROUP BY upbexpensetotal.idupb)
 	,0)
 	-
@@ -325,20 +507,85 @@ SELECT
 			FROM finlevel 
 			WHERE ayear = fin.ayear AND flag&2 <> 0)
 		AND fin.ayear = accountingyear.ayear
+		-- 11/05/2021
+		AND		fin.codefin not like '5%'
+		AND		fin.codefin not like '6%'
 		GROUP BY upbexpensetotal.idupb)
 	,0)
 	-
+	(
     -- (C) missioni attribuite all'UPB ma non contabilizzate (in anticipo o saldo)
-	ISNULL( (SELECT SUM(itineration.totalgross) 
-		FROM itineration
-		WHERE itineration.idupb = upb.idupb
-			and (select count(expenseitineration.iditineration) 
-					from expenseitineration	
-					where expenseitineration.iditineration = itineration.iditineration) = 0
-			and (select count(pettycashoperationitineration.iditineration) 
-					from pettycashoperationitineration	
-					where pettycashoperationitineration.iditineration = itineration.iditineration) = 0
-		),0),
+	ISNULL( (SELECT SUM (ISNULL(itineration.supposedamount,0) +  ISNULL(itineration.supposedfood,0) + ISNULL(itineration.supposedliving,0) + ISNULL(itineration.supposedtravel,0) )
+		 FROM itineration
+		WHERE itineration.idupb = upb.idupb 
+		and itineration.yitineration<= accountingyear.ayear	
+		and isnull(itineration.active,'S') <> 'N'  
+		AND iditinerationstatus <> 7 --Non considero le missioni annullate
+		--- MISSIONE NON SALDATA  
+			AND NOT EXISTS (SELECT * FROM   expenseitineration mov					(nolock)
+										JOIN expense s							(nolock)		ON s.idexp = mov.idexp
+										LEFT OUTER JOIN expenseyear EY_start	(NOLOCK) 		ON EY_start.idexp = mov.idexp AND EY_start.ayear = s.ymov
+			 							WHERE itineration.iditineration= mov.iditineration AND EY_start.ayear <= accountingyear.ayear	AND (mov.movkind = 4))
+		    AND NOT EXISTS
+						(SELECT * FROM itinerationsorting (NOLOCK) 
+						WHERE iditineration = itineration.iditineration 
+						AND idsor = (SELECT idsor FROM sorting (NOLOCK) WHERE sortcode = 'Missione_Impegnata'))
+		)
+		 ,0)
+ 
+ 		-
+		ISNULL(	
+			(SELECT SUM(EY_start.amount)
+			FROM expenseitineration mov			(nolock)
+			JOIN expense s						(nolock)		ON s.idexp = mov.idexp
+			JOIN itineration 					(nolock)		ON itineration.iditineration= mov.iditineration
+			LEFT OUTER JOIN expenseyear EY_start (NOLOCK) 		ON EY_start.idexp = mov.idexp AND EY_start.ayear = s.ymov
+			WHERE (/*(mov.movkind = 4)OR*/(mov.movkind = 6)) 
+			AND itineration.idupb = upb.idupb	
+			AND EY_start.ayear <= accountingyear.ayear	 
+			AND itineration.yitineration<= accountingyear.ayear	
+			AND isnull(itineration.active,'S') <> 'N' 
+			AND iditinerationstatus <> 7 --Non considero le missioni annullate
+			--- MISSIONE NON SALDATA  
+			AND NOT EXISTS (SELECT * FROM   expenseitineration mov					(nolock)
+										JOIN expense s							(nolock)		ON s.idexp = mov.idexp
+										LEFT OUTER JOIN expenseyear EY_start	(NOLOCK) 		ON EY_start.idexp = mov.idexp AND EY_start.ayear = s.ymov
+			 							WHERE itineration.iditineration= mov.iditineration AND EY_start.ayear <= accountingyear.ayear	AND (mov.movkind = 4))
+			AND NOT EXISTS
+						(SELECT * FROM itinerationsorting (NOLOCK) 
+						WHERE iditineration = itineration.iditineration 
+						AND idsor = (SELECT idsor FROM sorting (NOLOCK) WHERE sortcode = 'Missione_Impegnata'))
+			)
+		,0) 
+		- 
+ 
+		ISNULL(
+			(SELECT SUM(p.amount)
+			FROM pettycashoperationitineration mov (NOLOCK) 
+			JOIN pettycashoperation p (NOLOCK) 	ON mov.idpettycash = p.idpettycash
+													AND mov.yoperation = p.yoperation
+													AND mov.noperation = p.noperation
+			JOIN itineration 					(nolock)		ON itineration.iditineration= mov.iditineration
+			WHERE   mov.movkind = 6  
+			AND itineration.idupb = upb.idupb	 
+			AND p.yoperation <= accountingyear.ayear 
+			AND itineration.yitineration<= accountingyear.ayear	
+			AND isnull(itineration.active,'S') <> 'N' 
+			AND iditinerationstatus <> 7 --Non considero le missioni annullate
+			--- MISSIONE NON SALDATA  
+			AND NOT EXISTS (SELECT * FROM   expenseitineration mov					(nolock)
+										JOIN expense s							(nolock)		ON s.idexp = mov.idexp
+										LEFT OUTER JOIN expenseyear EY_start	(NOLOCK) 		ON EY_start.idexp = mov.idexp AND EY_start.ayear = s.ymov
+			 							WHERE itineration.iditineration= mov.iditineration and EY_start.ayear <= accountingyear.ayear	AND (mov.movkind = 4))
+			AND NOT EXISTS
+						(SELECT * FROM itinerationsorting (NOLOCK) 
+						WHERE iditineration = itineration.iditineration 
+						AND idsor = (SELECT idsor FROM sorting (NOLOCK) WHERE sortcode = 'Missione_Impegnata'))
+			
+		
+			) 			
+		,0)
+		),
 	upb.cu, 
 	upb.ct, 
 	upb.lu, 
@@ -349,4 +596,3 @@ JOIN config (nolock)				ON config.ayear = accountingyear.ayear
 JOIN manager with (nolock)	ON manager.idman = upb.idman
 LEFT OUTER JOIN underwriter with (nolock)	ON underwriter.idunderwriter = upb.idunderwriter
 LEFT OUTER JOIN treasurer 	ON upb.idtreasurer=treasurer.idtreasurer
-GO

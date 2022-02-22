@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA invoiceresidualestimate
 IF EXISTS(select * from sysobjects where id = object_id(N'[invoiceresidualestimate]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [invoiceresidualestimate]
@@ -231,25 +248,14 @@ CREATE     VIEW [invoiceresidualestimate]
 	invoice.idsor04,
 	invoice.idsor05  	
 	FROM invoicedetail (NOLOCK)
-	JOIN invoice (NOLOCK)
-  	ON invoicedetail.idinvkind = invoice.idinvkind
-	AND invoicedetail.yinv = invoice.yinv
-  	AND invoicedetail.ninv = invoice.ninv
-	JOIN invoicekind (NOLOCK)
-	ON invoicekind.idinvkind = invoice.idinvkind
-	JOIN registry (NOLOCK)
-	ON registry.idreg = invoice.idreg
-	LEFT OUTER JOIN estimatekind
-	ON estimatekind.idestimkind = invoicedetail.idestimkind
-	LEFT OUTER JOIN upb
-	on upb.idupb=invoicedetail.idupb
-	LEFT OUTER JOIN upb upbiva
-	on upbiva.idupb=invoicedetail.idupb_iva
-	LEFT OUTER JOIN estimatedetail
-	ON  estimatedetail.idestimkind=invoicedetail.idestimkind 
-	and estimatedetail.yestim=invoicedetail.yestim 
-	and estimatedetail.nestim=invoicedetail.nestim
-	and estimatedetail.rownum=invoicedetail.estimrownum
+	JOIN invoice (NOLOCK)  		ON invoicedetail.idinvkind = invoice.idinvkind	AND invoicedetail.yinv = invoice.yinv  	AND invoicedetail.ninv = invoice.ninv
+	JOIN invoicekind (NOLOCK)	ON invoicekind.idinvkind = invoice.idinvkind
+	JOIN registry (NOLOCK)		ON registry.idreg = invoice.idreg
+	LEFT OUTER JOIN estimatekind	ON estimatekind.idestimkind = invoicedetail.idestimkind
+	LEFT OUTER JOIN upb				on upb.idupb=invoicedetail.idupb
+	LEFT OUTER JOIN upb upbiva		on upbiva.idupb=invoicedetail.idupb_iva
+	LEFT OUTER JOIN estimatedetail	ON  estimatedetail.idestimkind=invoicedetail.idestimkind and estimatedetail.yestim=invoicedetail.yestim and estimatedetail.nestim=invoicedetail.nestim
+											and estimatedetail.rownum=invoicedetail.estimrownum
 	GROUP BY invoice.idinvkind, invoicekind.codeinvkind,invoice.yinv, invoice.ninv,
 	invoice.doc,invoice.docdate,
 	invoicedetail.idestimkind, invoicedetail.yestim, invoicedetail.nestim,

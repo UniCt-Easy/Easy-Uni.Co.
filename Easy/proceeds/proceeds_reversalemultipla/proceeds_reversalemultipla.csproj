@@ -54,6 +54,7 @@
     <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -80,6 +81,14 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\treasurer\meta_treasurer\meta_treasurer.csproj">
+      <Project>{0d5b8503-0a34-4002-b8f0-70e30127aeef}</Project>
+      <Name>meta_treasurer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\meta_proceeds\meta_proceeds.csproj">
+      <Project>{9a369412-fa2d-496a-9e39-139a230bd1c6}</Project>
+      <Name>meta_proceeds</Name>
+    </ProjectReference>
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
@@ -125,22 +134,10 @@
       <HintPath>..\..\fin\meta_fin\bin\Debug\meta_fin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="meta_proceeds">
-      <HintPath>..\meta_proceeds\bin\Debug\meta_proceeds.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_proceeds</Name>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="meta_manager">
       <HintPath>..\..\manager\meta_manager\bin\Debug\meta_manager.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_manager</Name>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="meta_treasurer">
-      <HintPath>..\..\treasurer\meta_treasurer\bin\Debug\meta_treasurer.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_treasurer</Name>
       <Private>True</Private>
     </Reference>
     <Reference Include="meta_proceedstransmission">
@@ -153,7 +150,7 @@
       <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_registry</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_incomevar">
       <HintPath>..\..\incomevar\meta_incomevar\bin\Debug\meta_incomevar.dll</HintPath>
@@ -171,7 +168,7 @@
       <HintPath>..\..\sortingkind\meta_sortingkind\bin\Debug\meta_sortingkind.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_sortingkind</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_incomesorted">
       <HintPath>..\..\incomesorted\meta_incomesorted\bin\Debug\meta_incomesorted.dll</HintPath>
@@ -208,6 +205,7 @@
     <Compile Include="Frm_proceeds_reversalemultipla.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="vistaForm.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

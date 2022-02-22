@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using metadatalibrary;
@@ -301,7 +300,7 @@ namespace funzioni_configurazione {
         private string FilterPrevInizialeCassa(string vistascelta,string finpart) {
             string secprev = "";
             if (CfgFn.GetNoNullInt32(Meta.GetSys("fin_kind")) == 2) {
-                //Se √® un bilancio di sola cassa, la prev. di cassa viene scritta in previsione.
+                //Se Ë un bilancio di sola cassa, la prev. di cassa viene scritta in previsione.
                 secprev = (vistascelta == "finyearview") ? "prevision" : "initialprevision";
             }
             else {
@@ -347,7 +346,7 @@ namespace funzioni_configurazione {
             string VistaScelta = (idunderwriting == DBNull.Value) ? "finyearview" : "upbunderwritingyearview";
             string secprev = "";
             if (CfgFn.GetNoNullInt32(Meta.GetSys("fin_kind")) == 2) {
-                //Se √® un bilancio di sola cassa, la prev. di cassa viene scritta in previsione.
+                //Se Ë un bilancio di sola cassa, la prev. di cassa viene scritta in previsione.
                 secprev = (VistaScelta == "finyearview") ? "prevision" : "initialprevision";
             }
             else {
@@ -738,7 +737,7 @@ namespace funzioni_configurazione {
         }
         /// <summary>
         /// Considera tutti gli impegni presenti a prescindere dall'esercizio di creazione. 
-        /// Sono gli impegni di cassa. L'importo verr√† visualizzato per il bilancio di sola Cassa
+        /// Sono gli impegni di cassa. L'importo verr‡ visualizzato per il bilancio di sola Cassa
         /// </summary>
         /// <returns></returns>
         public decimal TotImpegniAll() {
@@ -1108,7 +1107,7 @@ namespace funzioni_configurazione {
 
         /// <summary>
         /// Considera tutti gli accertamenti presenti a prescindere dall'esercizio di creazione. Sono gli accertamenti di cassa.
-        /// L'importo verr√† visualizzato per il bilancio di sola Cassa
+        /// L'importo verr‡ visualizzato per il bilancio di sola Cassa
         /// </summary>
         /// <returns></returns>
         public decimal TotAccertamentiAll() {
@@ -1232,10 +1231,60 @@ namespace funzioni_configurazione {
             }
         }
 
-        #endregion
+		#endregion
 
-        #region previsione iniziale competenza
-        public void ElencaPrevisioneInizialeCompetenza(string finpart) {
+		#region Impegni residui
+
+        public decimal TotImpegniResidui() {
+
+            if (!Enabled) return 0;
+
+            if (idunderwriting == DBNull.Value) {
+
+				string Filter = QHS.CmpEq("nphase", Meta.GetSys("appropriationphase"));
+				Filter = QHS.AppAnd(Filter, QHS.CmpLt("ymov", Meta.GetSys("esercizio")));
+				Filter = QHS.AppAnd(Filter, QHS.CmpLe("adate", Meta.GetSys("datacontabile")));
+                if (idfin != DBNull.Value) Filter = QHS.AppAnd(Filter, finComp("idfin", idfin));
+                if (idupb != DBNull.Value) Filter = QHS.AppAnd(Filter, upbComp("idupb", idupb));
+                Filter = QHS.AppAnd(Filter, QHS.CmpEq("ayear", Meta.GetSys("esercizio")));
+                
+                Filter = QHS.AppAnd(Filter, Conn.SelectCondition("expenseview", true));
+
+                // quindi sommiamo gli amount degli impegni associati alla voce di bilancio corrente
+                string sql = "SELECT SUM(ayearstartamount) as amount from expenseview " +
+                             " WHERE " + Filter;
+                DataTable t = Conn.SQLRunner(sql, false,30);
+                decimal valore = t!=null? CK(t.Rows[0]["amount"]):0;
+
+                // Aggiungiamo le var. dei suddetti impegni.
+                Filter = QHS.CmpEq("nphase", Meta.GetSys("appropriationphase"));
+                Filter = QHS.AppAnd(Filter, QHS.CmpLt("ymov", Meta.GetSys("esercizio")));
+                if (idfin != DBNull.Value) Filter = QHS.AppAnd(Filter, finComp("idfin", idfin));
+                if (idupb != DBNull.Value) Filter = QHS.AppAnd(Filter, upbComp("idupb", idupb));
+                Filter = QHS.AppAnd(Filter, QHS.CmpEq("yvar", Meta.GetSys("esercizio")));
+                Filter = QHS.AppAnd(Filter, QHS.CmpLe("adate", Meta.GetSys("datacontabile")));
+                //Filter = QHS.AppAnd(Filter, Conn.SelectCondition("upb", true));
+
+                if (idupb == DBNull.Value) Filter = QHS.AppAnd(Filter, GetCondUpb());
+                if (idfin == DBNull.Value) Filter = QHS.AppAnd(Filter, GetCondFin());
+                if (idupb == DBNull.Value) Filter = QHS.AppAnd(Filter, GetCondSor());
+
+
+
+                sql = "SELECT SUM(amount) as amount from expensevarview  " +
+                            " WHERE " + Filter;
+                t = Conn.SQLRunner(sql, false,30);
+                if (t!=null) valore = valore + CK(t.Rows[0]["amount"]);
+                return valore;
+            }
+            //altrimenti prendi da underwritingappropriationview
+            return 0;
+        }
+
+		#endregion
+
+		#region previsione iniziale competenza
+		public void ElencaPrevisioneInizialeCompetenza(string finpart) {
             int esercizioCurr = (int)Meta.GetSys("esercizio");
            
             string VistaScelta = (idunderwriting == DBNull.Value) ? "finyearview" : "upbunderwritingyearview";
@@ -1355,4 +1404,3 @@ namespace funzioni_configurazione {
         #endregion
     }
 }
-

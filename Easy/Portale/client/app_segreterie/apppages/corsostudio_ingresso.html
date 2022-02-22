@@ -1,0 +1,220 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabcorsostudio_ingresso_0" class="nav-link active show" data-toggle="pill" data-target="#tabcorsostudio_ingresso_0"><i class="fa fa-graduation-cap mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabcorsostudio_ingresso_3" class="nav-link" data-toggle="pill" data-target="#tabcorsostudio_ingresso_3"><i class="fa fa-sign-in-alt mr-1"></i>Elenco delle didattiche programmate a cui il test di ingresso da acesso</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabcorsostudio_ingresso_2" class="nav-link" data-toggle="pill" data-target="#tabcorsostudio_ingresso_2"><i class="fa fa-list-ol mr-1"></i>Graduatorie provvisorie e definitive</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabcorsostudio_ingresso_4" class="nav-link" data-toggle="pill" data-target="#tabcorsostudio_ingresso_4"><i class="fa fa-user-check mr-1"></i>Prove</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabcorsostudio_ingresso_5" class="nav-link" data-toggle="pill" data-target="#tabcorsostudio_ingresso_5"><i class="fa fa-file-signature mr-1"></i>Iscrizioni</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabcorsostudio_ingresso_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_ingresso_title">Denominazione</label>
+					<input id="corsostudio_ingresso_title" type="text" class="form-control" data-tag="corsostudio.title?corsostudioingressoview.title" data-subentity  />
+					<input hidden id="didprog_ingresso_title" type="text" class="form-control" data-tag="didprog.title" />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_ingresso_title_en">Denominazione (EN)</label>
+					<input id="corsostudio_ingresso_title_en" type="text" class="form-control" data-tag="corsostudio.title_en?corsostudioingressoview.corsostudio_title_en" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_ingresso_aa">Anno accademico</label>
+					<select id="didprog_ingresso_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="didprog.aa?corsostudioingressoview.didprog_aa" data-subentity   > </select>
+					<input hidden id="didprog_ingresso_title_en" type="text" class="form-control" data-tag="didprog.title_en" />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_ingresso_codice">Codice</label>
+					<input id="corsostudio_ingresso_codice" type="text" class="form-control" data-tag="corsostudio.codice?corsostudioingressoview.corsostudio_codice" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="corsostudio_ingresso_idstruttura">Struttura di riferimento</label>
+					<div>
+						<input id="corsostudio_ingresso_idstruttura" name="corsostudio_ingresso_idstruttura" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="strutturadefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_ingresso_iddidprognumchiusokind">Numero chiuso</label>
+					<select id="didprog_ingresso_iddidprognumchiusokind" class="custom-select d-block w-100"  data-source-name="didprognumchiusokind" data-value-member="iddidprognumchiusokind" data-display-member="title" data-custom-control="combo" data-tag="didprog.iddidprognumchiusokind?corsostudioingressoview.didprog_iddidprognumchiusokind" data-subentity   > </select>
+				</div>
+			</div>
+					<input hidden id="didprog_ingresso_iddidprogsuddannokind" type="text" class="form-control" data-tag="didprog.iddidprogsuddannokind" />
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_ingresso_idgraduatoria">Graduatoria</label>
+					<div>
+						<input id="didprog_ingresso_idgraduatoria" name="didprog_ingresso_idgraduatoria" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="graduatoria.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_ingresso_idsede">Sede</label>
+					<div>
+						<input id="didprog_ingresso_idsede" name="didprog_ingresso_idsede" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sededefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_ingresso_idnation_lang">Lingua di erogazione</label>
+					<div>
+						<input id="didprog_ingresso_idnation_lang" name="didprog_ingresso_idnation_lang" type="text" data-listtype="lingue"  class="form-control" data-minchar="2" data-tag="geo_nation.lang" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_ingresso_idnation_lang2">Seconda lingua di erogazione</label>
+					<div>
+						<input id="didprog_ingresso_idnation_lang2" name="didprog_ingresso_idnation_lang2" type="text" data-listtype="lingue"  class="form-control" data-minchar="2" data-tag="geo_nation_alias1.lang" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_ingresso_idnation_langvis">Lingua di visualizzazione</label>
+					<div>
+						<input id="didprog_ingresso_idnation_langvis" name="didprog_ingresso_idnation_langvis" type="text" data-listtype="lingue"  class="form-control" data-minchar="2" data-tag="geo_nation_alias2.lang" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_ingresso_idsessione">Sessione</label>
+					<div>
+						<input id="didprog_ingresso_idsessione" name="didprog_ingresso_idsessione" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sessionedefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_ingresso_idtitolokind">Titolo di studi</label>
+					<select id="didprog_ingresso_idtitolokind" class="custom-select d-block w-100"  data-source-name="titolokind" data-value-member="idtitolokind" data-display-member="title" data-custom-control="combo" data-tag="didprog.idtitolokind?corsostudioingressoview.didprog_idtitolokind" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_ingresso_utenzasost">Utenza sostenibile</label>
+					<input id="didprog_ingresso_utenzasost" type="text" class="form-control" data-tag="didprog.utenzasost?corsostudioingressoview.didprog_utenzasost" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="didprog_ingresso_progesamamm">Programma dell'esame di ammissione</label>
+					<textarea class="textarea form-control" id="didprog_ingresso_progesamamm" type="text"  rows="4" data-tag="didprog.progesamamm?corsostudioingressoview.didprog_progesamamm" data-subentity  ></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="didprog_ingresso_modaccesso">Modalità e conoscenze per l'accesso</label>
+					<textarea class="textarea form-control" id="didprog_ingresso_modaccesso" type="text"  rows="4" data-tag="didprog.modaccesso?corsostudioingressoview.didprog_modaccesso" data-subentity  ></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="didprog_ingresso_modaccesso_en">Modalità e conoscenze per l'accesso (EN)</label>
+					<textarea class="textarea form-control" id="didprog_ingresso_modaccesso_en" type="text"  rows="4" data-tag="didprog.modaccesso_en?corsostudioingressoview.didprog_modaccesso_en" data-subentity  ></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="didprog_ingresso_provafinaledesc">Caratteristiche della prova finale</label>
+					<textarea class="textarea form-control" id="didprog_ingresso_provafinaledesc" type="text"  rows="4" data-tag="didprog.provafinaledesc?corsostudioingressoview.didprog_provafinaledesc" data-subentity  ></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="didprog_ingresso_regolamentotax">Regolamento delle tasse</label>
+					<textarea class="textarea form-control" id="didprog_ingresso_regolamentotax" type="text"  rows="4" data-tag="didprog.regolamentotax?corsostudioingressoview.didprog_regolamentotax" data-subentity  ></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_ingresso_regolamentotaxurl">Indirizzo WEB del regolamento delle tasse</label>
+					<input id="didprog_ingresso_regolamentotaxurl" type="text" class="form-control" data-tag="didprog.regolamentotaxurl?corsostudioingressoview.didprog_regolamentotaxurl" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_ingresso_website">Sito WEB del corso</label>
+					<input id="didprog_ingresso_website" type="text" class="form-control" data-tag="didprog.website?corsostudioingressoview.didprog_website" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#didprog_ingresso_startiscrizioni").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="didprog_ingresso_startiscrizioni">Data di inizio delle iscrizioni</label>
+					<input id="didprog_ingresso_startiscrizioni" type="text" class="form-control" data-tag="didprog.startiscrizioni.g?corsostudioingressoview.didprog_startiscrizioni.g" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#didprog_ingresso_stopiscrizioni").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="didprog_ingresso_stopiscrizioni">Data di fine delle Iscrizioni</label>
+					<input id="didprog_ingresso_stopiscrizioni" type="text" class="form-control" data-tag="didprog.stopiscrizioni.g?corsostudioingressoview.didprog_stopiscrizioni.g" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_ingresso_preimmatoltreauth">Consenti la pre-immatricolazione oltre i termini</label>
+					<div class="custom-control custom-radio">
+						<input id="didprog_ingresso_preimmatoltreauthSi" type="radio" name="didprog_ingresso_preimmatoltreauth" class="custom-control-input" data-tag="didprog.preimmatoltreauth:S?corsostudioingressoview.didprog_preimmatoltreauth:Si" data-subentity  ><label for="didprog_ingresso_preimmatoltreauthSi"> Si</label>
+						<input id="didprog_ingresso_preimmatoltreauthNo" type="radio" name="didprog_ingresso_preimmatoltreauth" class="custom-control-input" data-tag="didprog.preimmatoltreauth:N?corsostudioingressoview.didprog_preimmatoltreauth:No" data-subentity  ><label for="didprog_ingresso_preimmatoltreauthNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_ingresso_immatoltreauth">Consenti l'immatricolazione oltre i termini</label>
+					<div class="custom-control custom-radio">
+						<input id="didprog_ingresso_immatoltreauthSi" type="radio" name="didprog_ingresso_immatoltreauth" class="custom-control-input" data-tag="didprog.immatoltreauth:S?corsostudioingressoview.didprog_immatoltreauth:Si" data-subentity  ><label for="didprog_ingresso_immatoltreauthSi"> Si</label>
+						<input id="didprog_ingresso_immatoltreauthNo" type="radio" name="didprog_ingresso_immatoltreauth" class="custom-control-input" data-tag="didprog.immatoltreauth:N?corsostudioingressoview.didprog_immatoltreauth:No" data-subentity  ><label for="didprog_ingresso_immatoltreauthNo"> No</label>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabcorsostudio_ingresso_3" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_didprogaccesso_iddidprog_acc" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_didprogaccesso_iddidprog_acc" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Elenco delle didattiche programmate a cui il test di ingresso da acesso
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_didprogaccesso_default" data-tag="didprogaccesso.default.default" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+	</div>
+	<div class="tab-pane fade" id="tabcorsostudio_ingresso_2" role="tabpanel">
+				<div class="gridx" id="grid_graduatoriaesiti_default" data-tag="graduatoriaesiti.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="provvisoria,P,Provvisoria;provvisoria,D,Definitiva;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabcorsostudio_ingresso_4" role="tabpanel">
+	<hr>
+		<div class="row">
+			<div class="col-md-12">
+				<div id="calendar49" data-tag="prova.ingresso.ingresso" data-custom-control="calendar"  data-mdltitlecolumnname="title"   data-mdlstartcolumnname="start"   data-mdlstopcolumnname="stop"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdldragdrop ></div>
+			</div>
+		</div>
+	</div>
+	<div class="tab-pane fade" id="tabcorsostudio_ingresso_5" role="tabpanel">
+				<div class="gridx" id="grid_iscrizione_ingresso" data-tag="iscrizione.ingresso.ingresso" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

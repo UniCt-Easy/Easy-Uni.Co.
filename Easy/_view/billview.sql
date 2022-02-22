@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA billview
 IF EXISTS(select * from sysobjects where id = object_id(N'[billview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [billview]
@@ -19,6 +36,7 @@ CREATE   VIEW [billview]
 	covered,
 	regularized,
 	toregularize,
+	tocover,
 	regularizationnote,
 	idtreasurer,
 	treasurer,
@@ -92,7 +110,40 @@ AS SELECT
 				and billtransaction.ybilltran= bill.ybill
 				and billtransaction.kind = bill.billkind),0) 
 			ELSE 0
-	END,				
+	END,
+	isnull(bill.total,0) -  isnull(bill.reduction,0) -	
+	CASE billkind
+		WHEN 'D' THEN
+			isnull((SELECT SUM(expensetotal.curramount)
+			FROM expenselast		 (NOLOCK)		
+			    JOIN expensetotal (NOLOCK)
+  				ON expensetotal.idexp = expenselast.idexp				
+			WHERE  expenselast.nbill = bill.nbill
+					and expensetotal.ayear= bill.ybill
+		),0)
+				+
+			isnull((SELECT SUM(operation.amount)
+			FROM pettycashoperation operation (NOLOCK)
+			WHERE operation.yoperation = bill.ybill
+				AND operation.nbill = bill.nbill
+				AND NOT	EXISTS (SELECT * FROM pettycashoperation restoreop
+					WHERE restoreop.yoperation = operation.yrestore
+					AND restoreop.noperation = operation.nrestore
+					AND restoreop.idpettycash = operation.idpettycash)),0)
+				+ 
+		   isnull((SELECT SUM(amount) from expensebill where expensebill.ybill=bill.ybill 
+							AND expensebill.nbill=bill.nbill ),0)
+		WHEN 'C' THEN
+			isnull((SELECT SUM(incometotal.curramount)
+			FROM incomelast (NOLOCK)
+				 JOIN incometotal (NOLOCK)
+  				ON incometotal.idinc = incomelast.idinc				
+			WHERE incomelast.nbill = bill.nbill 
+					and incometotal.ayear= bill.ybill),0)
+			+
+		   isnull((SELECT SUM(amount) from incomebill where incomebill.ybill=bill.ybill 
+							AND incomebill.nbill=bill.nbill ),0)
+	END,
 	bill.regularizationnote,
 	bill.idtreasurer,
 	treasurer.description,

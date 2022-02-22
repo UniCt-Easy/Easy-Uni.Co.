@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[check_csa_individuazione_ep]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [check_csa_individuazione_ep]
 GO
@@ -288,7 +305,7 @@ end
   ) 
 begin
 	INSERT INTO #errors VALUES('Conto di Credito verso ente,  Conto di Debito verso ente, conto di Debito conto Ente o Conto di Ricavo ' +
-								' non configurati nella scheda Voce CSA del contributo su partite di giro (idacc_agency_credit, idacc_expense, idacc_debit, idacc_revenue in csa_incomesetup)', 18,'S')
+								' non configurati nella scheda Voce CSA del contributo su partite di giro (idacc_agency_credit, idacc_expense, idacc_debit, idacc_revenue in csa_incomesetup)', 18,'N')
 end
 
 

@@ -10,24 +10,24 @@
     <big><asp:label runat="server" ID="labToAdd" Text="Da Aggiungere:"></asp:label></big>
     <br />
     <br />
-    <cc1:hwButton runat="server" ID="btnSelAllToAdd" Text="Seleziona Tutti" OnClick="btnSelAllToAdd_Click"/>
-    <cc1:hwButton runat="server" ID="btnUnSelAllToAdd" Text="Deseleziona Tutti" OnClick="btnUnSelAllToAdd_Click"/>
+    <cc1:hwButton runat="server" ID="btnSelAllToAdd" Text="Seleziona Tutti" class="btn btn-primary" OnClick="btnSelAllToAdd_Click"/>
+    <cc1:hwButton runat="server" ID="btnUnSelAllToAdd" Text="Deseleziona Tutti" class="btn btn-info" OnClick="btnUnSelAllToAdd_Click"/>
     <br />
     <br />
     <center><asp:Panel runat="server" ID="GridToAdd" style="width: 900px; height: 150px"></asp:Panel></center>
     <br />
     <br />
 <table border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
-<td><cc1:hwButton runat="server" ID="btnAdd" Text="Aggiungi" OnClick="btnAdd_Click"/></td><td><cc1:hwButton id="btnRemove" runat="server" onclick="btnRemove_Click" Text="Rimuovi"/></td>
+<td><cc1:hwButton runat="server" ID="btnAdd" Text="Aggiungi" class="btn btn-primary" OnClick="btnAdd_Click"/></td><td><cc1:hwButton id="btnRemove" runat="server" onclick="btnRemove_Click" class="btn btn-danger" Text="Rimuovi"/></td>
 
 <td>
-    Cliccare sul pulsante "Seleziona Tutti"/"Deseleziona Tutti" per selezionare/deselezionare tutte le righe di un elenco.</td><td><cc1:hwButton runat="server" ID="btnClose" Text="Chiudi" OnClick="btnClose_Click"/></td>
+    Cliccare sul pulsante "Seleziona Tutti"/"Deseleziona Tutti" per selezionare/deselezionare tutte le righe di un elenco.</td><td><cc1:hwButton runat="server" ID="btnClose" Text="Chiudi" class="btn btn-primary" OnClick="btnClose_Click"/></td>
 </tr>
 </table><br />
     &nbsp;<big><asp:label runat="server" ID="labAdded" Text="Aggiunti:"></asp:label></big><br />
 <br />
-    <cc1:hwButton runat="server" ID="btnSelAllAdded"  Text="Seleziona Tutti" OnClick="btnSelAllAdded_Click"/>
-    <cc1:hwButton runat="server" ID="btnUnSelAllAdded"  Text="Deseleziona Tutti" OnClick="btnUnSelAllAdded_Click"/>
+    <cc1:hwButton runat="server" ID="btnSelAllAdded"  Text="Seleziona Tutti" class="btn btn-primary" OnClick="btnSelAllAdded_Click"/>
+    <cc1:hwButton runat="server" ID="btnUnSelAllAdded"  Text="Deseleziona Tutti" class="btn btn-info" OnClick="btnUnSelAllAdded_Click"/>
     <br />
 <br />
 <center><asp:Panel runat="server" ID="GridAdded" style="width: 900px; height: 150px"></asp:Panel></center>

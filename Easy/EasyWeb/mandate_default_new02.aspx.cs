@@ -1,23 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-Ôªøusing System;
+using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.Web;
@@ -31,6 +29,15 @@ using System.Data;
 using Newtonsoft.Json;
 using metaeasylibrary;
 using EasyWebReport;
+using System.Net;
+using System.Collections.Specialized;
+using System.Text;
+
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+using q = metadatalibrary.MetaExpression;
+using System.IO;
+using OfficeOpenXml.FormulaParsing.Utilities;
 
 public partial class mandate_default_new02 : MetaPage {
     vistaForm_Mandate DS;
@@ -43,6 +50,14 @@ public partial class mandate_default_new02 : MetaPage {
         }
     }
 
+    bool skip_default {
+        get {
+            return (bool)PState.var["skip_default"];
+        }
+        set {
+            PState.var["skip_default"] = value;
+        }
+    }
     public override DataSet GetDataSet() {
         return DS;
     }
@@ -74,7 +89,7 @@ public partial class mandate_default_new02 : MetaPage {
                 "ivanotes", "taxable", "discount", "flagactivity", "idupb", "cupcode", "cigcode",
                 "idinv","idlocation", "assetkind", "toinvoice", "idsor1", "idsor2", "idsor3","idcostpartition", "competencystart", "competencystop",
                 "idaccmotive", "idreg", "va3type", "idlist", "idunit", "idpackage", "unitsforpackage", "flagto_unload",
-                "epkind"
+                "epkind", "expensekind"
             }) {
             rDT[field] = RC[field];
         }
@@ -93,13 +108,13 @@ public partial class mandate_default_new02 : MetaPage {
     bool IsManager = false;
     public override void AfterLink(bool firsttime, bool formToLink) {
 
-        if (firsttime)
+        if (firsttime){
             DoSendMail = false;
-
+        }
+        skip_default = false;
         PState.var["Consip2Disabilitato"] = false;
         PState.var["lastValidConsipExtIndex"] = 0;
-        PState.var["lastValidConsipIndex"] = 0;
-
+         PState.var["lastValidConsipIndex"] = 0;
         Meta.Name = "Prenotazione d'ordine";
         if (formToLink) {
             txtConsipMotive.Attributes.Add("readonly", "readonly");
@@ -188,7 +203,13 @@ public partial class mandate_default_new02 : MetaPage {
                 //EnableDisableControls(cmbresponsabile, true);
             }
         }
+
+        DataAccess.SetTableForReading(DS.sorting1, "sorting");
+        DataAccess.SetTableForReading(DS.sorting2, "sorting");
+        DataAccess.SetTableForReading(DS.sorting3, "sorting");
+
         btnAvanzaStato.Enabled = false;
+        btnStampaOrdine.Enabled = false;
     }
 
     void ShowHideExtConsip(bool show) {
@@ -268,6 +289,7 @@ public partial class mandate_default_new02 : MetaPage {
 
         SetConsipLabels();
     }
+
     public override void DoCommand(string command) {
         base.DoCommand(command);
         if (command == "approvati") {
@@ -280,9 +302,192 @@ public partial class mandate_default_new02 : MetaPage {
             object rigaselezionata = command.Substring(7,1);
             btnAvanzaStato_Click(rigaselezionata);
         }
+		if (command == "stampaordine") {
+			HwButton0_Click();
+		}
+	}
+
+	private string ReportName = "buono_ordine";
+
+    protected void HwButton0_Click() {
+        DataRow curr = DS.mandate.First();
+        if (curr == null) {
+            return;
+        }
+
+        int nman = CfgFn.GetNoNullInt32(curr["nman"]);
+        int yman = CfgFn.GetNoNullInt32(curr["yman"]);
+        string idmankind = curr["idmankind"].ToString();
+
+        string pdfFileName, errmess;
+        bool res = stampaCarrello(idmankind, nman, yman, out pdfFileName, out errmess);
+        if (!res) {
+            ShowClientMessage(errmess, "Attenzione", System.Windows.Forms.MessageBoxButtons.OK);
+            return;
+        }
+
+        var f = "window.open('" + pdfFileName + "');";
+        if (!Page.ClientScript.IsClientScriptBlockRegistered(typeof(Page), "openwin"))
+            Page.ClientScript.RegisterClientScriptBlock(
+                typeof(Page), "openwin", f, true);
+
     }
 
-    private DataTable OutGetNextOffice() {
+    private bool stampaCarrello(string idmankind, int nman, int yman, out string pdfFileName, out string errmess) {
+        errmess = "";
+        pdfFileName = "";
+
+        DataTable myPrymaryTable = createStampaCarrelloTable();
+        myPrymaryTable.Rows[0]["reportname"] = ReportName;
+        myPrymaryTable.Rows[0]["ayear"] = yman;
+        myPrymaryTable.Rows[0]["printkind"] = "i";
+        myPrymaryTable.Rows[0]["mandatekind"] = idmankind;
+        myPrymaryTable.Rows[0]["startnman"] = nman;
+        myPrymaryTable.Rows[0]["stopnman"] = nman;
+        myPrymaryTable.Rows[0]["idman"] = DBNull.Value;
+        myPrymaryTable.Rows[0]["official"] = DBNull.Value;
+        myPrymaryTable.Rows[0]["includevariation"] = DBNull.Value;
+        myPrymaryTable.Rows[0]["variationdate"] = DBNull.Value;
+        myPrymaryTable.Rows[0]["labelinenglish"] = DBNull.Value;
+        myPrymaryTable.Rows[0]["idsor01"] = DBNull.Value;
+        myPrymaryTable.Rows[0]["idsor02"] = DBNull.Value;
+        myPrymaryTable.Rows[0]["idsor03"] = DBNull.Value;
+        myPrymaryTable.Rows[0]["idsor04"] = DBNull.Value;
+        myPrymaryTable.Rows[0]["idsor05"] = DBNull.Value;
+
+        string filter = QHS.CmpEq("reportname", ReportName);
+
+        DataTable Report = Conn.RUN_SELECT("report", "*", null, filter, null, false);
+
+        if (Report == null) {
+            errmess = "Report: '" + ReportName + "' non trovato.";
+            return false;
+        }
+
+        var rep = Report._First();
+        var par = myPrymaryTable.Rows[0];
+
+        ReportDocument myRptDoc = Easy_DataAccess.GetReport(Conn as Easy_DataAccess, rep, par, out errmess);
+        if (myRptDoc == null) {
+            if (errmess == null || errmess == "") errmess = "Impossibile trovare il report";
+            return false;
+        }
+
+        string FilePath = MapPath("ReportPDF");
+        if (!FilePath.EndsWith("\\")) FilePath += "\\";
+
+        var tempfilename = "buono-ordine-" + Guid.NewGuid() + ".pdf";
+        pdfFileName = @"ReportPDF/" + tempfilename;
+        string error;
+        bool retExp = exportToPdf(myRptDoc, tempfilename, FilePath, out error);
+        if (!retExp) errmess = "Impossibile esportare in pdf: " + tempfilename + " in " + FilePath + " (" + error + ")";
+        return retExp;
+    }
+
+
+    DataTable createStampaCarrelloTable() {
+        var myPrimaryTable = new DataTable("export_mandate");
+        //Create a dummy primary key
+        var dcpk = new DataColumn("DummyPrimaryKeyField", typeof(int)) { DefaultValue = 1 };
+        myPrimaryTable.Columns.Add(dcpk);
+        myPrimaryTable.PrimaryKey = new[] { dcpk };
+
+        DataColumn column;
+        myPrimaryTable.Columns.Add(new DataColumn("reportname",     typeof(string)));
+        myPrimaryTable.Columns.Add(new DataColumn("ayear",          typeof(int)));
+        myPrimaryTable.Columns.Add(new DataColumn("printkind",      typeof(string)));
+        myPrimaryTable.Columns.Add(new DataColumn("mandatekind",    typeof(string)));
+        myPrimaryTable.Columns.Add(new DataColumn("startnman",      typeof(int))); 
+        myPrimaryTable.Columns.Add(new DataColumn("stopnman",       typeof(int)));
+
+        column = new DataColumn("idman", typeof(int));
+        column.AllowDBNull = true;
+        myPrimaryTable.Columns.Add(column);
+
+        column = new DataColumn("official", typeof(string));
+        column.AllowDBNull = true;
+        myPrimaryTable.Columns.Add(column);
+
+        column = new DataColumn("includevariation", typeof(string));
+        column.AllowDBNull = true;
+        myPrimaryTable.Columns.Add(column);
+
+        column = new DataColumn("variationdate", typeof(DateTime));
+        column.AllowDBNull = true;
+        myPrimaryTable.Columns.Add(column);
+
+        column = new DataColumn("labelinenglish", typeof(int));
+        column.AllowDBNull = true;
+        myPrimaryTable.Columns.Add(column);
+
+        column = new DataColumn("idsor01", typeof(int));
+        column.AllowDBNull = true;
+        myPrimaryTable.Columns.Add(column);
+
+        column = new DataColumn("idsor02", typeof(int));
+        column.AllowDBNull = true;
+        myPrimaryTable.Columns.Add(column);
+
+        column = new DataColumn("idsor03", typeof(int));
+        column.AllowDBNull = true;
+        myPrimaryTable.Columns.Add(column);
+
+        column = new DataColumn("idsor04", typeof(int));
+        column.AllowDBNull = true;
+        myPrimaryTable.Columns.Add(column);
+
+        column = new DataColumn("idsor05", typeof(int));
+        column.AllowDBNull = true;
+        myPrimaryTable.Columns.Add(column);
+
+        var r = myPrimaryTable.NewRow();
+        myPrimaryTable.Rows.Add(r);
+        return myPrimaryTable;
+    }
+
+    private bool exportToPdf(ReportDocument rd, string fileName, string relativePath, out string error) {
+        error = "";
+        var tempfilename = relativePath + fileName;
+        // Declare variables and get the export options.
+        //ExportOptions exportOpts = new ExportOptions();
+        //PdfRtfWordFormatOptions pdfRtfWordOpts = new PdfRtfWordFormatOptions ();
+
+        // Set the export format.
+        //pdfRtfWordOpts.FirstPageNumber = 1;
+        //pdfRtfWordOpts.LastPageNumber = 2;
+        //pdfRtfWordOpts.UsePageRange = true;
+        //RD.ExportOptions.FormatOptions = pdfRtfWordOpts;
+        rd.ExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
+        rd.ExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
+
+        DiskFileDestinationOptions diskOpts = new DiskFileDestinationOptions { DiskFileName = tempfilename };
+        rd.ExportOptions.DestinationOptions = diskOpts;
+
+        // Export the report
+        try {
+            rd.Export();
+            bool existfile = File.Exists(tempfilename);
+            if (!existfile) error = "export fallito";
+            return existfile;
+        }
+        catch (Exception e) {
+            if (!e.ToString().Contains("0x8000030E")) {
+                error =
+                    "E' necessario disinstallare l'aggiornamento di windows KB3102429 per poter effettuare la stampa. - " +
+                    e.Message;
+                return false;
+            }
+
+            //MessageBox.Show(this,
+            //	"E' necessario disinstallare l'aggiornamento di windows KB3102429 per poter effettuare la stampa.\nSeguono istruzioni su come procedere.",
+            //	"Avviso");
+            //System.Diagnostics.Process.Start("disinstalla_kb3102429.pdf");
+            error = e.Message;
+            return false;
+        }
+    }
+
+	private DataTable OutGetNextOffice() {
         DataRow Current = DS.mandate.Rows[0];
         object idcustomuser = Conn.Security.GetSys("idcustomuser");
         object idflowchart = Conn.Security.GetSys("idflowchart");
@@ -328,6 +533,7 @@ public partial class mandate_default_new02 : MetaPage {
 
         object idoffice = R["idoffice"];
         Current["idoffice"] = idoffice;
+        skip_default= (R["skip_default"].ToString()=="S");
         SetRunningCommand("mainsave");
         CommFun.SaveFormData();
         PState.var["notifyStatusChangeParams"] = null;
@@ -337,6 +543,38 @@ public partial class mandate_default_new02 : MetaPage {
         }
         else {
             PState.var["notifyStatusChangeParams"] = parametri;
+        }
+        // Invia la mail al Ricevente, usando l'output della sp
+        string email_ricevente = null;
+        email_ricevente = R["email_ricevente"].ToString();
+        if (email_ricevente != "") {
+            SendMail SM = new SendMail();
+            SM.UseSMTPLoginAsFromField = true;
+            SM.To = email_ricevente;
+            SM.Subject = R["oggetto_mail_ricevente"].ToString();
+            SM.MessageBody = R["testo_mail_ricevente"].ToString(); 
+            SM.Conn = Conn as DataAccess;
+            DoSendMail = false;
+            if (!SM.Send()) {
+                if (SM.ErrorMessage.Trim() != "")
+                    ShowClientMessage(SM.ErrorMessage, "Errore");
+            }
+        }
+        // Invia la mail al Richiedente, usando l'output della sp
+        string email_richiedente = null;
+        email_richiedente = R["email_richiedente"].ToString();
+        if (email_richiedente != "") {
+            SendMail SM2 = new SendMail();
+            SM2.UseSMTPLoginAsFromField = true;
+            SM2.To = email_richiedente;
+            SM2.Subject = R["oggetto_mail_richiedente"].ToString();
+            SM2.MessageBody = R["testo_mail_richiedente"].ToString();
+            SM2.Conn = Conn as DataAccess;
+            DoSendMail = false;
+            if (!SM2.Send()) {
+                if (SM2.ErrorMessage.Trim() != "")
+                    ShowClientMessage(SM2.ErrorMessage, "Errore");
+            }
         }
 
     }
@@ -406,7 +644,7 @@ public partial class mandate_default_new02 : MetaPage {
         else {
             if (DS.currency.Select(QHC.CmpEq("idcurrency", codicevaluta)).Length == 0) {
                 ShowClientMessage(
-                    "La modalit√† di pagamento standard del percipiente √® associata ad una valuta non valida.",
+                    "La modalit‡ di pagamento standard del percipiente Ë associata ad una valuta non valida.",
                     "Avviso", System.Windows.Forms.MessageBoxButtons.OK);
             }
             else {
@@ -535,8 +773,8 @@ public partial class mandate_default_new02 : MetaPage {
             int oldStatus = CfgFn.GetNoNullInt32(DS.mandate.Rows[0]["idmandatestatus", DataRowVersion.Original]);
             int newStatus = CfgFn.GetNoNullInt32(DS.mandate.Rows[0]["idmandatestatus"]);
             if (oldStatus != 2 && newStatus == 2 && RunningCommand()!="mainsave") {
-                //c'√® stato un errore nell'invio della richiesta
-                //durante un save per√≤ non deve agire altrimenti se ci sono regole ignorabili annulla le modifiche precedenti
+                //c'Ë stato un errore nell'invio della richiesta
+                //durante un save perÚ non deve agire altrimenti se ci sono regole ignorabili annulla le modifiche precedenti
                 DS.mandate.Rows[0]["idmandatestatus"] = oldStatus;
             }
         }
@@ -552,7 +790,7 @@ public partial class mandate_default_new02 : MetaPage {
         fillConsipLabels();
         PState.var["lastValidConsipExtIndex"] = cmbConsipExt.SelectedIndex;
         PState.var["lastValidConsipIndex"] = cmbConsip.SelectedIndex;
-        //Solo se c'√® da chiamare la SP ed il salvataggio √® andato a buon fine
+        //Solo se c'Ë da chiamare la SP ed il salvataggio Ë andato a buon fine
         if (PState.var["notifyStatusChangeParams"] != null && !DS.HasChanges()) {
             object[] parametri = (object[])PState.var["notifyStatusChangeParams"];
             Conn.CallSP("notifyStatusChange", parametri, true, 3000);
@@ -571,7 +809,8 @@ public partial class mandate_default_new02 : MetaPage {
             LockUnLockControls(false);
             Meta.CanCancel = true;
             Meta.CanSave = true;
-            btnAvanzaStato.Visible = false; 
+            btnAvanzaStato.Visible = false;
+            btnStampaOrdine.Visible = false;
             //ManageStatus();
         }
 
@@ -717,9 +956,11 @@ public partial class mandate_default_new02 : MetaPage {
         }
         if ((!PState.IsEmpty) && (PState.EditMode)) {
             btnAvanzaStato.Enabled = true;
+            btnStampaOrdine.Enabled = true;
         }
         else {
             btnAvanzaStato.Enabled = false;
+            btnStampaOrdine.Enabled = false;
         }
 
         InjectJsonVariables();
@@ -728,11 +969,11 @@ public partial class mandate_default_new02 : MetaPage {
         int k_yman = CfgFn.GetNoNullInt32(Current["yman"]);
         int k_nman = CfgFn.GetNoNullInt32(Current["nman"]);
         string k_idmankind = Current["idmankind"] .ToString();
-        btnAvanzaStato.OnClientClick = "javascript:avanzastato("    + "'" + HttpUtility.HtmlEncode(idcustomuser) + "'," 
-                                                                    + "'" + HttpUtility.HtmlEncode(idflowchart) + "'," 
+        btnAvanzaStato.OnClientClick = "javascript:avanzastato(" + "'" + HttpUtility.HtmlEncode(idcustomuser) + "',"
+                                                                    + "'" + HttpUtility.HtmlEncode(idflowchart) + "',"
                                                                     + "'" + HttpUtility.HtmlEncode(k_idmankind) + "'," + k_yman + "," + k_nman + ");return false; ";
-        
-    }
+
+        }
     void ValorizzaUfficio(){
         if(DS.office.Rows.Count>0){
             officecode.Text = DS.office.Rows[0]["code"].ToString();
@@ -861,6 +1102,7 @@ public partial class mandate_default_new02 : MetaPage {
         officedescription.Enabled = true;
         officedescription.Text = "";
         btnAvanzaStato.Enabled = false;
+        btnStampaOrdine.Enabled = false;
     }
 
     void EnableDisableRegistry() {
@@ -902,15 +1144,32 @@ public partial class mandate_default_new02 : MetaPage {
             ImpostaTxtValuta(R);
             return;
         }
+
+        
         if (T.TableName == "mandatekind") {
             if (PState.InsertMode) {
                 object idupb_selected = (R == null ? "" : R["idupb"]);
                 MetaData.SetDefault(DS.mandatedetail, "idupb", idupb_selected);
             }
+            bool viewConsip = false;
             if (R != null) {
                 VisualizzaNascondiConsip(abilitaConsip(R["idmankind"]));
+                DataRow[] r = DS.mandatekind.Select(QHC.CmpEq("idmankind", R["idmankind"]));
+                if (r.Length == 0) viewConsip = true;
+                int flag = CfgFn.GetNoNullInt32(r[0]["flag"]) & 2;
+                if (flag == 0) viewConsip = true;
+            }
+
+            if (viewConsip) {
+                liconsip.Visible = true;
+                tabconsip.Visible = true;
+            }
+            else {
+                liconsip.Visible = false;
+                tabconsip.Visible = false;
             }
         }
+
 
         if (T.TableName == "mandatekind") {
             if (R == null)
@@ -959,7 +1218,7 @@ public partial class mandate_default_new02 : MetaPage {
                         if (idmankind.SelectedIndex > 0) {
                             if (idmankind.SelectedValue.ToString() == RR["idman"].ToString())
                                 return;
-                            ShowClientMessage("Il responsabile dell'ordine √® stato reimpostato come da UPB", "Avviso");
+                            ShowClientMessage("Il responsabile dell'ordine Ë stato reimpostato come da UPB", "Avviso");
                         }
                         CommFun.HMW.SetCombo(idmankind, DS.mandatekind, "idmankind", RR["idman"]);
                     }
@@ -1021,6 +1280,7 @@ public partial class mandate_default_new02 : MetaPage {
                 if (!PState.InsertMode) {
                     btnAvanzaStato.Text = "Invia Richiesta";
                     btnAvanzaStato.Visible = true;
+                    btnStampaOrdine.Visible = true;
                     LockUnLockControls(false);
                     EnableDisableControls(yman, true);
                     EnableDisableControls(nman, true);
@@ -1032,13 +1292,16 @@ public partial class mandate_default_new02 : MetaPage {
             case 2:
                 btnAvanzaStato.Text = "Modifica";
                 btnAvanzaStato.Visible = true;
+                btnStampaOrdine.Visible = true;
                 LockUnLockControls(true);
                 btnAvanzaStato.Enabled = true;
+                btnStampaOrdine.Enabled = true;
                 EnableDisableControls(HwEditAllegato, false);
 
                 break;
             case 3:
                 btnAvanzaStato.Visible = true;
+                btnStampaOrdine.Visible = true;
                 btnAvanzaStato.Text = "Invia Richiesta";
                 LockUnLockControls(false);
                 EnableDisableControls(yman, true);
@@ -1046,28 +1309,34 @@ public partial class mandate_default_new02 : MetaPage {
                 EnableDisableControls(idmankind, true);
 
                 btnAvanzaStato.Enabled = true;
+                btnStampaOrdine.Enabled = true;
                 break;
             default:
-                // Chiama la SP se restituisce zero righe, assume il comportamento attuale, cio√® blocca tutto,
+                // Chiama la SP se restituisce zero righe, assume il comportamento attuale, cioË blocca tutto,
                 // Se restituisce 1 riga, mette come label del buttun Nome dello stato e tra parentesi l'ufficio
-                //Se restuisce n righe, con n>1, ci sar√† il comportamento di "Avanza Stato"
+                //Se restuisce n righe, con n>1, ci sar‡ il comportamento di "Avanza Stato"
                 DataTable Tsp = OutGetNextOffice();
                 if (Tsp == null || Tsp.Rows.Count == 0) {
                     // Blocca tutto
                     btnAvanzaStato.Visible = false;
+                    btnStampaOrdine.Visible = true;
                     LockUnLockControls(true);
                     EnableDisableControls(btnAvanzaStato, false);
                     EnableDisableControls(HwEditAllegato, false);
+                    skip_default = false;
                 }
                 else {
                     if (Tsp.Rows.Count == 1) {
                         DataRow Rsp = Tsp.Rows[0];
                         btnAvanzaStato.Text = leggiStato(Rsp) + "(" + leggiUfficio(Rsp) + ")";
                         btnAvanzaStato.Visible = true;
+                        btnStampaOrdine.Visible = true;
+                        skip_default = (Rsp["skip_default"].ToString() == "S");
                     }
                     if (Tsp.Rows.Count > 1) {
                         btnAvanzaStato.Text = "Avanza Stato";
                         btnAvanzaStato.Visible = true;
+                        btnStampaOrdine.Visible = true;
                     }
                 }
                 //btnAvanzaStato.Visible = false;
@@ -1191,7 +1460,7 @@ public partial class mandate_default_new02 : MetaPage {
     }
 
     public override void AfterPost() {
-        if (DoSendMail) {
+        if ((DoSendMail) && (!skip_default)){
             string ManKindDesc = "";
             string MsgBody = "";
             DataRow CurrentRow = DS.mandate.Rows[0];
@@ -1270,7 +1539,7 @@ public partial class mandate_default_new02 : MetaPage {
 
         string S = "";
         S += "Descrizione: " + R["detaildescription"].ToString() + "\r\n";
-        S += "Quantit√†: " + quantita.ToString() + "\r\n";
+        S += "Quantit‡: " + quantita.ToString() + "\r\n";
         S += "Imponibile unitario: " + imponibile.ToString("n") + "\r\n";
         if (tassocambio != 1) {
             S += "Imponibile totale: " + imponibiletot.ToString("n") + "\r\n";
@@ -1430,4 +1699,167 @@ public partial class mandate_default_new02 : MetaPage {
             ShowHideExtConsip(false);
         }
     }
-}
+
+    public class GestioneClass {
+        public static bool UsesAttribues(IDataAccess Conn) {
+            foreach (string s in new string[] { "idsortingkind01", "idsortingkind02", "idsortingkind03",
+                            "idsortingkind04", "idsortingkind05" }) {
+                if (Conn.Security.GetSys(s) != DBNull.Value) return true;
+            }
+            return false;
+        }
+
+        public static GestioneClass GetGestioneClassForField(string field, DataAccess Conn, string parenttable) {
+            if (!UsesAttribues(Conn)) return null;
+            string f = field.ToLower().Trim();
+            if (f == "idsor01") return new GestioneClass(Conn, 1, parenttable);
+            if (f == "idsor02") return new GestioneClass(Conn, 2, parenttable);
+            if (f == "idsor03") return new GestioneClass(Conn, 3, parenttable);
+            if (f == "idsor04") return new GestioneClass(Conn, 4, parenttable);
+            if (f == "idsor05") return new GestioneClass(Conn, 5, parenttable);
+            return null;
+        }
+
+        bool allowSelection = false;
+        public bool AllowSelection() {
+            return allowSelection;
+        }
+
+        bool allowNull = false;
+        public bool AllowNull() {
+            return allowNull;
+        }
+
+        object defaultValue = DBNull.Value;
+        public object DefaultValue() {
+            return defaultValue;
+        }
+
+
+
+        string filterkind = "";
+        object filter_sec = null;
+        QueryHelper QHS;
+
+
+        public string GetFilterAutoChoose() {
+            string filtercomplete = filterkind;
+            if (filter_sec != null) filtercomplete = QHS.AppAnd(filtercomplete, filter_sec.ToString());
+            return filtercomplete;
+        }
+
+        string btnTag = "";
+        public string BtnTag() {
+            return btnTag;
+        }
+
+        string GetManageTag(string parenttable) {
+            return "manage." + parenttable + ".tree";
+        }
+        string GetChooseTag(string parenttable) {
+            string filtercomplete = filterkind;
+            if (filter_sec != null) filtercomplete = QHS.AppAnd(filtercomplete, filter_sec.ToString());
+            return "choose." + parenttable + ".tree." + filtercomplete;
+        }
+
+
+        public GestioneClass(DataAccess Conn, int N, string parenttable) {
+            QHS = Conn.GetQueryHelper();
+
+            object ayear = Conn.GetSys("esercizio");
+            string NtoS = N.ToString().PadLeft(2, '0'); //01 02 03 04 05
+            string field_getsys_sortkind = "idsortingkind" + NtoS;
+            object idsorkind = Conn.GetSys(field_getsys_sortkind);
+
+            if (idsorkind == null || idsorkind == DBNull.Value) {
+                allowSelection = false;
+                allowNull = true;
+                defaultValue = DBNull.Value;
+                return;
+            }
+
+            filterkind = QHS.CmpEq("idsorkind", idsorkind);
+
+
+            object idflowchart = Conn.GetSys("idflowchart");
+            object ndetail = Conn.GetSys("ndetail");
+            object idcustomuser = Conn.GetSys("idcustomuser");
+
+            if (idflowchart == null || idflowchart == DBNull.Value) {
+                allowSelection = true;
+                allowNull = true;
+                defaultValue = DBNull.Value;
+                btnTag = GetManageTag(parenttable);
+                return;
+            }
+
+
+            object as_filter = Conn.DO_READ_VALUE("uniconfig", null, "sorkind" + NtoS + "asfilter");
+            if (as_filter == null || as_filter == DBNull.Value) as_filter = "N";
+            object all_value = "S";
+            object withchilds = "N";
+            if (as_filter.ToString().ToUpper() == "S") {
+                all_value = Conn.DO_READ_VALUE("flowchartuser",
+                                QHS.AppAnd(QHS.CmpEq("idcustomuser", idcustomuser),
+                                            QHS.CmpEq("idflowchart", idflowchart),
+                                            QHS.CmpEq("ndetail", ndetail)),
+                                " isnull(all_sorkind" + NtoS + ",'S')");
+                if (all_value == null || all_value == DBNull.Value) {
+                    all_value = "S";
+                }
+                if (all_value.ToString().ToUpper() == "N") {
+                    withchilds = Conn.DO_READ_VALUE("flowchartuser",
+                                QHS.AppAnd(QHS.CmpEq("idcustomuser", idcustomuser),
+                                            QHS.CmpEq("idflowchart", idflowchart),
+                                            QHS.CmpEq("ndetail", ndetail)),
+                                " isnull(sorkind" + NtoS + "_withchilds,'N')");
+                    if (withchilds == null || withchilds == DBNull.Value) {
+                        withchilds = "N";
+                    }
+                }
+            }
+
+            if (all_value.ToString().ToUpper() == "S") {
+                allowSelection = true;
+                allowNull = true;
+                defaultValue = DBNull.Value;
+                btnTag = GetManageTag(parenttable);
+                return;
+            }
+
+            object idsor = Conn.GetSys("idsor" + NtoS);
+            if (withchilds.ToString().ToUpper() != "S") {
+                allowSelection = false;
+                allowNull = false;
+                defaultValue = idsor;
+                return;
+            }
+            filter_sec = Conn.GetUsr("cond_sor" + NtoS);
+            if (filter_sec != null) {
+                string f = filter_sec.ToString().Trim();
+                if (f.StartsWith("AND(")) {
+                    f = f.Substring(3);
+                    filter_sec = f;
+                }
+
+                if (f == "(1=1") {
+                    f = "";
+                    filter_sec = null;
+                }
+
+                if (f != "") {
+                    f = f.Replace("idsor" + NtoS, "idsor");
+                    filter_sec = f;
+                }
+            }
+
+            btnTag = GetChooseTag(parenttable);
+            allowSelection = true;
+            allowNull = false;
+            defaultValue = idsor;
+
+
+
+        }
+    }
+}

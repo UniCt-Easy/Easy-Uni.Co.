@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_invoicepaymentindicator]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_invoicepaymentindicator]
 GO
@@ -14,17 +31,18 @@ CREATE  PROCEDURE [exp_invoicepaymentindicator](
 	@idsor02 int=null,
 	@idsor03 int=null,
 	@idsor04 int=null,
-	@idsor05 int=null
+	@idsor05 int=null,
+	@mode char(1)-- M: Considera la data Mandato	T: Considera la data Trasmissione
 ) 
--- setuser 'amministrazione'
--- EXEC exp_invoicepaymentindicator 2017, null, null, null,{ts '2017-01-01 00:00:00'}, {ts '2017-07-05 00:00:00'}, 'N', null, null, null, null, null
+-- setuser 'amm'
+-- EXEC exp_invoicepaymentindicator 2018, null, null, null,{ts '2018-01-01 00:00:00'}, {ts '2018-07-05 00:00:00'}, 'N', null, null, null, null, null,'M'
  
 /*
 
 Ultima modifica Gianni 31/01/2015
 
-ModalitÃ  di calcolo
-Lâ€™indicatore di tempestivitÃ  dei pagamenti eâ€™ calcolato come la somma, 
+Modalità  di calcolo
+L'indicatore di tempestività  dei pagamenti e calcolato come la somma, 
 per ciascuna fattura emessa a titolo corrispettivo di una transazione commerciale, 
 dei giorni effettivi intercorrenti tra la data di scadenza della fattura o richiesta equivalente di pagamento e 
 la data di pagamento ai fornitori moltiplicata per lâ€™importo dovuto, 
@@ -88,6 +106,8 @@ AS BEGIN
 		adate datetime, 
 		protocoldate datetime,
 		transmissiondate datetime,
+		paymentdate datetime,
+		datapagamento datetime,
 		curramount decimal(19,2),
 		expiring datetime,
 		dateconsidered datetime,
@@ -100,13 +120,17 @@ AS BEGIN
 	INSERT INTO #invoicecontab
 	(
 		idinvkind,		yinv,		ninv,		
-			adate,		protocoldate,		transmissiondate,dateconsidered,
+			adate,		protocoldate,		transmissiondate,paymentdate, datapagamento, dateconsidered,
 		curramount
 	 )
 	SELECT 
 		I.idinvkind,		I.yinv,		I.ninv,		
 		I.adate,	I.protocoldate,		
 		PT.transmissiondate, -- era isnull(PT.bankdate, PT.streamdate),
+		P.adate, 
+		case when @mode = 'T' then PT.transmissiondate
+		else P.adate
+		end,
 		coalesce(I.expiring,I.protocoldate,I.adate),
 
 		--escludo iva split dal calcolo secondo task 8647
@@ -120,16 +144,13 @@ AS BEGIN
 	JOIN    payment P				ON	P.kpay = EIV.kpay
 	JOIN    paymenttransmission PT	  ON	P.kpaymenttransmission = PT.kpaymenttransmission
    WHERE 	NOT EXISTS (SELECT * FROM pettycashoperationinvoice PCOP 
-		WHERE PCOP.idinvkind = I.idinvkind 
-		AND	PCOP.yinv = I.yinv
-		AND	PCOP.ninv = I.ninv )
-		AND PT.transmissiondate between @start and @stop
+		WHERE PCOP.idinvkind = I.idinvkind 	AND	PCOP.yinv = I.yinv	AND	PCOP.ninv = I.ninv )
+		AND (@mode = 'T' and  PT.transmissiondate between @start and @stop
+			or
+			@mode = 'M' and  P.adate between @start and @stop)
 		 AND (IK.codeinvkind = @codeinvkind OR @codeinvkind is null)
 		AND ((EXISTS (SELECT * FROM ivaregister IRG 
-			      WHERE IRG.idinvkind = I.idinvkind
-				AND IRG.yinv = I.yinv
-				AND IRG.ninv = I.ninv 
-				AND IRG.idivaregisterkind = @idivaregisterkind
+			      WHERE IRG.idinvkind = I.idinvkind AND IRG.yinv = I.yinv AND IRG.ninv = I.ninv AND IRG.idivaregisterkind = @idivaregisterkind
 				AND @idivaregisterkind IS NOT NULL))  
 		     OR (@idivaregisterkind is null))
 		AND ISNULL(I.toincludeinpaymentindicator,'S') <> 'N'		
@@ -146,13 +167,17 @@ AS BEGIN
 INSERT INTO #invoicecontab
 	(
 		idinvkind,		yinv,		ninv,	
-			adate,		protocoldate,		transmissiondate,dateconsidered,
+			adate,		protocoldate,		transmissiondate,paymentdate, datapagamento, dateconsidered,
 		curramount
 	 )
 	SELECT 
 		I.idinvkind,		I.yinv,		I.ninv,		
 		I.adate,	I.protocoldate,		
 		PT.transmissiondate, -- era isnull(PT.bankdate, PT.streamdate),
+		P.adate, 
+		case when @mode = 'T' then PT.transmissiondate
+		else P.adate
+		end,
 		coalesce(I.expiring,I.protocoldate,I.adate),
 		ey.amount
 	FROM 	expenseprofservice EP
@@ -165,17 +190,14 @@ INSERT INTO #invoicecontab
 	JOIN    payment P				ON	P.kpay = ELAST.kpay
 	JOIN    paymenttransmission PT	  ON	P.kpaymenttransmission = PT.kpaymenttransmission
    WHERE 	NOT EXISTS (SELECT * FROM pettycashoperationinvoice PCOP 
-		WHERE PCOP.idinvkind = I.idinvkind 
-		AND	PCOP.yinv = I.yinv
-		AND	PCOP.ninv = I.ninv )
-		AND PT.transmissiondate between @start and @stop
+		WHERE PCOP.idinvkind = I.idinvkind 	AND	PCOP.yinv = I.yinv	AND	PCOP.ninv = I.ninv )
+		AND (@mode = 'T' and  PT.transmissiondate between @start and @stop
+			or
+			@mode = 'M' and  P.adate between @start and @stop)
 		AND (IK.codeinvkind = @codeinvkind OR @codeinvkind is null)
 		AND ((EXISTS (SELECT * FROM ivaregister IRG 
-			      WHERE IRG.idinvkind = I.idinvkind
-				AND IRG.yinv = I.yinv
-				AND IRG.ninv = I.ninv 
-				AND IRG.idivaregisterkind = @idivaregisterkind
-				AND @idivaregisterkind IS NOT NULL))  
+			      WHERE IRG.idinvkind = I.idinvkind AND IRG.yinv = I.yinv AND IRG.ninv = I.ninv  AND IRG.idivaregisterkind = @idivaregisterkind
+						AND @idivaregisterkind IS NOT NULL))  
 		     OR (@idivaregisterkind is null))
 		AND ISNULL(I.toincludeinpaymentindicator,'S') <> 'N'		
 		AND (ISNULL(I.idsor01,IK.idsor01) = @idsor01 OR @idsor01 IS NULL)
@@ -191,12 +213,15 @@ INSERT INTO #invoicecontab
 INSERT INTO #invoicecontab
 	(
 		idinvkind,		yinv,		ninv,		
-		adate,		protocoldate,		transmissiondate,
+		adate,		protocoldate,		transmissiondate, paymentdate, datapagamento, dateconsidered,		
 		curramount
 	 )
 	SELECT 
 		PCOP.idinvkind,		PCOP.yinv,		PCOP.ninv,	
 		I.adate,	I.protocoldate,			
+		PCO.adate,	
+		PCO.adate,	
+		PCO.adate,	
 		PCO.adate,	
 		PCO.amount		
 	FROM 	pettycashoperationinvoice PCOP 
@@ -233,7 +258,7 @@ print @totalepagato
 
 UPDATE #invoicecontab 
 -- TASK 6429 fare in modo che se manca la data di scadenza sulla fattura prenda la data di protocollo e se manca il protocollo prenda la data di registrazione.
-SET paymentfromexpiring = DATEDIFF ( day , #invoicecontab.dateconsidered, #invoicecontab.transmissiondate)
+SET paymentfromexpiring = DATEDIFF ( day , #invoicecontab.dateconsidered, #invoicecontab.datapagamento)
 
  
  
@@ -248,6 +273,7 @@ IF (
 	I.invoicekind AS 'Tipo', 
 	I.yinv AS 'Esercizio', 
 	I.ninv AS 'Numero', 	
+	SDI.identificativo_sdi 'identificativo SDI',  --identificativo_sdi
 	I.ycon AS 'Anno parcella',
 	I.ncon AS 'N.parcella',
 	I.doc AS  'Num. Doc. Coll.',
@@ -259,7 +285,11 @@ IF (
 	convert(varchar,I.expiring,105) as 'Data Scadenza', 	
 	I.total AS 'Tot. fattura',
 	I.iduniqueregister as 'Cod. Progr. Registro Unico',
-	convert(varchar,IC.transmissiondate,105) as 'Data pagamento',
+	convert(varchar,IC.paymentdate,105) as 'Data mandato',
+	convert(varchar,IC.transmissiondate,105) as 'Data trasmissione',
+	convert(varchar,IC.datapagamento,105) as 'Data considerata per il pagamento',
+	convert(varchar,IC.dateconsidered,105) as 'Data considerata per la scadenza',
+
 	IC.paymentfromexpiring as 'GG.  Pagamento (A)',
 	IC.curramount AS 'Importo Pagato (B)',
 	IC.paymentfromexpiring * IC.curramount AS 'GG. Pagamento (A) X Importo Pagato (B)', 
@@ -267,6 +297,7 @@ IF (
 	convert(decimal(19,10), (IC.curramount * IC.paymentfromexpiring) / @totalepagato )  as 'Importo dovuto per GG. Pagamento = (A)*(B)/(C)'
 	FROM invoiceview I 		
 		JOIN #invoicecontab IC ON IC.idinvkind = I.idinvkind	 AND	IC.yinv = I.yinv	 AND	IC.ninv = I.ninv  	
+		left outer join sdi_acquisto SDI on I.idsdi_acquisto=SDI.idsdi_acquisto
 	where IC.transmissiondate is not null
 	order by I.idinvkind, I.yinv, I.ninv
 ELSE
@@ -275,6 +306,7 @@ ELSE
 	I.invoicekind AS 'Tipo', 
 	I.yinv AS 'Esercizio', 
 	I.ninv AS 'Numero', 	
+	SDI.identificativo_sdi 'identificativo SDI',
 	I.ycon AS 'Anno parcella',
 	I.ncon AS 'N.parcella',
 	I.doc AS  'Num. Doc. Coll.',
@@ -286,7 +318,12 @@ ELSE
 	convert(varchar,I.expiring,105) as 'Data Scadenza', 	
 	I.total AS 'Tot. fattura',
 	I.iduniqueregister as 'Cod. Progr. Registro Unico',
-	convert(varchar,IC.transmissiondate,105) as 'Data pagamento',
+	convert(varchar,IC.paymentdate,105) as 'Data mandato',
+	convert(varchar,IC.transmissiondate,105) as 'Data trasmissione',
+	convert(varchar,IC.datapagamento,105) as 'Data considerata per il pagamento',
+	convert(varchar,IC.dateconsidered,105) as 'Data considerata per la scadenza',
+
+
 	IC.paymentfromexpiring as 'GG.  Pagamento (A)',
 	IC.curramount AS 'Importo Pagato (B)',
 	@totalepagato as 'totale pagato nel periodo (C)',
@@ -294,6 +331,7 @@ ELSE
 	convert(decimal(19,10),  (IC.curramount * IC.paymentfromexpiring) / @totalepagato)  as 'Importo dovuto per GG. Pagamento = (A)*(B)/(C)'
 	FROM invoiceview I 		
 		JOIN #invoicecontab IC ON IC.idinvkind = I.idinvkind	 AND	IC.yinv = I.yinv	 AND	IC.ninv = I.ninv  
+		left outer join sdi_acquisto SDI on I.idsdi_acquisto=SDI.idsdi_acquisto
 	where IC.transmissiondate is not null
 	order by I.idinvkind, I.yinv, I.ninv	
 END

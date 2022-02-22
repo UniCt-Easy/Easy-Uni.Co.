@@ -95,6 +95,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\meta_income\meta_income.csproj">
+      <Project>{71c9b50f-cb2c-4e14-a368-de0b2e348c36}</Project>
+      <Name>meta_income</Name>
+    </ProjectReference>
     <Reference Include="MagicLibrary">
       <Name>MagicLibrary</Name>
       <HintPath>..\..\dll\MagicLibrary.DLL</HintPath>
@@ -128,6 +132,10 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
+    <ProjectReference Include="..\..\proceeds\meta_proceeds\meta_proceeds.csproj">
+      <Project>{9a369412-fa2d-496a-9e39-139a230bd1c6}</Project>
+      <Name>meta_proceeds</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\chooseBill\chooseBill.csproj">
       <Project>{9944E8AC-9EC1-4473-8A98-70DF8869BEE3}</Project>
       <Name>chooseBill</Name>
@@ -158,12 +166,6 @@
       <Project>{42D2BFEA-1727-4039-A978-5D366E5479D3}</Project>
       <Private>False</Private>
     </ProjectReference>
-    <Reference Include="meta_income">
-      <HintPath>..\meta_income\bin\Debug\meta_income.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_income</Name>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="meta_manager">
       <HintPath>..\..\manager\meta_manager\bin\Debug\meta_manager.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -198,12 +200,6 @@
       <HintPath>..\..\sorting\meta_sorting\bin\Debug\meta_sorting.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_sorting</Name>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="meta_proceeds">
-      <HintPath>..\..\proceeds\meta_proceeds\bin\Debug\meta_proceeds.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_proceeds</Name>
       <Private>False</Private>
     </Reference>
     <Reference Include="meta_treasurer">

@@ -1,11 +1,11 @@
 MIME-Version: 1.0
-Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
+Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occ.)
 X-Unsent: 1
 Content-Type: Multipart/related;
-  boundary="---------blocknote.net--4QAGO8ISL3DF18DLZ7OLTHTSD"
+  boundary="---------blocknote.net--1XV0G3NJPXW4FBB3YX71TCP3XI"
 
 
------------blocknote.net--4QAGO8ISL3DF18DLZ7OLTHTSD
+-----------blocknote.net--1XV0G3NJPXW4FBB3YX71TCP3XI
 Content-Type: Text/HTML;
   charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
@@ -19,6 +19,7 @@ Content-Transfer-Encoding: quoted-printable
     <META name=3D"source">
     <META name=3D"source">
     <META name=3D"source">
+    <META name=3D"source">
     <BASEFONT face=3D"Times New Roman" size=3D"3">
     <TITLE></TITLE><STYLE>BODY { FONT-FAMILY:Times New Roman; FONT-SIZE:1=
 2pt }
@@ -28,44 +29,53 @@ TD { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
 </STYLE>
   </HEAD>
 <BODY>
-<DIV><STRONG><FONT size=3D"4">Menu: </STRONG>Opzioni &nbsp;&gt; Entrate &=
-gt; Flussi studenti &gt; Voce</FONT></DIV>
-<DIV>&nbsp;</DIV><HR>
-<DIV align=3D"center"><STRONG><FONT size=3D"5">Voce</FONT></STRONG></DIV>
-<DIV align=3D"center">&nbsp;</DIV>
-<DIV align=3D"justify"><FONT size=3D"4">Nel caso di incamero somme median=
-te il servizio webservice integrato con il sistema Esse3, nel suddetto fo=
-rm =C3=A8 possibile visualizzare i vari codici voce previsti nel sistema =
-Esse3. (Fig. 1)</FONT></DIV>
-<DIV align=3D"justify">&nbsp;</DIV>
-<DIV align=3D"center"><FONT size=3D"4">Fig. 1</FONT></DIV>
-<DIV align=3D"center"><IMG src=3D"cid:UGZD1KI0658C1HF6V92YEFP60" align=3D=
+<DIV><STRONG><FONT size=3D"5">VOCE</FONT></STRONG></DIV>
+<DIV><FONT size=3D"4">Menu: <STRONG>Opzioni &nbsp;&gt; Entrate &gt; Fluss=
+i studenti &gt; Voce</FONT></STRONG></DIV><HR>
+<DIV><FONT size=3D"4">Link guide correlate:</FONT></DIV>
+<DIV><A href=3D"stip_tassa_default.mht"><FONT size=3D"4">Tassa</FONT></A>=
+</FONT></DIV>
+<DIV><A href=3D"stip_corsolaurea_default.mht"><FONT size=3D"4">Corso di L=
+aurea</FONT></A></FONT></DIV>
+<DIV><A href=3D"stip_decodifica_default.mht"><FONT size=3D"4">Associazion=
+e Tassa-Voce</FONT></A></FONT></DIV>
+<DIV><A href=3D"flussocreditidetail_default.mht"><FONT size=3D"4">Dettagl=
+io crediti</FONT></A></FONT></DIV>
+<DIV><A href=3D"flussoincassidetail_default.mht"><FONT size=3D"4">Dettagl=
+io Incassi</FONT></A></FONT></DIV>
+<DIV><A href=3D"no_table_flussostudenti.mht"><FONT size=3D"4">Elaborazion=
+e crediti e Elaborazione incassi</FONT></A></FONT></DIV><HR>
+<DIV>&nbsp;</DIV>
+<DIV><FONT size=3D"4">Nel caso sia attivo il servizio <EM>Web Service</EM=
+> integrato con il <EM>software</EM> di gestione delle Segreterie student=
+i <EM>Esse3</EM>, nel suddetto <EM>form</EM> =C3=A8 possibile visualizzar=
+e i vari codici Voce previsti nel sistema <EM>Esse3</EM>.</FONT></DIV>
+<DIV><FONT size=3D"4">L'aggiornamento dell'elenco delle Voci avviene in a=
+utomatico mediante lo scambio delle informazioni con il servizio <EM>Esse=
+3</EM>. La presenza delle Voci =C3=A8 propedeutica alla successive fasi d=
+i configurazione che si effettuano su <A href=3D"stip_corsolaurea_default=
+=2Emht">Corso di Laurea</A> e su <A href=3D"stip_decodifica_default.mht">=
+Associazione Tassa-Voce</A>.</FONT></DIV>
+<DIV>&nbsp;</DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1XMP3WOIBGY3XU60KUQ1P33YO1" align=3D=
 "middle"></DIV>
-<DIV align=3D"justify">&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">La maschera prevede la visualizzazione di:</FONT></=
 DIV>
 <UL>
-<LI><DIV align=3D"justify"><FONT size=3D"4">Codice voce: &nbsp;il codice =
-della voce previsto in Esse3</FONT></DIV></LI>
-<LI><DIV align=3D"justify"><FONT size=3D"4">Descrizione: &nbsp;descrizion=
-e della voce</FONT></DIV></LI>
-<LI><DIV align=3D"justify"><FONT size=3D"4">#: &nbsp;numero progressivo a=
-ttribuito da Easy in automatico</FONT></DIV></LI></UL>
+<LI><FONT size=3D"4">Codice voce: &nbsp;il codice della voce previsto in =
+<EM>Esse3</FONT></EM></LI>
+<LI><FONT size=3D"4">Descrizione: &nbsp;descrizione della voce</FONT></LI=
+>
+<LI><FONT size=3D"4">#: &nbsp;numero progressivo attribuito da <EM>Easy</=
+EM> in automatico</FONT></LI></UL>
 
-<DIV align=3D"justify">&nbsp;</DIV>
-<DIV align=3D"justify"><FONT size=3D"4">La presenza del codice voce serve=
- per il successivo step di configurazione <A href=3D"stip_decodifica_defa=
-ult.mht">Associazione tassa - Voce</A></FONT></DIV>
-<DIV>&nbsp;</DIV>
-<DIV><FONT size=3D"4">L'aggiornamento dell'elenco delle voci avviene in a=
-utomatico mediante lo scambio delle informazioni con il servizio Esse3.</=
-FONT></DIV>
 </BODY>
 </HTML>
 
------------blocknote.net--4QAGO8ISL3DF18DLZ7OLTHTSD
+-----------blocknote.net--1XV0G3NJPXW4FBB3YX71TCP3XI
 Content-Type: image/x-png
-Content-Id: <UGZD1KI0658C1HF6V92YEFP60>
+Content-Id: <1XMP3WOIBGY3XU60KUQ1P33YO1>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Cinzia/Desktop/per integrazioni/incamero flusso studenti tramite Esse3 mht/voce.png
 
@@ -194,4 +204,4 @@ QQwAjhHEAOAYQQwAjhHEAOAYQQwAjqXlv3w+f/cTr+kYAJCYi3O9zx45jTtiAHCM
 IAYAxwhiAHCMIAYAxwhiAHDM+6yJNz62UgcAgIQ9e+Q00wMAuJKeP3++6QIAkpdK
 /T+fISu/p/EeiAAAAABJRU5ErkJggg===
 
------------blocknote.net--4QAGO8ISL3DF18DLZ7OLTHTSD--
+-----------blocknote.net--1XV0G3NJPXW4FBB3YX71TCP3XI--

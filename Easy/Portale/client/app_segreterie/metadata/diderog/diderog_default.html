@@ -1,0 +1,64 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabdiderog_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabdiderog_default_0"><i class="fa fa-chalkboard-teacher mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabdiderog_default_1" class="nav-link" data-toggle="pill" data-target="#tabdiderog_default_1"><i class="fa fa-chalkboard-teacher mr-1"></i>Attività formative</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabdiderog_default_2" class="nav-link" data-toggle="pill" data-target="#tabdiderog_default_2"><i class="fa fa-chart-pie mr-1"></i>Canali</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabdiderog_default_3" class="nav-link" data-toggle="pill" data-target="#tabdiderog_default_3"><i class="fa fa-euro-sign mr-1"></i>Riepilogo dei costi degli affidamenti</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabdiderog_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="diderog_default_idcorsostudio">Corso di studio</label>
+					<div>
+						<input id="diderog_default_idcorsostudio" name="diderog_default_idcorsostudio" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="corsostudiodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="diderog_default_aa">Anno Accademico</label>
+					<select id="diderog_default_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="diderog.aa?diderogdefaultview.aa" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="diderog_default_inesaurimento">Inesaurimento</label>
+					<div class="custom-control custom-radio">
+						<input id="diderog_default_inesaurimentoSi" type="radio" name="diderog_default_inesaurimento" class="custom-control-input" data-tag="diderog.inesaurimento:S?diderogdefaultview.diderog_inesaurimento:Si" data-subentity  ><label for="diderog_default_inesaurimentoSi"> Si</label>
+						<input id="diderog_default_inesaurimentoNo" type="radio" name="diderog_default_inesaurimento" class="custom-control-input" data-tag="diderog.inesaurimento:N?diderogdefaultview.diderog_inesaurimento:No" data-subentity  ><label for="diderog_default_inesaurimentoNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="diderog_default_idsede">Identificativo</label>
+					<div>
+						<input id="diderog_default_idsede" name="diderog_default_idsede" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sededefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabdiderog_default_1" role="tabpanel">
+				<div class="gridx" id="grid_attivform_erogata" data-tag="attivform.erogata.erogata" data-custom-control="gridxchild" data-mdlgroupedcolumns="!iddidproganno_didproganno_title;!iddidprogcurr_didprogcurr_title;!iddidprogori_didprogori_title;!iddidprogporzanno_didprogporzanno_title" data-mdltotnotvisible data-mdlconditionallookup="tipovalutaz,P,Profitto;tipovalutaz,I,Idoneità;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabdiderog_default_2" role="tabpanel">
+				<div class="gridx" id="grid_canale_erogata" data-tag="canale.erogata.erogata" data-custom-control="gridxchild" data-mdlgroupedcolumns="!idattivform_attivform_title;!iddidproganno_didproganno_title;!iddidprogcurr_didprogcurr_title;!iddidprogori_didprogori_title;!iddidprogporzanno_didprogporzanno_title" data-mdltotnotvisible data-mdlbuttonedit  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabdiderog_default_3" role="tabpanel">
+				<div class="gridx" id="grid_getcostididattica_erogata" data-tag="getcostididattica.erogata.erogata" data-custom-control="gridx"  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

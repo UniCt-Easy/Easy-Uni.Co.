@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_esonero_titolostudio" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_esonero_titolostudio" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="esoneroanskind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idesoneroanskind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="costoscontodefscontiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idcostoscontodef" type="xs:int" />
+              <xs:element name="paridcostoscontodef" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="strutturadefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="paridstruttura" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="annoaccademico" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="esonero" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="applunavolta" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostoscontodef" type="xs:int" />
+              <xs:element name="idesonero" type="xs:int" />
+              <xs:element name="idesoneroanskind" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="retroattivo" type="xs:string" minOccurs="0" />
+              <xs:element name="soloconisee" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="esonero_titolostudio" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="conseguitoincorso" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="dataconstutticf" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datalaurea" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idesonero" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="nellistituto" type="xs:string" minOccurs="0" />
+              <xs:element name="noabbr" type="xs:string" minOccurs="0" />
+              <xs:element name="noparttime" type="xs:string" minOccurs="0" />
+              <xs:element name="votomin" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:esoneroanskind" />
+      <xs:field xpath="mstns:idesoneroanskind" />
+    </xs:unique>
+    <xs:unique name="costoscontodefscontiview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:costoscontodefscontiview" />
+      <xs:field xpath="mstns:idcostoscontodef" />
+    </xs:unique>
+    <xs:unique name="strutturadefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:strutturadefaultview" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+    <xs:unique name="annoaccademico_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:annoaccademico" />
+      <xs:field xpath="mstns:aa" />
+    </xs:unique>
+    <xs:unique name="esonero_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:esonero" />
+      <xs:field xpath="mstns:idesonero" />
+    </xs:unique>
+    <xs:unique name="esonero_titolostudio_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:esonero_titolostudio" />
+      <xs:field xpath="mstns:idesonero" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_esonero_esoneroanskind_idesoneroanskind" msdata:parent="esoneroanskind" msdata:child="esonero" msdata:parentkey="idesoneroanskind" msdata:childkey="idesoneroanskind" />
+      <msdata:Relationship name="FK_esonero_costoscontodefscontiview_idcostoscontodef" msdata:parent="costoscontodefscontiview" msdata:child="esonero" msdata:parentkey="idcostoscontodef" msdata:childkey="idcostoscontodef" />
+      <msdata:Relationship name="FK_esonero_titolostudio_strutturadefaultview_idstruttura" msdata:parent="strutturadefaultview" msdata:child="esonero_titolostudio" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
+      <msdata:Relationship name="FK_esonero_annoaccademico_aa" msdata:parent="annoaccademico" msdata:child="esonero" msdata:parentkey="aa" msdata:childkey="aa" />
+      <msdata:Relationship name="FK_esonero_titolostudio_esonero_idesonero" msdata:parent="esonero" msdata:child="esonero_titolostudio" msdata:parentkey="idesonero" msdata:childkey="idesonero" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

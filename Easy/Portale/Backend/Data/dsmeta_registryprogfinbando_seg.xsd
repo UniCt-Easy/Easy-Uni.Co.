@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_registryprogfinbando_seg" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_registryprogfinbando_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="attach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="filename" type="xs:string" />
+              <xs:element name="hash" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="size" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registryprogfinbandoattach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistryprogfin" type="xs:int" />
+              <xs:element name="idregistryprogfinbando" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idattach_attach_filename" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idattach_attach_size" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registryprogfinbando" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistryprogfin" type="xs:int" />
+              <xs:element name="idregistryprogfinbando" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="number" type="xs:string" minOccurs="0" />
+              <xs:element name="scadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attach" />
+      <xs:field xpath="mstns:idattach" />
+    </xs:unique>
+    <xs:unique name="registryprogfinbandoattach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registryprogfinbandoattach" />
+      <xs:field xpath="mstns:idattach" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistryprogfin" />
+      <xs:field xpath="mstns:idregistryprogfinbando" />
+    </xs:unique>
+    <xs:unique name="registryprogfinbando_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registryprogfinbando" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistryprogfin" />
+      <xs:field xpath="mstns:idregistryprogfinbando" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_registryprogfinbandoattach_registryprogfinbando_idreg-idregistryprogfin-idregistryprogfinbando" msdata:parent="registryprogfinbando" msdata:child="registryprogfinbandoattach" msdata:parentkey="idreg idregistryprogfin idregistryprogfinbando" msdata:childkey="idreg idregistryprogfin idregistryprogfinbando" />
+      <msdata:Relationship name="FK_registryprogfinbandoattach_attach_idattach" msdata:parent="attach" msdata:child="registryprogfinbandoattach" msdata:parentkey="idattach" msdata:childkey="idattach" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

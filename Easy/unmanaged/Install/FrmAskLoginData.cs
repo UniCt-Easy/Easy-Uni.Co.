@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -29,7 +28,7 @@ namespace Install//Install//
 	/// <summary>
 	/// Summary description for FrmAskLoginData.
 	/// </summary>
-	public class FrmAskLoginData : System.Windows.Forms.Form
+	public class FrmAskLoginData : MetaDataForm
 	{
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox txtNome;
@@ -223,7 +222,7 @@ namespace Install//Install//
 
 		private void btnOk_Click(object sender, System.EventArgs e) {
 			if (txtNome.Text.Trim()==""){
-				MessageBox.Show("E' necessario specificare un nome per la login da creare");
+				show("E' necessario specificare un nome per la login da creare");
 				DialogResult= DialogResult.None;
 				txtNome.Focus();
 				return;
@@ -238,7 +237,7 @@ namespace Install//Install//
 			if (T1!=null){
 				foreach(DataRow R1 in T1.Rows){
 					if (R1["loginname"].ToString().ToUpper()==username.ToUpper()){
-						MessageBox.Show("La login "+R1["loginname"].ToString()+
+						show("La login "+R1["loginname"].ToString()+
 							" è già presente nel server.");
 						DialogResult=DialogResult.None;
 						txtNome.Focus();
@@ -259,18 +258,18 @@ namespace Install//Install//
 					return;
 				}
 			}
-			MessageBox.Show("Account creato con successo.");
+			show("Account creato con successo.");
 		}
 
 
 		bool CreateSQLAccount(){
 			if (txtPWD1.Text==""){
-				MessageBox.Show("Specificare la password.");
+				show("Specificare la password.");
 				txtPWD1.Focus();
 				return false;
 			}
 			if (txtPWD2.Text!=txtPWD1.Text){
-				MessageBox.Show("Le due password inserite sono diverse.");
+				show("Le due password inserite sono diverse.");
 				txtPWD1.Focus();
 				return false;
 			}
@@ -283,7 +282,7 @@ namespace Install//Install//
                     ", CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF", out err);
 
 			if (err!=null){
-				MessageBox.Show("Errore: "+err);
+				show("Errore: "+err);
 				return false;
 			}		
 			return true;
@@ -295,7 +294,7 @@ namespace Install//Install//
 			string err;
 			Conn.DO_SYS_CMD("EXEC sp_grantlogin "+QueryCreator.quotedstrvalue(username,false), out err);
 			if (err!=null){
-				MessageBox.Show("Errore: "+err);
+				show("Errore: "+err);
 				return false;
 			}		
 
@@ -305,4 +304,3 @@ namespace Install//Install//
 		}
 	}
 }
-

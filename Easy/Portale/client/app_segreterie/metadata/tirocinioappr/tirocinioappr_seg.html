@@ -1,0 +1,34 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tirocinioappr_seg_approvazione">Approvazione</label>
+					<div class="custom-control custom-radio">
+						<input id="tirocinioappr_seg_approvazioneSi" type="radio" name="tirocinioappr_seg_approvazione" class="custom-control-input" data-tag="tirocinioappr.approvazione:S"  ><label for="tirocinioappr_seg_approvazioneSi"> Si</label>
+						<input id="tirocinioappr_seg_approvazioneNo" type="radio" name="tirocinioappr_seg_approvazione" class="custom-control-input" data-tag="tirocinioappr.approvazione:N"  ><label for="tirocinioappr_seg_approvazioneNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#tirocinioappr_seg_dataora").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="tirocinioappr_seg_dataora">Dataora</label>
+					<input id="tirocinioappr_seg_dataora" type="text" class="form-control" data-tag="tirocinioappr.dataora.g"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tirocinioappr_seg_idtirocinioapprkind">Tipo di approvazione</label>
+					<select id="tirocinioappr_seg_idtirocinioapprkind" class="custom-select d-block w-100"  data-source-name="tirocinioapprkind" data-value-member="idtirocinioapprkind" data-display-member="title" data-custom-control="combo" data-tag="tirocinioappr.idtirocinioapprkind"   > </select>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

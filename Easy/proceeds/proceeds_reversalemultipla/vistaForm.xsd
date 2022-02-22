@@ -282,6 +282,7 @@
               <xs:element name="cu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
+              <xs:element name="nmov" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -710,6 +711,23 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="incomelastestimatedetail" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinc" type="xs:int" />
+              <xs:element name="idestimkind" type="xs:string" />
+              <xs:element name="yestim" type="xs:short" />
+              <xs:element name="nestim" type="xs:int" />
+              <xs:element name="rownum" type="xs:int" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="originalamount" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -802,6 +820,14 @@
       <xs:selector xpath=".//mstns:sorting05" />
       <xs:field xpath="mstns:idsor" />
     </xs:unique>
+    <xs:unique name="incomelastestimatedetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:incomelastestimatedetail" />
+      <xs:field xpath="mstns:idinc" />
+      <xs:field xpath="mstns:idestimkind" />
+      <xs:field xpath="mstns:yestim" />
+      <xs:field xpath="mstns:nestim" />
+      <xs:field xpath="mstns:rownum" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -822,6 +848,7 @@
       <msdata:Relationship name="managerproceeds" msdata:parent="manager" msdata:child="proceeds" msdata:parentkey="idman" msdata:childkey="idman" />
       <msdata:Relationship name="proceedstransmissionproceeds" msdata:parent="proceedstransmission" msdata:child="proceeds" msdata:parentkey="kproceedstransmission" msdata:childkey="kproceedstransmission" />
       <msdata:Relationship name="FK_stamphandling_proceeds" msdata:parent="stamphandling" msdata:child="proceeds" msdata:parentkey="idstamphandling" msdata:childkey="idstamphandling" />
+      <msdata:Relationship name="incomelastview_incomelastestimatedetail" msdata:parent="incomelastview" msdata:child="incomelastestimatedetail" msdata:parentkey="idinc" msdata:childkey="idinc" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

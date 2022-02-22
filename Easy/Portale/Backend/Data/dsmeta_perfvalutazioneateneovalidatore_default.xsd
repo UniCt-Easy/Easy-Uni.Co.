@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_perfvalutazioneateneovalidatore_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_perfvalutazioneateneovalidatore_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="validatori" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idvalidatori" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfmission" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfmission" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfvalutazioneateneovalidatore" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idperfmission" type="xs:int" />
+              <xs:element name="idperfvalutazioneateneo" type="xs:int" />
+              <xs:element name="idperfvalutazioneateneores" type="xs:int" />
+              <xs:element name="idvalidatori" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:validatori" />
+      <xs:field xpath="mstns:idvalidatori" />
+    </xs:unique>
+    <xs:unique name="perfmission_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfmission" />
+      <xs:field xpath="mstns:idperfmission" />
+    </xs:unique>
+    <xs:unique name="perfvalutazioneateneovalidatore_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazioneateneovalidatore" />
+      <xs:field xpath="mstns:idperfmission" />
+      <xs:field xpath="mstns:idperfvalutazioneateneo" />
+      <xs:field xpath="mstns:idperfvalutazioneateneores" />
+      <xs:field xpath="mstns:idvalidatori" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_perfvalutazioneateneovalidatore_validatori_idvalidatori" msdata:parent="validatori" msdata:child="perfvalutazioneateneovalidatore" msdata:parentkey="idvalidatori" msdata:childkey="idvalidatori" />
+      <msdata:Relationship name="FK_perfvalutazioneateneovalidatore_perfmission_idperfmission" msdata:parent="perfmission" msdata:child="perfvalutazioneateneovalidatore" msdata:parentkey="idperfmission" msdata:childkey="idperfmission" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

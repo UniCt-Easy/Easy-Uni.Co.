@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 namespace showcasedetail_single
 {
@@ -93,6 +92,18 @@ namespace showcasedetail_single
 			this.label7 = new System.Windows.Forms.Label();
 			this.btnUpbIVA = new System.Windows.Forms.Button();
 			this.textBox4 = new System.Windows.Forms.TextBox();
+			this.gboxclass3 = new System.Windows.Forms.GroupBox();
+			this.btnCodice3 = new System.Windows.Forms.Button();
+			this.txtDenom3 = new System.Windows.Forms.TextBox();
+			this.txtCodice3 = new System.Windows.Forms.TextBox();
+			this.gboxclass2 = new System.Windows.Forms.GroupBox();
+			this.btnCodice2 = new System.Windows.Forms.Button();
+			this.txtDenom2 = new System.Windows.Forms.TextBox();
+			this.txtCodice2 = new System.Windows.Forms.TextBox();
+			this.gboxclass1 = new System.Windows.Forms.GroupBox();
+			this.btnCodice1 = new System.Windows.Forms.Button();
+			this.txtDenom1 = new System.Windows.Forms.TextBox();
+			this.txtCodice1 = new System.Windows.Forms.TextBox();
 			this.groupBox1.SuspendLayout();
 			this.gboxListino.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pbox)).BeginInit();
@@ -102,6 +113,9 @@ namespace showcasedetail_single
 			this.groupBox3.SuspendLayout();
 			this.gboxUPB.SuspendLayout();
 			this.gBoxupbIVA.SuspendLayout();
+			this.gboxclass3.SuspendLayout();
+			this.gboxclass2.SuspendLayout();
+			this.gboxclass1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// groupBox1
@@ -110,27 +124,27 @@ namespace showcasedetail_single
 			this.groupBox1.Controls.Add(this.lblDescrizioneClassificazione);
 			this.groupBox1.Controls.Add(this.txtCodiceClassificazione);
 			this.groupBox1.Controls.Add(this.lblCodiceClassificazione);
-			this.groupBox1.Location = new System.Drawing.Point(488, 401);
+			this.groupBox1.Location = new System.Drawing.Point(488, 313);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(283, 181);
+			this.groupBox1.Size = new System.Drawing.Size(283, 148);
 			this.groupBox1.TabIndex = 7;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Classificazione";
 			// 
 			// txtDescrizioneClassificazione
 			// 
-			this.txtDescrizioneClassificazione.Location = new System.Drawing.Point(6, 91);
+			this.txtDescrizioneClassificazione.Location = new System.Drawing.Point(6, 61);
 			this.txtDescrizioneClassificazione.Multiline = true;
 			this.txtDescrizioneClassificazione.Name = "txtDescrizioneClassificazione";
 			this.txtDescrizioneClassificazione.ReadOnly = true;
-			this.txtDescrizioneClassificazione.Size = new System.Drawing.Size(271, 84);
+			this.txtDescrizioneClassificazione.Size = new System.Drawing.Size(271, 72);
 			this.txtDescrizioneClassificazione.TabIndex = 3;
 			this.txtDescrizioneClassificazione.Tag = "listview.listclass";
 			// 
 			// lblDescrizioneClassificazione
 			// 
 			this.lblDescrizioneClassificazione.AutoSize = true;
-			this.lblDescrizioneClassificazione.Location = new System.Drawing.Point(6, 75);
+			this.lblDescrizioneClassificazione.Location = new System.Drawing.Point(6, 45);
 			this.lblDescrizioneClassificazione.Name = "lblDescrizioneClassificazione";
 			this.lblDescrizioneClassificazione.Size = new System.Drawing.Size(62, 13);
 			this.lblDescrizioneClassificazione.TabIndex = 2;
@@ -138,10 +152,10 @@ namespace showcasedetail_single
 			// 
 			// txtCodiceClassificazione
 			// 
-			this.txtCodiceClassificazione.Location = new System.Drawing.Point(52, 101);
+			this.txtCodiceClassificazione.Location = new System.Drawing.Point(106, 21);
 			this.txtCodiceClassificazione.Name = "txtCodiceClassificazione";
 			this.txtCodiceClassificazione.ReadOnly = true;
-			this.txtCodiceClassificazione.Size = new System.Drawing.Size(100, 20);
+			this.txtCodiceClassificazione.Size = new System.Drawing.Size(171, 20);
 			this.txtCodiceClassificazione.TabIndex = 1;
 			this.txtCodiceClassificazione.Tag = "listview.codelistclass";
 			// 
@@ -162,9 +176,9 @@ namespace showcasedetail_single
 			this.gboxListino.Controls.Add(this.lblDescrizioneListino);
 			this.gboxListino.Controls.Add(this.btnListino);
 			this.gboxListino.Controls.Add(this.txtCodiceListino);
-			this.gboxListino.Location = new System.Drawing.Point(12, 401);
+			this.gboxListino.Location = new System.Drawing.Point(12, 313);
 			this.gboxListino.Name = "gboxListino";
-			this.gboxListino.Size = new System.Drawing.Size(470, 181);
+			this.gboxListino.Size = new System.Drawing.Size(470, 148);
 			this.gboxListino.TabIndex = 6;
 			this.gboxListino.TabStop = false;
 			this.gboxListino.Tag = "";
@@ -179,7 +193,7 @@ namespace showcasedetail_single
 			this.txtDescrizioneListino.Multiline = true;
 			this.txtDescrizioneListino.Name = "txtDescrizioneListino";
 			this.txtDescrizioneListino.ReadOnly = true;
-			this.txtDescrizioneListino.Size = new System.Drawing.Size(324, 84);
+			this.txtDescrizioneListino.Size = new System.Drawing.Size(324, 51);
 			this.txtDescrizioneListino.TabIndex = 4;
 			this.txtDescrizioneListino.Tag = "listview.description";
 			// 
@@ -189,7 +203,7 @@ namespace showcasedetail_single
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkFiltraDescrizioneClassificazione.Location = new System.Drawing.Point(6, 19);
 			this.chkFiltraDescrizioneClassificazione.Name = "chkFiltraDescrizioneClassificazione";
-			this.chkFiltraDescrizioneClassificazione.Size = new System.Drawing.Size(458, 24);
+			this.chkFiltraDescrizioneClassificazione.Size = new System.Drawing.Size(324, 24);
 			this.chkFiltraDescrizioneClassificazione.TabIndex = 12;
 			this.chkFiltraDescrizioneClassificazione.TabStop = false;
 			this.chkFiltraDescrizioneClassificazione.Text = "Fitra per Descrizione/Class.Merceologica";
@@ -197,7 +211,7 @@ namespace showcasedetail_single
 			// pbox
 			// 
 			this.pbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.pbox.Location = new System.Drawing.Point(336, 47);
+			this.pbox.Location = new System.Drawing.Point(336, 15);
 			this.pbox.Name = "pbox";
 			this.pbox.Size = new System.Drawing.Size(128, 128);
 			this.pbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -304,7 +318,7 @@ namespace showcasedetail_single
 			this.gbxAliquotaIVA.Controls.Add(this.lblAliquotaIVA);
 			this.gbxAliquotaIVA.Controls.Add(this.txtImportoIVA);
 			this.gbxAliquotaIVA.Controls.Add(this.lblImportoIVA);
-			this.gbxAliquotaIVA.Location = new System.Drawing.Point(245, 75);
+			this.gbxAliquotaIVA.Location = new System.Drawing.Point(245, 68);
 			this.gbxAliquotaIVA.Name = "gbxAliquotaIVA";
 			this.gbxAliquotaIVA.Size = new System.Drawing.Size(526, 54);
 			this.gbxAliquotaIVA.TabIndex = 5;
@@ -388,7 +402,7 @@ namespace showcasedetail_single
 			// 
 			this.gbxPrezzoUnitario.Controls.Add(this.txtPrezzoUnitario);
 			this.gbxPrezzoUnitario.Controls.Add(this.lblPrezzoUnitario);
-			this.gbxPrezzoUnitario.Location = new System.Drawing.Point(12, 75);
+			this.gbxPrezzoUnitario.Location = new System.Drawing.Point(12, 68);
 			this.gbxPrezzoUnitario.Name = "gbxPrezzoUnitario";
 			this.gbxPrezzoUnitario.Size = new System.Drawing.Size(227, 54);
 			this.gbxPrezzoUnitario.TabIndex = 4;
@@ -417,7 +431,7 @@ namespace showcasedetail_single
 			this.groupBox3.Controls.Add(this.label1);
 			this.groupBox3.Controls.Add(this.button2);
 			this.groupBox3.Controls.Add(this.cmbTipoContrattoAttivo);
-			this.groupBox3.Location = new System.Drawing.Point(18, 296);
+			this.groupBox3.Location = new System.Drawing.Point(15, 224);
 			this.groupBox3.Name = "groupBox3";
 			this.groupBox3.Size = new System.Drawing.Size(375, 88);
 			this.groupBox3.TabIndex = 57;
@@ -474,10 +488,10 @@ namespace showcasedetail_single
 			this.gboxUPB.Controls.Add(this.txtUPB);
 			this.gboxUPB.Controls.Add(this.txtDescrUPB);
 			this.gboxUPB.Controls.Add(this.btnUPBCode);
-			this.gboxUPB.Location = new System.Drawing.Point(18, 141);
+			this.gboxUPB.Location = new System.Drawing.Point(12, 134);
 			this.gboxUPB.Name = "gboxUPB";
 			this.gboxUPB.Padding = new System.Windows.Forms.Padding(5);
-			this.gboxUPB.Size = new System.Drawing.Size(372, 140);
+			this.gboxUPB.Size = new System.Drawing.Size(378, 88);
 			this.gboxUPB.TabIndex = 58;
 			this.gboxUPB.TabStop = false;
 			this.gboxUPB.Tag = "AutoChoose.txtUPB.default.(active=\'S\')";
@@ -487,20 +501,20 @@ namespace showcasedetail_single
 			// 
 			this.txtUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtUPB.Location = new System.Drawing.Point(8, 109);
+			this.txtUPB.Location = new System.Drawing.Point(8, 62);
 			this.txtUPB.Name = "txtUPB";
-			this.txtUPB.Size = new System.Drawing.Size(356, 20);
+			this.txtUPB.Size = new System.Drawing.Size(362, 20);
 			this.txtUPB.TabIndex = 7;
 			this.txtUPB.Tag = "upb.codeupb?x";
 			// 
 			// txtDescrUPB
 			// 
 			this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDescrUPB.Location = new System.Drawing.Point(102, 11);
+			this.txtDescrUPB.Location = new System.Drawing.Point(108, 11);
 			this.txtDescrUPB.Multiline = true;
 			this.txtDescrUPB.Name = "txtDescrUPB";
 			this.txtDescrUPB.ReadOnly = true;
-			this.txtDescrUPB.Size = new System.Drawing.Size(262, 91);
+			this.txtDescrUPB.Size = new System.Drawing.Size(262, 45);
 			this.txtDescrUPB.TabIndex = 4;
 			this.txtDescrUPB.TabStop = false;
 			this.txtDescrUPB.Tag = "upb.title";
@@ -511,7 +525,7 @@ namespace showcasedetail_single
 			this.btnUPBCode.BackColor = System.Drawing.SystemColors.Control;
 			this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnUPBCode.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.btnUPBCode.Location = new System.Drawing.Point(8, 82);
+			this.btnUPBCode.Location = new System.Drawing.Point(8, 30);
 			this.btnUPBCode.Name = "btnUPBCode";
 			this.btnUPBCode.Size = new System.Drawing.Size(88, 20);
 			this.btnUPBCode.TabIndex = 3;
@@ -560,9 +574,9 @@ namespace showcasedetail_single
 			this.gBoxupbIVA.Controls.Add(this.label7);
 			this.gBoxupbIVA.Controls.Add(this.btnUpbIVA);
 			this.gBoxupbIVA.Controls.Add(this.textBox4);
-			this.gBoxupbIVA.Location = new System.Drawing.Point(396, 141);
+			this.gBoxupbIVA.Location = new System.Drawing.Point(396, 134);
 			this.gBoxupbIVA.Name = "gBoxupbIVA";
-			this.gBoxupbIVA.Size = new System.Drawing.Size(375, 140);
+			this.gBoxupbIVA.Size = new System.Drawing.Size(375, 88);
 			this.gBoxupbIVA.TabIndex = 63;
 			this.gBoxupbIVA.TabStop = false;
 			this.gBoxupbIVA.Tag = "AutoChoose.txtUPBiva.default.(active=\'S\')";
@@ -572,7 +586,7 @@ namespace showcasedetail_single
 			// 
 			this.txtUPBiva.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtUPBiva.Location = new System.Drawing.Point(9, 110);
+			this.txtUPBiva.Location = new System.Drawing.Point(9, 62);
 			this.txtUPBiva.Name = "txtUPBiva";
 			this.txtUPBiva.Size = new System.Drawing.Size(360, 20);
 			this.txtUPBiva.TabIndex = 7;
@@ -580,9 +594,9 @@ namespace showcasedetail_single
 			// 
 			// label7
 			// 
-			this.label7.Location = new System.Drawing.Point(7, 24);
+			this.label7.Location = new System.Drawing.Point(4, 19);
 			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(95, 50);
+			this.label7.Size = new System.Drawing.Size(111, 50);
 			this.label7.TabIndex = 6;
 			this.label7.Text = "Utilizzare solo se diverso dal principale";
 			// 
@@ -591,7 +605,7 @@ namespace showcasedetail_single
 			this.btnUpbIVA.BackColor = System.Drawing.SystemColors.Control;
 			this.btnUpbIVA.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnUpbIVA.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.btnUpbIVA.Location = new System.Drawing.Point(10, 82);
+			this.btnUpbIVA.Location = new System.Drawing.Point(10, 49);
 			this.btnUpbIVA.Name = "btnUpbIVA";
 			this.btnUpbIVA.Size = new System.Drawing.Size(76, 20);
 			this.btnUpbIVA.TabIndex = 5;
@@ -605,20 +619,164 @@ namespace showcasedetail_single
 			this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox4.Location = new System.Drawing.Point(112, 16);
+			this.textBox4.Location = new System.Drawing.Point(144, 16);
 			this.textBox4.Multiline = true;
 			this.textBox4.Name = "textBox4";
 			this.textBox4.ReadOnly = true;
-			this.textBox4.Size = new System.Drawing.Size(257, 86);
+			this.textBox4.Size = new System.Drawing.Size(225, 40);
 			this.textBox4.TabIndex = 4;
 			this.textBox4.TabStop = false;
 			this.textBox4.Tag = "upb_iva.title";
+			// 
+			// gboxclass3
+			// 
+			this.gboxclass3.Controls.Add(this.btnCodice3);
+			this.gboxclass3.Controls.Add(this.txtDenom3);
+			this.gboxclass3.Controls.Add(this.txtCodice3);
+			this.gboxclass3.Location = new System.Drawing.Point(12, 537);
+			this.gboxclass3.Name = "gboxclass3";
+			this.gboxclass3.Size = new System.Drawing.Size(378, 64);
+			this.gboxclass3.TabIndex = 65;
+			this.gboxclass3.TabStop = false;
+			this.gboxclass3.Tag = "AutoManage.txtCodice3.treeclassmovimenti";
+			this.gboxclass3.Text = "Classificazione 3";
+			// 
+			// btnCodice3
+			// 
+			this.btnCodice3.Location = new System.Drawing.Point(8, 16);
+			this.btnCodice3.Name = "btnCodice3";
+			this.btnCodice3.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice3.TabIndex = 4;
+			this.btnCodice3.Tag = "manage.sorting3.tree";
+			this.btnCodice3.Text = "Codice";
+			this.btnCodice3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom3
+			// 
+			this.txtDenom3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDenom3.Location = new System.Drawing.Point(128, 8);
+			this.txtDenom3.Multiline = true;
+			this.txtDenom3.Name = "txtDenom3";
+			this.txtDenom3.ReadOnly = true;
+			this.txtDenom3.Size = new System.Drawing.Size(242, 52);
+			this.txtDenom3.TabIndex = 3;
+			this.txtDenom3.TabStop = false;
+			this.txtDenom3.Tag = "sorting3.description";
+			// 
+			// txtCodice3
+			// 
+			this.txtCodice3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.txtCodice3.Location = new System.Drawing.Point(8, 40);
+			this.txtCodice3.Name = "txtCodice3";
+			this.txtCodice3.Size = new System.Drawing.Size(112, 20);
+			this.txtCodice3.TabIndex = 4;
+			this.txtCodice3.Tag = "sorting3.sortcode?x";
+			// 
+			// gboxclass2
+			// 
+			this.gboxclass2.Controls.Add(this.btnCodice2);
+			this.gboxclass2.Controls.Add(this.txtDenom2);
+			this.gboxclass2.Controls.Add(this.txtCodice2);
+			this.gboxclass2.Location = new System.Drawing.Point(396, 467);
+			this.gboxclass2.Name = "gboxclass2";
+			this.gboxclass2.Size = new System.Drawing.Size(371, 64);
+			this.gboxclass2.TabIndex = 66;
+			this.gboxclass2.TabStop = false;
+			this.gboxclass2.Tag = "AutoManage.txtCodice2.treeclassmovimenti";
+			this.gboxclass2.Text = "Classificazione 2";
+			// 
+			// btnCodice2
+			// 
+			this.btnCodice2.Location = new System.Drawing.Point(8, 16);
+			this.btnCodice2.Name = "btnCodice2";
+			this.btnCodice2.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice2.TabIndex = 4;
+			this.btnCodice2.Tag = "manage.sorting2.tree";
+			this.btnCodice2.Text = "Codice";
+			this.btnCodice2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom2
+			// 
+			this.txtDenom2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDenom2.Location = new System.Drawing.Point(128, 8);
+			this.txtDenom2.Multiline = true;
+			this.txtDenom2.Name = "txtDenom2";
+			this.txtDenom2.ReadOnly = true;
+			this.txtDenom2.Size = new System.Drawing.Size(235, 52);
+			this.txtDenom2.TabIndex = 3;
+			this.txtDenom2.TabStop = false;
+			this.txtDenom2.Tag = "sorting2.description";
+			// 
+			// txtCodice2
+			// 
+			this.txtCodice2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.txtCodice2.Location = new System.Drawing.Point(8, 40);
+			this.txtCodice2.Name = "txtCodice2";
+			this.txtCodice2.Size = new System.Drawing.Size(112, 20);
+			this.txtCodice2.TabIndex = 2;
+			this.txtCodice2.Tag = "sorting2.sortcode?x";
+			// 
+			// gboxclass1
+			// 
+			this.gboxclass1.Controls.Add(this.btnCodice1);
+			this.gboxclass1.Controls.Add(this.txtDenom1);
+			this.gboxclass1.Controls.Add(this.txtCodice1);
+			this.gboxclass1.Location = new System.Drawing.Point(12, 467);
+			this.gboxclass1.Name = "gboxclass1";
+			this.gboxclass1.Size = new System.Drawing.Size(378, 64);
+			this.gboxclass1.TabIndex = 64;
+			this.gboxclass1.TabStop = false;
+			this.gboxclass1.Tag = "AutoManage.txtCodice1.treeclassmovimenti";
+			this.gboxclass1.Text = "Classificazione 1";
+			// 
+			// btnCodice1
+			// 
+			this.btnCodice1.Location = new System.Drawing.Point(8, 16);
+			this.btnCodice1.Name = "btnCodice1";
+			this.btnCodice1.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice1.TabIndex = 4;
+			this.btnCodice1.Tag = "manage.sorting1.tree";
+			this.btnCodice1.Text = "Codice";
+			this.btnCodice1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom1
+			// 
+			this.txtDenom1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDenom1.Location = new System.Drawing.Point(128, 8);
+			this.txtDenom1.Multiline = true;
+			this.txtDenom1.Name = "txtDenom1";
+			this.txtDenom1.ReadOnly = true;
+			this.txtDenom1.Size = new System.Drawing.Size(242, 52);
+			this.txtDenom1.TabIndex = 3;
+			this.txtDenom1.TabStop = false;
+			this.txtDenom1.Tag = "sorting1.description";
+			// 
+			// txtCodice1
+			// 
+			this.txtCodice1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.txtCodice1.Location = new System.Drawing.Point(8, 40);
+			this.txtCodice1.Name = "txtCodice1";
+			this.txtCodice1.Size = new System.Drawing.Size(112, 20);
+			this.txtCodice1.TabIndex = 2;
+			this.txtCodice1.Tag = "sorting1.sortcode?x";
 			// 
 			// Frm_showcasedetail_single
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(779, 593);
+			this.ClientSize = new System.Drawing.Size(779, 602);
+			this.Controls.Add(this.gboxclass3);
+			this.Controls.Add(this.gboxclass2);
+			this.Controls.Add(this.gboxclass1);
 			this.Controls.Add(this.gBoxupbIVA);
 			this.Controls.Add(this.textBoxcompetencystop);
 			this.Controls.Add(this.label3);
@@ -654,6 +812,12 @@ namespace showcasedetail_single
 			this.gboxUPB.PerformLayout();
 			this.gBoxupbIVA.ResumeLayout(false);
 			this.gBoxupbIVA.PerformLayout();
+			this.gboxclass3.ResumeLayout(false);
+			this.gboxclass3.PerformLayout();
+			this.gboxclass2.ResumeLayout(false);
+			this.gboxclass2.PerformLayout();
+			this.gboxclass1.ResumeLayout(false);
+			this.gboxclass1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -708,5 +872,17 @@ namespace showcasedetail_single
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.Button btnUpbIVA;
 		private System.Windows.Forms.TextBox textBox4;
+		public System.Windows.Forms.GroupBox gboxclass3;
+		public System.Windows.Forms.Button btnCodice3;
+		private System.Windows.Forms.TextBox txtDenom3;
+		private System.Windows.Forms.TextBox txtCodice3;
+		public System.Windows.Forms.GroupBox gboxclass2;
+		public System.Windows.Forms.Button btnCodice2;
+		private System.Windows.Forms.TextBox txtDenom2;
+		private System.Windows.Forms.TextBox txtCodice2;
+		public System.Windows.Forms.GroupBox gboxclass1;
+		public System.Windows.Forms.Button btnCodice1;
+		private System.Windows.Forms.TextBox txtDenom1;
+		private System.Windows.Forms.TextBox txtCodice1;
 	}
-}
+}

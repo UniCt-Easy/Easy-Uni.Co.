@@ -1,0 +1,43 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="areadidattica_default_idareadidattica">Codice</label>
+					<input id="areadidattica_default_idareadidattica" type="text" class="form-control" data-tag="areadidattica.idareadidattica?areadidatticadefaultview.idareadidattica" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="areadidattica_default_title">Titolo</label>
+					<input id="areadidattica_default_title" type="text" class="form-control" data-tag="areadidattica.title?areadidatticadefaultview.title" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="areadidattica_default_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="areadidattica_default_activeSi" type="radio" name="areadidattica_default_active" class="custom-control-input" data-tag="areadidattica.active:S?areadidatticadefaultview.areadidattica_active:Si" data-subentity  data-mandatory ><label for="areadidattica_default_activeSi"> Si</label>
+						<input id="areadidattica_default_activeNo" type="radio" name="areadidattica_default_active" class="custom-control-input" data-tag="areadidattica.active:N?areadidatticadefaultview.areadidattica_active:No" data-subentity  data-mandatory ><label for="areadidattica_default_activeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="areadidattica_default_idcorsostudiokind">Tipo di corso</label>
+					<select id="areadidattica_default_idcorsostudiokind" class="custom-select d-block w-100"  data-source-name="corsostudiokinddefaultview" data-value-member="idcorsostudiokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="areadidattica.idcorsostudiokind?areadidatticadefaultview.areadidattica_idcorsostudiokind" data-subentity  data-mandatory  > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="areadidattica_default_sortcode">Ordinamento</label>
+					<input id="areadidattica_default_sortcode" type="text" class="form-control" data-tag="areadidattica.sortcode?areadidatticadefaultview.areadidattica_sortcode" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="areadidattica_default_subtitle">Sotto-titolo</label>
+					<input id="areadidattica_default_subtitle" type="text" class="form-control" data-tag="areadidattica.subtitle?areadidatticadefaultview.areadidattica_subtitle" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

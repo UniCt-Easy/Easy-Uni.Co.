@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[calc_csaimport]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [calc_csaimport]
 GO
@@ -25,16 +42,20 @@ set @mandatinominativi='S'
 --di base se esistono nuove configurazioni le prossime importazioni sono nuovo tipo
 if exists(select * from csa_contracttax_partition where ayear=@ayear) set @nuovagestione='S'
 if exists(select * from csa_contract_partition where ayear=@ayear) set @nuovagestione='S'
-
-if exists(select * from csa_importver where ayear=@ayear and idcsa_contractkind is not null and idcsa_import=@idcsa_import)
-	or exists(select * from csa_importriep where ayear=@ayear and idcsa_contractkind is not null and idcsa_import=@idcsa_import)
-	 begin
-   --ci sono righe già elaborate, ossia siamo nel pregresso, allora ci accertiamo di non cambiare elaborazioni vecchie
-   if not exists(select * from csa_importver_partition where idcsa_import=@idcsa_import) AND
-		not exists(select * from csa_importriep_partition where idcsa_import=@idcsa_import) 
-	SET @nuovagestione='N'	
-end
+   --ci sono righe già elaborate, ossia siamo nel pregresso, allora ci accertiamo di non cambiare elaborazioni vecchie. Commento questa parte, non ha più senso
+--if exists(select * from csa_importver where ayear=@ayear and idcsa_contractkind is not null and idcsa_import=@idcsa_import)
+--	or exists(select * from csa_importriep where ayear=@ayear and idcsa_contractkind is not null and idcsa_import=@idcsa_import)
+--	 begin
+--   --ci sono righe già elaborate, ossia siamo nel pregresso, allora ci accertiamo di non cambiare elaborazioni vecchie
+--   if not exists(select * from csa_importver_partition where idcsa_import=@idcsa_import) AND
+--		not exists(select * from csa_importriep_partition where idcsa_import=@idcsa_import) 
+--	SET @nuovagestione='N'	
+--end
  
+ if (@ayear >=2021)  
+ begin
+ set @nuovagestione='S'
+ end
 if (@nuovagestione='S') begin
 	--cancelliamo le nuove ripartizioni presenti nell'importazione
 	delete from csa_importver_partition where  idcsa_import=@idcsa_import

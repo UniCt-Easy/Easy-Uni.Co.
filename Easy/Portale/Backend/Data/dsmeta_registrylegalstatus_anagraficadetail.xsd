@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_registrylegalstatus_anagraficadetail" targetNamespace="http://tempuri.org/dsmeta_registrylegalstatus_anagraficadetail.xsd" xmlns:mstns="http://tempuri.org/dsmeta_registrylegalstatus_anagraficadetail.xsd" xmlns="http://tempuri.org/dsmeta_registrylegalstatus_anagraficadetail.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_registrylegalstatus_anagraficadetail" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="position" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="maxincomeclass" type="xs:short" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrylegalstatus" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
+              <xs:element name="incomeclass" type="xs:short" minOccurs="0" />
+              <xs:element name="incomeclassvalidity" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="csa_compartment" type="xs:int" minOccurs="0" />
+              <xs:element name="csa_role" type="xs:string" minOccurs="0" />
+              <xs:element name="csa_class" type="xs:string" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idregistrylegalstatus" type="xs:int" />
+              <xs:element name="iddaliaposition" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="dalia_position" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddaliaposition" type="xs:int" />
+              <xs:element name="codedaliaposition" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:position" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="registrylegalstatus_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrylegalstatus" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistrylegalstatus" />
+    </xs:unique>
+    <xs:unique name="dalia_position_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:dalia_position" />
+      <xs:field xpath="mstns:iddaliaposition" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="dalia_position_registrylegalstatus" msdata:parent="dalia_position" msdata:child="registrylegalstatus" msdata:parentkey="iddaliaposition" msdata:childkey="iddaliaposition" />
+      <msdata:Relationship name="positionregistrylegalstatus" msdata:parent="position" msdata:child="registrylegalstatus" msdata:parentkey="idposition" msdata:childkey="idposition" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

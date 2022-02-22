@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using System.Linq;
@@ -168,11 +167,9 @@ namespace Valtellinese {
         public static PAGAMENTO_RESPONSE PayPAPagamento(pay.PayPA Service, PAGAMENTO_REQUEST req, out string error) {
             error = "";
             try {
-                var getPagamentoReq = new pay.PagamentoRequest(req) ;
-                var result = Service.Pagamento(getPagamentoReq);
-                var resBody = result.response;
-                if (resBody != null)
-                    return GenericSerializer.fromXml<PAGAMENTO_RESPONSE>(resBody.PagamentoResult);
+	            var resBody = Service.Pagamento(req.toXml());
+	            if (resBody != null)
+                    return GenericSerializer.fromXml<PAGAMENTO_RESPONSE>(resBody);
             }
             catch (FaultException exception) {
                 error = exception.ToString();
@@ -184,11 +181,10 @@ namespace Valtellinese {
         public static PAGAMENTO_RESPONSE PayPAPagamentoEsistente(pay.PayPA Service, PAGAMENTOESISTENTE_REQUEST req, out string error) {
             error = "";
             try {
-                var getPagamentoReq = new pay.PagamentoEsistenteRequest(req);
-                var result = Service.PagamentoEsistente(getPagamentoReq);
-                var resBody = result.response;
-                if (resBody!=null)
-                 return GenericSerializer.fromXml<PAGAMENTO_RESPONSE>(resBody.PagamentoResult);
+
+	            var resBody = Service.PagamentoEsistente(req.toXml());
+	            if (resBody!=null)
+                 return GenericSerializer.fromXml<PAGAMENTO_RESPONSE>(resBody);
             }
             catch (FaultException exception) {
                 error = exception.ToString();
@@ -198,9 +194,6 @@ namespace Valtellinese {
         }
 
     }
-
-
-
 
 }
 
@@ -224,24 +217,3 @@ namespace pagoPaService.AuthPASoap {
 }
 
 
-
-namespace pagoPaService.PayPA {
-    using Valtellinese;
-    using genericSerializer;
-    public partial class PagamentoRequest {
-
-        public PagamentoRequest(PAGAMENTO_REQUEST req) {
-           Body = new PagamentoRequestBody(req.toXml());
-        }
-    }
-
-
-    public partial class PagamentoEsistenteRequest {
-
-        public PagamentoEsistenteRequest(PAGAMENTOESISTENTE_REQUEST req) {
-            Body = new PagamentoEsistenteRequestBody(req.toXml());
-        }
-    }
-}
-
-

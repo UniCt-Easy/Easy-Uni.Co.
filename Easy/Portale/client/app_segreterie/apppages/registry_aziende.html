@@ -1,0 +1,208 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabregistry_aziende_aziende_0" class="nav-link active show" data-toggle="pill" data-target="#tabregistry_aziende_aziende_0"><i class="fa fa-industry mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_aziende_aziende_2" class="nav-link" data-toggle="pill" data-target="#tabregistry_aziende_aziende_2"><i class="fa fa-file-signature mr-1"></i>CCNL utilizzati</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_aziende_aziende_3" class="nav-link" data-toggle="pill" data-target="#tabregistry_aziende_aziende_3"><i class="fa fa-at mr-1"></i>Recapiti</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_aziende_aziende_4" class="nav-link" data-toggle="pill" data-target="#tabregistry_aziende_aziende_4"><i class="fa fa-city mr-1"></i>Sedi</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_aziende_aziende_1" class="nav-link" data-toggle="pill" data-target="#tabregistry_aziende_aziende_1"><i class="fa fa-clipboard-list mr-1"></i>Altri Dati</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_aziende_aziende_5" class="nav-link" data-toggle="pill" data-target="#tabregistry_aziende_aziende_5"><i class="fa fa-hand-holding-usd mr-1"></i>Programmi di finanziamento</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_aziende_aziende_6" class="nav-link" data-toggle="pill" data-target="#tabregistry_aziende_aziende_6"><i class="fa fa-map-marked-alt mr-1"></i>Indirizzi</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabregistry_aziende_aziende_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_title">Denominazione</label>
+					<input id="registry_aziende_title" type="text" class="form-control" data-tag="registry.title?registryaziendeview.title" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_default_title_en">Denominazione (ENG)</label>
+					<input id="registry_aziende_default_title_en" type="text" class="form-control" data-tag="registry_aziende.title_en?registryaziendeview.registry_aziende_title_en" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_idregistryclass">Tipologia</label>
+					<div>
+						<input id="registry_aziende_idregistryclass" name="registry_aziende_idregistryclass" type="text" data-listtype="aziende"  class="form-control" data-minchar="2" data-tag="registryclassaziendeview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_residence">Residenza</label>
+					<div>
+						<input id="registry_aziende_residence" name="registry_aziende_residence" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="residence.description" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_idnation">Nazionalità</label>
+					<div>
+						<input id="registry_aziende_idnation" name="registry_aziende_idnation" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_nation.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_idcity">Comune</label>
+					<div>
+						<input id="registry_aziende_idcity" name="registry_aziende_idcity" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_location">Località</label>
+					<input id="registry_aziende_location" type="text" class="form-control" data-tag="registry.location?registryaziendeview.registry_location" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_cf">Codice fiscale</label>
+					<input id="registry_aziende_cf" type="text" class="form-control" data-tag="registry.cf?registryaziendeview.registry_cf" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_p_iva">Partita iva</label>
+					<input id="registry_aziende_p_iva" type="text" class="form-control" data-tag="registry.p_iva?registryaziendeview.registry_p_iva" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_foreigncf">Codice fiscale estero</label>
+					<input id="registry_aziende_foreigncf" type="text" class="form-control" data-tag="registry.foreigncf?registryaziendeview.registry_foreigncf" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_default_pic">Participant Identification Code (PIC)</label>
+					<input id="registry_aziende_default_pic" type="text" class="form-control" data-tag="registry_aziende.pic?registryaziendeview.registry_aziende_pic" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_multi_cf">Consenti duplicazione CF/P. IVA (S/N)</label>
+					<div class="custom-control custom-radio">
+						<input id="registry_aziende_multi_cfSi" type="radio" name="registry_aziende_multi_cf" class="custom-control-input" data-tag="registry.multi_cf:S?registryaziendeview.registry_multi_cf:Si" data-subentity  ><label for="registry_aziende_multi_cfSi"> Si</label>
+						<input id="registry_aziende_multi_cfNo" type="radio" name="registry_aziende_multi_cf" class="custom-control-input" data-tag="registry.multi_cf:N?registryaziendeview.registry_multi_cf:No" data-subentity  ><label for="registry_aziende_multi_cfNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="registry_aziende_default_idateco">Classificazione Ateco</label>
+					<div>
+						<input id="registry_aziende_default_idateco" name="registry_aziende_default_idateco" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="atecodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="registry_aziende_default_idnace">NACE</label>
+					<div>
+						<input id="registry_aziende_default_idnace" name="registry_aziende_default_idnace" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="nacedefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_default_idnaturagiur">Natura Giuridica</label>
+					<div>
+						<input id="registry_aziende_default_idnaturagiur" name="registry_aziende_default_idnaturagiur" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="naturagiurdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_default_idnumerodip">Numero di dipendenti</label>
+					<div>
+						<input id="registry_aziende_default_idnumerodip" name="registry_aziende_default_idnumerodip" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="numerodip.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_active">attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="registry_aziende_activeSi" type="radio" name="registry_aziende_active" class="custom-control-input" data-tag="registry.active:S?registryaziendeview.registry_active:Si" data-subentity  data-mandatory ><label for="registry_aziende_activeSi"> Si</label>
+						<input id="registry_aziende_activeNo" type="radio" name="registry_aziende_active" class="custom-control-input" data-tag="registry.active:N?registryaziendeview.registry_active:No" data-subentity  data-mandatory ><label for="registry_aziende_activeNo"> No</label>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_aziende_aziende_2" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_ccnlregistry_aziende_idccnl" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_ccnlregistry_aziende_idccnl" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi CCNL utilizzati
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_ccnlregistry_aziende_default" data-tag="ccnlregistry_aziende.default.default" data-custom-control="gridx" data-mdlbuttondelete data-mdlconditionallookup="!idccnl_ccnl_active,S,Si;!idccnl_ccnl_active,N,No;!idccnl_registry_active,S,Si;!idccnl_registry_active,N,No;!idccnl_registry_flag_pa,S,Si;!idccnl_registry_flag_pa,N,No;"  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_aziende_aziende_3" role="tabpanel">
+				<div class="gridx" id="grid_registryreference_seg" data-tag="registryreference.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="flagdefault,S,Si;flagdefault,N,No;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_aziende_aziende_4" role="tabpanel">
+				<div class="gridx" id="grid_sede_seg_child_azienda" data-tag="sede.seg_child_azienda.seg_child_azienda" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_aziende_aziende_1" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_idregistrykind">Classificazione</label>
+					<select id="registry_aziende_idregistrykind" class="custom-select d-block w-100"  data-source-name="registrykind" data-value-member="idregistrykind" data-display-member="description" data-custom-control="combo" data-tag="registry.idregistrykind?registryaziendeview.registry_idregistrykind" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_idcategory">Categoria</label>
+					<div>
+						<input id="registry_aziende_idcategory" name="registry_aziende_idcategory" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="category.description" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_ccp">Conto corrente postale di Riscossione</label>
+					<input id="registry_aziende_ccp" type="text" class="form-control" data-tag="registry.ccp?registryaziendeview.registry_ccp" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_flag_pa">Ente pubblico</label>
+					<div class="custom-control custom-radio">
+						<input id="registry_aziende_flag_paS" type="radio" name="registry_aziende_flag_pa" class="custom-control-input" data-tag="registry.flag_pa:S?registryaziendeview.registry_flag_pa:Si" data-subentity  ><label for="registry_aziende_flag_paS"> Si</label>
+						<input id="registry_aziende_flag_paN" type="radio" name="registry_aziende_flag_pa" class="custom-control-input" data-tag="registry.flag_pa:N?registryaziendeview.registry_flag_pa:No" data-subentity  ><label for="registry_aziende_flag_paN"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_ipa_fe">Codice Univoco Ufficio di PCC o Codice Univoco Ufficio di IPA, prelevato dal sito www.indicepa.gov.it.</label>
+					<input id="registry_aziende_ipa_fe" type="text" class="form-control" data-tag="registry.ipa_fe?registryaziendeview.registry_ipa_fe" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_aziende_annotation">Annotazioni</label>
+					<input id="registry_aziende_annotation" type="text" class="form-control" data-tag="registry.annotation?registryaziendeview.registry_annotation" data-subentity  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_aziende_aziende_5" role="tabpanel">
+				<div class="gridx" id="grid_registryprogfin_seg" data-tag="registryprogfin.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_aziende_aziende_6" role="tabpanel">
+				<div class="gridx" id="grid_registryaddress_seg" data-tag="registryaddress.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="active,S,Si;active,N,No;flagforeign,S,Si;flagforeign,N,No;" ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

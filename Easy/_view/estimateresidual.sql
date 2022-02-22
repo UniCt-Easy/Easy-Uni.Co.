@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA estimateresidual
 IF EXISTS(select * from sysobjects where id = object_id(N'[estimateresidual]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [estimateresidual]
@@ -37,7 +54,9 @@ CREATE     VIEW [estimateresidual]
 	idsor03,
 	idsor04,
 	idsor05,
-	cigcode
+	cigcode,
+	linktoinvoice
+
 	)
 	AS SELECT
 	estimatedetail.idestimkind,
@@ -157,7 +176,8 @@ CREATE     VIEW [estimateresidual]
 	estimate.idsor03,
 	estimate.idsor04,
 	estimate.idsor05,
-	isnull(estimatedetail.cigcode,estimate.cigcode)
+	isnull(estimatedetail.cigcode,estimate.cigcode),
+	estimatekind.linktoinvoice
 FROM estimatedetail (NOLOCK)
 JOIN estimate (NOLOCK)			  	ON estimatedetail.idestimkind = estimate.idestimkind
 										AND estimatedetail.yestim = estimate.yestim
@@ -178,7 +198,8 @@ GROUP BY estimatedetail.idestimkind, estimatedetail.yestim, estimatedetail.nesti
 	estimate.idsor05,
 	 isnull(estimate.idreg,estimatedetail.idreg),
 	 isnull(estimatedetail.cigcode,estimate.cigcode),
-	 registry.title
+	 registry.title,
+	 estimatekind.linktoinvoice
 
 
 

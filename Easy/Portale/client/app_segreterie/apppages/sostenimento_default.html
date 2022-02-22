@@ -1,0 +1,121 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#sostenimento_default_data").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="sostenimento_default_data">Data</label>
+					<input id="sostenimento_default_data" type="text" class="form-control" data-tag="sostenimento.data?sostenimentodefaultview.sostenimento_data" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="sostenimento_default_domande">Domande</label>
+					<textarea class="textarea form-control" id="sostenimento_default_domande" type="text"  rows="4" data-tag="sostenimento.domande?sostenimentodefaultview.sostenimento_domande" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_default_ects">ECTS</label>
+					<input id="sostenimento_default_ects" type="text" class="form-control" data-tag="sostenimento.ects?sostenimentodefaultview.sostenimento_ects" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_default_giudizio">Giudizio</label>
+					<input id="sostenimento_default_giudizio" type="text" class="form-control" data-tag="sostenimento.giudizio?sostenimentodefaultview.sostenimento_giudizio" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_default_idiscrizione">Iscrizione</label>
+					<div>
+						<input id="sostenimento_default_idiscrizione" name="sostenimento_default_idiscrizione" type="text" data-listtype="seganagstu"  class="form-control" data-minchar="2" data-tag="iscrizioneseganagstuview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="sostenimento_default_idattivform">Attività formativa</label>
+					<div>
+						<input id="sostenimento_default_idattivform" name="sostenimento_default_idattivform" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="attivformdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_default_idreg">Studente</label>
+					<div>
+						<input id="sostenimento_default_idreg" name="sostenimento_default_idreg" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="registrydefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_default_idsostenimentoesito">Esito</label>
+					<select id="sostenimento_default_idsostenimentoesito" class="custom-select d-block w-100"  data-source-name="sostenimentoesitodefaultview" data-value-member="idsostenimentoesito" data-display-member="dropdown_title" data-custom-control="combo" data-tag="sostenimento.idsostenimentoesito?sostenimentodefaultview.sostenimento_idsostenimentoesito" data-subentity  data-mandatory  > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_default_idtitolostudio">Titolo di studio</label>
+					<div>
+						<input id="sostenimento_default_idtitolostudio" name="sostenimento_default_idtitolostudio" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="titolostudio.idistattitolistudio" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_default_insecod">Codice insegnamento</label>
+					<input id="sostenimento_default_insecod" type="text" class="form-control" data-tag="sostenimento.insecod?sostenimentodefaultview.sostenimento_insecod" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_default_insedesc">Insegnamento</label>
+					<input id="sostenimento_default_insedesc" type="text" class="form-control" data-tag="sostenimento.insedesc?sostenimentodefaultview.sostenimento_insedesc" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_default_livello">Livello</label>
+					<div class="custom-control custom-radio">
+						<input id="sostenimento_default_livelloA" type="radio" name="sostenimento_default_livello" class="custom-control-input" data-tag="sostenimento.livello:A?sostenimentodefaultview.sostenimento_livello:A " data-subentity  ><label for="sostenimento_default_livelloA"> A </label>
+						<input id="sostenimento_default_livelloB" type="radio" name="sostenimento_default_livello" class="custom-control-input" data-tag="sostenimento.livello:B?sostenimentodefaultview.sostenimento_livello:B " data-subentity  ><label for="sostenimento_default_livelloB"> B </label>
+						<input id="sostenimento_default_livelloC" type="radio" name="sostenimento_default_livello" class="custom-control-input" data-tag="sostenimento.livello:C?sostenimentodefaultview.sostenimento_livello:C " data-subentity  ><label for="sostenimento_default_livelloC"> C </label>
+						<input id="sostenimento_default_livelloD" type="radio" name="sostenimento_default_livello" class="custom-control-input" data-tag="sostenimento.livello:D?sostenimentodefaultview.sostenimento_livello:D " data-subentity  ><label for="sostenimento_default_livelloD"> D </label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_default_voto">Voto</label>
+					<input id="sostenimento_default_voto" type="text" class="form-control" data-tag="sostenimento.voto.fixed.2?sostenimentodefaultview.sostenimento_voto" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_default_votolode">Lode</label>
+					<input id="sostenimento_default_votolode" type="checkbox" class="custom-control-input big-checkbox" data-tag="sostenimento.votolode:S:N?sostenimentodefaultview.sostenimento_votolode:Si:No" data-subentity />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_default_votosu">Su</label>
+					<input id="sostenimento_default_votosu" type="text" class="form-control" data-tag="sostenimento.votosu?sostenimentodefaultview.sostenimento_votosu" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_default_protnumero">Numero Protocollo</label>
+					<input id="sostenimento_default_protnumero" type="text" class="form-control" data-tag="sostenimento.protnumero?sostenimentodefaultview.sostenimento_protnumero" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_default_protanno">Anno protocollo</label>
+					<input id="sostenimento_default_protanno" type="text" class="form-control" data-tag="sostenimento.protanno?sostenimentodefaultview.sostenimento_protanno" data-subentity  />
+				</div>
+			</div>
+ <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-stamp mr-1" ></i>Protocolla
+    </button>
+</form>
+
+</div>
+<!--footer-->

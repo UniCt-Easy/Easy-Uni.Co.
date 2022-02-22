@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_pratica_segisttri" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_pratica_segisttri" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="convalidato" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="changesother" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idattivform" type="xs:int" />
+              <xs:element name="idchanges" type="xs:int" minOccurs="0" />
+              <xs:element name="idchangeskind" type="xs:int" minOccurs="0" />
+              <xs:element name="idconvalida" type="xs:int" />
+              <xs:element name="idconvalidato" type="xs:int" />
+              <xs:element name="iddichiar" type="xs:int" minOccurs="0" />
+              <xs:element name="iddidprog" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizione" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizione_from" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizionebmi" type="xs:int" minOccurs="0" />
+              <xs:element name="idistanza" type="xs:int" minOccurs="0" />
+              <xs:element name="idlearningagrstud" type="xs:int" minOccurs="0" />
+              <xs:element name="idlearningagrtrainer" type="xs:int" minOccurs="0" />
+              <xs:element name="idpratica" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="convalidante" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="changes" type="xs:string" minOccurs="0" />
+              <xs:element name="changesother" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idchangeskind" type="xs:int" minOccurs="0" />
+              <xs:element name="idconvalida" type="xs:int" />
+              <xs:element name="idconvalidante" type="xs:int" />
+              <xs:element name="iddichiar" type="xs:int" minOccurs="0" />
+              <xs:element name="iddidprog" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizione" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizione_from" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizionebmi" type="xs:int" minOccurs="0" />
+              <xs:element name="idistanza" type="xs:int" minOccurs="0" />
+              <xs:element name="idlearningagrstud" type="xs:int" minOccurs="0" />
+              <xs:element name="idlearningagrtrainer" type="xs:int" minOccurs="0" />
+              <xs:element name="idpratica" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idsostenimento" type="xs:int" minOccurs="0" />
+              <xs:element name="idtirocinioprogetto" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="learningagrtrainer" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idbandomi" type="xs:int" />
+              <xs:element name="idiscrizionebmi" type="xs:int" />
+              <xs:element name="idlearningagrtrainer" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="learningagrstud" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idbandomi" type="xs:int" />
+              <xs:element name="idiscrizionebmi" type="xs:int" />
+              <xs:element name="idlearningagrstud" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="iscrizionebmi" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idbandomi" type="xs:int" />
+              <xs:element name="idiscrizione" type="xs:int" />
+              <xs:element name="idiscrizionebmi" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="iscrizione" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="anno" type="xs:int" minOccurs="0" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idiscrizione" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="convalida" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="cf" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cfintegrazione" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idconvalida" type="xs:int" />
+              <xs:element name="idconvalidakind" type="xs:int" minOccurs="0" />
+              <xs:element name="iddichiar" type="xs:int" minOccurs="0" />
+              <xs:element name="iddidprog" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizione" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizione_from" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizionebmi" type="xs:int" minOccurs="0" />
+              <xs:element name="idistanza" type="xs:int" minOccurs="0" />
+              <xs:element name="idlearningagrstud" type="xs:int" minOccurs="0" />
+              <xs:element name="idlearningagrtrainer" type="xs:int" minOccurs="0" />
+              <xs:element name="idpratica" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="voto" type="xs:decimal" minOccurs="0" />
+              <xs:element name="votolode" type="xs:string" minOccurs="0" />
+              <xs:element name="votosu" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idiscrizionebmi_iscrizionebmi_data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idiscrizionebmi_iscrizionebmi_idreg_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idiscrizionebmi_iscrizionebmi_idiscrizione_anno" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idiscrizionebmi_iscrizionebmi_idiscrizione_iddidprog" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idiscrizionebmi_iscrizionebmi_idiscrizione_aa" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idlearningagrtrainer_learningagrtrainer_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="titolostudiodocentiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" minOccurs="0" />
+              <xs:element name="idistattitolistudio" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idreg_istituti" type="xs:int" />
+              <xs:element name="idtitolostudio" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="statuskind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstatuskind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="iscrizionedefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idcorsostudio" type="xs:int" minOccurs="0" />
+              <xs:element name="iddidprog" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizione" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="dichiarsegview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="iddichiar" type="xs:int" />
+              <xs:element name="iddichiarkind" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="pratica" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddichiar" type="xs:int" minOccurs="0" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idiscrizione" type="xs:int" />
+              <xs:element name="idiscrizione_from" type="xs:int" minOccurs="0" />
+              <xs:element name="idistanza" type="xs:int" />
+              <xs:element name="idistanzakind" type="xs:int" />
+              <xs:element name="idpratica" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idstatuskind" type="xs:int" />
+              <xs:element name="idtitolostudio" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="protanno" type="xs:int" minOccurs="0" />
+              <xs:element name="protnumero" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:convalidato" />
+      <xs:field xpath="mstns:idconvalida" />
+      <xs:field xpath="mstns:idconvalidato" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="convalidante_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:convalidante" />
+      <xs:field xpath="mstns:idconvalida" />
+      <xs:field xpath="mstns:idconvalidante" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="learningagrtrainer_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:learningagrtrainer" />
+      <xs:field xpath="mstns:idbandomi" />
+      <xs:field xpath="mstns:idiscrizionebmi" />
+      <xs:field xpath="mstns:idlearningagrtrainer" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="learningagrstud_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:learningagrstud" />
+      <xs:field xpath="mstns:idbandomi" />
+      <xs:field xpath="mstns:idiscrizionebmi" />
+      <xs:field xpath="mstns:idlearningagrstud" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="iscrizionebmi_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:iscrizionebmi" />
+      <xs:field xpath="mstns:idbandomi" />
+      <xs:field xpath="mstns:idiscrizionebmi" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="iscrizione_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:iscrizione" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idiscrizione" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="convalida_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:convalida" />
+      <xs:field xpath="mstns:idconvalida" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="titolostudiodocentiview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:titolostudiodocentiview" />
+      <xs:field xpath="mstns:idtitolostudio" />
+    </xs:unique>
+    <xs:unique name="statuskind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:statuskind" />
+      <xs:field xpath="mstns:idstatuskind" />
+    </xs:unique>
+    <xs:unique name="iscrizionedefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:iscrizionedefaultview" />
+      <xs:field xpath="mstns:idiscrizione" />
+    </xs:unique>
+    <xs:unique name="dichiarsegview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:dichiarsegview" />
+      <xs:field xpath="mstns:iddichiar" />
+    </xs:unique>
+    <xs:unique name="pratica_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pratica" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idiscrizione" />
+      <xs:field xpath="mstns:idistanza" />
+      <xs:field xpath="mstns:idistanzakind" />
+      <xs:field xpath="mstns:idpratica" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_convalida_pratica_iddidprog-idiscrizione-idistanza-idpratica-idreg-iddichiar-idiscrizione_from-" msdata:parent="pratica" msdata:child="convalida" msdata:parentkey="iddidprog idiscrizione idistanza idpratica idreg iddichiar idiscrizione_from" msdata:childkey="iddidprog idiscrizione idistanza idpratica idreg iddichiar idiscrizione_from" />
+      <msdata:Relationship name="FK_convalidato_convalida_idconvalida-idreg" msdata:parent="convalida" msdata:child="convalidato" msdata:parentkey="idconvalida idreg" msdata:childkey="idconvalida idreg" />
+      <msdata:Relationship name="FK_convalidante_convalida_idconvalida-idreg" msdata:parent="convalida" msdata:child="convalidante" msdata:parentkey="idconvalida idreg" msdata:childkey="idconvalida idreg" />
+      <msdata:Relationship name="FK_convalida_learningagrtrainer_idlearningagrtrainer" msdata:parent="learningagrtrainer" msdata:child="convalida" msdata:parentkey="idlearningagrtrainer" msdata:childkey="idlearningagrtrainer" />
+      <msdata:Relationship name="FK_convalida_learningagrstud_idlearningagrstud" msdata:parent="learningagrstud" msdata:child="convalida" msdata:parentkey="idlearningagrstud" msdata:childkey="idlearningagrstud" />
+      <msdata:Relationship name="FK_convalida_iscrizionebmi_idiscrizionebmi" msdata:parent="iscrizionebmi" msdata:child="convalida" msdata:parentkey="idiscrizionebmi" msdata:childkey="idiscrizionebmi" />
+      <msdata:Relationship name="FK_iscrizionebmi_iscrizione_idiscrizione" msdata:parent="iscrizione" msdata:child="iscrizionebmi" msdata:parentkey="idiscrizione" msdata:childkey="idiscrizione" />
+      <msdata:Relationship name="FK_iscrizionebmi_registry_idreg" msdata:parent="registry" msdata:child="iscrizionebmi" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_pratica_titolostudiodocentiview_idtitolostudio" msdata:parent="titolostudiodocentiview" msdata:child="pratica" msdata:parentkey="idtitolostudio" msdata:childkey="idtitolostudio" />
+      <msdata:Relationship name="FK_pratica_statuskind_idstatuskind" msdata:parent="statuskind" msdata:child="pratica" msdata:parentkey="idstatuskind" msdata:childkey="idstatuskind" />
+      <msdata:Relationship name="FK_pratica_iscrizionedefaultview_idiscrizione_from" msdata:parent="iscrizionedefaultview" msdata:child="pratica" msdata:parentkey="idiscrizione" msdata:childkey="idiscrizione_from" />
+      <msdata:Relationship name="FK_pratica_dichiarsegview_iddichiar" msdata:parent="dichiarsegview" msdata:child="pratica" msdata:parentkey="iddichiar" msdata:childkey="iddichiar" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

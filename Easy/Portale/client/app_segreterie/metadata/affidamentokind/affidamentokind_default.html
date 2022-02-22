@@ -1,0 +1,62 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabaffidamentokind_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabaffidamentokind_default_0"><i class="fa fa-chalkboard-teacher mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabaffidamentokind_default_1" class="nav-link" data-toggle="pill" data-target="#tabaffidamentokind_default_1"><i class="fa fa-money-bill-wave mr-1"></i>Costo orario per anno accademico</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabaffidamentokind_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="affidamentokind_default_title">Tipologia</label>
+					<input id="affidamentokind_default_title" type="text" class="form-control" data-tag="affidamentokind.title?affidamentokinddefaultview.title" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="affidamentokind_default_description">Descrizione</label>
+					<input id="affidamentokind_default_description" type="text" class="form-control" data-tag="affidamentokind.description?affidamentokinddefaultview.affidamentokind_description" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="affidamentokind_default_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="affidamentokind_default_activeSi" type="radio" name="affidamentokind_default_active" class="custom-control-input" data-tag="affidamentokind.active:S?affidamentokinddefaultview.affidamentokind_active:Si" data-subentity  data-mandatory ><label for="affidamentokind_default_activeSi"> Si</label>
+						<input id="affidamentokind_default_activeNo" type="radio" name="affidamentokind_default_active" class="custom-control-input" data-tag="affidamentokind.active:N?affidamentokinddefaultview.affidamentokind_active:No" data-subentity  data-mandatory ><label for="affidamentokind_default_activeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="affidamentokind_default_sortcode">Ordinamento</label>
+					<input id="affidamentokind_default_sortcode" type="text" class="form-control" data-tag="affidamentokind.sortcode?affidamentokinddefaultview.affidamentokind_sortcode" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelaffidamentokind_default_costoora" >Indica il costo per ogni ora di insegnamento con questa tipologia di affidamento. Viene considerato solo se non è abilitata la voce "Costo orario da contratto".</div>
+					<label class="col-form-label col-md-12" for="affidamentokind_default_costoora">Costo orario</label>
+					<input id="affidamentokind_default_costoora" type="text" class="form-control" data-tag="affidamentokind.costoora.fixed.2?affidamentokinddefaultview.affidamentokind_costoora" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelaffidamentokind_default_costoorariodacontratto" >Indica che va considerato il costo orario per ogni ora di insegnamento in base al contratto del docente. Se attivato, il costo orario indicato per questa tipologia di affidamento viene ignorato.</div>
+					<label class="col-form-label col-md-12" for="affidamentokind_default_costoorariodacontratto">Costo orario da ruolo</label>
+					<div class="custom-control custom-radio">
+						<input id="affidamentokind_default_costoorariodacontrattoSi" type="radio" name="affidamentokind_default_costoorariodacontratto" class="custom-control-input" data-tag="affidamentokind.costoorariodacontratto:S?affidamentokinddefaultview.affidamentokind_costoorariodacontratto:Si" data-subentity  ><label for="affidamentokind_default_costoorariodacontrattoSi"> Si</label>
+						<input id="affidamentokind_default_costoorariodacontrattoNo" type="radio" name="affidamentokind_default_costoorariodacontratto" class="custom-control-input" data-tag="affidamentokind.costoorariodacontratto:N?affidamentokinddefaultview.affidamentokind_costoorariodacontratto:No" data-subentity  ><label for="affidamentokind_default_costoorariodacontrattoNo"> No</label>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabaffidamentokind_default_1" role="tabpanel">
+	<div class="custom_lng_div" data-langkey="tablabelaffidamentokind_default_1" >I costi orari indicati in questa tabella vengono utilizzati per il calcolo dei costi della didattica erogata. Affinchè tali valori vengano utilizzati occorre impostare che per questa tipologia di affidamento il costo non dipende dal ruolo indicando "No" nel campo "Costo orario da ruolo".</div>
+				<div class="gridx" id="grid_affidamentokindcostoora_default" data-tag="affidamentokindcostoora.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

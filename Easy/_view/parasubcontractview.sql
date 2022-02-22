@@ -1,9 +1,27 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA parasubcontractview
 IF EXISTS(select * from sysobjects where id = object_id(N'[parasubcontractview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [parasubcontractview]
 GO
 
 --setuser'amministrazione'
+--setuser'amm'
 --clear_table_info 'parasubcontractview'
 --select * from parasubcontractview
 CREATE   VIEW parasubcontractview
@@ -87,7 +105,8 @@ CREATE   VIEW parasubcontractview
 	idsor1,idsor2,idsor3,
 	idrelated,
 	idsor_siope,
-	requested_doc
+	requested_doc,
+	iddalia_dipartimento,iddalia_funzionale
 )
 AS SELECT 
 	i1.ayear,
@@ -169,40 +188,25 @@ AS SELECT
 	c1.idsor1,c1.idsor2,c1.idsor3,
 	'parasubcontract§'+ convert(varchar(10),c1.idcon),
 	idsor_siope,
-	c1.requested_doc
+	c1.requested_doc,
+	c1.iddalia_dipartimento,c1.iddalia_funzionale
 FROM parasubcontract c1
-INNER JOIN parasubcontractyear i1
-	ON c1.idcon = i1.idcon
-LEFT OUTER JOIN geo_city g1
-	ON i1.idresidence = g1.idcity
-LEFT OUTER JOIN geo_country g2
-	ON g1.idcountry = g2.idcountry
-LEFT OUTER JOIN registry c2
-	ON c1.idreg = c2.idreg
-LEFT OUTER JOIN service t1
-	ON c1.idser = t1.idser
-LEFT OUTER JOIN otherinsurance a1
-	ON i1.idotherinsurance = a1.idotherinsurance AND a1.ayear = i1.ayear
-LEFT OUTER JOIN inpsactivity a2
-	ON i1.activitycode = a2.activitycode AND i1.ayear = a2.ayear
-LEFT OUTER JOIN pat p1
-	ON p1.idpat = c1.idpat
-LEFT OUTER JOIN matriculabook t2
-	ON t2.idmatriculabook = c1.idmatriculabook
-LEFT OUTER JOIN payrollkind d1
-	ON d1.idpayrollkind = c1.idpayrollkind
-LEFT OUTER JOIN emenscontractkind etr
-	ON etr.idemenscontractkind = i1.idemenscontractkind AND etr.ayear = i1.ayear
-LEFT OUTER JOIN accmotive AM
-	ON AM.idaccmotive = c1.idaccmotive
-LEFT OUTER JOIN accmotive DB
-	ON DB.idaccmotive =  c1.idaccmotivedebit
-LEFT OUTER JOIN accmotive CRG
-	ON CRG.idaccmotive = c1.idaccmotivedebit_crg
-LEFT OUTER JOIN upb 
-	ON upb.idupb = c1.idupb
-LEFT OUTER JOIN dalia_position DP
-	ON DP.iddaliaposition = c1.iddaliaposition
+INNER JOIN parasubcontractyear i1 	ON c1.idcon = i1.idcon
+LEFT OUTER JOIN geo_city g1			ON i1.idresidence = g1.idcity
+LEFT OUTER JOIN geo_country g2		ON g1.idcountry = g2.idcountry
+LEFT OUTER JOIN registry c2			ON c1.idreg = c2.idreg
+LEFT OUTER JOIN service t1			ON c1.idser = t1.idser
+LEFT OUTER JOIN otherinsurance a1	ON i1.idotherinsurance = a1.idotherinsurance AND a1.ayear = i1.ayear
+LEFT OUTER JOIN inpsactivity a2		ON i1.activitycode = a2.activitycode AND i1.ayear = a2.ayear
+LEFT OUTER JOIN pat p1				ON p1.idpat = c1.idpat
+LEFT OUTER JOIN matriculabook t2	ON t2.idmatriculabook = c1.idmatriculabook
+LEFT OUTER JOIN payrollkind d1		ON d1.idpayrollkind = c1.idpayrollkind
+LEFT OUTER JOIN emenscontractkind etr	ON etr.idemenscontractkind = i1.idemenscontractkind AND etr.ayear = i1.ayear
+LEFT OUTER JOIN accmotive AM			ON AM.idaccmotive = c1.idaccmotive
+LEFT OUTER JOIN accmotive DB			ON DB.idaccmotive =  c1.idaccmotivedebit
+LEFT OUTER JOIN accmotive CRG			ON CRG.idaccmotive = c1.idaccmotivedebit_crg
+LEFT OUTER JOIN upb						ON upb.idupb = c1.idupb
+LEFT OUTER JOIN dalia_position DP		ON DP.iddaliaposition = c1.iddaliaposition
 
 GO
 

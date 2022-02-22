@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -35,6 +34,7 @@ namespace meta_casualcontract//meta_contrattoocc//
 		{
 			EditTypes.Add("default");
 			ListingTypes.Add("default");
+			ListingTypes.Add("epdebit");
 		}
 
 		protected override Form GetForm(string FormName)
@@ -54,7 +54,7 @@ namespace meta_casualcontract//meta_contrattoocc//
 			DataTable configurazione = T.DataSet.Tables["config"];
 			DataRow [] configrow = configurazione.Select(QHC.CmpEq("ayear", GetSys("esercizio")));
 			if (configrow.Length == 0) {
-				MessageBox.Show(testoMessaggio,"Prestazione Occasionale - Dati Mancanti",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(testoMessaggio,"Prestazione Occasionale - Dati Mancanti",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 				return null;
 			}
             int flag_autodocnumbering = CfgFn.GetNoNullInt32(configrow[0]["flag_autodocnumbering"]);
@@ -85,8 +85,8 @@ namespace meta_casualcontract//meta_contrattoocc//
 
 		public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable ToMerge) 
 		{
-			if (ListingType == "default")
-				return base.SelectOne(ListingType, filter, "casualcontractview", ToMerge);
+			if (ListingType == "default") return base.SelectOne(ListingType, filter, "casualcontractview", ToMerge);
+			if (ListingType == "epdebit") return base.SelectOne(ListingType, filter, "casualcontractview_ep", ToMerge);
 			return base.SelectOne(ListingType, filter, searchtable, ToMerge);
 		}
 
@@ -150,7 +150,7 @@ namespace meta_casualcontract//meta_contrattoocc//
                           "http://www.inps.it/ . Si raccomanda di informare tempestivamente \n\r " +
                           "l'ufficio competente alla trasmissione della denuncia UNIEMENS.";
                 errfield = "idser";
-                MessageBox.Show(errmess, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(errmess, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
             if (R["description"].ToString()==""){
@@ -199,7 +199,7 @@ namespace meta_casualcontract//meta_contrattoocc//
                     if (IsAdmin){
                         errmess = "L'Anagrafe delle Prestazioni è stata già generata, e risultano modificati i seguenti dati: \n\r"
                             + message + "Adeguare anche i dati dell'Incarico.";
-                        MessageBox.Show(errmess, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(errmess, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                     else{
                         errmess = "Risultano modificati i seguenti dati: \n\r"
@@ -363,6 +363,7 @@ namespace meta_casualcontract//meta_contrattoocc//
             SetDefault(PrimaryTable, "authneeded", "X");
             SetDefault(PrimaryTable, "resendingpcc", "N");
             SetDefault(PrimaryTable, "requested_doc", 0);
+            SetDefault(PrimaryTable, "flagexcludefromcertificate", "N");
         }
 
 		public override void DescribeColumns(DataTable T, string ListingType)
@@ -377,4 +378,3 @@ namespace meta_casualcontract//meta_contrattoocc//
 		}
 	}
 }
-

@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_convalidato_segisttri" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_convalidato_segisttri" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="changeskinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="changeskind_idchanges" type="xs:int" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idchangeskind" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="changes" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idchanges" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="attivformdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="attivform_ct" type="xs:dateTime" />
+              <xs:element name="attivform_cu" type="xs:string" />
+              <xs:element name="attivform_iddidproggrupp" type="xs:int" minOccurs="0" />
+              <xs:element name="attivform_lt" type="xs:dateTime" />
+              <xs:element name="attivform_lu" type="xs:string" />
+              <xs:element name="attivform_obbform" type="xs:string" minOccurs="0" />
+              <xs:element name="attivform_obbform_en" type="xs:string" minOccurs="0" />
+              <xs:element name="attivform_sortcode" type="xs:int" minOccurs="0" />
+              <xs:element name="attivform_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="attivform_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="attivform_tipovalutaz" type="xs:string" minOccurs="0" />
+              <xs:element name="didproganno_title" type="xs:string" minOccurs="0" />
+              <xs:element name="didprogcurr_title" type="xs:string" minOccurs="0" />
+              <xs:element name="didproggrupp_title" type="xs:string" minOccurs="0" />
+              <xs:element name="didprogori_title" type="xs:string" minOccurs="0" />
+              <xs:element name="didprogporzanno_title" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idattivform" type="xs:int" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="iddidproganno" type="xs:int" />
+              <xs:element name="iddidprogcurr" type="xs:int" />
+              <xs:element name="iddidprogori" type="xs:int" />
+              <xs:element name="iddidprogporzanno" type="xs:int" />
+              <xs:element name="idinsegn" type="xs:int" />
+              <xs:element name="idinsegninteg" type="xs:int" minOccurs="0" />
+              <xs:element name="idsede" type="xs:int" />
+              <xs:element name="insegn_codice" type="xs:string" minOccurs="0" />
+              <xs:element name="insegn_denominazione" type="xs:string" minOccurs="0" />
+              <xs:element name="insegninteg_codice" type="xs:string" minOccurs="0" />
+              <xs:element name="insegninteg_denominazione" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="convalidato" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="changesother" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idattivform" type="xs:int" />
+              <xs:element name="idchanges" type="xs:int" minOccurs="0" />
+              <xs:element name="idchangeskind" type="xs:int" minOccurs="0" />
+              <xs:element name="idconvalida" type="xs:int" />
+              <xs:element name="idconvalidato" type="xs:int" />
+              <xs:element name="iddichiar" type="xs:int" minOccurs="0" />
+              <xs:element name="iddidprog" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizione" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizione_from" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizionebmi" type="xs:int" minOccurs="0" />
+              <xs:element name="idistanza" type="xs:int" minOccurs="0" />
+              <xs:element name="idlearningagrstud" type="xs:int" minOccurs="0" />
+              <xs:element name="idlearningagrtrainer" type="xs:int" minOccurs="0" />
+              <xs:element name="idpratica" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:changeskinddefaultview" />
+      <xs:field xpath="mstns:idchangeskind" />
+    </xs:unique>
+    <xs:unique name="changes_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:changes" />
+      <xs:field xpath="mstns:idchanges" />
+    </xs:unique>
+    <xs:unique name="attivformdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attivformdefaultview" />
+      <xs:field xpath="mstns:idattivform" />
+    </xs:unique>
+    <xs:unique name="convalidato_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:convalidato" />
+      <xs:field xpath="mstns:idconvalida" />
+      <xs:field xpath="mstns:idconvalidato" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_convalidato_changeskinddefaultview_idchangeskind" msdata:parent="changeskinddefaultview" msdata:child="convalidato" msdata:parentkey="idchangeskind" msdata:childkey="idchangeskind" />
+      <msdata:Relationship name="FK_changeskinddefaultview_changes_idchanges" msdata:parent="changes" msdata:child="changeskinddefaultview" msdata:parentkey="idchanges" msdata:childkey="changeskind_idchanges" />
+      <msdata:Relationship name="FK_convalidato_changes_idchanges" msdata:parent="changes" msdata:child="convalidato" msdata:parentkey="idchanges" msdata:childkey="idchanges" />
+      <msdata:Relationship name="FK_convalidato_attivformdefaultview_idattivform" msdata:parent="attivformdefaultview" msdata:child="convalidato" msdata:parentkey="idattivform" msdata:childkey="idattivform" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

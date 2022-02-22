@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_registryclass_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_registryclass_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="registryclass" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flagbadgecode" type="xs:string" />
+              <xs:element name="flagbadgecode_forced" type="xs:string" />
+              <xs:element name="flagCF" type="xs:string" />
+              <xs:element name="flagcf_forced" type="xs:string" />
+              <xs:element name="flagcfbutton" type="xs:string" minOccurs="0" />
+              <xs:element name="flagextmatricula" type="xs:string" />
+              <xs:element name="flagextmatricula_forced" type="xs:string" />
+              <xs:element name="flagfiscalresidence" type="xs:string" />
+              <xs:element name="flagfiscalresidence_forced" type="xs:string" />
+              <xs:element name="flagforeigncf" type="xs:string" />
+              <xs:element name="flagforeigncf_forced" type="xs:string" />
+              <xs:element name="flaghuman" type="xs:string" minOccurs="0" />
+              <xs:element name="flaginfofromcfbutton" type="xs:string" minOccurs="0" />
+              <xs:element name="flagmaritalstatus" type="xs:string" />
+              <xs:element name="flagmaritalstatus_forced" type="xs:string" />
+              <xs:element name="flagmaritalsurname" type="xs:string" />
+              <xs:element name="flagmaritalsurname_forced" type="xs:string" />
+              <xs:element name="flagothers" type="xs:string" />
+              <xs:element name="flagothers_forced" type="xs:string" />
+              <xs:element name="flagp_iva" type="xs:string" />
+              <xs:element name="flagp_iva_forced" type="xs:string" />
+              <xs:element name="flagqualification" type="xs:string" />
+              <xs:element name="flagqualification_forced" type="xs:string" />
+              <xs:element name="flagresidence" type="xs:string" />
+              <xs:element name="flagresidence_forced" type="xs:string" />
+              <xs:element name="flagtitle" type="xs:string" />
+              <xs:element name="flagtitle_forced" type="xs:string" />
+              <xs:element name="idregistryclass" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registryclass" />
+      <xs:field xpath="mstns:idregistryclass" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_rendicontofinanziario]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_rendicontofinanziario]
 GO
@@ -328,8 +345,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN  @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN  @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'B)'
@@ -376,8 +393,8 @@ ISNULL(
 	JOIN entry			ON entry.yentry = entrydetail.yentry AND entry.nentry = entrydetail.nentry
 	JOIN account		ON account.idacc = entrydetail.idacc
 	JOIN patrimony		ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN  @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN  @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind = 7 -- DEVO ESCLUDERE LE SCRITTURE DI EPILOGO
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'C)'
@@ -431,8 +448,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'B) I'
@@ -453,8 +470,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('B) II 1)o','B) II 1)e')
@@ -478,8 +495,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('B) II 1)e')
@@ -500,8 +517,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('B) II 2)e','B) II 2)o')
@@ -524,8 +541,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind = 7
 	AND entry.identrykind not in (6,11,12)-- DEVO ESCLUDERE LE SCRITTURE DI EPILOGO
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
@@ -547,15 +564,16 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
-	AND entry.identrykind not in (6,11,12)-- DEVO ESCLUDERE LE SCRITTURE DI EPILOGO
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
+	AND entry.identrykind = 7-- DEVO ESCLUDERE LE SCRITTURE DI EPILOGO
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('B) II 3)e','B) II 3)o')
 	and patrimony.patpart ='A'
 	AND (@idsor1 IS NULL OR entrydetail.idsor1 = @idsor1)AND (@idsor2 IS NULL OR entrydetail.idsor2 = @idsor2)AND (@idsor3 IS NULL OR entrydetail.idsor3 = @idsor3) 
 	AND patrimony.ayear = @ayear)
 ,0)
+
 
 DECLARE @SP_A_BII_bII3e_01_01 decimal(19,2)
 SET @SP_A_BII_bII3e_01_01 = 
@@ -569,8 +587,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('B) II 3)e')
@@ -591,8 +609,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('B) II 4)e','B) II 4)o')
@@ -614,8 +632,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('B) II 4)e')
@@ -636,8 +654,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('B) II 5)e','B) II 5)o')
@@ -658,8 +676,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('B) II 5)e')
@@ -680,8 +698,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('B) II 6)e','B) II 6)o')
@@ -702,8 +720,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind not in (6,11,12)-- DEVO ESCLUDERE LE SCRITTURE DI EPILOGO
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('B) II 6)e')
@@ -724,8 +742,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('B) II 7)e','B) II 7)o')
@@ -746,8 +764,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('B) II 7)e')
@@ -768,8 +786,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('B) II 8)e','B) II 8)o')
@@ -790,8 +808,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('B) II 8)e')
@@ -812,8 +830,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('B) II 9)e','B) II 9)o')
@@ -834,8 +852,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('B) II 9)e')
@@ -984,6 +1002,7 @@ ISNULL(
 	AND (@idsor1 IS NULL OR entrydetail.idsor1 = @idsor1)AND (@idsor2 IS NULL OR entrydetail.idsor2 = @idsor2)AND (@idsor3 IS NULL OR entrydetail.idsor3 = @idsor3) 
 	AND patrimony.ayear = @ayear)
 ,0)
+
 
 DECLARE @SP_A_BII_bII3e_31_12  decimal(19,2)
 SET @SP_A_BII_bII3e_31_12  = 
@@ -1308,8 +1327,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'B) I'
@@ -1367,8 +1386,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('D) 2)e','D) 2)o')
@@ -1389,8 +1408,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('D) 2)o')
@@ -1411,8 +1430,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 3)e','D) 3)o')
@@ -1434,8 +1453,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 3)o')
@@ -1456,8 +1475,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 4)e','D) 4)o')
@@ -1478,8 +1497,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 4)o')
@@ -1500,8 +1519,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 5)e','D) 5)o')
@@ -1522,8 +1541,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 5)o')
@@ -1544,8 +1563,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 6)e','D) 6)o')
@@ -1566,8 +1585,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 6)o')
@@ -1588,8 +1607,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 7)e','D) 7)o')
@@ -1611,8 +1630,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 7)o')
@@ -1633,8 +1652,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 8)e','D) 8)o')
@@ -1655,8 +1674,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 8)o')
@@ -1677,8 +1696,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 9)e','D) 9)o')
@@ -1699,8 +1718,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 9)o')
@@ -1721,8 +1740,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 10)e','D) 10)o')
@@ -1743,8 +1762,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 10)o')
@@ -1765,8 +1784,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 11)e','D) 11)o')
@@ -1787,8 +1806,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 11)o')
@@ -1809,8 +1828,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 12)e','D) 12)o')
@@ -1831,8 +1850,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony  in ('D) 12)o')
@@ -1854,8 +1873,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('D) 1)e')
@@ -1876,8 +1895,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('D) 1)o')
@@ -2467,8 +2486,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'B) III'
@@ -2515,8 +2534,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE  entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE  --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE
 	AND patrimony.codepatrimony = 'C) c1)'
@@ -2561,8 +2580,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE  entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE  --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE
 	AND patrimony.codepatrimony = 'C) c2)'
@@ -2615,8 +2634,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE  entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE  --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE
 	AND patrimony.codepatrimony = 'd 1)'
@@ -2671,8 +2690,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'E) e1)'
@@ -2717,8 +2736,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate  BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate  BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'E) e2)'
@@ -2764,8 +2783,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday  AND @firstday 
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday  AND @firstday 
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'E) e3)'
@@ -2818,8 +2837,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'f 1)'
@@ -2914,8 +2933,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) II 1)'
@@ -2936,8 +2955,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) II 2)'
@@ -2958,8 +2977,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) II 3)'
@@ -2980,8 +2999,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) II 4)'
@@ -3002,8 +3021,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) II 5)'
@@ -3025,8 +3044,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) II 6)'
@@ -3047,8 +3066,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) II 7)'
@@ -3297,8 +3316,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday  AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday  AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) I 1)'
@@ -3319,8 +3338,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday  AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday  AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) I 2)'
@@ -3341,8 +3360,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday  AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday  AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) I 3)'
@@ -3363,8 +3382,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday  AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday  AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) I 4)'
@@ -3385,8 +3404,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday  AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday  AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) I 5)'
@@ -3542,8 +3561,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) III'
@@ -3620,8 +3639,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) I'
@@ -3669,8 +3688,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN  @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN  @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) II 1)'
@@ -3716,8 +3735,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) II 2)'
@@ -3765,8 +3784,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) II 3)'
@@ -3818,8 +3837,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) III 1)'
@@ -3867,8 +3886,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) III 2)'
@@ -3916,8 +3935,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'A) III 3)'
@@ -3987,8 +4006,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony in ('D) 1)e','D) 1)o')
@@ -4070,8 +4089,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday  AND @firstday 
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday  AND @firstday 
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'B) IV 1)'
@@ -4092,8 +4111,8 @@ ISNULL(
 	ON account.idacc = entrydetail.idacc
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
-	WHERE entry.adate BETWEEN @firstday AND @firstday 
-	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+	WHERE --entry.adate BETWEEN @firstday AND @firstday 
+	(entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind =7
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND patrimony.codepatrimony = 'B) IV 2)'
@@ -4246,4 +4265,3 @@ GO
  
   
 
- 	

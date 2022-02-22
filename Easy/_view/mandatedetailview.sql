@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA mandatedetailview
 IF EXISTS(select * from sysobjects where id = object_id(N'[mandatedetailview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [mandatedetailview]
@@ -72,7 +89,8 @@ CREATE      VIEW [mandatedetailview]
 	idsor_siope, 
 	idepexp_pre,
 	yepexp_pre,
-	nepexp_pre
+	nepexp_pre,
+	rownum_main
 )
 	AS SELECT
 	mandatedetail.idmankind,	mandatedetail.yman,	mandatedetail.nman,	mandatedetail.rownum,
@@ -149,8 +167,8 @@ CREATE      VIEW [mandatedetailview]
 	mandatedetail.idsor_siope,
 	mandatedetail.idepexp_pre,
 	epexp_pre.yepexp,
-	epexp_pre.nepexp
-
+	epexp_pre.nepexp,
+	mandatedetail.rownum_main
 FROM mandatedetail with (nolock)
 JOIN mandatekind with (nolock)					ON mandatekind.idmankind = mandatedetail.idmankind
 LEFT OUTER JOIN ivakind with (nolock)			ON ivakind.idivakind = mandatedetail.idivakind

@@ -78,6 +78,11 @@
               <xs:element name="p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="annotations" type="xs:string" minOccurs="0" />
               <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="idlist" type="xs:int" minOccurs="0" />
+              <xs:element name="codicetassonomia" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_showcase" type="xs:int" minOccurs="0" />
+              <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -462,6 +467,7 @@
               <xs:element name="csa_flagtransmissionlinking" type="xs:string" minOccurs="0" />
               <xs:element name="idaccmotive_forwarder" type="xs:string" minOccurs="0" />
               <xs:element name="idivakind_forwarder" type="xs:int" minOccurs="0" />
+              <xs:element name="idacc_unabatable_estera" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -510,6 +516,8 @@
               <xs:element name="iduniqueformcode" type="xs:string" minOccurs="0" />
               <xs:element name="flag" type="xs:int" minOccurs="0" />
               <xs:element name="proceedsexpiring" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idtassonomia" type="xs:int" minOccurs="0" />
+              <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -590,6 +598,8 @@
               <xs:element name="flagbit" type="xs:unsignedByte" minOccurs="0" />
               <xs:element name="idfinmotive" type="xs:string" minOccurs="0" />
               <xs:element name="iduniqueformcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idtassonomia" type="xs:int" minOccurs="0" />
+              <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -645,6 +655,11 @@
               <xs:element name="p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="annotations" type="xs:string" minOccurs="0" />
               <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="idlist" type="xs:int" minOccurs="0" />
+              <xs:element name="codicetassonomia" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_showcase" type="xs:int" minOccurs="0" />
+              <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -800,6 +815,11 @@
               <xs:element name="p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="annotations" type="xs:string" minOccurs="0" />
               <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="idlist" type="xs:int" minOccurs="0" />
+              <xs:element name="codicetassonomia" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_showcase" type="xs:int" minOccurs="0" />
+              <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

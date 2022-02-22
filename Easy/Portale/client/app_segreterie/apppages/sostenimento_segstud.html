@@ -1,0 +1,72 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function() {
+    $("#sostenimento_segstud_data").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="sostenimento_segstud_data">Data</label>
+					<input id="sostenimento_segstud_data" type="text" class="form-control" data-tag="sostenimento.data"  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="sostenimento_segstud_domande">Domande</label>
+					<textarea class="textarea form-control" id="sostenimento_segstud_domande" type="text"  rows="4" data-tag="sostenimento.domande"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segstud_giudizio">Giudizio</label>
+					<input id="sostenimento_segstud_giudizio" type="text" class="form-control" data-tag="sostenimento.giudizio"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segstud_idsostenimentoesito">Esito</label>
+					<div>
+						<input id="sostenimento_segstud_idsostenimentoesito" name="sostenimento_segstud_idsostenimentoesito" type="text" data-listtype="default"  class="form-control" data-minchar="3" data-tag="sostenimentoesitodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segstud_livello">Livello</label>
+					<div class="custom-control custom-radio">
+						<input id="sostenimento_segstud_livelloSi" type="radio" name="sostenimento_segstud_livello" class="custom-control-input" data-tag="sostenimento.livello:S"  ><label for="sostenimento_segstud_livelloSi"> Si</label>
+						<input id="sostenimento_segstud_livelloNo" type="radio" name="sostenimento_segstud_livello" class="custom-control-input" data-tag="sostenimento.livello:N"  ><label for="sostenimento_segstud_livelloNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segstud_protanno">Anno protocollo</label>
+					<input id="sostenimento_segstud_protanno" type="text" class="form-control" data-tag="sostenimento.protanno"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segstud_protnumero">Numero Protocollo</label>
+					<input id="sostenimento_segstud_protnumero" type="text" class="form-control" data-tag="sostenimento.protnumero"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segstud_voto">Voto</label>
+					<input id="sostenimento_segstud_voto" type="text" class="form-control" data-tag="sostenimento.voto.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segstud_votolode">Lode</label>
+					<input id="sostenimento_segstud_votolode" type="checkbox" class="custom-control-input big-checkbox" data-tag="sostenimento.votolode:S:N" />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sostenimento_segstud_votosu">Su</label>
+					<input id="sostenimento_segstud_votosu" type="text" class="form-control" data-tag="sostenimento.votosu"  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

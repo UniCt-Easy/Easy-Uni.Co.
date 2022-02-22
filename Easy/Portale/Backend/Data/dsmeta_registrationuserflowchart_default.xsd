@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_registrationuserflowchart_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_registrationuserflowchart_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="flowchartsegview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codeflowchart" type="xs:string" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="flowchart_address" type="xs:string" minOccurs="0" />
+              <xs:element name="flowchart_ayear" type="xs:int" minOccurs="0" />
+              <xs:element name="flowchart_cap" type="xs:string" minOccurs="0" />
+              <xs:element name="flowchart_ct" type="xs:dateTime" />
+              <xs:element name="flowchart_cu" type="xs:string" />
+              <xs:element name="flowchart_fax" type="xs:string" minOccurs="0" />
+              <xs:element name="flowchart_idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="flowchart_idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="flowchart_idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="flowchart_idsor3" type="xs:int" minOccurs="0" />
+              <xs:element name="flowchart_location" type="xs:string" minOccurs="0" />
+              <xs:element name="flowchart_lt" type="xs:dateTime" />
+              <xs:element name="flowchart_lu" type="xs:string" />
+              <xs:element name="flowchart_nlevel" type="xs:int" />
+              <xs:element name="flowchart_phone" type="xs:string" minOccurs="0" />
+              <xs:element name="flowchart_printingorder" type="xs:string" />
+              <xs:element name="flowchart_title" type="xs:string" />
+              <xs:element name="flowchartparent_codeflowchart" type="xs:string" minOccurs="0" />
+              <xs:element name="flowchartparent_title" type="xs:string" minOccurs="0" />
+              <xs:element name="idflowchart" type="xs:string" />
+              <xs:element name="paridflowchart" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrationuserflowchart" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idflowchart" type="xs:string" />
+              <xs:element name="idregistrationuser" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:flowchartsegview" />
+      <xs:field xpath="mstns:idflowchart" />
+    </xs:unique>
+    <xs:unique name="registrationuserflowchart_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrationuserflowchart" />
+      <xs:field xpath="mstns:idflowchart" />
+      <xs:field xpath="mstns:idregistrationuser" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_registrationuserflowchart_flowchartsegview_idflowchart" msdata:parent="flowchartsegview" msdata:child="registrationuserflowchart" msdata:parentkey="idflowchart" msdata:childkey="idflowchart" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

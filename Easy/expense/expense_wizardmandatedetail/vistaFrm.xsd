@@ -196,6 +196,11 @@
               <xs:element name="idsor03" type="xs:int" minOccurs="0" />
               <xs:element name="idsor04" type="xs:int" minOccurs="0" />
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="flagbit" type="xs:int" minOccurs="0" />
+              <xs:element name="idaccmotivedebit_datacrg" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idmankind_origin" type="xs:string" minOccurs="0" />
+              <xs:element name="nman_origin" type="xs:int" minOccurs="0" />
+              <xs:element name="yman_origin" type="xs:short" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -255,11 +260,15 @@
               <xs:element name="idpccdebitmotive" type="xs:string" minOccurs="0" />
               <xs:element name="idpccdebitstatus" type="xs:string" minOccurs="0" />
               <xs:element name="expensekind" type="xs:string" minOccurs="0" />
-              <xs:element name="idepexp" type="xs:string" minOccurs="0" />
+              <xs:element name="idepexp" type="xs:int" minOccurs="0" />
               <xs:element name="idlocation" type="xs:int" minOccurs="0" />
               <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_codeupb_iva" type="xs:string" minOccurs="0" />
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
+              <xs:element name="rownum_main" type="xs:int" minOccurs="0" />
+              <xs:element name="idepexp_pre" type="xs:int" minOccurs="0" />
+              <xs:element name="idepacc" type="xs:int" minOccurs="0" />
+              <xs:element name="idaccmotiveannulment" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

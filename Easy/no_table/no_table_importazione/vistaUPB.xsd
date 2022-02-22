@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaUPB" targetNamespace="http://tempuri.org/vistaUPB.xsd" xmlns:mstns="http://tempuri.org/vistaUPB.xsd" xmlns="http://tempuri.org/vistaUPB.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaUPB" targetNamespace="http://tempuri.org/vistaUPB.xsd" xmlns:mstns="http://tempuri.org/vistaUPB.xsd" xmlns="http://tempuri.org/vistaUPB.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaUPB" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -84,6 +84,7 @@
               <xs:element name="start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cigcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idepupbkind" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -159,6 +160,22 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="epupbkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idepupbkind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="isresource" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -181,25 +198,19 @@
       <xs:selector xpath=".//mstns:underwriter" />
       <xs:field xpath="mstns:idunderwriter" />
     </xs:unique>
-    <xs:keyref name="underwriter_upb" refer="underwriter_Constraint1">
-      <xs:selector xpath=".//mstns:upb" />
-      <xs:field xpath="mstns:idunderwriter" />
-    </xs:keyref>
-    <xs:keyref name="upb_upb" refer="upb_Constraint1">
-      <xs:selector xpath=".//mstns:upb" />
-      <xs:field xpath="mstns:paridupb" />
-    </xs:keyref>
-    <xs:keyref name="manager_upb" refer="Constraint1">
-      <xs:selector xpath=".//mstns:upb" />
-      <xs:field xpath="mstns:idman" />
-    </xs:keyref>
-    <xs:keyref name="FK_treasurer_upb" refer="treasurer_Constraint1">
-      <xs:selector xpath=".//mstns:upb" />
-      <xs:field xpath="mstns:idtreasurer" />
-    </xs:keyref>
-    <xs:keyref name="division_manager" refer="division_Constraint1">
-      <xs:selector xpath=".//mstns:manager" />
-      <xs:field xpath="mstns:iddivision" />
-    </xs:keyref>
+    <xs:unique name="epupbkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:epupbkind" />
+      <xs:field xpath="mstns:idepupbkind" />
+    </xs:unique>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_treasurer_upb" msdata:parent="treasurer" msdata:child="upb" msdata:parentkey="idtreasurer" msdata:childkey="idtreasurer" />
+      <msdata:Relationship name="manager_upb" msdata:parent="manager" msdata:child="upb" msdata:parentkey="idman" msdata:childkey="idman" />
+      <msdata:Relationship name="upb_upb" msdata:parent="upb" msdata:child="upb" msdata:parentkey="idupb" msdata:childkey="paridupb" />
+      <msdata:Relationship name="underwriter_upb" msdata:parent="underwriter" msdata:child="upb" msdata:parentkey="idunderwriter" msdata:childkey="idunderwriter" />
+      <msdata:Relationship name="division_manager" msdata:parent="division" msdata:child="manager" msdata:parentkey="iddivision" msdata:childkey="iddivision" />
+      <msdata:Relationship name="epupbkind_upb" msdata:parent="epupbkind" msdata:child="upb" msdata:parentkey="idepupbkind" msdata:childkey="idepupbkind" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

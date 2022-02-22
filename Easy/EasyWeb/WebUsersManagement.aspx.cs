@@ -1,19 +1,17 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
@@ -234,31 +232,28 @@ namespace EasyWebReport
             return false;
         }
 
-        protected void btnadd_Click(object sender, EventArgs e)
-        {
-            
+        protected void btnadd_Click(object sender, EventArgs e) {
+
             lblError.Text = "";
 
 
-            if (Request.Form["txtcognome"].ToString() == "")
-            {
+            if (Request.Form["txtcognome"].ToString() == "") {
                 lblError.Text = "Inserire il cognome<br/>";
-                return; ;
+                return;
+                ;
             }
 
-            if (Request.Form["txtnome"].ToString()== "")
-            {
+            if (Request.Form["txtnome"].ToString() == "") {
                 lblError.Text = "Inserire il nome<br/>";
                 return;
             }
-            if (Request.Form["txtcustuser"] == "")
-            {
+
+            if (Request.Form["txtcustuser"] == "") {
                 lblError.Text = "Inserire l'utente applicativo<br/>";
                 return;
             }
 
-            if (Request.Form["txtlogin"].ToString() == "")
-            {
+            if (Request.Form["txtlogin"].ToString() == "") {
                 lblError.Text = "Inserire la login<br/>";
                 return;
             }
@@ -270,77 +265,79 @@ namespace EasyWebReport
 
             DataAccess sys = GetSystemDB();
 
-            DataSet DS=new vistaForm_virtualuser();
+            DataSet DS = new vistaForm_virtualuser();
             string login = Request.Form["txtlogin"].ToString();
             string cognome = Request.Form["txtCognome"].ToString();
-            string nome=Request.Form["txtNome"].ToString();
-            string cf=Request.Form["txtCf"].ToString();
+            string nome = Request.Form["txtNome"].ToString();
+            string cf = Request.Form["txtCf"].ToString();
             string coddip = Request.Form["txtcoddip"].ToString();
             string custuser = Request.Form["txtcustuser"].ToString();
             string email = Request.Form["txtEmail"].ToString();
-            string typeofuser=Request.Form["userkind"].ToString();
-            QueryHelper QHS=sys.GetQueryHelper();
-            if (custuser == "")
-            {
+            string typeofuser = Request.Form["userkind"].ToString();
+            QueryHelper QHS = sys.GetQueryHelper();
+            if (custuser == "") {
                 lblError.Text = "Utente Applicativo non specificato";
                 return;
             }
 
-            if (!CustomUserExists(custuser))
-            {
+            if (!CustomUserExists(custuser)) {
                 lblError.Text = "L'Utente Applicativo specificato è inesistente";
                 return;
             }
-            
-            string filter=QHS.AppAnd(QHS.CmpEq("userkind",typeofuser),QHS.CmpEq("codicedipartimento",coddip),
-                QHS.CmpEq("username",login));
-            int numberofrecs = sys.RUN_SELECT_COUNT("virtualuser", filter, false);
-            
-            string query="SELECT MAX(idvirtualuser) as maxvalue from virtualuser";
-            DataTable RES=sys.SQLRunner(query);
-            int newkeynum=CfgFn.GetNoNullInt32(RES.Rows[0]["maxvalue"]) + 1 ;
 
-            DataTable T=DS.Tables["virtualuser"];
+            string filter = QHS.AppAnd(QHS.CmpEq("userkind", typeofuser), QHS.CmpEq("codicedipartimento", coddip),
+                QHS.CmpEq("username", login));
+            int numberofrecs = sys.RUN_SELECT_COUNT("virtualuser", filter, false);
+
+            string query = "SELECT MAX(idvirtualuser) as maxvalue from virtualuser";
+            DataTable RES = sys.SQLRunner(query);
+            int newkeynum = CfgFn.GetNoNullInt32(RES.Rows[0]["maxvalue"]) + 1;
+
+            DataTable T = DS.Tables["virtualuser"];
             DataRow DR;
-            if (numberofrecs == 0)
-            {
+            if (numberofrecs == 0) {
                 DR = T.NewRow();
                 DR["idvirtualuser"] = newkeynum;
             }
-            else
-            {
-                sys.RUN_SELECT_INTO_TABLE(T,null, filter, null, false);
+            else {
+                sys.RUN_SELECT_INTO_TABLE(T, null, filter, null, false);
                 DR = T.Rows[0];
             }
-            DR["username"]=login;
-            DR["codicedipartimento"]=coddip;
-            DR["userkind"]=typeofuser;
-            DR["sys_user"]=custuser;
-            DR["surname"]=cognome;
-            DR["forename"]=nome;
-            DR["cf"]=cf;
+
+            DR["username"] = login;
+            DR["codicedipartimento"] = coddip;
+            DR["userkind"] = typeofuser;
+            DR["sys_user"] = custuser;
+            DR["surname"] = cognome;
+            DR["forename"] = nome;
+            DR["cf"] = cf;
             DR["email"] = email;
-            if(numberofrecs==0) T.Rows.Add(DR);
+            if (numberofrecs == 0) T.Rows.Add(DR);
 
-            PostData PD=new PostData();
-            PD.InitClass(DS,sys);
-			ProcedureMessageCollection MCOLL =  PD.DO_POST_SERVICE();
+            PostData PD = new PostData();
+            PD.InitClass(DS, sys);
+            ProcedureMessageCollection MCOLL = PD.DO_POST_SERVICE();
 
-            if (!MCOLL.CanIgnore){
-				lblError.Text="Delle regole di sicurezza impediscono l'update del db di sistema!!";
-				return;
-			}
-            MCOLL = PD.DO_POST_SERVICE();
-			if (!MCOLL.CanIgnore){
-				lblError.Text="Delle regole di sicurezza hanno impedito l'update del db di sistema!!";
-				return;
-			}
-			if(numberofrecs==0)
-                lblError.Text="<p style=\"color: blue;text-align: center;\">Utente aggiunto.</p>";
+            if (MCOLL.Count > 0 && !MCOLL.CanIgnore) {
+                lblError.Text = "Delle regole di sicurezza impediscono l'update del db di sistema!!";
+                return;
+            }
+
+            if (MCOLL.Count > 0) {
+                MCOLL = PD.DO_POST_SERVICE();
+                if (MCOLL.Count > 0) {
+                    lblError.Text = "Delle regole di sicurezza hanno impedito l'update del db di sistema!!";
+                    return;
+                }
+            }
+
+            if (numberofrecs == 0)
+                lblError.Text = "Utente aggiunto.";
             else
-                lblError.Text = "<p style=\"color: blue;text-align: center;\">Utente aggiornato.</p>";
+                lblError.Text = "Utente aggiornato.";
 
         }
+
         protected void btnread_Click(object sender, EventArgs e)
         {
             if ((Session["DBSysConn"] == null || Session["DBUserConn"] == null))
@@ -1185,4 +1182,4 @@ namespace EasyWebReport
             }
         }
 }
-}
+}

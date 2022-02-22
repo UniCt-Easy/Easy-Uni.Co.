@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -30,7 +29,7 @@ namespace itinerationrefund_default{
 	/// <summary>
 	/// Summary description for FrmMissioneSpesa.
 	/// </summary>
-	public class Frm_itinerationrefund_default : System.Windows.Forms.Form {
+	public class Frm_itinerationrefund_default : MetaDataForm {
         bool inChiusura = false;
 		private System.Windows.Forms.ComboBox cmbValuta;
         private System.Windows.Forms.Button btnValuta;
@@ -94,6 +93,14 @@ namespace itinerationrefund_default{
         private ComboBox cmbArea;
         private TextBox txtImpNonRendicontabile;
         private Label label19;
+        private TabControl tabControl1;
+        private TabPage tabSpesa;
+        private TabPage tabAllegati;
+		private GroupBox grpBoxAllegati;
+		private DataGrid dataGridAllegati;
+		private Button btnIndElimina;
+		private Button btnIndInserisci;
+		private Button btnIndModifica;
 		private System.ComponentModel.IContainer components;
 
 		public Frm_itinerationrefund_default() {
@@ -181,6 +188,14 @@ namespace itinerationrefund_default{
             this.cmbArea = new System.Windows.Forms.ComboBox();
             this.txtImpNonRendicontabile = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabSpesa = new System.Windows.Forms.TabPage();
+            this.tabAllegati = new System.Windows.Forms.TabPage();
+            this.grpBoxAllegati = new System.Windows.Forms.GroupBox();
+            this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+            this.btnIndElimina = new System.Windows.Forms.Button();
+            this.btnIndInserisci = new System.Windows.Forms.Button();
+            this.btnIndModifica = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.grpDatiGenerali.SuspendLayout();
             this.grpAnticipo.SuspendLayout();
@@ -190,6 +205,11 @@ namespace itinerationrefund_default{
             this.grpApplicabilita.SuspendLayout();
             this.grpDocCollegato.SuspendLayout();
             this.grpImporti.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabSpesa.SuspendLayout();
+            this.tabAllegati.SuspendLayout();
+            this.grpBoxAllegati.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
             this.SuspendLayout();
             // 
             // cmbValuta
@@ -270,7 +290,7 @@ namespace itinerationrefund_default{
             // 
             this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnAnnulla.Location = new System.Drawing.Point(576, 510);
+            this.btnAnnulla.Location = new System.Drawing.Point(756, 534);
             this.btnAnnulla.Name = "btnAnnulla";
             this.btnAnnulla.Size = new System.Drawing.Size(75, 23);
             this.btnAnnulla.TabIndex = 9;
@@ -280,7 +300,7 @@ namespace itinerationrefund_default{
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(496, 510);
+            this.btnOK.Location = new System.Drawing.Point(676, 534);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 8;
@@ -320,7 +340,7 @@ namespace itinerationrefund_default{
             this.grpDatiGenerali.Controls.Add(this.txtCambio);
             this.grpDatiGenerali.Location = new System.Drawing.Point(8, 38);
             this.grpDatiGenerali.Name = "grpDatiGenerali";
-            this.grpDatiGenerali.Size = new System.Drawing.Size(480, 143);
+            this.grpDatiGenerali.Size = new System.Drawing.Size(480, 130);
             this.grpDatiGenerali.TabIndex = 2;
             this.grpDatiGenerali.TabStop = false;
             this.grpDatiGenerali.Text = "Dati generali";
@@ -370,7 +390,7 @@ namespace itinerationrefund_default{
             this.grpAnticipo.Controls.Add(this.txtPercAnticipoItaliaEstero);
             this.grpAnticipo.Controls.Add(this.label10);
             this.grpAnticipo.Controls.Add(this.txtAnticipo);
-            this.grpAnticipo.Location = new System.Drawing.Point(408, 320);
+            this.grpAnticipo.Location = new System.Drawing.Point(405, 149);
             this.grpAnticipo.Name = "grpAnticipo";
             this.grpAnticipo.Size = new System.Drawing.Size(131, 98);
             this.grpAnticipo.TabIndex = 6;
@@ -420,7 +440,7 @@ namespace itinerationrefund_default{
             // 
             this.grpIndennita.Controls.Add(this.txtIndennSuppl);
             this.grpIndennita.Controls.Add(this.label7);
-            this.grpIndennita.Location = new System.Drawing.Point(9, 212);
+            this.grpIndennita.Location = new System.Drawing.Point(3, 41);
             this.grpIndennita.Name = "grpIndennita";
             this.grpIndennita.Size = new System.Drawing.Size(264, 45);
             this.grpIndennita.TabIndex = 65;
@@ -452,7 +472,7 @@ namespace itinerationrefund_default{
             this.grpLocalita.Controls.Add(this.rdoExtraUe);
             this.grpLocalita.Controls.Add(this.rdoUe);
             this.grpLocalita.Controls.Add(this.rdoItaly);
-            this.grpLocalita.Location = new System.Drawing.Point(493, 96);
+            this.grpLocalita.Location = new System.Drawing.Point(658, 73);
             this.grpLocalita.Name = "grpLocalita";
             this.grpLocalita.Size = new System.Drawing.Size(153, 87);
             this.grpLocalita.TabIndex = 7;
@@ -502,7 +522,7 @@ namespace itinerationrefund_default{
             // 
             this.grpLimite.Controls.Add(this.txtLimiteMax);
             this.grpLimite.Controls.Add(this.label2);
-            this.grpLimite.Location = new System.Drawing.Point(280, 214);
+            this.grpLimite.Location = new System.Drawing.Point(274, 43);
             this.grpLimite.Name = "grpLimite";
             this.grpLimite.Size = new System.Drawing.Size(264, 43);
             this.grpLimite.TabIndex = 68;
@@ -533,7 +553,7 @@ namespace itinerationrefund_default{
             // 
             this.grpApplicabilita.Controls.Add(this.rdbSaldo);
             this.grpApplicabilita.Controls.Add(this.rdbAnticipo);
-            this.grpApplicabilita.Location = new System.Drawing.Point(493, 38);
+            this.grpApplicabilita.Location = new System.Drawing.Point(658, 15);
             this.grpApplicabilita.Name = "grpApplicabilita";
             this.grpApplicabilita.Size = new System.Drawing.Size(152, 50);
             this.grpApplicabilita.TabIndex = 69;
@@ -575,7 +595,7 @@ namespace itinerationrefund_default{
             this.grpDocCollegato.Controls.Add(this.txtDataDoc);
             this.grpDocCollegato.Controls.Add(this.txtImportoDocEUR);
             this.grpDocCollegato.Controls.Add(this.txtImportoDocValuta);
-            this.grpDocCollegato.Location = new System.Drawing.Point(10, 259);
+            this.grpDocCollegato.Location = new System.Drawing.Point(4, 88);
             this.grpDocCollegato.Name = "grpDocCollegato";
             this.grpDocCollegato.Size = new System.Drawing.Size(638, 55);
             this.grpDocCollegato.TabIndex = 70;
@@ -700,7 +720,7 @@ namespace itinerationrefund_default{
             this.grpImporti.Controls.Add(this.txtImportoRichiestoEUR);
             this.grpImporti.Controls.Add(this.txtImportoEffettivoEUR);
             this.grpImporti.Controls.Add(this.txtImportoRichiestoValuta);
-            this.grpImporti.Location = new System.Drawing.Point(10, 317);
+            this.grpImporti.Location = new System.Drawing.Point(4, 146);
             this.grpImporti.Name = "grpImporti";
             this.grpImporti.Size = new System.Drawing.Size(391, 98);
             this.grpImporti.TabIndex = 3;
@@ -768,7 +788,7 @@ namespace itinerationrefund_default{
             // 
             // label18
             // 
-            this.label18.Location = new System.Drawing.Point(14, 460);
+            this.label18.Location = new System.Drawing.Point(11, 281);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(180, 19);
             this.label18.TabIndex = 71;
@@ -777,7 +797,7 @@ namespace itinerationrefund_default{
             // 
             // txtComunicazioni
             // 
-            this.txtComunicazioni.Location = new System.Drawing.Point(202, 460);
+            this.txtComunicazioni.Location = new System.Drawing.Point(199, 281);
             this.txtComunicazioni.Multiline = true;
             this.txtComunicazioni.Name = "txtComunicazioni";
             this.txtComunicazioni.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -787,7 +807,7 @@ namespace itinerationrefund_default{
             // 
             // btnArea
             // 
-            this.btnArea.Location = new System.Drawing.Point(17, 186);
+            this.btnArea.Location = new System.Drawing.Point(11, 15);
             this.btnArea.Name = "btnArea";
             this.btnArea.Size = new System.Drawing.Size(88, 23);
             this.btnArea.TabIndex = 73;
@@ -801,7 +821,7 @@ namespace itinerationrefund_default{
             this.cmbArea.DataSource = this.DS.foreigncountry;
             this.cmbArea.DisplayMember = "description";
             this.cmbArea.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbArea.Location = new System.Drawing.Point(111, 186);
+            this.cmbArea.Location = new System.Drawing.Point(105, 15);
             this.cmbArea.Name = "cmbArea";
             this.cmbArea.Size = new System.Drawing.Size(320, 21);
             this.cmbArea.TabIndex = 74;
@@ -810,7 +830,7 @@ namespace itinerationrefund_default{
             // 
             // txtImpNonRendicontabile
             // 
-            this.txtImpNonRendicontabile.Location = new System.Drawing.Point(202, 426);
+            this.txtImpNonRendicontabile.Location = new System.Drawing.Point(199, 247);
             this.txtImpNonRendicontabile.Name = "txtImpNonRendicontabile";
             this.txtImpNonRendicontabile.Size = new System.Drawing.Size(112, 20);
             this.txtImpNonRendicontabile.TabIndex = 76;
@@ -819,30 +839,119 @@ namespace itinerationrefund_default{
             // 
             // label19
             // 
-            this.label19.Location = new System.Drawing.Point(15, 419);
+            this.label19.Location = new System.Drawing.Point(12, 240);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(179, 32);
             this.label19.TabIndex = 75;
             this.label19.Text = "Importo non rendicontabile";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabSpesa);
+            this.tabControl1.Controls.Add(this.tabAllegati);
+            this.tabControl1.Location = new System.Drawing.Point(8, 174);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(831, 361);
+            this.tabControl1.TabIndex = 77;
+            // 
+            // tabSpesa
+            // 
+            this.tabSpesa.Controls.Add(this.btnArea);
+            this.tabSpesa.Controls.Add(this.grpApplicabilita);
+            this.tabSpesa.Controls.Add(this.grpLocalita);
+            this.tabSpesa.Controls.Add(this.txtImpNonRendicontabile);
+            this.tabSpesa.Controls.Add(this.grpImporti);
+            this.tabSpesa.Controls.Add(this.label19);
+            this.tabSpesa.Controls.Add(this.grpAnticipo);
+            this.tabSpesa.Controls.Add(this.label18);
+            this.tabSpesa.Controls.Add(this.grpIndennita);
+            this.tabSpesa.Controls.Add(this.txtComunicazioni);
+            this.tabSpesa.Controls.Add(this.grpLimite);
+            this.tabSpesa.Controls.Add(this.cmbArea);
+            this.tabSpesa.Controls.Add(this.grpDocCollegato);
+            this.tabSpesa.Location = new System.Drawing.Point(4, 22);
+            this.tabSpesa.Name = "tabSpesa";
+            this.tabSpesa.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSpesa.Size = new System.Drawing.Size(823, 335);
+            this.tabSpesa.TabIndex = 0;
+            this.tabSpesa.Text = "Spesa";
+            this.tabSpesa.UseVisualStyleBackColor = true;
+            // 
+            // tabAllegati
+            // 
+            this.tabAllegati.Controls.Add(this.grpBoxAllegati);
+            this.tabAllegati.Location = new System.Drawing.Point(4, 22);
+            this.tabAllegati.Name = "tabAllegati";
+            this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAllegati.Size = new System.Drawing.Size(823, 335);
+            this.tabAllegati.TabIndex = 1;
+            this.tabAllegati.Text = "Allegati";
+            this.tabAllegati.UseVisualStyleBackColor = true;
+            // 
+            // grpBoxAllegati
+            // 
+            this.grpBoxAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpBoxAllegati.Controls.Add(this.dataGridAllegati);
+            this.grpBoxAllegati.Controls.Add(this.btnIndElimina);
+            this.grpBoxAllegati.Controls.Add(this.btnIndInserisci);
+            this.grpBoxAllegati.Controls.Add(this.btnIndModifica);
+            this.grpBoxAllegati.Location = new System.Drawing.Point(7, 6);
+            this.grpBoxAllegati.Name = "grpBoxAllegati";
+            this.grpBoxAllegati.Size = new System.Drawing.Size(810, 323);
+            this.grpBoxAllegati.TabIndex = 5;
+            this.grpBoxAllegati.TabStop = false;
+            this.grpBoxAllegati.Text = "Dettagli";
+            // 
+            // dataGridAllegati
+            // 
+            this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridAllegati.DataMember = "";
+            this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+            this.dataGridAllegati.Location = new System.Drawing.Point(80, 29);
+            this.dataGridAllegati.Name = "dataGridAllegati";
+            this.dataGridAllegati.Size = new System.Drawing.Size(724, 288);
+            this.dataGridAllegati.TabIndex = 20;
+            this.dataGridAllegati.Tag = "itinerationrefundattachment.single";
+            // 
+            // btnIndElimina
+            // 
+            this.btnIndElimina.Location = new System.Drawing.Point(5, 85);
+            this.btnIndElimina.Name = "btnIndElimina";
+            this.btnIndElimina.Size = new System.Drawing.Size(68, 22);
+            this.btnIndElimina.TabIndex = 19;
+            this.btnIndElimina.Tag = "delete";
+            this.btnIndElimina.Text = "Elimina";
+            this.btnIndElimina.Visible = false;
+            // 
+            // btnIndInserisci
+            // 
+            this.btnIndInserisci.Location = new System.Drawing.Point(6, 29);
+            this.btnIndInserisci.Name = "btnIndInserisci";
+            this.btnIndInserisci.Size = new System.Drawing.Size(68, 22);
+            this.btnIndInserisci.TabIndex = 17;
+            this.btnIndInserisci.Tag = "insert.single";
+            this.btnIndInserisci.Text = "Inserisci...";
+            // 
+            // btnIndModifica
+            // 
+            this.btnIndModifica.Location = new System.Drawing.Point(5, 57);
+            this.btnIndModifica.Name = "btnIndModifica";
+            this.btnIndModifica.Size = new System.Drawing.Size(69, 22);
+            this.btnIndModifica.TabIndex = 18;
+            this.btnIndModifica.Tag = "edit.single";
+            this.btnIndModifica.Text = "Modifica...";
+            // 
             // Frm_itinerationrefund_default
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(658, 542);
-            this.Controls.Add(this.txtImpNonRendicontabile);
-            this.Controls.Add(this.label19);
-            this.Controls.Add(this.btnArea);
-            this.Controls.Add(this.label18);
-            this.Controls.Add(this.cmbArea);
-            this.Controls.Add(this.txtComunicazioni);
-            this.Controls.Add(this.grpDocCollegato);
-            this.Controls.Add(this.grpApplicabilita);
-            this.Controls.Add(this.grpLimite);
-            this.Controls.Add(this.grpLocalita);
-            this.Controls.Add(this.grpIndennita);
-            this.Controls.Add(this.grpAnticipo);
-            this.Controls.Add(this.grpImporti);
+            this.ClientSize = new System.Drawing.Size(838, 566);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.grpDatiGenerali);
             this.Controls.Add(this.btnAnnulla);
             this.Controls.Add(this.btnOK);
@@ -870,8 +979,13 @@ namespace itinerationrefund_default{
             this.grpDocCollegato.PerformLayout();
             this.grpImporti.ResumeLayout(false);
             this.grpImporti.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabSpesa.ResumeLayout(false);
+            this.tabSpesa.PerformLayout();
+            this.tabAllegati.ResumeLayout(false);
+            this.grpBoxAllegati.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
 		}
 		#endregion
@@ -981,12 +1095,15 @@ namespace itinerationrefund_default{
         }
 
         void MakeSpaceFrom (GroupBox G) {
-            Form T = (Form)G.Parent;
+			Form T = G.FindForm();;
             Form F = G.FindForm();
             int disp = G.Height;
             int y0 = G.Location.Y;
             T.SuspendLayout();
-            foreach (Control C in T.Controls) {
+            tabControl1.SuspendLayout();
+            tabSpesa.SuspendLayout();
+            tabAllegati.SuspendLayout();
+            foreach (Control C in tabSpesa.Controls) {
                 if (C.Location.Y < y0) continue;
                 if ((C.Anchor & AnchorStyles.Bottom) == 0)
                     C.Location = new Point(C.Location.X, C.Location.Y - disp);
@@ -997,7 +1114,26 @@ namespace itinerationrefund_default{
                     }
                 }
             }
+            foreach (Control C in tabAllegati.Controls){
+                if (C.Location.Y < y0) continue;
+                if ((C.Anchor & AnchorStyles.Bottom) == 0)
+                    C.Location = new Point(C.Location.X, C.Location.Y - disp);
+                else{
+                    if ((C.Anchor & AnchorStyles.Top) != 0){
+                        C.Size = new Size(C.Size.Width, C.Size.Height + disp);
+                        C.Location = new Point(C.Location.X, C.Location.Y - disp);
+                    }
+                }
+            }
+            tabSpesa.Size = new Size(tabSpesa.Size.Width, tabSpesa.Size.Height - disp);
+            tabAllegati.Size = new Size(tabAllegati.Size.Width, tabAllegati.Size.Height - disp);
+
+            tabControl1.Size = new Size(tabControl1.Size.Width, tabControl1.Size.Height - disp);
             T.Size = new Size(F.Size.Width, F.Size.Height - disp);
+            tabSpesa.ResumeLayout();
+            tabAllegati.ResumeLayout();
+            tabControl1.ResumeLayout();
+
             T.ResumeLayout();
         }
 
@@ -1015,7 +1151,7 @@ namespace itinerationrefund_default{
                 int N= Meta.Conn.RUN_SELECT_COUNT("expenseitineration",ff,false);
                 ff = QHS.MCmp(Curr,"iditineration");
 				N += Meta.Conn.RUN_SELECT_COUNT("pettycashoperationitineration",ff,false);
-				if ((N>0)&&(Meta.edit_type == "advance")) MessageBox.Show(
+				if ((N>0)&&(Meta.edit_type == "advance")) show(
 							 "Avendo già contabilizzato l'anticipo di questa missione, le modifiche alle spese "+
 							 "non saranno tenute in considerazione ai fini del calcolo dell'anticipo della missione.","Avviso");
 			}
@@ -1185,10 +1321,10 @@ namespace itinerationrefund_default{
                 string msg = "L'anticipo calcolato è superiore all'importo da pagare al netto delle ritenute. Questo " +
                     "determinerà la necessità di effettuare un conguaglio negativo al pagamento del saldo della missione." +
                     " Vuole procedere comunque (altamente sconsigliato)?";
-                if (MessageBox.Show(msg, "Avviso", MessageBoxButtons.YesNo) == DialogResult.No) {
+                if (show(msg, "Avviso", MessageBoxButtons.YesNo) == DialogResult.No) {
                     Curr["advancepercentage"] = maxpercanticipo;
                     txtPercAnticipoItaliaEstero.Text = HelpForm.StringValue(maxpercanticipo, txtPercAnticipoItaliaEstero.Tag.ToString());
-                    MessageBox.Show("La percentuale di anticipo è stata reimpostata al valore massimo  possibile per non " +
+                    show("La percentuale di anticipo è stata reimpostata al valore massimo  possibile per non " +
                         "incorrere in un conguaglio negativo al saldo della missione", "Avviso");
                     
                     RicalcolaAnticipo();
@@ -1220,9 +1356,12 @@ namespace itinerationrefund_default{
                 DataRow[] fc = DS.foreigncountry.Select(QHC.CmpEq("idforeigncountry", idforeigncountry));
                 AbilitadisabilitaGrpLocalita(fc[0]);
             }
-            
-        }
-        bool do_checklimite = true;
+		}
+		public void MetaData_BeforeFill() {
+			Meta.MarkTableAsNotEntityChild(DS.itinerationrefundattachment);
+			
+		}
+		bool do_checklimite = true;
         void RicalcolaImportoEffettivoValuta(bool checklimite) {
             if (DS.itinerationrefund.Rows.Count == 0) return;
             DataRow Curr = DS.itinerationrefund.Rows[0];
@@ -1264,6 +1403,7 @@ namespace itinerationrefund_default{
                 return -1;
             }
 
+            if (inizio.Year < 1000) return -1;
             DateTime fine;
             try {
                 fine = (DateTime)dataFine;
@@ -1271,6 +1411,7 @@ namespace itinerationrefund_default{
             catch {
                 return -1;
             }
+            if (fine.Year < 1000) return -1;
 
             double dinizio = 0;
             double dfine = 0;
@@ -1347,7 +1488,7 @@ namespace itinerationrefund_default{
             if (AttribRow == null) {
                 txtLimiteMax.Text = "";
                 if (!esisteConf) {
-                    MessageBox.Show(this, "Le informazioni relative agli attributi " +
+                    show(this, "Le informazioni relative agli attributi " +
                         "di classificazione delle spese sono incomplete o mancanti.",
                         "Avviso");
                 }
@@ -1372,7 +1513,7 @@ namespace itinerationrefund_default{
             if (AttribRow == null) {
                 ClearPerc();
                 if (!esisteConf) {
-                    MessageBox.Show(this, "Le informazioni relative agli attributi " +
+                    show(this, "Le informazioni relative agli attributi " +
                         "di classificazione delle spese sono incomplete o mancanti.",
                         "Avviso");
                 }
@@ -1639,7 +1780,7 @@ namespace itinerationrefund_default{
         }
 
         private void txtPercAnticipoItaliaEstero_Leave(object sender, EventArgs e) {
-            if (Meta.inchiusura) return;
+            if (Meta.formController.isClosing) return;
             if (!CheckLimiteAnticipo()) DialogResult = DialogResult.None;
 
         }
@@ -1655,4 +1796,3 @@ namespace itinerationrefund_default{
         }
 	}
 }
-

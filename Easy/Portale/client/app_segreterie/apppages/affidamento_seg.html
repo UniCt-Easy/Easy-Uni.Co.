@@ -1,0 +1,151 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabaffidamento_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabaffidamento_seg_0"><i class="fa fa-chalkboard-teacher mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabaffidamento_seg_1" class="nav-link" data-toggle="pill" data-target="#tabaffidamento_seg_1"><i class="fa fa-chalkboard-teacher mr-1"></i>Lezioni</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabaffidamento_seg_2" class="nav-link" data-toggle="pill" data-target="#tabaffidamento_seg_2"><i class="fa fa-layer-group mr-1"></i>Caratteristiche dell'affidamento</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabaffidamento_seg_3" class="nav-link" data-toggle="pill" data-target="#tabaffidamento_seg_3"><i class="fa fa-paperclip mr-1"></i>Allegati</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabaffidamento_seg_0" role="tabpanel">
+					<input hidden id="affidamento_seg_json" type="text" class="form-control" data-tag="affidamento.json" />
+					<input hidden id="affidamento_seg_title" type="text" class="form-control" data-tag="affidamento.title" />
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="affidamento_seg_freqobbl">Frequenza obbligatoria</label>
+					<div class="custom-control custom-radio">
+						<input id="affidamento_seg_freqobblSi" type="radio" name="affidamento_seg_freqobbl" class="custom-control-input" data-tag="affidamento.freqobbl:S?affidamentosegview.affidamento_freqobbl:Si" data-subentity  ><label for="affidamento_seg_freqobblSi"> Si</label>
+						<input id="affidamento_seg_freqobblNo" type="radio" name="affidamento_seg_freqobbl" class="custom-control-input" data-tag="affidamento.freqobbl:N?affidamentosegview.affidamento_freqobbl:No" data-subentity  ><label for="affidamento_seg_freqobblNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="affidamento_seg_gratuito">Gratuito</label>
+					<div class="custom-control custom-radio">
+						<input id="affidamento_seg_gratuitoSi" type="radio" name="affidamento_seg_gratuito" class="custom-control-input" data-tag="affidamento.gratuito:S?affidamentosegview.affidamento_gratuito:Si" data-subentity  data-mandatory ><label for="affidamento_seg_gratuitoSi"> Si</label>
+						<input id="affidamento_seg_gratuitoNo" type="radio" name="affidamento_seg_gratuito" class="custom-control-input" data-tag="affidamento.gratuito:N?affidamentosegview.affidamento_gratuito:No" data-subentity  data-mandatory ><label for="affidamento_seg_gratuitoNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="affidamento_seg_idaffidamentokind">Tipologia</label>
+					<select id="affidamento_seg_idaffidamentokind" class="custom-select d-block w-100"  data-source-name="affidamentokinddefaultview" data-value-member="idaffidamentokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="affidamento.idaffidamentokind?affidamentosegview.affidamento_idaffidamentokind" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="affidamento_seg_iderogazkind">Tipo di erogazione</label>
+					<select id="affidamento_seg_iderogazkind" class="custom-select d-block w-100"  data-source-name="erogazkinddefaultview" data-value-member="iderogazkind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="affidamento.iderogazkind?affidamentosegview.affidamento_iderogazkind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="affidamento_seg_riferimento">Docente di riferimento per il canale</label>
+					<div class="custom-control custom-radio">
+						<input id="affidamento_seg_riferimentoSi" type="radio" name="affidamento_seg_riferimento" class="custom-control-input" data-tag="affidamento.riferimento:S?affidamentosegview.affidamento_riferimento:Si" data-subentity  data-mandatory ><label for="affidamento_seg_riferimentoSi"> Si</label>
+						<input id="affidamento_seg_riferimentoNo" type="radio" name="affidamento_seg_riferimento" class="custom-control-input" data-tag="affidamento.riferimento:N?affidamentosegview.affidamento_riferimento:No" data-subentity  data-mandatory ><label for="affidamento_seg_riferimentoNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#affidamento_seg_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="affidamento_seg_start">Inizio</label>
+					<input id="affidamento_seg_start" type="text" class="form-control" data-tag="affidamento.start?affidamentosegview.affidamento_start" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#affidamento_seg_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="affidamento_seg_stop">Fine</label>
+					<input id="affidamento_seg_stop" type="text" class="form-control" data-tag="affidamento.stop?affidamentosegview.affidamento_stop" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="affidamento_seg_urlcorso">Indirizzo web del corso</label>
+					<input id="affidamento_seg_urlcorso" type="text" class="form-control" data-tag="affidamento.urlcorso?affidamentosegview.affidamento_urlcorso" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="affidamento_seg_prog">Programma</label>
+					<textarea class="textarea form-control" id="affidamento_seg_prog" type="text"  rows="4" data-tag="affidamento.prog?affidamentosegview.affidamento_prog" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="affidamento_seg_prog_en">Programma (EN)</label>
+					<textarea class="textarea form-control" id="affidamento_seg_prog_en" type="text"  rows="4" data-tag="affidamento.prog_en?affidamentosegview.affidamento_prog_en" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="affidamento_seg_testi">Testi</label>
+					<textarea class="textarea form-control" id="affidamento_seg_testi" type="text"  rows="4" data-tag="affidamento.testi?affidamentosegview.affidamento_testi" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="affidamento_seg_testi_en">Testi (EN)</label>
+					<textarea class="textarea form-control" id="affidamento_seg_testi_en" type="text"  rows="4" data-tag="affidamento.testi_en?affidamentosegview.affidamento_testi_en" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="affidamento_seg_orariric">Orari di ricevimento</label>
+					<textarea class="textarea form-control" id="affidamento_seg_orariric" type="text"  rows="4" data-tag="affidamento.orariric?affidamentosegview.affidamento_orariric" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="affidamento_seg_orariric_en">Oriari di ricevimento (EN)</label>
+					<textarea class="textarea form-control" id="affidamento_seg_orariric_en" type="text"  rows="4" data-tag="affidamento.orariric_en?affidamentosegview.affidamento_orariric_en" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="affidamento_seg_frequenzaminima">Frequenza minima (%)</label>
+					<input id="affidamento_seg_frequenzaminima" type="text" class="form-control" data-tag="affidamento.frequenzaminima?affidamentosegview.affidamento_frequenzaminima" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="affidamento_seg_frequenzaminimadebito">Frequenza minima con debito (%)</label>
+					<input id="affidamento_seg_frequenzaminimadebito" type="text" class="form-control" data-tag="affidamento.frequenzaminimadebito?affidamentosegview.affidamento_frequenzaminimadebito" data-subentity  />
+				</div>
+			</div>
+					<input hidden id="affidamento_seg_idsede" type="text" class="form-control" data-tag="affidamento.idsede" />
+	</div>
+	<div class="tab-pane fade" id="tabaffidamento_seg_1" role="tabpanel">
+ <button id="OpenScheduleConfig" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-calendar mr-1" ></i>Inserisci l'orario delle lezioni
+    </button>
+	<hr>
+		<div class="row">
+			<div class="col-md-12">
+				<div id="calendar36" data-tag="lezione_alias2.seg.seg" data-custom-control="calendar"  data-mdltitlecolumnname="!title"   data-mdlstopcolumnname="stop"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdldragdrop ></div>
+			</div>
+		</div>
+	</div>
+	<div class="tab-pane fade" id="tabaffidamento_seg_2" role="tabpanel">
+				<div class="gridx" id="grid_affidamentocaratteristica_seg" data-tag="affidamentocaratteristica.seg.seg" data-custom-control="gridxchild" data-mdlconditionallookup="profess,S,Si;profess,N,No;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabaffidamento_seg_3" role="tabpanel">
+				<div class="gridx" id="grid_affidamentoattach_seganag" data-tag="affidamentoattach.seganag.seganag" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

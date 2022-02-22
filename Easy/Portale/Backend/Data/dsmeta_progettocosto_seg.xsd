@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_progettocosto_seg" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_progettocosto_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="pettycashsegview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idpettycash" type="xs:int" />
+              <xs:element name="pettycash_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="expensesegview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idclawback" type="xs:int" minOccurs="0" />
+              <xs:element name="idexp" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="contrattokinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="contrattokind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idcontrattokind" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="saldefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idsal" type="xs:int" />
+              <xs:element name="sal_budget" type="xs:decimal" minOccurs="0" />
+              <xs:element name="sal_datablocco" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="sal_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="entrydetail" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idrelated" type="xs:string" minOccurs="0" />
+              <xs:element name="ndetail" type="xs:int" />
+              <xs:element name="nentry" type="xs:int" />
+              <xs:element name="yentry" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="rendicontattivitaprogettosegview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idrendicontattivitaprogetto" type="xs:int" />
+              <xs:element name="idworkpackage" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="progettotipocosto" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ammissibilita" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idprogettotipocosto" type="xs:int" />
+              <xs:element name="idprogettotipocostokind" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="sortcode" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="workpackagesegview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idworkpackage" type="xs:int" />
+              <xs:element name="raggruppamento" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_idstrutturakind" type="xs:int" minOccurs="0" />
+              <xs:element name="struttura_title" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturakind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="workpackage_acronimo" type="xs:string" minOccurs="0" />
+              <xs:element name="workpackage_ct" type="xs:dateTime" />
+              <xs:element name="workpackage_cu" type="xs:string" />
+              <xs:element name="workpackage_description" type="xs:string" minOccurs="0" />
+              <xs:element name="workpackage_idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="workpackage_lt" type="xs:dateTime" />
+              <xs:element name="workpackage_lu" type="xs:string" />
+              <xs:element name="workpackage_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="workpackage_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="workpackage_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="progettocosto" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="doc" type="xs:string" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idexp" type="xs:int" minOccurs="0" />
+              <xs:element name="idpettycash" type="xs:int" minOccurs="0" />
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idprogettocosto" type="xs:int" />
+              <xs:element name="idprogettotipocosto" type="xs:int" />
+              <xs:element name="idrelated" type="xs:string" minOccurs="0" />
+              <xs:element name="idrendicontattivitaprogetto" type="xs:int" minOccurs="0" />
+              <xs:element name="idsal" type="xs:int" minOccurs="0" />
+              <xs:element name="idworkpackage" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="noperation" type="xs:int" minOccurs="0" />
+              <xs:element name="yoperation" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pettycashsegview" />
+      <xs:field xpath="mstns:idpettycash" />
+    </xs:unique>
+    <xs:unique name="expensesegview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:expensesegview" />
+      <xs:field xpath="mstns:idexp" />
+    </xs:unique>
+    <xs:unique name="contrattokinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:contrattokinddefaultview" />
+      <xs:field xpath="mstns:idcontrattokind" />
+    </xs:unique>
+    <xs:unique name="saldefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:saldefaultview" />
+      <xs:field xpath="mstns:idsal" />
+    </xs:unique>
+    <xs:unique name="entrydetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:entrydetail" />
+      <xs:field xpath="mstns:ndetail" />
+      <xs:field xpath="mstns:nentry" />
+      <xs:field xpath="mstns:yentry" />
+    </xs:unique>
+    <xs:unique name="rendicontattivitaprogettosegview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:rendicontattivitaprogettosegview" />
+      <xs:field xpath="mstns:idrendicontattivitaprogetto" />
+    </xs:unique>
+    <xs:unique name="progettotipocosto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:progettotipocosto" />
+      <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idprogettotipocosto" />
+    </xs:unique>
+    <xs:unique name="workpackagesegview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:workpackagesegview" />
+      <xs:field xpath="mstns:idworkpackage" />
+    </xs:unique>
+    <xs:unique name="progettocosto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:progettocosto" />
+      <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idprogettocosto" />
+      <xs:field xpath="mstns:idprogettotipocosto" />
+      <xs:field xpath="mstns:idworkpackage" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_progettocosto_pettycashsegview_idpettycash" msdata:parent="pettycashsegview" msdata:child="progettocosto" msdata:parentkey="idpettycash" msdata:childkey="idpettycash" />
+      <msdata:Relationship name="FK_progettocosto_expensesegview_idexp" msdata:parent="expensesegview" msdata:child="progettocosto" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="FK_progettocosto_contrattokinddefaultview_idcontrattokind" msdata:parent="contrattokinddefaultview" msdata:child="progettocosto" msdata:parentkey="idcontrattokind" msdata:childkey="idcontrattokind" />
+      <msdata:Relationship name="FK_progettocosto_saldefaultview_idsal" msdata:parent="saldefaultview" msdata:child="progettocosto" msdata:parentkey="idsal" msdata:childkey="idsal" />
+      <msdata:Relationship name="FK_progettocosto_entrydetail_idrelated" msdata:parent="entrydetail" msdata:child="progettocosto" msdata:parentkey="idrelated" msdata:childkey="idrelated" />
+      <msdata:Relationship name="FK_progettocosto_rendicontattivitaprogettosegview_idrendicontattivitaprogetto" msdata:parent="rendicontattivitaprogettosegview" msdata:child="progettocosto" msdata:parentkey="idrendicontattivitaprogetto" msdata:childkey="idrendicontattivitaprogetto" />
+      <msdata:Relationship name="FK_progettocosto_progettotipocosto_idprogettotipocosto" msdata:parent="progettotipocosto" msdata:child="progettocosto" msdata:parentkey="idprogettotipocosto" msdata:childkey="idprogettotipocosto" />
+      <msdata:Relationship name="FK_progettocosto_workpackagesegview_idworkpackage" msdata:parent="workpackagesegview" msdata:child="progettocosto" msdata:parentkey="idworkpackage" msdata:childkey="idworkpackage" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

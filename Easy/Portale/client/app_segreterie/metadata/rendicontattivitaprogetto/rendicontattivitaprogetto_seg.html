@@ -1,0 +1,85 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabrendicontattivitaprogetto_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabrendicontattivitaprogetto_seg_0"><i class="fa fa-tools mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabrendicontattivitaprogetto_seg_1" class="nav-link" data-toggle="pill" data-target="#tabrendicontattivitaprogetto_seg_1"><i class="fa fa-calendar-alt mr-1"></i>Dettaglio giorni della attività</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabrendicontattivitaprogetto_seg_2" class="nav-link" data-toggle="pill" data-target="#tabrendicontattivitaprogetto_seg_2"><i class="fa fa-taxi mr-1"></i>Missioni dell'attività</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabrendicontattivitaprogetto_seg_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="rendicontattivitaprogetto_seg_description">Descrizione</label>
+					<textarea class="textarea form-control" id="rendicontattivitaprogetto_seg_description" type="text"  rows="4" data-tag="rendicontattivitaprogetto.description?rendicontattivitaprogettosegview.description" data-subentity></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="rendicontattivitaprogetto_seg_idreg">Partecipante</label>
+					<select id="rendicontattivitaprogetto_seg_idreg" class="custom-select d-block w-100"  data-source-name="getregistrydocentiamministratividefaultview" data-value-member="idreg" data-display-member="dropdown_title" data-custom-control="combo" data-tag="rendicontattivitaprogetto.idreg?rendicontattivitaprogettosegview.rendicontattivitaprogetto_idreg" data-subentity  data-mandatory  > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="rendicontattivitaprogetto_seg_orepreventivate">Numero di ore preventivate</label>
+					<input id="rendicontattivitaprogetto_seg_orepreventivate" type="text" class="form-control" data-tag="rendicontattivitaprogetto.orepreventivate?rendicontattivitaprogettosegview.rendicontattivitaprogetto_orepreventivate" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="rendicontattivitaprogetto_seg_orerendicont">Numero di ore rendicontate</label>
+					<input id="rendicontattivitaprogetto_seg_orerendicont" type="text" class="form-control" data-tag="rendicontattivitaprogetto.!orerendicont?rendicontattivitaprogettosegview.!orerendicont" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#rendicontattivitaprogetto_seg_datainizioprevista").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="rendicontattivitaprogetto_seg_datainizioprevista">Data inizio prevista</label>
+					<input id="rendicontattivitaprogetto_seg_datainizioprevista" type="text" class="form-control" data-tag="rendicontattivitaprogetto.datainizioprevista?rendicontattivitaprogettosegview.rendicontattivitaprogetto_datainizioprevista" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#rendicontattivitaprogetto_seg_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="rendicontattivitaprogetto_seg_stop">Data fine prevista</label>
+					<input id="rendicontattivitaprogetto_seg_stop" type="text" class="form-control" data-tag="rendicontattivitaprogetto.stop?rendicontattivitaprogettosegview.rendicontattivitaprogetto_stop" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelrendicontattivitaprogetto_default_XXrendicontattivitaprogettoyear" >Suddivisione delle ore dell'attività per anno solare</div>
+				<div class="gridx" id="grid_rendicontattivitaprogettoyear_default" data-tag="rendicontattivitaprogettoyear.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabrendicontattivitaprogetto_seg_1" role="tabpanel">
+ <button id="OpenScheduleConfig" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-calendar mr-1" ></i>Distribuisci le ore sul calendario
+    </button>
+	<hr>
+		<div class="row">
+			<div class="col-md-12">
+				<div id="calendar14" data-tag="rendicontattivitaprogettoora.seg.seg" data-custom-control="calendar"  data-mdltitlecolumnname="!titleancestor"   data-mdlstartcolumnname="data"   data-mdlmaincolor="darkgreen"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdldragdrop ></div>
+			</div>
+		</div>
+	</div>
+	<div class="tab-pane fade" id="tabrendicontattivitaprogetto_seg_2" role="tabpanel">
+		<div id="grid_rendicontattivitaprogettoitineration_default" data-tag="itineration.seg.seg" data-custom-control="checklist"  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

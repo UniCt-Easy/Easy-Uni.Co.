@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_contrattopassivo_pagato]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_contrattopassivo_pagato]
 GO
@@ -16,7 +33,9 @@ CREATE                PROCEDURE [exp_contrattopassivo_pagato]
 )
 
 AS BEGIN
--- exec exp_contrattopassivo_pagato 2018, null
+-- setuser 'amm'
+-- setuser 'amministrazione'
+-- exec exp_contrattopassivo_pagato 2019, null
 DECLARE @expenselevel INT
 DECLARE @maxlevel INT
 
@@ -29,17 +48,17 @@ DECLARE @nman int
 DECLARE @rownum int
 DECLARE @ypay int
 DECLARE @npay int
-
+DECLARE @idexp_taxable int
 
 CREATE TABLE #mandate_detail 
 ( yman int, nman int, adate datetime, manager varchar (150), registry varchar(100), detaildescription varchar(150), npackage decimal(19,2), imponibile decimal(19,2), 
- taxrate decimal(19,2), discount varchar(11), total decimal(19,2) , ypay int, npay varchar(100), idmankind varchar(50), rownum int, idexp_pay int )
+ taxrate decimal(19,2), discount varchar(11), total decimal(19,2) , ypay int, npay varchar(max), idmankind varchar(50), rownum int, idexp_pay int ,idexp_taxable int)
 
 
 
-	INSERT INTO #mandate_detail (idmankind, nman, yman, rownum, adate, detaildescription,manager, registry,npackage, imponibile, taxrate,
+	INSERT INTO #mandate_detail (idmankind, nman, yman, rownum, adate, detaildescription,manager, registry,npackage,idexp_taxable, imponibile,  taxrate,
 					discount, total )
-	SELECT distinct MD.idmankind, MD.nman, MD.yman,MD.rownum, M.adate,  MD.detaildescription, MG.title, RG.title, MD.npackage,
+	SELECT distinct MD.idmankind, MD.nman, MD.yman,MD.rownum, M.adate,  MD.detaildescription, MG.title, RG.title, MD.npackage,MD.idexp_taxable,
 			MD.taxable,
 		isnull(MD.taxrate * 100 , 0), 
 		convert(varchar(10),isnull( MD.discount * 100, 0))+ '%', 
@@ -49,77 +68,33 @@ CREATE TABLE #mandate_detail
 			)+
 		ROUND(MD.tax,2)
 		FROM mandatedetail MD
-		JOIN mandate M
-			ON MD.idmankind= M.idmankind 
-			AND MD.nman = M.nman
-			AND MD.yman = M.yman
-		JOIN expensemandate EM
-			ON MD.idmankind=EM.idmankind
-			AND MD.nman=EM.nman
-			AND MD.yman=EM.yman
-			AND MD.idexp_taxable=EM.idexp
-		LEFT OUTER JOIN manager MG
-			ON M.idman = MG.idman
-		LEFT OUTER JOIN  registry RG
-			ON ISNULL(M.idreg,MD.idreg) = RG.idreg 
+		JOIN mandate M 	ON MD.idmankind= M.idmankind AND MD.nman = M.nman	AND MD.yman = M.yman		
+		LEFT OUTER JOIN manager MG		ON M.idman = MG.idman
+		LEFT OUTER JOIN  registry RG	ON ISNULL(M.idreg,MD.idreg) = RG.idreg 
 	WHERE MD.yman = @ayear
-	AND ( EM.idmankind=@idmankind or @idmankind is null)
+	AND ( MD.idmankind=@idmankind or @idmankind is null)
 	AND MD.stop IS NULL
+	AND  MD.idexp_taxable is not null AND
+	EXISTS (SELECT * FROM expenselink EL
+						JOIN expenselast elast on elast.idexp=el.idchild 
+						WHERE EL.idparent =  MD.idexp_taxable)
+		
 
 
 
+UPDATE MD SET
+	MD.npay =CONVERT (varchar(4),P.ypay) + '/' + convert (varchar(10),P.npay)
+	FROM 
+	#mandate_detail AS MD
+	JOIN expenselink EL			ON EL.idparent = MD.idexp_taxable	
+	JOIN expenselast ELA		ON ELA.idexp = EL.idchild
+	JOIN payment P				ON ELA.kpay = P.kpay
 
 
-DECLARE cursore CURSOR FORWARD_ONLY for 
-SELECT MD.idmankind, MD.nman, MD.yman,MD.rownum, P.ypay , P.npay 
-	FROM mandatedetail MD
-	JOIN expensemandate EM
-		ON MD.idmankind=EM.idmankind
-		AND MD.nman=EM.nman
-		AND MD.yman=EM.yman
-		AND MD.idexp_taxable=EM.idexp
-	JOIN expenselink EL
-		ON EL.idparent = EM.idexp
-		AND nlevel = @expenselevel
-	JOIN expenselink EL2
-		ON EL2.idparent = EL.idchild
-		AND EL2.nlevel = @maxlevel
-	JOIN expenselast ET
-		ON ET.idexp = EL.idchild
-	JOIN payment P
-		ON ET.kpay = P.kpay
-WHERE MD.yman = @ayear
-AND EM.idmankind=@idmankind
-AND MD.stop IS NULL
-
-OPEN cursore
-FETCH NEXT FROM cursore 
-INTO 	@idmankind, @nman, @yman,@rownum, @ypay , @npay 
-
-WHILE (@@fetch_status=0) 
-BEGIN
-	UPDATE #mandate_detail SET
-	npay = ISNULL(npay, '') + CONVERT (varchar(4),@ypay) + '/' + convert (varchar(10),@npay) + ', '
-	WHERE #mandate_detail.idmankind = @idmankind
-	AND  #mandate_detail.yman = @yman
-	AND #mandate_detail.nman = @nman
-	AND #mandate_detail.rownum = @rownum
-	--AND #mandate_detail.idexp_taxable = @idexp_taxable 
-	FETCH NEXT FROM cursore 
-	INTO @idmankind, @nman, @yman,@rownum, @ypay , @npay 
-END
-CLOSE cursore
-DEALLOCATE cursore
-
--- Toglie la virgola finale
-
-UPDATE #mandate_detail SET 
-npay = substring (npay,1, len(npay)-1) 
-WHERE npay IS NOT NULL
 
 SELECT mandatekind.description AS 'Tipo Contratto', yman AS 'Esercizio', nman AS 'N.ordine', rownum AS 'N.dettaglio', adate AS 'Data contabile',
 	 manager AS 'Nome responsabile', registry AS 'Nome fornitore',detaildescription AS 'Descrizione detaglio', npackage AS 'Quantità', 
-	imponibile AS 'Imponibile', taxrate AS 'Iva %', discount AS 'Sconto',total AS 'Totale', npay AS 'Mandato'
+	imponibile AS 'Imponibile', taxrate AS 'Iva %', discount AS 'Sconto',total AS 'Totale' , npay AS 'Mandato'
 FROM #mandate_detail 
 JOIN mandatekind
 	ON #mandate_detail.idmankind = mandatekind.idmankind

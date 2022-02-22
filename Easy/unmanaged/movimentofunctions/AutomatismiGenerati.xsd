@@ -52,6 +52,7 @@
               <xs:element name="autocode" type="xs:int" minOccurs="0" />
               <xs:element name="cupcode" type="xs:string" minOccurs="0" />
               <xs:element name="cigcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idinc_linked" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -642,10 +643,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="DataTable1">
-          <xs:complexType>
-          </xs:complexType>
-        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -657,15 +654,15 @@
       <xs:field xpath="mstns:ayear" />
       <xs:field xpath="mstns:idexp" />
     </xs:unique>
-    <xs:unique name="incomevar_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:incomevar" />
-      <xs:field xpath="mstns:idinc" />
-      <xs:field xpath="mstns:nvar" />
-    </xs:unique>
     <xs:unique name="incomeyear_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:incomeyear" />
       <xs:field xpath="mstns:idinc" />
       <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="incomevar_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:incomevar" />
+      <xs:field xpath="mstns:idinc" />
+      <xs:field xpath="mstns:nvar" />
     </xs:unique>
     <xs:unique name="income_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:income" />

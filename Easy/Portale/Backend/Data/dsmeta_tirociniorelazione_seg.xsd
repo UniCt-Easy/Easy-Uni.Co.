@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_tirociniorelazione_seg" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_tirociniorelazione_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="tirociniorelazione" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attivitasvolta" type="xs:string" minOccurs="0" />
+              <xs:element name="autovalutazione" type="xs:string" minOccurs="0" />
+              <xs:element name="competenze" type="xs:string" minOccurs="0" />
+              <xs:element name="conclusioni" type="xs:string" minOccurs="0" />
+              <xs:element name="considerazioni" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="descrazienda" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg_referente" type="xs:int" />
+              <xs:element name="idreg_studenti" type="xs:int" />
+              <xs:element name="idtirociniocandidatura" type="xs:int" />
+              <xs:element name="idtirocinioprogetto" type="xs:int" />
+              <xs:element name="idtirocinioproposto" type="xs:int" />
+              <xs:element name="idtirociniorelazione" type="xs:int" />
+              <xs:element name="introduzione" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tirociniorelazione" />
+      <xs:field xpath="mstns:idreg_referente" />
+      <xs:field xpath="mstns:idreg_studenti" />
+      <xs:field xpath="mstns:idtirociniocandidatura" />
+      <xs:field xpath="mstns:idtirocinioprogetto" />
+      <xs:field xpath="mstns:idtirocinioproposto" />
+      <xs:field xpath="mstns:idtirociniorelazione" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

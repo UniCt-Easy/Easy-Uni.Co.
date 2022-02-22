@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_pcspuntiorganicoview_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_pcspuntiorganicoview_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="pcspuntiorganicoview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="contrattokind_title" type="xs:string" />
+              <xs:element name="importo0" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importo1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importo2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importo3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoateneo0" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoateneo1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoateneo2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoateneo3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoesterno0" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoesterno1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoesterno2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoesterno3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="isdoc" type="xs:string" />
+              <xs:element name="puntimeno0" type="xs:decimal" minOccurs="0" />
+              <xs:element name="puntimeno1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="puntimeno2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="puntimeno3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="puntipiu0" type="xs:decimal" minOccurs="0" />
+              <xs:element name="puntipiu1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="puntipiu2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="puntipiu3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pcspuntiorganicoview" />
+      <xs:field xpath="mstns:contrattokind_title" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,723 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_corsostudio_load" targetNamespace="http://tempuri.org/dsmeta_corsostudio_load.xsd" xmlns:mstns="http://tempuri.org/dsmeta_corsostudio_load.xsd" xmlns="http://tempuri.org/dsmeta_corsostudio_load.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_corsostudio_load" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="corsostudio" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="almalaureasurvey" type="xs:string" minOccurs="0" />
+              <xs:element name="annoistituz" type="xs:int" minOccurs="0" />
+              <xs:element name="basevoto" type="xs:int" minOccurs="0" />
+              <xs:element name="codice" type="xs:string" minOccurs="0" />
+              <xs:element name="codicemiur" type="xs:string" minOccurs="0" />
+              <xs:element name="codicemiurlungo" type="xs:string" minOccurs="0" />
+              <xs:element name="crediti" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="durata" type="xs:int" minOccurs="0" />
+              <xs:element name="idcorsostudiokind" type="xs:int" />
+              <xs:element name="idcorsostudiolivello" type="xs:int" minOccurs="0" />
+              <xs:element name="idcorsostudionorma" type="xs:int" minOccurs="0" />
+              <xs:element name="idduratakind" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="obbform" type="xs:string" minOccurs="0" />
+              <xs:element name="sboccocc" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="title_en" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="corsostudioclassescuola" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="idclassescuola" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="didprog" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="annosolare" type="xs:int" minOccurs="0" />
+              <xs:element name="attribdebiti" type="xs:string" minOccurs="0" />
+              <xs:element name="ciclo" type="xs:int" minOccurs="0" />
+              <xs:element name="codice" type="xs:string" minOccurs="0" />
+              <xs:element name="codicemiur" type="xs:string" minOccurs="0" />
+              <xs:element name="dataconsmaxiscr" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="freqobbl" type="xs:string" minOccurs="0" />
+              <xs:element name="idareadidattica" type="xs:int" minOccurs="0" />
+              <xs:element name="idconvenzione" type="xs:int" minOccurs="0" />
+              <xs:element name="iddidprognumchiusokind" type="xs:int" minOccurs="0" />
+              <xs:element name="iddidprogsuddannokind" type="xs:int" minOccurs="0" />
+              <xs:element name="iderogazkind" type="xs:int" minOccurs="0" />
+              <xs:element name="idgraduatoria" type="xs:int" minOccurs="0" />
+              <xs:element name="idnation_lang" type="xs:int" minOccurs="0" />
+              <xs:element name="idnation_lang2" type="xs:int" minOccurs="0" />
+              <xs:element name="idnation_langvis" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg_docenti" type="xs:int" minOccurs="0" />
+              <xs:element name="idsede" type="xs:int" />
+              <xs:element name="idsessione" type="xs:int" minOccurs="0" />
+              <xs:element name="idtitolokind" type="xs:int" minOccurs="0" />
+              <xs:element name="immatoltreauth" type="xs:string" minOccurs="0" />
+              <xs:element name="modaccesso" type="xs:string" minOccurs="0" />
+              <xs:element name="modaccesso_en" type="xs:string" minOccurs="0" />
+              <xs:element name="obbformativi" type="xs:string" minOccurs="0" />
+              <xs:element name="obbformativi_en" type="xs:string" minOccurs="0" />
+              <xs:element name="preimmatoltreauth" type="xs:string" minOccurs="0" />
+              <xs:element name="progesamamm" type="xs:string" minOccurs="0" />
+              <xs:element name="prospoccupaz" type="xs:string" minOccurs="0" />
+              <xs:element name="provafinaledesc" type="xs:string" minOccurs="0" />
+              <xs:element name="regolamentotax" type="xs:string" minOccurs="0" />
+              <xs:element name="regolamentotaxurl" type="xs:string" minOccurs="0" />
+              <xs:element name="startiscrizioni" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stopiscrizioni" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="title_en" type="xs:string" minOccurs="0" />
+              <xs:element name="utenzasost" type="xs:int" minOccurs="0" />
+              <xs:element name="website" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="didprogcurr" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddidprogcurr" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="codice" type="xs:string" minOccurs="0" />
+              <xs:element name="codicemiur" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="didprogori" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddidprogori" type="xs:int" />
+              <xs:element name="iddidprogcurr" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="codice" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="didproganno" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddidproganno" type="xs:int" />
+              <xs:element name="iddidprogori" type="xs:int" />
+              <xs:element name="iddidprogcurr" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="anno" type="xs:int" minOccurs="0" />
+              <xs:element name="cf" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="didprogporzanno" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddidprogporzanno" type="xs:int" />
+              <xs:element name="iddidproganno" type="xs:int" />
+              <xs:element name="iddidprogori" type="xs:int" />
+              <xs:element name="iddidprogcurr" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="iddidprogporzannokind" type="xs:int" minOccurs="0" />
+              <xs:element name="indice" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="insegn" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinsegn" type="xs:int" />
+              <xs:element name="codice" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="denominazione" type="xs:string" minOccurs="0" />
+              <xs:element name="denominazione_en" type="xs:string" minOccurs="0" />
+              <xs:element name="idcorsostudio" type="xs:int" minOccurs="0" />
+              <xs:element name="idcorsostudiokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="insegninteg" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinsegninteg" type="xs:int" />
+              <xs:element name="idinsegn" type="xs:int" />
+              <xs:element name="codice" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="denominazione" type="xs:string" minOccurs="0" />
+              <xs:element name="denominazione_en" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="insegncaratteristica" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinsegn" type="xs:int" />
+              <xs:element name="idinsegncaratteristica" type="xs:int" />
+              <xs:element name="cf" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idsasd" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="profess" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="canale" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcanale" type="xs:int" />
+              <xs:element name="idattivform" type="xs:int" />
+              <xs:element name="iddidprogporzanno" type="xs:int" />
+              <xs:element name="iddidproganno" type="xs:int" />
+              <xs:element name="iddidprogori" type="xs:int" />
+              <xs:element name="iddidprogcurr" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="CUIN" type="xs:string" minOccurs="0" />
+              <xs:element name="idsede" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="numerostud" type="xs:int" minOccurs="0" />
+              <xs:element name="sortcode" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="attivform" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idattivform" type="xs:int" />
+              <xs:element name="iddidprogporzanno" type="xs:int" />
+              <xs:element name="iddidproganno" type="xs:int" />
+              <xs:element name="iddidprogori" type="xs:int" />
+              <xs:element name="iddidprogcurr" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="iddidproggrupp" type="xs:int" minOccurs="0" />
+              <xs:element name="idinsegn" type="xs:int" />
+              <xs:element name="idinsegninteg" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="obbform" type="xs:string" minOccurs="0" />
+              <xs:element name="obbform_en" type="xs:string" minOccurs="0" />
+              <xs:element name="sortcode" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="tipovalutaz" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="idsede" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="insegnintegcaratteristica" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinsegn" type="xs:int" />
+              <xs:element name="idinsegninteg" type="xs:int" />
+              <xs:element name="idinsegnintegcaratteristica" type="xs:int" />
+              <xs:element name="cf" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idsasd" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="profess" type="xs:string" />
+              <xs:element name="json" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="affidamento" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idaffidamento" type="xs:int" />
+              <xs:element name="idcanale" type="xs:int" />
+              <xs:element name="idattivform" type="xs:int" />
+              <xs:element name="iddidprogporzanno" type="xs:int" />
+              <xs:element name="iddidproganno" type="xs:int" />
+              <xs:element name="iddidprogori" type="xs:int" />
+              <xs:element name="iddidprogcurr" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idaffidamentokind" type="xs:int" />
+              <xs:element name="gratuito" type="xs:string" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="riferimento" type="xs:string" />
+              <xs:element name="prog" type="xs:string" minOccurs="0" />
+              <xs:element name="prog_en" type="xs:string" minOccurs="0" />
+              <xs:element name="testi" type="xs:string" minOccurs="0" />
+              <xs:element name="testi_en" type="xs:string" minOccurs="0" />
+              <xs:element name="orariric" type="xs:string" minOccurs="0" />
+              <xs:element name="orariric_en" type="xs:string" minOccurs="0" />
+              <xs:element name="urlcorso" type="xs:string" minOccurs="0" />
+              <xs:element name="iderogazkind" type="xs:int" minOccurs="0" />
+              <xs:element name="freqobbl" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg_docenti" type="xs:int" minOccurs="0" />
+              <xs:element name="paridaffidamento" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="frequenzaminima" type="xs:int" minOccurs="0" />
+              <xs:element name="frequenzaminimadebito" type="xs:int" minOccurs="0" />
+              <xs:element name="json" type="xs:string" minOccurs="0" />
+              <xs:element name="jsonancestor" type="xs:string" minOccurs="0" />
+              <xs:element name="idsede" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="affidamentocaratteristica" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idaffidamentocaratteristica" type="xs:int" />
+              <xs:element name="idaffidamento" type="xs:int" />
+              <xs:element name="idcanale" type="xs:int" />
+              <xs:element name="idattivform" type="xs:int" />
+              <xs:element name="iddidprogporzanno" type="xs:int" />
+              <xs:element name="iddidproganno" type="xs:int" />
+              <xs:element name="iddidprogori" type="xs:int" />
+              <xs:element name="iddidprogcurr" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idtipoattform" type="xs:int" minOccurs="0" />
+              <xs:element name="idambitoareadisc" type="xs:int" minOccurs="0" />
+              <xs:element name="idsasdgruppo" type="xs:int" minOccurs="0" />
+              <xs:element name="idsasd" type="xs:int" minOccurs="0" />
+              <xs:element name="cf" type="xs:decimal" minOccurs="0" />
+              <xs:element name="profess" type="xs:string" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="json" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="lezione" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idlezione" type="xs:int" />
+              <xs:element name="idaffidamento" type="xs:int" />
+              <xs:element name="idcanale" type="xs:int" />
+              <xs:element name="idattivform" type="xs:int" />
+              <xs:element name="iddidprogporzanno" type="xs:int" />
+              <xs:element name="iddidproganno" type="xs:int" />
+              <xs:element name="iddidprogori" type="xs:int" />
+              <xs:element name="iddidprogcurr" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="stop" type="xs:dateTime" />
+              <xs:element name="idaula" type="xs:int" />
+              <xs:element name="idsede" type="xs:int" />
+              <xs:element name="idedificio" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="visita" type="xs:string" minOccurs="0" />
+              <xs:element name="nonsvolta" type="xs:string" minOccurs="0" />
+              <xs:element name="stage" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg_docenti" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="affidamentocaratteristicaora" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idaffidamentocaratteristicaora" type="xs:int" />
+              <xs:element name="idaffidamentocaratteristica" type="xs:int" />
+              <xs:element name="idaffidamento" type="xs:int" />
+              <xs:element name="idcanale" type="xs:int" />
+              <xs:element name="idattivform" type="xs:int" />
+              <xs:element name="iddidprogporzanno" type="xs:int" />
+              <xs:element name="iddidproganno" type="xs:int" />
+              <xs:element name="iddidprogori" type="xs:int" />
+              <xs:element name="iddidprogcurr" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="ora" type="xs:int" minOccurs="0" />
+              <xs:element name="idorakind" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="ripetizioni" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="attivformcaratteristica" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idattivformcaratteristica" type="xs:int" />
+              <xs:element name="idattivform" type="xs:int" />
+              <xs:element name="iddidprogporzanno" type="xs:int" />
+              <xs:element name="iddidproganno" type="xs:int" />
+              <xs:element name="iddidprogori" type="xs:int" />
+              <xs:element name="iddidprogcurr" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idtipoattform" type="xs:int" minOccurs="0" />
+              <xs:element name="idambitoareadisc" type="xs:int" minOccurs="0" />
+              <xs:element name="idsasdgruppo" type="xs:int" minOccurs="0" />
+              <xs:element name="idsasd" type="xs:int" minOccurs="0" />
+              <xs:element name="cf" type="xs:decimal" minOccurs="0" />
+              <xs:element name="profess" type="xs:string" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="json" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="attivformcaratteristicaora" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idattivformcaratteristicaora" type="xs:int" />
+              <xs:element name="idattivformcaratteristica" type="xs:int" />
+              <xs:element name="idattivform" type="xs:int" />
+              <xs:element name="iddidprogporzanno" type="xs:int" />
+              <xs:element name="iddidproganno" type="xs:int" />
+              <xs:element name="iddidprogori" type="xs:int" />
+              <xs:element name="iddidprogcurr" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="ora" type="xs:int" minOccurs="0" />
+              <xs:element name="idorakind" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="aa" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="diderog" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="inesaurimento" type="xs:string" minOccurs="0" />
+              <xs:element name="idsede" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="aula" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idaula" type="xs:int" />
+              <xs:element name="idedificio" type="xs:int" />
+              <xs:element name="idsede" type="xs:int" />
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="capienza" type="xs:int" minOccurs="0" />
+              <xs:element name="capienzadis" type="xs:int" minOccurs="0" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="dotazioni" type="xs:string" minOccurs="0" />
+              <xs:element name="idaulakind" type="xs:int" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="latitude" type="xs:double" minOccurs="0" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="longitude" type="xs:double" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="edificio" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idedificio" type="xs:int" />
+              <xs:element name="idsede" type="xs:int" />
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="latitude" type="xs:double" minOccurs="0" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="longitude" type="xs:double" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:corsostudio" />
+      <xs:field xpath="mstns:idcorsostudio" />
+    </xs:unique>
+    <xs:unique name="corsostudioclassescuola_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:corsostudioclassescuola" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:idclassescuola" />
+    </xs:unique>
+    <xs:unique name="didprog_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:didprog" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idcorsostudio" />
+    </xs:unique>
+    <xs:unique name="didprogcurr_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:didprogcurr" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idcorsostudio" />
+    </xs:unique>
+    <xs:unique name="didprogori_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:didprogori" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idcorsostudio" />
+    </xs:unique>
+    <xs:unique name="didproganno_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:didproganno" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idcorsostudio" />
+    </xs:unique>
+    <xs:unique name="didprogporzanno_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:didprogporzanno" />
+      <xs:field xpath="mstns:iddidprogporzanno" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idcorsostudio" />
+    </xs:unique>
+    <xs:unique name="insegn_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:insegn" />
+      <xs:field xpath="mstns:idinsegn" />
+    </xs:unique>
+    <xs:unique name="insegninteg_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:insegninteg" />
+      <xs:field xpath="mstns:idinsegninteg" />
+      <xs:field xpath="mstns:idinsegn" />
+    </xs:unique>
+    <xs:unique name="insegncaratteristica_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:insegncaratteristica" />
+      <xs:field xpath="mstns:idinsegn" />
+      <xs:field xpath="mstns:idinsegncaratteristica" />
+    </xs:unique>
+    <xs:unique name="canale_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:canale" />
+      <xs:field xpath="mstns:idcanale" />
+      <xs:field xpath="mstns:idattivform" />
+      <xs:field xpath="mstns:iddidprogporzanno" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idcorsostudio" />
+    </xs:unique>
+    <xs:unique name="attivform_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attivform" />
+      <xs:field xpath="mstns:idattivform" />
+      <xs:field xpath="mstns:iddidprogporzanno" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idcorsostudio" />
+    </xs:unique>
+    <xs:unique name="insegnintegcaratteristica_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:insegnintegcaratteristica" />
+      <xs:field xpath="mstns:idinsegn" />
+      <xs:field xpath="mstns:idinsegninteg" />
+      <xs:field xpath="mstns:idinsegnintegcaratteristica" />
+    </xs:unique>
+    <xs:unique name="affidamento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:affidamento" />
+      <xs:field xpath="mstns:idaffidamento" />
+      <xs:field xpath="mstns:idcanale" />
+      <xs:field xpath="mstns:idattivform" />
+      <xs:field xpath="mstns:iddidprogporzanno" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idcorsostudio" />
+    </xs:unique>
+    <xs:unique name="affidamentocaratteristica_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:affidamentocaratteristica" />
+      <xs:field xpath="mstns:idaffidamentocaratteristica" />
+      <xs:field xpath="mstns:idaffidamento" />
+      <xs:field xpath="mstns:idcanale" />
+      <xs:field xpath="mstns:idattivform" />
+      <xs:field xpath="mstns:iddidprogporzanno" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idcorsostudio" />
+    </xs:unique>
+    <xs:unique name="lezione_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:lezione" />
+      <xs:field xpath="mstns:idlezione" />
+      <xs:field xpath="mstns:idaffidamento" />
+      <xs:field xpath="mstns:idcanale" />
+      <xs:field xpath="mstns:idattivform" />
+      <xs:field xpath="mstns:iddidprogporzanno" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idaula" />
+      <xs:field xpath="mstns:idsede" />
+      <xs:field xpath="mstns:idedificio" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:aa" />
+      <xs:field xpath="mstns:idreg_docenti" />
+    </xs:unique>
+    <xs:unique name="affidamentocaratteristicaora_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:affidamentocaratteristicaora" />
+      <xs:field xpath="mstns:idaffidamentocaratteristicaora" />
+      <xs:field xpath="mstns:idaffidamentocaratteristica" />
+      <xs:field xpath="mstns:idaffidamento" />
+      <xs:field xpath="mstns:idcanale" />
+      <xs:field xpath="mstns:idattivform" />
+      <xs:field xpath="mstns:iddidprogporzanno" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idcorsostudio" />
+    </xs:unique>
+    <xs:unique name="attivformcaratteristica_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attivformcaratteristica" />
+      <xs:field xpath="mstns:idattivformcaratteristica" />
+      <xs:field xpath="mstns:idattivform" />
+      <xs:field xpath="mstns:iddidprogporzanno" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idcorsostudio" />
+    </xs:unique>
+    <xs:unique name="attivformcaratteristicaora_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attivformcaratteristicaora" />
+      <xs:field xpath="mstns:idattivformcaratteristicaora" />
+      <xs:field xpath="mstns:idattivformcaratteristica" />
+      <xs:field xpath="mstns:idattivform" />
+      <xs:field xpath="mstns:iddidprogporzanno" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idcorsostudio" />
+    </xs:unique>
+    <xs:unique name="diderog_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:diderog" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:aa" />
+      <xs:field xpath="mstns:idsede" />
+    </xs:unique>
+    <xs:unique name="aula_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:aula" />
+      <xs:field xpath="mstns:idaula" />
+      <xs:field xpath="mstns:idedificio" />
+      <xs:field xpath="mstns:idsede" />
+    </xs:unique>
+    <xs:unique name="edificio_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:edificio" />
+      <xs:field xpath="mstns:idedificio" />
+      <xs:field xpath="mstns:idsede" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="corsostudio_corsostudioclassescuola" msdata:parent="corsostudio" msdata:child="corsostudioclassescuola" msdata:parentkey="idcorsostudio" msdata:childkey="idcorsostudio" />
+      <msdata:Relationship name="corsostudio_didprog" msdata:parent="corsostudio" msdata:child="didprog" msdata:parentkey="idcorsostudio" msdata:childkey="idcorsostudio" />
+      <msdata:Relationship name="didprog_didprogcurr" msdata:parent="didprog" msdata:child="didprogcurr" msdata:parentkey="iddidprog idcorsostudio" msdata:childkey="iddidprog idcorsostudio" />
+      <msdata:Relationship name="didprogcurr_didprogori" msdata:parent="didprogcurr" msdata:child="didprogori" msdata:parentkey="iddidprogcurr iddidprog idcorsostudio" msdata:childkey="iddidprogcurr iddidprog idcorsostudio" />
+      <msdata:Relationship name="didprogori_didproganno" msdata:parent="didprogori" msdata:child="didproganno" msdata:parentkey="iddidprogori iddidprogcurr iddidprog idcorsostudio" msdata:childkey="iddidprogori iddidprogcurr iddidprog idcorsostudio" />
+      <msdata:Relationship name="insegn_insegninteg" msdata:parent="insegn" msdata:child="insegninteg" msdata:parentkey="idinsegn" msdata:childkey="idinsegn" />
+      <msdata:Relationship name="insegn_insegncaratteristica" msdata:parent="insegn" msdata:child="insegncaratteristica" msdata:parentkey="idinsegn" msdata:childkey="idinsegn" />
+      <msdata:Relationship name="didproganno_didprogporzanno" msdata:parent="didproganno" msdata:child="didprogporzanno" msdata:parentkey="iddidproganno iddidprogori iddidprogcurr iddidprog idcorsostudio aa" msdata:childkey="iddidproganno iddidprogori iddidprogcurr iddidprog idcorsostudio aa" />
+      <msdata:Relationship name="attivform_attivformcaratteristica" msdata:parent="attivform" msdata:child="attivformcaratteristica" msdata:parentkey="idattivform idcorsostudio iddidprog iddidprogcurr iddidprogori iddidproganno iddidprogporzanno aa" msdata:childkey="idattivform idcorsostudio iddidprog iddidprogcurr iddidprogori iddidproganno iddidprogporzanno aa" />
+      <msdata:Relationship name="attivformcaratteristica_attivformcaratteristicaora" msdata:parent="attivformcaratteristica" msdata:child="attivformcaratteristicaora" msdata:parentkey="idattivformcaratteristica idattivform idcorsostudio iddidprog iddidprogcurr iddidprogori iddidproganno iddidprogporzanno aa" msdata:childkey="idattivformcaratteristica idattivform idcorsostudio iddidprog iddidprogcurr iddidprogori iddidproganno iddidprogporzanno aa" />
+      <msdata:Relationship name="attivform_didprogporzanno" msdata:parent="didprogporzanno" msdata:child="attivform" msdata:parentkey="idcorsostudio iddidprog iddidprogcurr iddidprogori iddidproganno iddidprogporzanno" msdata:childkey="idcorsostudio iddidprog iddidprogcurr iddidprogori iddidproganno iddidprogporzanno" />
+      <msdata:Relationship name="canale_attivform" msdata:parent="attivform" msdata:child="canale" msdata:parentkey="idattivform iddidprogporzanno iddidproganno iddidprogori iddidprogcurr iddidprog idcorsostudio" msdata:childkey="idattivform iddidprogporzanno iddidproganno iddidprogori iddidprogcurr iddidprog idcorsostudio" />
+      <msdata:Relationship name="canale_affidamento" msdata:parent="canale" msdata:child="affidamento" msdata:parentkey="idcanale idattivform iddidprogcurr iddidprogori iddidprog iddidproganno iddidprogporzanno idcorsostudio" msdata:childkey="idcanale idattivform iddidprogcurr iddidprogori iddidprog iddidproganno iddidprogporzanno idcorsostudio" />
+      <msdata:Relationship name="affidamento_affidamentocaratteristica" msdata:parent="affidamento" msdata:child="affidamentocaratteristica" msdata:parentkey="idaffidamento idcanale idattivform iddidprog iddidprogcurr iddidprogori iddidproganno iddidprogporzanno idcorsostudio" msdata:childkey="idaffidamento idcanale idattivform iddidprog iddidprogcurr iddidprogori iddidproganno iddidprogporzanno idcorsostudio" />
+      <msdata:Relationship name="affidamentocaratteristica_affidamentocaratteristicaora" msdata:parent="affidamentocaratteristica" msdata:child="affidamentocaratteristicaora" msdata:parentkey="idaffidamentocaratteristica iddidproganno iddidprogporzanno idattivform idcanale idaffidamento iddidprog iddidprogcurr idcorsostudio iddidprogori" msdata:childkey="idaffidamentocaratteristica iddidproganno iddidprogporzanno idattivform idcanale idaffidamento iddidprog iddidprogcurr idcorsostudio iddidprogori" />
+      <msdata:Relationship name="insegnintegcaratteristica_insegninteg" msdata:parent="insegninteg" msdata:child="insegnintegcaratteristica" msdata:parentkey="idinsegninteg idinsegn" msdata:childkey="idinsegninteg idinsegn" />
+      <msdata:Relationship name="corsostudio_diderog" msdata:parent="corsostudio" msdata:child="diderog" msdata:parentkey="idcorsostudio" msdata:childkey="idcorsostudio" />
+      <msdata:Relationship name="affidamentocaratteristica_lezione" msdata:parent="affidamento" msdata:child="lezione" msdata:parentkey="idaffidamento idcanale idattivform iddidprog idcorsostudio iddidprogcurr iddidprogori iddidproganno iddidprogporzanno aa" msdata:childkey="idaffidamento idcanale idattivform iddidprog idcorsostudio iddidprogcurr iddidprogori iddidproganno iddidprogporzanno aa" />
+      <msdata:Relationship name="edificio_aula" msdata:parent="edificio" msdata:child="aula" msdata:parentkey="idsede idedificio" msdata:childkey="idsede idedificio" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

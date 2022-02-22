@@ -1,15 +1,15 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistatool.xsd" xmlns:mstns="http://tempuri.org/vistatool.xsd" xmlns="http://tempuri.org/vistatool.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
-  <xs:element name="vistaForm" msdata:IsDataSet="true">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistatool.xsd" xmlns:mstns="http://tempuri.org/vistatool.xsd" xmlns="http://tempuri.org/vistatool.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
     <xs:complexType>
-      <xs:choice maxOccurs="unbounded">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element name="update">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="code" type="xs:string" />
               <xs:element name="shortdescription" type="xs:string" minOccurs="0" />
               <xs:element name="description" type="xs:string" minOccurs="0" />
-              <xs:element name="publishingdate" type="xs:date" minOccurs="0" />
+              <xs:element name="publishingdate" type="xs:dateTime" minOccurs="0" />
               <xs:element name="flagkind" type="xs:string" minOccurs="0" />
               <xs:element name="flagannullato" type="xs:string" minOccurs="0" />
               <xs:element name="dbversion" type="xs:string" minOccurs="0" />
@@ -28,18 +28,19 @@
         </xs:element>
       </xs:choice>
     </xs:complexType>
-    <xs:unique name="vistaFormKey1" msdata:PrimaryKey="true">
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:update" />
       <xs:field xpath="mstns:code" />
     </xs:unique>
-    <xs:unique name="vistaFormKey2" msdata:PrimaryKey="true">
+    <xs:unique name="fileupdate_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:fileupdate" />
       <xs:field xpath="mstns:code" />
       <xs:field xpath="mstns:progressivo" />
     </xs:unique>
-    <xs:keyref name="vistaFormKey3" refer="vistaFormKey1" msdata:RelationName="updatefileupdate">
-      <xs:selector xpath=".//mstns:fileupdate" />
-      <xs:field xpath="mstns:code" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="updatefileupdate" msdata:parent="update" msdata:child="fileupdate" msdata:parentkey="code" msdata:childkey="code" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

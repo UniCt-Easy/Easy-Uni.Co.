@@ -13,7 +13,7 @@
                     <div class="col-md-7">
                         <div class="row">
                             <div class="col-md-12">
-                                <cc1:hwButton ID="btnUpb" runat="server" Text="UPB" class="btn btn-block" Tag="manage.upb.tree" />
+                                <cc1:hwButton ID="btnUpb" runat="server" Text="UPB" class="btn btn-primary" Tag="manage.upb.tree" />
                             </div>
                         </div>
                         <div class="row">
@@ -40,7 +40,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <cc1:hwButton runat="server" TabIndex="85" Text="Bilancio" ID="btnBilancio" Tag="do_command.scegliBilancio" />
+                                <cc1:hwButton runat="server" TabIndex="85" Text="Bilancio" ID="btnBilancio" class="btn btn-primary" Tag="do_command.scegliBilancio" />
                             </div>
                         </div>
                         <div class="row">
@@ -190,12 +190,12 @@
                     <div class="col-md-2">
                         <div class="row">
                             <div class="col-md-12">
-                                <cc1:hwButton ID="btnFinanziamento" runat="server" Text="Finanziamento" Tag="choose.underwriting.default" />
+                                <cc1:hwButton ID="btnFinanziamento" runat="server" Text="Finanziamento" class="btn btn-primary" Tag="choose.underwriting.default" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <cc1:hwButton ID="HwButton3" runat="server" Text="Nuovo finanziamento" Tag="manage.underwriting.createnew02" />
+                                <cc1:hwButton ID="HwButton3" runat="server" Text="Nuovo finanziamento" class="btn btn-primary" Tag="manage.underwriting.createnew02" />
                             </div>
                         </div>
                     </div>
@@ -211,7 +211,7 @@
                     <div class="col-md-7">
                         <div class="row">
                             <div class="col-md-12">
-                                <cc1:hwButton ID="btnUpb_RespProcedimento" runat="server" Text="UPB" class="btn btn-block" Tag="manage.upb_procedureman.treenosec" />
+                                <cc1:hwButton ID="btnUpb_RespProcedimento" runat="server" Text="UPB" class="btn btn-primary" Tag="manage.upb_procedureman.treenosec" />
                             </div>
                         </div>
                         <div class="row">
@@ -314,7 +314,7 @@
                     <div class="col-md-7">
                         <div class="row">
                             <div class="col-md-12">
-                                <cc1:hwButton runat="server" Text="Conto" ID="btnConto" class="btn btn-block" Tag="manage.account.treeminusable" />
+                                <cc1:hwButton runat="server" Text="Conto" ID="btnConto" class="btn btn-primary" Tag="manage.account.treeminusable" />
                             </div>
                         </div>
                         <div class="row">
@@ -332,7 +332,7 @@
             <cc1:hwPanel ID="gboxclass1" runat="server" GroupingText="Ordinamento 1">
                 <div class="row">
                     <div class="col-md-6">
-                        <cc1:hwButton runat="server" ID="btnCodice1" Tag="manage.sorting1.tree" TabIndex="4" Text="Codice" />
+                        <cc1:hwButton runat="server" ID="btnCodice1" Tag="manage.sorting1.tree" TabIndex="4" class="btn btn-primary" Text="Codice" />
                         <cc1:hwTextBox runat="server" ID="txtCodice1" Tag="sorting1.sortcode?x" CssClass="input-md form-control" TabIndex="2"></cc1:hwTextBox>
                     </div>
                     <div class="col-md-6">
@@ -347,7 +347,7 @@
             <cc1:hwPanel ID="gboxclass2" runat="server" GroupingText="Ordinamento 2">
                 <div class="row">
                     <div class="col-md-6">
-                        <cc1:hwButton runat="server" ID="btnCodice2" Tag="manage.sorting2.tree" Text="Codice" />
+                        <cc1:hwButton runat="server" ID="btnCodice2" Tag="manage.sorting2.tree" class="btn btn-primary" Text="Codice" />
                         <cc1:hwTextBox runat="server" ID="txtCodice2" Tag="sorting2.sortcode?x" CssClass="input-md form-control" TabIndex="2"></cc1:hwTextBox>
                     </div>
                     <div class="col-md-6">
@@ -361,7 +361,7 @@
             <cc1:hwPanel ID="gboxclass3" runat="server" GroupingText="Ordinamento 3">
                 <div class="row">
                     <div class="col-md-6">
-                        <cc1:hwButton runat="server" ID="btnCodice3" Tag="manage.sorting3.tree" TabIndex="4" Text="Codice" />
+                        <cc1:hwButton runat="server" ID="btnCodice3" Tag="manage.sorting3.tree" TabIndex="4" class="btn btn-primary" Text="Codice" />
                         <cc1:hwTextBox runat="server" ID="txtCodice3" Tag="sorting3.sortcode?x" CssClass="input-md form-control" TabIndex="4"></cc1:hwTextBox>
                     </div>
                     <div class="col-md-6">

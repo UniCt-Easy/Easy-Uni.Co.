@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing PdfSharp.Drawing;
+
+using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
 using System;
@@ -43,7 +42,7 @@ namespace UnicreditService {
                 }
             }
             else {
-                throw new ArgumentException($"Il file del modello specificato ({template}) non esiste");
+                throw new ArgumentException($"Non Ë possibile scaricare il documento perchË il template pdf non Ë stato trovato\r\n");
             }
         }
 
@@ -81,8 +80,8 @@ namespace UnicreditService {
                     items["Cf_Ente"] = Cf_Ente;
                     items["Cf_Ente_2"] = Cf_Ente;
                     items["Cf_Destinatario"] = Cf_Destinatario;
-                    items["Ente_Creditore"] = Ente_Creditore.Substring(0, Math.Min(50,Ente_Creditore.Length));
-                    items["Ente_Creditore_2"] = Ente_Creditore.Substring(0, Math.Min(50,Ente_Creditore.Length));
+                    items["Ente_Creditore"] = Ente_Creditore.Substring(0, Math.Min(60,Ente_Creditore.Length));
+                    items["Ente_Creditore_2"] = Ente_Creditore.Substring(0, Math.Min(60,Ente_Creditore.Length));
 
                     items["Settore_Ente"] = Settore_Ente.Substring(0,Math.Min(37,Settore_Ente.Length));
                     items["Info_Ente"] = Info_Ente.Substring(0,Math.Min(55, Info_Ente.Length));
@@ -110,7 +109,7 @@ namespace UnicreditService {
                             
                         }
                         //else
-                        //    MessageBox.Show("Errore nella scrittura del campo " + name);
+                        //    MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nella scrittura del campo " + name);
                     }
                     
                 }
@@ -153,6 +152,60 @@ namespace UnicreditService {
 
             return null;
 
+        }
+
+        public byte[] generaRTPdf(string iuv, string avviso, string descrizione, string causale, string denominazione, string cf, string beneficiario, string identificativo, out string errore)
+        {
+            try
+            {
+                errore = null;
+                var document = PdfReader.Open(this.template);
+
+                if (document.AcroForm != null)
+                {
+                    var form = document.AcroForm;
+
+                    if (form.Elements.ContainsKey("/NeedAppearances"))
+                    {
+                        form.Elements["/NeedAppearances"] = new PdfBoolean(true);
+                    }
+                    else
+                    {
+                        form.Elements.Add("/NeedAppearances", new PdfBoolean(true));
+                    }
+
+                    var items = new Dictionary<string, string>();
+                    items["iuv"] = iuv;
+                    items["importo"] = avviso;
+                    items["descrizione"] = descrizione;
+                    items["causale"] = causale;
+                    items["denominazione"] = denominazione;
+                    items["cf"] = cf;
+                    items["beneficiario"] = beneficiario;
+                    items["identificativo"] = identificativo;
+
+                    foreach (var name in items.Keys)
+                    {
+                        var field = document.AcroForm.Fields[name];
+                        if (field != null)
+                        {
+                            field.Value = new PdfString(items[name]);
+                            field.ReadOnly = true;
+                        }
+                    }
+
+                }
+
+                MemoryStream ms = new MemoryStream();
+                document.Save(ms);
+                return ms.ToArray();
+            }
+            catch (Exception ex)
+            {
+                errore = ex.Message;
+            }
+
+            return null;
         }
 
         public byte[] Genera(string ente, string descrizioneEnte,  
@@ -200,7 +253,7 @@ namespace UnicreditService {
                             field.ReadOnly = true;
                         }
                         //else
-                        //    MessageBox.Show("Errore nella scrittura del campo " + name);
+                        //    MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nella scrittura del campo " + name);
                     }
                     
                 }
@@ -243,7 +296,7 @@ namespace UnicreditService {
                     };
                     var textEntePosition = new XPoint(xLogoEnte + logoImage.PointWidth,
                                 yLogoEnte);
-                    grTextEnte.DrawString(ente, new Font("Times New Roman", 10), //10  √® il font in point
+                    grTextEnte.DrawString(ente, new Font("Times New Roman", 10), //10  Ë il font in point
                             Brushes.Black, new Rectangle(0, 0, txtEnteImage.Width, txtEnteImage.Height),
                             format);
                     grTextEnte.Flush();
@@ -332,11 +385,11 @@ namespace UnicreditService {
 
             try {
                 doc.Save(NomeCompletoFilePDF);
-                //MessageBox.Show("Salvataggio effettuato");
+                //MetaFactory.factory.getSingleton<IMessageShower>().Show("Salvataggio effettuato");
             }
             catch (Exception e) {
                 /* QueryCreator.ShowError(this, "E*/
-               // rrore salvando il file, probabilmente il file √® gi√† aperto.", e.ToString());
+               // rrore salvando il file, probabilmente il file Ë gi‡ aperto.", e.ToString());
             }
 
             //Process p = new Process();
@@ -360,11 +413,10 @@ namespace UnicreditService {
         public string Indirizzo1;
         public string Indirizzo2;
         public string CAP;
-        public string Localit√†;
+        public string Localit‡;
         public string Provincia;
 
     }
 
 }
 
-

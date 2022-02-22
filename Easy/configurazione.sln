@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mainform", "mainform\mainform.csproj", "{E04C2CEF-078B-4B25-904C-6374C88E0EE7}"
 EndProject
@@ -153,6 +153,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "config_pagopa_default", "config_pagopa\config_pagopa_default\config_pagopa_default.csproj", "{A2979DBA-AD81-46A4-B290-2CC71F4A6033}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_dalia_recruitmentmotive", "dalia_recruitmentmotive\meta_dalia_recruitmentmotive\meta_dalia_recruitmentmotive.csproj", "{4D3D90BA-C143-4946-BF9D-3E5788E7C55A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_serviceattachmentkind", "serviceattachmentkind\meta_serviceattachmentkind\meta_serviceattachmentkind.csproj", "{43C4FBF8-E45B-413C-AE9A-5A559ECE1718}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_serviceattachmentkindview", "serviceattachmentkind\meta_serviceattachmentkindview\meta_serviceattachmentkindview.csproj", "{45035108-78C2-489F-B150-1371D5B44FFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "serviceattachmentkind_default", "serviceattachmentkind\serviceattachmentkind_default\serviceattachmentkind_default.csproj", "{F2D2D27F-DADD-4C9A-8077-FE7B6D4B6BB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -464,8 +470,23 @@ Global
 		{4D3D90BA-C143-4946-BF9D-3E5788E7C55A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D3D90BA-C143-4946-BF9D-3E5788E7C55A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D3D90BA-C143-4946-BF9D-3E5788E7C55A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43C4FBF8-E45B-413C-AE9A-5A559ECE1718}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43C4FBF8-E45B-413C-AE9A-5A559ECE1718}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43C4FBF8-E45B-413C-AE9A-5A559ECE1718}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43C4FBF8-E45B-413C-AE9A-5A559ECE1718}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45035108-78C2-489F-B150-1371D5B44FFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45035108-78C2-489F-B150-1371D5B44FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45035108-78C2-489F-B150-1371D5B44FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45035108-78C2-489F-B150-1371D5B44FFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2D2D27F-DADD-4C9A-8077-FE7B6D4B6BB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2D2D27F-DADD-4C9A-8077-FE7B6D4B6BB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2D2D27F-DADD-4C9A-8077-FE7B6D4B6BB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2D2D27F-DADD-4C9A-8077-FE7B6D4B6BB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {22305121-FDDB-420E-A5EB-7A690B1AEE40}
 	EndGlobalSection
 EndGlobal

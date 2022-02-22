@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[exp_posizionidebitorie_iuv]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 DROP PROCEDURE [exp_posizionidebitorie_iuv]
 GO
@@ -17,7 +34,8 @@ CREATE PROCEDURE exp_posizionidebitorie_iuv
 AS
 BEGIN
 	SET NOCOUNT ON;
-
+	DECLARE @len_email int
+	SET @len_email = 70
 	CREATE TABLE #advice
 	(
 		idflusso int,
@@ -33,7 +51,8 @@ BEGIN
 		iduniqueformcode varchar(100),
 		barcodevalue  varchar(60),
 		qrcodevalue  varchar(60),
-		codiceavviso varchar(100)
+		codiceavviso varchar(100),
+		codicetassonomia varchar(100)
 	)
 
 	INSERT INTO #advice
@@ -47,7 +66,7 @@ BEGIN
 		--finevalidita,
 		nform,
 		iduniqueformcode,
-		barcodevalue, qrcodevalue , codiceavviso
+		barcodevalue, qrcodevalue , codiceavviso, codicetassonomia
 	)
 	SELECT
 		idflusso, 
@@ -63,7 +82,8 @@ BEGIN
 		iduniqueformcode,
 		barcodevalue,
 		qrcodevalue ,
-		codiceavviso
+		codiceavviso,
+		codicetassonomia
 	FROM flussocreditidetail F1
 	WHERE iuv = @iuv
 	group by idflusso, idreg, 
@@ -71,8 +91,22 @@ BEGIN
 		--competencystop, 
 		--description,
 		nform,
-		iduniqueformcode,barcodevalue,	qrcodevalue ,codiceavviso
+		iduniqueformcode,barcodevalue,	qrcodevalue ,codiceavviso, codicetassonomia
+		;
 		
+		with max_codice_tassonomia (idflusso,idreg,iduniqueformcode,codicetassonomia) as (
+			select top 1 idflusso,idreg,iduniqueformcode, codicetassonomia  FROM #advice
+			WHERE importo = ( select max(importo) from #advice A where 
+				A.idflusso = #advice.idflusso  AND
+				A.idreg = #advice.idreg  AND
+				A.iduniqueformcode = #advice.iduniqueformcode)
+			)	
+	-- Valorizzo il codice tassonomia prevalente ovvero in base alla riga di imporot massimo
+	UPDATE #advice  SET codicetassonomia = (SELECT codicetassonomia FROM max_codice_tassonomia A
+											WHERE A.idflusso = #advice.idflusso  AND
+												  A.idreg = #advice.idreg  AND
+												  A.iduniqueformcode = #advice.iduniqueformcode)
+
 	CREATE TABLE #address
 	(
 		idaddresskind int,
@@ -159,7 +193,7 @@ BEGIN
 			WHERE #address.idreg=r2.idreg
 		)>1;
 
-with descr_crediti (descr,idflusso,idreg,iduniqueformcode) as (
+with descr_crediti (descr,idflusso,idreg,iduniqueformcode,codicetassonomia) as (
 			select distinct coalesce(
 			invoicekind.description+' n.'+convert(varchar(10),flussocreditidetail.ninv)+'/'+convert(varchar(4),flussocreditidetail.yinv),
 			estimatekind.description+' n.'+convert(varchar(10),flussocreditidetail.nestim)+'/'+convert(varchar(4),flussocreditidetail.yestim),
@@ -168,7 +202,8 @@ with descr_crediti (descr,idflusso,idreg,iduniqueformcode) as (
 			),
 			flussocreditidetail.idflusso,
 			flussocreditidetail.idreg,
-			flussocreditidetail.iduniqueformcode
+			flussocreditidetail.iduniqueformcode,
+			flussocreditidetail.codicetassonomia
 			from flussocreditidetail 
 			left outer join invoicekind on flussocreditidetail.idinvkind  = invoicekind.idinvkind
 			left outer join estimatekind on flussocreditidetail.idestimkind  = estimatekind.idestimkind
@@ -209,11 +244,11 @@ with descr_crediti (descr,idflusso,idreg,iduniqueformcode) as (
 			ELSE REG.cf
 		END AS codice,
 		REG.forename, REG.surname,
-		REG.title AS anagrafica, ADDR.indirizzo, ADDR.cap, ADDR.citta, ADDR.provincia, ADDR.nazione, REF.email, NULL as pec,
+		REG.title AS anagrafica, ADDR.indirizzo, ADDR.cap, ADDR.citta, ADDR.provincia, ADDR.nazione,  SUBSTRING(REF.email,1,@len_email) as email, NULL as pec,
 		nform,
 		ADV.iduniqueformcode,
 		barcodevalue,
-		qrcodevalue ,codiceavviso
+		qrcodevalue ,codiceavviso, codicetassonomia
 	FROM	#advice AS ADV
 		--join descr_crediti on ADV.iduniqueformcode=descr_crediti.iduniqueformcode 
 	LEFT OUTER JOIN		registry AS REG ON ADV.idreg = REG.idreg

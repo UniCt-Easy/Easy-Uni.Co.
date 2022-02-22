@@ -1,0 +1,134 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_rein_seg_aa">Anno accademico</label>
+					<select id="istanza_rein_seg_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="istanza.aa?istanzarein_segview.aa" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_rein_seg_idcorsostudio">Corso di studi</label>
+					<div>
+						<input id="istanza_rein_seg_idcorsostudio" name="istanza_rein_seg_idcorsostudio" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="corsostudiodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_rein_seg_idreg_studenti">Studente</label>
+					<div>
+						<input id="istanza_rein_seg_idreg_studenti" name="istanza_rein_seg_idreg_studenti" type="text" data-listtype="studenti"  class="form-control" data-minchar="2" data-tag="registrystudentiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#istanza_rein_seg_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="istanza_rein_seg_data">Data</label>
+					<input id="istanza_rein_seg_data" type="text" class="form-control" data-tag="istanza.data.g?istanzarein_segview.istanza_data.g" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_rein_seg_idiscrizione">Iscrizione</label>
+					<select id="istanza_rein_seg_idiscrizione" class="custom-select d-block w-100"  data-source-name="iscrizionedefaultview" data-value-member="idiscrizione" data-display-member="dropdown_title" data-custom-control="combo" data-tag="istanza.idiscrizione?istanzarein_segview.idiscrizione" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_rein_seg_idstatuskind">Status</label>
+					<select id="istanza_rein_seg_idstatuskind" class="custom-select d-block w-100"  data-source-name="statuskind" data-value-member="idstatuskind" data-display-member="title" data-custom-control="combo" data-tag="istanza.idstatuskind?istanzarein_segview.istanza_idstatuskind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_rein_seg_paridistanza">Istanza collegata</label>
+					<div>
+						<input id="istanza_rein_seg_paridistanza" name="istanza_rein_seg_paridistanza" type="text" data-listtype="seganagstusonpre"  class="form-control" data-minchar="2" data-tag="istanzaseganagstusonpreview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="istanza_rein_seg_iddidprog">Didattica programmata</label>
+					<div>
+						<input id="istanza_rein_seg_iddidprog" name="istanza_rein_seg_iddidprog" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_rein_seg_darindec">Corso della rinuncia o decadenza </label>
+					<div class="custom-control custom-radio">
+						<input id="istanza_rein_seg_darindecD" type="radio" name="istanza_rein_seg_darindec" class="custom-control-input" data-tag="istanza_rein.darindec:D?istanzarein_segview.istanza_rein_darindec:Decadenza" data-subentity  ><label for="istanza_rein_seg_darindecD"> Decadenza</label>
+						<input id="istanza_rein_seg_darindecR" type="radio" name="istanza_rein_seg_darindec" class="custom-control-input" data-tag="istanza_rein.darindec:R?istanzarein_segview.istanza_rein_darindec:Rinuncia" data-subentity  ><label for="istanza_rein_seg_darindecR"> Rinuncia</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#istanza_rein_seg_datarindec").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="istanza_rein_seg_datarindec">Data della rinuncia o decadenza </label>
+					<input id="istanza_rein_seg_datarindec" type="text" class="form-control" data-tag="istanza_rein.datarindec?istanzarein_segview.istanza_rein_datarindec" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_rein_seg_idiscrizione_from">Iscrizione da cui si vuole farsi reintegrare</label>
+					<div>
+						<input id="istanza_rein_seg_idiscrizione_from" name="istanza_rein_seg_idiscrizione_from" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="iscrizionedefaultview_alias1.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_rein_seg_protnumero">Numero di protocollo</label>
+					<input id="istanza_rein_seg_protnumero" type="text" class="form-control" data-tag="istanza.protnumero?istanzarein_segview.istanza_protnumero" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_rein_seg_protanno">Anno di protocollo</label>
+					<input id="istanza_rein_seg_protanno" type="text" class="form-control" data-tag="istanza.protanno?istanzarein_segview.istanza_protanno" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelistanza_segpratica_XXnullaosta" >Nullaosta</div>
+				<div class="gridx" id="grid_nullaosta_alias4_segpratica" data-tag="nullaosta_alias4.segpratica.segpratica" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelistanza_segpratica_XXdiniego" >Diniego</div>
+				<div class="gridx" id="grid_diniego_alias3_segpratica" data-tag="diniego_alias3.segpratica.segpratica" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelistanza_segistrein_XXpratica" >Pratica di convalida/riconoscimento/dispensa collegata</div>
+				<div class="gridx" id="grid_pratica_segistrein" data-tag="pratica.segistrein.segistrein" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_rein_seg_idtitolostudio">Titolo di  studio da cui si vuole farsi reintegrare</label>
+					<div>
+						<input id="istanza_rein_seg_idtitolostudio" name="istanza_rein_seg_idtitolostudio" type="text" data-listtype="docenti"  class="form-control" data-minchar="2" data-tag="titolostudiodocentiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_rein_seg_aa_rindec">Anno accademico della rinuncia o decadenza</label>
+					<input id="istanza_rein_seg_aa_rindec" type="text" class="form-control" data-tag="istanza_rein.aa_rindec?istanzarein_segview.aa_rindec" data-subentity  />
+				</div>
+			</div>
+ <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-stamp mr-1" ></i>Protocolla
+    </button>
+</form>
+
+</div>
+<!--footer-->

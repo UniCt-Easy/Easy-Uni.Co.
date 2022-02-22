@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_dichiarazione_mancata_adesione_consip]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_dichiarazione_mancata_adesione_consip]
 GO
@@ -18,13 +35,13 @@ CREATE      PROCEDURE [rpt_dichiarazione_mancata_adesione_consip]
 	@idsor04 int,
 	@idsor05 int
 AS BEGIN
--- exec rpt_dichiarazione_mancata_adesione_consip  'CP_PCC', 2015, 1,10,null,null,null,null,null
+-- exec rpt_dichiarazione_mancata_adesione_consip  'CPAttivitaQualsiasi', 2019, 1,1,null,null,null,null,null
 SELECT
 	mandate.idmankind,
 	mandate.yman,
 	mandate.nman,
 	mandatekind.description AS 'mandatekind',
-	mandate.adate,
+	CONVERT(datetime, mandate.adate)  as adate, 
 	consipkind.idconsipkind,
 	consipkind_header.idconsipkind as 'idconsipkind_header',
 	consipkind_header.description as 'consipkind_header',
@@ -68,3 +85,4 @@ GO
  
  
 
+ 

@@ -38,18 +38,25 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="funzioni_configurazione">
+      <HintPath>..\..\..\progetti\sdiftp\dll\funzioni_configurazione.dll</HintPath>
+    </Reference>
+    <Reference Include="HelpWeb">
+      <HintPath>..\..\dll\HelpWeb.dll</HintPath>
+    </Reference>
     <Reference Include="metadatalibrary">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="metaeasylibrary">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>

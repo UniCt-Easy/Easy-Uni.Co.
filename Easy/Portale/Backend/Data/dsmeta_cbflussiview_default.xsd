@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_cbflussiview_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_cbflussiview_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="pagamentokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idpagamentokind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cbflussiviewdettaglio" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="_x0021_credkind" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_monthscadenza" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_yearscadenza" type="xs:int" minOccurs="0" />
+              <xs:element name="cbflussiviewbasekind" type="xs:string" />
+              <xs:element name="cliente" type="xs:string" minOccurs="0" />
+              <xs:element name="dareavere" type="xs:string" minOccurs="0" />
+              <xs:element name="idcbflussiview" type="xs:int" />
+              <xs:element name="idcbflussiviewdettaglio" type="xs:int" />
+              <xs:element name="idcbmese" type="xs:int" />
+              <xs:element name="idpagamentokind" type="xs:int" minOccurs="0" />
+              <xs:element name="importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="inizio" type="xs:string" minOccurs="0" />
+              <xs:element name="note" type="xs:string" minOccurs="0" />
+              <xs:element name="scadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idpagamentokind_pagamentokind_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cbflussiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="disponibilita" type="xs:decimal" minOccurs="0" />
+              <xs:element name="disponibilitainiziale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="entrate" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flusso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idcbflussiview" type="xs:int" />
+              <xs:element name="idcbmese" type="xs:int" />
+              <xs:element name="scadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="uscite" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pagamentokind" />
+      <xs:field xpath="mstns:idpagamentokind" />
+    </xs:unique>
+    <xs:unique name="cbflussiviewdettaglio_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:cbflussiviewdettaglio" />
+      <xs:field xpath="mstns:idcbflussiview" />
+      <xs:field xpath="mstns:idcbflussiviewdettaglio" />
+      <xs:field xpath="mstns:idcbmese" />
+    </xs:unique>
+    <xs:unique name="cbflussiview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:cbflussiview" />
+      <xs:field xpath="mstns:idcbflussiview" />
+      <xs:field xpath="mstns:idcbmese" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_cbflussiviewdettaglio_cbflussiview_idcbflussiview-idcbmese" msdata:parent="cbflussiview" msdata:child="cbflussiviewdettaglio" msdata:parentkey="idcbflussiview idcbmese" msdata:childkey="idcbflussiview idcbmese" />
+      <msdata:Relationship name="FK_cbflussiviewdettaglio_pagamentokind_idpagamentokind" msdata:parent="pagamentokind" msdata:child="cbflussiviewdettaglio" msdata:parentkey="idpagamentokind" msdata:childkey="idpagamentokind" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

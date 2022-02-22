@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
@@ -8,7 +25,7 @@ drop trigger [trigger_d_epaccyear]
 GO
 
  
-
+ 
 CREATE    TRIGGER [trigger_d_epaccyear] ON [epaccyear] FOR DELETE
 AS BEGIN
 IF @@ROWCOUNT > 0
@@ -30,11 +47,11 @@ BEGIN
 	SELECT
 		@idepacc = D.idepacc, @ayear = D.ayear, @idacc = D.idacc, @idupb = D.idupb,
 		@nphase = I.nphase, 
-			@amount = - IT.curramount,
-			@amount2 = - IT.curramount2,
-			@amount3 = - IT.curramount3,
-			@amount4 = - IT.curramount4,
-			@amount5 = - IT.curramount5,
+			@amount = - isnull(IT.curramount,0),
+			@amount2 = - isnull(IT.curramount2,0),
+			@amount3 = - isnull(IT.curramount3,0),
+			@amount4 = - isnull(IT.curramount4,0),
+			@amount5 = - isnull(IT.curramount5,0),
 		@parentidepacc = I.paridepacc
 	FROM deleted D
 	JOIN epacctotal IT

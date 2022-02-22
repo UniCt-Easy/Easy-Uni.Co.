@@ -1,0 +1,401 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_perfvalutazioneuo_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_perfvalutazioneuo_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="attach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="filename" type="xs:string" />
+              <xs:element name="hash" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="size" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfvalutazioneuoattach" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" minOccurs="0" />
+              <xs:element name="idperfvalutazioneuo" type="xs:int" />
+              <xs:element name="idperfvalutazioneuoattach" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idattach_attach_filename" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfobiettiviuosoglia" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfobiettiviuo" type="xs:int" />
+              <xs:element name="idperfobiettiviuosoglia" type="xs:int" />
+              <xs:element name="idperfsogliakind" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfvalutazioneuo" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="percentuale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="valorenumerico" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfobiettiviuo" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="completamento" type="xs:decimal" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfobiettiviuo" type="xs:int" />
+              <xs:element name="idperfvalutazioneuo" type="xs:int" />
+              <xs:element name="peso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="valorenumerico" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_perfobiettiviuosoglia" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfvalutazioneuoindicatorisoglia" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idperfsogliakind" type="xs:string" />
+              <xs:element name="idperfvalutazioneuoindicatori" type="xs:int" />
+              <xs:element name="idperfvalutazioneuoindicatorisoglia" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="valore" type="xs:decimal" />
+              <xs:element name="valorenumerico" type="xs:decimal" minOccurs="0" />
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfindicatore" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idperfindicatore" type="xs:int" />
+              <xs:element name="idperfindicatorekind" type="xs:int" minOccurs="0" />
+              <xs:element name="inverso" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfvalutazioneuoindicatori" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="completamento" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idperfindicatore" type="xs:int" />
+              <xs:element name="idperfstruttura" type="xs:int" />
+              <xs:element name="idperfvalutazioneuo" type="xs:int" />
+              <xs:element name="idperfvalutazioneuoindicatori" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="peso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="valorenumerico" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_idperfindicatore_perfindicatore_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_perfvalutazioneuoindicatorisoglia" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettoobiettivosoglia_alias1" msprop:NotEntityChild="true" msprop:TableForReading="perfprogettoobiettivosoglia" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivo" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivosoglia" type="xs:int" />
+              <xs:element name="idperfsogliakind" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="percentuale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="valorenumerico" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettoobiettivopersonaleview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="completamento" type="xs:decimal" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivo" type="xs:int" />
+              <xs:element name="idperfvalutazioneuo" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="idstruttura_perfprogetto" type="xs:int" minOccurs="0" />
+              <xs:element name="perfprogetto_struttura_title" type="xs:string" minOccurs="0" />
+              <xs:element name="perfprogetto_strutturakind_title" type="xs:string" />
+              <xs:element name="peso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="progetto_title" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_perfprogettoobiettivosoglia_alias1" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettoobiettivosoglia" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivo" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivosoglia" type="xs:int" />
+              <xs:element name="idperfsogliakind" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="percentuale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="valorenumerico" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettoobiettivouoview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="completamento" type="xs:decimal" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivo" type="xs:int" />
+              <xs:element name="idperfvalutazioneuo" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="peso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="progetto_title" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_perfprogettoobiettivosoglia" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="getregistrydocentiamministratividefaultview_alias1" msprop:TableForReading="getregistrydocentiamministratividefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="getregistrydocentiamministrativi_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_contratto" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_forename" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_istituto" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_ssd" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_struttura" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="getregistrydocentiamministratividefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="getregistrydocentiamministrativi_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_contratto" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_forename" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_istituto" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_ssd" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_struttura" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfschedastatusdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idperfschedastatus" type="xs:int" />
+              <xs:element name="perfschedastatus_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="strutturaperfelenchiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aoo_title" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="paridstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="sede_title" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_codice" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_codiceipa" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_ct" type="xs:dateTime" />
+              <xs:element name="struttura_cu" type="xs:string" />
+              <xs:element name="struttura_email" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_fax" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_idaoo" type="xs:int" minOccurs="0" />
+              <xs:element name="struttura_idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="struttura_idsede" type="xs:int" />
+              <xs:element name="struttura_idstrutturakind" type="xs:int" />
+              <xs:element name="struttura_lt" type="xs:dateTime" />
+              <xs:element name="struttura_lu" type="xs:string" />
+              <xs:element name="struttura_pesoindicatori" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_pesoobiettivi" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_pesoprogaltreuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_pesoproguo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_telefono" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_title_en" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturakind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturaparent_title" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="upb_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="year" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfvalutazioneuo" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="completamentopsauo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="completamentopsuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idperfschedastatus" type="xs:int" minOccurs="0" />
+              <xs:element name="idperfvalutazioneuo" type="xs:int" />
+              <xs:element name="idreg_appr" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg_val" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="indicatori" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="obiettiviindividuali" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesoindicatori" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesoobiettivi" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesoprogaltreuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesoproguo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="risultato" type="xs:decimal" minOccurs="0" />
+              <xs:element name="year" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attach" />
+      <xs:field xpath="mstns:idattach" />
+    </xs:unique>
+    <xs:unique name="perfvalutazioneuoattach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazioneuoattach" />
+      <xs:field xpath="mstns:idperfvalutazioneuo" />
+      <xs:field xpath="mstns:idperfvalutazioneuoattach" />
+    </xs:unique>
+    <xs:unique name="perfobiettiviuosoglia_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfobiettiviuosoglia" />
+      <xs:field xpath="mstns:idperfobiettiviuo" />
+      <xs:field xpath="mstns:idperfobiettiviuosoglia" />
+      <xs:field xpath="mstns:idperfvalutazioneuo" />
+    </xs:unique>
+    <xs:unique name="perfobiettiviuo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfobiettiviuo" />
+      <xs:field xpath="mstns:idperfobiettiviuo" />
+      <xs:field xpath="mstns:idperfvalutazioneuo" />
+    </xs:unique>
+    <xs:unique name="perfvalutazioneuoindicatorisoglia_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazioneuoindicatorisoglia" />
+      <xs:field xpath="mstns:idperfvalutazioneuoindicatori" />
+      <xs:field xpath="mstns:idperfvalutazioneuoindicatorisoglia" />
+    </xs:unique>
+    <xs:unique name="perfindicatore_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfindicatore" />
+      <xs:field xpath="mstns:idperfindicatore" />
+    </xs:unique>
+    <xs:unique name="perfvalutazioneuoindicatori_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazioneuoindicatori" />
+      <xs:field xpath="mstns:idperfindicatore" />
+      <xs:field xpath="mstns:idperfstruttura" />
+      <xs:field xpath="mstns:idperfvalutazioneuo" />
+      <xs:field xpath="mstns:idperfvalutazioneuoindicatori" />
+    </xs:unique>
+    <xs:unique name="perfprogettoobiettivosoglia_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettoobiettivosoglia_alias1" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettoobiettivo" />
+      <xs:field xpath="mstns:idperfprogettoobiettivosoglia" />
+    </xs:unique>
+    <xs:unique name="perfprogettoobiettivopersonaleview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettoobiettivopersonaleview" />
+      <xs:field xpath="mstns:idperfprogettoobiettivo" />
+      <xs:field xpath="mstns:idperfvalutazioneuo" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+    <xs:unique name="perfprogettoobiettivosoglia_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettoobiettivosoglia" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettoobiettivo" />
+      <xs:field xpath="mstns:idperfprogettoobiettivosoglia" />
+    </xs:unique>
+    <xs:unique name="perfprogettoobiettivouoview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettoobiettivouoview" />
+      <xs:field xpath="mstns:idperfprogettoobiettivo" />
+      <xs:field xpath="mstns:idperfvalutazioneuo" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+    <xs:unique name="getregistrydocentiamministratividefaultview_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getregistrydocentiamministratividefaultview_alias1" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="getregistrydocentiamministratividefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getregistrydocentiamministratividefaultview" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="perfschedastatusdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfschedastatusdefaultview" />
+      <xs:field xpath="mstns:idperfschedastatus" />
+    </xs:unique>
+    <xs:unique name="strutturaperfelenchiview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:strutturaperfelenchiview" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+    <xs:unique name="year_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:year" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="perfvalutazioneuo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazioneuo" />
+      <xs:field xpath="mstns:idperfvalutazioneuo" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_perfvalutazioneuoattach_perfvalutazioneuo_idperfvalutazioneuo" msdata:parent="perfvalutazioneuo" msdata:child="perfvalutazioneuoattach" msdata:parentkey="idperfvalutazioneuo" msdata:childkey="idperfvalutazioneuo" />
+      <msdata:Relationship name="FK_perfvalutazioneuoattach_attach_idattach" msdata:parent="attach" msdata:child="perfvalutazioneuoattach" msdata:parentkey="idattach" msdata:childkey="idattach" />
+      <msdata:Relationship name="FK_perfobiettiviuo_perfvalutazioneuo_idperfvalutazioneuo" msdata:parent="perfvalutazioneuo" msdata:child="perfobiettiviuo" msdata:parentkey="idperfvalutazioneuo" msdata:childkey="idperfvalutazioneuo" />
+      <msdata:Relationship name="FK_perfobiettiviuosoglia_perfobiettiviuo_idperfobiettiviuo-idperfvalutazioneuo" msdata:parent="perfobiettiviuo" msdata:child="perfobiettiviuosoglia" msdata:parentkey="idperfobiettiviuo idperfvalutazioneuo" msdata:childkey="idperfobiettiviuo idperfvalutazioneuo" />
+      <msdata:Relationship name="FK_perfvalutazioneuoindicatori_perfvalutazioneuo_idperfvalutazioneuo" msdata:parent="perfvalutazioneuo" msdata:child="perfvalutazioneuoindicatori" msdata:parentkey="idperfvalutazioneuo" msdata:childkey="idperfvalutazioneuo" />
+      <msdata:Relationship name="FK_perfvalutazioneuoindicatorisoglia_perfvalutazioneuoindicatori_idperfvalutazioneuoindicatori" msdata:parent="perfvalutazioneuoindicatori" msdata:child="perfvalutazioneuoindicatorisoglia" msdata:parentkey="idperfvalutazioneuoindicatori" msdata:childkey="idperfvalutazioneuoindicatori" />
+      <msdata:Relationship name="FK_perfvalutazioneuoindicatori_perfindicatore_idperfindicatore" msdata:parent="perfindicatore" msdata:child="perfvalutazioneuoindicatori" msdata:parentkey="idperfindicatore" msdata:childkey="idperfindicatore" />
+      <msdata:Relationship name="FK_perfprogettoobiettivopersonaleview_perfvalutazioneuo_idperfvalutazioneuo-idstruttura" msdata:parent="perfvalutazioneuo" msdata:child="perfprogettoobiettivopersonaleview" msdata:parentkey="idperfvalutazioneuo idstruttura" msdata:childkey="idperfvalutazioneuo idstruttura" />
+      <msdata:Relationship name="FK_perfprogettoobiettivosoglia_alias1_perfprogettoobiettivopersonaleview_idperfprogetto-idperfprogettoobiettivo" msdata:parent="perfprogettoobiettivopersonaleview" msdata:child="perfprogettoobiettivosoglia_alias1" msdata:parentkey="idperfprogetto idperfprogettoobiettivo" msdata:childkey="idperfprogetto idperfprogettoobiettivo" />
+      <msdata:Relationship name="FK_perfprogettoobiettivouoview_perfvalutazioneuo_idperfvalutazioneuo-idstruttura" msdata:parent="perfvalutazioneuo" msdata:child="perfprogettoobiettivouoview" msdata:parentkey="idperfvalutazioneuo idstruttura" msdata:childkey="idperfvalutazioneuo idstruttura" />
+      <msdata:Relationship name="FK_perfprogettoobiettivosoglia_perfprogettoobiettivouoview_idperfprogetto-idperfprogettoobiettivo" msdata:parent="perfprogettoobiettivouoview" msdata:child="perfprogettoobiettivosoglia" msdata:parentkey="idperfprogetto idperfprogettoobiettivo" msdata:childkey="idperfprogetto idperfprogettoobiettivo" />
+      <msdata:Relationship name="FK_perfvalutazioneuo_getregistrydocentiamministratividefaultview_alias1_idreg_appr" msdata:parent="getregistrydocentiamministratividefaultview_alias1" msdata:child="perfvalutazioneuo" msdata:parentkey="idreg" msdata:childkey="idreg_appr" />
+      <msdata:Relationship name="FK_perfvalutazioneuo_getregistrydocentiamministratividefaultview_idreg_val" msdata:parent="getregistrydocentiamministratividefaultview" msdata:child="perfvalutazioneuo" msdata:parentkey="idreg" msdata:childkey="idreg_val" />
+      <msdata:Relationship name="FK_perfvalutazioneuo_perfschedastatusdefaultview_idperfschedastatus" msdata:parent="perfschedastatusdefaultview" msdata:child="perfvalutazioneuo" msdata:parentkey="idperfschedastatus" msdata:childkey="idperfschedastatus" />
+      <msdata:Relationship name="FK_perfvalutazioneuo_strutturaperfelenchiview_idstruttura" msdata:parent="strutturaperfelenchiview" msdata:child="perfvalutazioneuo" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
+      <msdata:Relationship name="FK_perfvalutazioneuo_year_year" msdata:parent="year" msdata:child="perfvalutazioneuo" msdata:parentkey="year" msdata:childkey="year" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
@@ -57,11 +56,14 @@ namespace meta_flussocreditidetailview {
                 DescribeAColumn(T, "adate", "Data", nPos++);
                 DescribeAColumn(T, "registry", "Versante", nPos++);
                 DescribeAColumn(T, "docdate", "Data Doc.", nPos++);
+                DescribeAColumn(T, "codicetassonomia", "Tassonomia PagoPA", nPos++);
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
                 DescribeAColumn(T, "importoversamento", "importo versamento", nPos++);
+                DescribeAColumn(T, "tax", "importo iva", nPos++);
                 DescribeAColumn(T, "estimkind_det", "Tipo Contratto Attivo", nPos++);
                 DescribeAColumn(T, "yestim", "Eserc.Contratto Attivo", nPos++);
                 DescribeAColumn(T, "nestim", "Num.Contratto Attivo", nPos++);
+                DescribeAColumn(T, "rownum", "Dett.Contratto Attivo", nPos++);
                 DescribeAColumn(T, "invoicekind", "Tipo doc.Iva", nPos++);
                 DescribeAColumn(T, "yinv", "Eserc.Fattura", nPos++);
                 DescribeAColumn(T, "ninv", "Num.Fattura", nPos++);
@@ -72,20 +74,21 @@ namespace meta_flussocreditidetailview {
                 DescribeAColumn(T, "cf", "CF", nPos++);
                 DescribeAColumn(T, "iuv", "IUV", nPos++);
                 DescribeAColumn(T, "annulment", "Data annullamento", nPos++);
-                DescribeAColumn(T, "stop", "Data fione validit√†", nPos++);
+                DescribeAColumn(T, "stop", "Data fine validit‡", nPos++);
                 DescribeAColumn(T, "datacreazioneflusso", "data creazione flusso", nPos++);
                 DescribeAColumn(T, "causalecredito", "causale credito", nPos++);
                 DescribeAColumn(T, "casualeentroanno", "casuale entro anno", nPos++);
                 DescribeAColumn(T, "casualepostanno", "casuale post anno", nPos++);
                 DescribeAColumn(T, "casualericavo", "casualericavo", nPos++);
                 DescribeAColumn(T, "causalebilentrata", "causale bilancio entrata", nPos++);
+                DescribeAColumn(T, "causalebilancioentrataiva", "Causale Bilancio di entrata iva", nPos++);
                 DescribeAColumn(T, "competencystart", "Inizio Comp.Economica", nPos++);
                 DescribeAColumn(T, "competencystop", "Fine Comp.Economica", nPos++);
                 DescribeAColumn(T, "codiceavviso", "Codice Avviso", nPos++);
                 DescribeAColumn(T, "idunivoco", "Progr.generale tra tutti i dettagli credito", nPos++);
                 DescribeAColumn(T, "expirationdate", "Scadenza", nPos++);
-                DescribeAColumn(T, "p_iva", "Piva", nPos++);
-
+                DescribeAColumn(T, "p_iva", "Piva", nPos++);                
+                DescribeAColumn(T, "docdate", "Data per elaborazione", nPos++);
             }
         }
 
@@ -93,4 +96,3 @@ namespace meta_flussocreditidetailview {
     }
 }
 
-

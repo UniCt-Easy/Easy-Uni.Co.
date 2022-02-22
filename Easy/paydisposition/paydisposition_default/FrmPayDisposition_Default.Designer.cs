@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 namespace paydisposition_default {
     partial class FrmPayDisposition_Default {
@@ -65,12 +64,12 @@ namespace paydisposition_default {
 			this.btnCBI = new System.Windows.Forms.Button();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.cmbCBImotive = new System.Windows.Forms.ComboBox();
-			this.DS = new paydisposition_default.vistaForm();
+			this.DS = new paydisposition_default.dsmeta();
 			this.DSFinancial = new paydisposition_default.DSFinancial();
 			this.dsDati = new paydisposition_default.daticbiDataSet();
 			this.txtInputFile = new System.Windows.Forms.TextBox();
 			this.btnInputFile = new System.Windows.Forms.Button();
-			this.MyOpenFile = new System.Windows.Forms.OpenFileDialog();
+			this._MyOpenFile = new System.Windows.Forms.OpenFileDialog();
 			this.progressBarImport = new System.Windows.Forms.ProgressBar();
 			this.btnRimborsoSpeseUniversitarie = new System.Windows.Forms.Button();
 			this.CMenu = new System.Windows.Forms.ContextMenu();
@@ -374,8 +373,8 @@ namespace paydisposition_default {
 			// 
 			// MyOpenFile
 			// 
-			this.MyOpenFile.FileName = "openFileDialog";
-			this.MyOpenFile.Title = "Selezionare il file Excel da importare";
+			this._MyOpenFile.FileName = "openFileDialog";
+			this._MyOpenFile.Title = "Selezionare il file Excel da importare";
 			// 
 			// progressBarImport
 			// 
@@ -406,7 +405,7 @@ namespace paydisposition_default {
 			// 
 			this.MenuVisualizza.Index = 0;
 			this.MenuVisualizza.Text = "Visualizza tracciato";
-			this.MenuVisualizza.Click += new System.EventHandler(this.MenuVisualizza_Click);
+			this.MenuVisualizza.Click += new System.EventHandler(this.menuVisualizza_Click);
 			// 
 			// menuItem1
 			// 
@@ -469,7 +468,7 @@ namespace paydisposition_default {
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox txtImporto;
         private System.Windows.Forms.Label label4;
-        public  vistaForm DS;
+        public  dsmeta DS;
 		public DSFinancial DSFinancial;
 		public daticbiDataSet dsDati;
         private System.Windows.Forms.Button btnExcel;
@@ -481,7 +480,7 @@ namespace paydisposition_default {
         private System.Windows.Forms.TextBox txtInputFile;
         private System.Windows.Forms.Button btnInputFile;
       
-        private System.Windows.Forms.OpenFileDialog MyOpenFile;
+        private System.Windows.Forms.OpenFileDialog _MyOpenFile;
         private System.Windows.Forms.ProgressBar progressBarImport;
         private System.Windows.Forms.Button btnRimborsoSpeseUniversitarie;
         private System.Windows.Forms.ContextMenu CMenu;
@@ -490,4 +489,4 @@ namespace paydisposition_default {
 		private System.Windows.Forms.Button btnSelezionaTutto;
 		private System.Windows.Forms.Button btnCreaMovimentiFinanziari;
 	}
-}
+}

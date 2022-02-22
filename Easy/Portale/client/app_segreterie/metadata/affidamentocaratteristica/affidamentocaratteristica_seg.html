@@ -1,0 +1,64 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabaffidamentocaratteristica_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabaffidamentocaratteristica_seg_0"><i class="fa fa-layer-group mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabaffidamentocaratteristica_seg_1" class="nav-link" data-toggle="pill" data-target="#tabaffidamentocaratteristica_seg_1"><i class="fa fa-clock mr-1"></i>Ore</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabaffidamentocaratteristica_seg_0" role="tabpanel">
+					<input hidden id="affidamentocaratteristica_seg_json" type="text" class="form-control" data-tag="affidamentocaratteristica.json" />
+					<input hidden id="affidamentocaratteristica_seg_title" type="text" class="form-control" data-tag="affidamentocaratteristica.title" />
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="affidamentocaratteristica_seg_cf">Crediti</label>
+					<input id="affidamentocaratteristica_seg_cf" type="text" class="form-control" data-tag="affidamentocaratteristica.cf.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="affidamentocaratteristica_seg_idtipoattform">Tipo di attività formativa</label>
+					<select id="affidamentocaratteristica_seg_idtipoattform" class="custom-select d-block w-100"  data-source-name="tipoattformdefaultview" data-value-member="idtipoattform" data-display-member="dropdown_title" data-custom-control="combo" data-tag="affidamentocaratteristica.idtipoattform"   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="affidamentocaratteristica_seg_idambitoareadisc">Ambito o area disciplinare</label>
+					<div>
+						<input id="affidamentocaratteristica_seg_idambitoareadisc" name="affidamentocaratteristica_seg_idambitoareadisc" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="ambitoareadiscdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="affidamentocaratteristica_seg_idsasdgruppo">Gruppo</label>
+					<select id="affidamentocaratteristica_seg_idsasdgruppo" class="custom-select d-block w-100"  data-source-name="sasdgruppodefaultview" data-value-member="idsasdgruppo" data-display-member="dropdown_title" data-custom-control="combo" data-tag="affidamentocaratteristica.idsasdgruppo"   data-master="tipoattformdefaultview"> </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="affidamentocaratteristica_seg_idsasd">SASD</label>
+					<div>
+						<input id="affidamentocaratteristica_seg_idsasd" name="affidamentocaratteristica_seg_idsasd" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sasddefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="affidamentocaratteristica_seg_profess">Professionalizzante</label>
+					<div class="custom-control custom-radio">
+						<input id="affidamentocaratteristica_seg_professSi" type="radio" name="affidamentocaratteristica_seg_profess" class="custom-control-input" data-tag="affidamentocaratteristica.profess:S"  data-mandatory ><label for="affidamentocaratteristica_seg_professSi"> Si</label>
+						<input id="affidamentocaratteristica_seg_professNo" type="radio" name="affidamentocaratteristica_seg_profess" class="custom-control-input" data-tag="affidamentocaratteristica.profess:N"  data-mandatory ><label for="affidamentocaratteristica_seg_professNo"> No</label>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabaffidamentocaratteristica_seg_1" role="tabpanel">
+				<div class="gridx" id="grid_affidamentocaratteristicaora_seg" data-tag="affidamentocaratteristicaora.seg.seg" data-custom-control="gridx" data-mdlbuttonedit  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

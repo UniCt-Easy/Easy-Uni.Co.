@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -28,10 +27,13 @@ using metaeasylibrary;
 using funzioni_configurazione; //funzioni_configurazione
 
 namespace invoicedetail_default {
-    public partial class FrmInvoiceDetail_Default : Form {
+    public partial class FrmInvoiceDetail_Default : MetaDataForm {
         MetaData Meta;
         public FrmInvoiceDetail_Default() {
             InitializeComponent();
+            cmbTassonomia.DataSource = DS.tassonomia_pagopa;
+            cmbTassonomia.ValueMember = "idtassonomia";
+            cmbTassonomia.DisplayMember = "title";
         }
         DataAccess Conn;
         QueryHelper QHS;
@@ -232,6 +234,7 @@ namespace invoicedetail_default {
             chkSpeseAnticipateSpedizioniere.Enabled = abilita;
             txtCodiceBollettinoUnivoco.ReadOnly = readOnly;
             gboxCausaleBilancioEntrata.Enabled = abilita;
+            gboxCausaleBilancioEntrataIva.Enabled = abilita;
             gboxProfessionale.Enabled = abilita;
             grpBoxSiopeEP.Enabled = abilita;
         }
@@ -298,6 +301,7 @@ namespace invoicedetail_default {
 
             HelpForm.SetComboBoxValue(cmbUnitaMisuraCS, listRow["idunit"]);
             HelpForm.SetComboBoxValue(cmbUnitaMisuraAcquisto, listRow["idpackage"]);
+                       
         }
 
         private void btnListino_Click(object sender, EventArgs e) {
@@ -408,14 +412,14 @@ namespace invoicedetail_default {
             MetaData MCausali = MetaData.GetMetaData(this, "pccdebitmotive");
             MCausali.FilterLocked = true;
             MCausali.DS = DS.Clone();
-
+            
             DataRow Choosen = MCausali.SelectOne("default", filter, "pccdebitmotive", null);
             if (Choosen == null)
                 return;
             txtCodiceCasualePcc.Text = Choosen["idpccdebitmotive"].ToString();
             txtCausale.Text = Choosen["description"].ToString();
         }
-
+        
         public void MetaData_AfterFill() {
             enableControls(false);
             MostraNascondiCigCup();
@@ -459,6 +463,7 @@ namespace invoicedetail_default {
             DataAccess.SetTableForReading(DS.income_iva, "income");
 			DataAccess.SetTableForReading(DS.upb_iva, "upb");
 			DataAccess.SetTableForReading(DS.finmotive_income, "finmotive");
+            DataAccess.SetTableForReading(DS.finmotive_iva_income, "finmotive");
             GetData.CacheTable(DS.invoicekindregisterkind);
             GetData.CacheTable(DS.ivaregisterkind);
 
@@ -637,4 +642,3 @@ namespace invoicedetail_default {
 
     }
 }
-

@@ -1,0 +1,38 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="ambitoareadisc_default_title">Ambito</label>
+					<input id="ambitoareadisc_default_title" type="text" class="form-control" data-tag="ambitoareadisc.title?ambitoareadiscdefaultview.title" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="ambitoareadisc_default_idclassescuola">Scuola / Classe di laurea</label>
+					<div>
+						<input id="ambitoareadisc_default_idclassescuola" name="ambitoareadisc_default_idclassescuola" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="classescuoladefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="ambitoareadisc_default_idtipoattform">Tipo attività formativa</label>
+					<select id="ambitoareadisc_default_idtipoattform" class="custom-select d-block w-100"  data-source-name="tipoattformdefaultview" data-value-member="idtipoattform" data-display-member="dropdown_title" data-custom-control="combo" data-tag="ambitoareadisc.idtipoattform?ambitoareadiscdefaultview.ambitoareadisc_idtipoattform" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="ambitoareadisc_default_sortcode">Ordinamento</label>
+					<input id="ambitoareadisc_default_sortcode" type="text" class="form-control" data-tag="ambitoareadisc.sortcode?ambitoareadiscdefaultview.ambitoareadisc_sortcode" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="ambitoareadisc_default_indicecineca">Id cineca</label>
+					<input id="ambitoareadisc_default_indicecineca" type="text" class="form-control" data-tag="ambitoareadisc.indicecineca?ambitoareadiscdefaultview.ambitoareadisc_indicecineca" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

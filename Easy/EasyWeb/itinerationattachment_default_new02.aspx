@@ -4,6 +4,7 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="CHP_PC" Runat="Server">
 
 <div class="row">		
+
     <div class="col-md-12">	
 
         <cc1:hwpanel GroupingText="File allegato" CssClass="stdfieldset form-group" ID="gboxlblgroupBox1" runat="server" Tag="AutoChoose.txtCredDeb.lista.(active='S')">
@@ -14,12 +15,39 @@
             </div>
         </cc1:hwpanel>
 
-        <div class="row">		 		
-	        <div class="col-md-12">	
-                <cc1:hwButton runat="server" id="btnVisualizza" TabIndex="5" Text="Scarica" Tag="visualizza"/>
-                </div>
+        <div class="row">
+            <div class="col-md-12">
+                <cc1:hwLabel CssClass="control-label" runat="server" for="txtDescrizione">Descrizione</cc1:hwLabel>
+            </div>
         </div>
-    <asp:FileUpload ID="btnFileUpload" runat="server" />
+        <div class="row">
+            <div class="col-md-12">
+                <cc1:hwTextBox runat="server" CssClass="input-md form-control" ID="txtDescrizione" Tag="itinerationattachment.description" TabIndex="70" ></cc1:hwTextBox>
+            </div>
+        </div>
+
+        <div class="row">		 		
+	        <div class="col-md-8">	
+                <cc1:hwButton runat="server" id="btnVisualizza" TabIndex="5" Text="Visualizza" class="btn btn-primary" Tag="visualizza"/>
+                </div>
+             <div class="col-md-4">	
+                     <cc1:hwCheckBox runat="server" ID="chkWeb" ThreeState="false" Tag="itinerationattachment.active:S:N" TabIndex="6" Text="Attivo" />
+             </div>
+        </div>
+    <asp:FileUpload  ID="btnFileUpload" data-id="btnFileUpload" runat="server" />
+                                   
     </div>
 </div>
+</asp:Content>
+
+
+<asp:Content ContentPlaceHolderID="JScriptAfterLibs"  runat="server">
+
+	<script type="text/javascript">
+		$('[data-id="btnFileUpload"]').change(function(ev) {
+			__doPostBack('do_command', "aggiornaNome");
+		});
+	</script>
+
+
 </asp:Content>

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -62,7 +61,7 @@ namespace meta_banktransaction//meta_movimentobancario//
 			}
 
 			if (FormName == "default") {
-				Name = "Transazione Bancaria";
+				Name = "Esitazione bancaria";
 				DefaultListType="default";
 				return GetFormByDllName("banktransaction_default");
 			}
@@ -107,14 +106,14 @@ namespace meta_banktransaction//meta_movimentobancario//
                 int pos = 1;
 				//DescribeAColumn(T, "ypro", "Esercizio",1);
 				//DescribeAColumn(T, "npro", "Numero documento",2);
-                DescribeAColumn(T, "!nmov", "N.mov.", "income1.nmov", pos++);
-				DescribeAColumn(T, "bankreference", "Riferimento banca",pos++);
+                DescribeAColumn(T, "!nmov", "N.mov.", "income1.nmov", pos++);				
                 DescribeAColumn(T, "transactiondate", "Data operazione", pos++);
                 DescribeAColumn(T, "valuedate", "Data valuta", pos++);
                 DescribeAColumn(T, "amount", "Importo", pos++);
                 DescribeAColumn(T, "description", "Descrizione", pos++);
                 DescribeAColumn(T, "idbankimport", "Importazione Esiti", pos++);
-            } 
+				DescribeAColumn(T, "bankreference", "Riferimento banca", pos++);
+			} 
 			if (ListingType == "payment") 
 			{
 				foreach (DataColumn c in T.Columns)
@@ -124,15 +123,15 @@ namespace meta_banktransaction//meta_movimentobancario//
                 int pos = 1;
                 //DescribeAColumn(T, "ypay", "Esercizio", 1);
                 //DescribeAColumn(T, "npay", "Numero documento",2);
-                DescribeAColumn(T, "!nmov", "N.mov.", "expense1.nmov", pos++);
-                DescribeAColumn(T, "bankreference", "Riferimento banca", pos++);
+                DescribeAColumn(T, "!nmov", "N.mov.", "expense1.nmov", pos++);                
                 DescribeAColumn(T, "transactiondate", "Data operazione", pos++);
                 DescribeAColumn(T, "valuedate", "Data valuta", pos++);
                 DescribeAColumn(T, "amount", "Importo", pos++);
                 DescribeAColumn(T, "description", "Descrizione", pos++);
                 DescribeAColumn(T, "idbankimport", "Importazione Esiti", pos++);
-            } 
-        }   	
+				DescribeAColumn(T, "bankreference", "Riferimento banca", pos++);
+			}
+		}   	
 
         public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable Exclude) {
             if (ListingType == "adebito") {
@@ -155,8 +154,8 @@ namespace meta_banktransaction//meta_movimentobancario//
 				return false;
 			}
 			decimal amount = CfgFn.GetNoNullDecimal(R["amount"]);
-			if (amount <=0) {
-				errmess="L'importo dell'esito non può essere nullo o negativo";
+			if (amount ==0) {
+				errmess="L'importo dell'esito non può essere nullo";
 				errfield="amount";
 				return false;
 			}
@@ -180,4 +179,3 @@ namespace meta_banktransaction//meta_movimentobancario//
 		}
     }	
 }
-

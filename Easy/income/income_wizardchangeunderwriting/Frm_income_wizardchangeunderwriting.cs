@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -29,7 +28,7 @@ namespace income_wizardchangeunderwriting {//spesawizardelimina//
 	/// <summary>
 	/// Summary description for FrmSpesaWizardElimina.
 	/// </summary>
-	public class Frm_income_wizardchangeunderwriting : System.Windows.Forms.Form {
+	public class Frm_income_wizardchangeunderwriting : MetaDataForm {
 		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Button btnBack;
@@ -989,7 +988,7 @@ namespace income_wizardchangeunderwriting {//spesawizardelimina//
 		bool GetUnderwriting(){
             if (txtFinanziamento.Text.Trim() == "")
             {
-                MessageBox.Show("Selezionare un Finanziamento per procedere");
+                show("Selezionare un Finanziamento per procedere");
                 return false;
             }
             string filter = QHS.CmpEq("idunderwriting", idunderwriting_Selected);
@@ -1005,7 +1004,7 @@ namespace income_wizardchangeunderwriting {//spesawizardelimina//
         bool GetIncome () {
             //txtYmovIncome.Text = Meta.GetSys("esercizio").ToString();
             if (txtNmovIncome.Text.Trim() == "") {
-                MessageBox.Show("Selezionare un movimento di entrata per procedere");
+                show("Selezionare un movimento di entrata per procedere");
                 return false;
             }
             string filter = GetFilterIncome(true);
@@ -1109,11 +1108,11 @@ namespace income_wizardchangeunderwriting {//spesawizardelimina//
         bool doAssocia () {
             if (idupb_Selected == DBNull.Value)
             {
-                MessageBox.Show("Non è stato selezionato un finanziamento");
+                show("Non è stato selezionato un finanziamento");
                 return false;
             }
             if (DS.income.Rows.Count == 0) {
-                MessageBox.Show("Non è stato selezionato nessun movimento finanziamento");
+                show("Non è stato selezionato nessun movimento finanziamento");
                 return false;
             }
 
@@ -1122,7 +1121,7 @@ namespace income_wizardchangeunderwriting {//spesawizardelimina//
             DataRow CurrIncome = Income[0];
         
 
-            if (MessageBox.Show(this, "Si desidera associare il finanziamento all' Accertamento e agli Incassi selezionati?", "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK) {
+            if (show(this, "Si desidera associare il finanziamento all' Accertamento e agli Incassi selezionati?", "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK) {
                CurrIncome["idunderwriting"] = idunderwriting_Selected;
             }
             else {
@@ -1132,9 +1131,9 @@ namespace income_wizardchangeunderwriting {//spesawizardelimina//
             PostData Post = Meta.Get_PostData();
             Post.InitClass(DS, Conn);
             bool res = Post.DO_POST();
-            if (res) MessageBox.Show("Operazione effettuata.");
+            if (res) show("Operazione effettuata.");
             else
-                MessageBox.Show("Operazione non effettuata.");
+                show("Operazione non effettuata.");
             //if (!res) CurrIncome.RejectChanges();
             return res;
         }
@@ -1203,7 +1202,7 @@ namespace income_wizardchangeunderwriting {//spesawizardelimina//
                 int N =  Meta.Conn.RUN_SELECT_COUNT(VistaScelta, Filter, false);
                 if (N == 0)
                 {
-                    MessageBox.Show("Non vi sono Finanziamenti con disponibilità sufficiente");
+                    show("Non vi sono Finanziamenti con disponibilità sufficiente");
                     return;
                 }
 
@@ -1237,4 +1236,4 @@ namespace income_wizardchangeunderwriting {//spesawizardelimina//
 
         }
 	}
-}
+}

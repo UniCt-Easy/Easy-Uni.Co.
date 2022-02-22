@@ -1,0 +1,18 @@
+test server:
+Apri Postman: nuova api:
+POST http://localhost:3000/data/getPagedTable
+
+body row json
+{
+    "tableName":"registry",
+    "nPage": "1",
+    "nRowPerPage": "10",
+    "filter": "",
+    "listType": "default",
+    "sortby": ""
+}
+
+
+// json dei dataset.
+Da chrome su sito qiualunque e pagina aperta:
+JSON.stringify(appMeta.currentMetaPage.state.DS.serialize(true))

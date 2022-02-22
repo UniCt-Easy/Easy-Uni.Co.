@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -31,7 +30,7 @@ namespace inputfile_default
 	/// <summary>
 	/// Summary description for FrmInputFile_Default.
 	/// </summary>
-	public class FrmInputFile_Default : System.Windows.Forms.Form
+	public class FrmInputFile_Default : MetaDataForm
 	{
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox textBox1;
@@ -43,7 +42,7 @@ namespace inputfile_default
 		private System.Windows.Forms.TextBox txtPar1;
 		private System.Windows.Forms.TextBox txtPar2;
 		private System.Windows.Forms.TextBox txtPar3;
-		private System.Windows.Forms.OpenFileDialog openFileDialog1;
+		private System.Windows.Forms.OpenFileDialog _openFileDialog1;
 		private System.Windows.Forms.Label labpar1;
 		private System.Windows.Forms.Label labpar2;
 		private System.Windows.Forms.Label labpar3;
@@ -53,6 +52,7 @@ namespace inputfile_default
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.Button button4;
+		public IOpenFileDialog openFileDialog1;
 
 		/// <summary>
 		/// Required designer variable.
@@ -65,7 +65,7 @@ namespace inputfile_default
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
-
+			openFileDialog1 = createOpenFileDialog(_openFileDialog1);
 		}
 
 
@@ -105,7 +105,7 @@ namespace inputfile_default
 			this.txtPar3 = new System.Windows.Forms.TextBox();
 			this.labpar3 = new System.Windows.Forms.Label();
 			this.btnTest = new System.Windows.Forms.Button();
-			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+			this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
 			this.dataGrid1 = new System.Windows.Forms.DataGrid();
 			this.button2 = new System.Windows.Forms.Button();
 			this.button3 = new System.Windows.Forms.Button();
@@ -395,7 +395,7 @@ namespace inputfile_default
 				return;
 			}
 			if (D.Tables.Count==0) {
-				MessageBox.Show("Non ho letto nulla!");
+				show("Non ho letto nulla!");
 				return;
 			}
 			exportclass.DataTableToExcel(D.Tables[0],false);
@@ -403,4 +403,3 @@ namespace inputfile_default
 
 	}
 }
-

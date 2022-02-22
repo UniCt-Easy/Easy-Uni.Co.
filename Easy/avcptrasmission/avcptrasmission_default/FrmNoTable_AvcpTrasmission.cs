@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,7 +31,7 @@ using funzioni_configurazione;
 using System.Security;
 
 namespace avcptrasmission_default {
-    public partial class FrmNoTable_AvcpTrasmission : Form {
+    public partial class FrmNoTable_AvcpTrasmission : MetaDataForm {
         MetaData Meta;
         QueryHelper QHS;
         CQueryHelper QHC;
@@ -138,7 +137,7 @@ namespace avcptrasmission_default {
             tLottiProf.AcceptChanges();
 
             int nlotti = tLotti.Rows.Count + tLottiProf.Rows.Count;
-            MessageBox.Show("Lotti trovati:" + nlotti, "Avviso");
+            show("Lotti trovati:" + nlotti, "Avviso");
             if (nlotti == 0) {
                 VisualizzaAvvisi();
                 return;
@@ -162,7 +161,7 @@ namespace avcptrasmission_default {
                 string filename = filedir + getSimpleDataFilename(0);
                 StringBuilder s=getDataFile(header,currDS);
                 writeStringToFile(filename, s.ToString());
-                MessageBox.Show("Creato il file " + filename, "Avviso");
+                show("Creato il file " + filename, "Avviso");
                 VisualizzaAvvisi();
                 return;
             }
@@ -179,7 +178,7 @@ namespace avcptrasmission_default {
                 string fdataName = filedir + getSimpleDataFilename(num);
                 writeStringToFile(fdataName, d.ToString());
             }
-            MessageBox.Show("Creati i file: " + getSimpleIndexName + " e " + getSimpleDataFilename(1) +
+            show("Creati i file: " + getSimpleIndexName + " e " + getSimpleDataFilename(1) +
                   " - " + getSimpleDataFilename(allDataSet.Count) + " nella cartella " +
                   filedir, "Avviso");
             VisualizzaAvvisi();
@@ -187,12 +186,14 @@ namespace avcptrasmission_default {
         }
 
         string getIndexMetaDataSection(DataRow rAvcp) {
-            StringBuilder s = new StringBuilder();
+			int esercizio= CfgFn.GetNoNullInt32(Conn.GetSys("esercizio"));
+			StringBuilder s = new StringBuilder();
             foreach (string f in new string[] {"titolo","abstract"}) {
                 AddTaggedContent(s, f, format(rAvcp[f]));
             }
-            AddTaggedContent(s, "dataPubblicazioneIndice", format(rAvcp["dataPubbicazioneDataset"]));
-            AddTaggedContent(s, "entePubblicatore", format(rAvcp["entePubblicatore"]));
+			 AddTaggedContent(s, "dataPubblicazioneIndice", format(rAvcp["datapubblicazionedataset"]));
+		 
+			AddTaggedContent(s, "entePubblicatore", format(rAvcp["entePubblicatore"]));
             AddTaggedContent(s, "dataUltimoAggiornamentoIndice", format(rAvcp["dataUltimoAggiornamentoDataset"]));
             AddTaggedContent(s, "annoRiferimento", format(rAvcp["annoRiferimento"]));
             AddTaggedContent(s, "urlFile", getIndexFilename(rAvcp));
@@ -326,12 +327,13 @@ namespace avcptrasmission_default {
         /// </summary>
         /// <param name="rAvcp"></param>
         string getMetaDataSection(DataRow rAvcp) {
-            StringBuilder s = new StringBuilder();
+			int esercizio= CfgFn.GetNoNullInt32(Conn.GetSys("esercizio"));
+			StringBuilder s = new StringBuilder();
             foreach (string f in new string[] { "titolo", "abstract" }) {
                 AddTaggedContent(s, f, format(rAvcp[f]));
             }
-            AddTaggedContent(s, "dataPubbicazioneDataset", format(rAvcp["dataPubbicazioneDataset"]));
-            AddTaggedContent(s, "entePubblicatore", format(rAvcp["entePubblicatore"]));
+			AddTaggedContent(s, "dataPubblicazioneDataset", format(rAvcp["datapubblicazionedataset"]));
+			AddTaggedContent(s, "entePubblicatore", format(rAvcp["entePubblicatore"]));
             AddTaggedContent(s, "dataUltimoAggiornamentoDataset", format(rAvcp["dataUltimoAggiornamentoDataset"]));
             AddTaggedContent(s, "annoRiferimento", format(rAvcp["annoRiferimento"]));
             AddTaggedContent(s, "urlFile", getDataFilename(rAvcp, 0));
@@ -383,7 +385,7 @@ namespace avcptrasmission_default {
                     "select a.* from mandateavcp a "+
                     "join mandateavcpdetail d "
                     + " on a.idmankind=d.idmankind and a.yman=d.yman and a.nman=d.nman "
-                    + "and isnull(a.idmain_avcp,a.idavcp)=d.idavcp " +       //10256 tutto il gruppo Ã¨ da considerarsi in blocco
+                    + "and isnull(a.idmain_avcp,a.idavcp)=d.idavcp " +       //10256 tutto il gruppo è da considerarsi in blocco
                     " where " + QHS.AppAnd(QHS.CmpEq("d.idmankind", rManCig["idmankind"]),
                                     QHS.CmpEq("d.yman", rManCig["yman"]),
                                     QHS.CmpEq("d.nman", rManCig["nman"]),
@@ -410,7 +412,7 @@ namespace avcptrasmission_default {
                     "select a.* from profserviceavcp a " +
                     "join profserviceavcpdetail d "
                     + " on a.ycon = d.ycon and a.ncon = d.ncon "
-                    + "and isnull(a.idmain_avcp,a.idavcp)=d.idavcp " +       //10256 tutto il gruppo Ã¨ da considerarsi in blocco
+                    + "and isnull(a.idmain_avcp,a.idavcp)=d.idavcp " +       //10256 tutto il gruppo è da considerarsi in blocco
                     " where " + QHS.AppAnd(QHS.CmpEq("d.ycon", rProfCig["ycon"]),
                                     QHS.CmpEq("d.ncon", rProfCig["ncon"]),
                                     QHS.CmpEq("d.cigcode", cigcode)), false);
@@ -466,7 +468,7 @@ namespace avcptrasmission_default {
         }
         string getListaAggiudicatari(DataRow rManCig, DataTable Partecipanti) {
             StringBuilder s = new StringBuilder();
-            //Stabilisce chi Ã¨ l'aggiudicatario
+            //Stabilisce chi è l'aggiudicatario
             object idavcp = rManCig["idavcp"];
             DataRow []found = Partecipanti.Select(QHC.CmpEq("idavcp", idavcp));
             if (found.Length == 0) {
@@ -578,4 +580,3 @@ namespace avcptrasmission_default {
 
     }
 }
-

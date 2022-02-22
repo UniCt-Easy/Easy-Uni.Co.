@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_flowchartuser_seg" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_flowchartuser_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="customuser" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcustomuser" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="flowchartuser" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="all_sorkind01" type="xs:string" minOccurs="0" />
+              <xs:element name="all_sorkind02" type="xs:string" minOccurs="0" />
+              <xs:element name="all_sorkind03" type="xs:string" minOccurs="0" />
+              <xs:element name="all_sorkind04" type="xs:string" minOccurs="0" />
+              <xs:element name="all_sorkind05" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="flagdefault" type="xs:string" />
+              <xs:element name="idcustomuser" type="xs:string" />
+              <xs:element name="idflowchart" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="ndetail" type="xs:int" />
+              <xs:element name="sorkind01_withchilds" type="xs:string" minOccurs="0" />
+              <xs:element name="sorkind02_withchilds" type="xs:string" minOccurs="0" />
+              <xs:element name="sorkind03_withchilds" type="xs:string" minOccurs="0" />
+              <xs:element name="sorkind04_withchilds" type="xs:string" minOccurs="0" />
+              <xs:element name="sorkind05_withchilds" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customuser" />
+      <xs:field xpath="mstns:idcustomuser" />
+    </xs:unique>
+    <xs:unique name="flowchartuser_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:flowchartuser" />
+      <xs:field xpath="mstns:idcustomuser" />
+      <xs:field xpath="mstns:idflowchart" />
+      <xs:field xpath="mstns:ndetail" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_flowchartuser_customuser_idcustomuser" msdata:parent="customuser" msdata:child="flowchartuser" msdata:parentkey="idcustomuser" msdata:childkey="idcustomuser" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

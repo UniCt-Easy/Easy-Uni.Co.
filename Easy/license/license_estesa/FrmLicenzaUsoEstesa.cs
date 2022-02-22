@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -34,7 +33,7 @@ namespace license_estesa//LicenzaUsoEstesa//
 	/// <summary>
 	/// Summary description for FrmLicenzaUsoEstesa.
 	/// </summary>
-	public class Frm_license_estesa : System.Windows.Forms.Form
+	public class Frm_license_estesa : MetaDataForm
 	{
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
@@ -514,7 +513,7 @@ namespace license_estesa//LicenzaUsoEstesa//
 			Meta.SearchEnabled=false;		
 			int numrighelicenzauso = Meta.Conn.RUN_SELECT_COUNT("license","((serverbackup1 is null)or(serverbackup1 is not null))", true);
 			if (numrighelicenzauso==0){
-				MessageBox.Show("Attendere il completamento del db e poi ricollegarsi.");
+				show("Attendere il completamento del db e poi ricollegarsi.");
 				Meta.CanSave=false;
 				CanGoEdit=false;
 				CanGoInsert=false;
@@ -567,7 +566,7 @@ namespace license_estesa//LicenzaUsoEstesa//
 			
 			if (R["checkflag"].ToString()!=CheckFlags.CalcolaCheckFlag(R)){
 				if (!MessaggioDisableVisualizzato){
-					MessageBox.Show("Questo db non è autorizzato dalla Software & More. Contattare il servizio assistenza");
+					show("Questo db non è autorizzato dalla Software & More. Contattare il servizio assistenza");
 					MessaggioDisableVisualizzato=true;
 				}
 				Meta.CanSave=false;
@@ -581,7 +580,7 @@ namespace license_estesa//LicenzaUsoEstesa//
 				 (R["serverbackup1"].ToString().ToUpper()!= RealServerName.ToUpper())&&
 				 (R["serverbackup2"].ToString().ToUpper()!= RealServerName.ToUpper()))||
 				(R["dbname"].ToString()!= RealDBName)){				
-				MessageBox.Show("Da questo accesso risulta che il db n."+
+				show("Da questo accesso risulta che il db n."+
 					R["iddb"].ToString()+
 					" il nuovo server è "+RealServerName+
 					" ed il nuovo nomedb è "+RealDBName+
@@ -724,7 +723,7 @@ namespace license_estesa//LicenzaUsoEstesa//
 		}
 
 		private void btnReset_Click(object sender, System.EventArgs e) {
-			if (MessageBox.Show(this,
+			if (show(this,
 				"Premere OK solo se si è esattamente CERTI di quello che si sta facendo e "+
 				"se si è sotto la STRETTISSIMA tutela di un tecnico della software and more.",
 				"Attenzione",MessageBoxButtons.OKCancel)!=DialogResult.OK){
@@ -752,12 +751,12 @@ namespace license_estesa//LicenzaUsoEstesa//
 			//SetImpostazioniDefault(R);
 			abilitaricalcolo=true;
 			Meta.FreshForm(true);
-			MessageBox.Show("Server del db n."+R["iddb"].ToString() +" reimpostato.");
+			show("Server del db n."+R["iddb"].ToString() +" reimpostato.");
 
 		}
 
 		private void btnRemoveLicense_Click(object sender, System.EventArgs e) {
-			if (MessageBox.Show(this,
+			if (show(this,
 				"Premere OK solo se si è esattamente CERTI di quello che si sta facendo e "+
 				"se si è sotto la STRETTISSIMA tutela di un tecnico della software and more.",
 				"Attenzione",MessageBoxButtons.OKCancel)!=DialogResult.OK){
@@ -782,11 +781,10 @@ namespace license_estesa//LicenzaUsoEstesa//
 			R["iddb"]=DBNull.Value;
 			abilitaricalcolo=true;
 			Meta.FreshForm(true);
-			MessageBox.Show("Informazioni sulla licenza eliminate");
+			show("Informazioni sulla licenza eliminate");
 
 		}
 
 
 	}
 }
-

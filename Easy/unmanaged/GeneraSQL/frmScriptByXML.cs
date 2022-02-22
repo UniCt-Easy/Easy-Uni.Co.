@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -29,7 +28,7 @@ namespace generaSQL//GeneraSQL//
 	/// <summary>
 	/// Summary description for frmScriptByXML.
 	/// </summary>
-	public class Frm_GeneraSQL : System.Windows.Forms.Form
+	public class Frm_GeneraSQL : MetaDataForm
 	{
 		private System.Windows.Forms.Button btnGenera;
 		private System.Windows.Forms.TextBox txtOutputFile;
@@ -163,17 +162,17 @@ namespace generaSQL//GeneraSQL//
 
 		private bool Validazioni() {
 			if (txtXMLFile.Text.Trim() == "") {
-				MessageBox.Show("Selezionare il file XML delle definizioni", "Attenzione",
+				show("Selezionare il file XML delle definizioni", "Attenzione",
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return false;
 			}
 			if (txtOutputFile.Text.Trim() == "") {
-				MessageBox.Show("Inserire il nome del file che verrà generato", "Attenzione",
+				show("Inserire il nome del file che verrà generato", "Attenzione",
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return false;
 			}
 			if (File.Exists(txtOutputFile.Text.Trim())) {
-				DialogResult res = MessageBox.Show("Il file esiste, sovrascriverlo?", "Attenzione",
+				DialogResult res = show("Il file esiste, sovrascriverlo?", "Attenzione",
 					MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 				if (res != DialogResult.Yes) return false;
 			}
@@ -190,4 +189,3 @@ namespace generaSQL//GeneraSQL//
 		}
 	}
 }
-

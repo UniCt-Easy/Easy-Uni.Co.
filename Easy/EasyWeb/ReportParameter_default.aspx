@@ -25,7 +25,7 @@
     <tr>
         <td width="95%">
             <center>
-            <HelpWeb:hwButton style="width: 150px;text-align:center;height: 35px" runat="server" ID="HwButton0" Text="Visualizza Report" Tag="stampa" />
+            <HelpWeb:hwButton style="width: 150px;text-align:center;height: 35px" runat="server" ID="HwButton0" Text="Visualizza Report" class="btn btn-primary" Tag="stampa" />
             <br />
             <br />
             <table>

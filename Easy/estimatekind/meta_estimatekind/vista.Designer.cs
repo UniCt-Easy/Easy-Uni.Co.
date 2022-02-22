@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -29,9 +28,6 @@ public class estimatekindRow: MetaRow  {
 	public estimatekindRow(DataRowBuilder rb) : base(rb) {} 
 
 	#region Field Definition
-	///<summary>
-	///chiave tipo contratto attivo (tabella estimatekind)
-	///</summary>
 	public String idestimkind{ 
 		get {if (this["idestimkind"]==DBNull.Value)return null; return  (String)this["idestimkind"];}
 		set {if (value==null) this["idestimkind"]= DBNull.Value; else this["idestimkind"]= value;}
@@ -43,9 +39,6 @@ public class estimatekindRow: MetaRow  {
 	public String idestimkindOriginal { 
 		get {if (this["idestimkind",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idestimkind",DataRowVersion.Original];}
 	}
-	///<summary>
-	///attivo
-	///</summary>
 	public String active{ 
 		get {if (this["active"]==DBNull.Value)return null; return  (String)this["active"];}
 		set {if (value==null) this["active"]= DBNull.Value; else this["active"]= value;}
@@ -57,9 +50,6 @@ public class estimatekindRow: MetaRow  {
 	public String activeOriginal { 
 		get {if (this["active",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["active",DataRowVersion.Original];}
 	}
-	///<summary>
-	///data creazione
-	///</summary>
 	public DateTime? ct{ 
 		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
 		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
@@ -71,9 +61,6 @@ public class estimatekindRow: MetaRow  {
 	public DateTime? ctOriginal { 
 		get {if (this["ct",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["ct",DataRowVersion.Original];}
 	}
-	///<summary>
-	///nome utente creazione
-	///</summary>
 	public String cu{ 
 		get {if (this["cu"]==DBNull.Value)return null; return  (String)this["cu"];}
 		set {if (value==null) this["cu"]= DBNull.Value; else this["cu"]= value;}
@@ -85,9 +72,6 @@ public class estimatekindRow: MetaRow  {
 	public String cuOriginal { 
 		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Descrizione
-	///</summary>
 	public String description{ 
 		get {if (this["description"]==DBNull.Value)return null; return  (String)this["description"];}
 		set {if (value==null) this["description"]= DBNull.Value; else this["description"]= value;}
@@ -99,9 +83,6 @@ public class estimatekindRow: MetaRow  {
 	public String descriptionOriginal { 
 		get {if (this["description",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["description",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id voce upb (tabella upb)
-	///</summary>
 	public String idupb{ 
 		get {if (this["idupb"]==DBNull.Value)return null; return  (String)this["idupb"];}
 		set {if (value==null) this["idupb"]= DBNull.Value; else this["idupb"]= value;}
@@ -113,9 +94,6 @@ public class estimatekindRow: MetaRow  {
 	public String idupbOriginal { 
 		get {if (this["idupb",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idupb",DataRowVersion.Original];}
 	}
-	///<summary>
-	///data ultima modifica
-	///</summary>
 	public DateTime? lt{ 
 		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
 		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
@@ -127,9 +105,6 @@ public class estimatekindRow: MetaRow  {
 	public DateTime? ltOriginal { 
 		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
 	}
-	///<summary>
-	///nome ultimo utente modifica
-	///</summary>
 	public String lu{ 
 		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
 		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
@@ -141,9 +116,6 @@ public class estimatekindRow: MetaRow  {
 	public String luOriginal { 
 		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
 	}
-	///<summary>
-	///allegati
-	///</summary>
 	public Byte[] rtf{ 
 		get {if (this["rtf"]==DBNull.Value)return null; return  (Byte[])this["rtf"];}
 		set {if (value==null) this["rtf"]= DBNull.Value; else this["rtf"]= value;}
@@ -155,9 +127,6 @@ public class estimatekindRow: MetaRow  {
 	public Byte[] rtfOriginal { 
 		get {if (this["rtf",DataRowVersion.Original]==DBNull.Value)return null; return  (Byte[])this["rtf",DataRowVersion.Original];}
 	}
-	///<summary>
-	///note testuali
-	///</summary>
 	public String txt{ 
 		get {if (this["txt"]==DBNull.Value)return null; return  (String)this["txt"];}
 		set {if (value==null) this["txt"]= DBNull.Value; else this["txt"]= value;}
@@ -169,9 +138,6 @@ public class estimatekindRow: MetaRow  {
 	public String txtOriginal { 
 		get {if (this["txt",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["txt",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Email
-	///</summary>
 	public String email{ 
 		get {if (this["email"]==DBNull.Value)return null; return  (String)this["email"];}
 		set {if (value==null) this["email"]= DBNull.Value; else this["email"]= value;}
@@ -183,9 +149,6 @@ public class estimatekindRow: MetaRow  {
 	public String emailOriginal { 
 		get {if (this["email",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["email",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Fax
-	///</summary>
 	public String faxnumber{ 
 		get {if (this["faxnumber"]==DBNull.Value)return null; return  (String)this["faxnumber"];}
 		set {if (value==null) this["faxnumber"]= DBNull.Value; else this["faxnumber"]= value;}
@@ -197,9 +160,6 @@ public class estimatekindRow: MetaRow  {
 	public String faxnumberOriginal { 
 		get {if (this["faxnumber",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["faxnumber",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Ufficio
-	///</summary>
 	public String office{ 
 		get {if (this["office"]==DBNull.Value)return null; return  (String)this["office"];}
 		set {if (value==null) this["office"]= DBNull.Value; else this["office"]= value;}
@@ -211,9 +171,6 @@ public class estimatekindRow: MetaRow  {
 	public String officeOriginal { 
 		get {if (this["office",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["office",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Telefono
-	///</summary>
 	public String phonenumber{ 
 		get {if (this["phonenumber"]==DBNull.Value)return null; return  (String)this["phonenumber"];}
 		set {if (value==null) this["phonenumber"]= DBNull.Value; else this["phonenumber"]= value;}
@@ -225,9 +182,6 @@ public class estimatekindRow: MetaRow  {
 	public String phonenumberOriginal { 
 		get {if (this["phonenumber",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["phonenumber",DataRowVersion.Original];}
 	}
-	///<summary>
-	///flag collegabile a fattura
-	///</summary>
 	public String linktoinvoice{ 
 		get {if (this["linktoinvoice"]==DBNull.Value)return null; return  (String)this["linktoinvoice"];}
 		set {if (value==null) this["linktoinvoice"]= DBNull.Value; else this["linktoinvoice"]= value;}
@@ -239,9 +193,6 @@ public class estimatekindRow: MetaRow  {
 	public String linktoinvoiceOriginal { 
 		get {if (this["linktoinvoice",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["linktoinvoice",DataRowVersion.Original];}
 	}
-	///<summary>
-	///flag anagrafica nei dettagli
-	///</summary>
 	public String multireg{ 
 		get {if (this["multireg"]==DBNull.Value)return null; return  (String)this["multireg"];}
 		set {if (value==null) this["multireg"]= DBNull.Value; else this["multireg"]= value;}
@@ -253,9 +204,6 @@ public class estimatekindRow: MetaRow  {
 	public String multiregOriginal { 
 		get {if (this["multireg",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["multireg",DataRowVersion.Original];}
 	}
-	///<summary>
-	///importo scostamento massimo ammesso in contabilizzazione
-	///</summary>
 	public Decimal? deltaamount{ 
 		get {if (this["deltaamount"]==DBNull.Value)return null; return  (Decimal?)this["deltaamount"];}
 		set {if (value==null) this["deltaamount"]= DBNull.Value; else this["deltaamount"]= value;}
@@ -267,9 +215,6 @@ public class estimatekindRow: MetaRow  {
 	public Decimal? deltaamountOriginal { 
 		get {if (this["deltaamount",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["deltaamount",DataRowVersion.Original];}
 	}
-	///<summary>
-	///percentuale massima di scostamento in contabilizzazione
-	///</summary>
 	public Decimal? deltapercentage{ 
 		get {if (this["deltapercentage"]==DBNull.Value)return null; return  (Decimal?)this["deltapercentage"];}
 		set {if (value==null) this["deltapercentage"]= DBNull.Value; else this["deltapercentage"]= value;}
@@ -281,11 +226,6 @@ public class estimatekindRow: MetaRow  {
 	public Decimal? deltapercentageOriginal { 
 		get {if (this["deltapercentage",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["deltapercentage",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Flag numeraz. automatica
-	///	 N: Numerazione manuale
-	///	 S: Numerazione automatica
-	///</summary>
 	public String flag_autodocnumbering{ 
 		get {if (this["flag_autodocnumbering"]==DBNull.Value)return null; return  (String)this["flag_autodocnumbering"];}
 		set {if (value==null) this["flag_autodocnumbering"]= DBNull.Value; else this["flag_autodocnumbering"]= value;}
@@ -297,9 +237,6 @@ public class estimatekindRow: MetaRow  {
 	public String flag_autodocnumberingOriginal { 
 		get {if (this["flag_autodocnumbering",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["flag_autodocnumbering",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id voce class.sicurezza 1(tabella sorting)
-	///</summary>
 	public Int32? idsor01{ 
 		get {if (this["idsor01"]==DBNull.Value)return null; return  (Int32?)this["idsor01"];}
 		set {if (value==null) this["idsor01"]= DBNull.Value; else this["idsor01"]= value;}
@@ -311,9 +248,6 @@ public class estimatekindRow: MetaRow  {
 	public Int32? idsor01Original { 
 		get {if (this["idsor01",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsor01",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id voce class.sicurezza 2(tabella sorting)
-	///</summary>
 	public Int32? idsor02{ 
 		get {if (this["idsor02"]==DBNull.Value)return null; return  (Int32?)this["idsor02"];}
 		set {if (value==null) this["idsor02"]= DBNull.Value; else this["idsor02"]= value;}
@@ -325,9 +259,6 @@ public class estimatekindRow: MetaRow  {
 	public Int32? idsor02Original { 
 		get {if (this["idsor02",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsor02",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id voce class.sicurezza 3(tabella sorting)
-	///</summary>
 	public Int32? idsor03{ 
 		get {if (this["idsor03"]==DBNull.Value)return null; return  (Int32?)this["idsor03"];}
 		set {if (value==null) this["idsor03"]= DBNull.Value; else this["idsor03"]= value;}
@@ -339,9 +270,6 @@ public class estimatekindRow: MetaRow  {
 	public Int32? idsor03Original { 
 		get {if (this["idsor03",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsor03",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id voce class.sicurezza 4(tabella sorting)
-	///</summary>
 	public Int32? idsor04{ 
 		get {if (this["idsor04"]==DBNull.Value)return null; return  (Int32?)this["idsor04"];}
 		set {if (value==null) this["idsor04"]= DBNull.Value; else this["idsor04"]= value;}
@@ -353,9 +281,6 @@ public class estimatekindRow: MetaRow  {
 	public Int32? idsor04Original { 
 		get {if (this["idsor04",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsor04",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id voce class.sicurezza 5(tabella sorting)
-	///</summary>
 	public Int32? idsor05{ 
 		get {if (this["idsor05"]==DBNull.Value)return null; return  (Int32?)this["idsor05"];}
 		set {if (value==null) this["idsor05"]= DBNull.Value; else this["idsor05"]= value;}
@@ -367,9 +292,6 @@ public class estimatekindRow: MetaRow  {
 	public Int32? idsor05Original { 
 		get {if (this["idsor05",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsor05",DataRowVersion.Original];}
 	}
-	///<summary>
-	///n. operazione
-	///</summary>
 	public String address{ 
 		get {if (this["address"]==DBNull.Value)return null; return  (String)this["address"];}
 		set {if (value==null) this["address"]= DBNull.Value; else this["address"]= value;}
@@ -381,9 +303,6 @@ public class estimatekindRow: MetaRow  {
 	public String addressOriginal { 
 		get {if (this["address",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["address",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Header
-	///</summary>
 	public String header{ 
 		get {if (this["header"]==DBNull.Value)return null; return  (String)this["header"];}
 		set {if (value==null) this["header"]= DBNull.Value; else this["header"]= value;}
@@ -395,9 +314,6 @@ public class estimatekindRow: MetaRow  {
 	public String headerOriginal { 
 		get {if (this["header",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["header",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Tipo iva bloccato
-	///</summary>
 	public Int32? idivakind_forced{ 
 		get {if (this["idivakind_forced"]==DBNull.Value)return null; return  (Int32?)this["idivakind_forced"];}
 		set {if (value==null) this["idivakind_forced"]= DBNull.Value; else this["idivakind_forced"]= value;}
@@ -409,9 +325,6 @@ public class estimatekindRow: MetaRow  {
 	public Int32? idivakind_forcedOriginal { 
 		get {if (this["idivakind_forced",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idivakind_forced",DataRowVersion.Original];}
 	}
-	///<summary>
-	///flag
-	///</summary>
 	public Int32? flag{ 
 		get {if (this["flag"]==DBNull.Value)return null; return  (Int32?)this["flag"];}
 		set {if (value==null) this["flag"]= DBNull.Value; else this["flag"]= value;}
@@ -423,12 +336,20 @@ public class estimatekindRow: MetaRow  {
 	public Int32? flagOriginal { 
 		get {if (this["flag",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["flag",DataRowVersion.Original];}
 	}
+	public String riferimento_amministrazione{ 
+		get {if (this["riferimento_amministrazione"]==DBNull.Value)return null; return  (String)this["riferimento_amministrazione"];}
+		set {if (value==null) this["riferimento_amministrazione"]= DBNull.Value; else this["riferimento_amministrazione"]= value;}
+	}
+	public object riferimento_amministrazioneValue { 
+		get{ return this["riferimento_amministrazione"];}
+		set {if (value==null|| value==DBNull.Value) this["riferimento_amministrazione"]= DBNull.Value; else this["riferimento_amministrazione"]= value;}
+	}
+	public String riferimento_amministrazioneOriginal { 
+		get {if (this["riferimento_amministrazione",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["riferimento_amministrazione",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
-///<summary>
-///Tipo di Contratto attivo
-///</summary>
 public class estimatekindTable : MetaTableBase<estimatekindRow> {
 	public estimatekindTable() : base("estimatekind"){
 		baseColumns = new Dictionary<string, DataColumn>(){
@@ -460,8 +381,8 @@ public class estimatekindTable : MetaTableBase<estimatekindRow> {
 			{"header",createColumn("header",typeof(string),true,false)},
 			{"idivakind_forced",createColumn("idivakind_forced",typeof(int),true,false)},
 			{"flag",createColumn("flag",typeof(int),true,false)},
+			{"riferimento_amministrazione",createColumn("riferimento_amministrazione",typeof(string),true,false)},
 		};
 	}
 }
 }
-

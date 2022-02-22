@@ -1,12 +1,30 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA assetacquireview
 IF EXISTS(select * from sysobjects where id = object_id(N'[assetacquireview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [assetacquireview]
 GO
 
  --clear_table_info'assetacquireview'
+ --setuser 'amministrazione'
  --setuser 'amm'
  --select * from assetacquireview
-CREATE     VIEW [assetacquireview]
+CREATE VIEW [assetacquireview]
 ( 
 	nassetacquire,
 	idmankind,
@@ -66,7 +84,8 @@ CREATE     VIEW [assetacquireview]
 	intcode,
 	list,
 	yinv, ninv, idinvkind, invrownum, invoicekind,
-	cost_discounted
+	cost_discounted,
+	inventorykind
   )
 AS SELECT
 	assetacquire.nassetacquire,
@@ -105,7 +124,7 @@ AS SELECT
 		CASE	
 			WHEN (inventorykind.flag & 1 <> 0)
 			THEN	CONVERT(decimal(19,2),
-						ROUND(ISNULL(assetacquire.taxable,0)	*(1-ISNULL(assetacquire.discount,0)),2) *  (ISNULL(assetacquire.number,0))
+						ROUND(ISNULL(assetacquire.taxable,0)	*(1- CONVERT(DECIMAL(19,6),ISNULL(assetacquire.discount,0.0))),2) *  (ISNULL(assetacquire.number,0))
 						+ ROUND((ISNULL(assetacquire.tax,0.0)- ISNULL(assetacquire.abatable,0.0)),2))	
 			ELSE  CONVERT(decimal(19,2),
 						ROUND(ISNULL(assetacquire.taxable,0)	,2) *(ISNULL(assetacquire.number,0))
@@ -114,7 +133,7 @@ AS SELECT
 	,
 	CASE	WHEN (inventorykind.flag & 1 <> 0)
 		THEN	CONVERT(decimal(19,2),
-				ROUND(		ISNULL(assetacquire.taxable,0)*(1-ISNULL(assetacquire.discount,0))		,2)	*(ISNULL(assetacquire.number,0))
+				ROUND(		ISNULL(assetacquire.taxable,0)*(1- CONVERT(DECIMAL(19,6),ISNULL(assetacquire.discount,0.0))) 	,2)	*(ISNULL(assetacquire.number,0))
 					+ ISNULL(assetacquire.tax,0.0))
 		ELSE CONVERT(decimal(19,2),
 				ROUND(		ISNULL(assetacquire.taxable,0)	,2)
@@ -165,8 +184,9 @@ AS SELECT
 	assetacquire.yinv, assetacquire.ninv, assetacquire.idinvkind, assetacquire.invrownum, invoicekind.description,
 	CONVERT(decimal(19,2),
 						ROUND(ISNULL(assetacquire.taxable,0)	*(1-ISNULL(assetacquire.discount,0)),2) *  (ISNULL(assetacquire.number,0))
-						+ ROUND((ISNULL(assetacquire.tax,0.0)- ISNULL(assetacquire.abatable,0.0)),2))	
-FROM assetacquire
+						+ ROUND((ISNULL(assetacquire.tax,0.0)- ISNULL(assetacquire.abatable,0.0)),2)),
+	inventorykind.description
+FROM assetacquire			
 LEFT OUTER JOIN inventory		(nolock)				ON inventory.idinventory = assetacquire.idinventory
 left outer JOIN inventorykind	(nolock)	 		    ON inventory.idinventorykind= inventorykind.idinventorykind  
 LEFT OUTER JOIN inventorytree	(nolock)				ON inventorytree.idinv = assetacquire.idinv

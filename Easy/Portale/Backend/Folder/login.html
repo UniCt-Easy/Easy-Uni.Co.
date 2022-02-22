@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="Helpform.js"></script>
+    <script >
+        $(document).ready(function () {
+
+            var token = {};
+
+
+          //bottone richiesta Dataset
+            $("#btnRichiestaDataset").click(function (e) {
+
+              var apiUrl = "http://localhost:54471/auth/read";              
+              $.ajax({
+                  url: apiUrl,
+                  type: 'POST',                  
+                  datatype :'json',
+                  success: function (data) {
+                                            
+                      document.getElementById("areaSerialize").value = JSON.stringify(data);
+                      
+                      //chiamare secondo controller che deserializza la stringa
+                  //    $.ajax({
+                  //        url: "http://localhost:54471/auth/Deserialize",
+                  //        type: 'POST',
+                  //        data: data,                          
+                  //        success: function (data) {
+                  //            document.getElementById("areaDeserialize").value = data;
+                  //        },
+                  //        error: function (xhr, ajaxOptions, thrownError) {
+                  //            document.getElementById("Result").value = 'Error : ' + xhr.statust;
+
+                  //        }
+                  //    });
+
+                  },
+                  error: function (xhr, ajaxOptions, thrownError) {                          
+                  document.getElementById("Result").value = 'Error   ' + xhr.status;
+
+              }
+                                    
+              });
+            });
+
+
+            //bottone per il Login semplice , unica richiesta  ajax 
+          $("#btnLogin").click(function (e) {
+
+              var apiUrl = "http://localhost:54471/auth/login";
+              var u = { UserName: $('#UserName').val(), Password: $('#Password').val() };
+              $.ajax({
+                  url: apiUrl,
+                  type: 'POST',
+                  data: u,
+                  success: function (data) {
+                      console.log(data);
+                      document.getElementById("Result").value = 'Success';
+
+                  },
+                  error: function (xhr, ajaxOptions, thrownError) {
+                      document.getElementById("Result").value = 'Error   ' + xhr.status;
+
+                  }
+
+              });
+          });
+
+
+
+
+
+            //bottone per la chiamata al controller Recupera Password
+          $("#btnRecuperaPassword").click(function (e) {
+              var u =   $('#Email').val() ;
+                  $.ajax({
+                      url: 'http://localhost:54471/auth/resetpassword',
+                      type: 'GET',
+                      data: {Email : u},
+                      success: function (data) {
+                          //console.log('succ'+data);
+                          document.getElementById("Result").value = 'Success' ;
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {                          
+                          document.getElementById("Result").value = 'Error   ' + xhr.status;
+
+                      }
+                  });
+              
+          });
+
+
+
+            //Bottone richiesta che salva il token in una variabile e lo utilizza
+          $("#btnRichiestaTokenvar").click(function (e) {
+
+              var apiUrl = "http://localhost:54471/auth/login";
+              var u = { UserName: $('#UserName').val(), Password: $('#Password').val() };
+              $.ajax({
+                  url: apiUrl,
+                  type: 'POST',
+                  data: u,
+                  success: function (data) {
+                      console.log('token:' + data);
+                      token = data;
+
+                      //richiesta successiva che utilizza il token memorizzato nella variabile 'token'
+                      //questa specifica richiesta funziona anche senza token
+                      $.ajax({
+                          url: 'http://localhost:54471/auth/resetpassword',
+                          type: 'GET',
+                          data: { email: 'easypay@temposrl.com' },
+                          headers: { 'Authorization': 'Bearer' + token },
+                          success: function (data) {
+                              console.log(data);
+                              document.getElementById("Result").value = 'Success';
+                          },
+                          error: function (xhr, ajaxOptions, thrownError) {
+                              document.getElementById("Result").value = 'Error : ' + xhr.statust;
+
+                          }
+                      });
+
+                  },
+                  error: function (xhr, ajaxOptions, thrownError) {
+                      document.getElementById("Result").value = 'Error : ' + xhr.statust;
+
+                  }
+
+              });      
+          });
+
+
+
+  
+            //Bottone richiesta con token memorizzato nelle proprietò ajaxsetup
+          $("#btnRichiestaTokensetup").click(function (e) {
+
+              var apiUrl = "http://localhost:54471/auth/login";
+              var u = { UserName: $('#UserName').val(), Password: $('#Password').val() };
+              $.ajax({
+                  url: apiUrl,
+                  type: 'POST',
+                  data: u,
+                  success: function (data) {
+                      console.log('token:' + data);
+                      token = data;
+
+                      $.ajaxSetup({
+                          headers: { 'Authorization': 'Bearer' + token }
+                      });
+
+                      //richiesta successiva che utilizza il token memorizzato nella proprieta ajaxsetup e non necessita di specificare l'header
+                      //questa specifica richiesta funziona anche senza token
+                      $.ajax({
+                          url: 'http://localhost:54471/auth/resetpassword',
+                          type: 'GET',
+                          data: { email: 'easypay@temposrl.com' },
+                          success: function (data) {
+                              console.log(data);
+                              document.getElementById("Result").value = 'Success';
+                          },
+                          error: function (xhr, ajaxOptions, thrownError) {
+                              document.getElementById("Result").value = 'Error   ' + xhr.status;
+
+                          }
+                      });
+
+                  },
+                  error: function (xhr, ajaxOptions, thrownError) {
+                      document.getElementById("Result").value = 'Error : ' + xhr.statust;
+
+                  }
+
+              });
+          });
+
+        });
+
+
+
+    </script>
+
+</head>
+<body>
+
+
+
+    <form id="form1" >
+        LOGIN:<br><br>
+        UserName: <input type="text" id="UserName"><br>
+        Password   : <input type="password" id="Password"><br><br>
+        
+       
+        <button type="button" id="btnLogin">Login</button>
+      
+        <button type="button" id="btnRichiestaTokenvar">Richiesta1 (var token)</button>       
+      
+        <button type="button" id="btnRichiestaTokensetup">Richiesta2 (token ajaxsetup)</button><br><br>     
+
+        RECUPERO PASSWORD:<br><br>
+        Email : <input type="email" id="Email"><br><br>
+        <button type="button" id="btnRecuperaPassword">Recupera Password</button><br><br>
+
+
+        Result Ajax Call  : <input type="text" id="Result"><br><br>
+
+        RICHIESTA DATASET:<br><br>
+        <!--Filtro cu: <input type="text" id="Cu"><br>-->
+        <button type="button" id="btnRichiestaDataset">Richiesta Dataset Serializzato</button><br><br> 
+
+        STRINGA SERIALIZZATO<br> 
+        <textarea id="areaSerialize" rows="21" cols="190">            
+        </textarea><br>
+
+        STRINGA DESERIALIZZATA<br>
+        <textarea id="areaDeserialize" rows="21" cols="190"></textarea>
+
+
+
+        <br><br>
+        TAG
+
+        <button onclick="fillControls()" type="button" id="prova222">Text</button>
+
+        <!--<ul>
+            <li onclick="fillControls()" id="labelTag" data-tag-type="registryreference.referencename">Click me</li>
+        </ul>-->
+               
+        
+            <!--Table: <input type="text" id="table"><br>
+            Column   : <input type="text" id="column"><br><br>-->
+
+
+</form>
+
+ 
+
+    <div id="contenitore" data-tag-type="div.div">
+        CONTAINER<br>
+        Textbox1: <input type="text" id="txtBox1" data-tag="registryreference.referencename"><br>
+        Textbox2 : <input type="text" id="txtBox2" data-tag="registryreference.id"><br>
+        Textbox3 :<input type="text" id="txtBox3" data-tag="registryreference.prova2"><br>
+    </div>
+
+ 
+  
+
+</body>
+</html>

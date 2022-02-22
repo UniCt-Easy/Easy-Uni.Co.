@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 namespace registrydurc_anagraficadetail
 {
@@ -79,7 +78,7 @@ namespace registrydurc_anagraficadetail
             this.btnVisualizzaDurc = new System.Windows.Forms.Button();
             this.btnRimuoviDurc = new System.Windows.Forms.Button();
             this.btnAllegaDurc = new System.Windows.Forms.Button();
-            this.opendlg = new System.Windows.Forms.OpenFileDialog();
+            this._opendlg = new System.Windows.Forms.OpenFileDialog();
             this.label6 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -405,7 +404,7 @@ namespace registrydurc_anagraficadetail
             // 
             // opendlg
             // 
-            this.opendlg.Title = "Scegli il file da allegare";
+            this._opendlg.Title = "Scegli il file da allegare";
             // 
             // label6
             // 
@@ -531,7 +530,7 @@ namespace registrydurc_anagraficadetail
         private System.Windows.Forms.Button btnVisualizzaDurc;
         private System.Windows.Forms.Button btnRimuoviDurc;
         private System.Windows.Forms.Button btnAllegaDurc;
-        private System.Windows.Forms.OpenFileDialog opendlg;
+        private System.Windows.Forms.OpenFileDialog _opendlg;
         private System.Windows.Forms.Label labAutocertFileName;
         private System.Windows.Forms.Label labDurcFileName;
         private System.Windows.Forms.Label label6;
@@ -541,4 +540,4 @@ namespace registrydurc_anagraficadetail
         private System.Windows.Forms.CheckBox checkBox1;
 
     }
-}
+}

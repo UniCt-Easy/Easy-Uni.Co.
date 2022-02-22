@@ -1,23 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-Ôªøusing System;
+using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -53,7 +51,10 @@ public partial class itinerationrefund_default_new02 : MetaPage {
         DS = (vistaForm_itinerationrefund)D;
     }
 
+    public void MetaData_BeforeFill(){
+        Meta.MarkTableAsNotEntityChild(DS.itinerationrefundattachment);
 
+    }
     public override void AfterLink(bool firsttime, bool formToLink) {
         Meta.Name = "Rimborso spese";
         if (formToLink) {
@@ -109,7 +110,7 @@ public partial class itinerationrefund_default_new02 : MetaPage {
             ParentMissione = Meta.SourceRow.GetParentRow("itineration_itinerationrefund_balance");
             filterKind = QHS.CmpEq("flagbalance", "S");
             //GetData.SetStaticFilter(DS.itinerationrefundkind, QHS.CmpEq("flagbalance", "S"));
-            // Se stiamo nella fase Saldo, e lo stato √® diverso da Bozza o Da correggere, le spese
+            // Se stiamo nella fase Saldo, e lo stato Ë diverso da Bozza o Da correggere, le spese
             // a rendiconto devono essere consultabili
             if ((CfgFn.GetNoNullInt32(ParentMissione["iditinerationstatus"]) != 1) && (CfgFn.GetNoNullInt32(ParentMissione["iditinerationstatus"]) != 3)) {
                 EnableDisableControls(false, true);
@@ -130,6 +131,8 @@ public partial class itinerationrefund_default_new02 : MetaPage {
         txtDataFine.TextChanged += txtDataFine_LeaveTextBoxHandler;
         txtDataFine.AutoPostBack = true;
         txtImportoDocValuta.TextChanged += txtImportoDocValuta_LeaveTextBoxHandler;
+        // bottone cancellazione allegato
+        HwCancAllegato.Visible = false;
     }
 
 
@@ -143,6 +146,8 @@ public partial class itinerationrefund_default_new02 : MetaPage {
 
     void EnableDisableControls(bool enable, bool advance) {
         cmbClassificazione.Enabled = enable;
+        btnClassificazione.Enabled = enable;
+
         grpDatiGenerali.Enabled = enable;
         grpDocCollegato.Enabled = enable;
         if (!advance) {
@@ -175,7 +180,7 @@ public partial class itinerationrefund_default_new02 : MetaPage {
             N += Meta.Conn.RUN_SELECT_COUNT("pettycashoperationitineration", ff, false);
             if (N > 0)
                 ShowClientMessage(
-                    "Avendo gi√† contabilizzato l'anticipo di questa missione, le modifiche alle spese " +
+                    "Avendo gi‡ contabilizzato l'anticipo di questa missione, le modifiche alle spese " +
                     "non saranno tenute in considerazione ai fini del calcolo dell'anticipo della missione.", "Avviso");
         }
     }
@@ -218,7 +223,7 @@ public partial class itinerationrefund_default_new02 : MetaPage {
         //inizio e fine
         grpDataInizioFine.Visible=(flagVisible & 2) == 0;
 
-        //localit√†
+        //localit‡
         grpLocalita.Visible = (flagVisible & 4) == 0;
 
         // importo non rendicontabile
@@ -235,13 +240,17 @@ public partial class itinerationrefund_default_new02 : MetaPage {
     }
 
     public override void AfterRowSelect(DataTable T, DataRow R) {
+        if (DS.itinerationrefund.Rows.Count == 0)
+            return;
         DataRow Curr = DS.itinerationrefund.Rows[0];
 
-        if (T.TableName == "currency") {
+        if (T.TableName == "currency")
+        {
             AggiornaValuta(R);
         }
 
-        if (T.TableName == "itinerationrefundkind") {
+        if (T.TableName == "itinerationrefundkind")
+        {
             if (CommFun.DrawStateIsDone)
                 CommFun.GetFormData(true);
             AggiornaPerc(R);
@@ -249,21 +258,35 @@ public partial class itinerationrefund_default_new02 : MetaPage {
             AbilitadisabilitaArea(R);
             AggiornaRimborsoForfettario();
             //txtImportoEffettivoValuta.ReadOnly = IsRimborsoForfettario();
-            if (!IsRimborsoForfettario() && !IsRimborsoPerVitto()) {
+            if (!IsRimborsoForfettario() && !IsRimborsoPerVitto())
+            {
                 grpLocalita.Enabled = true;
             }
 
-            if (R != null) {
+            if (R != null)
+            {
                 nascondiSezioni(CfgFn.GetNoNullInt32(R["flagvisible"]));
             }
         }
 
-        if (T.TableName == "foreigncountry" && CommFun.DrawStateIsDone) {
+        if (T.TableName == "foreigncountry" && CommFun.DrawStateIsDone)
+        {
             AbilitaDisabilitaGrpLocalita(Curr, R);
             AggiornaRimborsoForfettario();
         }
     }
 
+    public override void BeforeFill() {
+        Meta.MarkTableAsNotEntityChild(DS.itinerationrefundattachment);
+        object catCfg = Session["system_config_catania_missioni"];
+        //Per CT il tab degli allegati alle spese va nascosto
+        if (catCfg != null && catCfg.ToString().ToUpper() == "S") {
+            tballegati.Visible = false;
+        }
+        else {
+            tballegati.Visible = true;
+        }
+    }
     public override void AfterFill() {
         DataRow Curr = DS.itinerationrefund.Rows[0];
         AggiornaLimite(Curr);
@@ -322,8 +345,8 @@ public partial class itinerationrefund_default_new02 : MetaPage {
         }
 
         DataRow rRefundKind = RefundKind[0];
-        //Se √® una spesa di tipo rimborso forfettario oppure
-        //Se √® una spesa di tipo Vitto in localit√† Ue oExtraUe verr√† abilitato il combo delle localit√†
+        //Se Ë una spesa di tipo rimborso forfettario oppure
+        //Se Ë una spesa di tipo Vitto in localit‡ Ue oExtraUe verr‡ abilitato il combo delle localit‡
         if ((CfgFn.GetNoNullInt32(rRefundKind["iditinerationrefundkindgroup"]) == 5)
         || ((CfgFn.GetNoNullInt32(rRefundKind["iditinerationrefundkindgroup"]) == 1) && (!(rdoItaly.Checked)))) {
             cmbArea.Visible = true;
@@ -868,7 +891,7 @@ public partial class itinerationrefund_default_new02 : MetaPage {
         else {
             AggiornaPerc(RefundKind[0]);
         }
-        RicalcolaAnticipo();//Chiamato implicitamente da AggiornaPerc(). Se non cambia la % pu√≤ cambiare l'importo 
+        RicalcolaAnticipo();//Chiamato implicitamente da AggiornaPerc(). Se non cambia la % puÚ cambiare l'importo 
         RicalcolaImportoEffettivoValuta();
         //CheckLimiteAnticipo();
 
@@ -893,4 +916,3 @@ public partial class itinerationrefund_default_new02 : MetaPage {
     }
 }
 
-

@@ -15,6 +15,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="paymentexpiring" type="xs:short" minOccurs="0" />
+              <xs:element name="flagldapvisibility" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -43,6 +44,10 @@
               <xs:element name="competencystop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_codeupb_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_tassonomia" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -62,18 +67,6 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="showcaseview">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idshowcase" type="xs:int" />
-              <xs:element name="showcasetitle" type="xs:string" />
-              <xs:element name="showcasedescription" type="xs:string" />
-              <xs:element name="idstore" type="xs:int" />
-              <xs:element name="storedescription" type="xs:string" />
-              <xs:element name="deliveryaddress" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -99,6 +92,9 @@
               <xs:element name="listclass" type="xs:string" />
               <xs:element name="pic" type="xs:base64Binary" minOccurs="0" />
               <xs:element name="timesupply" type="xs:int" minOccurs="0" />
+              <xs:element name="idtassonomia" type="xs:int" minOccurs="0" />
+              <xs:element name="codicetassonomia" type="xs:string" minOccurs="0" />
+              <xs:element name="tassonomia" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -265,10 +261,6 @@
       <xs:selector xpath=".//mstns:store" />
       <xs:field xpath="mstns:idstore" />
     </xs:unique>
-    <xs:unique name="showcaseview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:showcaseview" />
-      <xs:field xpath="mstns:idshowcase" />
-    </xs:unique>
     <xs:unique name="listview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:listview" />
       <xs:field xpath="mstns:idlist" />
@@ -292,13 +284,13 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_listview_showcasedetail" msdata:parent="listview" msdata:child="showcasedetail" msdata:parentkey="idlist" msdata:childkey="idlist" />
       <msdata:Relationship name="FK_showcase_showcasedetail" msdata:parent="showcase" msdata:child="showcasedetail" msdata:parentkey="idshowcase" msdata:childkey="idshowcase" />
       <msdata:Relationship name="FK_store_showcase" msdata:parent="store" msdata:child="showcase" msdata:parentkey="idstore" msdata:childkey="idstore" />
       <msdata:Relationship name="upb_showcasedetail" msdata:parent="upb" msdata:child="showcasedetail" msdata:parentkey="idupb" msdata:childkey="idupb" />
       <msdata:Relationship name="invoicekind_showcasedetail" msdata:parent="invoicekind" msdata:child="showcasedetail" msdata:parentkey="idinvkind" msdata:childkey="idinvkind" />
       <msdata:Relationship name="estimatekind_showcasedetail" msdata:parent="estimatekind" msdata:child="showcasedetail" msdata:parentkey="idestimkind" msdata:childkey="idestimkind" />
       <msdata:Relationship name="upb_iva_showcasedetail" msdata:parent="upb_iva" msdata:child="showcasedetail" msdata:parentkey="idupb" msdata:childkey="idupb_iva" />
+      <msdata:Relationship name="listview_showcasedetail" msdata:parent="listview" msdata:child="showcasedetail" msdata:parentkey="idlist" msdata:childkey="idlist" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

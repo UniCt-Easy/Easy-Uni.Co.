@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -30,7 +29,7 @@ namespace revenuepartition_default
 	/// <summary>
 	/// Summary description for Frm_revenuepartition_default.
 	/// </summary>
-	public class Frm_revenuepartition_default : System.Windows.Forms.Form
+	public class Frm_revenuepartition_default : MetaDataForm
 	{
 		MetaData Meta;
 		public revenuepartition_default.vistaForm DS;
@@ -440,21 +439,21 @@ namespace revenuepartition_default
                     idsor1 = Meta.Conn.DO_READ_VALUE("sorting", QHS.AppAnd(QHS.CmpEq("idsorkind", idsorkind1), QHS.CmpEq("sortcode", code1.ToString().Trim())), "idsor");
                     if (idsor1 == null) {
                         idsor1 = DBNull.Value;
-                        MessageBox.Show("Codice " + code1 + " non trovato per coordinata analitica " + Meta.GetSys("titlesortingkind1"), "Errore");
+                        show("Codice " + code1 + " non trovato per coordinata analitica " + Meta.GetSys("titlesortingkind1"), "Errore");
                     }
                 }
                 if (idsorkind2 != DBNull.Value && code2.ToString() != "") {
                     idsor2 = Meta.Conn.DO_READ_VALUE("sorting", QHS.AppAnd(QHS.CmpEq("idsorkind", idsorkind2), QHS.CmpEq("sortcode", code2.ToString().Trim())), "idsor");
                     if (idsor2 == null) {
                         idsor2 = DBNull.Value;
-                        MessageBox.Show("Codice " + code2 + " non trovato per coordinata analitica " + Meta.GetSys("titlesortingkind2"), "Errore");
+                        show("Codice " + code2 + " non trovato per coordinata analitica " + Meta.GetSys("titlesortingkind2"), "Errore");
                     }
                 }
                 if (idsorkind3 != DBNull.Value && code3.ToString() != "") {
                     idsor3 = Meta.Conn.DO_READ_VALUE("sorting", QHS.AppAnd(QHS.CmpEq("idsorkind", idsorkind3), QHS.CmpEq("sortcode", code3.ToString().Trim())), "idsor");
                     if (idsor3 == null) {
                         idsor3 = DBNull.Value;
-                        MessageBox.Show("Codice " + code3 + " non trovato per coordinata analitica " + Meta.GetSys("titlesortingkind3"), "Errore");
+                        show("Codice " + code3 + " non trovato per coordinata analitica " + Meta.GetSys("titlesortingkind3"), "Errore");
                     }
                 }
                 det["idsor1"] = idsor1;
@@ -475,7 +474,7 @@ namespace revenuepartition_default
 
         private void btnSvuota_Click(object sender, EventArgs e) {
             if (Meta.IsEmpty || DS.revenuepartitiondetail.Select().Length == 0) return;
-            if (MessageBox.Show(this, "Cancello tutti i dettagli della ripartizione?", "Conferma", MessageBoxButtons.OKCancel) != DialogResult.OK) return;
+            if (show(this, "Cancello tutti i dettagli della ripartizione?", "Conferma", MessageBoxButtons.OKCancel) != DialogResult.OK) return;
             Svuota();
         }
 
@@ -485,4 +484,3 @@ namespace revenuepartition_default
         }
 	}
 }
-

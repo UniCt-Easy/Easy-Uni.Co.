@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_contoeconomico_dm2012_dett]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_contoeconomico_dm2012_dett]
 GO
@@ -229,7 +246,17 @@ Begin
 								 else null
 							end as 'Funzione dell''UPB',
 							upb.start as 'Data Inizio',
-							upb.stop as 'Data Fine'
+							upb.stop as 'Data Fine',
+							--Codice COFOG  
+							 upb.cofogmpcode as 'COFOG',
+							--Codice UE 
+							case 
+								when upb.uesiopecode = '01' then '01 Progetto Ricerca stato'
+								when upb.uesiopecode = '02' then '02 Progetto Ricerca privati'
+								when upb.uesiopecode = '03' then '03 Progetto Ricerca UE'
+								when upb.uesiopecode = '04' then '04 Progetto Ricerca ExtraUE'
+								end 
+							as 'Codice UE'
 							FROM placcount 
 							join #bilanciocontoeconomico 			on #bilanciocontoeconomico.idplaccount = placcount.idplaccount
 							join account							on #bilanciocontoeconomico.idacc = account.idacc
@@ -238,7 +265,7 @@ Begin
 							where placcount.ayear = @ayear
 							GROUP BY account.codeacc, account.title,  placcount.codeplaccount,placcount.title,
 							upb.codeupb, upb.title,upb.idepupbkind, upb.flagactivity, upb.flagkind, upb.start, upb.stop,epupbkind.description,
-							upb.flagkind,epupbkind.title,upb.flagactivity
+							upb.flagkind,epupbkind.title,upb.flagactivity, upb.cofogmpcode, upb.uesiopecode
 							HAVING (@suppressifblank='N' OR sum(#bilanciocontoeconomico.dare)<>0 or sum(#bilanciocontoeconomico.avere) <>0)
 							ORDER BY account.codeacc
 
@@ -295,7 +322,17 @@ Begin
 								 else null
 							end as 'Funzione dell''UPB',
 							upb.start as 'Data Inizio',
-							upb.stop as 'Data Fine'
+							upb.stop as 'Data Fine',
+							--Codice COFOG  
+							 upb.cofogmpcode as 'COFOG',
+							--Codice UE 
+							case 
+								when upb.uesiopecode = '01' then '01 Progetto Ricerca stato'
+								when upb.uesiopecode = '02' then '02 Progetto Ricerca privati'
+								when upb.uesiopecode = '03' then '03 Progetto Ricerca UE'
+								when upb.uesiopecode = '04' then '04 Progetto Ricerca ExtraUE'
+								end 
+							as 'Codice UE'
 							FROM placcount 
 							join #bilanciocontoeconomico 			on #bilanciocontoeconomico.idplaccount = placcount.idplaccount
 							join account							on #bilanciocontoeconomico.idacc = account.idacc
@@ -305,7 +342,7 @@ Begin
 							where placcount.ayear = @ayear
 							GROUP BY registry.title, registry.idreg, account.codeacc, account.title,  placcount.codeplaccount,placcount.title,
 							upb.codeupb, upb.title,upb.idepupbkind, upb.flagactivity, upb.flagkind, upb.start, upb.stop,epupbkind.description,
-							upb.flagkind,epupbkind.title,upb.flagactivity
+							upb.flagkind,epupbkind.title,upb.flagactivity, upb.cofogmpcode, upb.uesiopecode
 							HAVING (@suppressifblank='N' OR sum(#bilanciocontoeconomico.dare)<>0 or sum(#bilanciocontoeconomico.avere) <>0)
 							ORDER BY  registry.title, account.codeacc
 
@@ -370,6 +407,16 @@ Begin
 						end as 'Funzione dell''UPB',
 						upb.start as 'Data Inizio',
 						upb.stop as 'Data Fine',
+						--Codice COFOG  
+							upb.cofogmpcode as 'COFOG',
+						--Codice UE 
+						case 
+							when upb.uesiopecode = '01' then '01 Progetto Ricerca stato'
+							when upb.uesiopecode = '02' then '02 Progetto Ricerca privati'
+							when upb.uesiopecode = '03' then '03 Progetto Ricerca UE'
+							when upb.uesiopecode = '04' then '04 Progetto Ricerca ExtraUE'
+							end 
+						as 'Codice UE',
 						S1.sortcode as 'Coord.Anal.1',
 						S2.sortcode as 'Coord.Anal.2',
 						S3.sortcode as 'Coord.Anal.3'
@@ -385,7 +432,7 @@ Begin
 						GROUP BY account.codeacc, account.title,  placcount.codeplaccount,placcount.title,
 						upb.codeupb, upb.title,upb.idepupbkind, upb.flagactivity, upb.flagkind, upb.start, upb.stop,epupbkind.description,
 						upb.flagkind,epupbkind.title,upb.flagactivity,
-						S1.sortcode,S2.sortcode,S3.sortcode
+						S1.sortcode,S2.sortcode,S3.sortcode, upb.cofogmpcode, upb.uesiopecode
 						HAVING (@suppressifblank='N' OR sum(#bilanciocontoeconomico.dare)<>0 or sum(#bilanciocontoeconomico.avere) <>0)
 						ORDER BY account.codeacc
 				End
@@ -450,6 +497,16 @@ Begin
 						end as 'Funzione dell''UPB',
 						upb.start as 'Data Inizio',
 						upb.stop as 'Data Fine',
+						--Codice COFOG  
+							upb.cofogmpcode as 'COFOG',
+						--Codice UE 
+						case 
+							when upb.uesiopecode = '01' then '01 Progetto Ricerca stato'
+							when upb.uesiopecode = '02' then '02 Progetto Ricerca privati'
+							when upb.uesiopecode = '03' then '03 Progetto Ricerca UE'
+							when upb.uesiopecode = '04' then '04 Progetto Ricerca ExtraUE'
+							end 
+						as 'Codice UE',
 						S1.sortcode as 'Coord.Anal.1',
 						S2.sortcode as 'Coord.Anal.2',
 						S3.sortcode as 'Coord.Anal.3'
@@ -466,7 +523,7 @@ Begin
 						GROUP BY registry.title, registry.idreg, account.codeacc, account.title,  placcount.codeplaccount,placcount.title,
 						upb.codeupb, upb.title,upb.idepupbkind, upb.flagactivity, upb.flagkind, upb.start, upb.stop,epupbkind.description,
 						upb.flagkind,epupbkind.title,upb.flagactivity,
-						S1.sortcode,S2.sortcode,S3.sortcode
+						S1.sortcode,S2.sortcode,S3.sortcode,  upb.cofogmpcode, upb.uesiopecode
 						HAVING (@suppressifblank='N' OR sum(#bilanciocontoeconomico.dare)<>0 or sum(#bilanciocontoeconomico.avere) <>0)
 						ORDER BY  registry.title, account.codeacc
 				End
@@ -482,8 +539,4 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
- 
-
- 
- --exec exp_contoeconomico_dm2012_dett '2018', {d '2018-01-01'}, {d '2018-10-19'}, '1', null, '7115', 'S', null, null, 'S', '%', 'N', 'N'
  

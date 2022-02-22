@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -30,7 +29,7 @@ namespace position_riepilogo{
 	/// <summary>
     /// Summary description for Frm_position_riepilogo.
 	/// </summary>
-	public class Frm_position_riepilogo : System.Windows.Forms.Form {
+	public class Frm_position_riepilogo : MetaDataForm {
         public MetaData meta;
         public DataAccess Conn;
         bool first = true;
@@ -126,8 +125,10 @@ namespace position_riepilogo{
 			object qualifica=cmbQualifica.SelectedValue;
 			object classe=cmbClasse.SelectedIndex;
 			object data=HelpForm.GetObjectFromString(typeof(DateTime),txtData.Text,null);
-			if (data == null)
-				data=DBNull.Value;
+			if (data == null) data=DBNull.Value;
+		    if (data != DBNull.Value) {
+                if (((DateTime )data).Year<1000) data = DBNull.Value;
+		    }
 			txtImportoDiaria.Text ="";
 			txtPercAnticipo.Text = "";
 			DS.itinerationrefundruledetailview.Clear();
@@ -553,4 +554,3 @@ namespace position_riepilogo{
 		}
 	}
 }
-

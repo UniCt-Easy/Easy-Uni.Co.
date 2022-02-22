@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 --setuser 'amministrazione'
 ---------------------------------------
 ------- NUOVA VERSIONE ----------------
@@ -284,7 +301,7 @@ INSERT INTO #dati  SELECT 5,'RISULTATO A PAREGGIO', null, 0,0,0,0,0,0,0,0, 'TOT'
 			WHERE V.yvar = @ayear
 				AND adate<= @adate
 				AND A.nlevel = @nlevel
-				AND V.idaccountvarstatus = 5 and V.variationkind <> 5 
+				AND V.idaccountvarstatus = 5 and V.variationkind in (1,3,4) --<> 5 
 				AND (U.idupb like @idupb)
 				AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	
 				AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
@@ -569,27 +586,28 @@ isnull((select sum(_nonrealizzato ) FROM #dati  where #dati.label = 'TOTALE COST
 where #dati.label = ('DIFFERENZA TRA PROVENTI E COSTI OPERATIVI (A-B)')
 
 --- Valorizzo la voce TotRicavi
+--- Valorizzo la voce TotRicavi
 UPDATE #dati SET _initprev = isnull((select sum(_initprev ) FROM #dati child
-where child.KIND = 'R' and nlevel = 1 ),0)		where  #dati.label = 'TotRicavi'
+where child.KIND = 'R' and (nlevel = 1 or sortcode is not null)),0)		where  #dati.label = 'TotRicavi'
 
 UPDATE #dati SET _var =  isnull((select sum(_var ) FROM #dati child
-where child.KIND = 'R' and nlevel = 1 ),0)		where  #dati.label = 'TotRicavi'
+where child.KIND = 'R' and (nlevel = 1 or sortcode is not null)),0)		where  #dati.label = 'TotRicavi'
 
 UPDATE #dati SET _prevcorr = isnull((select sum(_prevcorr ) FROM #dati child
-where child.KIND = 'R' and nlevel = 1)	,0)	 where  #dati.label = 'TotRicavi'
+where child.KIND = 'R'  and (nlevel = 1 or sortcode is not null))	,0)	 where  #dati.label = 'TotRicavi'
 
 UPDATE #dati SET _preacc=  isnull((select sum(_preacc ) FROM #dati child
-where child.KIND = 'R' and nlevel = 1)	,0)	where  #dati.label = 'TotRicavi'
+where child.KIND = 'R' and (nlevel = 1 or sortcode is not null))	,0)	where  #dati.label = 'TotRicavi'
 
 
 UPDATE #dati SET _saldo= isnull((select sum(_saldo ) FROM #dati child
-where child.KIND = 'R' and nlevel = 1 ),0)		where  #dati.label = 'TotRicavi'
+where child.KIND = 'R' and (nlevel = 1 or sortcode is not null)),0)		where  #dati.label = 'TotRicavi'
 
 UPDATE #dati SET _entry = isnull((select sum(_entry ) FROM #dati child
-where child.KIND = 'R' and nlevel = 1 )	,0)		where  #dati.label = 'TotRicavi'
+where child.KIND = 'R' and (nlevel = 1 or sortcode is not null))	,0)		where  #dati.label = 'TotRicavi'
 
 UPDATE #dati SET _nonrealizzato=  isnull((select sum(_nonrealizzato ) FROM #dati child
-where  child.KIND = 'R' and nlevel = 1 )	,0)		where  #dati.label = 'TotRicavi'
+where  child.KIND = 'R' and (nlevel = 1 or sortcode is not null))	,0)		where  #dati.label = 'TotRicavi'
 
 --- Valorizzo la voce TotCosti
 UPDATE #dati SET _initprev = isnull((select sum(_initprev ) FROM #dati child

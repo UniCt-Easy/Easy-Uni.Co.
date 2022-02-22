@@ -1,10 +1,18 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mainform", "mainform\mainform.csproj", "{E04C2CEF-078B-4B25-904C-6374C88E0EE7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itineration_default", "itineration\itineration_default\itineration_default.csproj", "{BF7AC927-FAB6-45AC-A60A-0F9E3A296FEF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4F6BED2D-40AF-4007-821F-EA12F380790F} = {4F6BED2D-40AF-4007-821F-EA12F380790F}
+		{6792454E-433C-4F57-A8BE-3A5FBC2F0046} = {6792454E-433C-4F57-A8BE-3A5FBC2F0046}
+		{DDD1DC65-9F89-45BA-BEF0-2C6A2104AF3E} = {DDD1DC65-9F89-45BA-BEF0-2C6A2104AF3E}
+		{3A4DCD6B-7C79-4C5D-AC8C-69C5741205DA} = {3A4DCD6B-7C79-4C5D-AC8C-69C5741205DA}
+		{73C070E4-A2FB-41B7-B425-70B7C2062B3E} = {73C070E4-A2FB-41B7-B425-70B7C2062B3E}
+		{29F02CED-3049-487E-8DC5-7D091F20E4FC} = {29F02CED-3049-487E-8DC5-7D091F20E4FC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "funzioni_configurazione", "unmanaged\funzioni_configurazione\funzioni_configurazione.csproj", "{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}"
 EndProject
@@ -155,6 +163,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_itinerationflights", "itinerationflights\meta_itinerationflights\meta_itinerationflights.csproj", "{396F0C41-D7F6-4F0B-BF3A-BDBD59D0D9E9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itinerationflights_single", "itinerationflights\itinerationflights_single\itinerationflights_single.csproj", "{EBA87038-ABEC-4AEE-A369-BBF52A435717}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_dalia_dipartimento", "dalia_dipartimento\meta_dalia_dipartimento\meta_dalia_dipartimento.csproj", "{73C070E4-A2FB-41B7-B425-70B7C2062B3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_dalia_funzionale", "dalia_funzionale\meta_dalia_funzionale\meta_dalia_funzionale.csproj", "{DDD1DC65-9F89-45BA-BEF0-2C6A2104AF3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itinerationrefundattachment_single", "itinerationrefundattachment\itinerationrefundattachment_single\itinerationrefundattachment_single.csproj", "{A8FFBC8D-3690-4DB5-961A-A03ABAAAA7FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_itinerationrefundattachment", "itinerationrefundattachment\meta_itinerationrefundattachment\meta_itinerationrefundattachment.csproj", "{93AC0039-25C2-4F6F-8E20-F55C3D511289}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -470,8 +486,27 @@ Global
 		{EBA87038-ABEC-4AEE-A369-BBF52A435717}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBA87038-ABEC-4AEE-A369-BBF52A435717}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBA87038-ABEC-4AEE-A369-BBF52A435717}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73C070E4-A2FB-41B7-B425-70B7C2062B3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73C070E4-A2FB-41B7-B425-70B7C2062B3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73C070E4-A2FB-41B7-B425-70B7C2062B3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73C070E4-A2FB-41B7-B425-70B7C2062B3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDD1DC65-9F89-45BA-BEF0-2C6A2104AF3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDD1DC65-9F89-45BA-BEF0-2C6A2104AF3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDD1DC65-9F89-45BA-BEF0-2C6A2104AF3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDD1DC65-9F89-45BA-BEF0-2C6A2104AF3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8FFBC8D-3690-4DB5-961A-A03ABAAAA7FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8FFBC8D-3690-4DB5-961A-A03ABAAAA7FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8FFBC8D-3690-4DB5-961A-A03ABAAAA7FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8FFBC8D-3690-4DB5-961A-A03ABAAAA7FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93AC0039-25C2-4F6F-8E20-F55C3D511289}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93AC0039-25C2-4F6F-8E20-F55C3D511289}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93AC0039-25C2-4F6F-8E20-F55C3D511289}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93AC0039-25C2-4F6F-8E20-F55C3D511289}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A437A01B-8E80-409A-8C9F-F787BDA9C531}
 	EndGlobalSection
 EndGlobal

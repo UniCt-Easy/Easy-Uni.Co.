@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_verbale_consegna_beni]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_verbale_consegna_beni]
 GO
@@ -20,7 +37,7 @@ CREATE PROCEDURE [rpt_verbale_consegna_beni]
 	@dateend datetime
 )
 AS BEGIN
-
+--setuser 'amministrazione'
 --- exec rpt_verbale_consegna_beni 2003, 1, 96000, 96080, null, null, null, null
 
 if (@datebegin is null)
@@ -33,7 +50,7 @@ CREATE TABLE #asset
 (
 	nassetload int,
 	description varchar(150),
-	adate smalldatetime,	
+	adate datetime,	
 	operationorder int,
 	kind varchar(50),
 	idinventory int,
@@ -47,9 +64,9 @@ CREATE TABLE #asset
 	location varchar(800),--> ubicazioni concatenate
 	idman int,
 	doc varchar(35),
-	docdate smalldatetime,
+	docdate datetime,
 	enactment varchar(150),
-	enactmentdate smalldatetime,
+	enactmentdate datetime,
 	idasset int,
 	idsubman int,
 	assetloadkind varchar(50)

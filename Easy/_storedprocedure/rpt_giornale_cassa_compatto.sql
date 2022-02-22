@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_giornale_cassa_compatto]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_giornale_cassa_compatto]
 GO
@@ -20,7 +37,7 @@ AS
 BEGIN
 ---setuser 'amministrazione'
 -- Per ulteriori dettagli in merito a questa modifica leggere la Documentazione del task n.4077
--- exec rpt_giornale_cassa_compatto 2013, {ts '2013-12-01 00:00:00'}, {ts '2013-12-31 00:00:00'}, 'N','S', 4
+-- exec rpt_giornale_cassa_compatto 2021, {ts '2021-02-22 00:00:00'}, {ts '2021-03-10 00:00:00'}, 'N','N', 16, 'N'
 	DECLARE @floatfund		decimal(19,2)
 	if(@idtreasurer is null)
 	Begin
@@ -742,7 +759,8 @@ End
 			
 			WHERE 	(npro = @npro and operationorder = @operationorder 
 				and idfin = @idfinparent
-				and codeupb = @codeupb 				
+				and codeupb = @codeupb 	
+				and registry = @registry			
 				)
 			 	 
 			IF PATINDEX('%'+@description+';%',@descriptioncompact)=0
@@ -750,7 +768,8 @@ End
 			SET description = SUBSTRING(ISNULL(description,'') + @description + ';',1,6000)
 			WHERE (npro=@npro and operationorder=@operationorder 
 				and idfin = @idfinparent
-				and codeupb=@codeupb 				
+				and codeupb=@codeupb
+				and registry = @registry 				
 				)
  
 			FETCH NEXT FROM rowcursor INTO  @npro,@description,@operationorder,@registry,@doc,@autokind,@idfinparent, 
@@ -760,20 +779,26 @@ End
 
 	---SELECT * FROM #journalcompact WHERE description is not null
 	UPDATE #journalcompact  SET description = (SELECT description FROM #journal WHERE #journal.npro = #journalcompact.npro AND #journal.operationorder = #journalcompact.operationorder
-	AND	   #journalcompact.idfin = (SELECT FLK.idparent FROM  finlink FLK WHERE  #journal.idfin = FLK.idchild and FLK.nlevel =@minlevel) AND #journal.codeupb = #journalcompact.codeupb)
+	AND	   #journalcompact.idfin = (SELECT FLK.idparent FROM  finlink FLK WHERE  #journal.idfin = FLK.idchild and FLK.nlevel =@minlevel) AND #journal.codeupb = #journalcompact.codeupb
+	AND #journal.registry = #journalcompact.registry
+	AND description IS NOT NULL)
 	WHERE #journalcompact.description IS NULL
-	AND (SELECT COUNT(description) FROM #journal J1 
-	WHERE #journalcompact.npro = J1.npro AND #journalcompact.operationorder = J1.operationorder
-	AND   #journalcompact.idfin = (select FLK.idparent from  finlink FLK WHERE  J1.idfin = FLK.idchild and FLK.nlevel =@minlevel) AND #journalcompact.codeupb = J1.codeupb 
+	AND (SELECT COUNT(*) FROM #journal WHERE #journal.npro = #journalcompact.npro AND #journal.operationorder = #journalcompact.operationorder
+	AND	   #journalcompact.idfin = (SELECT FLK.idparent FROM  finlink FLK WHERE  #journal.idfin = FLK.idchild and FLK.nlevel =@minlevel) AND #journal.codeupb = #journalcompact.codeupb
+	AND #journal.registry = #journalcompact.registry
+	AND description IS NOT NULL
 	--group by  J1.npro,J1.operationorder, #journalcompact.idfin, J1.codeupb 
 	) = 1
 
 	UPDATE #journalcompact  SET doc = (SELECT doc FROM #journal WHERE #journal.npro = #journalcompact.npro AND #journal.operationorder = #journalcompact.operationorder
-	AND	   #journalcompact.idfin = (SELECT FLK.idparent FROM  finlink FLK WHERE  #journal.idfin = FLK.idchild and FLK.nlevel =@minlevel) AND #journal.codeupb = #journalcompact.codeupb)
+	AND	   #journalcompact.idfin = (SELECT FLK.idparent FROM  finlink FLK WHERE  #journal.idfin = FLK.idchild and FLK.nlevel =@minlevel) AND #journal.codeupb = #journalcompact.codeupb
+	AND #journal.registry = #journalcompact.registry
+	AND doc IS NOT NULL)
 	WHERE #journalcompact.doc IS NULL
-	AND (SELECT COUNT(doc) FROM #journal J1 
-	WHERE #journalcompact.npro = J1.npro AND #journalcompact.operationorder = J1.operationorder
-	AND   #journalcompact.idfin = (select FLK.idparent from  finlink FLK WHERE  J1.idfin = FLK.idchild and FLK.nlevel =@minlevel) AND #journalcompact.codeupb = J1.codeupb 
+	AND (SELECT COUNT(*) FROM #journal WHERE #journal.npro = #journalcompact.npro AND #journal.operationorder = #journalcompact.operationorder
+	AND	   #journalcompact.idfin = (SELECT FLK.idparent FROM  finlink FLK WHERE  #journal.idfin = FLK.idchild and FLK.nlevel =@minlevel) AND #journal.codeupb = #journalcompact.codeupb
+	AND #journal.registry = #journalcompact.registry
+	AND doc IS NOT NULL
 	--group by  J1.npro,J1.operationorder, #journalcompact.idfin, J1.codeupb 
 	) = 1
 

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -33,7 +32,7 @@ namespace epaccsorting_default
 	/// <summary>
 	/// Summary description for Frm_expsorting_detail.
 	/// </summary>
-	public class Frm_epaccsorting_detail : System.Windows.Forms.Form
+	public class Frm_epaccsorting_detail : MetaDataForm
 	{
 		private System.Windows.Forms.Button btnOk;
 		private System.Windows.Forms.Button btnAnnulla;
@@ -205,7 +204,7 @@ namespace epaccsorting_default
 					NumberStyles.Number,
 					NumberFormatInfo.CurrentInfo);
 				if ((percent < 0)  || (percent > percentmax) ) {
-					OK = (MessageBox.Show(errmsg,"Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
+					OK = (show(errmsg,"Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
 				}
 				else {
 					OK=true;
@@ -213,7 +212,7 @@ namespace epaccsorting_default
   
 			}
 			catch {                
-				MessageBox.Show("E' necessario digitare un numero" ,"Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
+				show("E' necessario digitare un numero" ,"Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
 				return false;
 			}            
 			return OK;
@@ -251,12 +250,12 @@ namespace epaccsorting_default
 					OK = true;
 				}
 				else{
-					OK = (MessageBox.Show(errmsg,"Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
+					OK = (show(errmsg,"Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
 				}
   
 			}
 			catch {                
-				MessageBox.Show("E' necessario inserire un numero","Avviso",
+				show("E' necessario inserire un numero","Avviso",
 					System.Windows.Forms.MessageBoxButtons.OK,
 					System.Windows.Forms.MessageBoxIcon.Exclamation);
 				return false;
@@ -577,4 +576,3 @@ namespace epaccsorting_default
 		
 	}
 }
-

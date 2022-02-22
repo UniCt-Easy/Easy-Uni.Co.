@@ -1,0 +1,57 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="nullaosta_imm_seganagstu_annoimm">anno di corso di immatricolazione</label>
+					<input id="nullaosta_imm_seganagstu_annoimm" type="text" class="form-control" data-tag="nullaosta_imm_alias1.annoimm?nullaostaimm_seganagstuview.nullaosta_imm_annoimm" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#nullaosta_imm_seganagstu_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="nullaosta_imm_seganagstu_data">Data</label>
+					<input id="nullaosta_imm_seganagstu_data" type="text" class="form-control" data-tag="nullaosta.data.g?nullaostaimm_seganagstuview.data.g" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="nullaosta_imm_seganagstu_iddidprogcurr">Curriculum</label>
+					<select id="nullaosta_imm_seganagstu_iddidprogcurr" class="custom-select d-block w-100"  data-source-name="didprogcurr" data-value-member="iddidprogcurr" data-display-member="title" data-custom-control="combo" data-tag="nullaosta_imm_alias1.iddidprogcurr?nullaostaimm_seganagstuview.nullaosta_imm_iddidprogcurr" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="nullaosta_imm_seganagstu_iddidprogori">Corso e orientamento</label>
+					<select id="nullaosta_imm_seganagstu_iddidprogori" class="custom-select d-block w-100"  data-source-name="didprogoridefaultview" data-value-member="iddidprogori" data-display-member="dropdown_title" data-custom-control="combo" data-tag="nullaosta_imm_alias1.iddidprogori?nullaostaimm_seganagstuview.nullaosta_imm_iddidprogori" data-subentity  data-mandatory  data-master="didprogcurr"> </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="nullaosta_imm_seganagstu_protanno">Anno di protocollo</label>
+					<input id="nullaosta_imm_seganagstu_protanno" type="text" class="form-control" data-tag="nullaosta.protanno?nullaostaimm_seganagstuview.nullaosta_protanno" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="nullaosta_imm_seganagstu_protnumero">Numero di protocollo</label>
+					<input id="nullaosta_imm_seganagstu_protnumero" type="text" class="form-control" data-tag="nullaosta.protnumero?nullaostaimm_seganagstuview.nullaosta_protnumero" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="nullaosta_imm_seganagstu_parttime">Parttime</label>
+					<div class="custom-control custom-radio">
+						<input id="nullaosta_imm_seganagstu_parttimeSi" type="radio" name="nullaosta_imm_seganagstu_parttime" class="custom-control-input" data-tag="nullaosta_imm_alias1.parttime:S?nullaostaimm_seganagstuview.nullaosta_imm_parttime:Si" data-subentity  data-mandatory ><label for="nullaosta_imm_seganagstu_parttimeSi"> Si</label>
+						<input id="nullaosta_imm_seganagstu_parttimeNo" type="radio" name="nullaosta_imm_seganagstu_parttime" class="custom-control-input" data-tag="nullaosta_imm_alias1.parttime:N?nullaostaimm_seganagstuview.nullaosta_imm_parttime:No" data-subentity  data-mandatory ><label for="nullaosta_imm_seganagstu_parttimeNo"> No</label>
+					</div>
+				</div>
+			</div>
+ <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-stamp mr-1" ></i>Protocolla
+    </button>
+</form>
+
+</div>
+<!--footer-->

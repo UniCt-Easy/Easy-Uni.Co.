@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -22,6 +21,8 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using metadatalibrary;
 #pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_serviceregistry {
 public class serviceregistryRow: MetaRow  {
 	public serviceregistryRow(DataRowBuilder rb) : base(rb) {} 
@@ -71,6 +72,9 @@ public class serviceregistryRow: MetaRow  {
 	}
 	///<summary>
 	///tipo incarico
+	///	 A: Dipendente altri enti pubblici
+	///	 C: Consulente
+	///	 D: Dipendente dello stesso ente
 	///</summary>
 	public String employkind{ 
 		get {if (this["employkind"]==DBNull.Value)return null; return  (String)this["employkind"];}
@@ -1225,6 +1229,39 @@ public class serviceregistryRow: MetaRow  {
 	public Int32? idsor04Original { 
 		get {if (this["idsor04",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsor04",DataRowVersion.Original];}
 	}
+	public String codicepaipa{ 
+		get {if (this["codicepaipa"]==DBNull.Value)return null; return  (String)this["codicepaipa"];}
+		set {if (value==null) this["codicepaipa"]= DBNull.Value; else this["codicepaipa"]= value;}
+	}
+	public object codicepaipaValue { 
+		get{ return this["codicepaipa"];}
+		set {if (value==null|| value==DBNull.Value) this["codicepaipa"]= DBNull.Value; else this["codicepaipa"]= value;}
+	}
+	public String codicepaipaOriginal { 
+		get {if (this["codicepaipa",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codicepaipa",DataRowVersion.Original];}
+	}
+	public String codiceaooipa{ 
+		get {if (this["codiceaooipa"]==DBNull.Value)return null; return  (String)this["codiceaooipa"];}
+		set {if (value==null) this["codiceaooipa"]= DBNull.Value; else this["codiceaooipa"]= value;}
+	}
+	public object codiceaooipaValue { 
+		get{ return this["codiceaooipa"];}
+		set {if (value==null|| value==DBNull.Value) this["codiceaooipa"]= DBNull.Value; else this["codiceaooipa"]= value;}
+	}
+	public String codiceaooipaOriginal { 
+		get {if (this["codiceaooipa",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codiceaooipa",DataRowVersion.Original];}
+	}
+	public String codiceuoipa{ 
+		get {if (this["codiceuoipa"]==DBNull.Value)return null; return  (String)this["codiceuoipa"];}
+		set {if (value==null) this["codiceuoipa"]= DBNull.Value; else this["codiceuoipa"]= value;}
+	}
+	public object codiceuoipaValue { 
+		get{ return this["codiceuoipa"];}
+		set {if (value==null|| value==DBNull.Value) this["codiceuoipa"]= DBNull.Value; else this["codiceuoipa"]= value;}
+	}
+	public String codiceuoipaOriginal { 
+		get {if (this["codiceuoipa",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codiceuoipa",DataRowVersion.Original];}
+	}
 	///<summary>
 	///id voce class.sicurezza 5(tabella sorting)
 	///</summary>
@@ -1269,6 +1306,17 @@ public class serviceregistryRow: MetaRow  {
 	public String website_annulledOriginal { 
 		get {if (this["website_annulled",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["website_annulled",DataRowVersion.Original];}
 	}
+	public String perla_error{ 
+		get {if (this["perla_error"]==DBNull.Value)return null; return  (String)this["perla_error"];}
+		set {if (value==null) this["perla_error"]= DBNull.Value; else this["perla_error"]= value;}
+	}
+	public object perla_errorValue { 
+		get{ return this["perla_error"];}
+		set {if (value==null|| value==DBNull.Value) this["perla_error"]= DBNull.Value; else this["perla_error"]= value;}
+	}
+	public String perla_errorOriginal { 
+		get {if (this["perla_error",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["perla_error",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -1278,96 +1326,99 @@ public class serviceregistryRow: MetaRow  {
 public class serviceregistryTable : MetaTableBase<serviceregistryRow> {
 	public serviceregistryTable() : base("serviceregistry"){
 		baseColumns = new Dictionary<string, DataColumn>(){
-			{"yservreg",createColumn("yservreg",typeof(Int32),false,false)},
-			{"nservreg",createColumn("nservreg",typeof(Int32),false,false)},
-			{"id_service",createColumn("id_service",typeof(String),true,false)},
-			{"employkind",createColumn("employkind",typeof(String),true,false)},
-			{"iddepartment",createColumn("iddepartment",typeof(Int32),true,false)},
-			{"is_annulled",createColumn("is_annulled",typeof(String),true,false)},
-			{"is_delivered",createColumn("is_delivered",typeof(String),true,false)},
-			{"is_changed",createColumn("is_changed",typeof(String),true,false)},
-			{"idconsultingkind",createColumn("idconsultingkind",typeof(String),true,false)},
-			{"p_iva",createColumn("p_iva",typeof(String),true,false)},
-			{"cf",createColumn("cf",typeof(String),true,false)},
-			{"flagforeign",createColumn("flagforeign",typeof(String),true,false)},
-			{"title",createColumn("title",typeof(String),true,false)},
-			{"codcity",createColumn("codcity",typeof(String),true,false)},
-			{"surname",createColumn("surname",typeof(String),true,false)},
-			{"forename",createColumn("forename",typeof(String),true,false)},
+			{"yservreg",createColumn("yservreg",typeof(int),false,false)},
+			{"nservreg",createColumn("nservreg",typeof(int),false,false)},
+			{"id_service",createColumn("id_service",typeof(string),true,false)},
+			{"employkind",createColumn("employkind",typeof(string),true,false)},
+			{"iddepartment",createColumn("iddepartment",typeof(int),true,false)},
+			{"is_annulled",createColumn("is_annulled",typeof(string),true,false)},
+			{"is_delivered",createColumn("is_delivered",typeof(string),true,false)},
+			{"is_changed",createColumn("is_changed",typeof(string),true,false)},
+			{"idconsultingkind",createColumn("idconsultingkind",typeof(string),true,false)},
+			{"p_iva",createColumn("p_iva",typeof(string),true,false)},
+			{"cf",createColumn("cf",typeof(string),true,false)},
+			{"flagforeign",createColumn("flagforeign",typeof(string),true,false)},
+			{"title",createColumn("title",typeof(string),true,false)},
+			{"codcity",createColumn("codcity",typeof(string),true,false)},
+			{"surname",createColumn("surname",typeof(string),true,false)},
+			{"forename",createColumn("forename",typeof(string),true,false)},
 			{"birthdate",createColumn("birthdate",typeof(DateTime),true,false)},
-			{"gender",createColumn("gender",typeof(String),true,false)},
-			{"referencesemester",createColumn("referencesemester",typeof(Int32),true,false)},
-			{"pa_code",createColumn("pa_code",typeof(String),true,false)},
-			{"idacquirekind",createColumn("idacquirekind",typeof(String),true,false)},
-			{"idapcontractkind",createColumn("idapcontractkind",typeof(String),true,false)},
-			{"idfinancialactivity",createColumn("idfinancialactivity",typeof(String),true,false)},
-			{"description",createColumn("description",typeof(String),true,false)},
+			{"gender",createColumn("gender",typeof(string),true,false)},
+			{"referencesemester",createColumn("referencesemester",typeof(int),true,false)},
+			{"pa_code",createColumn("pa_code",typeof(string),true,false)},
+			{"idacquirekind",createColumn("idacquirekind",typeof(string),true,false)},
+			{"idapcontractkind",createColumn("idapcontractkind",typeof(string),true,false)},
+			{"idfinancialactivity",createColumn("idfinancialactivity",typeof(string),true,false)},
+			{"description",createColumn("description",typeof(string),true,false)},
 			{"start",createColumn("start",typeof(DateTime),true,false)},
 			{"stop",createColumn("stop",typeof(DateTime),true,false)},
-			{"servicevariation",createColumn("servicevariation",typeof(String),true,false)},
-			{"expectedamount",createColumn("expectedamount",typeof(Decimal),false,false)},
-			{"payment",createColumn("payment",typeof(String),true,false)},
-			{"ypay",createColumn("ypay",typeof(Int32),true,false)},
-			{"idapmanager",createColumn("idapmanager",typeof(String),true,false)},
-			{"idapregistrykind",createColumn("idapregistrykind",typeof(String),true,false)},
-			{"idapactivitykind",createColumn("idapactivitykind",typeof(String),true,false)},
-			{"pa_cf",createColumn("pa_cf",typeof(String),true,false)},
-			{"pa_title",createColumn("pa_title",typeof(String),true,false)},
+			{"servicevariation",createColumn("servicevariation",typeof(string),true,false)},
+			{"expectedamount",createColumn("expectedamount",typeof(decimal),false,false)},
+			{"payment",createColumn("payment",typeof(string),true,false)},
+			{"ypay",createColumn("ypay",typeof(int),true,false)},
+			{"idapmanager",createColumn("idapmanager",typeof(string),true,false)},
+			{"idapregistrykind",createColumn("idapregistrykind",typeof(string),true,false)},
+			{"idapactivitykind",createColumn("idapactivitykind",typeof(string),true,false)},
+			{"pa_cf",createColumn("pa_cf",typeof(string),true,false)},
+			{"pa_title",createColumn("pa_title",typeof(string),true,false)},
 			{"authorizationdate",createColumn("authorizationdate",typeof(DateTime),true,false)},
-			{"officeduty",createColumn("officeduty",typeof(String),true,false)},
-			{"annotation",createColumn("annotation",typeof(String),true,false)},
-			{"referencerule",createColumn("referencerule",typeof(String),true,false)},
+			{"officeduty",createColumn("officeduty",typeof(string),true,false)},
+			{"annotation",createColumn("annotation",typeof(string),true,false)},
+			{"referencerule",createColumn("referencerule",typeof(string),true,false)},
 			{"ct",createColumn("ct",typeof(DateTime),false,false)},
-			{"cu",createColumn("cu",typeof(String),false,false)},
+			{"cu",createColumn("cu",typeof(string),false,false)},
 			{"lt",createColumn("lt",typeof(DateTime),false,false)},
-			{"lu",createColumn("lu",typeof(String),false,false)},
+			{"lu",createColumn("lu",typeof(string),false,false)},
 			{"rtf",createColumn("rtf",typeof(Byte[]),true,false)},
-			{"txt",createColumn("txt",typeof(String),true,false)},
-			{"idreg",createColumn("idreg",typeof(Int32),true,false)},
-			{"idcity",createColumn("idcity",typeof(Int32),true,false)},
-			{"idrelated",createColumn("idrelated",typeof(String),true,false)},
-			{"is_blocked",createColumn("is_blocked",typeof(String),true,false)},
-			{"regulation",createColumn("regulation",typeof(String),true,false)},
-			{"paragraph",createColumn("paragraph",typeof(String),true,false)},
-			{"article",createColumn("article",typeof(String),true,false)},
-			{"articlenumber",createColumn("articlenumber",typeof(String),true,false)},
+			{"txt",createColumn("txt",typeof(string),true,false)},
+			{"idreg",createColumn("idreg",typeof(int),true,false)},
+			{"idcity",createColumn("idcity",typeof(int),true,false)},
+			{"idrelated",createColumn("idrelated",typeof(string),true,false)},
+			{"is_blocked",createColumn("is_blocked",typeof(string),true,false)},
+			{"regulation",createColumn("regulation",typeof(string),true,false)},
+			{"paragraph",createColumn("paragraph",typeof(string),true,false)},
+			{"article",createColumn("article",typeof(string),true,false)},
+			{"articlenumber",createColumn("articlenumber",typeof(string),true,false)},
 			{"referencedate",createColumn("referencedate",typeof(DateTime),true,false)},
-			{"idreferencerule",createColumn("idreferencerule",typeof(String),true,false)},
-			{"idapfinancialactivity",createColumn("idapfinancialactivity",typeof(Int32),true,false)},
-			{"rulespecifics",createColumn("rulespecifics",typeof(String),true,false)},
+			{"idreferencerule",createColumn("idreferencerule",typeof(string),true,false)},
+			{"idapfinancialactivity",createColumn("idapfinancialactivity",typeof(int),true,false)},
+			{"rulespecifics",createColumn("rulespecifics",typeof(string),true,false)},
 			{"expectationsdate",createColumn("expectationsdate",typeof(DateTime),true,false)},
-			{"senderreporting",createColumn("senderreporting",typeof(String),true,false)},
-			{"flaghuman",createColumn("flaghuman",typeof(String),true,false)},
-			{"conferring_piva",createColumn("conferring_piva",typeof(String),true,false)},
-			{"conferring_forename",createColumn("conferring_forename",typeof(String),true,false)},
-			{"conferring_surname",createColumn("conferring_surname",typeof(String),true,false)},
-			{"conferring_flagforeign",createColumn("conferring_flagforeign",typeof(String),true,false)},
+			{"senderreporting",createColumn("senderreporting",typeof(string),true,false)},
+			{"flaghuman",createColumn("flaghuman",typeof(string),true,false)},
+			{"conferring_piva",createColumn("conferring_piva",typeof(string),true,false)},
+			{"conferring_forename",createColumn("conferring_forename",typeof(string),true,false)},
+			{"conferring_surname",createColumn("conferring_surname",typeof(string),true,false)},
+			{"conferring_flagforeign",createColumn("conferring_flagforeign",typeof(string),true,false)},
 			{"conferring_birthdate",createColumn("conferring_birthdate",typeof(DateTime),true,false)},
-			{"conferring_gender",createColumn("conferring_gender",typeof(String),true,false)},
-			{"conferring_codcity",createColumn("conferring_codcity",typeof(String),true,false)},
-			{"conferring_idcity",createColumn("conferring_idcity",typeof(Int32),true,false)},
-			{"idconferring",createColumn("idconferring",typeof(Int32),true,false)},
-			{"conferringstructure",createColumn("conferringstructure",typeof(String),true,false)},
-			{"ordinancelink",createColumn("ordinancelink",typeof(String),true,false)},
-			{"authorizingstructure",createColumn("authorizingstructure",typeof(String),true,false)},
-			{"authorizinglink",createColumn("authorizinglink",typeof(String),true,false)},
-			{"actreference",createColumn("actreference",typeof(String),true,false)},
-			{"announcementlink",createColumn("announcementlink",typeof(String),true,false)},
-			{"otherservice",createColumn("otherservice",typeof(String),true,false)},
-			{"professionalservice",createColumn("professionalservice",typeof(String),true,false)},
-			{"componentsvariable",createColumn("componentsvariable",typeof(String),true,false)},
-			{"idserviceregistrykind",createColumn("idserviceregistrykind",typeof(Int32),true,false)},
-			{"employtime",createColumn("employtime",typeof(String),true,false)},
-			{"notes",createColumn("notes",typeof(String),true,false)},
-			{"idsor01",createColumn("idsor01",typeof(Int32),true,false)},
-			{"idsor02",createColumn("idsor02",typeof(Int32),true,false)},
-			{"idsor03",createColumn("idsor03",typeof(Int32),true,false)},
-			{"idsor04",createColumn("idsor04",typeof(Int32),true,false)},
-			{"idsor05",createColumn("idsor05",typeof(Int32),true,false)},
-			{"certinterestconflicts",createColumn("certinterestconflicts",typeof(String),true,false)},
-			{"website_annulled",createColumn("website_annulled",typeof(String),true,false)},
+			{"conferring_gender",createColumn("conferring_gender",typeof(string),true,false)},
+			{"conferring_codcity",createColumn("conferring_codcity",typeof(string),true,false)},
+			{"conferring_idcity",createColumn("conferring_idcity",typeof(int),true,false)},
+			{"idconferring",createColumn("idconferring",typeof(int),true,false)},
+			{"conferringstructure",createColumn("conferringstructure",typeof(string),true,false)},
+			{"ordinancelink",createColumn("ordinancelink",typeof(string),true,false)},
+			{"authorizingstructure",createColumn("authorizingstructure",typeof(string),true,false)},
+			{"authorizinglink",createColumn("authorizinglink",typeof(string),true,false)},
+			{"actreference",createColumn("actreference",typeof(string),true,false)},
+			{"announcementlink",createColumn("announcementlink",typeof(string),true,false)},
+			{"otherservice",createColumn("otherservice",typeof(string),true,false)},
+			{"professionalservice",createColumn("professionalservice",typeof(string),true,false)},
+			{"componentsvariable",createColumn("componentsvariable",typeof(string),true,false)},
+			{"idserviceregistrykind",createColumn("idserviceregistrykind",typeof(int),true,false)},
+			{"employtime",createColumn("employtime",typeof(string),true,false)},
+			{"notes",createColumn("notes",typeof(string),true,false)},
+			{"idsor01",createColumn("idsor01",typeof(int),true,false)},
+			{"idsor02",createColumn("idsor02",typeof(int),true,false)},
+			{"idsor03",createColumn("idsor03",typeof(int),true,false)},
+			{"idsor04",createColumn("idsor04",typeof(int),true,false)},
+			{"codicepaipa",createColumn("codicepaipa",typeof(string),true,false)},
+			{"codiceaooipa",createColumn("codiceaooipa",typeof(string),true,false)},
+			{"codiceuoipa",createColumn("codiceuoipa",typeof(string),true,false)},
+			{"idsor05",createColumn("idsor05",typeof(int),true,false)},
+			{"certinterestconflicts",createColumn("certinterestconflicts",typeof(string),true,false)},
+			{"website_annulled",createColumn("website_annulled",typeof(string),true,false)},
+			{"perla_error",createColumn("perla_error",typeof(string),true,false)},
 		};
 	}
 }
 }
-

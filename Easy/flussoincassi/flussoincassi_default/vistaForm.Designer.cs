@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,35 +26,26 @@ using System.Runtime.Serialization;
 namespace flussoincassi_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Incassi comunicatici dal nodo pagamenti o simili
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable flussoincassi 		=> Tables["flussoincassi"];
 
-	///<summary>
-	///dettaglio flusso incassi
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable flussoincassidetail 		=> Tables["flussoincassidetail"];
 
-	///<summary>
-	///Partita pendente
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable bill 		=> Tables["bill"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable billview 		=> Tables["billview"];
 
-	///<summary>
-	///Dettaglio flusso crediti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable flussocreditidetail 		=> Tables["flussocreditidetail"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable flussoincassiview 		=> Tables["flussoincassiview"];
 
 	#endregion
 
@@ -128,6 +118,9 @@ private void initClass() {
 	tflussoincassidetail.Columns.Add( new DataColumn("lt", typeof(DateTime)));
 	tflussoincassidetail.Columns.Add( new DataColumn("lu", typeof(string)));
 	tflussoincassidetail.Columns.Add( new DataColumn("p_iva", typeof(string)));
+	tflussoincassidetail.Columns.Add( new DataColumn("identificativounivocoriscossione", typeof(string)));
+	tflussoincassidetail.Columns.Add( new DataColumn("codicepsp", typeof(string)));
+	tflussoincassidetail.Columns.Add( new DataColumn("dataesitopagamento", typeof(DateTime)));
 	Tables.Add(tflussoincassidetail);
 	tflussoincassidetail.PrimaryKey =  new DataColumn[]{tflussoincassidetail.Columns["idflusso"], tflussoincassidetail.Columns["iddetail"]};
 
@@ -283,8 +276,38 @@ private void initClass() {
 	tflussocreditidetail.Columns.Add( new DataColumn("p_iva", typeof(string)));
 	tflussocreditidetail.Columns.Add( new DataColumn("annotations", typeof(string)));
 	tflussocreditidetail.Columns.Add( new DataColumn("idupb_iva", typeof(string)));
+	tflussocreditidetail.Columns.Add( new DataColumn("codicetassonomia", typeof(string)));
 	Tables.Add(tflussocreditidetail);
 	tflussocreditidetail.PrimaryKey =  new DataColumn[]{tflussocreditidetail.Columns["idflusso"], tflussocreditidetail.Columns["iddetail"]};
+
+
+	//////////////////// FLUSSOINCASSIVIEW /////////////////////////////////
+	var tflussoincassiview= new DataTable("flussoincassiview");
+	C= new DataColumn("idflusso", typeof(int));
+	C.AllowDBNull=false;
+	tflussoincassiview.Columns.Add(C);
+	tflussoincassiview.Columns.Add( new DataColumn("codiceflusso", typeof(string)));
+	tflussoincassiview.Columns.Add( new DataColumn("nbill", typeof(int)));
+	tflussoincassiview.Columns.Add( new DataColumn("trn", typeof(string)));
+	tflussoincassiview.Columns.Add( new DataColumn("dataincasso", typeof(DateTime)));
+	tflussoincassiview.Columns.Add( new DataColumn("ayear", typeof(short)));
+	tflussoincassiview.Columns.Add( new DataColumn("causale", typeof(string)));
+	tflussoincassiview.Columns.Add( new DataColumn("importo", typeof(decimal)));
+	tflussoincassiview.Columns.Add( new DataColumn("active", typeof(string)));
+	tflussoincassiview.Columns.Add( new DataColumn("elaborato", typeof(string)));
+	tflussoincassiview.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tflussoincassiview.Columns.Add( new DataColumn("lu", typeof(string)));
+	tflussoincassiview.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tflussoincassiview.Columns.Add( new DataColumn("cu", typeof(string)));
+	tflussoincassiview.Columns.Add( new DataColumn("to_complete", typeof(string)));
+	tflussoincassiview.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tflussoincassiview.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tflussoincassiview.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tflussoincassiview.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tflussoincassiview.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	tflussoincassiview.Columns.Add( new DataColumn("total", typeof(decimal)));
+	Tables.Add(tflussoincassiview);
+	tflussoincassiview.PrimaryKey =  new DataColumn[]{tflussoincassiview.Columns["idflusso"]};
 
 
 	#endregion
@@ -304,4 +327,3 @@ private void initClass() {
 }
 }
 }
-

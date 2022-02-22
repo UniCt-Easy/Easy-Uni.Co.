@@ -1,0 +1,60 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sede_seg_child_title">Denominazione</label>
+					<input id="sede_seg_child_title" type="text" class="form-control" data-tag="sede.title?sedeseg_childview.title" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sede_seg_child_address">Indirizzo</label>
+					<input id="sede_seg_child_address" type="text" class="form-control" data-tag="sede.address?sedeseg_childview.sede_address" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sede_seg_child_idsedemiur">Identificativo MIUR</label>
+					<input id="sede_seg_child_idsedemiur" type="text" class="form-control" data-tag="sede.idsedemiur?sedeseg_childview.sede_idsedemiur" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sede_seg_child_annotations">Note</label>
+					<input id="sede_seg_child_annotations" type="text" class="form-control" data-tag="sede.annotations?sedeseg_childview.sede_annotations" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sede_seg_child_cap">CAP</label>
+					<input id="sede_seg_child_cap" type="text" class="form-control" data-tag="sede.cap?sedeseg_childview.sede_cap" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sede_seg_child_idcity">Comune</label>
+					<div>
+						<input id="sede_seg_child_idcity" name="sede_seg_child_idcity" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sede_seg_child_idnation">Nazione</label>
+					<div>
+						<input id="sede_seg_child_idnation" name="sede_seg_child_idnation" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_nation.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sede_seg_child_latitude">Latitudine</label>
+					<input id="sede_seg_child_latitude" type="text" class="form-control" data-tag="sede.latitude.fixed.7?sedeseg_childview.sede_latitude" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sede_seg_child_longitude">Longitudine</label>
+					<input id="sede_seg_child_longitude" type="text" class="form-control" data-tag="sede.longitude.fixed.7?sedeseg_childview.sede_longitude" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

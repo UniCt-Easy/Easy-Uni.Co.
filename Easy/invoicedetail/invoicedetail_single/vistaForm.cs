@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -33,13 +32,14 @@ using meta_expense;
 using meta_income;
 using meta_invoicekind;
 using meta_epexp;
+using meta_tassonomia_pagopa;
 using metadatalibrary;
 // ReSharper disable InconsistentNaming
 // ReSharper disable UnusedMember.Global
 namespace invoicedetail_single {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -234,6 +234,12 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public epexpTable epexp_pre 		=> (epexpTable)Tables["epexp_pre"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public tassonomia_pagopaTable tassonomia_pagopa 		=> (tassonomia_pagopaTable)Tables["tassonomia_pagopa"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable finmotive_iva_income 		=> (MetaTable)Tables["finmotive_iva_income"];
+
 	#endregion
 
 
@@ -267,7 +273,7 @@ private void initClass() {
 
 	//////////////////// INVOICEDETAIL /////////////////////////////////
 	var tinvoicedetail= new invoicedetailTable();
-	tinvoicedetail.addBaseColumns("idinvkind","yinv","ninv","rownum","idivakind","detaildescription","annotations","taxable","tax","unabatable","cu","ct","lu","lt","discount","idmankind","yman","nman","manrownum","number","idupb","idsor1","idsor2","idsor3","competencystart","competencystop","paymentcompetency","idaccmotive","idestimkind","yestim","nestim","estimrownum","idexp_iva","idexp_taxable","idinc_iva","idinc_taxable","idgroup","yinv_main","ninv_main","va3type","idintrastatcode","idintrastatmeasure","weight","intrastatoperationkind","idintrastatservice","idintrastatsupplymethod","idlist","idunit","idpackage","unitsforpackage","npackage","flag","exception12","intra12operationkind","move12","idupb_iva","idinvkind_main","leasing","usedmodesospesometro","resetresidualmandate","idfetransfer","fereferencerule","cupcode","cigcode","idcostpartition","idpccdebitmotive","idpccdebitstatus","expensekind","rounding","idepexp","idepacc","flagbit","idfinmotive","iduniqueformcode","ycon","ncon","codicetipo","codicevalore","idsor_siope","idepexp_pre");
+	tinvoicedetail.addBaseColumns("idinvkind","yinv","ninv","rownum","idivakind","detaildescription","annotations","taxable","tax","unabatable","cu","ct","lu","lt","discount","idmankind","yman","nman","manrownum","number","idupb","idsor1","idsor2","idsor3","competencystart","competencystop","paymentcompetency","idaccmotive","idestimkind","yestim","nestim","estimrownum","idexp_iva","idexp_taxable","idinc_iva","idinc_taxable","idgroup","yinv_main","ninv_main","va3type","idintrastatcode","idintrastatmeasure","weight","intrastatoperationkind","idintrastatservice","idintrastatsupplymethod","idlist","idunit","idpackage","unitsforpackage","npackage","flag","exception12","intra12operationkind","move12","idupb_iva","idinvkind_main","leasing","usedmodesospesometro","resetresidualmandate","idfetransfer","fereferencerule","cupcode","cigcode","idcostpartition","idpccdebitmotive","idpccdebitstatus","expensekind","rounding","idepexp","idepacc","flagbit","idfinmotive","iduniqueformcode","ycon","ncon","codicetipo","codicevalore","idsor_siope","idepexp_pre","idtassonomia","idfinmotive_iva");
 	Tables.Add(tinvoicedetail);
 	tinvoicedetail.defineKey("idinvkind", "yinv", "ninv", "rownum");
 
@@ -417,6 +423,8 @@ private void initClass() {
 	tlistview.defineColumn("idlistclass", typeof(string),false);
 	tlistview.defineColumn("codelistclass", typeof(string),false);
 	tlistview.defineColumn("listclass", typeof(string),false);
+	tlistview.defineColumn("price", typeof(decimal));
+	tlistview.defineColumn("idtassonomia", typeof(int));
 	Tables.Add(tlistview);
 	tlistview.defineKey("idlist");
 
@@ -605,6 +613,26 @@ private void initClass() {
 	Tables.Add(tepexp_pre);
 	tepexp_pre.defineKey("idepexp");
 
+	//////////////////// TASSONOMIA_PAGOPA /////////////////////////////////
+	var ttassonomia_pagopa= new tassonomia_pagopaTable();
+	ttassonomia_pagopa.addBaseColumns("idtassonomia","versione","causale","descrizione","start","stop","cu","ct","lu","lt","title","motivoriscossione");
+	Tables.Add(ttassonomia_pagopa);
+	ttassonomia_pagopa.defineKey("idtassonomia");
+
+	//////////////////// FINMOTIVE_IVA_INCOME /////////////////////////////////
+	var tfinmotive_iva_income= new MetaTable("finmotive_iva_income");
+	tfinmotive_iva_income.defineColumn("idfinmotive", typeof(string),false);
+	tfinmotive_iva_income.defineColumn("active", typeof(string),false);
+	tfinmotive_iva_income.defineColumn("codemotive", typeof(string),false);
+	tfinmotive_iva_income.defineColumn("paridfinmotive", typeof(string));
+	tfinmotive_iva_income.defineColumn("title", typeof(string),false);
+	tfinmotive_iva_income.defineColumn("lt", typeof(DateTime));
+	tfinmotive_iva_income.defineColumn("lu", typeof(string));
+	tfinmotive_iva_income.defineColumn("ct", typeof(DateTime));
+	tfinmotive_iva_income.defineColumn("cu", typeof(string));
+	Tables.Add(tfinmotive_iva_income);
+	tfinmotive_iva_income.defineKey("idfinmotive");
+
 	#endregion
 
 
@@ -674,9 +702,13 @@ private void initClass() {
 	cChild = new []{invoicedetail.Columns["idepexp_pre"]};
 	Relations.Add(new DataRelation("epexp_pre_invoicedetail",cPar,cChild,false));
 
+	this.defineRelation("tassonomia_pagopa_invoicedetail","tassonomia_pagopa","invoicedetail","idtassonomia");
+	cPar = new []{finmotive_iva_income.Columns["idfinmotive"]};
+	cChild = new []{invoicedetail.Columns["idfinmotive_iva"]};
+	Relations.Add(new DataRelation("finmotive_iva_income_invoicedetail",cPar,cChild,false));
+
 	#endregion
 
 }
 }
 }
-

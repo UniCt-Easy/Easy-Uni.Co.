@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -31,7 +30,7 @@ using ep_functions;
 
 namespace config_default
 {
-    public partial class Frm_config_default : Form
+    public partial class Frm_config_default : MetaDataForm
     {
         public MetaData Meta;
         public Frm_config_default()
@@ -44,6 +43,7 @@ namespace config_default
             HelpForm.SetDenyNull(DS.config.Columns["asset_flagrestart"], true);
             HelpForm.SetDenyNull(DS.config.Columns["assetload_flag"], true);
             HelpForm.SetDenyNull(DS.config.Columns["linktoinvoice"], true);
+            HelpForm.SetDenyNull(DS.config.Columns["risconta_ammortamenti_futuri"], true);
             // BANKDIDISPOSITIONnell
             HelpForm.SetDenyNull(DS.config.Columns["electronictrasmission"], true);
             HelpForm.SetDenyNull(DS.config.Columns["electronicimport"], true);
@@ -87,7 +87,7 @@ namespace config_default
 
             DataAccess.SetTableForReading(DS.account_split_ivapayment, "account");
             DataAccess.SetTableForReading(DS.account_unabatable_split, "account");
-
+            DataAccess.SetTableForReading(DS.account_unabatable_estera, "account");
             DataAccess.SetTableForReading(DS.account_bankpaydoc, "account");
             DataAccess.SetTableForReading(DS.account_bankprodoc, "account");
 
@@ -268,6 +268,9 @@ namespace config_default
             GetData.SetStaticFilter(DS.account_split_ivapayment, filteresercizio);
             GetData.SetStaticFilter(DS.account_unabatable_split, filteresercizio);
 
+            //IVA estera
+            GetData.SetStaticFilter(DS.account_unabatable_estera, filteresercizio);
+           
 
             GetData.SetStaticFilter(DS.account_pl, filteresercizio);
             GetData.SetStaticFilter(DS.account_pat, filteresercizio);
@@ -383,6 +386,7 @@ namespace config_default
                 DataAccess.SetTableForReading(DS.sorting_siopeivasplitexp, "sorting");
                 DataAccess.SetTableForReading(DS.sorting_siopeivainc, "sorting");
                 DataAccess.SetTableForReading(DS.sorting_siopeiva12inc, "sorting");
+                DataAccess.SetTableForReading(DS.siopeivavendita, "sorting");
                 object idsorkindS = Meta.Conn.DO_READ_VALUE("sortingkind", QHS.CmpEq("codesorkind", Meta.GetSys("codesorkind_siopespese")), "idsorkind");
                 object idsorkindE = Meta.Conn.DO_READ_VALUE("sortingkind", QHS.CmpEq("codesorkind", Meta.GetSys("codesorkind_siopeentrate")), "idsorkind");
                 GetData.SetStaticFilter(DS.sorting_siopeivaexp, QHS.CmpEq("idsorkind", idsorkindS));
@@ -390,6 +394,7 @@ namespace config_default
                 GetData.SetStaticFilter(DS.sorting_siopeivainc, QHS.CmpEq("idsorkind", idsorkindE));
                 GetData.SetStaticFilter(DS.sorting_siopeiva12inc, QHS.CmpEq("idsorkind", idsorkindE));
                 GetData.SetStaticFilter(DS.sorting_siopeivasplitexp, QHS.CmpEq("idsorkind", idsorkindS));
+                GetData.SetStaticFilter(DS.siopeivavendita, QHS.CmpEq("idsorkind", idsorkindE));
             }
             else {
                 grpBoxSiopeEPspeseSplit.Visible = false;
@@ -763,4 +768,4 @@ namespace config_default
 
         }
     }
-}
+}

@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_budgeteconomicoufficiale_triennale_puro]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_budgeteconomicoufficiale_triennale_puro]
 GO
@@ -350,10 +367,14 @@ SELECT @A_VII_IncrementoImmobilizzazioni = SUM(accountyear.prevision*A.economicb
 /*
  B)	COSTI OPERATIVI
 VIII.COSTI DEL PERSONALE
-	1) Costi del personale dedicato alla ricerca e alla didattica		a)Docenti/ricercatori
+	1) Costi del personale dedicato alla ricerca e alla didattica
+		a)Docenti/ricercatori
 		b)Collaborazioni scientifiche (collaboratori, assegnisti, ecc)
 		c)Docenti a contratto 
-		d)Esperti linguistici		e)Altro personale dedicato alla didattica e alla ricerca	2) Costi del personale dirigente e tecnico-amministrativo*/
+		d)Esperti linguistici
+		e)Altro personale dedicato alla didattica e alla ricerca
+	2) Costi del personale dirigente e tecnico-amministrativo
+*/
 
 declare @B_VIII1a_CostiDocentiRicercatori decimal(19,2)
 declare @B_VIII1a_CostiDocentiRicercatori_prev2 decimal(19,2)
@@ -484,12 +505,16 @@ set @B_VIII_CostiPersonale_prev3 = isnull(@B_VIII1a_CostiDocentiRicercatori_prev
 	/*
 	IX.COSTI DELLA GESTIONE CORRENTE
 	1)Costi per sostegno agli studenti
-	2)Costi per il diritto allo studio	3)Costi per la ricerca e l'attività editoriale
+	2)Costi per il diritto allo studio
+	3)Costi per la ricerca e l'attività editoriale
 	4)Trasferimenti a partner di progetti coordinati
 	5)Acquisto materiale consumo per laboratori
-	6)Variazione rimanenze di materiale di consumo per laboratori	7)Acquisto di libri, periodici e materiale bibliografico	8)Acquisto di servizi e collaborazioni tecnico gestionali
+	6)Variazione rimanenze di materiale di consumo per laboratori
+	7)Acquisto di libri, periodici e materiale bibliografico
+	8)Acquisto di servizi e collaborazioni tecnico gestionali
 	9)Acquisto altri materiali
-	10)Variazione delle rimanenze di materiali	11)Costi per godimento bene di terzi
+	10)Variazione delle rimanenze di materiali
+	11)Costi per godimento bene di terzi
 	12)Altri  costi 
 	*/
 declare @B_IX1_CostiSostegnoStudenti decimal(19,2)
@@ -511,7 +536,10 @@ SELECT	@B_IX1_CostiSostegnoStudenti = SUM(accountyear.prevision*A.economicbudget
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		AND S.sortcode LIKE 'EB2101%'
 
-declare @B_IX2_CostiDirittoStudio decimal(19,2)declare @B_IX2_CostiDirittoStudio_prev2 decimal(19,2)declare @B_IX2_CostiDirittoStudio_prev3 decimal(19,2)SELECT  @B_IX2_CostiDirittoStudio = SUM(accountyear.prevision*A.economicbudget_sign_value),
+declare @B_IX2_CostiDirittoStudio decimal(19,2)
+declare @B_IX2_CostiDirittoStudio_prev2 decimal(19,2)
+declare @B_IX2_CostiDirittoStudio_prev3 decimal(19,2)
+SELECT  @B_IX2_CostiDirittoStudio = SUM(accountyear.prevision*A.economicbudget_sign_value),
 		@B_IX2_CostiDirittoStudio_prev2 = SUM(accountyear.prevision2*A.economicbudget_sign_value),
 		@B_IX2_CostiDirittoStudio_prev3 = SUM(accountyear.prevision3*A.economicbudget_sign_value)
 	FROM accountyear 
@@ -583,7 +611,10 @@ SELECT  @B_IX5_AcquistoMaterialeConsumo = SUM(accountyear.prevision*A.economicbu
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		AND S.sortcode LIKE 'EB2105%'
 
-declare @B_IX6_VariazioneRimanenze decimal(19,2)declare @B_IX6_VariazioneRimanenze_prev2 decimal(19,2)declare @B_IX6_VariazioneRimanenze_prev3 decimal(19,2)SELECT  @B_IX6_VariazioneRimanenze = SUM(accountyear.prevision*A.economicbudget_sign_value),
+declare @B_IX6_VariazioneRimanenze decimal(19,2)
+declare @B_IX6_VariazioneRimanenze_prev2 decimal(19,2)
+declare @B_IX6_VariazioneRimanenze_prev3 decimal(19,2)
+SELECT  @B_IX6_VariazioneRimanenze = SUM(accountyear.prevision*A.economicbudget_sign_value),
 		@B_IX6_VariazioneRimanenze_prev2 = SUM(accountyear.prevision2*A.economicbudget_sign_value),
 		@B_IX6_VariazioneRimanenze_prev3 = SUM(accountyear.prevision3*A.economicbudget_sign_value)
 	FROM accountyear 
@@ -597,7 +628,12 @@ declare @B_IX6_VariazioneRimanenze decimal(19,2)declare @B_IX6_VariazioneRimane
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB2106%'declare @B_IX7_AcquistoLibri decimal(19,2)declare @B_IX7_AcquistoLibri_prev2 decimal(19,2)declare @B_IX7_AcquistoLibri_prev3 decimal(19,2)SELECT  @B_IX7_AcquistoLibri =  SUM(accountyear.prevision*A.economicbudget_sign_value),
+		AND S.sortcode LIKE 'EB2106%'
+
+declare @B_IX7_AcquistoLibri decimal(19,2)
+declare @B_IX7_AcquistoLibri_prev2 decimal(19,2)
+declare @B_IX7_AcquistoLibri_prev3 decimal(19,2)
+SELECT  @B_IX7_AcquistoLibri =  SUM(accountyear.prevision*A.economicbudget_sign_value),
 		@B_IX7_AcquistoLibri_prev2 =  SUM(accountyear.prevision2*A.economicbudget_sign_value),
 		@B_IX7_AcquistoLibri_prev3 =  SUM(accountyear.prevision3*A.economicbudget_sign_value)
 	FROM accountyear 
@@ -611,7 +647,9 @@ declare @B_IX6_VariazioneRimanenze decimal(19,2)declare @B_IX6_VariazioneRimane
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB2107%'declare @B_IX8_AcquistoServizi decimal(19,2)
+		AND S.sortcode LIKE 'EB2107%'
+
+declare @B_IX8_AcquistoServizi decimal(19,2)
 declare @B_IX8_AcquistoServizi_prev2 decimal(19,2)
 declare @B_IX8_AcquistoServizi_prev3 decimal(19,2)
 SELECT  @B_IX8_AcquistoServizi = SUM(accountyear.prevision*A.economicbudget_sign_value),
@@ -649,7 +687,10 @@ SELECT  @B_IX9_AcquistoAltriMateriali = SUM(accountyear.prevision*A.economicbudg
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		AND S.sortcode LIKE 'EB2109%'
 
-declare @B_IX10_VariazioneRimanenze decimal(19,2)declare @B_IX10_VariazioneRimanenze_prev2 decimal(19,2)declare @B_IX10_VariazioneRimanenze_prev3 decimal(19,2)SELECT  @B_IX10_VariazioneRimanenze = SUM(accountyear.prevision*A.economicbudget_sign_value),
+declare @B_IX10_VariazioneRimanenze decimal(19,2)
+declare @B_IX10_VariazioneRimanenze_prev2 decimal(19,2)
+declare @B_IX10_VariazioneRimanenze_prev3 decimal(19,2)
+SELECT  @B_IX10_VariazioneRimanenze = SUM(accountyear.prevision*A.economicbudget_sign_value),
 		@B_IX10_VariazioneRimanenze_prev2 = SUM(accountyear.prevision2*A.economicbudget_sign_value),
 		@B_IX10_VariazioneRimanenze_prev3 = SUM(accountyear.prevision3*A.economicbudget_sign_value)
 	FROM accountyear 
@@ -663,7 +704,9 @@ declare @B_IX10_VariazioneRimanenze decimal(19,2)declare @B_IX10_VariazioneRima
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB2110%'declare @B_IX11_CostiGodimento decimal(19,2)
+		AND S.sortcode LIKE 'EB2110%'
+
+declare @B_IX11_CostiGodimento decimal(19,2)
 declare @B_IX11_CostiGodimento_prev2 decimal(19,2)
 declare @B_IX11_CostiGodimento_prev3 decimal(19,2)
 SELECT  @B_IX11_CostiGodimento = SUM(accountyear.prevision*A.economicbudget_sign_value),
@@ -722,7 +765,10 @@ set @IX_CostiGestione_prev3 = isnull(@B_IX1_CostiSostegnoStudenti_prev3,0) + isn
 /*	
 	X.AMMORTAMENTI E SVALUTAZIONI
 		1) Ammortamenti immobilizzazioni immateriali
-		2) Ammortamenti immobilizzazioni materiali		3) Svalutazioni immobilizzazioni		4) Svalutazioni dei crediti compresi nell'attivo circolante e nelle disponibilità liquide*/
+		2) Ammortamenti immobilizzazioni materiali
+		3) Svalutazioni immobilizzazioni
+		4) Svalutazioni dei crediti compresi nell'attivo circolante e nelle disponibilità liquide
+*/
 declare @B_X1_AmmortamentiImmobImmateriali decimal(19,2)
 declare @B_X1_AmmortamentiImmobImmateriali_prev2 decimal(19,2)
 declare @B_X1_AmmortamentiImmobImmateriali_prev3 decimal(19,2)
@@ -741,7 +787,11 @@ SELECT @B_X1_AmmortamentiImmobImmateriali =  SUM(accountyear.prevision*A.economi
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		AND S.sortcode LIKE 'EB3101%'
-declare @B_X2_AmmortamentiImmobMateriali decimal(19,2)declare @B_X2_AmmortamentiImmobMateriali_prev2 decimal(19,2)declare @B_X2_AmmortamentiImmobMateriali_prev3 decimal(19,2)SELECT @B_X2_AmmortamentiImmobMateriali = SUM(accountyear.prevision*A.economicbudget_sign_value),
+
+declare @B_X2_AmmortamentiImmobMateriali decimal(19,2)
+declare @B_X2_AmmortamentiImmobMateriali_prev2 decimal(19,2)
+declare @B_X2_AmmortamentiImmobMateriali_prev3 decimal(19,2)
+SELECT @B_X2_AmmortamentiImmobMateriali = SUM(accountyear.prevision*A.economicbudget_sign_value),
 		@B_X2_AmmortamentiImmobMateriali_prev2 = SUM(accountyear.prevision2*A.economicbudget_sign_value),
 		@B_X2_AmmortamentiImmobMateriali_prev3 = SUM(accountyear.prevision3*A.economicbudget_sign_value)
 	FROM accountyear 
@@ -755,7 +805,12 @@ SELECT @B_X1_AmmortamentiImmobImmateriali =  SUM(accountyear.prevision*A.economi
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB3102%'declare @B_X3_SvalutazioniImmobilizzazioni decimal(19,2)declare @B_X3_SvalutazioniImmobilizzazioni_prev2 decimal(19,2)declare @B_X3_SvalutazioniImmobilizzazioni_prev3 decimal(19,2)SELECT  @B_X3_SvalutazioniImmobilizzazioni = SUM(accountyear.prevision*A.economicbudget_sign_value),
+		AND S.sortcode LIKE 'EB3102%'
+
+declare @B_X3_SvalutazioniImmobilizzazioni decimal(19,2)
+declare @B_X3_SvalutazioniImmobilizzazioni_prev2 decimal(19,2)
+declare @B_X3_SvalutazioniImmobilizzazioni_prev3 decimal(19,2)
+SELECT  @B_X3_SvalutazioniImmobilizzazioni = SUM(accountyear.prevision*A.economicbudget_sign_value),
 		@B_X3_SvalutazioniImmobilizzazioni_prev2 = SUM(accountyear.prevision2*A.economicbudget_sign_value),
 		@B_X3_SvalutazioniImmobilizzazioni_prev3 = SUM(accountyear.prevision3*A.economicbudget_sign_value)
 	FROM accountyear 
@@ -769,7 +824,12 @@ SELECT @B_X1_AmmortamentiImmobImmateriali =  SUM(accountyear.prevision*A.economi
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB3103%'declare @B_X4_SvalutazioniCrediti decimal(19,2)declare @B_X4_SvalutazioniCrediti_prev2 decimal(19,2)declare @B_X4_SvalutazioniCrediti_prev3 decimal(19,2)SELECT  @B_X4_SvalutazioniCrediti = SUM(accountyear.prevision*A.economicbudget_sign_value),
+		AND S.sortcode LIKE 'EB3103%'
+
+declare @B_X4_SvalutazioniCrediti decimal(19,2)
+declare @B_X4_SvalutazioniCrediti_prev2 decimal(19,2)
+declare @B_X4_SvalutazioniCrediti_prev3 decimal(19,2)
+SELECT  @B_X4_SvalutazioniCrediti = SUM(accountyear.prevision*A.economicbudget_sign_value),
 		@B_X4_SvalutazioniCrediti_prev2 = SUM(accountyear.prevision2*A.economicbudget_sign_value),
 		@B_X4_SvalutazioniCrediti_prev3 = SUM(accountyear.prevision3*A.economicbudget_sign_value)
 	FROM accountyear 
@@ -833,8 +893,15 @@ SELECT  @B_XII_OneriDversiGestione = SUM(accountyear.prevision*A.economicbudget_
 		AND S.sortcode LIKE 'EB5101%'
 /*
 	C) PROVENTI ED ONERI FINANZIARI
-	1) Proventi finanziari	2) Interessi ed altri oneri finanziari 	3) Utili su cambi 	4) Perdite su cambi */
-declare @C_1ProventiFinanziari decimal(19,2)declare @C_1ProventiFinanziari_prev2 decimal(19,2)declare @C_1ProventiFinanziari_prev3 decimal(19,2)SELECT  @C_1ProventiFinanziari = SUM(accountyear.prevision*A.economicbudget_sign_value),
+	1) Proventi finanziari
+	2) Interessi ed altri oneri finanziari 
+	3) Utili su cambi 
+	4) Perdite su cambi 
+*/
+declare @C_1ProventiFinanziari decimal(19,2)
+declare @C_1ProventiFinanziari_prev2 decimal(19,2)
+declare @C_1ProventiFinanziari_prev3 decimal(19,2)
+SELECT  @C_1ProventiFinanziari = SUM(accountyear.prevision*A.economicbudget_sign_value),
 		@C_1ProventiFinanziari_prev2 = SUM(accountyear.prevision2*A.economicbudget_sign_value),
 		@C_1ProventiFinanziari_prev3 = SUM(accountyear.prevision3*A.economicbudget_sign_value)
 	FROM accountyear 
@@ -848,9 +915,16 @@ declare @C_1ProventiFinanziari decimal(19,2)declare @C_1ProventiFinanziari_prev
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EC1101%'declare @C_2Interessi_orig decimal(19,2)
+		AND S.sortcode LIKE 'EC1101%'
+
+declare @C_2Interessi_orig decimal(19,2)
 declare @C_2Interessi_prev2_orig decimal(19,2)
-declare @C_2Interessi_prev3_orig decimal(19,2)declare @C_2Interessi decimal(19,2)declare @C_2Interessi_prev2 decimal(19,2)declare @C_2Interessi_prev3 decimal(19,2)SELECT  @C_2Interessi_orig =   SUM(accountyear.prevision*A.economicbudget_sign_value),
+declare @C_2Interessi_prev3_orig decimal(19,2)
+
+declare @C_2Interessi decimal(19,2)
+declare @C_2Interessi_prev2 decimal(19,2)
+declare @C_2Interessi_prev3 decimal(19,2)
+SELECT  @C_2Interessi_orig =   SUM(accountyear.prevision*A.economicbudget_sign_value),
 		@C_2Interessi_prev2_orig =   SUM(accountyear.prevision2*A.economicbudget_sign_value),
 		@C_2Interessi_prev3_orig =   SUM(accountyear.prevision3*A.economicbudget_sign_value)
 	FROM accountyear 
@@ -864,9 +938,13 @@ declare @C_2Interessi_prev3_orig decimal(19,2)declare @C_2Interessi decimal(19
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EC1102%'if (@C_2Interessi_orig < 0) set @C_2Interessi = -@C_2Interessi_orig else set @C_2Interessi = @C_2Interessi_orig
+		AND S.sortcode LIKE 'EC1102%'
+
+if (@C_2Interessi_orig < 0) set @C_2Interessi = -@C_2Interessi_orig else set @C_2Interessi = @C_2Interessi_orig
 if (@C_2Interessi_prev2_orig < 0) set @C_2Interessi_prev2 = -@C_2Interessi_prev2_orig else set @C_2Interessi_prev2 = @C_2Interessi_prev2_orig
-if (@C_2Interessi_prev3_orig < 0) set @C_2Interessi_prev3 = -@C_2Interessi_prev3_orig else set @C_2Interessi_prev3 = @C_2Interessi_prev3_origdeclare @C_3Utili decimal(19,2)
+if (@C_2Interessi_prev3_orig < 0) set @C_2Interessi_prev3 = -@C_2Interessi_prev3_orig else set @C_2Interessi_prev3 = @C_2Interessi_prev3_orig
+
+declare @C_3Utili decimal(19,2)
 declare @C_3Utili_prev2 decimal(19,2)
 declare @C_3Utili_prev3 decimal(19,2)
 SELECT  @C_3Utili = SUM(accountyear.prevision*A.economicbudget_sign_value),

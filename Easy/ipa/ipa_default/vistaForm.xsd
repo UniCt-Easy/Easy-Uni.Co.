@@ -28,6 +28,7 @@
               <xs:element name="cf_operatore" type="xs:string" minOccurs="0" />
               <xs:element name="email_alert" type="xs:string" minOccurs="0" />
               <xs:element name="useforopi" type="xs:string" minOccurs="0" />
+              <xs:element name="email_nso" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

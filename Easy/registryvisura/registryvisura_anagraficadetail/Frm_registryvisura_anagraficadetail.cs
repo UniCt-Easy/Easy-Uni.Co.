@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,9 +29,13 @@ using metadatalibrary;
 using funzioni_configurazione;
 
 namespace registryvisura_anagraficadetail {
-    public partial class Frm_registryvisura_anagraficadetail :Form {
+    public partial class Frm_registryvisura_anagraficadetail : MetaDataForm {
+
+        public IOpenFileDialog opendlg;
+
         public Frm_registryvisura_anagraficadetail() {
             InitializeComponent();
+            opendlg = createOpenFileDialog(_opendlg);
         }
         private MetaData Meta;
         CQueryHelper QHC;
@@ -109,10 +112,17 @@ namespace registryvisura_anagraficadetail {
             if (!Meta.GetFormData(true)) return;
             DialogResult dialogResult = opendlg.ShowDialog(this);
             if (dialogResult == DialogResult.Cancel) return;
+            
+            string estensione = Path.GetExtension(opendlg.FileName);
+
+			if (CfgFn.ExtensionDenied(estensione)) {
+				show("Impossibile caricare questo tipo di file");
+				return;
+			}
+            
             DataRow Curr = HelpForm.GetLastSelected(DS.registryvisura);
             if (Curr == null) return;
             FileStream FS = new FileStream(opendlg.FileName, FileMode.Open, FileAccess.Read);
-            string estensione = Path.GetExtension(FS.Name);
             if (FS == null) return;
             int n = (int)FS.Length;
             if (n == 0) return;
@@ -145,7 +155,7 @@ namespace registryvisura_anagraficadetail {
                 catch { }
             }
 
-            //sw Ã¨ il nome del file temporaneo che hai creato
+            //sw è il nome del file temporaneo che hai creato
             DateTime oggi_dt = DateTime.Now;
             string oggi = oggi_dt.Ticks.ToString();
 
@@ -156,11 +166,23 @@ namespace registryvisura_anagraficadetail {
             string fname = GetFileName(ByteArray);
             string estensione = Path.GetExtension(fname).Trim(); ;
 
+            bool extensionDenied = CfgFn.ExtensionDenied(estensione);
+
+			if (extensionDenied) {
+				show("Impossibile aprire questo tipo di file");
+				return;
+			}
+			if (!CfgFn.ExtensionAllowed(estensione)) {
+				DialogResult dr = show("Si sta aprendo un file con estensione " + estensione +". Sei sicuro di voler aprire questo file?", "Attenzione!", MessageBoxButtons.YesNo);
+				if (dr == DialogResult.No) 
+					return;
+			}
+
             string sw = Path.Combine(FilePath, prefix + oggi.ToString() + estensione);
             try {
                 ScriviFile(sw, ByteArray, offset);
 
-                System.Diagnostics.Process.Start(sw);
+                runProcess(sw, true);
             }
             catch (Exception E) {
                 QueryCreator.ShowException(E);
@@ -211,7 +233,7 @@ namespace registryvisura_anagraficadetail {
                     datainiziovalidita = Convert.ToDateTime(txtDataIniziovalidita.Text);
                 }
                 catch {
-                    MessageBox.Show("La data inserita non era valida");
+                    show("La data inserita non era valida");
                     txtDataIniziovalidita.SelectAll();
                     txtDataIniziovalidita.Focus();
                     return;
@@ -220,4 +242,3 @@ namespace registryvisura_anagraficadetail {
         }
     }
 }
-

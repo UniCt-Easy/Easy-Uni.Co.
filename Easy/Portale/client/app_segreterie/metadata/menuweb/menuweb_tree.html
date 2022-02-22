@@ -1,0 +1,59 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		<!--tabString-->
+	</ul>
+	<form>
+	<div class="row">
+		<div class="col-md-4" style="background-color: white; align-self:flex-start">
+			<div id="menuweb_upb" data-tag="menuweb.tree" data-custom-control="tree"></div>
+		</div>
+		<div class="col-md-8"  style="background-color: white; align-self:flex-start">
+		<ul class="nav nav-tabs">
+			
+		</ul>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="menuweb_tree_idmenuweb">Identificativo</label>
+					<input id="menuweb_tree_idmenuweb" type="text" class="form-control" data-tag="menuweb.idmenuweb?menuwebtreeview.idmenuweb" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="menuweb_tree_editType">EditType</label>
+					<input id="menuweb_tree_editType" type="text" class="form-control" data-tag="menuweb.editType?menuwebtreeview.menuweb_editType" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="menuweb_tree_idmenuwebparent">Idmenuwebparent</label>
+					<div>
+						<input id="menuweb_tree_idmenuwebparent" name="menuweb_tree_idmenuwebparent" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="menuweb_alias1.label" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="menuweb_tree_label">Label</label>
+					<input id="menuweb_tree_label" type="text" class="form-control" data-tag="menuweb.label?menuwebtreeview.label" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="menuweb_tree_link">Link</label>
+					<input id="menuweb_tree_link" type="text" class="form-control" data-tag="menuweb.link?menuwebtreeview.menuweb_link" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="menuweb_tree_sort">Sort</label>
+					<input id="menuweb_tree_sort" type="text" class="form-control" data-tag="menuweb.sort?menuwebtreeview.menuweb_sort" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="menuweb_tree_tableName">TableName</label>
+					<input id="menuweb_tree_tableName" type="text" class="form-control" data-tag="menuweb.tableName?menuwebtreeview.menuweb_tableName" data-subentity  />
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+</div>
+<!--footer-->

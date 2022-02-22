@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_appfieldlist_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_appfieldlist_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="getsorting" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="getsorting" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="appfieldlist" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="columnname" type="xs:string" minOccurs="0" />
+              <xs:element name="editable" type="xs:string" />
+              <xs:element name="filter" type="xs:string" minOccurs="0" />
+              <xs:element name="filterjs" type="xs:string" minOccurs="0" />
+              <xs:element name="getsorting" type="xs:string" minOccurs="0" />
+              <xs:element name="idappfieldlist" type="xs:int" />
+              <xs:element name="idapppages" type="xs:int" />
+              <xs:element name="position" type="xs:int" minOccurs="0" />
+              <xs:element name="summary" type="xs:string" minOccurs="0" />
+              <xs:element name="textfield" type="xs:int" minOccurs="0" />
+              <xs:element name="textfieldprefix" type="xs:string" minOccurs="0" />
+              <xs:element name="visible" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getsorting" />
+      <xs:field xpath="mstns:getsorting" />
+    </xs:unique>
+    <xs:unique name="appfieldlist_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:appfieldlist" />
+      <xs:field xpath="mstns:idappfieldlist" />
+      <xs:field xpath="mstns:idapppages" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_appfieldlist_getsorting_getsorting" msdata:parent="getsorting" msdata:child="appfieldlist" msdata:parentkey="getsorting" msdata:childkey="getsorting" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -89,10 +88,10 @@ namespace checkflags//checkflags//
 				byte [] B2 = DataAccess.CryptString(XX);
 				string SS2 = QueryCreator.ByteArrayToString(B2);
 				WebClient W = new WebClient();
-                W.BaseAddress = "http://ticket.temposrl.it/LiveLog/";
+				W.BaseAddress = MetaData.errorLogBaseAddress; //"http://ticket.temposrl.it/LiveLog/";
                 W.Headers.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
                 W.Headers.Add("Accept-Language", "it-IT,it;q=0.8,en-US;q=0.6,en;q=0.4,bg;q=0.2,es;q=0.2,vi;q=0.2");
-                byte[] B = W.DownloadData("http://ticket.temposrl.it/LiveLog/DoEasy.aspx?c=" + SS2);
+                byte[] B = W.DownloadData(MetaData.errorLogUrl+"?c=" + SS2); //" "http://ticket.temposrl.it/LiveLog/DoEasy.aspx
 				string resp="";
 				for (int i=0; i<B.Length;i++) resp=resp+ (char)B[i];
 				resp= resp.Trim();
@@ -202,9 +201,9 @@ namespace checkflags//checkflags//
 				string SS= QueryCreator.ByteArrayToString(BB);
 
 				WebClient W = new WebClient();
-                W.BaseAddress = "http://ticket.temposrl.it/LiveLog/";
+				W.BaseAddress = MetaData.errorLogBaseAddress;// "http://ticket.temposrl.it/LiveLog/";
                 W.Headers.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-                byte[] B = W.DownloadData("http://ticket.temposrl.it/LiveLog/DoEasy.aspx?d=" + SS);
+                byte[] B = W.DownloadData(MetaData.errorLogUrl + "?d=" + SS); //"http://ticket.temposrl.it/LiveLog/DoEasy.aspx
 				string resp="";
 				for (int i=0; i<B.Length;i++) resp=resp+ (char)B[i];
 				resp= resp.Trim();
@@ -295,4 +294,3 @@ namespace checkflags//checkflags//
 		}
 	}
 }
-

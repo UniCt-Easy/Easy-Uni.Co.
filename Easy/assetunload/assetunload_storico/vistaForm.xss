@@ -12,7 +12,7 @@
     <Shape ID="DesignTable:assetunloadincome" ZOrder="16" X="290" Y="917" Height="215" Width="175" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="211" />
     <Shape ID="DesignTable:incomephase" ZOrder="15" X="755" Y="150" Height="113" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="109" />
     <Shape ID="DesignTable:incomeview" ZOrder="14" X="605" Y="896" Height="215" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="211" />
-    <Shape ID="DesignTable:assetunloadview" ZOrder="13" X="1168" Y="144" Height="215" Width="161" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="211" />
+    <Shape ID="DesignTable:assetunloadview" ZOrder="13" X="1168" Y="144" Height="619" Width="161" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="615" />
     <Shape ID="DesignTable:assetunloadkindview" ZOrder="12" X="290" Y="650" Height="214" Width="185" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="210" />
     <Shape ID="DesignTable:config" ZOrder="7" X="520" Y="246" Height="215" Width="178" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="211" />
     <Shape ID="DesignTable:assetamortizationunloadview" ZOrder="5" X="309" Y="1541" Height="275" Width="236" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="271" />

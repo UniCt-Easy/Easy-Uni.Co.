@@ -48,10 +48,10 @@
         <div class="col-md-5">
         </div>
         <div class="col-md-1">
-            <cc1:hwButton ID="btnOk"  runat="server" TabIndex="4" Text="Ok"  OnClick="btnOk_Click" />
+            <cc1:hwButton ID="btnOk"  runat="server" TabIndex="4" Text="Ok" class="btn btn-primary" OnClick="btnOk_Click" />
         </div>
         <div class="col-md-1">
-            <cc1:hwButton ID="btnCancel" runat="server" OnClick="btnCancel_Click" TabIndex="5" Text="Annulla" />
+            <cc1:hwButton ID="btnCancel" runat="server" OnClick="btnCancel_Click" TabIndex="5" class="btn btn-danger" Text="Annulla" />
         </div>
         <div class="col-md-5">
         </div>

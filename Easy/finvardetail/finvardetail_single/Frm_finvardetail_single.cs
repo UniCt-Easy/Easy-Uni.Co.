@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -31,7 +30,7 @@ namespace finvardetail_single {//UnDettVarBilancio//
 	/// <summary>
 	/// Summary description for frmUnDettVarBilancio.
 	/// </summary>
-	public class Frm_finvardetail_single : System.Windows.Forms.Form {
+	public class Frm_finvardetail_single : MetaDataForm {
 		private System.Windows.Forms.Button btnAnnulla;
 		private System.Windows.Forms.Button btnOK;
 		private System.Windows.Forms.TextBox txtImporto;
@@ -996,7 +995,7 @@ namespace finvardetail_single {//UnDettVarBilancio//
 		private void txtCodiceBilancio_Leave(object sender, System.EventArgs e) {
 			if (inChiusura) return;
             if ((Meta.EditMode)&& txtCodiceBilancio.ReadOnly) return;
-            if (!Meta.FormInited) {
+            if (!Meta.formController.formInited) {
                 Meta.LogError("txtCodiceBilancio_Leave di finvardetail_single chiamata su form not inited");
                 return;
             }
@@ -1045,8 +1044,14 @@ namespace finvardetail_single {//UnDettVarBilancio//
 				//try to load a row directly, without opening a new form		
 				string stripped=startvalue;
 				if (stripped.EndsWith("%")) stripped=stripped.TrimEnd(new Char[] {'%'});
-				string filter2 = GetData.MergeFilters(filtro,"("+startfield+"='"+stripped+"')");			
-				rFin = MetaBilancio.SelectByCondition(filter2, "finview");
+
+                string filteroperativo = "(idfin in (SELECT idfin from finusable where ayear='" +
+                    esercizio + "'))";
+
+                string filter2 = GetData.MergeFilters(filtro,"("+startfield+"='"+stripped+"')");
+                filter2 = GetData.MergeFilters(filter2, filteroperativo);
+                 
+                rFin = MetaBilancio.SelectByCondition(filter2, "finview");
 			}
 
 			if (rFin == null) {
@@ -1134,4 +1139,4 @@ namespace finvardetail_single {//UnDettVarBilancio//
 
         }
 	}
-}
+}

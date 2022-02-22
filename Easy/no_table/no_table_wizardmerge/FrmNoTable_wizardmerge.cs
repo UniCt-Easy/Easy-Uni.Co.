@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -30,7 +29,7 @@ using System.Collections;
 using System.IO;
 
 namespace no_table_wizardmerge {
-    public partial class FrmNoTable_wizardmerge : Form {
+    public partial class FrmNoTable_wizardmerge : MetaDataForm {
         MetaData Meta;
         DataAccess Conn;
         CQueryHelper QHC;
@@ -68,7 +67,7 @@ namespace no_table_wizardmerge {
             if ((newTab < 0) || (newTab > tabController.TabPages.Count)) return;
             if (!CustomChangeTab(oldTab, newTab)) return;
             if (newTab == tabController.TabPages.Count) {
-                if (MessageBox.Show(this, "Si desidera eseguire ancora la procedura",
+                if (show(this, "Si desidera eseguire ancora la procedura",
                     "Conferma", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                     newTab = 1;
                     ResetWizard();
@@ -135,7 +134,7 @@ namespace no_table_wizardmerge {
                 if (!Source.Open()) {
                     Source.Destroy();
                     Source = null;
-                    MessageBox.Show(this, "Non è stato possibile collegarsi al database " + txtSourceDataBase.Text);
+                    show(this, "Non è stato possibile collegarsi al database " + txtSourceDataBase.Text);
                     return false;
                 }
 
@@ -932,7 +931,7 @@ namespace no_table_wizardmerge {
             GetTableFromField[kfield] = lookup;
 
             if (notfound > 0) {
-                MessageBox.Show("Di " + notfound.ToString() + " righe della tabella " + table + " non è stata trovata una corrispondenza nel db consolidato","Errore");
+                show("Di " + notfound.ToString() + " righe della tabella " + table + " non è stata trovata una corrispondenza nel db consolidato","Errore");
             }
 
             return notfound;
@@ -1091,7 +1090,7 @@ namespace no_table_wizardmerge {
                 }
                 if (res != 0) {
                     Cursor = Cursors.Default;
-                    MessageBox.Show("Errore nella copia della tabella " + tablename);
+                    show("Errore nella copia della tabella " + tablename);
                     return;
                 }
                 if (lasterr_DBO == 0) {
@@ -1106,7 +1105,7 @@ namespace no_table_wizardmerge {
             
             for (int idreg = 1; idreg <= N_New; idreg++) {
                 if (!CopyRegistry(idreg,  Source, Conn)) {
-                    MessageBox.Show("Errore nella copia dell'anagrafica n." + idreg);
+                    show("Errore nella copia dell'anagrafica n." + idreg);
                     Cursor = Cursors.Default;
                     return;
                 }
@@ -1205,7 +1204,7 @@ namespace no_table_wizardmerge {
             if (O == null) return valore;
             Hashtable lookup = (Hashtable)O;
             if (lookup[valore] == null) {
-                MessageBox.Show("Non è stata trovata corrispondenza per il valore " + 
+                show("Non è stata trovata corrispondenza per il valore " + 
                 valore.ToString() + " del campo " + field + " della tabella " + tablename +
                     " nel campo "+newField+" a cui si riferisce");
                 return valore;
@@ -1336,7 +1335,7 @@ namespace no_table_wizardmerge {
                     object idtaxdest = taxHash[ToCrg["autocode"]];
                     if (idtaxdest == null) {
                         idtaxdest = DBNull.Value;
-                        MessageBox.Show("Non è stata trovata corrispondenza per il valore " +
+                        show("Non è stata trovata corrispondenza per il valore " +
                             idautokind.ToString() + " del campo autocode della tabella " + tablename);
 
                     }
@@ -1348,7 +1347,7 @@ namespace no_table_wizardmerge {
                                 + QueryCreator.quotedstrvalue(tablename, true) + " and xtype='U' and uid=user_id( "
                                 + QueryCreator.quotedstrvalue(dest_owner, true) + ")", false);
             if (Exists.Rows.Count == 0) {
-                MessageBox.Show("Tabella " + tablename +
+                show("Tabella " + tablename +
                                         " non trovata nel nuovo dipartimento. Questa tabella sarà saltata. ",
                                         "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return true;
@@ -1373,29 +1372,26 @@ namespace no_table_wizardmerge {
             else {
                 int Num = DestDip.RUN_SELECT_COUNT(tablename, null, false);
                 if (Num > 0 && (DO_ADD==false)) {
-                    MessageBox.Show("La tabella " + tablename + " sarà saltata perché contiene già " +
+                    show("La tabella " + tablename + " sarà saltata perché contiene già " +
                         Num.ToString() + " righe nel db di destinazione.", "Avviso");
                     return true;
                 }
             }
             bool res = CopyTable(T, DestDip);
             if (!res) {
-                MessageBox.Show("Errore nella copia della tabella " + tablename);
+                show("Errore nella copia della tabella " + tablename);
                 return false;
             }
  
             return true;
         }
 
-
-
-
         public  DataTable eseguiQuery(DataAccess sourceConn, string command, Form form) {
             string errMsg;
             DataTable t = sourceConn.SQLRunner(command, 0, out errMsg);
             if (errMsg != null) {
                 QueryCreator.ShowError(null, errMsg, command);
-                MessageBox.Show(form, errMsg);
+                show(form, errMsg);
             }
             return t;
         }
@@ -1451,7 +1447,7 @@ namespace no_table_wizardmerge {
                             StreamWriter fsw = new StreamWriter("temp.sql", false, Encoding.Default);
                             fsw.Write(s.ToString());
                             fsw.Close();
-                            MessageBox.Show(this, "Errore durante la copia della tabella " + TT.TableName + "\r\nLo script lanciato si trova nel file 'temp.sql'");
+                            show(this, "Errore durante la copia della tabella " + TT.TableName + "\r\nLo script lanciato si trova nel file 'temp.sql'");
 
                             return false;
                         }
@@ -1466,7 +1462,7 @@ namespace no_table_wizardmerge {
                         StreamWriter fsw = new StreamWriter("temp.sql", false, Encoding.Default);
                         fsw.Write(s.ToString());
                         fsw.Close();
-                        MessageBox.Show(this, "Errore durante la copia di " + TT.TableName + "\r\nLo script lanciato si trova nel file 'temp.sql'");
+                        show(this, "Errore durante la copia di " + TT.TableName + "\r\nLo script lanciato si trova nel file 'temp.sql'");
 
                         return false;
                     }
@@ -1484,4 +1480,4 @@ namespace no_table_wizardmerge {
 
        
     }
-}
+}

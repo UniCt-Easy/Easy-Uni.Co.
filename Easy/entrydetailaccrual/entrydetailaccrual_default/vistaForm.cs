@@ -1,384 +1,386 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.Runtime.Serialization;
 #pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace entrydetailaccrual_default {
-[Serializable()][DesignerCategoryAttribute("code")][System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-[System.Xml.Serialization.XmlRootAttribute("vistaForm")][System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-public partial class vistaForm: DataSet {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public class vistaForm: DataSet {
 
 	#region Table members declaration
 	///<summary>
 	///Rateo dettaglio scrittura, Ã¨ un collegamento  tra una scrittura ed una precedentemente salvata
 	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public DataTable entrydetailaccrual		{get { return Tables["entrydetailaccrual"];}}
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable entrydetailaccrual 		=> Tables["entrydetailaccrual"];
+
 	///<summary>
 	///Tipo scrittura
 	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public DataTable entrykind		{get { return Tables["entrykind"];}}
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public DataTable entrykind_linked		{get { return Tables["entrykind_linked"];}}
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public DataTable entrydetailview		{get { return Tables["entrydetailview"];}}
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public DataTable entrydetailview_linked		{get { return Tables["entrydetailview_linked"];}}
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public DataTable entrydetailaccrualview		{get { return Tables["entrydetailaccrualview"];}}
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable entrykind 		=> Tables["entrykind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable entrykind_linked 		=> Tables["entrykind_linked"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable entrydetailview 		=> Tables["entrydetailview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable entrydetailview_linked 		=> Tables["entrydetailview_linked"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable entrydetailaccrualview 		=> Tables["entrydetailaccrualview"];
+
 	#endregion
 
 
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
-	public new DataTableCollection Tables {get {return base.Tables;}}
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
 
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
-	public new DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
 
-[DebuggerNonUserCodeAttribute()]
+[DebuggerNonUserCode]
 public vistaForm(){
 	BeginInit();
-	InitClass();
+	initClass();
 	EndInit();
 }
-[DebuggerNonUserCodeAttribute()]
+[DebuggerNonUserCode]
 protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
-[DebuggerNonUserCodeAttribute()]
-private void InitClass() {
+[DebuggerNonUserCode]
+private void initClass() {
 	DataSetName = "vistaForm";
 	Prefix = "";
 	Namespace = "http://tempuri.org/vistaForm.xsd";
-	EnforceConstraints = false;
 
 	#region create DataTables
-	DataTable T;
 	DataColumn C;
 	//////////////////// ENTRYDETAILACCRUAL /////////////////////////////////
-	T= new DataTable("entrydetailaccrual");
-	C= new DataColumn("yentry", typeof(Int16));
+	var tentrydetailaccrual= new DataTable("entrydetailaccrual");
+	C= new DataColumn("yentry", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("nentry", typeof(Int32));
+	tentrydetailaccrual.Columns.Add(C);
+	C= new DataColumn("nentry", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("ndetail", typeof(Int32));
+	tentrydetailaccrual.Columns.Add(C);
+	C= new DataColumn("ndetail", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("idaccrual", typeof(Int32));
+	tentrydetailaccrual.Columns.Add(C);
+	C= new DataColumn("idaccrual", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("amount", typeof(Decimal)));
-	T.Columns.Add( new DataColumn("yentrylinked", typeof(Int16)));
-	T.Columns.Add( new DataColumn("nentrylinked", typeof(Int32)));
-	T.Columns.Add( new DataColumn("ndetaillinked", typeof(Int32)));
-	Tables.Add(T);
-	T.PrimaryKey =  new DataColumn[]{T.Columns["yentry"], T.Columns["nentry"], T.Columns["ndetail"], T.Columns["idaccrual"]};
+	tentrydetailaccrual.Columns.Add(C);
+	tentrydetailaccrual.Columns.Add( new DataColumn("amount", typeof(decimal)));
+	tentrydetailaccrual.Columns.Add( new DataColumn("yentrylinked", typeof(short)));
+	tentrydetailaccrual.Columns.Add( new DataColumn("nentrylinked", typeof(int)));
+	tentrydetailaccrual.Columns.Add( new DataColumn("ndetaillinked", typeof(int)));
+	Tables.Add(tentrydetailaccrual);
+	tentrydetailaccrual.PrimaryKey =  new DataColumn[]{tentrydetailaccrual.Columns["yentry"], tentrydetailaccrual.Columns["nentry"], tentrydetailaccrual.Columns["ndetail"], tentrydetailaccrual.Columns["idaccrual"]};
 
 
 	//////////////////// ENTRYKIND /////////////////////////////////
-	T= new DataTable("entrykind");
-	C= new DataColumn("identrykind", typeof(Int32));
+	var tentrykind= new DataTable("entrykind");
+	C= new DataColumn("identrykind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("description", typeof(String));
+	tentrykind.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tentrykind.Columns.Add(C);
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("cu", typeof(String));
+	tentrykind.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tentrykind.Columns.Add(C);
 	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("lu", typeof(String));
+	tentrykind.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	Tables.Add(T);
-	T.PrimaryKey =  new DataColumn[]{T.Columns["identrykind"]};
+	tentrykind.Columns.Add(C);
+	Tables.Add(tentrykind);
+	tentrykind.PrimaryKey =  new DataColumn[]{tentrykind.Columns["identrykind"]};
 
 
 	//////////////////// ENTRYKIND_LINKED /////////////////////////////////
-	T= new DataTable("entrykind_linked");
-	C= new DataColumn("identrykind", typeof(Int32));
+	var tentrykind_linked= new DataTable("entrykind_linked");
+	C= new DataColumn("identrykind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("description", typeof(String));
+	tentrykind_linked.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tentrykind_linked.Columns.Add(C);
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("cu", typeof(String));
+	tentrykind_linked.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tentrykind_linked.Columns.Add(C);
 	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("lu", typeof(String));
+	tentrykind_linked.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	Tables.Add(T);
-	T.PrimaryKey =  new DataColumn[]{T.Columns["identrykind"]};
+	tentrykind_linked.Columns.Add(C);
+	Tables.Add(tentrykind_linked);
+	tentrykind_linked.PrimaryKey =  new DataColumn[]{tentrykind_linked.Columns["identrykind"]};
 
 
 	//////////////////// ENTRYDETAILVIEW /////////////////////////////////
-	T= new DataTable("entrydetailview");
-	C= new DataColumn("yentry", typeof(Int16));
+	var tentrydetailview= new DataTable("entrydetailview");
+	C= new DataColumn("yentry", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("nentry", typeof(Int32));
+	tentrydetailview.Columns.Add(C);
+	C= new DataColumn("nentry", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("ndetail", typeof(Int32));
+	tentrydetailview.Columns.Add(C);
+	C= new DataColumn("ndetail", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("idacc", typeof(String));
+	tentrydetailview.Columns.Add(C);
+	C= new DataColumn("idacc", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("idreg", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idupb", typeof(String)));
-	C= new DataColumn("amount", typeof(Decimal));
+	tentrydetailview.Columns.Add(C);
+	tentrydetailview.Columns.Add( new DataColumn("idreg", typeof(int)));
+	tentrydetailview.Columns.Add( new DataColumn("idupb", typeof(string)));
+	C= new DataColumn("amount", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("give", typeof(Decimal));
+	tentrydetailview.Columns.Add(C);
+	C= new DataColumn("give", typeof(decimal));
 	C.ReadOnly=true;
-	T.Columns.Add(C);
-	C= new DataColumn("have", typeof(Decimal));
+	tentrydetailview.Columns.Add(C);
+	C= new DataColumn("have", typeof(decimal));
 	C.ReadOnly=true;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("idsor1", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor2", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor3", typeof(Int32)));
-	C= new DataColumn("cu", typeof(String));
+	tentrydetailview.Columns.Add(C);
+	tentrydetailview.Columns.Add( new DataColumn("idsor1", typeof(int)));
+	tentrydetailview.Columns.Add( new DataColumn("idsor2", typeof(int)));
+	tentrydetailview.Columns.Add( new DataColumn("idsor3", typeof(int)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tentrydetailview.Columns.Add(C);
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("lu", typeof(String));
+	tentrydetailview.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("lt", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("codeupb", typeof(String)));
-	T.Columns.Add( new DataColumn("codeacc", typeof(String)));
-	T.Columns.Add( new DataColumn("account", typeof(String)));
-	T.Columns.Add( new DataColumn("registry", typeof(String)));
-	T.Columns.Add( new DataColumn("upb", typeof(String)));
-	T.Columns.Add( new DataColumn("idaccountkind", typeof(String)));
-	T.Columns.Add( new DataColumn("flagregistry", typeof(String)));
-	T.Columns.Add( new DataColumn("flagupb", typeof(String)));
-	T.Columns.Add( new DataColumn("idrelated", typeof(String)));
-	C= new DataColumn("description", typeof(String));
+	tentrydetailview.Columns.Add(C);
+	tentrydetailview.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tentrydetailview.Columns.Add( new DataColumn("codeupb", typeof(string)));
+	tentrydetailview.Columns.Add( new DataColumn("codeacc", typeof(string)));
+	tentrydetailview.Columns.Add( new DataColumn("account", typeof(string)));
+	tentrydetailview.Columns.Add( new DataColumn("registry", typeof(string)));
+	tentrydetailview.Columns.Add( new DataColumn("upb", typeof(string)));
+	tentrydetailview.Columns.Add( new DataColumn("idaccountkind", typeof(string)));
+	tentrydetailview.Columns.Add( new DataColumn("flagregistry", typeof(string)));
+	tentrydetailview.Columns.Add( new DataColumn("flagupb", typeof(string)));
+	tentrydetailview.Columns.Add( new DataColumn("idrelated", typeof(string)));
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tentrydetailview.Columns.Add(C);
 	C= new DataColumn("adate", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("doc", typeof(String)));
-	T.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("idaccmotive", typeof(String)));
-	T.Columns.Add( new DataColumn("accmotive", typeof(String)));
-	T.Columns.Add( new DataColumn("codemotive", typeof(String)));
-	T.Columns.Add( new DataColumn("identrykind", typeof(Int32)));
-	T.Columns.Add( new DataColumn("competencystart", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("competencystop", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("idsor01", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor02", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor03", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor04", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor05", typeof(Int32)));
-	Tables.Add(T);
-	T.PrimaryKey =  new DataColumn[]{T.Columns["yentry"], T.Columns["nentry"], T.Columns["ndetail"]};
+	tentrydetailview.Columns.Add(C);
+	tentrydetailview.Columns.Add( new DataColumn("doc", typeof(string)));
+	tentrydetailview.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	tentrydetailview.Columns.Add( new DataColumn("idaccmotive", typeof(string)));
+	tentrydetailview.Columns.Add( new DataColumn("accmotive", typeof(string)));
+	tentrydetailview.Columns.Add( new DataColumn("codemotive", typeof(string)));
+	tentrydetailview.Columns.Add( new DataColumn("identrykind", typeof(int)));
+	tentrydetailview.Columns.Add( new DataColumn("competencystart", typeof(DateTime)));
+	tentrydetailview.Columns.Add( new DataColumn("competencystop", typeof(DateTime)));
+	tentrydetailview.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tentrydetailview.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tentrydetailview.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tentrydetailview.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tentrydetailview.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	Tables.Add(tentrydetailview);
+	tentrydetailview.PrimaryKey =  new DataColumn[]{tentrydetailview.Columns["yentry"], tentrydetailview.Columns["nentry"], tentrydetailview.Columns["ndetail"]};
 
 
 	//////////////////// ENTRYDETAILVIEW_LINKED /////////////////////////////////
-	T= new DataTable("entrydetailview_linked");
-	C= new DataColumn("yentry", typeof(Int16));
+	var tentrydetailview_linked= new DataTable("entrydetailview_linked");
+	C= new DataColumn("yentry", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("nentry", typeof(Int32));
+	tentrydetailview_linked.Columns.Add(C);
+	C= new DataColumn("nentry", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("ndetail", typeof(Int32));
+	tentrydetailview_linked.Columns.Add(C);
+	C= new DataColumn("ndetail", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("idacc", typeof(String));
+	tentrydetailview_linked.Columns.Add(C);
+	C= new DataColumn("idacc", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("idreg", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idupb", typeof(String)));
-	C= new DataColumn("amount", typeof(Decimal));
+	tentrydetailview_linked.Columns.Add(C);
+	tentrydetailview_linked.Columns.Add( new DataColumn("idreg", typeof(int)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("idupb", typeof(string)));
+	C= new DataColumn("amount", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("give", typeof(Decimal));
+	tentrydetailview_linked.Columns.Add(C);
+	C= new DataColumn("give", typeof(decimal));
 	C.ReadOnly=true;
-	T.Columns.Add(C);
-	C= new DataColumn("have", typeof(Decimal));
+	tentrydetailview_linked.Columns.Add(C);
+	C= new DataColumn("have", typeof(decimal));
 	C.ReadOnly=true;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("idsor1", typeof(String)));
-	T.Columns.Add( new DataColumn("idsor2", typeof(String)));
-	T.Columns.Add( new DataColumn("idsor3", typeof(String)));
-	C= new DataColumn("cu", typeof(String));
+	tentrydetailview_linked.Columns.Add(C);
+	tentrydetailview_linked.Columns.Add( new DataColumn("idsor1", typeof(string)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("idsor2", typeof(string)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("idsor3", typeof(string)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tentrydetailview_linked.Columns.Add(C);
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("lu", typeof(String));
+	tentrydetailview_linked.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("lt", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("codeupb", typeof(String)));
-	T.Columns.Add( new DataColumn("codeacc", typeof(String)));
-	T.Columns.Add( new DataColumn("account", typeof(String)));
-	T.Columns.Add( new DataColumn("registry", typeof(String)));
-	T.Columns.Add( new DataColumn("upb", typeof(String)));
-	T.Columns.Add( new DataColumn("idaccountkind", typeof(String)));
-	T.Columns.Add( new DataColumn("flagregistry", typeof(String)));
-	T.Columns.Add( new DataColumn("flagupb", typeof(String)));
-	T.Columns.Add( new DataColumn("idrelated", typeof(String)));
-	C= new DataColumn("description", typeof(String));
+	tentrydetailview_linked.Columns.Add(C);
+	tentrydetailview_linked.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("codeupb", typeof(string)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("codeacc", typeof(string)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("account", typeof(string)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("registry", typeof(string)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("upb", typeof(string)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("idaccountkind", typeof(string)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("flagregistry", typeof(string)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("flagupb", typeof(string)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("idrelated", typeof(string)));
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tentrydetailview_linked.Columns.Add(C);
 	C= new DataColumn("adate", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("doc", typeof(String)));
-	T.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("idaccmotive", typeof(String)));
-	T.Columns.Add( new DataColumn("accmotive", typeof(String)));
-	T.Columns.Add( new DataColumn("codemotive", typeof(String)));
-	T.Columns.Add( new DataColumn("identrykind", typeof(Int32)));
-	T.Columns.Add( new DataColumn("competencystart", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("competencystop", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("idsor01", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor02", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor03", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor04", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor05", typeof(Int32)));
-	Tables.Add(T);
-	T.PrimaryKey =  new DataColumn[]{T.Columns["yentry"], T.Columns["nentry"], T.Columns["ndetail"]};
+	tentrydetailview_linked.Columns.Add(C);
+	tentrydetailview_linked.Columns.Add( new DataColumn("doc", typeof(string)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("idaccmotive", typeof(string)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("accmotive", typeof(string)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("codemotive", typeof(string)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("identrykind", typeof(int)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("competencystart", typeof(DateTime)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("competencystop", typeof(DateTime)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tentrydetailview_linked.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	Tables.Add(tentrydetailview_linked);
+	tentrydetailview_linked.PrimaryKey =  new DataColumn[]{tentrydetailview_linked.Columns["yentry"], tentrydetailview_linked.Columns["nentry"], tentrydetailview_linked.Columns["ndetail"]};
 
 
 	//////////////////// ENTRYDETAILACCRUALVIEW /////////////////////////////////
-	T= new DataTable("entrydetailaccrualview");
-	C= new DataColumn("yentry", typeof(Int16));
+	var tentrydetailaccrualview= new DataTable("entrydetailaccrualview");
+	C= new DataColumn("yentry", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("nentry", typeof(Int32));
+	tentrydetailaccrualview.Columns.Add(C);
+	C= new DataColumn("nentry", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("ndetail", typeof(Int32));
+	tentrydetailaccrualview.Columns.Add(C);
+	C= new DataColumn("ndetail", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("idacc", typeof(String));
+	tentrydetailaccrualview.Columns.Add(C);
+	C= new DataColumn("idacc", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("idreg", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idupb", typeof(String)));
-	C= new DataColumn("amount", typeof(Decimal));
+	tentrydetailaccrualview.Columns.Add(C);
+	tentrydetailaccrualview.Columns.Add( new DataColumn("idreg", typeof(int)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("idupb", typeof(string)));
+	C= new DataColumn("amount", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("rateamount", typeof(Decimal));
+	tentrydetailaccrualview.Columns.Add(C);
+	C= new DataColumn("rateamount", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("available", typeof(Decimal)));
-	T.Columns.Add( new DataColumn("idsor1", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor2", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor3", typeof(Int32)));
-	C= new DataColumn("ct", typeof(String));
+	tentrydetailaccrualview.Columns.Add(C);
+	tentrydetailaccrualview.Columns.Add( new DataColumn("available", typeof(decimal)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("idsor1", typeof(int)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("idsor2", typeof(int)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("idsor3", typeof(int)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("cu", typeof(DateTime));
+	tentrydetailaccrualview.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("lt", typeof(String));
+	tentrydetailaccrualview.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("lu", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("codeupb", typeof(String)));
-	T.Columns.Add( new DataColumn("codeacc", typeof(String)));
-	T.Columns.Add( new DataColumn("account", typeof(String)));
-	T.Columns.Add( new DataColumn("registry", typeof(String)));
-	T.Columns.Add( new DataColumn("upb", typeof(String)));
-	T.Columns.Add( new DataColumn("idaccountkind", typeof(String)));
-	T.Columns.Add( new DataColumn("flagregistry", typeof(String)));
-	T.Columns.Add( new DataColumn("flagupb", typeof(String)));
-	T.Columns.Add( new DataColumn("idrelated", typeof(String)));
-	T.Columns.Add( new DataColumn("description", typeof(String)));
-	C= new DataColumn("adate", typeof(String));
+	tentrydetailaccrualview.Columns.Add(C);
+	tentrydetailaccrualview.Columns.Add( new DataColumn("lu", typeof(string)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("codeupb", typeof(string)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("codeacc", typeof(string)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("account", typeof(string)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("registry", typeof(string)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("upb", typeof(string)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("idaccountkind", typeof(string)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("flagregistry", typeof(string)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("flagupb", typeof(string)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("idrelated", typeof(string)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("description", typeof(string)));
+	C= new DataColumn("adate", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tentrydetailaccrualview.Columns.Add(C);
 	C= new DataColumn("doc", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("docdate", typeof(String)));
-	T.Columns.Add( new DataColumn("idaccmotive", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("accmotive", typeof(String)));
-	T.Columns.Add( new DataColumn("codemotive", typeof(String)));
-	T.Columns.Add( new DataColumn("identrykind", typeof(Int32)));
-	T.Columns.Add( new DataColumn("competencystart", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("competencystop", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("flagap", typeof(String)));
-	T.Columns.Add( new DataColumn("idepexp", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idepacc", typeof(Int32)));
-	Tables.Add(T);
-	T.PrimaryKey =  new DataColumn[]{T.Columns["yentry"], T.Columns["nentry"], T.Columns["ndetail"]};
+	tentrydetailaccrualview.Columns.Add(C);
+	tentrydetailaccrualview.Columns.Add( new DataColumn("docdate", typeof(string)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("idaccmotive", typeof(DateTime)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("accmotive", typeof(string)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("codemotive", typeof(string)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("identrykind", typeof(int)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("competencystart", typeof(DateTime)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("competencystop", typeof(DateTime)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("flagap", typeof(string)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("idepexp", typeof(int)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("idepacc", typeof(int)));
+	Tables.Add(tentrydetailaccrualview);
+	tentrydetailaccrualview.PrimaryKey =  new DataColumn[]{tentrydetailaccrualview.Columns["yentry"], tentrydetailaccrualview.Columns["nentry"], tentrydetailaccrualview.Columns["ndetail"]};
 
 
 	#endregion
 
 
 	#region DataRelation creation
-	DataColumn []CPar;
-	DataColumn []CChild;
-	CPar = new DataColumn[1]{entrykind_linked.Columns["identrykind"]};
-	CChild = new DataColumn[1]{entrydetailview_linked.Columns["identrykind"]};
-	Relations.Add(new DataRelation("entrykind_linkedentrydetailview_linked",CPar,CChild,false));
+	var cPar = new []{entrykind_linked.Columns["identrykind"]};
+	var cChild = new []{entrydetailview_linked.Columns["identrykind"]};
+	Relations.Add(new DataRelation("entrykind_linkedentrydetailview_linked",cPar,cChild,false));
 
-	CPar = new DataColumn[1]{entrykind.Columns["identrykind"]};
-	CChild = new DataColumn[1]{entrydetailview.Columns["identrykind"]};
-	Relations.Add(new DataRelation("entrykindentrydetailview",CPar,CChild,false));
+	cPar = new []{entrykind.Columns["identrykind"]};
+	cChild = new []{entrydetailview.Columns["identrykind"]};
+	Relations.Add(new DataRelation("entrykindentrydetailview",cPar,cChild,false));
 
-	CPar = new DataColumn[3]{entrydetailview.Columns["yentry"], entrydetailview.Columns["nentry"], entrydetailview.Columns["ndetail"]};
-	CChild = new DataColumn[3]{entrydetailaccrual.Columns["yentry"], entrydetailaccrual.Columns["nentry"], entrydetailaccrual.Columns["ndetail"]};
-	Relations.Add(new DataRelation("entrydetailview_entrydetailaccrual",CPar,CChild,false));
+	cPar = new []{entrydetailview.Columns["yentry"], entrydetailview.Columns["nentry"], entrydetailview.Columns["ndetail"]};
+	cChild = new []{entrydetailaccrual.Columns["yentry"], entrydetailaccrual.Columns["nentry"], entrydetailaccrual.Columns["ndetail"]};
+	Relations.Add(new DataRelation("entrydetailview_entrydetailaccrual",cPar,cChild,false));
 
-	CPar = new DataColumn[3]{entrydetailview_linked.Columns["yentry"], entrydetailview_linked.Columns["nentry"], entrydetailview_linked.Columns["ndetail"]};
-	CChild = new DataColumn[3]{entrydetailaccrual.Columns["yentrylinked"], entrydetailaccrual.Columns["nentrylinked"], entrydetailaccrual.Columns["ndetaillinked"]};
-	Relations.Add(new DataRelation("entrydetailview_linkedentrydetailaccrual",CPar,CChild,false));
+	cPar = new []{entrydetailview_linked.Columns["yentry"], entrydetailview_linked.Columns["nentry"], entrydetailview_linked.Columns["ndetail"]};
+	cChild = new []{entrydetailaccrual.Columns["yentrylinked"], entrydetailaccrual.Columns["nentrylinked"], entrydetailaccrual.Columns["ndetaillinked"]};
+	Relations.Add(new DataRelation("entrydetailview_linkedentrydetailaccrual",cPar,cChild,false));
 
-	CPar = new DataColumn[3]{entrydetailaccrualview.Columns["yentry"], entrydetailaccrualview.Columns["nentry"], entrydetailaccrualview.Columns["ndetail"]};
-	CChild = new DataColumn[3]{entrydetailaccrual.Columns["yentrylinked"], entrydetailaccrual.Columns["nentrylinked"], entrydetailaccrual.Columns["ndetaillinked"]};
-	Relations.Add(new DataRelation("entrydetailaccrualview_entrydetailaccrual",CPar,CChild,false));
+	cPar = new []{entrydetailaccrualview.Columns["yentry"], entrydetailaccrualview.Columns["nentry"], entrydetailaccrualview.Columns["ndetail"]};
+	cChild = new []{entrydetailaccrual.Columns["yentrylinked"], entrydetailaccrual.Columns["nentrylinked"], entrydetailaccrual.Columns["ndetaillinked"]};
+	Relations.Add(new DataRelation("entrydetailaccrualview_entrydetailaccrual",cPar,cChild,false));
 
 	#endregion
 
 }
 }
 }
-

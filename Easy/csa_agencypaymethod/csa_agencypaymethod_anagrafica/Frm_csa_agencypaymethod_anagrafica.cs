@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -29,7 +28,7 @@ namespace csa_agencypaymethod_anagrafica {//PagamentoAnagrafica//
 	/// <summary>
 	/// Summary description for frmPagamentoAnagrafica.
 	/// </summary>
-	public class Frm_csa_agencypaymethod_anagrafica : System.Windows.Forms.Form {
+	public class Frm_csa_agencypaymethod_anagrafica : MetaDataForm {
         MetaData Meta;
       	private System.Windows.Forms.Button OkButton;
         private System.Windows.Forms.Button CancButton;
@@ -219,7 +218,7 @@ namespace csa_agencypaymethod_anagrafica {//PagamentoAnagrafica//
             this.txtIBAN.ReadOnly = true;
             this.txtIBAN.Size = new System.Drawing.Size(186, 20);
             this.txtIBAN.TabIndex = 7;
-            this.txtIBAN.Tag = "registrypaymethod .iban";
+            this.txtIBAN.Tag = "registrypaymethod.iban";
             // 
             // txtRifDocumentoEsterno
             // 
@@ -229,7 +228,7 @@ namespace csa_agencypaymethod_anagrafica {//PagamentoAnagrafica//
             this.txtRifDocumentoEsterno.Size = new System.Drawing.Size(100, 20);
             this.txtRifDocumentoEsterno.TabIndex = 0;
             this.txtRifDocumentoEsterno.TabStop = false;
-            this.txtRifDocumentoEsterno.Tag = "registrypaymethod .refexternaldoc";
+            this.txtRifDocumentoEsterno.Tag = "registrypaymethod.refexternaldoc";
             // 
             // label9
             // 
@@ -269,7 +268,7 @@ namespace csa_agencypaymethod_anagrafica {//PagamentoAnagrafica//
             this.cmbModPagamento.Name = "cmbModPagamento";
             this.cmbModPagamento.Size = new System.Drawing.Size(338, 21);
             this.cmbModPagamento.TabIndex = 5;
-            this.cmbModPagamento.Tag = "registrypaymethod .idpaymethod";
+            this.cmbModPagamento.Tag = "registrypaymethod.idpaymethod";
             this.cmbModPagamento.ValueMember = "idpaymethod";
             // 
             // label38
@@ -292,7 +291,7 @@ namespace csa_agencypaymethod_anagrafica {//PagamentoAnagrafica//
             this.txtDescrModPagamento.Size = new System.Drawing.Size(304, 48);
             this.txtDescrModPagamento.TabIndex = 17;
             this.txtDescrModPagamento.TabStop = false;
-            this.txtDescrModPagamento.Tag = "registrypaymethod .paymentdescr";
+            this.txtDescrModPagamento.Tag = "registrypaymethod.paymentdescr";
             // 
             // label40
             // 
@@ -360,7 +359,7 @@ namespace csa_agencypaymethod_anagrafica {//PagamentoAnagrafica//
             this.txtContoCorrente.ReadOnly = true;
             this.txtContoCorrente.Size = new System.Drawing.Size(88, 20);
             this.txtContoCorrente.TabIndex = 11;
-            this.txtContoCorrente.Tag = "registrypaymethod .cc";
+            this.txtContoCorrente.Tag = "registrypaymethod.cc";
             // 
             // txtSportello
             // 
@@ -369,7 +368,7 @@ namespace csa_agencypaymethod_anagrafica {//PagamentoAnagrafica//
             this.txtSportello.ReadOnly = true;
             this.txtSportello.Size = new System.Drawing.Size(104, 20);
             this.txtSportello.TabIndex = 13;
-            this.txtSportello.Tag = "registrypaymethod .idcab";
+            this.txtSportello.Tag = "registrypaymethod.idcab";
             // 
             // txtBanca
             // 
@@ -378,7 +377,7 @@ namespace csa_agencypaymethod_anagrafica {//PagamentoAnagrafica//
             this.txtBanca.ReadOnly = true;
             this.txtBanca.Size = new System.Drawing.Size(88, 20);
             this.txtBanca.TabIndex = 9;
-            this.txtBanca.Tag = "registrypaymethod .idbank";
+            this.txtBanca.Tag = "registrypaymethod.idbank";
             // 
             // txtCin
             // 
@@ -387,7 +386,7 @@ namespace csa_agencypaymethod_anagrafica {//PagamentoAnagrafica//
             this.txtCin.ReadOnly = true;
             this.txtCin.Size = new System.Drawing.Size(104, 20);
             this.txtCin.TabIndex = 15;
-            this.txtCin.Tag = "registrypaymethod .cin";
+            this.txtCin.Tag = "registrypaymethod.cin";
             // 
             // textBox4
             // 
@@ -460,10 +459,10 @@ namespace csa_agencypaymethod_anagrafica {//PagamentoAnagrafica//
             DataRow R = Source.GetParentRow("csa_agency_csa_agencypaymethod"); ;
             string filter = QHS.CmpEq("idreg", R["idreg"]);
             if (CfgFn.GetNoNullInt32(R["idreg"]) == 0) {
-                MessageBox.Show(this, "Selezionare prima l'anagrafica", "Avviso");
+                show(this, "Selezionare prima l'anagrafica", "Avviso");
                 return;
             }
-            GetData.SetStaticFilter(DS.registrypaymethod, filter);		
+            GetData.SetStaticFilter(DS.registrypaymethod, filter);	
          }
 
         private void btnSelModalita_Click (object sender, EventArgs e) {
@@ -473,11 +472,12 @@ namespace csa_agencypaymethod_anagrafica {//PagamentoAnagrafica//
             Meta.DoMainCommand("choose.registrypaymethod.default." + filter);
         }
         public void MetaData_AfterRowSelect (DataTable T, DataRow R) {
-            if (!Meta.DrawStateIsDone) return;
-            if (T.TableName == "registrypaymethod") {
-                if (R != null) CollegaModalita(R);
-            }
-        }
+			if (!Meta.DrawStateIsDone) return;
+			if (T.TableName == "registrypaymethod") { 
+				if (R != null) CollegaModalita(R);
+			}
+
+		}
         void CollegaModalita (DataRow RegistryPayMethod) {
             if (Meta.IsEmpty) return;
             Meta.GetFormData(true);
@@ -486,4 +486,4 @@ namespace csa_agencypaymethod_anagrafica {//PagamentoAnagrafica//
             
         }
     }
-}
+}

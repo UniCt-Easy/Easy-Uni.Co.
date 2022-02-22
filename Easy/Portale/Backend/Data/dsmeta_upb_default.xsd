@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_upb_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_upb_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="upbdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="idupb_capofila" type="xs:string" minOccurs="0" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="upbdefaultview_alias1" msprop:TableForReading="upbdefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="idupb_capofila" type="xs:string" minOccurs="0" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="underwriter" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idunderwriter" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="treasurer" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idtreasurer" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="epupbkind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idepupbkind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="upb" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="assured" type="xs:string" minOccurs="0" />
+              <xs:element name="cigcode" type="xs:string" minOccurs="0" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="cofogmpcode" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="cupcode" type="xs:string" minOccurs="0" />
+              <xs:element name="expiration" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="flagactivity" type="xs:int" minOccurs="0" />
+              <xs:element name="flagkind" type="xs:int" minOccurs="0" />
+              <xs:element name="granted" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idepupbkind" type="xs:int" minOccurs="0" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="idupb_capofila" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="newcodeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+              <xs:element name="previousappropriation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousassessment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="requested" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ri_ra_quota" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ri_rb_quota" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ri_sa_quota" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="uesiopecode" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upbdefaultview" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="upbdefaultview_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upbdefaultview_alias1" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="underwriter_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:underwriter" />
+      <xs:field xpath="mstns:idunderwriter" />
+    </xs:unique>
+    <xs:unique name="treasurer_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:treasurer" />
+      <xs:field xpath="mstns:idtreasurer" />
+    </xs:unique>
+    <xs:unique name="epupbkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:epupbkind" />
+      <xs:field xpath="mstns:idepupbkind" />
+    </xs:unique>
+    <xs:unique name="upb_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upb" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_upb_upbdefaultview_paridupb" msdata:parent="upbdefaultview" msdata:child="upb" msdata:parentkey="idupb" msdata:childkey="paridupb" />
+      <msdata:Relationship name="FK_upb_upbdefaultview_alias1_idupb_capofila" msdata:parent="upbdefaultview_alias1" msdata:child="upb" msdata:parentkey="idupb" msdata:childkey="idupb_capofila" />
+      <msdata:Relationship name="FK_upb_underwriter_idunderwriter" msdata:parent="underwriter" msdata:child="upb" msdata:parentkey="idunderwriter" msdata:childkey="idunderwriter" />
+      <msdata:Relationship name="FK_upb_treasurer_idtreasurer" msdata:parent="treasurer" msdata:child="upb" msdata:parentkey="idtreasurer" msdata:childkey="idtreasurer" />
+      <msdata:Relationship name="FK_upb_epupbkind_idepupbkind" msdata:parent="epupbkind" msdata:child="upb" msdata:parentkey="idepupbkind" msdata:childkey="idepupbkind" />
+      <msdata:Relationship name="FK_upb_upb_idupb" msdata:parent="upb" msdata:child="upb" msdata:parentkey="idupb" msdata:childkey="paridupb" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

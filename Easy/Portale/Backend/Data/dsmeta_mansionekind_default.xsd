@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_mansionekind_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_mansionekind_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="year" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="attach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="filename" type="xs:string" />
+              <xs:element name="hash" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="size" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfpositionattach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" minOccurs="0" />
+              <xs:element name="idmansionekind" type="xs:int" />
+              <xs:element name="idperfpositionattach" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="year" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idattach_attach_filename" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfcomportamento" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfcomportamento" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="mansionekindcomportamento" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idmansionekind" type="xs:int" />
+              <xs:element name="idperfcomportamento" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idperfcomportamento_perfcomportamento_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idperfcomportamento_perfcomportamento_description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="mansionekind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idmansionekind" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="pesoateneo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesocomp" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesoindividuale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesouo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:year" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="attach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attach" />
+      <xs:field xpath="mstns:idattach" />
+    </xs:unique>
+    <xs:unique name="perfpositionattach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfpositionattach" />
+      <xs:field xpath="mstns:idmansionekind" />
+      <xs:field xpath="mstns:idperfpositionattach" />
+    </xs:unique>
+    <xs:unique name="perfcomportamento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfcomportamento" />
+      <xs:field xpath="mstns:idperfcomportamento" />
+    </xs:unique>
+    <xs:unique name="mansionekindcomportamento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:mansionekindcomportamento" />
+      <xs:field xpath="mstns:idmansionekind" />
+      <xs:field xpath="mstns:idperfcomportamento" />
+    </xs:unique>
+    <xs:unique name="mansionekind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:mansionekind" />
+      <xs:field xpath="mstns:idmansionekind" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_perfpositionattach_mansionekind_idmansionekind" msdata:parent="mansionekind" msdata:child="perfpositionattach" msdata:parentkey="idmansionekind" msdata:childkey="idmansionekind" />
+      <msdata:Relationship name="FK_perfpositionattach_year_year" msdata:parent="year" msdata:child="perfpositionattach" msdata:parentkey="year" msdata:childkey="year" />
+      <msdata:Relationship name="FK_perfpositionattach_attach_idattach" msdata:parent="attach" msdata:child="perfpositionattach" msdata:parentkey="idattach" msdata:childkey="idattach" />
+      <msdata:Relationship name="FK_mansionekindcomportamento_mansionekind_idmansionekind" msdata:parent="mansionekind" msdata:child="mansionekindcomportamento" msdata:parentkey="idmansionekind" msdata:childkey="idmansionekind" />
+      <msdata:Relationship name="FK_mansionekindcomportamento_perfcomportamento_idperfcomportamento" msdata:parent="perfcomportamento" msdata:child="mansionekindcomportamento" msdata:parentkey="idperfcomportamento" msdata:childkey="idperfcomportamento" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

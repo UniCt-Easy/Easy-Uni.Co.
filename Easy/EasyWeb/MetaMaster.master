@@ -38,17 +38,14 @@
                         <asp:ContentPlaceHolder ID="CPH_A0" runat="server">
                             <table border="0" width="100%" id="table5" cellspacing="0" cellpadding="0" height="87">
                                 <tr>
-                                    <td style="background-image: url('Immagini/Intestazione_Left.jpg'); background-repeat: no-repeat; background-position: left top;"
-                                        width="32">&nbsp;</td>
+                                    <td style="background-image: url('Immagini/Intestazione_Left.jpg'); background-repeat: no-repeat; background-position: left top;" width="32">&nbsp;</td>
                                     <td width="140">
-                                        <img src="immagini/Logo_Bari1.jpg" alt="logo" border="0" height="80" width="80" id="ImgLogoUniversita" tabindex="-1"/>
+                                        <img src="Logo/Logo.jpg" alt="logo" border="0" height="80" id="ImgLogoUniversita" tabindex="-1"/>
                                     </td>
                                     <td align="left" tabindex="-1" style="background-image: url('Immagini/logo_tempo_easyweb.jpg'); background-repeat: no-repeat; background-position: right top">
-                                        <asp:Label ID="lblNomeUniversita" runat="server" Text="Università" Font-Size="X-Large"></asp:Label>
-                                        
+                                        <asp:Label ID="lblNomeUniversita" runat="server" Text="" Font-Size="X-Large"></asp:Label>
                                         <br />
-                                        <asp:Label ID="lblDipartimento" runat="server" tabindex="-1" Text="Dipartimento"
-                                            Font-Size="X-Large"></asp:Label>
+                                        <asp:Label ID="lblDipartimento" runat="server" tabindex="-1" Text="Dipartimento" Font-Size="X-Large"></asp:Label>
                                     </td>
                                 </tr>
                             </table>
@@ -57,10 +54,10 @@
 
                             <table border="0" width="100%" id="table3" cellspacing="0" cellpadding="0">
                                 <tr>
-                                    <td style="background-image: url('Immagini/Fondo_Barra_Strumenti.jpg'); background-repeat: repeat-x; background-position: left top; height: 36px;">
+                                    <td style="background-image: url('Immagini/Fondo_Barra_Strumenti.jpg'); background-size: 100% 100%; background-repeat: repeat-x; background-position: left top; height: 36px;">
                                         <table border="0" tabindex="-1" width="100%" id="table6" cellspacing="0" cellpadding="0">
                                             <tr>
-                                                <td align="left" style="width: 69%">
+                                                <td align="left">
                                                     <div id="ToolBar_Div" class="bottoniprincipali" TabIndex="-1" style="margin-left: 30px;" runat="server">
                                                         <asp:Panel ID="PanToolBar" runat="server">
                                                             <cc1:hwButton ID="HwButton1"  UseSubmitBehavior="False" data-btnmaincmd="mainsetsearch"  Visible="false" runat="server" Tag="mainsetsearch" Text="Imposta Ricerca"></cc1:hwButton>
@@ -76,7 +73,7 @@
                                                         </asp:Panel>
                                                     </div>
                                                 </td>
-                                                <td style="width: 30%" align="left">
+                                                <td style="padding-right: 10px;" align="right">
                                                     <asp:ContentPlaceHolder ID="CPH_InfoUtente" runat="server">
                                                         Utente:
                                                         <asp:Label ID="lblNomeUtente" runat="server" Text=""></asp:Label>
@@ -102,7 +99,7 @@
             </asp:ContentPlaceHolder>
         </div>
         <asp:TextBox ID="TxSavedFocus" CssClass="savefocus" runat="server" Style="display: none;"  TabIndex ="-1" Width="300px"></asp:TextBox>
-        <div  id="Div_CHPList" runat="server" style="display: inline-block; width: 800px;" >
+        <div  id="Div_CHPList" runat="server" style="display: inline-block; position: absolute; width: 80%; left: 10%;  top:10%" >
             <asp:ContentPlaceHolder ID="CHP_List" runat="server">
 
 
@@ -148,7 +145,7 @@
 
 
 
-    <script type="text/javascript" src="js/jquery-2.1.0.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.11.4.js"></script>
     <!--script type="text/javascript" src="js/jquery-impromptu.js"></script   !-->
     
@@ -162,7 +159,7 @@
     </asp:ContentPlaceHolder>
     
     <script type="text/javascript" src="js/jquery.pgrid.min.js"></script>
-    <script type="text/javascript" src="js/allmine.js"></script>
+    <script type="text/javascript" src="js/allmine.js?v=2"></script>
 
 
     <asp:ContentPlaceHolder ID="JScriptAfterLibs" runat="server">

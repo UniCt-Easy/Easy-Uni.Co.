@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,35 +26,26 @@ using System.Runtime.Serialization;
 namespace upb_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable manager 		=> Tables["manager"];
 
-	///<summary>
-	///Ente finanziatore
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable underwriter 		=> Tables["underwriter"];
 
-	///<summary>
-	///Classificazione U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upbsorting 		=> Tables["upbsorting"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable finview 		=> Tables["finview"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable codicecofogmp 		=> Tables["codicecofogmp"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingview 		=> Tables["sortingview"];
@@ -75,48 +65,27 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting05 		=> Tables["sorting05"];
 
-	///<summary>
-	///Configurazione classificazioni automatiche movimenti di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable autoexpensesorting 		=> Tables["autoexpensesorting"];
 
-	///<summary>
-	///Tipo di Rilevanza analitica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingkind 		=> Tables["sortingkind"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting 		=> Tables["sorting"];
 
-	///<summary>
-	///Configurazione filtro classificazione spese
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingexpensefilter 		=> Tables["sortingexpensefilter"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable finyearview 		=> Tables["finyearview"];
 
-	///<summary>
-	///Configurazione classificazioni automatiche movimenti di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable autoincomesorting 		=> Tables["autoincomesorting"];
 
-	///<summary>
-	///Configurazione filtro classificazione entrate
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingincomefilter 		=> Tables["sortingincomefilter"];
 
-	///<summary>
-	///Tesoriere
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable treasurer 		=> Tables["treasurer"];
 
@@ -135,35 +104,23 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accountprevisionview 		=> Tables["accountprevisionview"];
 
-	///<summary>
-	///Tipo UPB nell'economico patrimoniale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable epupbkind 		=> Tables["epupbkind"];
 
-	///<summary>
-	///Destinazione Utile Progetto a Scadenza
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upbprofitpartition 		=> Tables["upbprofitpartition"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb_dest 		=> Tables["upb_dest"];
 
-	///<summary>
-	///Allegato a UPB
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upbattachment 		=> Tables["upbattachment"];
 
-	///<summary>
-	///Previsione annuale upb costi/ricavi
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upbyear 		=> Tables["upbyear"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable upbyearview 		=> Tables["upbyearview"];
+	public DataTable upb_capofila 		=> Tables["upb_capofila"];
 
 	#endregion
 
@@ -408,9 +365,20 @@ private void initClass() {
 	tupb.Columns.Add( new DataColumn("cigcode", typeof(string)));
 	tupb.Columns.Add( new DataColumn("idepupbkind", typeof(int)));
 	tupb.Columns.Add( new DataColumn("flag", typeof(int)));
+	tupb.Columns.Add( new DataColumn("uesiopecode", typeof(string)));
+	tupb.Columns.Add( new DataColumn("cofogmpcode", typeof(string)));
+	tupb.Columns.Add( new DataColumn("idupb_capofila", typeof(string)));
 	Tables.Add(tupb);
 	tupb.PrimaryKey =  new DataColumn[]{tupb.Columns["idupb"]};
 
+
+	//////////////////// CODICECOFOGMP /////////////////////////////////
+	var tcodicecofogmp= new DataTable("codicecofogmp");
+	C= new DataColumn("codice", typeof(string));
+	C.AllowDBNull=false;
+	tcodicecofogmp.Columns.Add(C);
+	tcodicecofogmp.Columns.Add( new DataColumn("descrizione", typeof(string)));
+	Tables.Add(tcodicecofogmp);
 
 	//////////////////// SORTINGVIEW /////////////////////////////////
 	var tsortingview= new DataTable("sortingview");
@@ -967,6 +935,11 @@ private void initClass() {
 	tfinyearview.Columns.Add( new DataColumn("prevision3", typeof(decimal)));
 	tfinyearview.Columns.Add( new DataColumn("prevision4", typeof(decimal)));
 	tfinyearview.Columns.Add( new DataColumn("prevision5", typeof(decimal)));
+	tfinyearview.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tfinyearview.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tfinyearview.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tfinyearview.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tfinyearview.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
 	tfinyearview.Columns.Add(C);
@@ -1154,6 +1127,7 @@ private void initClass() {
 	C= new DataColumn("variationdescription", typeof(string));
 	C.AllowDBNull=false;
 	tfinvardetailview.Columns.Add(C);
+	tfinvardetailview.Columns.Add( new DataColumn("idenactment", typeof(int)));
 	tfinvardetailview.Columns.Add( new DataColumn("enactment", typeof(string)));
 	tfinvardetailview.Columns.Add( new DataColumn("nenactment", typeof(string)));
 	tfinvardetailview.Columns.Add( new DataColumn("enactmentdate", typeof(DateTime)));
@@ -1528,6 +1502,7 @@ private void initClass() {
 	tepupbkind.Columns.Add( new DataColumn("lt", typeof(DateTime)));
 	tepupbkind.Columns.Add( new DataColumn("lu", typeof(string)));
 	tepupbkind.Columns.Add( new DataColumn("active", typeof(string)));
+	tepupbkind.Columns.Add( new DataColumn("flag", typeof(int)));
 	Tables.Add(tepupbkind);
 	tepupbkind.PrimaryKey =  new DataColumn[]{tepupbkind.Columns["idepupbkind"]};
 
@@ -1644,115 +1619,60 @@ private void initClass() {
 	tupbyear.PrimaryKey =  new DataColumn[]{tupbyear.Columns["idupb"], tupbyear.Columns["ayear"]};
 
 
-	//////////////////// UPBYEARVIEW /////////////////////////////////
-	var tupbyearview= new DataTable("upbyearview");
+	//////////////////// UPB_CAPOFILA /////////////////////////////////
+	var tupb_capofila= new DataTable("upb_capofila");
 	C= new DataColumn("idupb", typeof(string));
 	C.AllowDBNull=false;
-	tupbyearview.Columns.Add(C);
+	tupb_capofila.Columns.Add(C);
+	tupb_capofila.Columns.Add( new DataColumn("active", typeof(string)));
+	tupb_capofila.Columns.Add( new DataColumn("assured", typeof(string)));
 	C= new DataColumn("codeupb", typeof(string));
 	C.AllowDBNull=false;
-	tupbyearview.Columns.Add(C);
-	C= new DataColumn("upb", typeof(string));
-	C.AllowDBNull=false;
-	tupbyearview.Columns.Add(C);
-	tupbyearview.Columns.Add( new DataColumn("idman", typeof(int)));
-	tupbyearview.Columns.Add( new DataColumn("manager", typeof(string)));
-	tupbyearview.Columns.Add( new DataColumn("iddivision", typeof(int)));
-	tupbyearview.Columns.Add( new DataColumn("codedivision", typeof(string)));
-	tupbyearview.Columns.Add( new DataColumn("division", typeof(string)));
-	tupbyearview.Columns.Add( new DataColumn("requested", typeof(decimal)));
-	tupbyearview.Columns.Add( new DataColumn("granted", typeof(decimal)));
-	tupbyearview.Columns.Add( new DataColumn("assured", typeof(string)));
-	C= new DataColumn("ayear", typeof(short));
-	C.AllowDBNull=false;
-	tupbyearview.Columns.Add(C);
-	C= new DataColumn("initialprevision", typeof(decimal));
-	C.ReadOnly=true;
-	tupbyearview.Columns.Add(C);
-	C= new DataColumn("incomeinitialprevision", typeof(decimal));
-	C.ReadOnly=true;
-	tupbyearview.Columns.Add(C);
-	C= new DataColumn("currentprevision", typeof(decimal));
-	C.ReadOnly=true;
-	tupbyearview.Columns.Add(C);
-	C= new DataColumn("incomecurrentprevision", typeof(decimal));
-	C.ReadOnly=true;
-	tupbyearview.Columns.Add(C);
-	C= new DataColumn("initialsecondaryprev", typeof(decimal));
-	C.ReadOnly=true;
-	tupbyearview.Columns.Add(C);
-	C= new DataColumn("incomeinitialsecondaryprev", typeof(decimal));
-	C.ReadOnly=true;
-	tupbyearview.Columns.Add(C);
-	C= new DataColumn("currentsecondaryprev", typeof(decimal));
-	C.ReadOnly=true;
-	tupbyearview.Columns.Add(C);
-	C= new DataColumn("incomecurrentsecondaryprev", typeof(decimal));
-	C.ReadOnly=true;
-	tupbyearview.Columns.Add(C);
-	C= new DataColumn("incomeprevavailable", typeof(decimal));
-	C.ReadOnly=true;
-	tupbyearview.Columns.Add(C);
-	C= new DataColumn("expenseprevavailable", typeof(decimal));
-	C.ReadOnly=true;
-	tupbyearview.Columns.Add(C);
-	C= new DataColumn("appropriation", typeof(decimal));
-	C.ReadOnly=true;
-	tupbyearview.Columns.Add(C);
-	C= new DataColumn("assessment", typeof(decimal));
-	C.ReadOnly=true;
-	tupbyearview.Columns.Add(C);
-	C= new DataColumn("payment", typeof(decimal));
-	C.ReadOnly=true;
-	tupbyearview.Columns.Add(C);
-	C= new DataColumn("proceeds", typeof(decimal));
-	C.ReadOnly=true;
-	tupbyearview.Columns.Add(C);
-	tupbyearview.Columns.Add( new DataColumn("active", typeof(string)));
-	tupbyearview.Columns.Add( new DataColumn("cupcode", typeof(string)));
-	C= new DataColumn("printingorder", typeof(string));
-	C.AllowDBNull=false;
-	tupbyearview.Columns.Add(C);
-	tupbyearview.Columns.Add( new DataColumn("idsor01", typeof(int)));
-	tupbyearview.Columns.Add( new DataColumn("idsor02", typeof(int)));
-	tupbyearview.Columns.Add( new DataColumn("idsor03", typeof(int)));
-	tupbyearview.Columns.Add( new DataColumn("idsor04", typeof(int)));
-	tupbyearview.Columns.Add( new DataColumn("idsor05", typeof(int)));
-	tupbyearview.Columns.Add( new DataColumn("flagactivity", typeof(short)));
-	C= new DataColumn("activity", typeof(string));
-	C.ReadOnly=true;
-	tupbyearview.Columns.Add(C);
-	tupbyearview.Columns.Add( new DataColumn("flagkind", typeof(byte)));
-	C= new DataColumn("kindd", typeof(string));
-	C.ReadOnly=true;
-	tupbyearview.Columns.Add(C);
-	C= new DataColumn("kindr", typeof(string));
-	C.ReadOnly=true;
-	tupbyearview.Columns.Add(C);
-	tupbyearview.Columns.Add( new DataColumn("idtreasurer", typeof(int)));
-	tupbyearview.Columns.Add( new DataColumn("treasurer", typeof(string)));
-	tupbyearview.Columns.Add( new DataColumn("start", typeof(DateTime)));
-	tupbyearview.Columns.Add( new DataColumn("stop", typeof(DateTime)));
-	tupbyearview.Columns.Add( new DataColumn("cigcode", typeof(string)));
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	tupbyearview.Columns.Add(C);
+	tupb_capofila.Columns.Add(C);
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	tupbyearview.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
+	tupb_capofila.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	tupbyearview.Columns.Add(C);
+	tupb_capofila.Columns.Add(C);
+	tupb_capofila.Columns.Add( new DataColumn("expiration", typeof(DateTime)));
+	tupb_capofila.Columns.Add( new DataColumn("granted", typeof(decimal)));
 	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	tupbyearview.Columns.Add(C);
-	tupbyearview.Columns.Add( new DataColumn("idepupbkind", typeof(int)));
-	tupbyearview.Columns.Add( new DataColumn("epupbkind", typeof(string)));
-	tupbyearview.Columns.Add( new DataColumn("expiration", typeof(DateTime)));
-	tupbyearview.Columns.Add( new DataColumn("revenueprevision", typeof(decimal)));
-	tupbyearview.Columns.Add( new DataColumn("costprevision", typeof(decimal)));
-	Tables.Add(tupbyearview);
-	tupbyearview.PrimaryKey =  new DataColumn[]{tupbyearview.Columns["idupb"], tupbyearview.Columns["ayear"]};
+	tupb_capofila.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tupb_capofila.Columns.Add(C);
+	tupb_capofila.Columns.Add( new DataColumn("paridupb", typeof(string)));
+	tupb_capofila.Columns.Add( new DataColumn("previousappropriation", typeof(decimal)));
+	tupb_capofila.Columns.Add( new DataColumn("previousassessment", typeof(decimal)));
+	C= new DataColumn("printingorder", typeof(string));
+	C.AllowDBNull=false;
+	tupb_capofila.Columns.Add(C);
+	tupb_capofila.Columns.Add( new DataColumn("requested", typeof(decimal)));
+	tupb_capofila.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	tupb_capofila.Columns.Add(C);
+	tupb_capofila.Columns.Add( new DataColumn("txt", typeof(string)));
+	tupb_capofila.Columns.Add( new DataColumn("idman", typeof(int)));
+	tupb_capofila.Columns.Add( new DataColumn("idunderwriter", typeof(int)));
+	tupb_capofila.Columns.Add( new DataColumn("cupcode", typeof(string)));
+	tupb_capofila.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tupb_capofila.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tupb_capofila.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tupb_capofila.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tupb_capofila.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	tupb_capofila.Columns.Add( new DataColumn("flagactivity", typeof(short)));
+	tupb_capofila.Columns.Add( new DataColumn("flagkind", typeof(byte)));
+	tupb_capofila.Columns.Add( new DataColumn("newcodeupb", typeof(string)));
+	tupb_capofila.Columns.Add( new DataColumn("idtreasurer", typeof(int)));
+	tupb_capofila.Columns.Add( new DataColumn("start", typeof(DateTime)));
+	tupb_capofila.Columns.Add( new DataColumn("stop", typeof(DateTime)));
+	tupb_capofila.Columns.Add( new DataColumn("cigcode", typeof(string)));
+	tupb_capofila.Columns.Add( new DataColumn("idepupbkind", typeof(int)));
+	Tables.Add(tupb_capofila);
+	tupb_capofila.PrimaryKey =  new DataColumn[]{tupb_capofila.Columns["idupb"]};
 
 
 	#endregion
@@ -1760,11 +1680,7 @@ private void initClass() {
 
 	#region DataRelation creation
 	var cPar = new []{upb.Columns["idupb"]};
-	var cChild = new []{upbyear.Columns["idupb"]};
-	Relations.Add(new DataRelation("FK_upb_upbyear",cPar,cChild,false));
-
-	cPar = new []{upb.Columns["idupb"]};
-	cChild = new []{upbattachment.Columns["idupb"]};
+	var cChild = new []{upbattachment.Columns["idupb"]};
 	Relations.Add(new DataRelation("upb_upbattachment",cPar,cChild,false));
 
 	cPar = new []{upb_dest.Columns["idupb"]};
@@ -1887,9 +1803,16 @@ private void initClass() {
 	cChild = new []{upbsorting.Columns["idupb"]};
 	Relations.Add(new DataRelation("upbupbsorting",cPar,cChild,false));
 
+	cPar = new []{upb.Columns["idupb"]};
+	cChild = new []{upbyear.Columns["idupb"]};
+	Relations.Add(new DataRelation("FK_upb_upbyear",cPar,cChild,false));
+
+	cPar = new []{upb_capofila.Columns["idupb"]};
+	cChild = new []{upb.Columns["idupb_capofila"]};
+	Relations.Add(new DataRelation("upb_capofila_upb",cPar,cChild,false));
+
 	#endregion
 
 }
 }
 }
-

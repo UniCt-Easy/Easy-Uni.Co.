@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -30,7 +29,7 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
 	/// <summary>
 	/// Summary description for frmEntrataWizardDecontabilizza.
 	/// </summary>
-	public class Frm_income_wizarddecontabilizza : System.Windows.Forms.Form {
+	public class Frm_income_wizarddecontabilizza : MetaDataForm {
 		private Crownwood.Magic.Controls.TabPage tabIntro;
 		private Crownwood.Magic.Controls.TabPage tabSelect;
 		private Crownwood.Magic.Controls.TabPage tabDelete;
@@ -91,6 +90,7 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
 		string CustomTitle;
 		int faseivaentrata;
         int faseentratacont;
+        private int selIndex = -1;
 		private Crownwood.Magic.Controls.TabControl tabController;
 		private System.Windows.Forms.ImageList imageList1;
 		private System.Windows.Forms.GroupBox gboxUpb;
@@ -860,7 +860,7 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 13;
             this.btnCancel.Tag = "maincancel";
-            this.btnCancel.Text = "Cancel";
+            this.btnCancel.Text = "Annulla";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnNext
@@ -957,7 +957,7 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
 			if (newTab== tabController.TabPages.Count-1)
 				btnNext.Text="Rimuovi.";
 			else
-				btnNext.Text="Next >";
+				btnNext.Text="Avanti >";
 			Text = CustomTitle+ " (Pagina "+(newTab+1)+" di "+tabController.TabPages.Count+")";
 		}
 		void StandardChangeTab(int step){
@@ -966,12 +966,55 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
 			if ((newTab<0)||(newTab>tabController.TabPages.Count))return;
 			if (!CustomChangeTab(oldTab,newTab))return;
 			if (newTab==tabController.TabPages.Count){
-				DialogResult= DialogResult.OK;
-				Close();
-				return;
+                 if (show(this, "Si desidera eseguire ancora la procedura ?",
+                                                            "Conferma", MessageBoxButtons.YesNo) ==  DialogResult.Yes) {
+                    newTab = 1;
+					selIndex = cmbFaseSpesa.SelectedIndex;
+                    ResetWizard();
+				}
+                else {
+                    DialogResult= DialogResult.OK;
+				    Close();
+				    return;
+				}
 			}
+
+            if ((oldTab == 3) && (newTab == 2)) {
+                newTab = 1;
+                ResetWizard();
+			}
+
 			DisplayTabs(newTab);
 		}
+
+        void ResetWizard() {
+            DS.incomeestimate.Clear();
+            DS.estimate.Clear();
+            DS.incomeinvoice.Clear();
+            DS.invoice.Clear();
+            DS.expense.Clear();
+            DS.income.Clear();
+            DS.incomeinvoice.Clear();
+            DS.incomeyear.Clear();
+            DS.expenseyear.Clear();
+            DS.incomevar.Clear();
+            DS.expensevar.Clear();         
+			DS.incomelast.Clear();
+            DS.expenselast.Clear();
+
+            //pulizia di tutti i textbox del wizard
+			Clear();
+			txtScadenza.Text = "";
+			txtTipoDoc.Text = "";
+			txtEsercDoc.Text = "";
+			txtNumDoc.Text = "";
+
+			//cmbFaseSpesa.DataSource = null;
+			//assegno al combobox Seleziona nel grp Movimento, il valore della precedente decontabilizzazione
+			cmbFaseSpesa.SelectedIndex = selIndex;	
+
+		}
+
 		private void btnBack_Click(object sender, System.EventArgs e) {
 			StandardChangeTab(-1);
 		}
@@ -993,11 +1036,11 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
 
 		bool GetMovimentoSelezionato(){
 			if (txtNumeroMovimento.Text.Trim()==""){
-				MessageBox.Show("Selezionare un movimento per procedere");
+				show("Selezionare un movimento per procedere");
 				return false;
 			}
 			if (currcont== tipocont.cont_none){
-				MessageBox.Show("Al movimento selezionato non è associata alcuna contabilizzazione.");
+				show("Al movimento selezionato non è associata alcuna contabilizzazione.");
 				return false;
 			}
 			string filter= GetFasePrecFilter(true);
@@ -1322,7 +1365,7 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
 			PostData Post = Meta.Get_PostData();
 			Post.InitClass(DS,Conn);
 			bool res= Post.DO_POST();
-			if (res)MessageBox.Show("Rimozione della contabilizzazione eseguita con successo.");
+			if (res)show("Rimozione della contabilizzazione eseguita con successo.");
 			return res;
 		}
 		private void cmbFaseSpesa_SelectedIndexChanged(object sender, System.EventArgs e) {
@@ -1347,4 +1390,4 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
             txtResponsabile.Text = "";
 		}
 	}
-}
+}

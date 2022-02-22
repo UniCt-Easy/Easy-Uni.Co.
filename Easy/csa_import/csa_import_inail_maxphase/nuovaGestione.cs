@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø
+
+
 using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
@@ -210,7 +209,7 @@ namespace csa_import_inail_maxphase {
 
 
         /// <summary>
-        /// Pu√≤ variare la collezione dei movimenti raggruppati ma non varia quella delle entrate
+        /// PuÚ variare la collezione dei movimenti raggruppati ma non varia quella delle entrate
         /// </summary>
         /// <param name="entrata"></param>
         /// <returns></returns>
@@ -221,15 +220,15 @@ namespace csa_import_inail_maxphase {
             if (collegaEntrataMatchMassimaCapienza(entrata)) return true;
 
             //Dato che ogni volta che colleghiamo un'entrata splittiamo il netto ove ci siano 30 reversali,
-            // non √® possibile che vi sia un movimento con disponibile sufficiente ma 30 reversali
-            //Quindi vi devono essere movimenti di spesa con disponibilit√† insufficiente e meno di 30 reversali
+            // non Ë possibile che vi sia un movimento con disponibile sufficiente ma 30 reversali
+            //Quindi vi devono essere movimenti di spesa con disponibilit‡ insufficiente e meno di 30 reversali
             //A questo punto ad ognuno di loro associamo una quota dell'entrata data
             while (entrata.quota > 0) {
                 MovimentoRaggruppato maxDisp = movConMassimoResiduo();
                 if (maxDisp == null) return false; //non dovrebbe accadere
                 decimal residuo = maxDisp.importoNetto();
                 if (residuo >= entrata.quota) {
-                    //il movimento considerato √® capiente per quel che rimane dell'entrata
+                    //il movimento considerato Ë capiente per quel che rimane dell'entrata
                     collegaEntrataAGruppo(entrata, maxDisp);
                     return true;
                 }
@@ -254,7 +253,7 @@ namespace csa_import_inail_maxphase {
             foreach (MovimentoRaggruppato mov in movimenti) {
                 decimal netto = mov.importoNetto();
                 if (netto == 0) continue;
-                if (mov.nReversali() == 0) continue; //√® gi√† Netto
+                if (mov.nReversali() == 0) continue; //Ë gi‡ Netto
                 MovimentoRaggruppato nuovo = mov.splittaResiduo();
                 toAdd.Add(nuovo);
             }
@@ -309,15 +308,15 @@ namespace csa_import_inail_maxphase {
             //Per ogni raggruppamento per anagrafica effettua le nettizzazioni ed i collegamenti tra entrate e spese
             foreach (var rAnag in righePerAnagrafica.Values) {
                 if (!rAnag.collegaTutteEntrate()) {
-                    MessageBox.Show(
-                        $"L'importo del movimento netto verso l'Anagrafica {rAnag.registry} √® negativo"
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(
+                        $"L'importo del movimento netto verso l'Anagrafica {rAnag.registry} Ë negativo"
                         , "Errore");
                     someError = true;
                 }
             }
 
             if (someError) {
-                MessageBox.Show("Poich√® sono stati riscontrati problemi, l'elaborazione sar√† annullata.", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("PoichË sono stati riscontrati problemi, l'elaborazione sar‡ annullata.", "Avviso");
                 return null;
             }
             //Per ogni raggruppamento rimanente avente un netto maggiore di zero e con reversali, ne prende il netto
@@ -351,7 +350,7 @@ namespace csa_import_inail_maxphase {
 
             var currIndice = 0;
             foreach (var m in listaMov) {
-                //creare in nuoviMovimenti una copia di m.quotaSpesa.mov avente per√≤ importo m.quotaSpesa.quota 
+                //creare in nuoviMovimenti una copia di m.quotaSpesa.mov avente perÚ importo m.quotaSpesa.quota 
                 var rSpesa = nuoviMovimenti.NewRowAs(m.quotaSpesa.mov);
                 rSpesa["amount"] = m.quotaSpesa.quota;
                 int currIndiceSpesa = currIndice;
@@ -373,7 +372,7 @@ namespace csa_import_inail_maxphase {
             nuoviMovimenti.AcceptChanges();
 
             foreach (MovimentoRaggruppato m in listaMov) {
-                //creare in nuoviMovimenti una copia di m.quotaSpesa.mov avente per√≤ importo m.quotaSpesa.quota  (1)
+                //creare in nuoviMovimenti una copia di m.quotaSpesa.mov avente perÚ importo m.quotaSpesa.quota  (1)
                 //creare in nuoviMovimenti una copia di tutti gli incassi presenti in m.quoteEntrata
                 // ognuno pari alla campo mov dell'elemento considerato e importo quota
                 //   ognuno collegato al movimento (1)
@@ -393,4 +392,3 @@ namespace csa_import_inail_maxphase {
         }
     }
 }
-

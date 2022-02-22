@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,7 +26,7 @@ using System.Runtime.Serialization;
 namespace csa_contracttax_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -146,7 +145,6 @@ private void initClass() {
 	DataSetName = "vistaForm";
 	Prefix = "";
 	Namespace = "http://tempuri.org/vistaForm.xsd";
-	EnforceConstraints = false;
 
 	#region create DataTables
 	DataColumn C;
@@ -1419,14 +1417,6 @@ private void initClass() {
 	cChild = new []{csa_contracttaxepexp.Columns["idcsa_contract"], csa_contracttaxepexp.Columns["idcsa_contracttax"], csa_contracttaxepexp.Columns["ayear"]};
 	Relations.Add(new DataRelation("csa_contracttax_csa_contracttaxepexp",cPar,cChild,false));
 
-	cPar = new []{expenseview2.Columns["idexp"]};
-	cChild = new []{csa_contracttaxexpense.Columns["idexp"]};
-	Relations.Add(new DataRelation("FK_expenseview1_csa_contracttaxexpense",cPar,cChild,false));
-
-	cPar = new []{csa_contracttax.Columns["idcsa_contract"], csa_contracttax.Columns["idcsa_contracttax"], csa_contracttax.Columns["ayear"]};
-	cChild = new []{csa_contracttaxexpense.Columns["idcsa_contract"], csa_contracttaxexpense.Columns["idcsa_contracttax"], csa_contracttaxexpense.Columns["ayear"]};
-	Relations.Add(new DataRelation("FK_csa_contracttax_csa_contracttaxexpense",cPar,cChild,false));
-
 	cPar = new []{sorting.Columns["idsor"]};
 	cChild = new []{csa_contracttax.Columns["idsor_siope"]};
 	Relations.Add(new DataRelation("FK_sorting_csa_contracttax",cPar,cChild,false));
@@ -1483,9 +1473,16 @@ private void initClass() {
 	cChild = new []{csa_contracttax_partition.Columns["idsor_siope"]};
 	Relations.Add(new DataRelation("sorting1_csa_contracttax_partition",cPar,cChild,false));
 
+	cPar = new []{csa_contracttax.Columns["idcsa_contract"], csa_contracttax.Columns["idcsa_contracttax"], csa_contracttax.Columns["ayear"]};
+	cChild = new []{csa_contracttaxexpense.Columns["idcsa_contract"], csa_contracttaxexpense.Columns["idcsa_contracttax"], csa_contracttaxexpense.Columns["ayear"]};
+	Relations.Add(new DataRelation("FK_csa_contracttax_csa_contracttaxexpense",cPar,cChild,false));
+
+	cPar = new []{expenseview2.Columns["idexp"], expenseview2.Columns["ayear"]};
+	cChild = new []{csa_contracttaxexpense.Columns["idexp"], csa_contracttaxexpense.Columns["ayear"]};
+	Relations.Add(new DataRelation("FK_expenseview1_csa_contracttaxexpense",cPar,cChild,false));
+
 	#endregion
 
 }
 }
 }
-

@@ -1,0 +1,125 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_titolostudio_aa">Anno accademico</label>
+					<select id="esonero_titolostudio_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="esonero.aa?esonerotitolostudioview.aa" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_titolostudio_default_conseguitoincorso">Conseguito in corso</label>
+					<div class="custom-control custom-radio">
+						<input id="esonero_titolostudio_default_conseguitoincorsoSi" type="radio" name="esonero_titolostudio_default_conseguitoincorso" class="custom-control-input" data-tag="esonero_titolostudio.conseguitoincorso:S?esonerotitolostudioview.esonero_titolostudio_conseguitoincorso:Si" data-subentity  ><label for="esonero_titolostudio_default_conseguitoincorsoSi"> Si</label>
+						<input id="esonero_titolostudio_default_conseguitoincorsoNo" type="radio" name="esonero_titolostudio_default_conseguitoincorso" class="custom-control-input" data-tag="esonero_titolostudio.conseguitoincorso:N?esonerotitolostudioview.esonero_titolostudio_conseguitoincorso:No" data-subentity  ><label for="esonero_titolostudio_default_conseguitoincorsoNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#esonero_titolostudio_default_dataconstutticf").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="esonero_titolostudio_default_dataconstutticf">Data limite per aver conseguito tutti i crediti formativi</label>
+					<input id="esonero_titolostudio_default_dataconstutticf" type="text" class="form-control" data-tag="esonero_titolostudio.dataconstutticf?esonerotitolostudioview.esonero_titolostudio_dataconstutticf" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_titolostudio_title">Denominazione</label>
+					<input id="esonero_titolostudio_title" type="text" class="form-control" data-tag="esonero.title?esonerotitolostudioview.title" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#esonero_titolostudio_default_datalaurea").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="esonero_titolostudio_default_datalaurea">Data limite di conseguimento del titolo</label>
+					<input id="esonero_titolostudio_default_datalaurea" type="text" class="form-control" data-tag="esonero_titolostudio.datalaurea?esonerotitolostudioview.esonero_titolostudio_datalaurea" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_titolostudio_description">Descrizione</label>
+					<input id="esonero_titolostudio_description" type="text" class="form-control" data-tag="esonero.description?esonerotitolostudioview.esonero_description" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_titolostudio_applunavolta">Applicabile una sola volta</label>
+					<div class="custom-control custom-radio">
+						<input id="esonero_titolostudio_applunavoltaSi" type="radio" name="esonero_titolostudio_applunavolta" class="custom-control-input" data-tag="esonero.applunavolta:S?esonerotitolostudioview.esonero_applunavolta:Si" data-subentity  ><label for="esonero_titolostudio_applunavoltaSi"> Si</label>
+						<input id="esonero_titolostudio_applunavoltaNo" type="radio" name="esonero_titolostudio_applunavolta" class="custom-control-input" data-tag="esonero.applunavolta:N?esonerotitolostudioview.esonero_applunavolta:No" data-subentity  ><label for="esonero_titolostudio_applunavoltaNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_titolostudio_default_idstruttura">Struttura didattica</label>
+					<div>
+						<input id="esonero_titolostudio_default_idstruttura" name="esonero_titolostudio_default_idstruttura" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="strutturadefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_titolostudio_idcostoscontodef">Sconto</label>
+					<div>
+						<input id="esonero_titolostudio_idcostoscontodef" name="esonero_titolostudio_idcostoscontodef" type="text" data-listtype="sconti"  class="form-control" data-minchar="2" data-tag="costoscontodefscontiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_titolostudio_default_nellistituto">Solo per corsi dell'istituto</label>
+					<div class="custom-control custom-radio">
+						<input id="esonero_titolostudio_default_nellistitutoSi" type="radio" name="esonero_titolostudio_default_nellistituto" class="custom-control-input" data-tag="esonero_titolostudio.nellistituto:S?esonerotitolostudioview.esonero_titolostudio_nellistituto:Si" data-subentity  ><label for="esonero_titolostudio_default_nellistitutoSi"> Si</label>
+						<input id="esonero_titolostudio_default_nellistitutoNo" type="radio" name="esonero_titolostudio_default_nellistituto" class="custom-control-input" data-tag="esonero_titolostudio.nellistituto:N?esonerotitolostudioview.esonero_titolostudio_nellistituto:No" data-subentity  ><label for="esonero_titolostudio_default_nellistitutoNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_titolostudio_idesoneroanskind">Codice ANS</label>
+					<select id="esonero_titolostudio_idesoneroanskind" class="custom-select d-block w-100"  data-source-name="esoneroanskind" data-value-member="idesoneroanskind" data-display-member="title" data-custom-control="combo" data-tag="esonero.idesoneroanskind?esonerotitolostudioview.esonero_idesoneroanskind" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_titolostudio_default_noabbr">Senza abbreviazioni di carriera</label>
+					<div class="custom-control custom-radio">
+						<input id="esonero_titolostudio_default_noabbrSi" type="radio" name="esonero_titolostudio_default_noabbr" class="custom-control-input" data-tag="esonero_titolostudio.noabbr:S?esonerotitolostudioview.esonero_titolostudio_noabbr:Si" data-subentity  ><label for="esonero_titolostudio_default_noabbrSi"> Si</label>
+						<input id="esonero_titolostudio_default_noabbrNo" type="radio" name="esonero_titolostudio_default_noabbr" class="custom-control-input" data-tag="esonero_titolostudio.noabbr:N?esonerotitolostudioview.esonero_titolostudio_noabbr:No" data-subentity  ><label for="esonero_titolostudio_default_noabbrNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_titolostudio_retroattivo">Retroattivo</label>
+					<div class="custom-control custom-radio">
+						<input id="esonero_titolostudio_retroattivoSi" type="radio" name="esonero_titolostudio_retroattivo" class="custom-control-input" data-tag="esonero.retroattivo:S?esonerotitolostudioview.esonero_retroattivo:Si" data-subentity  ><label for="esonero_titolostudio_retroattivoSi"> Si</label>
+						<input id="esonero_titolostudio_retroattivoNo" type="radio" name="esonero_titolostudio_retroattivo" class="custom-control-input" data-tag="esonero.retroattivo:N?esonerotitolostudioview.esonero_retroattivo:No" data-subentity  ><label for="esonero_titolostudio_retroattivoNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_titolostudio_default_noparttime">Senza aver effettuato iscrizioni part-time</label>
+					<div class="custom-control custom-radio">
+						<input id="esonero_titolostudio_default_noparttimeSi" type="radio" name="esonero_titolostudio_default_noparttime" class="custom-control-input" data-tag="esonero_titolostudio.noparttime:S?esonerotitolostudioview.esonero_titolostudio_noparttime:Si" data-subentity  ><label for="esonero_titolostudio_default_noparttimeSi"> Si</label>
+						<input id="esonero_titolostudio_default_noparttimeNo" type="radio" name="esonero_titolostudio_default_noparttime" class="custom-control-input" data-tag="esonero_titolostudio.noparttime:N?esonerotitolostudioview.esonero_titolostudio_noparttime:No" data-subentity  ><label for="esonero_titolostudio_default_noparttimeNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_titolostudio_soloconisee">Applicabile solo con ISEE</label>
+					<div class="custom-control custom-radio">
+						<input id="esonero_titolostudio_soloconiseeSi" type="radio" name="esonero_titolostudio_soloconisee" class="custom-control-input" data-tag="esonero.soloconisee:S?esonerotitolostudioview.esonero_soloconisee:Si" data-subentity  ><label for="esonero_titolostudio_soloconiseeSi"> Si</label>
+						<input id="esonero_titolostudio_soloconiseeNo" type="radio" name="esonero_titolostudio_soloconisee" class="custom-control-input" data-tag="esonero.soloconisee:N?esonerotitolostudioview.esonero_soloconisee:No" data-subentity  ><label for="esonero_titolostudio_soloconiseeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_titolostudio_default_votomin">Voto minimo</label>
+					<input id="esonero_titolostudio_default_votomin" type="text" class="form-control" data-tag="esonero_titolostudio.votomin?esonerotitolostudioview.esonero_titolostudio_votomin" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

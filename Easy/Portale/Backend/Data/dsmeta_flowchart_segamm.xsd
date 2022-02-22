@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_flowchart_segamm" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_flowchart_segamm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="customuser" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcustomuser" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="flowchartuser" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="all_sorkind01" type="xs:string" minOccurs="0" />
+              <xs:element name="all_sorkind02" type="xs:string" minOccurs="0" />
+              <xs:element name="all_sorkind03" type="xs:string" minOccurs="0" />
+              <xs:element name="all_sorkind04" type="xs:string" minOccurs="0" />
+              <xs:element name="all_sorkind05" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="flagdefault" type="xs:string" />
+              <xs:element name="idcustomuser" type="xs:string" />
+              <xs:element name="idflowchart" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="ndetail" type="xs:int" />
+              <xs:element name="sorkind01_withchilds" type="xs:string" minOccurs="0" />
+              <xs:element name="sorkind02_withchilds" type="xs:string" minOccurs="0" />
+              <xs:element name="sorkind03_withchilds" type="xs:string" minOccurs="0" />
+              <xs:element name="sorkind04_withchilds" type="xs:string" minOccurs="0" />
+              <xs:element name="sorkind05_withchilds" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="restrictedfunction" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idrestrictedfunction" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="variablename" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="flowchartrestrictedfunction" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idflowchart" type="xs:string" />
+              <xs:element name="idrestrictedfunction" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="flowchartsegview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idflowchart" type="xs:string" />
+              <xs:element name="paridflowchart" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="flowchart" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="ayear" type="xs:int" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="codeflowchart" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="fax" type="xs:string" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idflowchart" type="xs:string" />
+              <xs:element name="idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:int" minOccurs="0" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nlevel" type="xs:int" />
+              <xs:element name="paridflowchart" type="xs:string" />
+              <xs:element name="phone" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customuser" />
+      <xs:field xpath="mstns:idcustomuser" />
+    </xs:unique>
+    <xs:unique name="flowchartuser_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:flowchartuser" />
+      <xs:field xpath="mstns:idcustomuser" />
+      <xs:field xpath="mstns:idflowchart" />
+      <xs:field xpath="mstns:ndetail" />
+    </xs:unique>
+    <xs:unique name="restrictedfunction_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:restrictedfunction" />
+      <xs:field xpath="mstns:idrestrictedfunction" />
+    </xs:unique>
+    <xs:unique name="flowchartrestrictedfunction_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:flowchartrestrictedfunction" />
+      <xs:field xpath="mstns:idflowchart" />
+      <xs:field xpath="mstns:idrestrictedfunction" />
+    </xs:unique>
+    <xs:unique name="flowchartsegview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:flowchartsegview" />
+      <xs:field xpath="mstns:idflowchart" />
+    </xs:unique>
+    <xs:unique name="flowchart_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:flowchart" />
+      <xs:field xpath="mstns:idflowchart" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_flowchartuser_flowchart_idflowchart" msdata:parent="flowchart" msdata:child="flowchartuser" msdata:parentkey="idflowchart" msdata:childkey="idflowchart" />
+      <msdata:Relationship name="FK_flowchartuser_customuser_idcustomuser" msdata:parent="customuser" msdata:child="flowchartuser" msdata:parentkey="idcustomuser" msdata:childkey="idcustomuser" />
+      <msdata:Relationship name="FK_flowchartrestrictedfunction_flowchart_idflowchart" msdata:parent="flowchart" msdata:child="flowchartrestrictedfunction" msdata:parentkey="idflowchart" msdata:childkey="idflowchart" />
+      <msdata:Relationship name="FK_flowchartrestrictedfunction_restrictedfunction_idrestrictedfunction" msdata:parent="restrictedfunction" msdata:child="flowchartrestrictedfunction" msdata:parentkey="idrestrictedfunction" msdata:childkey="idrestrictedfunction" />
+      <msdata:Relationship name="FK_flowchart_flowchartsegview_paridflowchart" msdata:parent="flowchartsegview" msdata:child="flowchart" msdata:parentkey="idflowchart" msdata:childkey="paridflowchart" />
+      <msdata:Relationship name="FK_flowchart_flowchart_idflowchart" msdata:parent="flowchart" msdata:child="flowchart" msdata:parentkey="idflowchart" msdata:childkey="paridflowchart" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

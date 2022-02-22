@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Windows.Forms;
@@ -184,7 +183,7 @@ namespace meta_expensesorted//meta_impclassspesa//
                 return false;
             }
 
-			if (edit_type=="default")
+			if (edit_type == "default" || edit_type == "main")
 			{
 				if (DS.Tables["sorting"]==null) return true;
 
@@ -205,7 +204,7 @@ namespace meta_expensesorted//meta_impclassspesa//
 						if ((CurrTipo["forced"+suffix].ToString().ToLower()=="s") &&
 							(R["value"+C.ToString()+i.ToString()]==DBNull.Value))
 						{
-							if (MessageBox.Show(
+							if (MetaFactory.factory.getSingleton<IMessageShower>().Show(
 								"Il campo "+CurrTipo["label"+suffix].ToString()+
 								" non dovrebbe essere vuoto. Proseguo lo stesso?",
 								"Avviso",
@@ -219,12 +218,56 @@ namespace meta_expensesorted//meta_impclassspesa//
 						}
 					}
 				}
-				if ((CurrClass["flagnodate"].ToString().ToLower()=="n") &&
+                //Controlla che il valore delle etichette string sia tra quelli consentiti
+                for (int i = 1; i <= 5; i++) {
+                    string suffix = "S" + i.ToString();
+                    if (CurrTipo["allowed" + suffix] != DBNull.Value) {
+                        bool trovato = false;
+                        // Conta i valori ammessi
+                        int count = CurrTipo["allowed" + suffix].ToString().Split('|').Length - 1;
+                        string valori_ammessi= "";
+                        // Prende l'insieme dei valori ammessi dell'i-esima etichetta
+                        string insieme_i = CurrTipo["allowed" + suffix].ToString();
+                        int pos = 0;
+					
+                        for (int j = 1; j <= count; j++) {
+                            pos = insieme_i.IndexOf("|");
+                            if (pos > 0) {
+                               string x = insieme_i.Substring(0, pos);
+                               valori_ammessi = valori_ammessi+x + "; ";
+                               if(x== R["value" + "S".ToString() + i.ToString()].ToString()) {
+                                    trovato = true;
+                                }
+								if (R["value" + "S".ToString() + i.ToString()] == DBNull.Value) trovato = true;
+                                insieme_i = insieme_i.Substring(pos + 1, insieme_i.Length - pos - 1);
+                            }
+                        }
+
+                        if ( !trovato) {
+                            errfield = "value" + suffix;
+                            errmess = "Il campo " + CurrTipo["label" + suffix].ToString() + " deve avere un valore tra quelli ammessi:\n\r"+ valori_ammessi;
+                            return false;
+                        }
+                    }
+                }
+
+                if (
+                    (CurrTipo["labels1"].ToString().Length >=2)  && (CurrTipo["labels2"].ToString().Length >= 5)
+                    && (CurrTipo["labels1"].ToString().Substring(0,2)=="UE") && (CurrTipo["labels2"].ToString().Substring(0, 5)=="COFOG")
+                    ) {
+                    if (((R["values1"] != DBNull.Value) && (R["values2"] == DBNull.Value)) ||
+                            ((R["values1"] == DBNull.Value) && (R["values2"] != DBNull.Value))) {
+                        errmess = "Attenzione! I dati ARCONET nella scheda fabbisogno devono essere entrambi valorizzati oppure entrambi assenti.";
+                        errfield = "uesiopecode";
+                        return false;
+                    }
+                }
+                if ((CurrClass["flagnodate"].ToString().ToLower()=="n") &&
 					(R["flagnodate"].ToString().ToLower()=="n") )
 				{				
 					if (R["start"].ToString().Equals(""))
 					{
-						if (MessageBox.Show(
+						if (MetaFactory.factory.getSingleton<IMessageShower>().Show(
 							"Il campo datainizio non dovrebbe essere vuoto. Proseguo lo stesso?",
 							"Avviso",
 							MessageBoxButtons.YesNo)!= DialogResult.Yes)
@@ -240,7 +283,7 @@ namespace meta_expensesorted//meta_impclassspesa//
 					}
 					if (R["stop"].ToString().Equals(""))
 					{
-						if (MessageBox.Show(
+						if (MetaFactory.factory.getSingleton<IMessageShower>().Show(
 							"Il campo datafine non dovrebbe essere vuoto. Proseguo lo stesso?",
 							"Avviso",
 							MessageBoxButtons.YesNo)!= DialogResult.Yes)
@@ -260,7 +303,7 @@ namespace meta_expensesorted//meta_impclassspesa//
 				{
 					R["tobecontinued"]="S";
 				}
-			}
+            }
 			if (edit_type=="main")
 			{
 				if (DS.Tables["sortingview"]==null) return true;
@@ -282,7 +325,7 @@ namespace meta_expensesorted//meta_impclassspesa//
 						if ((CurrTipo["forced"+suffix].ToString().ToLower()=="s") &&
 							(R["value"+C.ToString()+i.ToString()]==DBNull.Value))
 						{
-							if (MessageBox.Show(
+							if (MetaFactory.factory.getSingleton<IMessageShower>().Show(
 								"Il campo "+CurrTipo["label"+suffix].ToString()+
 								" non dovrebbe essere vuoto. Proseguo lo stesso?",
 								"Avviso",
@@ -299,7 +342,7 @@ namespace meta_expensesorted//meta_impclassspesa//
 				if ((CurrClass["flagnodate"].ToString().ToLower()=="n") &&
 					(R["flagnodate"].ToString().ToLower()=="n") ) {				
 					if (R["start"].ToString().Equals("")) {
-						if (MessageBox.Show(
+						if (MetaFactory.factory.getSingleton<IMessageShower>().Show(
 							"Il campo datainizio non dovrebbe essere vuoto. Proseguo lo stesso?",
 							"Avviso",
 							MessageBoxButtons.YesNo)!= DialogResult.Yes) {
@@ -312,7 +355,7 @@ namespace meta_expensesorted//meta_impclassspesa//
 						}					
 					}
 					if (R["stop"].ToString().Equals("")) {
-						if (MessageBox.Show(
+						if (MetaFactory.factory.getSingleton<IMessageShower>().Show(
 							"Il campo datafine non dovrebbe essere vuoto. Proseguo lo stesso?",
 							"Avviso",							
 							MessageBoxButtons.YesNo)!= DialogResult.Yes) {
@@ -345,4 +388,4 @@ namespace meta_expensesorted//meta_impclassspesa//
 	}
 
 
-}
+}

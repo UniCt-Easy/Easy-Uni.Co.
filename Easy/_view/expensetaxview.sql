@@ -1,9 +1,26 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA expensetaxview
 IF EXISTS(select * from sysobjects where id = object_id(N'[expensetaxview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [expensetaxview]
 GO
 
-
+ 
 CREATE       VIEW [expensetaxview]
 (
 	idexp,
@@ -44,6 +61,9 @@ CREATE       VIEW [expensetaxview]
 	ayear,
 	idtreasurer,
 	treasurer,
+	idser,
+	codeser,
+	descriptionrenumeration,
 	cu,
 	ct,
 	lu,
@@ -98,6 +118,9 @@ AS SELECT
 	expensetax.ayear,
 	payment.idtreasurer,
 	treasurer.description,
+	service.idser,
+	service.codeser,
+	service.description,
 	expensetax.cu,
 	expensetax.ct,
 	expensetax.lu,
@@ -107,6 +130,7 @@ JOIN tax 	ON tax.taxcode = expensetax.taxcode
 JOIN expense 	ON expensetax.idexp = expense.idexp
 JOIN expenselast	ON expense.idexp = expenselast.idexp 
 JOIN config 	ON expense.ymov = config.ayear
+LEFT OUTER JOIN service  ON expenselast.idser = service.idser
 LEFT OUTER JOIN payment 	ON payment.kpay = expenselast.kpay  
 LEFT OUTER JOIN treasurer	ON treasurer.idtreasurer = payment.idtreasurer
 LEFT OUTER JOIN paymenttransmission 	ON paymenttransmission.kpaymenttransmission =  payment.kpaymenttransmission 

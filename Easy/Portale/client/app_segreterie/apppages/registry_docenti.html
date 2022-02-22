@@ -1,0 +1,305 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabregistry_docenti_docenti_0" class="nav-link active show" data-toggle="pill" data-target="#tabregistry_docenti_docenti_0"><i class="fa fa-chalkboard-teacher mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_docenti_docenti_3" class="nav-link" data-toggle="pill" data-target="#tabregistry_docenti_docenti_3"><i class="fa fa-book mr-1"></i>Pubblicazioni</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_docenti_docenti_4" class="nav-link" data-toggle="pill" data-target="#tabregistry_docenti_docenti_4"><i class="fa fa-file-signature mr-1"></i>Contratti</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_docenti_docenti_5" class="nav-link" data-toggle="pill" data-target="#tabregistry_docenti_docenti_5"><i class="fa fa-stopwatch mr-1"></i>Sospensione delle attività</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_docenti_docenti_1" class="nav-link" data-toggle="pill" data-target="#tabregistry_docenti_docenti_1"><i class="fa fa-clipboard-list mr-1"></i>Altri Dati</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_docenti_docenti_6" class="nav-link" data-toggle="pill" data-target="#tabregistry_docenti_docenti_6"><i class="fa fa-calendar-check mr-1"></i>Scheda di rendicontazione / registro elettronico</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_docenti_docenti_2" class="nav-link" data-toggle="pill" data-target="#tabregistry_docenti_docenti_2"><i class="fa fa-file-invoice mr-1"></i>Curriculum Vitae</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_docenti_docenti_7" class="nav-link" data-toggle="pill" data-target="#tabregistry_docenti_docenti_7"><i class="fa fa-graduation-cap mr-1"></i>Titoli di studio</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_docenti_docenti_8" class="nav-link" data-toggle="pill" data-target="#tabregistry_docenti_docenti_8"><i class="fa fa-map-marked-alt mr-1"></i>Indirizzi</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_docenti_docenti_9" class="nav-link" data-toggle="pill" data-target="#tabregistry_docenti_docenti_9"><i class="fa fa-at mr-1"></i>Recapiti</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_docenti_docenti_10" class="nav-link" data-toggle="pill" data-target="#tabregistry_docenti_docenti_10"><i class="fa fa-chalkboard-teacher mr-1"></i>Affidamenti</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_docenti_docenti_11" class="nav-link" data-toggle="pill" data-target="#tabregistry_docenti_docenti_11"><i class="fa fa-tools mr-1"></i>Attività di ricerca</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_docenti_docenti_12" class="nav-link" data-toggle="pill" data-target="#tabregistry_docenti_docenti_12"><i class="fa fa-wrench mr-1"></i>Diari di utilizzo di beni strumentali</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_docenti_docenti_13" class="nav-link" data-toggle="pill" data-target="#tabregistry_docenti_docenti_13"><i class="fa fa-calendar-day mr-1"></i>Timesheets</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_docenti_docenti_14" class="nav-link" data-toggle="pill" data-target="#tabregistry_docenti_docenti_14"><i class="fa fa-calendar-alt mr-1"></i>Afferenza alle strutture</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabregistry_docenti_docenti_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_idreg">Identificativo</label>
+					<input id="registry_docenti_idreg" type="text" class="form-control" data-tag="registry.idreg?registrydocentiview.idreg" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_idtitle">Titolo</label>
+					<div>
+						<input id="registry_docenti_idtitle" name="registry_docenti_idtitle" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="title.description" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_surname">Cognome</label>
+					<input id="registry_docenti_surname" type="text" class="form-control" data-tag="registry.surname?registrydocentiview.registry_surname" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_forename">Nome</label>
+					<input id="registry_docenti_forename" type="text" class="form-control" data-tag="registry.forename?registrydocentiview.registry_forename" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_gender">Sesso (M/F)</label>
+					<div class="custom-control custom-radio">
+						<input id="registry_docenti_genderM" type="radio" name="registry_docenti_gender" class="custom-control-input" data-tag="registry.gender:M?registrydocentiview.registry_gender:Maschio" data-subentity  data-mandatory ><label for="registry_docenti_genderM"> Maschio</label>
+						<input id="registry_docenti_genderF" type="radio" name="registry_docenti_gender" class="custom-control-input" data-tag="registry.gender:F?registrydocentiview.registry_gender:Femmina" data-subentity  data-mandatory ><label for="registry_docenti_genderF"> Femmina</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#registry_docenti_birthdate").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="registry_docenti_birthdate">Data di nascita</label>
+					<input id="registry_docenti_birthdate" type="text" class="form-control" data-tag="registry.birthdate?registrydocentiview.registry_birthdate" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_idcity">Comune di nascita</label>
+					<div>
+						<input id="registry_docenti_idcity" name="registry_docenti_idcity" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+					<input hidden id="registry_docenti_title" type="text" class="form-control" data-tag="registry.title" />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_idnation">Nazionalità</label>
+					<div>
+						<input id="registry_docenti_idnation" name="registry_docenti_idnation" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_nation.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_cf">Codice fiscale</label>
+					<input id="registry_docenti_cf" type="text" class="form-control" data-tag="registry.cf?registrydocentiview.registry_cf" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_idmaritalstatus">Stato civile</label>
+					<select id="registry_docenti_idmaritalstatus" class="custom-select d-block w-100"  data-source-name="maritalstatus" data-value-member="idmaritalstatus" data-display-member="description" data-custom-control="combo" data-tag="registry.idmaritalstatus?registrydocentiview.registry_idmaritalstatus" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_p_iva">Partita iva</label>
+					<input id="registry_docenti_p_iva" type="text" class="form-control" data-tag="registry.p_iva?registrydocentiview.registry_p_iva" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_idregistryclass">Tipologia fiscale</label>
+					<div>
+						<input id="registry_docenti_idregistryclass" name="registry_docenti_idregistryclass" type="text" data-listtype="persone"  class="form-control" data-minchar="2" data-tag="registryclasspersoneview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_residence">Residenza</label>
+					<select id="registry_docenti_residence" class="custom-select d-block w-100"  data-source-name="residence" data-value-member="idresidence" data-display-member="description" data-custom-control="combo" data-tag="registry.residence?registrydocentiview.registry_residence" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_location">ubicazione</label>
+					<input id="registry_docenti_location" type="text" class="form-control" data-tag="registry.location?registrydocentiview.registry_location" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_foreigncf">Codice fiscale estero</label>
+					<input id="registry_docenti_foreigncf" type="text" class="form-control" data-tag="registry.foreigncf?registrydocentiview.registry_foreigncf" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_maritalsurname">Cognome acquisito</label>
+					<input id="registry_docenti_maritalsurname" type="text" class="form-control" data-tag="registry.maritalsurname?registrydocentiview.registry_maritalsurname" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_default_soggiorno">Permesso di soggiorno</label>
+					<input id="registry_docenti_default_soggiorno" type="text" class="form-control" data-tag="registry_docenti.soggiorno?registrydocentiview.registry_docenti_soggiorno" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_default_matricola">Matricola</label>
+					<input id="registry_docenti_default_matricola" type="text" class="form-control" data-tag="registry_docenti.matricola?registrydocentiview.registry_docenti_matricola" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_default_idstruttura">Struttura di afferenza</label>
+					<div>
+						<input id="registry_docenti_default_idstruttura" name="registry_docenti_default_idstruttura" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="strutturadefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_default_idsasd">SASD</label>
+					<div>
+						<input id="registry_docenti_default_idsasd" name="registry_docenti_default_idsasd" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sasddefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_default_idclassconsorsuale">Classe consorsuale</label>
+					<div>
+						<input id="registry_docenti_default_idclassconsorsuale" name="registry_docenti_default_idclassconsorsuale" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="classconsorsualedefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_default_idreg_istituti">Istituto, Ente o Azienda</label>
+					<div>
+						<input id="registry_docenti_default_idreg_istituti" name="registry_docenti_default_idreg_istituti" type="text" data-listtype="istituti"  class="form-control" data-minchar="2" data-tag="registryistitutiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+					<input hidden id="registry_docenti_default_idcontrattokind" type="text" class="form-control" data-tag="registry_docenti.idcontrattokind" />
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="registry_docenti_default_ricevimento">Orari di ricevimento</label>
+					<textarea class="textarea form-control" id="registry_docenti_default_ricevimento" type="text"  rows="4" data-tag="registry_docenti.ricevimento?registrydocentiview.registry_docenti_ricevimento" data-subentity  ></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_default_idfonteindicebibliometrico">Fonte</label>
+					<select id="registry_docenti_default_idfonteindicebibliometrico" class="custom-select d-block w-100"  data-source-name="fonteindicebibliometrico" data-value-member="idfonteindicebibliometrico" data-display-member="title" data-custom-control="combo" data-tag="registry_docenti.idfonteindicebibliometrico?registrydocentiview.registry_docenti_idfonteindicebibliometrico" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_default_indicebibliometrico">Indice bibliometrico (H-Index)</label>
+					<input id="registry_docenti_default_indicebibliometrico" type="text" class="form-control" data-tag="registry_docenti.indicebibliometrico?registrydocentiview.registry_docenti_indicebibliometrico" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_active">attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="registry_docenti_activeSi" type="radio" name="registry_docenti_active" class="custom-control-input" data-tag="registry.active:S?registrydocentiview.registry_active:Si" data-subentity  data-mandatory ><label for="registry_docenti_activeSi"> Si</label>
+						<input id="registry_docenti_activeNo" type="radio" name="registry_docenti_active" class="custom-control-input" data-tag="registry.active:N?registrydocentiview.registry_active:No" data-subentity  data-mandatory ><label for="registry_docenti_activeNo"> No</label>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_docenti_docenti_3" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_publicazregistry_docenti_idpublicaz" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_publicazregistry_docenti_idpublicaz" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Pubblicazioni
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_publicazregistry_docenti_docenti" data-tag="publicazregistry_docenti.docenti.docenti" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_docenti_docenti_4" role="tabpanel">
+				<div class="gridx" id="grid_contratto_default" data-tag="contratto.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="tempdef,S,Si;tempdef,N,No;tempindet,S,Si;tempindet,N,No;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_docenti_docenti_5" role="tabpanel">
+	<hr>
+		<div class="row">
+			<div class="col-md-12">
+				<div id="calendar64" data-tag="sospensione.default.default" data-custom-control="calendar"  data-mdltitlecolumnname="motivo"   data-mdlstartcolumnname="start"   data-mdlstopcolumnname="stop"   data-mdlmaincolor="Gold"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdldragdrop ></div>
+			</div>
+		</div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_docenti_docenti_1" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_badgecode">Codice badge</label>
+					<input id="registry_docenti_badgecode" type="text" class="form-control" data-tag="registry.badgecode?registrydocentiview.registry_badgecode" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_extmatricula">Matricola</label>
+					<input id="registry_docenti_extmatricula" type="text" class="form-control" data-tag="registry.extmatricula?registrydocentiview.registry_extmatricula" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_annotation">Annotazioni</label>
+					<input id="registry_docenti_annotation" type="text" class="form-control" data-tag="registry.annotation?registrydocentiview.registry_annotation" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_multi_cf">Consenti duplicazione CF/P. IVA (S/N)</label>
+					<div class="custom-control custom-radio">
+						<input id="registry_docenti_multi_cfSi" type="radio" name="registry_docenti_multi_cf" class="custom-control-input" data-tag="registry.multi_cf:S?registrydocentiview.registry_multi_cf:Si" data-subentity  ><label for="registry_docenti_multi_cfSi"> Si</label>
+						<input id="registry_docenti_multi_cfNo" type="radio" name="registry_docenti_multi_cf" class="custom-control-input" data-tag="registry.multi_cf:N?registrydocentiview.registry_multi_cf:No" data-subentity  ><label for="registry_docenti_multi_cfNo"> No</label>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_docenti_docenti_6" role="tabpanel">
+				<div class="gridx" id="grid_rendicont_default" data-tag="rendicont.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_docenti_docenti_2" role="tabpanel">
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="registry_docenti_default_cv">Curriculum Vitae</label>
+					<textarea class="textarea form-control" id="registry_docenti_default_cv" type="text"  rows="20" data-tag="registry_docenti.cv?registrydocentiview.registry_docenti_cv" data-subentity  ></textarea>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_docenti_docenti_7" role="tabpanel">
+				<div class="gridx" id="grid_titolostudio_docenti" data-tag="titolostudio.docenti.docenti" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="votolode,S,Si;votolode,N,No;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_docenti_docenti_8" role="tabpanel">
+				<div class="gridx" id="grid_registryaddress_seg" data-tag="registryaddress.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="active,S,Si;active,N,No;flagforeign,S,Si;flagforeign,N,No;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_docenti_docenti_9" role="tabpanel">
+				<div class="gridx" id="grid_registryreference_persone" data-tag="registryreference.persone.persone" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="flagdefault,S,Si;flagdefault,N,No;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_docenti_docenti_10" role="tabpanel">
+				<div class="gridx" id="grid_affidamento_seg" data-tag="affidamento.seg.seg" data-custom-control="gridxchild" data-mdlgroupedcolumns="aa" data-mdltotnotvisible data-mdlbuttonedit data-mdlconditionallookup="freqobbl,S,Si;freqobbl,N,No;gratuito,S,Si;gratuito,N,No;riferimento,S,Si;riferimento,N,No;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_docenti_docenti_11" role="tabpanel">
+				<div class="gridx" id="grid_rendicontattivitaprogetto_anag" data-tag="rendicontattivitaprogetto.anag.anag" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_docenti_docenti_12" role="tabpanel">
+				<div class="gridx" id="grid_assetdiary_seganag" data-tag="assetdiary.seganag.seganag" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_docenti_docenti_13" role="tabpanel">
+				<div class="gridx" id="grid_progettotimesheet_default" data-tag="progettotimesheet.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="intestazioneallsheet,S,Si;intestazioneallsheet,N,No;riepilogoanno,S,Si;riepilogoanno,N,No;showactivitiesrow,S,Si;showactivitiesrow,N,No;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_docenti_docenti_14" role="tabpanel">
+				<div class="gridx" id="grid_afferenza_docente" data-tag="afferenza.docente.docente" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

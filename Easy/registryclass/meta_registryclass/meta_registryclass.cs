@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -77,7 +76,7 @@ namespace meta_registryclass
 	        SetDefault(T,"flagresidence_forced","N");
 	        SetDefault(T,"flagfiscalresidence","S");
 	        SetDefault(T,"flagfiscalresidence_forced","N");
-	        //solo visibilità
+	        //solo visibilit�
 	        SetDefault(T,"flagcfbutton","S");
 	        SetDefault(T,"flaginfofromcfbutton","S");
 	        //non utilizzati
@@ -95,154 +94,6 @@ namespace meta_registryclass
 			//$Get_New_Row$
 			DataRow R = base.Get_New_Row(ParentRow, T);
 			return R;
-		}
-
-		public override bool IsValid(DataRow R, out string errmess, out string errfield) {
-			if (!base.IsValid(R, out errmess, out errfield)) return false;
-
-			if (R.Table.Columns.Contains("description") && R["description"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Descrizione' è obbligatorio";
-				errfield = "description";
-				return false;
-			}
-			if (R.Table.Columns.Contains("description") && R["description"].ToString().Trim().Length > 150) {
-				errmess = "Attenzione! Il campo 'Descrizione' può essere al massimo di 150 caratteri";
-				errfield = "description";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagbadgecode") && R["flagbadgecode"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Codice badge visibile' è obbligatorio";
-				errfield = "flagbadgecode";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagbadgecode_forced") && R["flagbadgecode_forced"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Codice badge obbligatorio' è obbligatorio";
-				errfield = "flagbadgecode_forced";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagCF") && R["flagCF"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Codice fiscale visibile' è obbligatorio";
-				errfield = "flagCF";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagcf_forced") && R["flagcf_forced"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Codice fiscale obbligatorio' è obbligatorio";
-				errfield = "flagcf_forced";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagextmatricula") && R["flagextmatricula"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Matricola esterna visibile' è obbligatorio";
-				errfield = "flagextmatricula";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagextmatricula_forced") && R["flagextmatricula_forced"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Matricola esterna obbligatoria' è obbligatorio";
-				errfield = "flagextmatricula_forced";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagfiscalresidence") && R["flagfiscalresidence"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Campo residenza visibile' è obbligatorio";
-				errfield = "flagfiscalresidence";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagfiscalresidence_forced") && R["flagfiscalresidence_forced"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'inserimento residenza obbligatorio' è obbligatorio";
-				errfield = "flagfiscalresidence_forced";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagforeigncf") && R["flagforeigncf"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Codice fiscale estero visibile' è obbligatorio";
-				errfield = "flagforeigncf";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagforeigncf_forced") && R["flagforeigncf_forced"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Codice fiscale estero obbligatorio' è obbligatorio";
-				errfield = "flagforeigncf_forced";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagmaritalstatus") && R["flagmaritalstatus"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Campo stato civile visibile' è obbligatorio";
-				errfield = "flagmaritalstatus";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagmaritalstatus_forced") && R["flagmaritalstatus_forced"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Campo stato civile obbligatorio' è obbligatorio";
-				errfield = "flagmaritalstatus_forced";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagmaritalsurname") && R["flagmaritalsurname"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Cognome acquisito visibile' è obbligatorio";
-				errfield = "flagmaritalsurname";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagmaritalsurname_forced") && R["flagmaritalsurname_forced"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Cognome acquisito obbligatorio' è obbligatorio";
-				errfield = "flagmaritalsurname_forced";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagothers") && R["flagothers"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'campo non usato' è obbligatorio";
-				errfield = "flagothers";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagothers_forced") && R["flagothers_forced"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'campo non usato' è obbligatorio";
-				errfield = "flagothers_forced";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagp_iva") && R["flagp_iva"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Partita iva visibile' è obbligatorio";
-				errfield = "flagp_iva";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagp_iva_forced") && R["flagp_iva_forced"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Partita iva obbligatoria' è obbligatorio";
-				errfield = "flagp_iva_forced";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagqualification") && R["flagqualification"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'campo \"Titolo\" visibile' è obbligatorio";
-				errfield = "flagqualification";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagqualification_forced") && R["flagqualification_forced"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'campo \"Titolo\" obbligatorio' è obbligatorio";
-				errfield = "flagqualification_forced";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagresidence") && R["flagresidence"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Usato congiuntamente a flagresidence_forced per stabilire se l'indirizzo di residenza è obbligatorio, Da solo non ha un gran significato poiché non esiste un campo indirizzo di residenza' è obbligatorio";
-				errfield = "flagresidence";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagresidence_forced") && R["flagresidence_forced"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Informazioni sulla residenza obbligatorie' è obbligatorio";
-				errfield = "flagresidence_forced";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagtitle") && R["flagtitle"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Campo Denominazione diverso da cognome+nome, inserito manualmente' è obbligatorio";
-				errfield = "flagtitle";
-				return false;
-			}
-			if (R.Table.Columns.Contains("flagtitle_forced") && R["flagtitle_forced"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Non usato, il campo denominazione  è sempre obbligatorio in un modo o nell'altro' è obbligatorio";
-				errfield = "flagtitle_forced";
-				return false;
-			}
-			if (R.Table.Columns.Contains("idregistryclass") && R["idregistryclass"].ToString().Trim() == "") {
-				errmess = "Attenzione! Il campo 'Codice' è obbligatorio";
-				errfield = "idregistryclass";
-				return false;
-			}
-			if (R.Table.Columns.Contains("idregistryclass") && R["idregistryclass"].ToString().Trim().Length > 2) {
-				errmess = "Attenzione! Il campo 'Codice' può essere al massimo di 2 caratteri";
-				errfield = "idregistryclass";
-				return false;
-			}
-			//$IsValid$
-
-			return true;
 		}
 
 		public override void DescribeColumns(DataTable T, string ListingType) {
@@ -281,13 +132,19 @@ namespace meta_registryclass
 						DescribeAColumn(T, "flagp_iva_forced", "Partita iva obbligatoria", nPos++);
 						DescribeAColumn(T, "flagqualification", "campo \"Titolo\" visibile", nPos++);
 						DescribeAColumn(T, "flagqualification_forced", "campo \"Titolo\" obbligatorio", nPos++);
-						DescribeAColumn(T, "flagresidence", "Usato congiuntamente a flagresidence_forced per stabilire se l'indirizzo di residenza è obbligatorio, Da solo non ha un gran significato poiché non esiste un campo indirizzo di residenza", nPos++);
+						DescribeAColumn(T, "flagresidence", "Usato congiuntamente a flagresidence_forced per stabilire se l'indirizzo di residenza � obbligatorio, Da solo non ha un gran significato poich� non esiste un campo indirizzo di residenza", nPos++);
 						DescribeAColumn(T, "flagresidence_forced", "Informazioni sulla residenza obbligatorie", nPos++);
 						DescribeAColumn(T, "flagtitle", "Campo Denominazione diverso da cognome+nome, inserito manualmente", nPos++);
-						DescribeAColumn(T, "flagtitle_forced", "Non usato, il campo denominazione  è sempre obbligatorio in un modo o nell'altro", nPos++);
+						DescribeAColumn(T, "flagtitle_forced", "Non usato, il campo denominazione  � sempre obbligatorio in un modo o nell'altro", nPos++);
 						break;
 					}
 				case "persone": {
+						DescribeAColumn(T, "idregistryclass", "Codice", nPos++);
+						DescribeAColumn(T, "description", "Descrizione", nPos++);
+						DescribeAColumn(T, "active", "Attivo", nPos++);
+						break;
+					}
+				case "aziende": {
 						DescribeAColumn(T, "idregistryclass", "Codice", nPos++);
 						DescribeAColumn(T, "description", "Descrizione", nPos++);
 						DescribeAColumn(T, "active", "Attivo", nPos++);
@@ -301,4 +158,3 @@ namespace meta_registryclass
 
 	}
 }
-

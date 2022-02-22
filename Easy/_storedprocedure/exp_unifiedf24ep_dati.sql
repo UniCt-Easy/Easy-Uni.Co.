@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_unifiedf24ep_dati]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_unifiedf24ep_dati]
 GO
@@ -6,7 +23,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
- 
+ --setuser 'amm'
  -- [exp_unifiedf24ep_dati] 1
 CREATE procedure [exp_unifiedf24ep_dati](@idunifiedf24ep int) as
 begin
@@ -52,7 +69,7 @@ begin
 											 SOSTITUTO D''IMPOSTA',  null, '00MM','AAAA') --IRPEF A SALDO TRATTENUTA DAL SOSTITUTO D''IMPOSTA
 	insert into #tributi values ('R','126E', 'ADDIZIONALE REGIONALE ALL''IRPEF TRATTENUTA 
 											 DAL SOSTITUTO D''IMPOSTA A SEGUITO
-											 DI ASSISTENZA FISCALE',  'RR', '00MM','AAAA') --ADDIZIONALE REGIONALE ALL''IRPEF TRATTENUTA DAL SOSTITUTO D''IMPOSTA A SEGUITO DI ASSISTENZA FISCALE
+											 DI ASSISTENZA FISCALE',  'RR', null,'AAAA') --ADDIZIONALE REGIONALE ALL''IRPEF TRATTENUTA DAL SOSTITUTO D''IMPOSTA A SEGUITO DI ASSISTENZA FISCALE
 	insert into #tributi values ('R','153E', 'SOMME A TITOLO DI ADDIZIONALE REGIONALE
 											 ALL''IRPEF RIMBORSATE DAL SOSTITUTO D''IMPOSTA
 											 A SEGUITO DI ASSISTENZA FISCALE - ART. 15, COMMA1,
@@ -74,6 +91,35 @@ begin
 	insert into #tributi values ( 'F','156E', 'Ritenute sui redditi da lavoro autonomo', null,'00MM','AAAA') -- Ritenute sui redditi da lavoro autonomo  	
 	insert into #tributi values ( 'F','155E', 'Ritenute sui redditi da lavoro dipendente ed assimilati', null,'00MM','AAAA') -- Ritenute sui redditi da lavoro dipendente ed assimilati  
 	insert into #tributi values ( 'F','165E', 'Bonus fiscale', null,'00MM','AAAA') -- Bonus fiscale 
+
+	insert into #tributi values ('F','601E','VERSAMENTO IVA MENSILE GENNAIO', null, null,'AAA')--	"VERSAMENTO IVA MENSILE GENNAIO"
+	insert into #tributi values ('F','602E','VERSAMENTO IVA MENSILE FEBBRAIO', null, null,'AAA')--	"VERSAMENTO IVA MENSILE FEBBRAIO"
+	insert into #tributi values ('F','603E','VERSAMENTO IVA MENSILE MARZO', null, null,'AAA')--	"VERSAMENTO IVA MENSILE MARZO"
+	insert into #tributi values ('F','604E','VERSAMENTO IVA MENSILE APRILE', null, null,'AAA')--	"VERSAMENTO IVA MENSILE APRILE"
+	insert into #tributi values ('F','605E','VERSAMENTO IVA MENSILE MAGGIO', null, null,'AAA')--	"VERSAMENTO IVA MENSILE MAGGIO"
+	insert into #tributi values ('F','606E','VERSAMENTO IVA MENSILE GIUGNO', null, null,'AAA')--	"VERSAMENTO IVA MENSILE GIUGNO"
+	insert into #tributi values ('F','607E','VERSAMENTO IVA MENSILE LUGLIO', null, null,'AAA')--	"VERSAMENTO IVA MENSILE LUGLIO"
+	insert into #tributi values ('F','608E','VERSAMENTO IVA MENSILE AGOSTO', null, null,'AAA')--	"VERSAMENTO IVA MENSILE AGOSTO"
+	insert into #tributi values ('F','609E','VERSAMENTO IVA MENSILE SETTEMBRE', null, null,'AAA')--	"VERSAMENTO IVA MENSILE SETTEMBRE"
+	insert into #tributi values ('F','610E','VERSAMENTO IVA MENSILE OTTOBRE', null, null,'AAA')--	"VERSAMENTO IVA MENSILE OTTOBRE"
+	insert into #tributi values ('F','611E','VERSAMENTO IVA MENSILE NOVEMBRE', null, null,'AAA')--	"VERSAMENTO IVA MENSILE NOVEMBRE"
+	insert into #tributi values ('F','612E','VERSAMENTO IVA MENSILE DICEMBRE', null, null,'AAA')--	"VERSAMENTO IVA MENSILE DICEMBRE"
+
+	insert into #tributi values ('F','613E','VERSAMENTO ACCONTO PER IVA MENSILE', null, null,'AAAA')--	VERSAMENTO IVA MENSILE DICEMBRE
+	insert into #tributi values ('F','614E','VERSAMENTO IVA TRIMESTRALE 1 TRIMESTRE',null, null,'AAAA')--	VERSAMENTO IVA TRIMESTRALE 1 TRIMESTRE
+	insert into #tributi values ('F','615E','VERSAMENTO IVA TRIMESTRALE 2 TRIMESTRE',null, null,'AAAA')--	VERSAMENTO IVA TRIMESTRALE 2 TRIMESTRE
+	insert into #tributi values ('F','616E','VERSAMENTO IVA TRIMESTRALE 3 TRIMESTRE', null,null,'AAAA')--	VERSAMENTO IVA TRIMESTRALE 3 TRIMESTRE
+	insert into #tributi values ('F','617E','VERSAMENTO IVA TRIMESTRALE 4 TRIMESTRE ',null, null,'AAAA')--	VERSAMENTO IVA TRIMESTRALE 4 TRIMESTRE 
+	insert into #tributi values ('F','618E','VERSAMENTO IVA ACCONTO ',null,null,'AAAA')--	VERSAMENTO IVA ACCONTO  
+	insert into #tributi values ('F','619E','VERSAMENTO IVA SULLA BASE DELLA DICHIARAZIONE ANNUALE', null,null,'AAAA')--	VERSAMENTO IVA SULLA BASE DELLA DICHIARAZIONE ANNUALE
+	insert into #tributi values ('F','620E','SPLIT ISTITUZIONALE', null,'00MM','AAAA')--	SPLIT ISTITUZIONALE
+	insert into #tributi values ('F','621E','SPLIT COMMERCIALE', null,'00MM','AAAA')--	SPLIT COMMERCIALE
+	insert into #tributi values ('F','622E','INTRA 12','00MM', null,'AAAA')--	INTRA 12	
+	insert into #tributi values ('F','801E','SANZIONE PECUNIARIA IVA',null,'00MM','AAAA')--	SANZIONE PECUNIARIA IVA
+	insert into #tributi values ('F','901E','REGOLARIZZAZIONE OPERAZIONI IN CASO DI MANCATA/ IRREGOLARE FATTURAZ.',null, '00MM','AAAA')--	REGOLARIZZAZIONE OPERAZIONI IN CASO DI MANCATA/ IRREGOLARE FATTURAZ.
+
+
+
 
 	--declare @annodichiarazione int
 	--set @annodichiarazione = 2008
@@ -384,8 +430,8 @@ insert into #errori (taxcode, idexp, iddbdepartment, ymov, nmov, message)
 
 		if (@geoappliance ='C' and @idcity is null)
 		begin 
-		insert into #errori (iddbdepartment, taxcode, idexp, ymov, nmov,iddbdepartment, message)
-			values (@iddbdepartment, @taxcode, @idexp, @ymov, @nmov, @iddbdepartment,
+		insert into #errori (iddbdepartment, taxcode, idexp, ymov, nmov, message)
+			values (@iddbdepartment, @taxcode, @idexp, @ymov, @nmov, 
 			'Per il tributo con codice ' + isnull(@codiceTributo, '')
 			+ ' non è stato valorizzato il comune di riferimento');
 		end
@@ -393,8 +439,8 @@ insert into #errori (taxcode, idexp, iddbdepartment, ymov, nmov, message)
 
 		if (@geoappliance ='R' and @idfiscaltaxregion is null )
 		begin 
-		insert into #errori (iddbdepartment,taxcode, idexp, ymov, nmov, iddbdepartment, message)
-			values (@iddbdepartment, @taxcode, @idexp,@ymov,@nmov, @iddbdepartment,
+		insert into #errori (iddbdepartment,taxcode, idexp, ymov, nmov,  message)
+			values (@iddbdepartment, @taxcode, @idexp,@ymov,@nmov, 
 			'Per il tributo con codice ' + isnull(@codiceTributo, '')
 			+ ' non è stato valorizzata la regione di riferimento');
 		end
@@ -427,8 +473,8 @@ insert into #errori (taxcode, idexp, iddbdepartment, ymov, nmov, message)
 		end
 
 		if (@rifA='00MM' and @riferimentoA is null)
-			insert into #errori (iddbdepartment,taxcode, idexp, ymov, nmov,iddbdepartment, message)
-					values (@iddbdepartment, @taxcode, @idexp, @ymov, @nmov, @iddbdepartment,
+			insert into #errori (iddbdepartment,taxcode, idexp, ymov, nmov, message)
+					values (@iddbdepartment, @taxcode, @idexp, @ymov, @nmov, 
 					'Per il tributo con codice ' + isnull(@codiceTributo, '')
 					+ ' la procedura non è stata in grado di ricavare il mese di riferimento');
 
@@ -504,8 +550,8 @@ insert into #errori (taxcode, idexp, iddbdepartment, ymov, nmov, message)
 							 
 				if @codice is null
 					begin 
-					insert into #errori (iddbdepartment,taxcode, idexp, ymov, nmov, iddbdepartment, message)
-						values (@iddbdepartment,@taxcode, @idexp, @ymov,@nmov,@iddbdepartment,
+					insert into #errori (iddbdepartment,taxcode, idexp, ymov, nmov,  message)
+						values (@iddbdepartment,@taxcode, @idexp, @ymov,@nmov,
 						'Per il tributo con codice ' + isnull(@codiceTributo, '')
 						+ ' la procedura non è stata in grado di ricavare il codice dell''ente 
 						(provincia autonoma/regione)');
@@ -549,8 +595,8 @@ insert into #errori (taxcode, idexp, iddbdepartment, ymov, nmov, message)
 	
 			if @codice is null
 			begin 
-				insert into #errori (iddbdepartment,taxcode, idexp, ymov, nmov, iddbdepartment, message)
-					values (@iddbdepartment,@taxcode, @idexp,@ymov,@nmov,@iddbdepartment,
+				insert into #errori (iddbdepartment,taxcode, idexp, ymov, nmov,  message)
+					values (@iddbdepartment,@taxcode, @idexp,@ymov,@nmov,
 					'Per il tributo con codice ' + isnull(@codiceTributo, '')
 					+ ' la procedura non è stata in grado di ricavare il codice dell''ente (regione)');
 			end

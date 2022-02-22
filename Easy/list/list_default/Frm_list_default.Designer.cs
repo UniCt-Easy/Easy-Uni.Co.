@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 namespace list_default
 {
@@ -76,9 +75,15 @@ namespace list_default
 			this.btnListClassCode = new System.Windows.Forms.Button();
 			this.fileimmagine = new System.Windows.Forms.Button();
 			this.pbox = new System.Windows.Forms.PictureBox();
-			this.opendlg = new System.Windows.Forms.OpenFileDialog();
+			this._opendlg = new System.Windows.Forms.OpenFileDialog();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.cmbTassonomia = new System.Windows.Forms.ComboBox();
+			this.button1 = new System.Windows.Forms.Button();
+			this.label27 = new System.Windows.Forms.Label();
+			this.txtboxdescrforuser = new System.Windows.Forms.TextBox();
+			this.chkinsinfo = new System.Windows.Forms.CheckBox();
 			this.label26 = new System.Windows.Forms.Label();
 			this.txtPrice = new System.Windows.Forms.TextBox();
 			this.textBox1 = new System.Windows.Forms.TextBox();
@@ -118,15 +123,13 @@ namespace list_default
 			this.btnModifica = new System.Windows.Forms.Button();
 			this.btnInserisci = new System.Windows.Forms.Button();
 			this.dgrClassificazioni = new System.Windows.Forms.DataGrid();
-			this.chkinsinfo = new System.Windows.Forms.CheckBox();
-			this.txtboxdescrforuser = new System.Windows.Forms.TextBox();
-			this.label27 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.groupBox2.SuspendLayout();
 			this.gboxListClass.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pbox)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
+			this.groupBox1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridordiniinevasi)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gridPrenotazioni)).BeginInit();
@@ -264,7 +267,7 @@ namespace list_default
 			this.cmbUnitaMisuraCS.DataSource = this.DS.unit;
 			this.cmbUnitaMisuraCS.DisplayMember = "description";
 			this.cmbUnitaMisuraCS.FormattingEnabled = true;
-			this.cmbUnitaMisuraCS.Location = new System.Drawing.Point(212, 130);
+			this.cmbUnitaMisuraCS.Location = new System.Drawing.Point(212, 136);
 			this.cmbUnitaMisuraCS.Name = "cmbUnitaMisuraCS";
 			this.cmbUnitaMisuraCS.Size = new System.Drawing.Size(231, 21);
 			this.cmbUnitaMisuraCS.TabIndex = 3;
@@ -274,7 +277,7 @@ namespace list_default
 			// label8
 			// 
 			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(21, 134);
+			this.label8.Location = new System.Drawing.Point(21, 140);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(181, 13);
 			this.label8.TabIndex = 17;
@@ -293,7 +296,7 @@ namespace list_default
 			// 
 			this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDescription.Location = new System.Drawing.Point(12, 70);
+			this.txtDescription.Location = new System.Drawing.Point(11, 80);
 			this.txtDescription.Multiline = true;
 			this.txtDescription.Name = "txtDescription";
 			this.txtDescription.Size = new System.Drawing.Size(716, 50);
@@ -303,7 +306,7 @@ namespace list_default
 			// label10
 			// 
 			this.label10.AutoSize = true;
-			this.label10.Location = new System.Drawing.Point(9, 54);
+			this.label10.Location = new System.Drawing.Point(8, 64);
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(62, 13);
 			this.label10.TabIndex = 20;
@@ -312,7 +315,7 @@ namespace list_default
 			// chkActive
 			// 
 			this.chkActive.AutoSize = true;
-			this.chkActive.Location = new System.Drawing.Point(266, 24);
+			this.chkActive.Location = new System.Drawing.Point(172, 12);
 			this.chkActive.Name = "chkActive";
 			this.chkActive.Size = new System.Drawing.Size(53, 17);
 			this.chkActive.TabIndex = 5;
@@ -332,7 +335,7 @@ namespace list_default
 			// chkDataScadenza
 			// 
 			this.chkDataScadenza.AutoSize = true;
-			this.chkDataScadenza.Location = new System.Drawing.Point(266, 47);
+			this.chkDataScadenza.Location = new System.Drawing.Point(172, 35);
 			this.chkDataScadenza.Name = "chkDataScadenza";
 			this.chkDataScadenza.Size = new System.Drawing.Size(156, 17);
 			this.chkDataScadenza.TabIndex = 6;
@@ -448,6 +451,7 @@ namespace list_default
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.groupBox1);
 			this.tabPage1.Controls.Add(this.label27);
 			this.tabPage1.Controls.Add(this.txtboxdescrforuser);
 			this.tabPage1.Controls.Add(this.chkinsinfo);
@@ -490,6 +494,67 @@ namespace list_default
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Principale";
 			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.cmbTassonomia);
+			this.groupBox1.Controls.Add(this.button1);
+			this.groupBox1.Location = new System.Drawing.Point(334, 3);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(394, 71);
+			this.groupBox1.TabIndex = 41;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Tag = "";
+			// 
+			// cmbTassonomia
+			// 
+			this.cmbTassonomia.FormattingEnabled = true;
+			this.cmbTassonomia.Location = new System.Drawing.Point(6, 38);
+			this.cmbTassonomia.Name = "cmbTassonomia";
+			this.cmbTassonomia.Size = new System.Drawing.Size(382, 21);
+			this.cmbTassonomia.TabIndex = 41;
+			this.cmbTassonomia.Tag = "list.idtassonomia";
+			// 
+			// button1
+			// 
+			this.button1.Location = new System.Drawing.Point(6, 9);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(124, 23);
+			this.button1.TabIndex = 40;
+			this.button1.Tag = "choose.tassonomia_pagopa.default";
+			this.button1.Text = "Tassonomia PagoPA";
+			this.button1.UseVisualStyleBackColor = true;
+			// 
+			// label27
+			// 
+			this.label27.AutoSize = true;
+			this.label27.Location = new System.Drawing.Point(209, 485);
+			this.label27.Name = "label27";
+			this.label27.Size = new System.Drawing.Size(262, 13);
+			this.label27.TabIndex = 39;
+			this.label27.Text = "Descrizione delle informazioni che deve fornire l\'utente";
+			// 
+			// txtboxdescrforuser
+			// 
+			this.txtboxdescrforuser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtboxdescrforuser.Location = new System.Drawing.Point(212, 502);
+			this.txtboxdescrforuser.Multiline = true;
+			this.txtboxdescrforuser.Name = "txtboxdescrforuser";
+			this.txtboxdescrforuser.Size = new System.Drawing.Size(729, 50);
+			this.txtboxdescrforuser.TabIndex = 38;
+			this.txtboxdescrforuser.Tag = "list.descrforuser";
+			// 
+			// chkinsinfo
+			// 
+			this.chkinsinfo.AutoSize = true;
+			this.chkinsinfo.Location = new System.Drawing.Point(26, 484);
+			this.chkinsinfo.Name = "chkinsinfo";
+			this.chkinsinfo.Size = new System.Drawing.Size(164, 17);
+			this.chkinsinfo.TabIndex = 37;
+			this.chkinsinfo.Tag = "list.insinfo:S:N";
+			this.chkinsinfo.Text = "L\'utente deve inserire dettagli";
+			this.chkinsinfo.UseVisualStyleBackColor = true;
 			// 
 			// label26
 			// 
@@ -603,7 +668,7 @@ namespace list_default
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage2.Size = new System.Drawing.Size(949, 501);
+			this.tabPage2.Size = new System.Drawing.Size(949, 560);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Situazione";
 			this.tabPage2.UseVisualStyleBackColor = true;
@@ -751,7 +816,7 @@ namespace list_default
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage3.Size = new System.Drawing.Size(949, 501);
+			this.tabPage3.Size = new System.Drawing.Size(949, 560);
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "Storico";
 			this.tabPage3.UseVisualStyleBackColor = true;
@@ -860,7 +925,7 @@ namespace list_default
 			this.tabPage4.Controls.Add(this.dgrClassificazioni);
 			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Name = "tabPage4";
-			this.tabPage4.Size = new System.Drawing.Size(949, 501);
+			this.tabPage4.Size = new System.Drawing.Size(949, 560);
 			this.tabPage4.TabIndex = 3;
 			this.tabPage4.Text = "Classificazioni";
 			this.tabPage4.UseVisualStyleBackColor = true;
@@ -909,37 +974,6 @@ namespace list_default
 			this.dgrClassificazioni.TabIndex = 12;
 			this.dgrClassificazioni.Tag = "listsorting.default.default";
 			// 
-			// chkinsinfo
-			// 
-			this.chkinsinfo.AutoSize = true;
-			this.chkinsinfo.Location = new System.Drawing.Point(26, 484);
-			this.chkinsinfo.Name = "chkinsinfo";
-			this.chkinsinfo.Size = new System.Drawing.Size(164, 17);
-			this.chkinsinfo.TabIndex = 37;
-			this.chkinsinfo.Tag = "list.insinfo:S:N";
-			this.chkinsinfo.Text = "L\'utente deve inserire dettagli";
-			this.chkinsinfo.UseVisualStyleBackColor = true;
-			// 
-			// txtboxdescrforuser
-			// 
-			this.txtboxdescrforuser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtboxdescrforuser.Location = new System.Drawing.Point(212, 502);
-			this.txtboxdescrforuser.Multiline = true;
-			this.txtboxdescrforuser.Name = "txtboxdescrforuser";
-			this.txtboxdescrforuser.Size = new System.Drawing.Size(729, 50);
-			this.txtboxdescrforuser.TabIndex = 38;
-			this.txtboxdescrforuser.Tag = "list.descrforuser";
-			// 
-			// label27
-			// 
-			this.label27.AutoSize = true;
-			this.label27.Location = new System.Drawing.Point(209, 485);
-			this.label27.Name = "label27";
-			this.label27.Size = new System.Drawing.Size(262, 13);
-			this.label27.TabIndex = 39;
-			this.label27.Text = "Descrizione delle informazioni che deve fornire l\'utente";
-			// 
 			// Frm_list_default
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -957,6 +991,7 @@ namespace list_default
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
 			this.tabPage1.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridordiniinevasi)).EndInit();
@@ -1006,7 +1041,7 @@ namespace list_default
         private System.Windows.Forms.CheckBox chkListTitle;
         private System.Windows.Forms.Button fileimmagine;
         private System.Windows.Forms.PictureBox pbox;
-        private System.Windows.Forms.OpenFileDialog opendlg;
+        private System.Windows.Forms.OpenFileDialog _opendlg;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -1051,5 +1086,8 @@ namespace list_default
 		private System.Windows.Forms.Label label27;
 		private System.Windows.Forms.TextBox txtboxdescrforuser;
 		private System.Windows.Forms.CheckBox chkinsinfo;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.ComboBox cmbTassonomia;
+		private System.Windows.Forms.Button button1;
 	}
-}
+}

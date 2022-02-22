@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªønamespace csa_rolekind_default {
+
+namespace csa_rolekind_default {
     partial class Frm_csa_rolekind_default {
         /// <summary>
         /// Required designer variable.
@@ -79,7 +78,7 @@
             this.groupBox6.Size = new System.Drawing.Size(185, 285);
             this.groupBox6.TabIndex = 99;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Usabilit√†  per Record 8000";
+            this.groupBox6.Text = "Usabilit‡  per Record 8000";
             // 
             // chkCsaUsability8
             // 
@@ -247,4 +246,4 @@
         private System.Windows.Forms.Label label1;
 
     }
-}
+}

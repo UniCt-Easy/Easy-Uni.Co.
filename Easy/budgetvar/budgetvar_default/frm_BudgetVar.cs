@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -33,7 +32,7 @@ namespace budgetvar_default//VariazioneBilancio//
 	/// Revised by Nino on 22/12/2002
 	/// Revised by Nino on 9/1/2003
 	/// </summary>
-	public class Frm_budgetvar_default : System.Windows.Forms.Form
+	public class Frm_budgetvar_default : MetaDataForm
 	{
 		private System.Windows.Forms.TextBox txtDescrizione;
 		private System.Windows.Forms.Label label2;
@@ -1080,7 +1079,7 @@ namespace budgetvar_default//VariazioneBilancio//
                 SM.MessageBody = MsgBody;
 
                 if (!SM.Send()) {
-                    if (SM.ErrorMessage != "") MessageBox.Show(SM.ErrorMessage, "Errore");
+                    if (SM.ErrorMessage != "") show(SM.ErrorMessage, "Errore");
                 }
 
 
@@ -1315,7 +1314,7 @@ namespace budgetvar_default//VariazioneBilancio//
                 if ((Meta.EditMode) && DettaglioModificato()){
                     int CurrentStatus = CfgFn.GetNoNullInt32(R["idbudgetvarstatus"]); // 5 = Approvata
                     if (CurrentStatus == 5){
-                        MessageBox.Show("La variazione non può essere Approvata se sono stati modificati dettagli. Salvare le modifiche e poi approvare la variazione.", "Attenzione",
+                        show("La variazione non può essere Approvata se sono stati modificati dettagli. Salvare le modifiche e poi approvare la variazione.", "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         HelpForm.SetComboBoxValue(cmbStatus, Curr["idbudgetvarstatus", DataRowVersion.Original]);
                     }
@@ -1335,4 +1334,3 @@ namespace budgetvar_default//VariazioneBilancio//
      
     }
 }
-

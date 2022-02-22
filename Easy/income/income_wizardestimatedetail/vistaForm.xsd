@@ -251,6 +251,10 @@
               <xs:element name="nform" type="xs:string" minOccurs="0" />
               <xs:element name="idlist" type="xs:int" minOccurs="0" />
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="idepacc" type="xs:int" minOccurs="0" />
+              <xs:element name="rownum_main" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotiveannulment" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="serviceattachmentkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idattachmentkind" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idser" type="xs:int" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="flagforced" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="service">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedit" type="xs:string" minOccurs="0" />
+              <xs:element name="certificatekind" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flagalwaysinfiscalmodels" type="xs:string" minOccurs="0" />
+              <xs:element name="flagapplyabatements" type="xs:string" minOccurs="0" />
+              <xs:element name="flagonlyfiscalabatement" type="xs:string" />
+              <xs:element name="idmotive" type="xs:int" minOccurs="0" />
+              <xs:element name="itinerationvisible" type="xs:string" minOccurs="0" />
+              <xs:element name="ivaamount" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="module" type="xs:string" minOccurs="0" />
+              <xs:element name="rec770kind" type="xs:string" minOccurs="0" />
+              <xs:element name="codeser" type="xs:string" />
+              <xs:element name="idser" type="xs:int" />
+              <xs:element name="flagneedbalance" type="xs:string" minOccurs="0" />
+              <xs:element name="flagforeign" type="xs:string" minOccurs="0" />
+              <xs:element name="voce8000" type="xs:string" minOccurs="0" />
+              <xs:element name="webdefault" type="xs:string" minOccurs="0" />
+              <xs:element name="flagdistraint" type="xs:string" minOccurs="0" />
+              <xs:element name="voce8000refund_i" type="xs:string" minOccurs="0" />
+              <xs:element name="voce8000refund_e" type="xs:string" minOccurs="0" />
+              <xs:element name="flagcsausability" type="xs:int" minOccurs="0" />
+              <xs:element name="flagnoexemptionquote" type="xs:string" minOccurs="0" />
+              <xs:element name="flagdalia" type="xs:string" minOccurs="0" />
+              <xs:element name="servicecode770" type="xs:string" minOccurs="0" />
+              <xs:element name="requested_doc" type="xs:int" minOccurs="0" />
+              <xs:element name="flagnoncumula" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:serviceattachmentkind" />
+      <xs:field xpath="mstns:idattachmentkind" />
+    </xs:unique>
+    <xs:unique name="service_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:service" />
+      <xs:field xpath="mstns:idser" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="service_serviceattachmentkind" msdata:parent="service" msdata:child="serviceattachmentkind" msdata:parentkey="idser" msdata:childkey="idser" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

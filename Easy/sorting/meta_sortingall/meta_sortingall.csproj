@@ -39,9 +39,6 @@
     <Reference Include="metaeasylibrary">
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
     </Reference>
-    <Reference Include="sortingall_tree">
-      <HintPath>..\..\sortingall_tree\sortingall_tree\bin\Debug\sortingall_tree.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />

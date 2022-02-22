@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -30,7 +29,7 @@ namespace entry_default {
 	/// <summary>
 	/// Summary description for FrmEntry_default.
 	/// </summary>
-	public class FrmEntry_default : System.Windows.Forms.Form {
+	public class FrmEntry_default : MetaDataForm {
 		private System.Windows.Forms.GroupBox groupBox3;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox txtEsercizio;
@@ -171,823 +170,824 @@ namespace entry_default {
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtEsercizio = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtNumero = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cmbEntryKind = new System.Windows.Forms.ComboBox();
-            this.DS = new entry_default.vistaForm();
-            this.txtDescrizione = new System.Windows.Forms.TextBox();
-            this.txtDataContabile = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtSaldo = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.groupBox19 = new System.Windows.Forms.GroupBox();
-            this.txtDocumento = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.txtDataDocumento = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.dataGrid2 = new System.Windows.Forms.DataGrid();
-            this.btnViewDoc = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.txtTotDare = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtTotAvere = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPrincipale = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnEditRatei = new System.Windows.Forms.Button();
-            this.dataGridRatei = new System.Windows.Forms.DataGrid();
-            this.btnRatei = new System.Windows.Forms.Button();
-            this.btnDelRatei = new System.Windows.Forms.Button();
-            this.btnElimina = new System.Windows.Forms.Button();
-            this.detailgrid = new System.Windows.Forms.DataGrid();
-            this.btnModifica = new System.Windows.Forms.Button();
-            this.btnInserisci = new System.Windows.Forms.Button();
-            this.lblRateo = new System.Windows.Forms.Label();
-            this.tabAttributi = new System.Windows.Forms.TabPage();
-            this.gboxclass05 = new System.Windows.Forms.GroupBox();
-            this.txtCodice05 = new System.Windows.Forms.TextBox();
-            this.btnCodice05 = new System.Windows.Forms.Button();
-            this.txtDenom05 = new System.Windows.Forms.TextBox();
-            this.gboxclass04 = new System.Windows.Forms.GroupBox();
-            this.txtCodice04 = new System.Windows.Forms.TextBox();
-            this.btnCodice04 = new System.Windows.Forms.Button();
-            this.txtDenom04 = new System.Windows.Forms.TextBox();
-            this.gboxclass03 = new System.Windows.Forms.GroupBox();
-            this.txtCodice03 = new System.Windows.Forms.TextBox();
-            this.btnCodice03 = new System.Windows.Forms.Button();
-            this.txtDenom03 = new System.Windows.Forms.TextBox();
-            this.gboxclass02 = new System.Windows.Forms.GroupBox();
-            this.txtCodice02 = new System.Windows.Forms.TextBox();
-            this.btnCodice02 = new System.Windows.Forms.Button();
-            this.txtDenom02 = new System.Windows.Forms.TextBox();
-            this.gboxclass01 = new System.Windows.Forms.GroupBox();
-            this.txtCodice01 = new System.Windows.Forms.TextBox();
-            this.btnCodice01 = new System.Windows.Forms.Button();
-            this.txtDenom01 = new System.Windows.Forms.TextBox();
-            this.chkOfficial = new System.Windows.Forms.CheckBox();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            this.groupBox19.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid2)).BeginInit();
-            this.tabControl1.SuspendLayout();
-            this.tabPrincipale.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridRatei)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.detailgrid)).BeginInit();
-            this.tabAttributi.SuspendLayout();
-            this.gboxclass05.SuspendLayout();
-            this.gboxclass04.SuspendLayout();
-            this.gboxclass03.SuspendLayout();
-            this.gboxclass02.SuspendLayout();
-            this.gboxclass01.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.txtEsercizio);
-            this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Controls.Add(this.txtNumero);
-            this.groupBox3.Location = new System.Drawing.Point(10, 7);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(248, 62);
-            this.groupBox3.TabIndex = 1;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Scrittura";
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(124, 22);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(56, 16);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Numero:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtEsercizio
-            // 
-            this.txtEsercizio.Location = new System.Drawing.Point(68, 21);
-            this.txtEsercizio.Name = "txtEsercizio";
-            this.txtEsercizio.ReadOnly = true;
-            this.txtEsercizio.Size = new System.Drawing.Size(48, 20);
-            this.txtEsercizio.TabIndex = 1;
-            this.txtEsercizio.TabStop = false;
-            this.txtEsercizio.Tag = "entry.yentry.year";
-            this.txtEsercizio.Text = "-";
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(7, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 16);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Esercizio:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtNumero
-            // 
-            this.txtNumero.Location = new System.Drawing.Point(188, 22);
-            this.txtNumero.Name = "txtNumero";
-            this.txtNumero.Size = new System.Drawing.Size(48, 20);
-            this.txtNumero.TabIndex = 2;
-            this.txtNumero.Tag = "entry.nentry";
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(265, 47);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 18);
-            this.label4.TabIndex = 31;
-            this.label4.Text = "Tipo ";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cmbEntryKind
-            // 
-            this.cmbEntryKind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.txtEsercizio = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.txtNumero = new System.Windows.Forms.TextBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.cmbEntryKind = new System.Windows.Forms.ComboBox();
+			this.DS = new entry_default.vistaForm();
+			this.txtDescrizione = new System.Windows.Forms.TextBox();
+			this.txtDataContabile = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.txtSaldo = new System.Windows.Forms.TextBox();
+			this.label8 = new System.Windows.Forms.Label();
+			this.groupBox19 = new System.Windows.Forms.GroupBox();
+			this.txtDocumento = new System.Windows.Forms.TextBox();
+			this.label10 = new System.Windows.Forms.Label();
+			this.txtDataDocumento = new System.Windows.Forms.TextBox();
+			this.label14 = new System.Windows.Forms.Label();
+			this.button2 = new System.Windows.Forms.Button();
+			this.button3 = new System.Windows.Forms.Button();
+			this.dataGrid2 = new System.Windows.Forms.DataGrid();
+			this.btnViewDoc = new System.Windows.Forms.Button();
+			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.txtTotDare = new System.Windows.Forms.TextBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.txtTotAvere = new System.Windows.Forms.TextBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.tabPrincipale = new System.Windows.Forms.TabPage();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.btnEditRatei = new System.Windows.Forms.Button();
+			this.dataGridRatei = new System.Windows.Forms.DataGrid();
+			this.btnRatei = new System.Windows.Forms.Button();
+			this.btnDelRatei = new System.Windows.Forms.Button();
+			this.btnElimina = new System.Windows.Forms.Button();
+			this.detailgrid = new System.Windows.Forms.DataGrid();
+			this.btnModifica = new System.Windows.Forms.Button();
+			this.btnInserisci = new System.Windows.Forms.Button();
+			this.lblRateo = new System.Windows.Forms.Label();
+			this.tabAttributi = new System.Windows.Forms.TabPage();
+			this.gboxclass05 = new System.Windows.Forms.GroupBox();
+			this.txtCodice05 = new System.Windows.Forms.TextBox();
+			this.btnCodice05 = new System.Windows.Forms.Button();
+			this.txtDenom05 = new System.Windows.Forms.TextBox();
+			this.gboxclass04 = new System.Windows.Forms.GroupBox();
+			this.txtCodice04 = new System.Windows.Forms.TextBox();
+			this.btnCodice04 = new System.Windows.Forms.Button();
+			this.txtDenom04 = new System.Windows.Forms.TextBox();
+			this.gboxclass03 = new System.Windows.Forms.GroupBox();
+			this.txtCodice03 = new System.Windows.Forms.TextBox();
+			this.btnCodice03 = new System.Windows.Forms.Button();
+			this.txtDenom03 = new System.Windows.Forms.TextBox();
+			this.gboxclass02 = new System.Windows.Forms.GroupBox();
+			this.txtCodice02 = new System.Windows.Forms.TextBox();
+			this.btnCodice02 = new System.Windows.Forms.Button();
+			this.txtDenom02 = new System.Windows.Forms.TextBox();
+			this.gboxclass01 = new System.Windows.Forms.GroupBox();
+			this.txtCodice01 = new System.Windows.Forms.TextBox();
+			this.btnCodice01 = new System.Windows.Forms.Button();
+			this.txtDenom01 = new System.Windows.Forms.TextBox();
+			this.chkOfficial = new System.Windows.Forms.CheckBox();
+			this.groupBox3.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.groupBox19.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid2)).BeginInit();
+			this.tabControl1.SuspendLayout();
+			this.tabPrincipale.SuspendLayout();
+			this.groupBox2.SuspendLayout();
+			this.groupBox1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridRatei)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.detailgrid)).BeginInit();
+			this.tabAttributi.SuspendLayout();
+			this.gboxclass05.SuspendLayout();
+			this.gboxclass04.SuspendLayout();
+			this.gboxclass03.SuspendLayout();
+			this.gboxclass02.SuspendLayout();
+			this.gboxclass01.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Controls.Add(this.label3);
+			this.groupBox3.Controls.Add(this.txtEsercizio);
+			this.groupBox3.Controls.Add(this.label1);
+			this.groupBox3.Controls.Add(this.txtNumero);
+			this.groupBox3.Location = new System.Drawing.Point(10, 7);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(248, 62);
+			this.groupBox3.TabIndex = 1;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Scrittura";
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(124, 22);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(56, 16);
+			this.label3.TabIndex = 8;
+			this.label3.Text = "Numero:";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtEsercizio
+			// 
+			this.txtEsercizio.Location = new System.Drawing.Point(68, 21);
+			this.txtEsercizio.Name = "txtEsercizio";
+			this.txtEsercizio.ReadOnly = true;
+			this.txtEsercizio.Size = new System.Drawing.Size(48, 20);
+			this.txtEsercizio.TabIndex = 1;
+			this.txtEsercizio.TabStop = false;
+			this.txtEsercizio.Tag = "entry.yentry.year";
+			this.txtEsercizio.Text = "-";
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(7, 21);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(56, 16);
+			this.label1.TabIndex = 4;
+			this.label1.Text = "Esercizio:";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtNumero
+			// 
+			this.txtNumero.Location = new System.Drawing.Point(188, 22);
+			this.txtNumero.Name = "txtNumero";
+			this.txtNumero.Size = new System.Drawing.Size(48, 20);
+			this.txtNumero.TabIndex = 2;
+			this.txtNumero.Tag = "entry.nentry";
+			// 
+			// label4
+			// 
+			this.label4.Location = new System.Drawing.Point(265, 47);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(28, 18);
+			this.label4.TabIndex = 31;
+			this.label4.Text = "Tipo ";
+			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// cmbEntryKind
+			// 
+			this.cmbEntryKind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbEntryKind.DataSource = this.DS.entrykind;
-            this.cmbEntryKind.DisplayMember = "description";
-            this.cmbEntryKind.Location = new System.Drawing.Point(299, 47);
-            this.cmbEntryKind.Name = "cmbEntryKind";
-            this.cmbEntryKind.Size = new System.Drawing.Size(270, 21);
-            this.cmbEntryKind.TabIndex = 3;
-            this.cmbEntryKind.Tag = "entry.identrykind";
-            this.cmbEntryKind.ValueMember = "identrykind";
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.EnforceConstraints = false;
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // txtDescrizione
-            // 
-            this.txtDescrizione.Location = new System.Drawing.Point(11, 96);
-            this.txtDescrizione.Multiline = true;
-            this.txtDescrizione.Name = "txtDescrizione";
-            this.txtDescrizione.Size = new System.Drawing.Size(301, 67);
-            this.txtDescrizione.TabIndex = 2;
-            this.txtDescrizione.Tag = "entry.description";
-            // 
-            // txtDataContabile
-            // 
-            this.txtDataContabile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDataContabile.Location = new System.Drawing.Point(693, 167);
-            this.txtDataContabile.Name = "txtDataContabile";
-            this.txtDataContabile.Size = new System.Drawing.Size(88, 20);
-            this.txtDataContabile.TabIndex = 5;
-            this.txtDataContabile.Tag = "entry.adate";
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.Location = new System.Drawing.Point(596, 169);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(88, 16);
-            this.label5.TabIndex = 22;
-            this.label5.Text = "Data contabile:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(11, 77);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 16);
-            this.label2.TabIndex = 21;
-            this.label2.Text = "Descrizione:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtSaldo
-            // 
-            this.txtSaldo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSaldo.Location = new System.Drawing.Point(676, 49);
-            this.txtSaldo.Name = "txtSaldo";
-            this.txtSaldo.ReadOnly = true;
-            this.txtSaldo.Size = new System.Drawing.Size(104, 20);
-            this.txtSaldo.TabIndex = 25;
-            this.txtSaldo.TabStop = false;
-            this.txtSaldo.Tag = "";
-            this.txtSaldo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label8
-            // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.Location = new System.Drawing.Point(614, 49);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(56, 16);
-            this.label8.TabIndex = 24;
-            this.label8.Text = "Saldo:";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // groupBox19
-            // 
-            this.groupBox19.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbEntryKind.DataSource = this.DS.entrykind;
+			this.cmbEntryKind.DisplayMember = "description";
+			this.cmbEntryKind.Location = new System.Drawing.Point(299, 47);
+			this.cmbEntryKind.Name = "cmbEntryKind";
+			this.cmbEntryKind.Size = new System.Drawing.Size(270, 21);
+			this.cmbEntryKind.TabIndex = 3;
+			this.cmbEntryKind.Tag = "entry.identrykind";
+			this.cmbEntryKind.ValueMember = "identrykind";
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// txtDescrizione
+			// 
+			this.txtDescrizione.Location = new System.Drawing.Point(11, 96);
+			this.txtDescrizione.Multiline = true;
+			this.txtDescrizione.Name = "txtDescrizione";
+			this.txtDescrizione.Size = new System.Drawing.Size(301, 67);
+			this.txtDescrizione.TabIndex = 2;
+			this.txtDescrizione.Tag = "entry.description";
+			// 
+			// txtDataContabile
+			// 
+			this.txtDataContabile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDataContabile.Location = new System.Drawing.Point(693, 167);
+			this.txtDataContabile.Name = "txtDataContabile";
+			this.txtDataContabile.Size = new System.Drawing.Size(88, 20);
+			this.txtDataContabile.TabIndex = 5;
+			this.txtDataContabile.Tag = "entry.adate";
+			// 
+			// label5
+			// 
+			this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label5.Location = new System.Drawing.Point(596, 169);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(88, 16);
+			this.label5.TabIndex = 22;
+			this.label5.Text = "Data contabile:";
+			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(11, 77);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(88, 16);
+			this.label2.TabIndex = 21;
+			this.label2.Text = "Descrizione:";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtSaldo
+			// 
+			this.txtSaldo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtSaldo.Location = new System.Drawing.Point(676, 49);
+			this.txtSaldo.Name = "txtSaldo";
+			this.txtSaldo.ReadOnly = true;
+			this.txtSaldo.Size = new System.Drawing.Size(104, 20);
+			this.txtSaldo.TabIndex = 25;
+			this.txtSaldo.TabStop = false;
+			this.txtSaldo.Tag = "";
+			this.txtSaldo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label8
+			// 
+			this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label8.Location = new System.Drawing.Point(614, 49);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(56, 16);
+			this.label8.TabIndex = 24;
+			this.label8.Text = "Saldo:";
+			this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// groupBox19
+			// 
+			this.groupBox19.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox19.Controls.Add(this.txtDocumento);
-            this.groupBox19.Controls.Add(this.label10);
-            this.groupBox19.Controls.Add(this.txtDataDocumento);
-            this.groupBox19.Controls.Add(this.label14);
-            this.groupBox19.Location = new System.Drawing.Point(321, 95);
-            this.groupBox19.Name = "groupBox19";
-            this.groupBox19.Size = new System.Drawing.Size(459, 44);
-            this.groupBox19.TabIndex = 4;
-            this.groupBox19.TabStop = false;
-            this.groupBox19.Text = "Documento collegato";
-            // 
-            // txtDocumento
-            // 
-            this.txtDocumento.Location = new System.Drawing.Point(92, 16);
-            this.txtDocumento.Name = "txtDocumento";
-            this.txtDocumento.Size = new System.Drawing.Size(200, 20);
-            this.txtDocumento.TabIndex = 1;
-            this.txtDocumento.Tag = "entry.doc";
-            // 
-            // label10
-            // 
-            this.label10.Location = new System.Drawing.Point(6, 16);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(74, 18);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "Descrizione";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDataDocumento
-            // 
-            this.txtDataDocumento.Location = new System.Drawing.Point(384, 16);
-            this.txtDataDocumento.Name = "txtDataDocumento";
-            this.txtDataDocumento.Size = new System.Drawing.Size(72, 20);
-            this.txtDataDocumento.TabIndex = 2;
-            this.txtDataDocumento.Tag = "entry.docdate";
-            // 
-            // label14
-            // 
-            this.label14.Location = new System.Drawing.Point(314, 16);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(64, 18);
-            this.label14.TabIndex = 0;
-            this.label14.Text = "Data";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(11, 18);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(72, 24);
-            this.button2.TabIndex = 32;
-            this.button2.Tag = "edit.single";
-            this.button2.Text = "Modifica";
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(89, 18);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(72, 24);
-            this.button3.TabIndex = 33;
-            this.button3.Tag = "delete";
-            this.button3.Text = "Elimina";
-            // 
-            // dataGrid2
-            // 
-            this.dataGrid2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox19.Controls.Add(this.txtDocumento);
+			this.groupBox19.Controls.Add(this.label10);
+			this.groupBox19.Controls.Add(this.txtDataDocumento);
+			this.groupBox19.Controls.Add(this.label14);
+			this.groupBox19.Location = new System.Drawing.Point(321, 95);
+			this.groupBox19.Name = "groupBox19";
+			this.groupBox19.Size = new System.Drawing.Size(459, 44);
+			this.groupBox19.TabIndex = 4;
+			this.groupBox19.TabStop = false;
+			this.groupBox19.Text = "Documento collegato";
+			// 
+			// txtDocumento
+			// 
+			this.txtDocumento.Location = new System.Drawing.Point(92, 16);
+			this.txtDocumento.Name = "txtDocumento";
+			this.txtDocumento.Size = new System.Drawing.Size(200, 20);
+			this.txtDocumento.TabIndex = 1;
+			this.txtDocumento.Tag = "entry.doc";
+			// 
+			// label10
+			// 
+			this.label10.Location = new System.Drawing.Point(6, 16);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(74, 18);
+			this.label10.TabIndex = 0;
+			this.label10.Text = "Descrizione";
+			this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtDataDocumento
+			// 
+			this.txtDataDocumento.Location = new System.Drawing.Point(384, 16);
+			this.txtDataDocumento.Name = "txtDataDocumento";
+			this.txtDataDocumento.Size = new System.Drawing.Size(72, 20);
+			this.txtDataDocumento.TabIndex = 2;
+			this.txtDataDocumento.Tag = "entry.docdate";
+			// 
+			// label14
+			// 
+			this.label14.Location = new System.Drawing.Point(314, 16);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(64, 18);
+			this.label14.TabIndex = 0;
+			this.label14.Text = "Data";
+			this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// button2
+			// 
+			this.button2.Location = new System.Drawing.Point(11, 18);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(72, 24);
+			this.button2.TabIndex = 32;
+			this.button2.Tag = "edit.single";
+			this.button2.Text = "Modifica";
+			// 
+			// button3
+			// 
+			this.button3.Location = new System.Drawing.Point(89, 18);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(72, 24);
+			this.button3.TabIndex = 33;
+			this.button3.Tag = "delete";
+			this.button3.Text = "Elimina";
+			// 
+			// dataGrid2
+			// 
+			this.dataGrid2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGrid2.DataMember = "";
-            this.dataGrid2.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dataGrid2.Location = new System.Drawing.Point(11, 54);
-            this.dataGrid2.Name = "dataGrid2";
-            this.dataGrid2.Size = new System.Drawing.Size(596, 312);
-            this.dataGrid2.TabIndex = 30;
-            this.dataGrid2.Tag = "entrydetailaccrual.default.single";
-            // 
-            // btnViewDoc
-            // 
-            this.btnViewDoc.Location = new System.Drawing.Point(268, 15);
-            this.btnViewDoc.Name = "btnViewDoc";
-            this.btnViewDoc.Size = new System.Drawing.Size(161, 23);
-            this.btnViewDoc.TabIndex = 42;
-            this.btnViewDoc.TabStop = false;
-            this.btnViewDoc.Text = "Vedi documento principale";
-            this.btnViewDoc.UseVisualStyleBackColor = true;
-            this.btnViewDoc.Click += new System.EventHandler(this.btnViewDoc_Click);
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.CheckAlign = System.Drawing.ContentAlignment.TopRight;
-            this.checkBox1.Location = new System.Drawing.Point(709, 15);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(68, 17);
-            this.checkBox1.TabIndex = 344;
-            this.checkBox1.TabStop = false;
-            this.checkBox1.Tag = "entry.locked:S:N";
-            this.checkBox1.Text = "Bloccata";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // txtTotDare
-            // 
-            this.txtTotDare.Location = new System.Drawing.Point(397, 142);
-            this.txtTotDare.Name = "txtTotDare";
-            this.txtTotDare.ReadOnly = true;
-            this.txtTotDare.Size = new System.Drawing.Size(104, 20);
-            this.txtTotDare.TabIndex = 46;
-            this.txtTotDare.TabStop = false;
-            this.txtTotDare.Tag = "";
-            this.txtTotDare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label6
-            // 
-            this.label6.Location = new System.Drawing.Point(321, 146);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(70, 16);
-            this.label6.TabIndex = 45;
-            this.label6.Text = "Totale Dare";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtTotAvere
-            // 
-            this.txtTotAvere.Location = new System.Drawing.Point(619, 142);
-            this.txtTotAvere.Name = "txtTotAvere";
-            this.txtTotAvere.ReadOnly = true;
-            this.txtTotAvere.Size = new System.Drawing.Size(104, 20);
-            this.txtTotAvere.TabIndex = 48;
-            this.txtTotAvere.TabStop = false;
-            this.txtTotAvere.Tag = "";
-            this.txtTotAvere.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label7
-            // 
-            this.label7.Location = new System.Drawing.Point(544, 146);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(69, 16);
-            this.label7.TabIndex = 47;
-            this.label7.Text = "Totale Avere";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dataGrid2.DataMember = "";
+			this.dataGrid2.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGrid2.Location = new System.Drawing.Point(11, 54);
+			this.dataGrid2.Name = "dataGrid2";
+			this.dataGrid2.Size = new System.Drawing.Size(596, 312);
+			this.dataGrid2.TabIndex = 30;
+			this.dataGrid2.Tag = "entrydetailaccrual.default.single";
+			// 
+			// btnViewDoc
+			// 
+			this.btnViewDoc.Location = new System.Drawing.Point(268, 15);
+			this.btnViewDoc.Name = "btnViewDoc";
+			this.btnViewDoc.Size = new System.Drawing.Size(161, 23);
+			this.btnViewDoc.TabIndex = 42;
+			this.btnViewDoc.TabStop = false;
+			this.btnViewDoc.Text = "Vedi documento principale";
+			this.btnViewDoc.UseVisualStyleBackColor = true;
+			this.btnViewDoc.Click += new System.EventHandler(this.btnViewDoc_Click);
+			// 
+			// checkBox1
+			// 
+			this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.checkBox1.AutoSize = true;
+			this.checkBox1.CheckAlign = System.Drawing.ContentAlignment.TopRight;
+			this.checkBox1.Location = new System.Drawing.Point(709, 15);
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.Size = new System.Drawing.Size(68, 17);
+			this.checkBox1.TabIndex = 344;
+			this.checkBox1.TabStop = false;
+			this.checkBox1.Tag = "entry.locked:S:N";
+			this.checkBox1.Text = "Bloccata";
+			this.checkBox1.UseVisualStyleBackColor = true;
+			// 
+			// txtTotDare
+			// 
+			this.txtTotDare.Location = new System.Drawing.Point(397, 142);
+			this.txtTotDare.Name = "txtTotDare";
+			this.txtTotDare.ReadOnly = true;
+			this.txtTotDare.Size = new System.Drawing.Size(104, 20);
+			this.txtTotDare.TabIndex = 46;
+			this.txtTotDare.TabStop = false;
+			this.txtTotDare.Tag = "";
+			this.txtTotDare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label6
+			// 
+			this.label6.Location = new System.Drawing.Point(321, 146);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(70, 16);
+			this.label6.TabIndex = 45;
+			this.label6.Text = "Totale Dare";
+			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtTotAvere
+			// 
+			this.txtTotAvere.Location = new System.Drawing.Point(619, 142);
+			this.txtTotAvere.Name = "txtTotAvere";
+			this.txtTotAvere.ReadOnly = true;
+			this.txtTotAvere.Size = new System.Drawing.Size(104, 20);
+			this.txtTotAvere.TabIndex = 48;
+			this.txtTotAvere.TabStop = false;
+			this.txtTotAvere.Tag = "";
+			this.txtTotAvere.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label7
+			// 
+			this.label7.Location = new System.Drawing.Point(544, 146);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(69, 16);
+			this.label7.TabIndex = 47;
+			this.label7.Text = "Totale Avere";
+			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// tabControl1
+			// 
+			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPrincipale);
-            this.tabControl1.Controls.Add(this.tabAttributi);
-            this.tabControl1.Location = new System.Drawing.Point(2, 180);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(779, 304);
-            this.tabControl1.TabIndex = 345;
-            // 
-            // tabPrincipale
-            // 
-            this.tabPrincipale.Controls.Add(this.groupBox2);
-            this.tabPrincipale.Location = new System.Drawing.Point(4, 22);
-            this.tabPrincipale.Name = "tabPrincipale";
-            this.tabPrincipale.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPrincipale.Size = new System.Drawing.Size(771, 278);
-            this.tabPrincipale.TabIndex = 0;
-            this.tabPrincipale.Text = "Principale";
-            this.tabPrincipale.UseVisualStyleBackColor = true;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.tabControl1.Controls.Add(this.tabPrincipale);
+			this.tabControl1.Controls.Add(this.tabAttributi);
+			this.tabControl1.Location = new System.Drawing.Point(2, 180);
+			this.tabControl1.Name = "tabControl1";
+			this.tabControl1.SelectedIndex = 0;
+			this.tabControl1.Size = new System.Drawing.Size(779, 304);
+			this.tabControl1.TabIndex = 345;
+			// 
+			// tabPrincipale
+			// 
+			this.tabPrincipale.Controls.Add(this.groupBox2);
+			this.tabPrincipale.Location = new System.Drawing.Point(4, 22);
+			this.tabPrincipale.Name = "tabPrincipale";
+			this.tabPrincipale.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPrincipale.Size = new System.Drawing.Size(771, 278);
+			this.tabPrincipale.TabIndex = 0;
+			this.tabPrincipale.Text = "Principale";
+			this.tabPrincipale.UseVisualStyleBackColor = true;
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.groupBox1);
-            this.groupBox2.Controls.Add(this.btnElimina);
-            this.groupBox2.Controls.Add(this.detailgrid);
-            this.groupBox2.Controls.Add(this.btnModifica);
-            this.groupBox2.Controls.Add(this.btnInserisci);
-            this.groupBox2.Controls.Add(this.lblRateo);
-            this.groupBox2.Location = new System.Drawing.Point(-3, -8);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(777, 294);
-            this.groupBox2.TabIndex = 7;
-            this.groupBox2.TabStop = false;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			this.groupBox2.Controls.Add(this.groupBox1);
+			this.groupBox2.Controls.Add(this.btnElimina);
+			this.groupBox2.Controls.Add(this.detailgrid);
+			this.groupBox2.Controls.Add(this.btnModifica);
+			this.groupBox2.Controls.Add(this.btnInserisci);
+			this.groupBox2.Controls.Add(this.lblRateo);
+			this.groupBox2.Location = new System.Drawing.Point(-3, -8);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(777, 294);
+			this.groupBox2.TabIndex = 7;
+			this.groupBox2.TabStop = false;
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.btnEditRatei);
-            this.groupBox1.Controls.Add(this.dataGridRatei);
-            this.groupBox1.Controls.Add(this.btnRatei);
-            this.groupBox1.Controls.Add(this.btnDelRatei);
-            this.groupBox1.Location = new System.Drawing.Point(6, 170);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(766, 111);
-            this.groupBox1.TabIndex = 41;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Ratei Associati";
-            // 
-            // btnEditRatei
-            // 
-            this.btnEditRatei.Location = new System.Drawing.Point(8, 49);
-            this.btnEditRatei.Name = "btnEditRatei";
-            this.btnEditRatei.Size = new System.Drawing.Size(72, 24);
-            this.btnEditRatei.TabIndex = 38;
-            this.btnEditRatei.Tag = "edit.default";
-            this.btnEditRatei.Text = "Modifica";
-            // 
-            // dataGridRatei
-            // 
-            this.dataGridRatei.AllowNavigation = false;
-            this.dataGridRatei.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox1.Controls.Add(this.btnEditRatei);
+			this.groupBox1.Controls.Add(this.dataGridRatei);
+			this.groupBox1.Controls.Add(this.btnRatei);
+			this.groupBox1.Controls.Add(this.btnDelRatei);
+			this.groupBox1.Location = new System.Drawing.Point(6, 170);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(766, 111);
+			this.groupBox1.TabIndex = 41;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Ratei Associati";
+			// 
+			// btnEditRatei
+			// 
+			this.btnEditRatei.Location = new System.Drawing.Point(8, 49);
+			this.btnEditRatei.Name = "btnEditRatei";
+			this.btnEditRatei.Size = new System.Drawing.Size(72, 24);
+			this.btnEditRatei.TabIndex = 38;
+			this.btnEditRatei.Tag = "edit.default";
+			this.btnEditRatei.Text = "Modifica";
+			// 
+			// dataGridRatei
+			// 
+			this.dataGridRatei.AllowNavigation = false;
+			this.dataGridRatei.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridRatei.DataMember = "";
-            this.dataGridRatei.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dataGridRatei.Location = new System.Drawing.Point(89, 19);
-            this.dataGridRatei.Name = "dataGridRatei";
-            this.dataGridRatei.Size = new System.Drawing.Size(671, 86);
-            this.dataGridRatei.TabIndex = 40;
-            this.dataGridRatei.Tag = "entrydetailaccrual.default.default";
-            // 
-            // btnRatei
-            // 
-            this.btnRatei.Location = new System.Drawing.Point(8, 19);
-            this.btnRatei.Name = "btnRatei";
-            this.btnRatei.Size = new System.Drawing.Size(72, 24);
-            this.btnRatei.TabIndex = 37;
-            this.btnRatei.Tag = "insert.default";
-            this.btnRatei.Text = "Inserisci";
-            this.btnRatei.UseVisualStyleBackColor = true;
-            // 
-            // btnDelRatei
-            // 
-            this.btnDelRatei.Location = new System.Drawing.Point(8, 79);
-            this.btnDelRatei.Name = "btnDelRatei";
-            this.btnDelRatei.Size = new System.Drawing.Size(72, 24);
-            this.btnDelRatei.TabIndex = 39;
-            this.btnDelRatei.Tag = "delete";
-            this.btnDelRatei.Text = "Elimina";
-            // 
-            // btnElimina
-            // 
-            this.btnElimina.Location = new System.Drawing.Point(14, 95);
-            this.btnElimina.Name = "btnElimina";
-            this.btnElimina.Size = new System.Drawing.Size(72, 24);
-            this.btnElimina.TabIndex = 3;
-            this.btnElimina.Tag = "delete";
-            this.btnElimina.Text = "Elimina";
-            // 
-            // detailgrid
-            // 
-            this.detailgrid.AllowNavigation = false;
-            this.detailgrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dataGridRatei.DataMember = "";
+			this.dataGridRatei.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridRatei.Location = new System.Drawing.Point(89, 19);
+			this.dataGridRatei.Name = "dataGridRatei";
+			this.dataGridRatei.Size = new System.Drawing.Size(671, 86);
+			this.dataGridRatei.TabIndex = 40;
+			this.dataGridRatei.Tag = "entrydetailaccrual.default.default";
+			// 
+			// btnRatei
+			// 
+			this.btnRatei.Location = new System.Drawing.Point(8, 19);
+			this.btnRatei.Name = "btnRatei";
+			this.btnRatei.Size = new System.Drawing.Size(72, 24);
+			this.btnRatei.TabIndex = 37;
+			this.btnRatei.Tag = "insert.default";
+			this.btnRatei.Text = "Inserisci";
+			this.btnRatei.UseVisualStyleBackColor = true;
+			// 
+			// btnDelRatei
+			// 
+			this.btnDelRatei.Location = new System.Drawing.Point(8, 79);
+			this.btnDelRatei.Name = "btnDelRatei";
+			this.btnDelRatei.Size = new System.Drawing.Size(72, 24);
+			this.btnDelRatei.TabIndex = 39;
+			this.btnDelRatei.Tag = "delete";
+			this.btnDelRatei.Text = "Elimina";
+			// 
+			// btnElimina
+			// 
+			this.btnElimina.Location = new System.Drawing.Point(14, 95);
+			this.btnElimina.Name = "btnElimina";
+			this.btnElimina.Size = new System.Drawing.Size(72, 24);
+			this.btnElimina.TabIndex = 3;
+			this.btnElimina.Tag = "delete";
+			this.btnElimina.Text = "Elimina";
+			// 
+			// detailgrid
+			// 
+			this.detailgrid.AllowNavigation = false;
+			this.detailgrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.detailgrid.DataMember = "";
-            this.detailgrid.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.detailgrid.Location = new System.Drawing.Point(95, 35);
-            this.detailgrid.Name = "detailgrid";
-            this.detailgrid.Size = new System.Drawing.Size(672, 136);
-            this.detailgrid.TabIndex = 29;
-            this.detailgrid.Tag = "entrydetail.default.single";
-            // 
-            // btnModifica
-            // 
-            this.btnModifica.Location = new System.Drawing.Point(14, 65);
-            this.btnModifica.Name = "btnModifica";
-            this.btnModifica.Size = new System.Drawing.Size(72, 24);
-            this.btnModifica.TabIndex = 2;
-            this.btnModifica.Tag = "edit.single";
-            this.btnModifica.Text = "Modifica";
-            // 
-            // btnInserisci
-            // 
-            this.btnInserisci.Location = new System.Drawing.Point(14, 35);
-            this.btnInserisci.Name = "btnInserisci";
-            this.btnInserisci.Size = new System.Drawing.Size(72, 24);
-            this.btnInserisci.TabIndex = 1;
-            this.btnInserisci.Tag = "insert.single";
-            this.btnInserisci.Text = "Inserisci";
-            // 
-            // lblRateo
-            // 
-            this.lblRateo.AutoSize = true;
-            this.lblRateo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRateo.ForeColor = System.Drawing.Color.Red;
-            this.lblRateo.Location = new System.Drawing.Point(10, 16);
-            this.lblRateo.Name = "lblRateo";
-            this.lblRateo.Size = new System.Drawing.Size(353, 13);
-            this.lblRateo.TabIndex = 34;
-            this.lblRateo.Text = "Attenzione: ad alcuni conti potrebbe essere necessario associare dei ratei";
-            this.lblRateo.Visible = false;
-            // 
-            // tabAttributi
-            // 
-            this.tabAttributi.Controls.Add(this.gboxclass05);
-            this.tabAttributi.Controls.Add(this.gboxclass04);
-            this.tabAttributi.Controls.Add(this.gboxclass03);
-            this.tabAttributi.Controls.Add(this.gboxclass02);
-            this.tabAttributi.Controls.Add(this.gboxclass01);
-            this.tabAttributi.Location = new System.Drawing.Point(4, 22);
-            this.tabAttributi.Name = "tabAttributi";
-            this.tabAttributi.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAttributi.Size = new System.Drawing.Size(771, 278);
-            this.tabAttributi.TabIndex = 1;
-            this.tabAttributi.Text = "Attributi";
-            this.tabAttributi.UseVisualStyleBackColor = true;
-            // 
-            // gboxclass05
-            // 
-            this.gboxclass05.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.detailgrid.DataMember = "";
+			this.detailgrid.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.detailgrid.Location = new System.Drawing.Point(95, 35);
+			this.detailgrid.Name = "detailgrid";
+			this.detailgrid.Size = new System.Drawing.Size(672, 136);
+			this.detailgrid.TabIndex = 29;
+			this.detailgrid.Tag = "entrydetail.default.single";
+			// 
+			// btnModifica
+			// 
+			this.btnModifica.Location = new System.Drawing.Point(14, 65);
+			this.btnModifica.Name = "btnModifica";
+			this.btnModifica.Size = new System.Drawing.Size(72, 24);
+			this.btnModifica.TabIndex = 2;
+			this.btnModifica.Tag = "edit.single";
+			this.btnModifica.Text = "Modifica";
+			// 
+			// btnInserisci
+			// 
+			this.btnInserisci.Location = new System.Drawing.Point(14, 35);
+			this.btnInserisci.Name = "btnInserisci";
+			this.btnInserisci.Size = new System.Drawing.Size(72, 24);
+			this.btnInserisci.TabIndex = 1;
+			this.btnInserisci.Tag = "insert.single";
+			this.btnInserisci.Text = "Inserisci";
+			// 
+			// lblRateo
+			// 
+			this.lblRateo.AutoSize = true;
+			this.lblRateo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblRateo.ForeColor = System.Drawing.Color.Red;
+			this.lblRateo.Location = new System.Drawing.Point(10, 16);
+			this.lblRateo.Name = "lblRateo";
+			this.lblRateo.Size = new System.Drawing.Size(353, 13);
+			this.lblRateo.TabIndex = 34;
+			this.lblRateo.Text = "Attenzione: ad alcuni conti potrebbe essere necessario associare dei ratei";
+			this.lblRateo.Visible = false;
+			// 
+			// tabAttributi
+			// 
+			this.tabAttributi.Controls.Add(this.gboxclass05);
+			this.tabAttributi.Controls.Add(this.gboxclass04);
+			this.tabAttributi.Controls.Add(this.gboxclass03);
+			this.tabAttributi.Controls.Add(this.gboxclass02);
+			this.tabAttributi.Controls.Add(this.gboxclass01);
+			this.tabAttributi.Location = new System.Drawing.Point(4, 22);
+			this.tabAttributi.Name = "tabAttributi";
+			this.tabAttributi.Padding = new System.Windows.Forms.Padding(3);
+			this.tabAttributi.Size = new System.Drawing.Size(771, 278);
+			this.tabAttributi.TabIndex = 1;
+			this.tabAttributi.Text = "Attributi";
+			this.tabAttributi.UseVisualStyleBackColor = true;
+			// 
+			// gboxclass05
+			// 
+			this.gboxclass05.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxclass05.Controls.Add(this.txtCodice05);
-            this.gboxclass05.Controls.Add(this.btnCodice05);
-            this.gboxclass05.Controls.Add(this.txtDenom05);
-            this.gboxclass05.Location = new System.Drawing.Point(350, 85);
-            this.gboxclass05.Name = "gboxclass05";
-            this.gboxclass05.Size = new System.Drawing.Size(416, 64);
-            this.gboxclass05.TabIndex = 28;
-            this.gboxclass05.TabStop = false;
-            this.gboxclass05.Tag = "";
-            this.gboxclass05.Text = "Classificazione 5";
-            // 
-            // txtCodice05
-            // 
-            this.txtCodice05.Location = new System.Drawing.Point(9, 38);
-            this.txtCodice05.Name = "txtCodice05";
-            this.txtCodice05.Size = new System.Drawing.Size(179, 20);
-            this.txtCodice05.TabIndex = 6;
-            // 
-            // btnCodice05
-            // 
-            this.btnCodice05.Location = new System.Drawing.Point(8, 14);
-            this.btnCodice05.Name = "btnCodice05";
-            this.btnCodice05.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice05.TabIndex = 4;
-            this.btnCodice05.Tag = "manage.sorting05.tree";
-            this.btnCodice05.Text = "Codice";
-            this.btnCodice05.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom05
-            // 
-            this.txtDenom05.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.gboxclass05.Controls.Add(this.txtCodice05);
+			this.gboxclass05.Controls.Add(this.btnCodice05);
+			this.gboxclass05.Controls.Add(this.txtDenom05);
+			this.gboxclass05.Location = new System.Drawing.Point(350, 85);
+			this.gboxclass05.Name = "gboxclass05";
+			this.gboxclass05.Size = new System.Drawing.Size(416, 64);
+			this.gboxclass05.TabIndex = 28;
+			this.gboxclass05.TabStop = false;
+			this.gboxclass05.Tag = "";
+			this.gboxclass05.Text = "Classificazione 5";
+			// 
+			// txtCodice05
+			// 
+			this.txtCodice05.Location = new System.Drawing.Point(9, 38);
+			this.txtCodice05.Name = "txtCodice05";
+			this.txtCodice05.Size = new System.Drawing.Size(179, 20);
+			this.txtCodice05.TabIndex = 6;
+			// 
+			// btnCodice05
+			// 
+			this.btnCodice05.Location = new System.Drawing.Point(8, 14);
+			this.btnCodice05.Name = "btnCodice05";
+			this.btnCodice05.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice05.TabIndex = 4;
+			this.btnCodice05.Tag = "manage.sorting05.tree";
+			this.btnCodice05.Text = "Codice";
+			this.btnCodice05.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom05
+			// 
+			this.txtDenom05.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom05.Location = new System.Drawing.Point(194, 8);
-            this.txtDenom05.Multiline = true;
-            this.txtDenom05.Name = "txtDenom05";
-            this.txtDenom05.ReadOnly = true;
-            this.txtDenom05.Size = new System.Drawing.Size(214, 52);
-            this.txtDenom05.TabIndex = 3;
-            this.txtDenom05.TabStop = false;
-            this.txtDenom05.Tag = "sorting05.description";
-            // 
-            // gboxclass04
-            // 
-            this.gboxclass04.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDenom05.Location = new System.Drawing.Point(194, 8);
+			this.txtDenom05.Multiline = true;
+			this.txtDenom05.Name = "txtDenom05";
+			this.txtDenom05.ReadOnly = true;
+			this.txtDenom05.Size = new System.Drawing.Size(214, 52);
+			this.txtDenom05.TabIndex = 3;
+			this.txtDenom05.TabStop = false;
+			this.txtDenom05.Tag = "sorting05.description";
+			// 
+			// gboxclass04
+			// 
+			this.gboxclass04.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxclass04.Controls.Add(this.txtCodice04);
-            this.gboxclass04.Controls.Add(this.btnCodice04);
-            this.gboxclass04.Controls.Add(this.txtDenom04);
-            this.gboxclass04.Location = new System.Drawing.Point(349, 15);
-            this.gboxclass04.Name = "gboxclass04";
-            this.gboxclass04.Size = new System.Drawing.Size(416, 64);
-            this.gboxclass04.TabIndex = 27;
-            this.gboxclass04.TabStop = false;
-            this.gboxclass04.Tag = "";
-            this.gboxclass04.Text = "Classificazione 4";
-            // 
-            // txtCodice04
-            // 
-            this.txtCodice04.Location = new System.Drawing.Point(9, 38);
-            this.txtCodice04.Name = "txtCodice04";
-            this.txtCodice04.Size = new System.Drawing.Size(180, 20);
-            this.txtCodice04.TabIndex = 6;
-            // 
-            // btnCodice04
-            // 
-            this.btnCodice04.Location = new System.Drawing.Point(8, 14);
-            this.btnCodice04.Name = "btnCodice04";
-            this.btnCodice04.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice04.TabIndex = 4;
-            this.btnCodice04.Tag = "manage.sorting04.tree";
-            this.btnCodice04.Text = "Codice";
-            this.btnCodice04.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom04
-            // 
-            this.txtDenom04.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.gboxclass04.Controls.Add(this.txtCodice04);
+			this.gboxclass04.Controls.Add(this.btnCodice04);
+			this.gboxclass04.Controls.Add(this.txtDenom04);
+			this.gboxclass04.Location = new System.Drawing.Point(349, 15);
+			this.gboxclass04.Name = "gboxclass04";
+			this.gboxclass04.Size = new System.Drawing.Size(416, 64);
+			this.gboxclass04.TabIndex = 27;
+			this.gboxclass04.TabStop = false;
+			this.gboxclass04.Tag = "";
+			this.gboxclass04.Text = "Classificazione 4";
+			// 
+			// txtCodice04
+			// 
+			this.txtCodice04.Location = new System.Drawing.Point(9, 38);
+			this.txtCodice04.Name = "txtCodice04";
+			this.txtCodice04.Size = new System.Drawing.Size(180, 20);
+			this.txtCodice04.TabIndex = 6;
+			// 
+			// btnCodice04
+			// 
+			this.btnCodice04.Location = new System.Drawing.Point(8, 14);
+			this.btnCodice04.Name = "btnCodice04";
+			this.btnCodice04.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice04.TabIndex = 4;
+			this.btnCodice04.Tag = "manage.sorting04.tree";
+			this.btnCodice04.Text = "Codice";
+			this.btnCodice04.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom04
+			// 
+			this.txtDenom04.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom04.Location = new System.Drawing.Point(195, 12);
-            this.txtDenom04.Multiline = true;
-            this.txtDenom04.Name = "txtDenom04";
-            this.txtDenom04.ReadOnly = true;
-            this.txtDenom04.Size = new System.Drawing.Size(213, 46);
-            this.txtDenom04.TabIndex = 3;
-            this.txtDenom04.TabStop = false;
-            this.txtDenom04.Tag = "sorting04.description";
-            // 
-            // gboxclass03
-            // 
-            this.gboxclass03.Controls.Add(this.txtCodice03);
-            this.gboxclass03.Controls.Add(this.btnCodice03);
-            this.gboxclass03.Controls.Add(this.txtDenom03);
-            this.gboxclass03.Location = new System.Drawing.Point(6, 155);
-            this.gboxclass03.Name = "gboxclass03";
-            this.gboxclass03.Size = new System.Drawing.Size(338, 64);
-            this.gboxclass03.TabIndex = 25;
-            this.gboxclass03.TabStop = false;
-            this.gboxclass03.Tag = "";
-            this.gboxclass03.Text = "Classificazione 3";
-            // 
-            // txtCodice03
-            // 
-            this.txtCodice03.Location = new System.Drawing.Point(8, 38);
-            this.txtCodice03.Name = "txtCodice03";
-            this.txtCodice03.Size = new System.Drawing.Size(170, 20);
-            this.txtCodice03.TabIndex = 6;
-            // 
-            // btnCodice03
-            // 
-            this.btnCodice03.Location = new System.Drawing.Point(8, 14);
-            this.btnCodice03.Name = "btnCodice03";
-            this.btnCodice03.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice03.TabIndex = 4;
-            this.btnCodice03.Tag = "manage.sorting03.tree";
-            this.btnCodice03.Text = "Codice";
-            this.btnCodice03.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom03
-            // 
-            this.txtDenom03.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtDenom04.Location = new System.Drawing.Point(195, 12);
+			this.txtDenom04.Multiline = true;
+			this.txtDenom04.Name = "txtDenom04";
+			this.txtDenom04.ReadOnly = true;
+			this.txtDenom04.Size = new System.Drawing.Size(213, 46);
+			this.txtDenom04.TabIndex = 3;
+			this.txtDenom04.TabStop = false;
+			this.txtDenom04.Tag = "sorting04.description";
+			// 
+			// gboxclass03
+			// 
+			this.gboxclass03.Controls.Add(this.txtCodice03);
+			this.gboxclass03.Controls.Add(this.btnCodice03);
+			this.gboxclass03.Controls.Add(this.txtDenom03);
+			this.gboxclass03.Location = new System.Drawing.Point(6, 155);
+			this.gboxclass03.Name = "gboxclass03";
+			this.gboxclass03.Size = new System.Drawing.Size(338, 64);
+			this.gboxclass03.TabIndex = 25;
+			this.gboxclass03.TabStop = false;
+			this.gboxclass03.Tag = "";
+			this.gboxclass03.Text = "Classificazione 3";
+			// 
+			// txtCodice03
+			// 
+			this.txtCodice03.Location = new System.Drawing.Point(8, 38);
+			this.txtCodice03.Name = "txtCodice03";
+			this.txtCodice03.Size = new System.Drawing.Size(170, 20);
+			this.txtCodice03.TabIndex = 6;
+			// 
+			// btnCodice03
+			// 
+			this.btnCodice03.Location = new System.Drawing.Point(8, 14);
+			this.btnCodice03.Name = "btnCodice03";
+			this.btnCodice03.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice03.TabIndex = 4;
+			this.btnCodice03.Tag = "manage.sorting03.tree";
+			this.btnCodice03.Text = "Codice";
+			this.btnCodice03.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom03
+			// 
+			this.txtDenom03.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom03.Location = new System.Drawing.Point(186, 8);
-            this.txtDenom03.Multiline = true;
-            this.txtDenom03.Name = "txtDenom03";
-            this.txtDenom03.ReadOnly = true;
-            this.txtDenom03.Size = new System.Drawing.Size(144, 52);
-            this.txtDenom03.TabIndex = 3;
-            this.txtDenom03.TabStop = false;
-            this.txtDenom03.Tag = "sorting03.description";
-            // 
-            // gboxclass02
-            // 
-            this.gboxclass02.Controls.Add(this.txtCodice02);
-            this.gboxclass02.Controls.Add(this.btnCodice02);
-            this.gboxclass02.Controls.Add(this.txtDenom02);
-            this.gboxclass02.Location = new System.Drawing.Point(6, 85);
-            this.gboxclass02.Name = "gboxclass02";
-            this.gboxclass02.Size = new System.Drawing.Size(338, 64);
-            this.gboxclass02.TabIndex = 26;
-            this.gboxclass02.TabStop = false;
-            this.gboxclass02.Tag = "";
-            this.gboxclass02.Text = "Classificazione 2";
-            // 
-            // txtCodice02
-            // 
-            this.txtCodice02.Location = new System.Drawing.Point(8, 38);
-            this.txtCodice02.Name = "txtCodice02";
-            this.txtCodice02.Size = new System.Drawing.Size(170, 20);
-            this.txtCodice02.TabIndex = 6;
-            // 
-            // btnCodice02
-            // 
-            this.btnCodice02.Location = new System.Drawing.Point(8, 14);
-            this.btnCodice02.Name = "btnCodice02";
-            this.btnCodice02.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice02.TabIndex = 4;
-            this.btnCodice02.Tag = "manage.sorting02.tree";
-            this.btnCodice02.Text = "Codice";
-            this.btnCodice02.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom02
-            // 
-            this.txtDenom02.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtDenom03.Location = new System.Drawing.Point(186, 8);
+			this.txtDenom03.Multiline = true;
+			this.txtDenom03.Name = "txtDenom03";
+			this.txtDenom03.ReadOnly = true;
+			this.txtDenom03.Size = new System.Drawing.Size(144, 52);
+			this.txtDenom03.TabIndex = 3;
+			this.txtDenom03.TabStop = false;
+			this.txtDenom03.Tag = "sorting03.description";
+			// 
+			// gboxclass02
+			// 
+			this.gboxclass02.Controls.Add(this.txtCodice02);
+			this.gboxclass02.Controls.Add(this.btnCodice02);
+			this.gboxclass02.Controls.Add(this.txtDenom02);
+			this.gboxclass02.Location = new System.Drawing.Point(6, 85);
+			this.gboxclass02.Name = "gboxclass02";
+			this.gboxclass02.Size = new System.Drawing.Size(338, 64);
+			this.gboxclass02.TabIndex = 26;
+			this.gboxclass02.TabStop = false;
+			this.gboxclass02.Tag = "";
+			this.gboxclass02.Text = "Classificazione 2";
+			// 
+			// txtCodice02
+			// 
+			this.txtCodice02.Location = new System.Drawing.Point(8, 38);
+			this.txtCodice02.Name = "txtCodice02";
+			this.txtCodice02.Size = new System.Drawing.Size(170, 20);
+			this.txtCodice02.TabIndex = 6;
+			// 
+			// btnCodice02
+			// 
+			this.btnCodice02.Location = new System.Drawing.Point(8, 14);
+			this.btnCodice02.Name = "btnCodice02";
+			this.btnCodice02.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice02.TabIndex = 4;
+			this.btnCodice02.Tag = "manage.sorting02.tree";
+			this.btnCodice02.Text = "Codice";
+			this.btnCodice02.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom02
+			// 
+			this.txtDenom02.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom02.Location = new System.Drawing.Point(186, 8);
-            this.txtDenom02.Multiline = true;
-            this.txtDenom02.Name = "txtDenom02";
-            this.txtDenom02.ReadOnly = true;
-            this.txtDenom02.Size = new System.Drawing.Size(144, 52);
-            this.txtDenom02.TabIndex = 3;
-            this.txtDenom02.TabStop = false;
-            this.txtDenom02.Tag = "sorting02.description";
-            // 
-            // gboxclass01
-            // 
-            this.gboxclass01.Controls.Add(this.txtCodice01);
-            this.gboxclass01.Controls.Add(this.btnCodice01);
-            this.gboxclass01.Controls.Add(this.txtDenom01);
-            this.gboxclass01.Location = new System.Drawing.Point(6, 15);
-            this.gboxclass01.Name = "gboxclass01";
-            this.gboxclass01.Size = new System.Drawing.Size(338, 64);
-            this.gboxclass01.TabIndex = 24;
-            this.gboxclass01.TabStop = false;
-            this.gboxclass01.Tag = "";
-            this.gboxclass01.Text = "Classificazione 1";
-            // 
-            // txtCodice01
-            // 
-            this.txtCodice01.Location = new System.Drawing.Point(7, 40);
-            this.txtCodice01.Name = "txtCodice01";
-            this.txtCodice01.Size = new System.Drawing.Size(171, 20);
-            this.txtCodice01.TabIndex = 5;
-            // 
-            // btnCodice01
-            // 
-            this.btnCodice01.Location = new System.Drawing.Point(8, 16);
-            this.btnCodice01.Name = "btnCodice01";
-            this.btnCodice01.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice01.TabIndex = 4;
-            this.btnCodice01.Tag = "manage.sorting01.tree";
-            this.btnCodice01.Text = "Codice";
-            this.btnCodice01.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom01
-            // 
-            this.txtDenom01.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtDenom02.Location = new System.Drawing.Point(186, 8);
+			this.txtDenom02.Multiline = true;
+			this.txtDenom02.Name = "txtDenom02";
+			this.txtDenom02.ReadOnly = true;
+			this.txtDenom02.Size = new System.Drawing.Size(144, 52);
+			this.txtDenom02.TabIndex = 3;
+			this.txtDenom02.TabStop = false;
+			this.txtDenom02.Tag = "sorting02.description";
+			// 
+			// gboxclass01
+			// 
+			this.gboxclass01.Controls.Add(this.txtCodice01);
+			this.gboxclass01.Controls.Add(this.btnCodice01);
+			this.gboxclass01.Controls.Add(this.txtDenom01);
+			this.gboxclass01.Location = new System.Drawing.Point(6, 15);
+			this.gboxclass01.Name = "gboxclass01";
+			this.gboxclass01.Size = new System.Drawing.Size(338, 64);
+			this.gboxclass01.TabIndex = 24;
+			this.gboxclass01.TabStop = false;
+			this.gboxclass01.Tag = "";
+			this.gboxclass01.Text = "Classificazione 1";
+			// 
+			// txtCodice01
+			// 
+			this.txtCodice01.Location = new System.Drawing.Point(7, 40);
+			this.txtCodice01.Name = "txtCodice01";
+			this.txtCodice01.Size = new System.Drawing.Size(171, 20);
+			this.txtCodice01.TabIndex = 5;
+			// 
+			// btnCodice01
+			// 
+			this.btnCodice01.Location = new System.Drawing.Point(8, 16);
+			this.btnCodice01.Name = "btnCodice01";
+			this.btnCodice01.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice01.TabIndex = 4;
+			this.btnCodice01.Tag = "manage.sorting01.tree";
+			this.btnCodice01.Text = "Codice";
+			this.btnCodice01.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom01
+			// 
+			this.txtDenom01.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom01.Location = new System.Drawing.Point(186, 8);
-            this.txtDenom01.Multiline = true;
-            this.txtDenom01.Name = "txtDenom01";
-            this.txtDenom01.ReadOnly = true;
-            this.txtDenom01.Size = new System.Drawing.Size(144, 52);
-            this.txtDenom01.TabIndex = 3;
-            this.txtDenom01.TabStop = false;
-            this.txtDenom01.Tag = "sorting01.description";
-            // 
-            // chkOfficial
-            // 
-            this.chkOfficial.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkOfficial.AutoSize = true;
-            this.chkOfficial.CheckAlign = System.Drawing.ContentAlignment.TopRight;
-            this.chkOfficial.Location = new System.Drawing.Point(619, 15);
-            this.chkOfficial.Name = "chkOfficial";
-            this.chkOfficial.Size = new System.Drawing.Size(64, 17);
-            this.chkOfficial.TabIndex = 346;
-            this.chkOfficial.TabStop = false;
-            this.chkOfficial.Tag = "entry.official:S:N";
-            this.chkOfficial.Text = "Ufficiale";
-            this.chkOfficial.UseVisualStyleBackColor = true;
-            // 
-            // FrmEntry_default
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(788, 487);
-            this.Controls.Add(this.chkOfficial);
-            this.Controls.Add(this.txtTotAvere);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.txtTotDare);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.btnViewDoc);
-            this.Controls.Add(this.txtSaldo);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.cmbEntryKind);
-            this.Controls.Add(this.txtDescrizione);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.txtDataContabile);
-            this.Controls.Add(this.groupBox19);
-            this.Controls.Add(this.tabControl1);
-            this.Name = "FrmEntry_default";
-            this.Text = "FrmEntry_default";
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.groupBox19.ResumeLayout(false);
-            this.groupBox19.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid2)).EndInit();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPrincipale.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridRatei)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.detailgrid)).EndInit();
-            this.tabAttributi.ResumeLayout(false);
-            this.gboxclass05.ResumeLayout(false);
-            this.gboxclass05.PerformLayout();
-            this.gboxclass04.ResumeLayout(false);
-            this.gboxclass04.PerformLayout();
-            this.gboxclass03.ResumeLayout(false);
-            this.gboxclass03.PerformLayout();
-            this.gboxclass02.ResumeLayout(false);
-            this.gboxclass02.PerformLayout();
-            this.gboxclass01.ResumeLayout(false);
-            this.gboxclass01.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+			this.txtDenom01.Location = new System.Drawing.Point(186, 8);
+			this.txtDenom01.Multiline = true;
+			this.txtDenom01.Name = "txtDenom01";
+			this.txtDenom01.ReadOnly = true;
+			this.txtDenom01.Size = new System.Drawing.Size(144, 52);
+			this.txtDenom01.TabIndex = 3;
+			this.txtDenom01.TabStop = false;
+			this.txtDenom01.Tag = "sorting01.description";
+			// 
+			// chkOfficial
+			// 
+			this.chkOfficial.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.chkOfficial.AutoSize = true;
+			this.chkOfficial.CheckAlign = System.Drawing.ContentAlignment.TopRight;
+			this.chkOfficial.Location = new System.Drawing.Point(619, 15);
+			this.chkOfficial.Name = "chkOfficial";
+			this.chkOfficial.Size = new System.Drawing.Size(64, 17);
+			this.chkOfficial.TabIndex = 346;
+			this.chkOfficial.TabStop = false;
+			this.chkOfficial.Tag = "entry.official:S:N";
+			this.chkOfficial.Text = "Ufficiale";
+			this.chkOfficial.UseVisualStyleBackColor = true;
+			this.chkOfficial.Visible = true;
+			// 
+			// FrmEntry_default
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(788, 487);
+			this.Controls.Add(this.chkOfficial);
+			this.Controls.Add(this.txtTotAvere);
+			this.Controls.Add(this.label7);
+			this.Controls.Add(this.txtTotDare);
+			this.Controls.Add(this.label6);
+			this.Controls.Add(this.checkBox1);
+			this.Controls.Add(this.btnViewDoc);
+			this.Controls.Add(this.txtSaldo);
+			this.Controls.Add(this.label8);
+			this.Controls.Add(this.groupBox3);
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.cmbEntryKind);
+			this.Controls.Add(this.txtDescrizione);
+			this.Controls.Add(this.label2);
+			this.Controls.Add(this.label5);
+			this.Controls.Add(this.txtDataContabile);
+			this.Controls.Add(this.groupBox19);
+			this.Controls.Add(this.tabControl1);
+			this.Name = "FrmEntry_default";
+			this.Text = "FrmEntry_default";
+			this.groupBox3.ResumeLayout(false);
+			this.groupBox3.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.groupBox19.ResumeLayout(false);
+			this.groupBox19.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid2)).EndInit();
+			this.tabControl1.ResumeLayout(false);
+			this.tabPrincipale.ResumeLayout(false);
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridRatei)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.detailgrid)).EndInit();
+			this.tabAttributi.ResumeLayout(false);
+			this.gboxclass05.ResumeLayout(false);
+			this.gboxclass05.PerformLayout();
+			this.gboxclass04.ResumeLayout(false);
+			this.gboxclass04.PerformLayout();
+			this.gboxclass03.ResumeLayout(false);
+			this.gboxclass03.PerformLayout();
+			this.gboxclass02.ResumeLayout(false);
+			this.gboxclass02.PerformLayout();
+			this.gboxclass01.ResumeLayout(false);
+			this.gboxclass01.PerformLayout();
+			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 		#endregion
@@ -1399,7 +1399,7 @@ namespace entry_default {
                     Conn.RUN_SELECT_INTO_TABLE(DS.account,null, QHS.CmpEq("idacc", idaccParentDetail), null, false);
                 }
                 if (DS.account.Select(QHC.CmpEq("idacc", idaccParentDetail)).Length == 0) {
-                    MessageBox.Show($"Conto di chiave {idaccParentDetail} non trovato nella tabella account.",
+                    show($"Conto di chiave {idaccParentDetail} non trovato nella tabella account.",
                         "Errore nei dati");
                     return;
                 }
@@ -1521,6 +1521,19 @@ namespace entry_default {
                         //solo in fase di creazione metto questi
                         foreach (string field in new string[] { "idreg", "idupb", "idsor1", "idsor2", "idsor3","idepexp","idepacc" })
                             CurrRateo[field] = Rsource[field];
+                  
+                   // Modifiche relative al task 15676
+                   // 1) Copiava l'accertamento di budget dal dettaglio di ricavo. Errato in caso di Rateo Pluriennale.
+                   // Deve agganciare invece l'accertamento di budget collegato alla scrittura di apertura esercizio 
+                   // (entrydetail_linked)
+                   // 2) Nel dettaglio scrittura di Rateo, automaticamente generato non copieremo l'anagrafica perchè 
+                   // il Rateo della commessa completata si apre senza anagrafica ed è bene 
+                   // che quando si chiude non la riporti, altrimenti il mastrino non si chiude mai.
+
+                    if (pluriennale) { 
+                             CurrRateo["idepacc"] = LR["idepacc"];
+                             CurrRateo["idreg"] = DBNull.Value;
+                      }
                     }
                    
                     CurrRateo["competencystart"] = c_start;
@@ -1548,7 +1561,7 @@ namespace entry_default {
                 }
 
                 if (DS.account.Select(QHC.CmpEq("idacc", RC["idacc"])).Length == 0) {
-                    MessageBox.Show($"Conto di chiave {RC["idacc"]} non trovato nella tabella account.",
+                    show($"Conto di chiave {RC["idacc"]} non trovato nella tabella account.",
                         "Errore nei dati");
                     return;
                 }
@@ -1612,4 +1625,4 @@ namespace entry_default {
             placcpart = rPlAccount["placcpart"];
         }
 	}
-}
+}

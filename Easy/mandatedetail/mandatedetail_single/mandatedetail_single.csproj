@@ -106,6 +106,10 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
+    <ProjectReference Include="..\..\expense\meta_expense\meta_expense.csproj">
+      <Project>{0027e37f-afa2-4973-aae5-98f9bc1a242e}</Project>
+      <Name>meta_expense</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\ep_functions\ep_functions.csproj">
       <Project>{13E495EF-B62D-494E-AEC7-E06E7826DCE6}</Project>
       <Name>ep_functions</Name>
@@ -120,37 +124,37 @@
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_mandatedetail</Name>
       <HintPath>..\meta_mandatedetail\bin\Debug\meta_mandatedetail.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_upb">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_upb</Name>
       <HintPath>..\..\upb\meta_upb\bin\Debug\meta_upb.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_invoicedetail">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_invoicedetail</Name>
       <HintPath>..\..\invoicedetail\meta_invoicedetail\bin\Debug\meta_invoicedetail.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_invoicekind">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_invoicekind</Name>
       <HintPath>..\..\invoicekind\meta_invoicekind\bin\Debug\meta_invoicekind.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_ivakind">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_ivakind</Name>
       <HintPath>..\..\ivakind\meta_ivakind\bin\Debug\meta_ivakind.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_mandatekind">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_mandatekind</Name>
       <HintPath>..\..\mandatekind\meta_mandatekind\bin\Debug\meta_mandatekind.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_accmotiveapplied">
       <HintPath>..\..\accmotive\meta_accmotiveapplied\bin\Debug\meta_accmotiveapplied.dll</HintPath>
@@ -162,24 +166,21 @@
       <HintPath>..\..\epexp\meta_epexp\bin\Debug\meta_epexp.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_epexp</Name>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="meta_expense">
-      <HintPath>..\..\expense\meta_expense\bin\Debug\meta_expense.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_expense</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_sorting">
       <HintPath>..\..\sorting\meta_sorting\bin\Debug\meta_sorting.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_sorting</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormCalculateDiscount.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmAskDescr.cs">
       <SubType>Form</SubType>
@@ -201,6 +202,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="FormCalculateDiscount.resx">
+      <DependentUpon>FormCalculateDiscount.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmAskDescr.resx">
       <DependentUpon>FrmAskDescr.cs</DependentUpon>
       <SubType>Designer</SubType>

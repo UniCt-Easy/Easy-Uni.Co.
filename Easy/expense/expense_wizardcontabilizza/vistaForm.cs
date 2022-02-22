@@ -1,1853 +1,1592 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace expense_wizardcontabilizza {
+
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable expense{get { return Tables["expense"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable income{get { return Tables["income"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable incomephase{get { return Tables["incomephase"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable expensephase{get { return Tables["expensephase"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable manager{get { return Tables["manager"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable registry{get { return Tables["registry"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable expenseyear{get { return Tables["expenseyear"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable incomeyear{get { return Tables["incomeyear"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable expenseitineration{get { return Tables["expenseitineration"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable itineration{get { return Tables["itineration"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable expensevar{get { return Tables["expensevar"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable incomevar{get { return Tables["incomevar"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable fin{get { return Tables["fin"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable expenseinvoice{get { return Tables["expenseinvoice"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable invoice{get { return Tables["invoice"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable incomeinvoice{get { return Tables["incomeinvoice"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable invoicekind{get { return Tables["invoicekind"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable tipomovimento{get { return Tables["tipomovimento"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable expensepayroll{get { return Tables["expensepayroll"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable payroll{get { return Tables["payroll"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable expensecasualcontract{get { return Tables["expensecasualcontract"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable expenseprofservice{get { return Tables["expenseprofservice"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable casualcontract{get { return Tables["casualcontract"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable profservice{get { return Tables["profservice"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable expensewageaddition{get { return Tables["expensewageaddition"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable wageaddition{get { return Tables["wageaddition"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable upb{get { return Tables["upb"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable mandate{get { return Tables["mandate"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable expensemandate{get { return Tables["expensemandate"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable mandatekind{get { return Tables["mandatekind"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable expenselast{get { return Tables["expenselast"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable incomelast{get { return Tables["incomelast"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace expense_wizardcontabilizza {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public class vistaForm: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	///<summary>
+	///Movimento di spesa
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable expense 		=> Tables["expense"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataRelationCollection Relations {get {return base.Relations; } } 
+	///<summary>
+	///Movimento di entrata
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable income 		=> Tables["income"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	///<summary>
+	///Fasi di entrata
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable incomephase 		=> Tables["incomephase"];
+
+	///<summary>
+	///Fasi di spesa
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable expensephase 		=> Tables["expensephase"];
+
+	///<summary>
+	///Responsabile
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable manager 		=> Tables["manager"];
+
+	///<summary>
+	///Anagrafica
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable registry 		=> Tables["registry"];
+
+	///<summary>
+	///Informazioni annuali su movimento di spesa
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable expenseyear 		=> Tables["expenseyear"];
+
+	///<summary>
+	///Informazioni annuali su mov. di entrata
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable incomeyear 		=> Tables["incomeyear"];
+
+	///<summary>
+	///Contabilizzazione missione
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable expenseitineration 		=> Tables["expenseitineration"];
+
+	///<summary>
+	///Missione
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable itineration 		=> Tables["itineration"];
+
+	///<summary>
+	///Variazione movimento di spesa
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable expensevar 		=> Tables["expensevar"];
+
+	///<summary>
+	///Variazione movimento di entrata
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable incomevar 		=> Tables["incomevar"];
+
+	///<summary>
+	///Bilancio
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable fin 		=> Tables["fin"];
+
+	///<summary>
+	///Contabilizzazione fattura acquisto
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable expenseinvoice 		=> Tables["expenseinvoice"];
+
+	///<summary>
+	///Fattura
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable invoice 		=> Tables["invoice"];
+
+	///<summary>
+	///Contabilizzazione contratto attivo
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable incomeinvoice 		=> Tables["incomeinvoice"];
+
+	///<summary>
+	///Tipo di documento
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable invoicekind 		=> Tables["invoicekind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable tipomovimento 		=> Tables["tipomovimento"];
+
+	///<summary>
+	///Contabilizzazione cedolino
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable expensepayroll 		=> Tables["expensepayroll"];
+
+	///<summary>
+	///Cedolino
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable payroll 		=> Tables["payroll"];
+
+	///<summary>
+	///Contabilizzazione contratto occasionale
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable expensecasualcontract 		=> Tables["expensecasualcontract"];
+
+	///<summary>
+	///Contabilizzazione parcella professionale
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable expenseprofservice 		=> Tables["expenseprofservice"];
+
+	///<summary>
+	///Pagamento Prestazione Occasionale
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable casualcontract 		=> Tables["casualcontract"];
+
+	///<summary>
+	///Parcella Professionale
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable profservice 		=> Tables["profservice"];
+
+	///<summary>
+	///Contabilizzazione compenso dipendente
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable expensewageaddition 		=> Tables["expensewageaddition"];
+
+	///<summary>
+	///Altri Compensi
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable wageaddition 		=> Tables["wageaddition"];
+
+	///<summary>
+	///U.P.B.
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable upb 		=> Tables["upb"];
+
+	///<summary>
+	///Contratto Passivo
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable mandate 		=> Tables["mandate"];
+
+	///<summary>
+	///Contabilizzazione Contratto passivo
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable expensemandate 		=> Tables["expensemandate"];
+
+	///<summary>
+	///Tipo contratto passivo
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable mandatekind 		=> Tables["mandatekind"];
+
+	///<summary>
+	///Movimento di spesa - Dettaglio
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable expenselast 		=> Tables["expenselast"];
+
+	///<summary>
+	///Movimento di entrata - Dettaglio
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable incomelast 		=> Tables["incomelast"];
+
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaForm(){
-BeginInit();
-InitClass();
-EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-DataSetName = "vistaForm";
-Prefix = "";
-Namespace = "http://tempuri.org/vistaForm.xsd";
-EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaForm";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaForm.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("expense");
-	C= new DataColumn("idexp", typeof(System.Int32), "");
+	//////////////////// EXPENSE /////////////////////////////////
+	var texpense= new DataTable("expense");
+	C= new DataColumn("idexp", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nphase", typeof(System.Byte), "");
+	texpense.Columns.Add(C);
+	C= new DataColumn("nphase", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ymov", typeof(System.Int16), "");
+	texpense.Columns.Add(C);
+	C= new DataColumn("ymov", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nmov", typeof(System.Int32), "");
+	texpense.Columns.Add(C);
+	C= new DataColumn("nmov", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("parentidexp", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idreg", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idman", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("doc", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("docdate", typeof(System.DateTime), ""));
-	C= new DataColumn("description", typeof(System.String), "");
+	texpense.Columns.Add(C);
+	texpense.Columns.Add( new DataColumn("parentidexp", typeof(int)));
+	texpense.Columns.Add( new DataColumn("idreg", typeof(int)));
+	texpense.Columns.Add( new DataColumn("idman", typeof(int)));
+	texpense.Columns.Add( new DataColumn("doc", typeof(string)));
+	texpense.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("expiration", typeof(System.DateTime), ""));
-	C= new DataColumn("adate", typeof(System.DateTime), "");
+	texpense.Columns.Add(C);
+	texpense.Columns.Add( new DataColumn("expiration", typeof(DateTime)));
+	C= new DataColumn("adate", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	texpense.Columns.Add(C);
+	texpense.Columns.Add( new DataColumn("txt", typeof(string)));
+	texpense.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	texpense.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	texpense.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	texpense.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	texpense.Columns.Add(C);
+	texpense.Columns.Add( new DataColumn("idclawback", typeof(int)));
+	texpense.Columns.Add( new DataColumn("autokind", typeof(byte)));
+	texpense.Columns.Add( new DataColumn("autocode", typeof(int)));
+	Tables.Add(texpense);
+	texpense.PrimaryKey =  new DataColumn[]{texpense.Columns["idexp"]};
 
-	T.Columns.Add(new DataColumn("idclawback", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("autokind", typeof(System.Byte), ""));
-	T.Columns.Add(new DataColumn("autocode", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idexp"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("income");
-	C= new DataColumn("idinc", typeof(System.Int32), "");
+	//////////////////// INCOME /////////////////////////////////
+	var tincome= new DataTable("income");
+	C= new DataColumn("idinc", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nphase", typeof(System.Byte), "");
+	tincome.Columns.Add(C);
+	C= new DataColumn("nphase", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ymov", typeof(System.Int16), "");
+	tincome.Columns.Add(C);
+	C= new DataColumn("ymov", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nmov", typeof(System.Int32), "");
+	tincome.Columns.Add(C);
+	C= new DataColumn("nmov", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("parentidinc", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idreg", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idman", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("doc", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("docdate", typeof(System.DateTime), ""));
-	C= new DataColumn("description", typeof(System.String), "");
+	tincome.Columns.Add(C);
+	tincome.Columns.Add( new DataColumn("parentidinc", typeof(int)));
+	tincome.Columns.Add( new DataColumn("idreg", typeof(int)));
+	tincome.Columns.Add( new DataColumn("idman", typeof(int)));
+	tincome.Columns.Add( new DataColumn("doc", typeof(string)));
+	tincome.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("autokind", typeof(System.Byte), ""));
-	T.Columns.Add(new DataColumn("idpayment", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("expiration", typeof(System.DateTime), ""));
-	C= new DataColumn("adate", typeof(System.DateTime), "");
+	tincome.Columns.Add(C);
+	tincome.Columns.Add( new DataColumn("autokind", typeof(byte)));
+	tincome.Columns.Add( new DataColumn("idpayment", typeof(int)));
+	tincome.Columns.Add( new DataColumn("expiration", typeof(DateTime)));
+	C= new DataColumn("adate", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tincome.Columns.Add(C);
+	tincome.Columns.Add( new DataColumn("txt", typeof(string)));
+	tincome.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tincome.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tincome.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tincome.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idinc"]};
-	T.PrimaryKey = key;
+	tincome.Columns.Add(C);
+	Tables.Add(tincome);
+	tincome.PrimaryKey =  new DataColumn[]{tincome.Columns["idinc"]};
 
-	T= new DataTable("incomephase");
-	C= new DataColumn("nphase", typeof(System.Byte), "");
-	C.AllowDBNull=false;
-	T.Columns.Add(C);
 
-	C= new DataColumn("description", typeof(System.String), "");
+	//////////////////// INCOMEPHASE /////////////////////////////////
+	var tincomephase= new DataTable("incomephase");
+	C= new DataColumn("nphase", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tincomephase.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tincomephase.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tincomephase.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tincomephase.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["nphase"]};
-	T.PrimaryKey = key;
-
-	T= new DataTable("expensephase");
-	C= new DataColumn("nphase", typeof(System.Byte), "");
+	tincomephase.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tincomephase.Columns.Add(C);
+	Tables.Add(tincomephase);
+	tincomephase.PrimaryKey =  new DataColumn[]{tincomephase.Columns["nphase"]};
 
-	C= new DataColumn("description", typeof(System.String), "");
-	C.AllowDBNull=false;
-	T.Columns.Add(C);
 
-	C= new DataColumn("cu", typeof(System.String), "");
+	//////////////////// EXPENSEPHASE /////////////////////////////////
+	var texpensephase= new DataTable("expensephase");
+	C= new DataColumn("nphase", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	texpensephase.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	texpensephase.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	texpensephase.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	texpensephase.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	texpensephase.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	texpensephase.Columns.Add(C);
+	Tables.Add(texpensephase);
+	texpensephase.PrimaryKey =  new DataColumn[]{texpensephase.Columns["nphase"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["nphase"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("manager");
-	C= new DataColumn("idman", typeof(System.Int32), "");
+	//////////////////// MANAGER /////////////////////////////////
+	var tmanager= new DataTable("manager");
+	C= new DataColumn("idman", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("title", typeof(System.String), "");
+	tmanager.Columns.Add(C);
+	C= new DataColumn("title", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("iddivision", typeof(System.Int32), "");
+	tmanager.Columns.Add(C);
+	C= new DataColumn("iddivision", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("email", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("phonenumber", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("userweb", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("passwordweb", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tmanager.Columns.Add(C);
+	tmanager.Columns.Add( new DataColumn("email", typeof(string)));
+	tmanager.Columns.Add( new DataColumn("phonenumber", typeof(string)));
+	tmanager.Columns.Add( new DataColumn("userweb", typeof(string)));
+	tmanager.Columns.Add( new DataColumn("passwordweb", typeof(string)));
+	tmanager.Columns.Add( new DataColumn("txt", typeof(string)));
+	tmanager.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tmanager.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tmanager.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tmanager.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tmanager.Columns.Add(C);
+	tmanager.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tmanager.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tmanager.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tmanager.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tmanager.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	Tables.Add(tmanager);
+	tmanager.PrimaryKey =  new DataColumn[]{tmanager.Columns["idman"]};
 
-	T.Columns.Add(new DataColumn("idsor01", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor02", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor03", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor04", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor05", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idman"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("registry");
-	C= new DataColumn("idreg", typeof(System.Int32), "");
+	//////////////////// REGISTRY /////////////////////////////////
+	var tregistry= new DataTable("registry");
+	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("title", typeof(System.String), "");
+	tregistry.Columns.Add(C);
+	C= new DataColumn("title", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("cf", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("p_iva", typeof(System.String), ""));
-	C= new DataColumn("residence", typeof(System.Int32), "");
+	tregistry.Columns.Add(C);
+	tregistry.Columns.Add( new DataColumn("cf", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("p_iva", typeof(string)));
+	C= new DataColumn("residence", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("annotation", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("birthdate", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("gender", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("surname", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forename", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("foreigncf", typeof(System.String), ""));
-	C= new DataColumn("active", typeof(System.String), "");
+	tregistry.Columns.Add(C);
+	tregistry.Columns.Add( new DataColumn("annotation", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("birthdate", typeof(DateTime)));
+	tregistry.Columns.Add( new DataColumn("gender", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("surname", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("forename", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("foreigncf", typeof(string)));
+	C= new DataColumn("active", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tregistry.Columns.Add(C);
+	tregistry.Columns.Add( new DataColumn("txt", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tregistry.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tregistry.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tregistry.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tregistry.Columns.Add(C);
+	tregistry.Columns.Add( new DataColumn("badgecode", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("idcategory", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("idcentralizedcategory", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("idmaritalstatus", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("idtitle", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("idregistryclass", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("maritalsurname", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("idcity", typeof(int)));
+	tregistry.Columns.Add( new DataColumn("idnation", typeof(int)));
+	tregistry.Columns.Add( new DataColumn("location", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("extmatricula", typeof(string)));
+	Tables.Add(tregistry);
+	tregistry.PrimaryKey =  new DataColumn[]{tregistry.Columns["idreg"]};
 
-	T.Columns.Add(new DataColumn("badgecode", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idcategory", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idcentralizedcategory", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idmaritalstatus", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idtitle", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idregistryclass", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("maritalsurname", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idcity", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idnation", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("location", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("extmatricula", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idreg"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("expenseyear");
-	C= new DataColumn("ayear", typeof(System.Int16), "");
+	//////////////////// EXPENSEYEAR /////////////////////////////////
+	var texpenseyear= new DataTable("expenseyear");
+	C= new DataColumn("ayear", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idexp", typeof(System.Int32), "");
+	texpenseyear.Columns.Add(C);
+	C= new DataColumn("idexp", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("idfin", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idupb", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("amount", typeof(System.Decimal), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	texpenseyear.Columns.Add(C);
+	texpenseyear.Columns.Add( new DataColumn("idfin", typeof(int)));
+	texpenseyear.Columns.Add( new DataColumn("idupb", typeof(string)));
+	texpenseyear.Columns.Add( new DataColumn("amount", typeof(decimal)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	texpenseyear.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	texpenseyear.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	texpenseyear.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	texpenseyear.Columns.Add(C);
+	Tables.Add(texpenseyear);
+	texpenseyear.PrimaryKey =  new DataColumn[]{texpenseyear.Columns["ayear"], texpenseyear.Columns["idexp"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["ayear"], 	T.Columns["idexp"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("incomeyear");
-	C= new DataColumn("idinc", typeof(System.Int32), "");
+	//////////////////// INCOMEYEAR /////////////////////////////////
+	var tincomeyear= new DataTable("incomeyear");
+	C= new DataColumn("idinc", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ayear", typeof(System.Int16), "");
+	tincomeyear.Columns.Add(C);
+	C= new DataColumn("ayear", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("idfin", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idupb", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("amount", typeof(System.Decimal), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tincomeyear.Columns.Add(C);
+	tincomeyear.Columns.Add( new DataColumn("idfin", typeof(int)));
+	tincomeyear.Columns.Add( new DataColumn("idupb", typeof(string)));
+	tincomeyear.Columns.Add( new DataColumn("amount", typeof(decimal)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tincomeyear.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tincomeyear.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tincomeyear.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tincomeyear.Columns.Add(C);
+	Tables.Add(tincomeyear);
+	tincomeyear.PrimaryKey =  new DataColumn[]{tincomeyear.Columns["idinc"], tincomeyear.Columns["ayear"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["idinc"], 	T.Columns["ayear"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("expenseitineration");
-	C= new DataColumn("idexp", typeof(System.Int32), "");
+	//////////////////// EXPENSEITINERATION /////////////////////////////////
+	var texpenseitineration= new DataTable("expenseitineration");
+	C= new DataColumn("idexp", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("movkind", typeof(System.Int16), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	texpenseitineration.Columns.Add(C);
+	texpenseitineration.Columns.Add( new DataColumn("movkind", typeof(short)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	texpenseitineration.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	texpenseitineration.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	texpenseitineration.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("iditineration", typeof(System.Int32), "");
+	texpenseitineration.Columns.Add(C);
+	C= new DataColumn("iditineration", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	texpenseitineration.Columns.Add(C);
+	Tables.Add(texpenseitineration);
+	texpenseitineration.PrimaryKey =  new DataColumn[]{texpenseitineration.Columns["idexp"], texpenseitineration.Columns["iditineration"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["idexp"], 	T.Columns["iditineration"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("itineration");
-	C= new DataColumn("yitineration", typeof(System.Int16), "");
+	//////////////////// ITINERATION /////////////////////////////////
+	var titineration= new DataTable("itineration");
+	C= new DataColumn("yitineration", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nitineration", typeof(System.Int32), "");
+	titineration.Columns.Add(C);
+	C= new DataColumn("nitineration", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	titineration.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idreg", typeof(System.Int32), "");
+	titineration.Columns.Add(C);
+	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idser", typeof(System.Int32), "");
+	titineration.Columns.Add(C);
+	C= new DataColumn("idser", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("authorizationdate", typeof(System.DateTime), "");
+	titineration.Columns.Add(C);
+	C= new DataColumn("authorizationdate", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("start", typeof(System.DateTime), "");
+	titineration.Columns.Add(C);
+	C= new DataColumn("start", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("stop", typeof(System.DateTime), "");
+	titineration.Columns.Add(C);
+	C= new DataColumn("stop", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("adate", typeof(System.DateTime), "");
+	titineration.Columns.Add(C);
+	C= new DataColumn("adate", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("admincarkmcost", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("owncarkmcost", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("footkmcost", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("admincarkm", typeof(System.Double), ""));
-	T.Columns.Add(new DataColumn("owncarkm", typeof(System.Double), ""));
-	T.Columns.Add(new DataColumn("footkm", typeof(System.Double), ""));
-	T.Columns.Add(new DataColumn("grossfactor", typeof(System.Double), ""));
-	T.Columns.Add(new DataColumn("netfee", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("totalgross", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("total", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("totadvance", typeof(System.Decimal), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	titineration.Columns.Add(C);
+	titineration.Columns.Add( new DataColumn("admincarkmcost", typeof(decimal)));
+	titineration.Columns.Add( new DataColumn("owncarkmcost", typeof(decimal)));
+	titineration.Columns.Add( new DataColumn("footkmcost", typeof(decimal)));
+	titineration.Columns.Add( new DataColumn("admincarkm", typeof(double)));
+	titineration.Columns.Add( new DataColumn("owncarkm", typeof(double)));
+	titineration.Columns.Add( new DataColumn("footkm", typeof(double)));
+	titineration.Columns.Add( new DataColumn("grossfactor", typeof(double)));
+	titineration.Columns.Add( new DataColumn("netfee", typeof(decimal)));
+	titineration.Columns.Add( new DataColumn("totalgross", typeof(decimal)));
+	titineration.Columns.Add( new DataColumn("total", typeof(decimal)));
+	titineration.Columns.Add( new DataColumn("totadvance", typeof(decimal)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	titineration.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	titineration.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	titineration.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("completed", typeof(System.String), ""));
-	C= new DataColumn("iditineration", typeof(System.Int32), "");
+	titineration.Columns.Add(C);
+	titineration.Columns.Add( new DataColumn("completed", typeof(string)));
+	C= new DataColumn("iditineration", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	titineration.Columns.Add(C);
+	titineration.Columns.Add( new DataColumn("idupb", typeof(string)));
+	titineration.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	titineration.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	titineration.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	titineration.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	titineration.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	Tables.Add(titineration);
+	titineration.PrimaryKey =  new DataColumn[]{titineration.Columns["iditineration"]};
 
-	T.Columns.Add(new DataColumn("idupb", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idsor01", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor02", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor03", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor04", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor05", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["iditineration"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("expensevar");
-	C= new DataColumn("nvar", typeof(System.Int32), "");
+	//////////////////// EXPENSEVAR /////////////////////////////////
+	var texpensevar= new DataTable("expensevar");
+	C= new DataColumn("nvar", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idexp", typeof(System.Int32), "");
+	texpensevar.Columns.Add(C);
+	C= new DataColumn("idexp", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("yvar", typeof(System.Int16), "");
+	texpensevar.Columns.Add(C);
+	C= new DataColumn("yvar", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	texpensevar.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("amount", typeof(System.Decimal), "");
+	texpensevar.Columns.Add(C);
+	C= new DataColumn("amount", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("doc", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("autokind", typeof(System.Byte), ""));
-	T.Columns.Add(new DataColumn("idpayment", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("docdate", typeof(System.DateTime), ""));
-	C= new DataColumn("adate", typeof(System.DateTime), "");
+	texpensevar.Columns.Add(C);
+	texpensevar.Columns.Add( new DataColumn("doc", typeof(string)));
+	texpensevar.Columns.Add( new DataColumn("autokind", typeof(byte)));
+	texpensevar.Columns.Add( new DataColumn("idpayment", typeof(int)));
+	texpensevar.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	C= new DataColumn("adate", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	texpensevar.Columns.Add(C);
+	texpensevar.Columns.Add( new DataColumn("txt", typeof(string)));
+	texpensevar.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	texpensevar.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	texpensevar.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	texpensevar.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	texpensevar.Columns.Add(C);
+	Tables.Add(texpensevar);
+	texpensevar.PrimaryKey =  new DataColumn[]{texpensevar.Columns["nvar"], texpensevar.Columns["idexp"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["nvar"], 	T.Columns["idexp"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("incomevar");
-	C= new DataColumn("idinc", typeof(System.Int32), "");
+	//////////////////// INCOMEVAR /////////////////////////////////
+	var tincomevar= new DataTable("incomevar");
+	C= new DataColumn("idinc", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nvar", typeof(System.Int32), "");
+	tincomevar.Columns.Add(C);
+	C= new DataColumn("nvar", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("yvar", typeof(System.Int16), "");
+	tincomevar.Columns.Add(C);
+	C= new DataColumn("yvar", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tincomevar.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("amount", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("doc", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("docdate", typeof(System.DateTime), ""));
-	C= new DataColumn("adate", typeof(System.DateTime), "");
+	tincomevar.Columns.Add(C);
+	tincomevar.Columns.Add( new DataColumn("amount", typeof(decimal)));
+	tincomevar.Columns.Add( new DataColumn("doc", typeof(string)));
+	tincomevar.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	C= new DataColumn("adate", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tincomevar.Columns.Add(C);
+	tincomevar.Columns.Add( new DataColumn("txt", typeof(string)));
+	tincomevar.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tincomevar.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tincomevar.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tincomevar.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tincomevar.Columns.Add(C);
+	tincomevar.Columns.Add( new DataColumn("autokind", typeof(byte)));
+	Tables.Add(tincomevar);
+	tincomevar.PrimaryKey =  new DataColumn[]{tincomevar.Columns["idinc"], tincomevar.Columns["nvar"]};
 
-	T.Columns.Add(new DataColumn("autokind", typeof(System.Byte), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["idinc"], 	T.Columns["nvar"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("fin");
-	C= new DataColumn("idfin", typeof(System.Int32), "");
+	//////////////////// FIN /////////////////////////////////
+	var tfin= new DataTable("fin");
+	C= new DataColumn("idfin", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ayear", typeof(System.Int16), "");
+	tfin.Columns.Add(C);
+	C= new DataColumn("ayear", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("flag", typeof(System.Byte), "");
+	tfin.Columns.Add(C);
+	C= new DataColumn("flag", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("codefin", typeof(System.String), "");
+	tfin.Columns.Add(C);
+	C= new DataColumn("codefin", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("paridfin", typeof(System.Int32), "");
+	tfin.Columns.Add(C);
+	C= new DataColumn("paridfin", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nlevel", typeof(System.Byte), "");
+	tfin.Columns.Add(C);
+	C= new DataColumn("nlevel", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("printingorder", typeof(System.String), "");
+	tfin.Columns.Add(C);
+	C= new DataColumn("printingorder", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("title", typeof(System.String), "");
+	tfin.Columns.Add(C);
+	C= new DataColumn("title", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tfin.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tfin.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tfin.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tfin.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tfin.Columns.Add(C);
+	Tables.Add(tfin);
+	tfin.PrimaryKey =  new DataColumn[]{tfin.Columns["idfin"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idfin"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("expenseinvoice");
-	C= new DataColumn("idinvkind", typeof(System.Int32), "");
+	//////////////////// EXPENSEINVOICE /////////////////////////////////
+	var texpenseinvoice= new DataTable("expenseinvoice");
+	C= new DataColumn("idinvkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("yinv", typeof(System.Int16), "");
+	texpenseinvoice.Columns.Add(C);
+	C= new DataColumn("yinv", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ninv", typeof(System.Int32), "");
+	texpenseinvoice.Columns.Add(C);
+	C= new DataColumn("ninv", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idexp", typeof(System.Int32), "");
+	texpenseinvoice.Columns.Add(C);
+	C= new DataColumn("idexp", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("movkind", typeof(System.Int16), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	texpenseinvoice.Columns.Add(C);
+	texpenseinvoice.Columns.Add( new DataColumn("movkind", typeof(short)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	texpenseinvoice.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	texpenseinvoice.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	texpenseinvoice.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	texpenseinvoice.Columns.Add(C);
+	Tables.Add(texpenseinvoice);
+	texpenseinvoice.PrimaryKey =  new DataColumn[]{texpenseinvoice.Columns["idinvkind"], texpenseinvoice.Columns["yinv"], texpenseinvoice.Columns["ninv"], texpenseinvoice.Columns["idexp"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[4]{
-	T.Columns["idinvkind"], 	T.Columns["yinv"], 	T.Columns["ninv"], 	T.Columns["idexp"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("invoice");
-	C= new DataColumn("idinvkind", typeof(System.Int32), "");
+	//////////////////// INVOICE /////////////////////////////////
+	var tinvoice= new DataTable("invoice");
+	C= new DataColumn("idinvkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("yinv", typeof(System.Int16), "");
+	tinvoice.Columns.Add(C);
+	C= new DataColumn("yinv", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ninv", typeof(System.Int32), "");
+	tinvoice.Columns.Add(C);
+	C= new DataColumn("ninv", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idreg", typeof(System.Int32), "");
+	tinvoice.Columns.Add(C);
+	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("registryreference", typeof(System.String), ""));
-	C= new DataColumn("description", typeof(System.String), "");
+	tinvoice.Columns.Add(C);
+	tinvoice.Columns.Add( new DataColumn("registryreference", typeof(string)));
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("paymentexpiring", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("idexpirationkind", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("idcurrency", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("exchangerate", typeof(System.Double), ""));
-	T.Columns.Add(new DataColumn("doc", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("docdate", typeof(System.DateTime), ""));
-	C= new DataColumn("adate", typeof(System.DateTime), "");
+	tinvoice.Columns.Add(C);
+	tinvoice.Columns.Add( new DataColumn("paymentexpiring", typeof(short)));
+	tinvoice.Columns.Add( new DataColumn("idexpirationkind", typeof(short)));
+	tinvoice.Columns.Add( new DataColumn("idcurrency", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("exchangerate", typeof(double)));
+	tinvoice.Columns.Add( new DataColumn("doc", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	C= new DataColumn("adate", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("packinglistnum", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("packinglistdate", typeof(System.DateTime), ""));
-	C= new DataColumn("officiallyprinted", typeof(System.String), "");
+	tinvoice.Columns.Add(C);
+	tinvoice.Columns.Add( new DataColumn("packinglistnum", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("packinglistdate", typeof(DateTime)));
+	C= new DataColumn("officiallyprinted", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tinvoice.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tinvoice.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tinvoice.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tinvoice.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tinvoice.Columns.Add(C);
+	tinvoice.Columns.Add( new DataColumn("active", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	Tables.Add(tinvoice);
+	tinvoice.PrimaryKey =  new DataColumn[]{tinvoice.Columns["idinvkind"], tinvoice.Columns["yinv"], tinvoice.Columns["ninv"]};
 
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idsor01", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor02", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor03", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor04", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor05", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[3]{
-	T.Columns["idinvkind"], 	T.Columns["yinv"], 	T.Columns["ninv"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("incomeinvoice");
-	C= new DataColumn("idinvkind", typeof(System.Int32), "");
+	//////////////////// INCOMEINVOICE /////////////////////////////////
+	var tincomeinvoice= new DataTable("incomeinvoice");
+	C= new DataColumn("idinvkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("yinv", typeof(System.Int16), "");
+	tincomeinvoice.Columns.Add(C);
+	C= new DataColumn("yinv", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ninv", typeof(System.Int32), "");
+	tincomeinvoice.Columns.Add(C);
+	C= new DataColumn("ninv", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idinc", typeof(System.Int32), "");
+	tincomeinvoice.Columns.Add(C);
+	C= new DataColumn("idinc", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("movkind", typeof(System.Int16), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tincomeinvoice.Columns.Add(C);
+	tincomeinvoice.Columns.Add( new DataColumn("movkind", typeof(short)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tincomeinvoice.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tincomeinvoice.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tincomeinvoice.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tincomeinvoice.Columns.Add(C);
+	Tables.Add(tincomeinvoice);
+	tincomeinvoice.PrimaryKey =  new DataColumn[]{tincomeinvoice.Columns["idinvkind"], tincomeinvoice.Columns["yinv"], tincomeinvoice.Columns["ninv"], tincomeinvoice.Columns["idinc"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[4]{
-	T.Columns["idinvkind"], 	T.Columns["yinv"], 	T.Columns["ninv"], 	T.Columns["idinc"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("invoicekind");
-	C= new DataColumn("idinvkind", typeof(System.Int32), "");
+	//////////////////// INVOICEKIND /////////////////////////////////
+	var tinvoicekind= new DataTable("invoicekind");
+	C= new DataColumn("idinvkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tinvoicekind.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tinvoicekind.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tinvoicekind.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tinvoicekind.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tinvoicekind.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tinvoicekind.Columns.Add(C);
+	tinvoicekind.Columns.Add( new DataColumn("active", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tinvoicekind.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tinvoicekind.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tinvoicekind.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tinvoicekind.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	Tables.Add(tinvoicekind);
+	tinvoicekind.PrimaryKey =  new DataColumn[]{tinvoicekind.Columns["idinvkind"]};
 
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idsor01", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor02", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor03", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor04", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor05", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idinvkind"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("tipomovimento");
-	C= new DataColumn("idtipo", typeof(System.Int32), "");
+	//////////////////// TIPOMOVIMENTO /////////////////////////////////
+	var ttipomovimento= new DataTable("tipomovimento");
+	C= new DataColumn("idtipo", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	ttipomovimento.Columns.Add(C);
+	ttipomovimento.Columns.Add( new DataColumn("descrizione", typeof(string)));
+	Tables.Add(ttipomovimento);
+	ttipomovimento.PrimaryKey =  new DataColumn[]{ttipomovimento.Columns["idtipo"]};
 
-	T.Columns.Add(new DataColumn("descrizione", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idtipo"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("expensepayroll");
-	C= new DataColumn("idpayroll", typeof(System.Int32), "");
+	//////////////////// EXPENSEPAYROLL /////////////////////////////////
+	var texpensepayroll= new DataTable("expensepayroll");
+	C= new DataColumn("idpayroll", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idexp", typeof(System.Int32), "");
+	texpensepayroll.Columns.Add(C);
+	C= new DataColumn("idexp", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	texpensepayroll.Columns.Add(C);
+	texpensepayroll.Columns.Add( new DataColumn("cu", typeof(string)));
+	texpensepayroll.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	texpensepayroll.Columns.Add( new DataColumn("lu", typeof(string)));
+	texpensepayroll.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	Tables.Add(texpensepayroll);
+	texpensepayroll.PrimaryKey =  new DataColumn[]{texpensepayroll.Columns["idpayroll"], texpensepayroll.Columns["idexp"]};
 
-	T.Columns.Add(new DataColumn("cu", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("ct", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("lu", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lt", typeof(System.DateTime), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["idpayroll"], 	T.Columns["idexp"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("payroll");
-	C= new DataColumn("idpayroll", typeof(System.Int32), "");
+	//////////////////// PAYROLL /////////////////////////////////
+	var tpayroll= new DataTable("payroll");
+	C= new DataColumn("idpayroll", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("fiscalyear", typeof(System.Int32), "");
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("fiscalyear", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("enabletaxrelief", typeof(System.String), "");
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("enabletaxrelief", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("currentrounding", typeof(System.Decimal), "");
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("currentrounding", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("feegross", typeof(System.Decimal), "");
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("feegross", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("netfee", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("ct", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("cu", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("disbursementdate", typeof(System.DateTime), ""));
-	C= new DataColumn("stop", typeof(System.DateTime), "");
+	tpayroll.Columns.Add(C);
+	tpayroll.Columns.Add( new DataColumn("netfee", typeof(decimal)));
+	tpayroll.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tpayroll.Columns.Add( new DataColumn("cu", typeof(string)));
+	tpayroll.Columns.Add( new DataColumn("disbursementdate", typeof(DateTime)));
+	C= new DataColumn("stop", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("start", typeof(System.DateTime), "");
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("start", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("flagcomputed", typeof(System.String), "");
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("flagcomputed", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("flagbalance", typeof(System.String), ""));
-	C= new DataColumn("workingdays", typeof(System.Int16), "");
+	tpayroll.Columns.Add(C);
+	tpayroll.Columns.Add( new DataColumn("flagbalance", typeof(string)));
+	C= new DataColumn("workingdays", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("idresidence", typeof(System.Int32), ""));
-	C= new DataColumn("idcon", typeof(System.String), "");
+	tpayroll.Columns.Add(C);
+	tpayroll.Columns.Add( new DataColumn("idresidence", typeof(int)));
+	C= new DataColumn("idcon", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("lt", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("lu", typeof(System.String), ""));
-	C= new DataColumn("npayroll", typeof(System.Int32), "");
+	tpayroll.Columns.Add(C);
+	tpayroll.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tpayroll.Columns.Add( new DataColumn("lu", typeof(string)));
+	C= new DataColumn("npayroll", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("idupb", typeof(string));
+	C.AllowDBNull=false;
+	tpayroll.Columns.Add(C);
+	Tables.Add(tpayroll);
+	tpayroll.PrimaryKey =  new DataColumn[]{tpayroll.Columns["idpayroll"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idpayroll"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("expensecasualcontract");
-	C= new DataColumn("ycon", typeof(System.Int32), "");
+	//////////////////// EXPENSECASUALCONTRACT /////////////////////////////////
+	var texpensecasualcontract= new DataTable("expensecasualcontract");
+	C= new DataColumn("ycon", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idexp", typeof(System.Int32), "");
+	texpensecasualcontract.Columns.Add(C);
+	C= new DataColumn("idexp", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ncon", typeof(System.Int32), "");
+	texpensecasualcontract.Columns.Add(C);
+	C= new DataColumn("ncon", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	texpensecasualcontract.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	texpensecasualcontract.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	texpensecasualcontract.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	texpensecasualcontract.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	texpensecasualcontract.Columns.Add(C);
+	Tables.Add(texpensecasualcontract);
+	texpensecasualcontract.PrimaryKey =  new DataColumn[]{texpensecasualcontract.Columns["ycon"], texpensecasualcontract.Columns["idexp"], texpensecasualcontract.Columns["ncon"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[3]{
-	T.Columns["ycon"], 	T.Columns["idexp"], 	T.Columns["ncon"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("expenseprofservice");
-	C= new DataColumn("ycon", typeof(System.Int32), "");
+	//////////////////// EXPENSEPROFSERVICE /////////////////////////////////
+	var texpenseprofservice= new DataTable("expenseprofservice");
+	C= new DataColumn("ycon", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idexp", typeof(System.Int32), "");
+	texpenseprofservice.Columns.Add(C);
+	C= new DataColumn("idexp", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ncon", typeof(System.Int32), "");
+	texpenseprofservice.Columns.Add(C);
+	C= new DataColumn("ncon", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	texpenseprofservice.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	texpenseprofservice.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	texpenseprofservice.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	texpenseprofservice.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("movkind", typeof(System.Int16), "");
+	texpenseprofservice.Columns.Add(C);
+	C= new DataColumn("movkind", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	texpenseprofservice.Columns.Add(C);
+	Tables.Add(texpenseprofservice);
+	texpenseprofservice.PrimaryKey =  new DataColumn[]{texpenseprofservice.Columns["ycon"], texpenseprofservice.Columns["idexp"], texpenseprofservice.Columns["ncon"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[3]{
-	T.Columns["ycon"], 	T.Columns["idexp"], 	T.Columns["ncon"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("casualcontract");
-	C= new DataColumn("ycon", typeof(System.Int32), "");
+	//////////////////// CASUALCONTRACT /////////////////////////////////
+	var tcasualcontract= new DataTable("casualcontract");
+	C= new DataColumn("ycon", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ncon", typeof(System.Int32), "");
+	tcasualcontract.Columns.Add(C);
+	C= new DataColumn("ncon", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idreg", typeof(System.Int32), "");
+	tcasualcontract.Columns.Add(C);
+	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idser", typeof(System.Int32), "");
+	tcasualcontract.Columns.Add(C);
+	C= new DataColumn("idser", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("feegross", typeof(System.Decimal), "");
+	tcasualcontract.Columns.Add(C);
+	C= new DataColumn("feegross", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("ct", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("cu", typeof(System.String), ""));
-	C= new DataColumn("adate", typeof(System.DateTime), "");
+	tcasualcontract.Columns.Add(C);
+	tcasualcontract.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tcasualcontract.Columns.Add( new DataColumn("cu", typeof(string)));
+	C= new DataColumn("adate", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("stop", typeof(System.DateTime), "");
+	tcasualcontract.Columns.Add(C);
+	C= new DataColumn("stop", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("start", typeof(System.DateTime), "");
+	tcasualcontract.Columns.Add(C);
+	C= new DataColumn("start", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ndays", typeof(System.Int32), "");
+	tcasualcontract.Columns.Add(C);
+	C= new DataColumn("ndays", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tcasualcontract.Columns.Add(C);
+	tcasualcontract.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tcasualcontract.Columns.Add( new DataColumn("lu", typeof(string)));
+	tcasualcontract.Columns.Add( new DataColumn("description", typeof(string)));
+	tcasualcontract.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tcasualcontract.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tcasualcontract.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tcasualcontract.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tcasualcontract.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	Tables.Add(tcasualcontract);
+	tcasualcontract.PrimaryKey =  new DataColumn[]{tcasualcontract.Columns["ycon"], tcasualcontract.Columns["ncon"]};
 
-	T.Columns.Add(new DataColumn("lt", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("lu", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("description", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idsor01", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor02", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor03", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor04", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor05", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["ycon"], 	T.Columns["ncon"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("profservice");
-	C= new DataColumn("ycon", typeof(System.Int32), "");
+	//////////////////// PROFSERVICE /////////////////////////////////
+	var tprofservice= new DataTable("profservice");
+	C= new DataColumn("ycon", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ncon", typeof(System.Int32), "");
+	tprofservice.Columns.Add(C);
+	C= new DataColumn("ncon", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("socialsecurityrate", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("pensioncontributionrate", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("ivarate", typeof(System.Decimal), ""));
-	C= new DataColumn("idreg", typeof(System.Int32), "");
+	tprofservice.Columns.Add(C);
+	tprofservice.Columns.Add( new DataColumn("socialsecurityrate", typeof(decimal)));
+	tprofservice.Columns.Add( new DataColumn("pensioncontributionrate", typeof(decimal)));
+	tprofservice.Columns.Add( new DataColumn("ivarate", typeof(decimal)));
+	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idser", typeof(System.Int32), "");
+	tprofservice.Columns.Add(C);
+	C= new DataColumn("idser", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("feegross", typeof(System.Decimal), "");
+	tprofservice.Columns.Add(C);
+	C= new DataColumn("feegross", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("totalcost", typeof(System.Decimal), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tprofservice.Columns.Add(C);
+	tprofservice.Columns.Add( new DataColumn("totalcost", typeof(decimal)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tprofservice.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("adate", typeof(System.DateTime), "");
+	tprofservice.Columns.Add(C);
+	C= new DataColumn("adate", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("stop", typeof(System.DateTime), "");
+	tprofservice.Columns.Add(C);
+	C= new DataColumn("stop", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("start", typeof(System.DateTime), "");
+	tprofservice.Columns.Add(C);
+	C= new DataColumn("start", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ndays", typeof(System.Int32), "");
+	tprofservice.Columns.Add(C);
+	C= new DataColumn("ndays", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("ivaamount", typeof(System.Decimal), ""));
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tprofservice.Columns.Add(C);
+	tprofservice.Columns.Add( new DataColumn("ivaamount", typeof(decimal)));
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tprofservice.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tprofservice.Columns.Add(C);
+	tprofservice.Columns.Add( new DataColumn("ivafieldnumber", typeof(int)));
+	tprofservice.Columns.Add( new DataColumn("description", typeof(string)));
+	tprofservice.Columns.Add( new DataColumn("doc", typeof(string)));
+	tprofservice.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	tprofservice.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tprofservice.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tprofservice.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tprofservice.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tprofservice.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	Tables.Add(tprofservice);
+	tprofservice.PrimaryKey =  new DataColumn[]{tprofservice.Columns["ycon"], tprofservice.Columns["ncon"]};
 
-	T.Columns.Add(new DataColumn("ivafieldnumber", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("description", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("doc", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("docdate", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("idsor01", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor02", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor03", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor04", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor05", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["ycon"], 	T.Columns["ncon"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("expensewageaddition");
-	C= new DataColumn("ycon", typeof(System.Int32), "");
+	//////////////////// EXPENSEWAGEADDITION /////////////////////////////////
+	var texpensewageaddition= new DataTable("expensewageaddition");
+	C= new DataColumn("ycon", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ncon", typeof(System.Int32), "");
+	texpensewageaddition.Columns.Add(C);
+	C= new DataColumn("ncon", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idexp", typeof(System.Int32), "");
+	texpensewageaddition.Columns.Add(C);
+	C= new DataColumn("idexp", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	texpensewageaddition.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	texpensewageaddition.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	texpensewageaddition.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	texpensewageaddition.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	texpensewageaddition.Columns.Add(C);
+	Tables.Add(texpensewageaddition);
+	texpensewageaddition.PrimaryKey =  new DataColumn[]{texpensewageaddition.Columns["ycon"], texpensewageaddition.Columns["ncon"], texpensewageaddition.Columns["idexp"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[3]{
-	T.Columns["ycon"], 	T.Columns["ncon"], 	T.Columns["idexp"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("wageaddition");
-	C= new DataColumn("ycon", typeof(System.Int32), "");
+	//////////////////// WAGEADDITION /////////////////////////////////
+	var twageaddition= new DataTable("wageaddition");
+	C= new DataColumn("ycon", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ncon", typeof(System.Int32), "");
+	twageaddition.Columns.Add(C);
+	C= new DataColumn("ncon", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idreg", typeof(System.Int32), "");
+	twageaddition.Columns.Add(C);
+	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idser", typeof(System.Int32), "");
+	twageaddition.Columns.Add(C);
+	C= new DataColumn("idser", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("feegross", typeof(System.Decimal), "");
+	twageaddition.Columns.Add(C);
+	C= new DataColumn("feegross", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	twageaddition.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	twageaddition.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("adate", typeof(System.DateTime), "");
+	twageaddition.Columns.Add(C);
+	C= new DataColumn("adate", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("stop", typeof(System.DateTime), "");
+	twageaddition.Columns.Add(C);
+	C= new DataColumn("stop", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("start", typeof(System.DateTime), "");
+	twageaddition.Columns.Add(C);
+	C= new DataColumn("start", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	twageaddition.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ndays", typeof(System.Int32), "");
+	twageaddition.Columns.Add(C);
+	C= new DataColumn("ndays", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	twageaddition.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	twageaddition.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	twageaddition.Columns.Add(C);
+	twageaddition.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	twageaddition.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	twageaddition.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	twageaddition.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	twageaddition.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	Tables.Add(twageaddition);
+	twageaddition.PrimaryKey =  new DataColumn[]{twageaddition.Columns["ycon"], twageaddition.Columns["ncon"]};
 
-	T.Columns.Add(new DataColumn("idsor01", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor02", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor03", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor04", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor05", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["ycon"], 	T.Columns["ncon"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("upb");
-	C= new DataColumn("idupb", typeof(System.String), "");
+	//////////////////// UPB /////////////////////////////////
+	var tupb= new DataTable("upb");
+	C= new DataColumn("idupb", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("codeupb", typeof(System.String), "");
+	tupb.Columns.Add(C);
+	C= new DataColumn("codeupb", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("title", typeof(System.String), "");
+	tupb.Columns.Add(C);
+	C= new DataColumn("title", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("paridupb", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idunderwriter", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idman", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("requested", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("granted", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("previousappropriation", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("expiration", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tupb.Columns.Add(C);
+	tupb.Columns.Add( new DataColumn("paridupb", typeof(string)));
+	tupb.Columns.Add( new DataColumn("idunderwriter", typeof(int)));
+	tupb.Columns.Add( new DataColumn("idman", typeof(int)));
+	tupb.Columns.Add( new DataColumn("requested", typeof(decimal)));
+	tupb.Columns.Add( new DataColumn("granted", typeof(decimal)));
+	tupb.Columns.Add( new DataColumn("previousappropriation", typeof(decimal)));
+	tupb.Columns.Add( new DataColumn("expiration", typeof(DateTime)));
+	tupb.Columns.Add( new DataColumn("txt", typeof(string)));
+	tupb.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tupb.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tupb.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tupb.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("assured", typeof(System.String), ""));
-	C= new DataColumn("printingorder", typeof(System.String), "");
+	tupb.Columns.Add(C);
+	tupb.Columns.Add( new DataColumn("assured", typeof(string)));
+	C= new DataColumn("printingorder", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tupb.Columns.Add(C);
+	tupb.Columns.Add( new DataColumn("active", typeof(string)));
+	tupb.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tupb.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tupb.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tupb.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tupb.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	Tables.Add(tupb);
+	tupb.PrimaryKey =  new DataColumn[]{tupb.Columns["idupb"]};
 
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idsor01", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor02", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor03", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor04", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor05", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idupb"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("mandate");
-	C= new DataColumn("idmankind", typeof(System.String), "");
+	//////////////////// MANDATE /////////////////////////////////
+	var tmandate= new DataTable("mandate");
+	C= new DataColumn("idmankind", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("yman", typeof(System.Int16), "");
+	tmandate.Columns.Add(C);
+	C= new DataColumn("yman", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nman", typeof(System.Int32), "");
+	tmandate.Columns.Add(C);
+	C= new DataColumn("nman", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idreg", typeof(System.Int32), "");
+	tmandate.Columns.Add(C);
+	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("registryreference", typeof(System.String), ""));
-	C= new DataColumn("description", typeof(System.String), "");
+	tmandate.Columns.Add(C);
+	tmandate.Columns.Add( new DataColumn("registryreference", typeof(string)));
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("idman", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("deliveryexpiration", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("deliveryaddress", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("paymentexpiring", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("idexpirationkind", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("idcurrency", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("exchangerate", typeof(System.Double), ""));
-	T.Columns.Add(new DataColumn("doc", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("docdate", typeof(System.DateTime), ""));
-	C= new DataColumn("adate", typeof(System.DateTime), "");
+	tmandate.Columns.Add(C);
+	tmandate.Columns.Add( new DataColumn("idman", typeof(int)));
+	tmandate.Columns.Add( new DataColumn("deliveryexpiration", typeof(string)));
+	tmandate.Columns.Add( new DataColumn("deliveryaddress", typeof(string)));
+	tmandate.Columns.Add( new DataColumn("paymentexpiring", typeof(short)));
+	tmandate.Columns.Add( new DataColumn("idexpirationkind", typeof(short)));
+	tmandate.Columns.Add( new DataColumn("idcurrency", typeof(int)));
+	tmandate.Columns.Add( new DataColumn("exchangerate", typeof(double)));
+	tmandate.Columns.Add( new DataColumn("doc", typeof(string)));
+	tmandate.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	C= new DataColumn("adate", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("officiallyprinted", typeof(System.String), "");
+	tmandate.Columns.Add(C);
+	C= new DataColumn("officiallyprinted", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tmandate.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tmandate.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tmandate.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tmandate.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tmandate.Columns.Add(C);
+	tmandate.Columns.Add( new DataColumn("active", typeof(string)));
+	tmandate.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tmandate.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tmandate.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tmandate.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tmandate.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	Tables.Add(tmandate);
+	tmandate.PrimaryKey =  new DataColumn[]{tmandate.Columns["idmankind"], tmandate.Columns["yman"], tmandate.Columns["nman"]};
 
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idsor01", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor02", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor03", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor04", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor05", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[3]{
-	T.Columns["idmankind"], 	T.Columns["yman"], 	T.Columns["nman"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("expensemandate");
-	C= new DataColumn("idmankind", typeof(System.String), "");
+	//////////////////// EXPENSEMANDATE /////////////////////////////////
+	var texpensemandate= new DataTable("expensemandate");
+	C= new DataColumn("idmankind", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("yman", typeof(System.Int16), "");
+	texpensemandate.Columns.Add(C);
+	C= new DataColumn("yman", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nman", typeof(System.Int32), "");
+	texpensemandate.Columns.Add(C);
+	C= new DataColumn("nman", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idexp", typeof(System.Int32), "");
+	texpensemandate.Columns.Add(C);
+	C= new DataColumn("idexp", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("movkind", typeof(System.Int16), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	texpensemandate.Columns.Add(C);
+	texpensemandate.Columns.Add( new DataColumn("movkind", typeof(short)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	texpensemandate.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	texpensemandate.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	texpensemandate.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	texpensemandate.Columns.Add(C);
+	Tables.Add(texpensemandate);
+	texpensemandate.PrimaryKey =  new DataColumn[]{texpensemandate.Columns["idmankind"], texpensemandate.Columns["yman"], texpensemandate.Columns["nman"], texpensemandate.Columns["idexp"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[4]{
-	T.Columns["idmankind"], 	T.Columns["yman"], 	T.Columns["nman"], 	T.Columns["idexp"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("mandatekind");
-	C= new DataColumn("idmankind", typeof(System.String), "");
+	//////////////////// MANDATEKIND /////////////////////////////////
+	var tmandatekind= new DataTable("mandatekind");
+	C= new DataColumn("idmankind", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tmandatekind.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("idupb", typeof(System.String), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tmandatekind.Columns.Add(C);
+	tmandatekind.Columns.Add( new DataColumn("idupb", typeof(string)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tmandatekind.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tmandatekind.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tmandatekind.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tmandatekind.Columns.Add(C);
+	tmandatekind.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tmandatekind.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tmandatekind.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tmandatekind.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tmandatekind.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	Tables.Add(tmandatekind);
+	tmandatekind.PrimaryKey =  new DataColumn[]{tmandatekind.Columns["idmankind"]};
 
-	T.Columns.Add(new DataColumn("idsor01", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor02", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor03", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor04", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor05", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idmankind"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("expenselast");
-	C= new DataColumn("idexp", typeof(System.Int32), "");
+	//////////////////// EXPENSELAST /////////////////////////////////
+	var texpenselast= new DataTable("expenselast");
+	C= new DataColumn("idexp", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("cc", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("cin", typeof(System.String), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	texpenselast.Columns.Add(C);
+	texpenselast.Columns.Add( new DataColumn("cc", typeof(string)));
+	texpenselast.Columns.Add( new DataColumn("cin", typeof(string)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	texpenselast.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("flag", typeof(System.Byte), "");
+	texpenselast.Columns.Add(C);
+	C= new DataColumn("flag", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("idbank", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idcab", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("iddeputy", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idpay", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idpaymethod", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idregistrypaymethod", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idser", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("ivaamount", typeof(System.Decimal), ""));
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	texpenselast.Columns.Add(C);
+	texpenselast.Columns.Add( new DataColumn("idbank", typeof(string)));
+	texpenselast.Columns.Add( new DataColumn("idcab", typeof(string)));
+	texpenselast.Columns.Add( new DataColumn("iddeputy", typeof(int)));
+	texpenselast.Columns.Add( new DataColumn("idpay", typeof(int)));
+	texpenselast.Columns.Add( new DataColumn("idpaymethod", typeof(int)));
+	texpenselast.Columns.Add( new DataColumn("idregistrypaymethod", typeof(int)));
+	texpenselast.Columns.Add( new DataColumn("idser", typeof(int)));
+	texpenselast.Columns.Add( new DataColumn("ivaamount", typeof(decimal)));
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	texpenselast.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	texpenselast.Columns.Add(C);
+	texpenselast.Columns.Add( new DataColumn("nbill", typeof(int)));
+	texpenselast.Columns.Add( new DataColumn("paymentdescr", typeof(string)));
+	texpenselast.Columns.Add( new DataColumn("servicestart", typeof(DateTime)));
+	texpenselast.Columns.Add( new DataColumn("servicestop", typeof(DateTime)));
+	texpenselast.Columns.Add( new DataColumn("refexternaldoc", typeof(string)));
+	texpenselast.Columns.Add( new DataColumn("kpay", typeof(int)));
+	texpenselast.Columns.Add( new DataColumn("biccode", typeof(string)));
+	texpenselast.Columns.Add( new DataColumn("paymethod_flag", typeof(int)));
+	texpenselast.Columns.Add( new DataColumn("paymethod_allowdeputy", typeof(string)));
+	texpenselast.Columns.Add( new DataColumn("extracode", typeof(string)));
+	texpenselast.Columns.Add( new DataColumn("idchargehandling", typeof(int)));
+	Tables.Add(texpenselast);
+	texpenselast.PrimaryKey =  new DataColumn[]{texpenselast.Columns["idexp"]};
 
-	T.Columns.Add(new DataColumn("nbill", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("paymentdescr", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("servicestart", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("servicestop", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("refexternaldoc", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("kpay", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("biccode", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("paymethod_flag", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("paymethod_allowdeputy", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("extracode", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idchargehandling", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idexp"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("incomelast");
-	C= new DataColumn("idinc", typeof(System.Int32), "");
+	//////////////////// INCOMELAST /////////////////////////////////
+	var tincomelast= new DataTable("incomelast");
+	C= new DataColumn("idinc", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tincomelast.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tincomelast.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("flag", typeof(System.Byte), "");
+	tincomelast.Columns.Add(C);
+	C= new DataColumn("flag", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("idpro", typeof(System.Int32), ""));
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tincomelast.Columns.Add(C);
+	tincomelast.Columns.Add( new DataColumn("idpro", typeof(int)));
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tincomelast.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tincomelast.Columns.Add(C);
+	tincomelast.Columns.Add( new DataColumn("nbill", typeof(int)));
+	tincomelast.Columns.Add( new DataColumn("kpro", typeof(int)));
+	Tables.Add(tincomelast);
+	tincomelast.PrimaryKey =  new DataColumn[]{tincomelast.Columns["idinc"]};
+
+
+	#endregion
 
-	T.Columns.Add(new DataColumn("nbill", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("kpro", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idinc"]};
-	T.PrimaryKey = key;
 
+	#region DataRelation creation
+	var cPar = new []{income.Columns["idinc"]};
+	var cChild = new []{incomelast.Columns["idinc"]};
+	Relations.Add(new DataRelation("income_incomelast",cPar,cChild,false));
 
-//Relations
-DataTable TPar;
-DataTable TChild;
-DataColumn []CPar;
-DataColumn []CChild;
-TPar= Tables["income"];
-TChild= Tables["incomelast"];
-CPar = new DataColumn[1]{TPar.Columns["idinc"]};
-CChild = new DataColumn[1]{TChild.Columns["idinc"]};
-Relations.Add(new DataRelation("income_incomelast",CPar,CChild));
+	cPar = new []{expense.Columns["idexp"]};
+	cChild = new []{expenselast.Columns["idexp"]};
+	Relations.Add(new DataRelation("expense_expenselast",cPar,cChild,false));
 
-TPar= Tables["expense"];
-TChild= Tables["expenselast"];
-CPar = new DataColumn[1]{TPar.Columns["idexp"]};
-CChild = new DataColumn[1]{TChild.Columns["idexp"]};
-Relations.Add(new DataRelation("expense_expenselast",CPar,CChild));
+	cPar = new []{expense.Columns["idexp"]};
+	cChild = new []{expensemandate.Columns["idexp"]};
+	Relations.Add(new DataRelation("expenseexpensemandate",cPar,cChild,false));
 
-TPar= Tables["mandate"];
-TChild= Tables["expensemandate"];
-CPar = new DataColumn[3]{TPar.Columns["idmankind"], TPar.Columns["yman"], TPar.Columns["nman"]};
-CChild = new DataColumn[3]{TChild.Columns["idmankind"], TChild.Columns["yman"], TChild.Columns["nman"]};
-Relations.Add(new DataRelation("mandateexpensemandate",CPar,CChild));
+	cPar = new []{mandate.Columns["idmankind"], mandate.Columns["yman"], mandate.Columns["nman"]};
+	cChild = new []{expensemandate.Columns["idmankind"], expensemandate.Columns["yman"], expensemandate.Columns["nman"]};
+	Relations.Add(new DataRelation("mandateexpensemandate",cPar,cChild,false));
 
-TPar= Tables["expense"];
-TChild= Tables["expensemandate"];
-CPar = new DataColumn[1]{TPar.Columns["idexp"]};
-CChild = new DataColumn[1]{TChild.Columns["idexp"]};
-Relations.Add(new DataRelation("expenseexpensemandate",CPar,CChild));
+	cPar = new []{mandatekind.Columns["idmankind"]};
+	cChild = new []{mandate.Columns["idmankind"]};
+	Relations.Add(new DataRelation("mandatekindmandate",cPar,cChild,false));
 
-TPar= Tables["mandatekind"];
-TChild= Tables["mandate"];
-CPar = new DataColumn[1]{TPar.Columns["idmankind"]};
-CChild = new DataColumn[1]{TChild.Columns["idmankind"]};
-Relations.Add(new DataRelation("mandatekindmandate",CPar,CChild));
+	cPar = new []{wageaddition.Columns["ycon"], wageaddition.Columns["ncon"]};
+	cChild = new []{expensewageaddition.Columns["ycon"], expensewageaddition.Columns["ncon"]};
+	Relations.Add(new DataRelation("wageadditionexpensewageaddition",cPar,cChild,false));
 
-TPar= Tables["expense"];
-TChild= Tables["expensewageaddition"];
-CPar = new DataColumn[1]{TPar.Columns["idexp"]};
-CChild = new DataColumn[1]{TChild.Columns["idexp"]};
-Relations.Add(new DataRelation("expenseexpensewageaddition",CPar,CChild));
+	cPar = new []{expense.Columns["idexp"]};
+	cChild = new []{expensewageaddition.Columns["idexp"]};
+	Relations.Add(new DataRelation("expenseexpensewageaddition",cPar,cChild,false));
 
-TPar= Tables["wageaddition"];
-TChild= Tables["expensewageaddition"];
-CPar = new DataColumn[2]{TPar.Columns["ycon"], TPar.Columns["ncon"]};
-CChild = new DataColumn[2]{TChild.Columns["ycon"], TChild.Columns["ncon"]};
-Relations.Add(new DataRelation("wageadditionexpensewageaddition",CPar,CChild));
+	cPar = new []{expense.Columns["idexp"]};
+	cChild = new []{expenseprofservice.Columns["idexp"]};
+	Relations.Add(new DataRelation("expenseexpenseprofservice",cPar,cChild,false));
 
-TPar= Tables["profservice"];
-TChild= Tables["expenseprofservice"];
-CPar = new DataColumn[2]{TPar.Columns["ycon"], TPar.Columns["ncon"]};
-CChild = new DataColumn[2]{TChild.Columns["ycon"], TChild.Columns["ncon"]};
-Relations.Add(new DataRelation("profserviceexpenseprofservice",CPar,CChild));
+	cPar = new []{profservice.Columns["ycon"], profservice.Columns["ncon"]};
+	cChild = new []{expenseprofservice.Columns["ycon"], expenseprofservice.Columns["ncon"]};
+	Relations.Add(new DataRelation("profserviceexpenseprofservice",cPar,cChild,false));
 
-TPar= Tables["expense"];
-TChild= Tables["expenseprofservice"];
-CPar = new DataColumn[1]{TPar.Columns["idexp"]};
-CChild = new DataColumn[1]{TChild.Columns["idexp"]};
-Relations.Add(new DataRelation("expenseexpenseprofservice",CPar,CChild));
+	cPar = new []{expense.Columns["idexp"]};
+	cChild = new []{expensecasualcontract.Columns["idexp"]};
+	Relations.Add(new DataRelation("expenseexpensecasualcontract",cPar,cChild,false));
 
-TPar= Tables["casualcontract"];
-TChild= Tables["expensecasualcontract"];
-CPar = new DataColumn[2]{TPar.Columns["ycon"], TPar.Columns["ncon"]};
-CChild = new DataColumn[2]{TChild.Columns["ycon"], TChild.Columns["ncon"]};
-Relations.Add(new DataRelation("casualcontractexpensecasualcontract",CPar,CChild));
+	cPar = new []{casualcontract.Columns["ycon"], casualcontract.Columns["ncon"]};
+	cChild = new []{expensecasualcontract.Columns["ycon"], expensecasualcontract.Columns["ncon"]};
+	Relations.Add(new DataRelation("casualcontractexpensecasualcontract",cPar,cChild,false));
 
-TPar= Tables["expense"];
-TChild= Tables["expensecasualcontract"];
-CPar = new DataColumn[1]{TPar.Columns["idexp"]};
-CChild = new DataColumn[1]{TChild.Columns["idexp"]};
-Relations.Add(new DataRelation("expenseexpensecasualcontract",CPar,CChild));
+	cPar = new []{expense.Columns["idexp"]};
+	cChild = new []{expensepayroll.Columns["idexp"]};
+	Relations.Add(new DataRelation("expenseexpensepayroll",cPar,cChild,false));
 
-TPar= Tables["payroll"];
-TChild= Tables["expensepayroll"];
-CPar = new DataColumn[1]{TPar.Columns["idpayroll"]};
-CChild = new DataColumn[1]{TChild.Columns["idpayroll"]};
-Relations.Add(new DataRelation("payrollexpensepayroll",CPar,CChild));
+	cPar = new []{payroll.Columns["idpayroll"]};
+	cChild = new []{expensepayroll.Columns["idpayroll"]};
+	Relations.Add(new DataRelation("payrollexpensepayroll",cPar,cChild,false));
 
-TPar= Tables["expense"];
-TChild= Tables["expensepayroll"];
-CPar = new DataColumn[1]{TPar.Columns["idexp"]};
-CChild = new DataColumn[1]{TChild.Columns["idexp"]};
-Relations.Add(new DataRelation("expenseexpensepayroll",CPar,CChild));
+	cPar = new []{invoice.Columns["idinvkind"], invoice.Columns["yinv"], invoice.Columns["ninv"]};
+	cChild = new []{incomeinvoice.Columns["idinvkind"], incomeinvoice.Columns["yinv"], incomeinvoice.Columns["ninv"]};
+	Relations.Add(new DataRelation("invoiceincomeinvoice",cPar,cChild,false));
 
-TPar= Tables["income"];
-TChild= Tables["incomeinvoice"];
-CPar = new DataColumn[1]{TPar.Columns["idinc"]};
-CChild = new DataColumn[1]{TChild.Columns["idinc"]};
-Relations.Add(new DataRelation("incomeincomeinvoice",CPar,CChild));
+	cPar = new []{income.Columns["idinc"]};
+	cChild = new []{incomeinvoice.Columns["idinc"]};
+	Relations.Add(new DataRelation("incomeincomeinvoice",cPar,cChild,false));
 
-TPar= Tables["invoice"];
-TChild= Tables["incomeinvoice"];
-CPar = new DataColumn[3]{TPar.Columns["idinvkind"], TPar.Columns["yinv"], TPar.Columns["ninv"]};
-CChild = new DataColumn[3]{TChild.Columns["idinvkind"], TChild.Columns["yinv"], TChild.Columns["ninv"]};
-Relations.Add(new DataRelation("invoiceincomeinvoice",CPar,CChild));
+	cPar = new []{invoicekind.Columns["idinvkind"]};
+	cChild = new []{invoice.Columns["idinvkind"]};
+	Relations.Add(new DataRelation("invoicekindinvoice",cPar,cChild,false));
 
-TPar= Tables["invoicekind"];
-TChild= Tables["invoice"];
-CPar = new DataColumn[1]{TPar.Columns["idinvkind"]};
-CChild = new DataColumn[1]{TChild.Columns["idinvkind"]};
-Relations.Add(new DataRelation("invoicekindinvoice",CPar,CChild));
+	cPar = new []{invoice.Columns["idinvkind"], invoice.Columns["yinv"], invoice.Columns["ninv"]};
+	cChild = new []{expenseinvoice.Columns["idinvkind"], expenseinvoice.Columns["yinv"], expenseinvoice.Columns["ninv"]};
+	Relations.Add(new DataRelation("invoiceexpenseinvoice",cPar,cChild,false));
 
-TPar= Tables["expense"];
-TChild= Tables["expenseinvoice"];
-CPar = new DataColumn[1]{TPar.Columns["idexp"]};
-CChild = new DataColumn[1]{TChild.Columns["idexp"]};
-Relations.Add(new DataRelation("expenseexpenseinvoice",CPar,CChild));
+	cPar = new []{expense.Columns["idexp"]};
+	cChild = new []{expenseinvoice.Columns["idexp"]};
+	Relations.Add(new DataRelation("expenseexpenseinvoice",cPar,cChild,false));
 
-TPar= Tables["invoice"];
-TChild= Tables["expenseinvoice"];
-CPar = new DataColumn[3]{TPar.Columns["idinvkind"], TPar.Columns["yinv"], TPar.Columns["ninv"]};
-CChild = new DataColumn[3]{TChild.Columns["idinvkind"], TChild.Columns["yinv"], TChild.Columns["ninv"]};
-Relations.Add(new DataRelation("invoiceexpenseinvoice",CPar,CChild));
+	cPar = new []{income.Columns["idinc"]};
+	cChild = new []{incomevar.Columns["idinc"]};
+	Relations.Add(new DataRelation("incomeincomevar",cPar,cChild,false));
 
-TPar= Tables["income"];
-TChild= Tables["incomevar"];
-CPar = new DataColumn[1]{TPar.Columns["idinc"]};
-CChild = new DataColumn[1]{TChild.Columns["idinc"]};
-Relations.Add(new DataRelation("incomeincomevar",CPar,CChild));
+	cPar = new []{expense.Columns["idexp"]};
+	cChild = new []{expensevar.Columns["idexp"]};
+	Relations.Add(new DataRelation("expenseexpensevar",cPar,cChild,false));
 
-TPar= Tables["expense"];
-TChild= Tables["expensevar"];
-CPar = new DataColumn[1]{TPar.Columns["idexp"]};
-CChild = new DataColumn[1]{TChild.Columns["idexp"]};
-Relations.Add(new DataRelation("expenseexpensevar",CPar,CChild));
+	cPar = new []{itineration.Columns["iditineration"]};
+	cChild = new []{expenseitineration.Columns["iditineration"]};
+	Relations.Add(new DataRelation("itineration_expenseitineration",cPar,cChild,false));
 
-TPar= Tables["expense"];
-TChild= Tables["expenseitineration"];
-CPar = new DataColumn[1]{TPar.Columns["idexp"]};
-CChild = new DataColumn[1]{TChild.Columns["idexp"]};
-Relations.Add(new DataRelation("expenseexpenseitineration",CPar,CChild));
+	cPar = new []{expense.Columns["idexp"]};
+	cChild = new []{expenseitineration.Columns["idexp"]};
+	Relations.Add(new DataRelation("expenseexpenseitineration",cPar,cChild,false));
 
-TPar= Tables["itineration"];
-TChild= Tables["expenseitineration"];
-CPar = new DataColumn[1]{TPar.Columns["iditineration"]};
-CChild = new DataColumn[1]{TChild.Columns["iditineration"]};
-Relations.Add(new DataRelation("itineration_expenseitineration",CPar,CChild));
+	cPar = new []{upb.Columns["idupb"]};
+	cChild = new []{incomeyear.Columns["idupb"]};
+	Relations.Add(new DataRelation("upbincomeyear",cPar,cChild,false));
 
-TPar= Tables["fin"];
-TChild= Tables["incomeyear"];
-CPar = new DataColumn[1]{TPar.Columns["idfin"]};
-CChild = new DataColumn[1]{TChild.Columns["idfin"]};
-Relations.Add(new DataRelation("finincomeyear",CPar,CChild));
+	cPar = new []{income.Columns["idinc"]};
+	cChild = new []{incomeyear.Columns["idinc"]};
+	Relations.Add(new DataRelation("incomeincomeyear",cPar,cChild,false));
 
-TPar= Tables["income"];
-TChild= Tables["incomeyear"];
-CPar = new DataColumn[1]{TPar.Columns["idinc"]};
-CChild = new DataColumn[1]{TChild.Columns["idinc"]};
-Relations.Add(new DataRelation("incomeincomeyear",CPar,CChild));
+	cPar = new []{fin.Columns["idfin"]};
+	cChild = new []{incomeyear.Columns["idfin"]};
+	Relations.Add(new DataRelation("finincomeyear",cPar,cChild,false));
 
-TPar= Tables["upb"];
-TChild= Tables["incomeyear"];
-CPar = new DataColumn[1]{TPar.Columns["idupb"]};
-CChild = new DataColumn[1]{TChild.Columns["idupb"]};
-Relations.Add(new DataRelation("upbincomeyear",CPar,CChild));
+	cPar = new []{upb.Columns["idupb"]};
+	cChild = new []{expenseyear.Columns["idupb"]};
+	Relations.Add(new DataRelation("upbexpenseyear",cPar,cChild,false));
 
-TPar= Tables["fin"];
-TChild= Tables["expenseyear"];
-CPar = new DataColumn[1]{TPar.Columns["idfin"]};
-CChild = new DataColumn[1]{TChild.Columns["idfin"]};
-Relations.Add(new DataRelation("finexpenseyear",CPar,CChild));
+	cPar = new []{expense.Columns["idexp"]};
+	cChild = new []{expenseyear.Columns["idexp"]};
+	Relations.Add(new DataRelation("expenseexpenseyear",cPar,cChild,false));
 
-TPar= Tables["expense"];
-TChild= Tables["expenseyear"];
-CPar = new DataColumn[1]{TPar.Columns["idexp"]};
-CChild = new DataColumn[1]{TChild.Columns["idexp"]};
-Relations.Add(new DataRelation("expenseexpenseyear",CPar,CChild));
+	cPar = new []{fin.Columns["idfin"]};
+	cChild = new []{expenseyear.Columns["idfin"]};
+	Relations.Add(new DataRelation("finexpenseyear",cPar,cChild,false));
 
-TPar= Tables["upb"];
-TChild= Tables["expenseyear"];
-CPar = new DataColumn[1]{TPar.Columns["idupb"]};
-CChild = new DataColumn[1]{TChild.Columns["idupb"]};
-Relations.Add(new DataRelation("upbexpenseyear",CPar,CChild));
+	cPar = new []{incomephase.Columns["nphase"]};
+	cChild = new []{income.Columns["nphase"]};
+	Relations.Add(new DataRelation("incomephaseincome",cPar,cChild,false));
 
-TPar= Tables["income"];
-TChild= Tables["income"];
-CPar = new DataColumn[1]{TPar.Columns["idinc"]};
-CChild = new DataColumn[1]{TChild.Columns["parentidinc"]};
-Relations.Add(new DataRelation("incomeincome",CPar,CChild));
+	cPar = new []{manager.Columns["idman"]};
+	cChild = new []{income.Columns["idman"]};
+	Relations.Add(new DataRelation("managerincome",cPar,cChild,false));
 
-TPar= Tables["registry"];
-TChild= Tables["income"];
-CPar = new DataColumn[1]{TPar.Columns["idreg"]};
-CChild = new DataColumn[1]{TChild.Columns["idreg"]};
-Relations.Add(new DataRelation("registryincome",CPar,CChild));
+	cPar = new []{registry.Columns["idreg"]};
+	cChild = new []{income.Columns["idreg"]};
+	Relations.Add(new DataRelation("registryincome",cPar,cChild,false));
 
-TPar= Tables["manager"];
-TChild= Tables["income"];
-CPar = new DataColumn[1]{TPar.Columns["idman"]};
-CChild = new DataColumn[1]{TChild.Columns["idman"]};
-Relations.Add(new DataRelation("managerincome",CPar,CChild));
+	cPar = new []{income.Columns["idinc"]};
+	cChild = new []{income.Columns["parentidinc"]};
+	Relations.Add(new DataRelation("incomeincome",cPar,cChild,false));
 
-TPar= Tables["incomephase"];
-TChild= Tables["income"];
-CPar = new DataColumn[1]{TPar.Columns["nphase"]};
-CChild = new DataColumn[1]{TChild.Columns["nphase"]};
-Relations.Add(new DataRelation("incomephaseincome",CPar,CChild));
+	cPar = new []{expensephase.Columns["nphase"]};
+	cChild = new []{expense.Columns["nphase"]};
+	Relations.Add(new DataRelation("expensephaseexpense",cPar,cChild,false));
 
-TPar= Tables["expense"];
-TChild= Tables["expense"];
-CPar = new DataColumn[1]{TPar.Columns["idexp"]};
-CChild = new DataColumn[1]{TChild.Columns["parentidexp"]};
-Relations.Add(new DataRelation("expenseexpense",CPar,CChild));
+	cPar = new []{manager.Columns["idman"]};
+	cChild = new []{expense.Columns["idman"]};
+	Relations.Add(new DataRelation("managerexpense",cPar,cChild,false));
 
-TPar= Tables["registry"];
-TChild= Tables["expense"];
-CPar = new DataColumn[1]{TPar.Columns["idreg"]};
-CChild = new DataColumn[1]{TChild.Columns["idreg"]};
-Relations.Add(new DataRelation("registryexpense",CPar,CChild));
+	cPar = new []{registry.Columns["idreg"]};
+	cChild = new []{expense.Columns["idreg"]};
+	Relations.Add(new DataRelation("registryexpense",cPar,cChild,false));
 
-TPar= Tables["manager"];
-TChild= Tables["expense"];
-CPar = new DataColumn[1]{TPar.Columns["idman"]};
-CChild = new DataColumn[1]{TChild.Columns["idman"]};
-Relations.Add(new DataRelation("managerexpense",CPar,CChild));
+	cPar = new []{expense.Columns["idexp"]};
+	cChild = new []{expense.Columns["parentidexp"]};
+	Relations.Add(new DataRelation("expenseexpense",cPar,cChild,false));
 
-TPar= Tables["expensephase"];
-TChild= Tables["expense"];
-CPar = new DataColumn[1]{TPar.Columns["nphase"]};
-CChild = new DataColumn[1]{TChild.Columns["nphase"]};
-Relations.Add(new DataRelation("expensephaseexpense",CPar,CChild));
+	#endregion
 
 }
 }
 }
-

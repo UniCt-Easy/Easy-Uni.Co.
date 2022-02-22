@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿namespace flussocrediti_default {
+
+namespace flussocrediti_default {
     partial class Frm_flussocrediti_default {
         /// <summary>
         /// Required designer variable.
@@ -105,9 +104,11 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.chkIstransmitted = new System.Windows.Forms.CheckBox();
             this.folderBrowserDialog2 = new System.Windows.Forms.FolderBrowserDialog();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.grpPartner = new System.Windows.Forms.GroupBox();
             this.btnAnnullaInvio = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.TabControll.SuspendLayout();
             this.tabDettagliCA.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -158,7 +159,7 @@
             this.TabControll.Name = "TabControll";
             this.TabControll.SelectedIndex = 0;
             this.TabControll.Size = new System.Drawing.Size(873, 499);
-            this.TabControll.TabIndex = 2;
+            this.TabControll.TabIndex = 6;
             // 
             // tabDettagliCA
             // 
@@ -226,6 +227,7 @@
             this.txtAnnoContratto.Name = "txtAnnoContratto";
             this.txtAnnoContratto.Size = new System.Drawing.Size(100, 20);
             this.txtAnnoContratto.TabIndex = 54;
+            this.txtAnnoContratto.Tag = "";
             // 
             // label3
             // 
@@ -314,6 +316,7 @@
             this.txtAnnoDocumento.Name = "txtAnnoDocumento";
             this.txtAnnoDocumento.Size = new System.Drawing.Size(100, 20);
             this.txtAnnoDocumento.TabIndex = 56;
+            this.txtAnnoDocumento.Tag = "";
             // 
             // label6
             // 
@@ -321,9 +324,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(477, 28);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(137, 13);
+            this.label6.Size = new System.Drawing.Size(140, 13);
             this.label6.TabIndex = 55;
-            this.label6.Text = "Anno per ricerca documenti";
+            this.label6.Text = "Anno per ricerca documenti ";
             // 
             // groupBox1
             // 
@@ -408,7 +411,7 @@
             this.gridDettagliFatt.HeaderForeColor = System.Drawing.SystemColors.ControlText;
             this.gridDettagliFatt.Location = new System.Drawing.Point(89, 57);
             this.gridDettagliFatt.Name = "gridDettagliFatt";
-            this.gridDettagliFatt.Size = new System.Drawing.Size(819, 395);
+            this.gridDettagliFatt.Size = new System.Drawing.Size(770, 413);
             this.gridDettagliFatt.TabIndex = 11;
             this.gridDettagliFatt.Tag = "flussocreditidetail_fatt.default_fatt.single";
             // 
@@ -462,7 +465,7 @@
             this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
             this.dataGrid1.Location = new System.Drawing.Point(91, 17);
             this.dataGrid1.Name = "dataGrid1";
-            this.dataGrid1.Size = new System.Drawing.Size(760, 395);
+            this.dataGrid1.Size = new System.Drawing.Size(768, 453);
             this.dataGrid1.TabIndex = 57;
             this.dataGrid1.Tag = "flussocreditidetail_unlinked.default_unlinked.single";
             // 
@@ -719,7 +722,7 @@
             this.groupBox2.Location = new System.Drawing.Point(12, 85);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(453, 49);
-            this.groupBox2.TabIndex = 52;
+            this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tipo Contratto Attivo (proveniente da flusso studenti)";
             // 
@@ -748,19 +751,20 @@
             // 
             // txtDataCreazioneflusso
             // 
-            this.txtDataCreazioneflusso.Location = new System.Drawing.Point(274, 9);
+            this.txtDataCreazioneflusso.Location = new System.Drawing.Point(345, 9);
             this.txtDataCreazioneflusso.Name = "txtDataCreazioneflusso";
             this.txtDataCreazioneflusso.Size = new System.Drawing.Size(80, 20);
-            this.txtDataCreazioneflusso.TabIndex = 11;
+            this.txtDataCreazioneflusso.TabIndex = 1;
             this.txtDataCreazioneflusso.Tag = "flussocrediti.datacreazioneflusso";
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(152, 9);
+            this.label4.Location = new System.Drawing.Point(223, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(116, 20);
             this.label4.TabIndex = 10;
             this.label4.Text = "Data Creazione Flusso";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnEsportaFlussoCrediti
             // 
@@ -803,7 +807,7 @@
             this.chkIstransmitted.Location = new System.Drawing.Point(802, 6);
             this.chkIstransmitted.Name = "chkIstransmitted";
             this.chkIstransmitted.Size = new System.Drawing.Size(83, 20);
-            this.chkIstransmitted.TabIndex = 51;
+            this.chkIstransmitted.TabIndex = 3;
             this.chkIstransmitted.Tag = "flussocrediti.istransmitted:S:N";
             this.chkIstransmitted.Text = "Trasmesso";
             // 
@@ -818,7 +822,7 @@
             this.grpPartner.Location = new System.Drawing.Point(12, 32);
             this.grpPartner.Name = "grpPartner";
             this.grpPartner.Size = new System.Drawing.Size(873, 47);
-            this.grpPartner.TabIndex = 56;
+            this.grpPartner.TabIndex = 4;
             this.grpPartner.TabStop = false;
             this.grpPartner.Text = "Partner tecnologico pagoPA";
             // 
@@ -833,11 +837,30 @@
             this.btnAnnullaInvio.UseVisualStyleBackColor = true;
             this.btnAnnullaInvio.Click += new System.EventHandler(this.btnAnnullaInvio_Click);
             // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(583, 9);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(80, 20);
+            this.textBox2.TabIndex = 2;
+            this.textBox2.Tag = "flussocrediti.docdate";
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(461, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(116, 20);
+            this.label2.TabIndex = 57;
+            this.label2.Text = "Data per elaborazione";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // Frm_flussocrediti_default
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(897, 651);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.txtDataCreazioneflusso);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.chkIstransmitted);
@@ -920,7 +943,7 @@
         private System.Windows.Forms.TextBox txtCartellaEsportazione;
         private System.Windows.Forms.CheckBox chkIstransmitted;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog2;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.OpenFileDialog _openFileDialog1;
         private System.Windows.Forms.TabPage tabFatture;
         private System.Windows.Forms.Button buttonDeleteFatt;
         private System.Windows.Forms.Button buttonEditFatt;
@@ -948,5 +971,7 @@
         private System.Windows.Forms.Button btnAddCredito;
         private System.Windows.Forms.DataGrid dataGrid1;
         private System.Windows.Forms.Button btnAnnullaInvio;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label2;
     }
-    }
+    }

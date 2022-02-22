@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -34,7 +33,7 @@ namespace admpay_default {
 	/// <summary>
 	/// Summary description for FrmAdmPay_Default.
 	/// </summary>
-	public class FrmAdmPay_Default : System.Windows.Forms.Form {
+	public class FrmAdmPay_Default : MetaDataForm {
 		MetaData Meta;
 		string ConnectionString;
         /// <summary>
@@ -65,7 +64,7 @@ namespace admpay_default {
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.TextBox txtImportoAssegnare;
 		private System.Windows.Forms.Button btnGenera;
-		private System.Windows.Forms.OpenFileDialog openFileDialog1;
+		private System.Windows.Forms.OpenFileDialog _openFileDialog1;
 		public admpay_default.dsImport dsImport;
 		private System.Windows.Forms.GroupBox groupBox3;
 		private System.Windows.Forms.Button btnGeneraMovFin;
@@ -82,6 +81,7 @@ namespace admpay_default {
         private Button btnVisualizzaEP_V;
         private Button btnVisualizzaEP_R;
         private Button btnVisualizzaEP_L;
+        public IOpenFileDialog openFileDialog1;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -89,6 +89,7 @@ namespace admpay_default {
 
 		public FrmAdmPay_Default() {
 			InitializeComponent();
+            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
 		}
 
 		/// <summary>
@@ -129,7 +130,7 @@ namespace admpay_default {
             this.label6 = new System.Windows.Forms.Label();
             this.txtImportoAssegnare = new System.Windows.Forms.TextBox();
             this.btnGenera = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnGeneraMovFin = new System.Windows.Forms.Button();
             this.dsFinancial = new admpay_default.dsFinancial();
@@ -737,13 +738,13 @@ namespace admpay_default {
             AskTask compito = new AskTask(0);
             DialogResult dr = compito.ShowDialog();
             if (dr != DialogResult.OK) {
-                MessageBox.Show(this, "Non è stato scelto alcun compito", "Avvertimento");
+                show(this, "Non è stato scelto alcun compito", "Avvertimento");
                 return;
             }
 
             //Riempie il datatable MData leggendo dal foglio Excel
             if (!LeggiFile()) {
-                MessageBox.Show(this, "Errore nell'apertura del file");
+                show(this, "Errore nell'apertura del file");
                 return;
             }
             //Arrotonda a due cifre decimali la colonna importo (dovrebbe esistere)
@@ -758,7 +759,7 @@ namespace admpay_default {
             if (!CreaHashTable(compito.Choosen)) {
                 FrmError frm = new FrmError(tErrorLog);
                 DialogResult dr1 = frm.ShowDialog();
-                MessageBox.Show(this, "Errore nella fase di raggruppamento dei dati");
+                show(this, "Errore nella fase di raggruppamento dei dati");
                 return;
             }
 
@@ -827,7 +828,7 @@ namespace admpay_default {
                 msg = "Generazione dei Pseudo Movimenti fallita!";
                 mbi = MessageBoxIcon.Error;
             }
-			MessageBox.Show(this, msg, "Responso Salvataggio", MessageBoxButtons.OK, mbi);
+			show(this, msg, "Responso Salvataggio", MessageBoxButtons.OK, mbi);
 			dsImport.Clear();
 			dsImport.AcceptChanges();
 		}
@@ -919,7 +920,7 @@ namespace admpay_default {
             object idsorkind_idaccmotivegroup1 = rWageImportSetup["idsorkind_accmotivegroup1"];
             object idsorkind_idaccmotivegroup2 = rWageImportSetup["idsorkind_accmotivegroup2"];
             if ((idsorkind_idaccmotivegroup1 == DBNull.Value) && (idsorkind_idaccmotivegroup2 == DBNull.Value)) {
-                MessageBox.Show(this, "Non sono state impostate le classificazioni per la generazione delle scritture E/P");
+                show(this, "Non sono state impostate le classificazioni per la generazione delle scritture E/P");
                 return true;
             }
 
@@ -1009,7 +1010,7 @@ namespace admpay_default {
                 new DataColumn[] { TT3.Columns["yentry"], TT3.Columns["nentry"], TT3.Columns["ndetail"] },
                 false);
             if (TT3.Rows.Count > 0) {
-                MessageBox.Show("Ci sono ratei associati alle scritture che saranno scollegati. Sarà " +
+                show("Ci sono ratei associati alle scritture che saranno scollegati. Sarà " +
                     "necessario ricollegarli a mano");
                 foreach (DataRow R3 in TT3.Rows) R3.Delete();
             }
@@ -1073,7 +1074,7 @@ namespace admpay_default {
                 }
             }
             catch (Exception ex) {
-                MessageBox.Show(this, ex.Message);
+                show(this, ex.Message);
             }
 		}
 
@@ -1825,7 +1826,7 @@ namespace admpay_default {
 			// Passo 1. Proiezione
             //bool res = proiettaDati(tSource, IoE, task);
             //if (!res) {
-            //    MessageBox.Show(this, "Si sono verificati dei problemi nella codifica dei dati",
+            //    show(this, "Si sono verificati dei problemi nella codifica dei dati",
             //        "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //}
 
@@ -1876,7 +1877,7 @@ namespace admpay_default {
             DataRow [] WIS = dsImport.Tables["wageimportsetup"].Select(QHC.CmpEq("kind", task));
             if (WIS.Length == 0) {
                 string msg = "Tabella di configurazione importazione stipendi vuota per il compito scelto";
-                MessageBox.Show(this, msg);
+                show(this, msg);
                 fillLog(msg);
                 return false;
             }
@@ -1891,7 +1892,7 @@ namespace admpay_default {
                 DataTable tSK = Meta.Conn.SQLRunner(query);
                 if (tSK == null) {
                     string msg1 = "Errore nell'estrazione dei dati dal tipo classificazione " + field;
-                    MessageBox.Show(this, msg1);
+                    show(this, msg1);
                     fillLog(msg1);
                     return false;
                 }
@@ -2096,13 +2097,13 @@ namespace admpay_default {
             dsImport.Clear();
             riempiTabelle();
             if (!generaMovPrincipali("I")) {
-                MessageBox.Show(this, "Errore nella generazione dei movimenti finanziari di entrata");
+                show(this, "Errore nella generazione dei movimenti finanziari di entrata");
                 dsFinancial.Clear();
                 dsFinancial.AcceptChanges();
                 return;
             };
             if (!generaMovPrincipali("E")) {
-                MessageBox.Show(this, "Errore nella generazione dei movimenti finanziari di spesa");
+                show(this, "Errore nella generazione dei movimenti finanziari di spesa");
                 dsFinancial.Clear();
                 dsFinancial.AcceptChanges();
                 return;
@@ -2271,7 +2272,7 @@ namespace admpay_default {
                 string filterimp = QHS.CmpEq(idMovField, myMImp[idMovField]);
                 DataRow[] MImp = DBImpMov.Select(filterimp);
                 if (MImp.Length == 0) {
-                    MessageBox.Show("Errore, il movimento con " + idMovField + "=" + myMImp[idMovField].ToString() +
+                    show("Errore, il movimento con " + idMovField + "=" + myMImp[idMovField].ToString() +
                         " non è stato trovato nell'anno corrente.");
                     RemoveDummyCols();
                     return false;
@@ -2284,10 +2285,10 @@ namespace admpay_default {
                 string filter = QHC.CmpKey(myMImp);
                 if (dsImport.Tables[tAdmPayMov].Select(filter).Length == 0) {
                     if (IoE == "I")
-                        MessageBox.Show("Il meta-accertamento n." + myMImp["nassessment"].ToString() +
+                        show("Il meta-accertamento n." + myMImp["nassessment"].ToString() +
                             " non ha incassi collegati e sarà ignorato");
                     else
-                        MessageBox.Show("Il meta-impegno n." + myMImp["nappropriation"].ToString() +
+                        show("Il meta-impegno n." + myMImp["nappropriation"].ToString() +
                             " non ha pagamenti collegati e sarà ignorato");
                     myMImp.Delete();
                 }
@@ -2300,12 +2301,12 @@ namespace admpay_default {
 				DataRow []rAppAss_LISTA = dsImport.Tables[tAppAss].Select(fAppr);
                 if (rAppAss_LISTA.Length == 0) {
                     if (IoE=="I"){
-                        MessageBox.Show("Il meta movimento di entrata n." + R["nincome"].ToString() + " non è associato ad un meta accertamento");
+                        show("Il meta movimento di entrata n." + R["nincome"].ToString() + " non è associato ad un meta accertamento");
                         RemoveDummyCols();
                         return false;
                     }
                     if (IoE == "E") {
-                        MessageBox.Show("Il meta movimento di spesa n." + R["nexpense"].ToString() + " non è associato ad un meta impegno");
+                        show("Il meta movimento di spesa n." + R["nexpense"].ToString() + " non è associato ad un meta impegno");
                         RemoveDummyCols();
                         return false;
                     }
@@ -2374,7 +2375,7 @@ namespace admpay_default {
                             object registry = Meta.Conn.DO_READ_VALUE("registry", QHS.CmpEq("idreg", codicecreddeb), "title");
                             DataRow ModPagam = CfgFn.ModalitaPagamentoDefault(Meta.Conn, codicecreddeb);
                             if (ModPagam == null) {
-                                MessageBox.Show(this,
+                                show(this,
                                     "E' necessario che sia definita almeno una modalità di pagamento per il percipiente " +
                                     "\"" + registry.ToString() + "\"\n\n" +
                                     "Dati non salvati", "Errore", MessageBoxButtons.OK);
@@ -2490,12 +2491,12 @@ namespace admpay_default {
             ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
             bool res = ga.GeneraAutomatismiAfterPost(true);
             if (!res) {
-                MessageBox.Show(this, "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
+                show(this, "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
             }
             else {
                 res = ga.doPost(Meta.Dispatcher);
                 if (res) {
-                    MessageBox.Show(this, "Salvataggio dei movimenti finanziari avvenuto con successo");
+                    show(this, "Salvataggio dei movimenti finanziari avvenuto con successo");
                     if (DS.admpay.Rows.Count > 0) {
                         DS.admpay.Rows[0]["processed"] = "S";
                         Meta.SaveFormData();
@@ -2503,7 +2504,7 @@ namespace admpay_default {
                     // Qui devo ricopiare i dati nel Dataset principale
                 }
                 else {
-                    MessageBox.Show(this, "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
+                    show(this, "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
                 }
             }
             dsFinancial.Clear();
@@ -2613,7 +2614,7 @@ namespace admpay_default {
                 ReadCurrentSheet();
             }
             catch (Exception ex) {
-                MessageBox.Show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
+                show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
                 return false;
             }
 
@@ -2651,4 +2652,4 @@ namespace admpay_default {
             EP.EditRelatedEntry(Meta, idRelated);
         }
 	}
-}
+}

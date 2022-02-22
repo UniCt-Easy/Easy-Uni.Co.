@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaFrmWizardElimina.xsd" xmlns:mstns="http://tempuri.org/VistaFrmWizardElimina.xsd" xmlns="http://tempuri.org/VistaFrmWizardElimina.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaFrmWizardElimina.xsd" xmlns:mstns="http://tempuri.org/VistaFrmWizardElimina.xsd" xmlns="http://tempuri.org/VistaFrmWizardElimina.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -224,6 +224,11 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -300,6 +305,11 @@
               <xs:element name="npaymenttransmission" type="xs:int" minOccurs="0" />
               <xs:element name="transmissiondate" type="xs:dateTime" minOccurs="0" />
               <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
@@ -571,61 +581,23 @@
       <xs:field xpath="mstns:ayear" />
       <xs:field xpath="mstns:idexp" />
     </xs:unique>
-    <xs:keyref name="expense_expenseyear" refer="Constraint1">
-      <xs:selector xpath=".//mstns:expenseyear" />
-      <xs:field xpath="mstns:idexp" />
-    </xs:keyref>
-    <xs:keyref name="fin_expenseyear" refer="fin_Constraint1">
-      <xs:selector xpath=".//mstns:expenseyear" />
-      <xs:field xpath="mstns:idfin" />
-    </xs:keyref>
-    <xs:keyref name="upb_expenseyear" refer="upb_Constraint1">
-      <xs:selector xpath=".//mstns:expenseyear" />
-      <xs:field xpath="mstns:idupb" />
-    </xs:keyref>
-    <xs:keyref name="income_incomeyear" refer="income_Constraint1">
-      <xs:selector xpath=".//mstns:incomeyear" />
-      <xs:field xpath="mstns:idinc" />
-    </xs:keyref>
-    <xs:keyref name="fin_income_incomeyear" refer="fin_income_Constraint1">
-      <xs:selector xpath=".//mstns:incomeyear" />
-      <xs:field xpath="mstns:idfin" />
-    </xs:keyref>
-    <xs:keyref name="upb_income_incomeyear" refer="upb_income_Constraint1">
-      <xs:selector xpath=".//mstns:incomeyear" />
-      <xs:field xpath="mstns:idupb" />
-    </xs:keyref>
-    <xs:keyref name="income_incomelastview" refer="income_Constraint1">
-      <xs:selector xpath=".//mstns:incomelastview" />
-      <xs:field xpath="mstns:idinc" />
-    </xs:keyref>
-    <xs:keyref name="expense_expenselastview" refer="Constraint1">
-      <xs:selector xpath=".//mstns:expenselastview" />
-      <xs:field xpath="mstns:idexp" />
-    </xs:keyref>
-    <xs:keyref name="expense_expenseview" refer="Constraint1">
-      <xs:selector xpath=".//mstns:expenseview" />
-      <xs:field xpath="mstns:idexp" />
-    </xs:keyref>
-    <xs:keyref name="income_incomeview" refer="income_Constraint1">
-      <xs:selector xpath=".//mstns:incomeview" />
-      <xs:field xpath="mstns:idinc" />
-    </xs:keyref>
-    <xs:keyref name="manager_income_income" refer="manager_income_Constraint1">
-      <xs:selector xpath=".//mstns:income" />
-      <xs:field xpath="mstns:idman" />
-    </xs:keyref>
-    <xs:keyref name="incomephase_income" refer="incomephase_Constraint1">
-      <xs:selector xpath=".//mstns:income" />
-      <xs:field xpath="mstns:nphase" />
-    </xs:keyref>
-    <xs:keyref name="manager_expense" refer="manager_Constraint1">
-      <xs:selector xpath=".//mstns:expense" />
-      <xs:field xpath="mstns:idman" />
-    </xs:keyref>
-    <xs:keyref name="expensephase_expense" refer="expensephase_Constraint1">
-      <xs:selector xpath=".//mstns:expense" />
-      <xs:field xpath="mstns:nphase" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="upb_expenseyear" msdata:parent="upb" msdata:child="expenseyear" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="fin_expenseyear" msdata:parent="fin" msdata:child="expenseyear" msdata:parentkey="idfin" msdata:childkey="idfin" />
+      <msdata:Relationship name="expense_expenseyear" msdata:parent="expense" msdata:child="expenseyear" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="upb_income_incomeyear" msdata:parent="upb_income" msdata:child="incomeyear" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="fin_income_incomeyear" msdata:parent="fin_income" msdata:child="incomeyear" msdata:parentkey="idfin" msdata:childkey="idfin" />
+      <msdata:Relationship name="income_incomeyear" msdata:parent="income" msdata:child="incomeyear" msdata:parentkey="idinc" msdata:childkey="idinc" />
+      <msdata:Relationship name="income_incomelastview" msdata:parent="income" msdata:child="incomelastview" msdata:parentkey="idinc" msdata:childkey="idinc" />
+      <msdata:Relationship name="expense_expenselastview" msdata:parent="expense" msdata:child="expenselastview" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="expense_expenseview" msdata:parent="expense" msdata:child="expenseview" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="income_incomeview" msdata:parent="income" msdata:child="incomeview" msdata:parentkey="idinc" msdata:childkey="idinc" />
+      <msdata:Relationship name="incomephase_income" msdata:parent="incomephase" msdata:child="income" msdata:parentkey="nphase" msdata:childkey="nphase" />
+      <msdata:Relationship name="manager_income_income" msdata:parent="manager_income" msdata:child="income" msdata:parentkey="idman" msdata:childkey="idman" />
+      <msdata:Relationship name="expensephase_expense" msdata:parent="expensephase" msdata:child="expense" msdata:parentkey="nphase" msdata:childkey="nphase" />
+      <msdata:Relationship name="manager_expense" msdata:parent="manager" msdata:child="expense" msdata:parentkey="idman" msdata:childkey="idman" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

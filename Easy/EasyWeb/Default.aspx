@@ -4,7 +4,7 @@
     <div class="jumbotron">
         <h1>Easy</h1>
         <h2>Servizio Web</h2>
-        <p>Se non si dovesse aprire la pagina di login consultare le <a href="EasyWeb Impostazioni Browser.pdf">istruzioni</a> per l'abilitazione dei popup</p>
+        <p>Se non si dovesse aprire la pagina di login consultare le istruzioni per la configurazione del browser</p>
     </div>
 
     <div>

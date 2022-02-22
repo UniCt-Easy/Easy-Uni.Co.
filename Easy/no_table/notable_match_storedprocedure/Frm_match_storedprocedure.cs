@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -30,7 +29,7 @@ using System.Diagnostics;
 
 //rpt_bilconsuntivo_new 2012,'31-12-2012','S',3,'0001','S','S','S','S'
 namespace notable_match_storedprocedure{
-    public partial class Frm_match_storedprocedure : Form{
+    public partial class Frm_match_storedprocedure : MetaDataForm {
 
         private static long tot_elapsed_old;
         private static long tot_elapsed_new;
@@ -76,7 +75,7 @@ namespace notable_match_storedprocedure{
                 tot_elapsed_old = tot_elapsed_old + Stop1;
 
                 if (T1 == null){
-                    MessageBox.Show("La vecchia SP non esiste o presenta errori in esecuzione. La query eseguita è stata " + query1);
+                    show("La vecchia SP non esiste o presenta errori in esecuzione. La query eseguita è stata " + query1);
                     return;
                 }
 
@@ -87,7 +86,7 @@ namespace notable_match_storedprocedure{
                     T1.AcceptChanges();
                 }
                 if (T1.Rows.Count == 0)
-                MessageBox.Show("La vecchia SP non ha restituito righe");
+                show("La vecchia SP non ha restituito righe");
 
                 string query2 = "exec " + nuovoNome + " " + currparam + " ";
 
@@ -99,7 +98,7 @@ namespace notable_match_storedprocedure{
                 long Stop2 = stop2.ElapsedMilliseconds;
                 tot_elapsed_new = tot_elapsed_new+Stop2;
                 if (T2 == null){
-                    MessageBox.Show("La nuova SP non esiste o presenta errori in esecuzione. La query eseguita è stata " + query2);
+                    show("La nuova SP non esiste o presenta errori in esecuzione. La query eseguita è stata " + query2);
                     return;
                 }
                 if ((T2.Rows.Count > 0) && (filternewSP.ToString() != "")){
@@ -110,7 +109,7 @@ namespace notable_match_storedprocedure{
                     T2.AcceptChanges();
                 }
                 if (T2.Rows.Count == 0){
-                    MessageBox.Show("La nuova SP non ha restituito righe");
+                    show("La nuova SP non ha restituito righe");
                 }
 
                 if (T1.Rows.Count > 0 && T2.Rows.Count > 0){
@@ -135,7 +134,7 @@ namespace notable_match_storedprocedure{
             tot_elapsed_new = tot_elapsed_new / 1000;
             txtTime2.Text = tot_elapsed_new.ToString();
             // Se i controlli hanno esito positivo le sp restituiscono lo stesso risultato
-            MessageBox.Show("Le due sp restituiscono lo stesso risultato per tutte le combinazioni di parametri indicate.");
+            show("Le due sp restituiscono lo stesso risultato per tutte le combinazioni di parametri indicate.");
 
         }
 
@@ -143,7 +142,7 @@ namespace notable_match_storedprocedure{
         public bool ConfrontoconSuccesso(DataTable T1, DataTable T2, string currparam){
             // Confronta il numero di righe
             if (T1.Rows.Count != T2.Rows.Count){
-                MessageBox.Show("Con la combinazione di parametri  " + currparam +
+                show("Con la combinazione di parametri  " + currparam +
                         "Le due sp restituiscono un diverso numero di righe.");
                 txtParamOld.Text = currparam;
                 txtParamNew.Text = currparam;
@@ -152,7 +151,7 @@ namespace notable_match_storedprocedure{
             }
             // Confronta il numero di colonne
             if (T1.Columns.Count != T2.Columns.Count){
-                MessageBox.Show("Con la combinazione di parametri  " + currparam +
+                show("Con la combinazione di parametri  " + currparam +
                         "Le due sp restituiscono un diverso numero di colonne.");
                 txtParamOld.Text = currparam;
                 txtParamNew.Text = currparam;
@@ -167,7 +166,7 @@ namespace notable_match_storedprocedure{
                     if ((T1.Columns.Contains(f)) && (T2.Columns.Contains(f))){
                         //Confronta i valori campo per campo
                         if (T2.Columns[f].ToString() != T1.Columns[f].ToString()){
-                            MessageBox.Show("Con la combinazione di parametri  " + currparam +
+                            show("Con la combinazione di parametri  " + currparam +
                                 " i risultati delle due SP sono diversi");
                             txtParamOld.Text = currparam;
                             txtParamNew.Text = currparam;
@@ -177,7 +176,7 @@ namespace notable_match_storedprocedure{
                     }
                     else{
                         if (!(T1.Columns.Contains(f)) && !(T2.Columns.Contains(f))){
-                            MessageBox.Show("Con la combinazione di parametri  " + currparam +
+                            show("Con la combinazione di parametri  " + currparam +
                                 " risulta che la colonna " + f + " è assente in entrambe le SP");
                             txtParamOld.Text = currparam;
                             txtParamNew.Text = currparam;
@@ -185,7 +184,7 @@ namespace notable_match_storedprocedure{
                             return false;
                         }
                         if (!(T1.Columns.Contains(f))){
-                            MessageBox.Show("Con la combinazione di parametri  " + currparam +
+                            show("Con la combinazione di parametri  " + currparam +
                                 " risulta che la colonna " + f + " è assente nella vecchia SP");
                             txtParamOld.Text = currparam;
                             txtParamNew.Text = currparam;
@@ -193,7 +192,7 @@ namespace notable_match_storedprocedure{
                             return false;
                         }
                         if (!(T2.Columns.Contains(f))){
-                            MessageBox.Show("Con la combinazione di parametri  " + currparam +
+                            show("Con la combinazione di parametri  " + currparam +
                                 " risulta che la colonna " + f + " è assente nella nuova SP");
                             txtParamOld.Text = currparam;
                             txtParamNew.Text = currparam;
@@ -209,7 +208,7 @@ namespace notable_match_storedprocedure{
                     if (T2.Columns.Contains(C.ColumnName)){
                         //Confronta i valori campo per campo
                         if (T2.Columns[C.ColumnName].ToString() != T1.Columns[C.ColumnName].ToString()){
-                            MessageBox.Show("Con la combinazione di parametri  " + currparam +
+                            show("Con la combinazione di parametri  " + currparam +
                                 " i risultati delle due SP sono diversi");
                             txtParamOld.Text = currparam;
                             txtParamNew.Text = currparam;
@@ -218,7 +217,7 @@ namespace notable_match_storedprocedure{
                         }
                     }
                     else{
-                        MessageBox.Show("Con la combinazione di parametri  " + currparam +
+                        show("Con la combinazione di parametri  " + currparam +
                             " risulta che la colonna " + C.ColumnName + " è assente nella nuova SP");
                         txtParamOld.Text = currparam;
                         txtParamNew.Text = currparam;
@@ -255,4 +254,3 @@ namespace notable_match_storedprocedure{
     }
 }
 
-

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -29,14 +28,16 @@ using System.Collections;
 using funzioni_configurazione;
 
 namespace assetacquire_import {
-    public partial class FrmAssetAcquire_Import : Form {
+    public partial class FrmAssetAcquire_Import : MetaDataForm {
         MetaData Meta;
         DataSet dsFile;
         CQueryHelper QHC;
         QueryHelper QHS;
+        public IOpenFileDialog openFileDialog1;
 
         public FrmAssetAcquire_Import() {
             InitializeComponent();
+            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
         }
 
         public void MetaData_AfterLink() {
@@ -71,7 +72,7 @@ namespace assetacquire_import {
             progressBar1.Maximum = nPassi;
 
             if (txtFolder.Text == "") {
-                MessageBox.Show(this, "Non è stata scelta la cartella dove verrà salvato il file di log", "Errore");
+                show(this, "Non è stata scelta la cartella dove verrà salvato il file di log", "Errore");
                 return;
             }
 
@@ -87,7 +88,7 @@ namespace assetacquire_import {
                 aggiornaForm(testo);
             }
             catch (Exception) {
-                MessageBox.Show(this, "Errore nell'apertura del file! Processo Terminato");
+                show(this, "Errore nell'apertura del file! Processo Terminato");
                 return;
             }
             string codiceEnte = openFileDialog1.FileName;
@@ -99,7 +100,7 @@ namespace assetacquire_import {
             object idEnte = ottieniIdEnte(codiceEnte);
 
             if ((idEnte == null) || (idEnte == DBNull.Value)) {
-                MessageBox.Show(this, "Non esiste alcun ente inventariale con codice " + codiceEnte);
+                show(this, "Non esiste alcun ente inventariale con codice " + codiceEnte);
                 return;
             }
 
@@ -110,33 +111,33 @@ namespace assetacquire_import {
             // Metodi che aggiornano le tabelle importate con i valori che dovranno assumere
             // sul DB dell'amministrazione centrale
             if (!assegnaCodiceAnagrafica()) {
-                MessageBox.Show(this, "Errore nell'assegnazione dei codici anagrafici");
+                show(this, "Errore nell'assegnazione dei codici anagrafici");
                 return;
             }
 
             // Attenzione! Essendo cambiata la chiave del buono di carico, devo calcolarlo subito
             // in quanto è chiave esterna x le altre tabelle
             if (!assegnaValoriBuonoCarico()) {
-                MessageBox.Show(this, "Errore nell'assegnazione dei buoni di carico");
+                show(this, "Errore nell'assegnazione dei buoni di carico");
                 return;
             }
 
             if (!assegnaValoriBuonoScarico()) {
-                MessageBox.Show(this, "Errore nell'assegnazione dei buoni di scarico");
+                show(this, "Errore nell'assegnazione dei buoni di scarico");
                 return;
             }
 
             if (!assegnaValoriCaricoBene()) {
-                MessageBox.Show(this, "Errore nell'assegnazione dei carichi cespiti");
+                show(this, "Errore nell'assegnazione dei carichi cespiti");
                 return;
             }
             if (!assegnaValoriBeniRimanenti()) {
-                MessageBox.Show(this, "Errore nell'assegnazione dei cespiti rimanenti");
+                show(this, "Errore nell'assegnazione dei cespiti rimanenti");
                 return;
             }
 
             if (!assegnaValoriRivalutazioneBene()) {
-                MessageBox.Show(this, "Errore nell'assegnazione delle rivalutazioni/svalutazioni dei cespiti");
+                show(this, "Errore nell'assegnazione delle rivalutazioni/svalutazioni dei cespiti");
                 return;
             }
 
@@ -387,7 +388,7 @@ namespace assetacquire_import {
                         rCaricoDip["idinventory_ac"] = idInventory;
                     }
                     else {
-                        MessageBox.Show(this, "Sezione Carico Cespite\nCodifica dell'inventario assente");
+                        show(this, "Sezione Carico Cespite\nCodifica dell'inventario assente");
                         return false;
                     }
                 }
@@ -398,7 +399,7 @@ namespace assetacquire_import {
                         rCaricoDip["idinv_ac"] = idInv;
                     }
                     else {
-                        MessageBox.Show(this, "Sezione Carico Cespite\nCodifica della class. inventariale assente");
+                        show(this, "Sezione Carico Cespite\nCodifica della class. inventariale assente");
                         return false;
                     }
                 }
@@ -409,7 +410,7 @@ namespace assetacquire_import {
                         rCaricoDip["idmot_ac"] = idMot;
                     }
                     else {
-                        MessageBox.Show(this, "Sezione Carico Cespite\nCodifica della causale assente");
+                        show(this, "Sezione Carico Cespite\nCodifica della causale assente");
                         return false;
                     }
                 }
@@ -423,12 +424,12 @@ namespace assetacquire_import {
                             rCaricoDip["idassetload_ac"] = rBuono["idassetload"];
                         }
                         else {
-                            MessageBox.Show(this, "Sezione Carico Cespite\nCodifica del buono di carico assente");
+                            show(this, "Sezione Carico Cespite\nCodifica del buono di carico assente");
                             return false;
                         }
                     }
                     else {
-                        MessageBox.Show(this, "Sezione Carico Cespite\nCodifica del buono di carico assente");
+                        show(this, "Sezione Carico Cespite\nCodifica del buono di carico assente");
                         return false;
                     }
                 }
@@ -457,7 +458,7 @@ namespace assetacquire_import {
                     nCaricoLibero++;
 
                     if (!assegnaValoriBeneDaCaricoNuovo(rCaricoDip)) {
-                        MessageBox.Show(this, "Errore nell'assegnazione del carico cespite ai cespiti dipendenti",
+                        show(this, "Errore nell'assegnazione del carico cespite ai cespiti dipendenti",
                             "Errore");
                         return false;
                     }
@@ -468,7 +469,7 @@ namespace assetacquire_import {
 
                     int nCaricoDip = CfgFn.GetNoNullInt32(isNull(rCaricoDip["nassetacquire"], 0));
                     if (!assegnaValoriBeneDaCarico(nCaricoBeneAC, nCaricoDip)) {
-                        MessageBox.Show(this, "Errore nell'assegnazione del numero di carico al cespite associato",
+                        show(this, "Errore nell'assegnazione del numero di carico al cespite associato",
                             "Errore");
                         return false;
                     }
@@ -680,7 +681,7 @@ namespace assetacquire_import {
                         rBene["idinventory_ac"] = idInventory;
                     }
                     else {
-                        MessageBox.Show(this, "Sezione Cespite\nCodifica dell'inventario assente");
+                        show(this, "Sezione Cespite\nCodifica dell'inventario assente");
                         return false;
                     }
                 }
@@ -735,7 +736,7 @@ namespace assetacquire_import {
                     null, filtroBene, null, true);
 
                 if (tAssetTemp == null) {
-                    MessageBox.Show(this, "Errore nell'estrazione dei dati da assetview", "Errore");
+                    show(this, "Errore nell'estrazione dei dati da assetview", "Errore");
                     return false;
                 }
                 string fCespite = "";
@@ -815,7 +816,7 @@ namespace assetacquire_import {
                             rBene["nassetacquire_ac"] = Asset[0]["nassetacquire"];
                         }
                         else {
-                            MessageBox.Show(this, "Attenzione non è stato individuato il carico associato al cespite");
+                            show(this, "Attenzione non è stato individuato il carico associato al cespite");
                             return false;
                         }
                     }
@@ -842,7 +843,7 @@ namespace assetacquire_import {
                         rRivalutazione["idinventoryamortization_ac"] = idInventoryAmortization;
                     }
                     else {
-                        MessageBox.Show(this, "Sezione Ammortamento\nNon è presente il codice dell'ammortamento, procedura interrotta!");
+                        show(this, "Sezione Ammortamento\nNon è presente il codice dell'ammortamento, procedura interrotta!");
                         return false;
                     }
                 }
@@ -860,12 +861,12 @@ namespace assetacquire_import {
                             rRivalutazione["idassetunload_ac"] = rBuono["idassetunload"];
                         }
                         else {
-                            MessageBox.Show(this, "Sezione Ammortamento\nCodifica del buono di scarico assente");
+                            show(this, "Sezione Ammortamento\nCodifica del buono di scarico assente");
                             return false;
                         }
                     }
                     else {
-                        MessageBox.Show(this, "Sezione Ammortamento\nNon è presente il codice del buono di scarico, procedura interrotta!");
+                        show(this, "Sezione Ammortamento\nNon è presente il codice del buono di scarico, procedura interrotta!");
                         return false;
                     }
                 }
@@ -919,7 +920,7 @@ namespace assetacquire_import {
 
                 DataTable tAssetAmortization = Meta.Conn.SQLRunner(querySQL);
                 if (tAssetAmortization == null) {
-                    MessageBox.Show(this, "Errore nell'estrazione dei dati per la tabella ASSETAMORTIZATION", "Errore");
+                    show(this, "Errore nell'estrazione dei dati per la tabella ASSETAMORTIZATION", "Errore");
                     return false;
                 }
                 if (tAssetAmortization.Rows.Count > 0) {
@@ -952,7 +953,7 @@ namespace assetacquire_import {
                     QHS.CmpEq("ninventory", rRivalutazione["!ninventory"]));
                     DataTable tAsset = Meta.Conn.SQLRunner(q2);
                     if (tAsset == null) {
-                        MessageBox.Show(this, "Errore nell'estrazione dei dati per la tabella ASSET per ASSETAMORTIZATION", "Errore");
+                        show(this, "Errore nell'estrazione dei dati per la tabella ASSET per ASSETAMORTIZATION", "Errore");
                         return false;
                     }
                     rRivalutazione["namortization_ac"] = nRivalutazioneLibero;
@@ -998,7 +999,7 @@ namespace assetacquire_import {
                         rBuono["idassetloadkind_ac"] = idAssetLoadKind;
                     }
                     else {
-                        MessageBox.Show(this, "Sezione Buono Carico\nCodifica Buono assente");
+                        show(this, "Sezione Buono Carico\nCodifica Buono assente");
                         return false;
                     }
                 }
@@ -1009,7 +1010,7 @@ namespace assetacquire_import {
                         rBuono["idmot_ac"] = idMot;
                     }
                     else {
-                        MessageBox.Show(this, "Sezione Buono Carico\nCodifica Causale di carico assente");
+                        show(this, "Sezione Buono Carico\nCodifica Causale di carico assente");
                         return false;
                     }
                 }
@@ -1094,7 +1095,7 @@ namespace assetacquire_import {
                         rBuono["idassetunloadkind_ac"] = idAssetUnloadKind;
                     }
                     else {
-                        MessageBox.Show(this, "Sezione Buono Scarico\nCodifica Buono assente");
+                        show(this, "Sezione Buono Scarico\nCodifica Buono assente");
                         return false;
                     }
                 }
@@ -1105,7 +1106,7 @@ namespace assetacquire_import {
                         rBuono["idmot_ac"] = idMot;
                     }
                     else {
-                        MessageBox.Show(this, "Sezione Buono Scarico\nCodifica Causale di scarico assente");
+                        show(this, "Sezione Buono Scarico\nCodifica Causale di scarico assente");
                         return false;
                     }
                 }
@@ -1233,7 +1234,7 @@ namespace assetacquire_import {
             if (dsFile.Tables.Contains("assetacquire")) {
                 if (!travasaCaricoBene(tw, out errMess)) {
                     tw.Close();
-                    MessageBox.Show(this, errMess);
+                    show(this, errMess);
                     return false;
                 }
             }
@@ -1241,7 +1242,7 @@ namespace assetacquire_import {
             if (dsFile.Tables.Contains("assetload")) {
                 if (!travasaBuonoCarico(tw, out errMess)) {
                     tw.Close();
-                    MessageBox.Show(this, errMess);
+                    show(this, errMess);
                     return false;
                 }
             }
@@ -1249,7 +1250,7 @@ namespace assetacquire_import {
             if (dsFile.Tables.Contains("assetunload")) {
                 if (!travasaBuonoScarico(tw, out errMess)) {
                     tw.Close();
-                    MessageBox.Show(this, errMess);
+                    show(this, errMess);
                     return false;
                 }
             }
@@ -1257,7 +1258,7 @@ namespace assetacquire_import {
             if (dsFile.Tables.Contains("assetamortization")) {
                 if (!travasaRivalutazioneBene(tw, out errMess)) {
                     tw.Close();
-                    MessageBox.Show(this, errMess);
+                    show(this, errMess);
                     return false;
                 }
             }
@@ -1265,7 +1266,7 @@ namespace assetacquire_import {
             if (dsFile.Tables.Contains("asset")) {
                 if (!travasaBeneInventariabile(tw, out errMess)) {
                     tw.Close();
-                    MessageBox.Show(this, errMess);
+                    show(this, errMess);
                     return false;
                 }
             }
@@ -1273,7 +1274,7 @@ namespace assetacquire_import {
             if (dsFile.Tables.Contains("registry")) {
                 if (!travasaAnagrafica(tw, out errMess)) {
                     tw.Close();
-                    MessageBox.Show(this, errMess);
+                    show(this, errMess);
                     return false;
                 }
             }
@@ -1367,7 +1368,7 @@ namespace assetacquire_import {
                     else {
                         string adviceMsg = "Il Carico Cespite" + rAC["nassetacquire"]
                         + " risulta già modificato e quindi non sarà aggiornato!";
-                        MessageBox.Show(this, adviceMsg, "Avvertimento");
+                        show(this, adviceMsg, "Avvertimento");
                     }
                 }
             }
@@ -1465,7 +1466,7 @@ namespace assetacquire_import {
                         string adviceMsg = "Il Buono di Carico " + rBuonoCarico["!codeassetloadkind"]
                         + " n. " + rAC["yassetload"] + "/" + rAC["nassetload"]
                         + " risulta già modificato e quindi non sarà aggiornato!";
-                        MessageBox.Show(this, adviceMsg, "Avvertimento");
+                        show(this, adviceMsg, "Avvertimento");
                     }
                 }
             }
@@ -1535,7 +1536,7 @@ namespace assetacquire_import {
                         string adviceMsg = "Il Buono di Scarico " + rBuonoScarico["!codeassetunloadkind"]
                         + " n. " + rAC["yassetunload"] + "/" + rAC["nassetunload"]
                         + " risulta già modificato e quindi non sarà aggiornato!";
-                        MessageBox.Show(this, adviceMsg, "Avvertimento");
+                        show(this, adviceMsg, "Avvertimento");
                     }
                 }
             }
@@ -1607,7 +1608,7 @@ namespace assetacquire_import {
                     else {
                         string adviceMsg = "La rivalutazione/svalutazione" + rAC["namortization"]
                         + " risulta già modificata e quindi non sarà aggiornata!";
-                        MessageBox.Show(this, adviceMsg, "Avvertimento");
+                        show(this, adviceMsg, "Avvertimento");
                     }
                 }
             }
@@ -1633,7 +1634,7 @@ namespace assetacquire_import {
                     string filtroCarico = QHC.CmpEq("nassetacquire", rBeneInv["nassetacquire"]);
                     DataRow [] Carico = dsFile.Tables["assetacquire"].Select(filtroCarico);
                     if (Carico.Length == 0) {
-                        MessageBox.Show(this, "Il cespite non ha un carico corrispondente!", "Errore");
+                        show(this, "Il cespite non ha un carico corrispondente!", "Errore");
                         return false;
                     }
                     DataRow newRow = dsImporta.Tables[tableName].NewRow();
@@ -1656,7 +1657,7 @@ namespace assetacquire_import {
                     // Il campo ninventory deve essere valorizzato solo nel caso di cespite principale e non per gli accessori
                     int numParte = CfgFn.GetNoNullInt32(rBeneInv["idpiece_ac"]);
                     if (numParte == 0) {
-                        MessageBox.Show(this, "Errore critico n. accessorio non valorizzato");
+                        show(this, "Errore critico n. accessorio non valorizzato");
                         return false;
                     }
                     if (numParte == 1) {
@@ -1690,7 +1691,7 @@ namespace assetacquire_import {
                         string adviceMsg = "Il Cespite n. " + rAC["idasset"]
                         + "/" + rAC["idpiece"]
                         + " risulta già modificato e quindi non sarà aggiornato!";
-                        MessageBox.Show(this, adviceMsg, "Avvertimento");
+                        show(this, adviceMsg, "Avvertimento");
                     }
                 }
             }
@@ -1747,7 +1748,7 @@ namespace assetacquire_import {
                 return fs;
             }
             catch (Exception ex) {
-                MessageBox.Show(this, "Errore nella creazione del file di log. Operazione Interrotta!" + ex.Message);
+                show(this, "Errore nella creazione del file di log. Operazione Interrotta!" + ex.Message);
             }
             return null;
         }
@@ -1771,12 +1772,12 @@ namespace assetacquire_import {
             PostData pd = new PostData();
             pd.InitClass(dsImporta, Meta.Conn);
             if (!pd.DO_POST()) {
-                MessageBox.Show(this, "Errore in fase di salvataggio dei dati. Procedura annullata");
+                show(this, "Errore in fase di salvataggio dei dati. Procedura annullata");
                 return;
             }
             string messaggio = "Procedura terminata correttamente!\nSi consiglia, prima di procedere con un altra "
                 + "importazione, di controllare la correttezza dei dati inseriti.\n";
-            MessageBox.Show(this, messaggio);
+            show(this, messaggio);
         }
         #endregion
 
@@ -1793,4 +1794,4 @@ namespace assetacquire_import {
             }
         }
     }
-}
+}

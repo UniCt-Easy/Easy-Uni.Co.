@@ -1,26 +1,28 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using metadatalibrary;
 #pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_assetload {
 public class assetloadRow: MetaRow  {
 	public assetloadRow(DataRowBuilder rb) : base(rb) {} 
@@ -29,30 +31,30 @@ public class assetloadRow: MetaRow  {
 	///<summary>
 	///Num. buono
 	///</summary>
-	public Int32? nassetload{ 
-		get {if (this["nassetload"]==DBNull.Value)return null; return  (Int32?)this["nassetload"];}
-		set {if (value==null) this["nassetload"]= DBNull.Value; else this["nassetload"]= value;}
+	public Int32 nassetload{ 
+		get {return  (Int32)this["nassetload"];}
+		set {this["nassetload"]= value;}
 	}
 	public object nassetloadValue { 
 		get{ return this["nassetload"];}
-		set {if (value==null|| value==DBNull.Value) this["nassetload"]= DBNull.Value; else this["nassetload"]= value;}
+		set {this["nassetload"]= value;}
 	}
-	public Int32? nassetloadOriginal { 
-		get {if (this["nassetload",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["nassetload",DataRowVersion.Original];}
+	public Int32 nassetloadOriginal { 
+		get {return  (Int32)this["nassetload",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Eserc. buono
 	///</summary>
-	public Int16? yassetload{ 
-		get {if (this["yassetload"]==DBNull.Value)return null; return  (Int16?)this["yassetload"];}
-		set {if (value==null) this["yassetload"]= DBNull.Value; else this["yassetload"]= value;}
+	public Int16 yassetload{ 
+		get {return  (Int16)this["yassetload"];}
+		set {this["yassetload"]= value;}
 	}
 	public object yassetloadValue { 
 		get{ return this["yassetload"];}
-		set {if (value==null|| value==DBNull.Value) this["yassetload"]= DBNull.Value; else this["yassetload"]= value;}
+		set {this["yassetload"]= value;}
 	}
-	public Int16? yassetloadOriginal { 
-		get {if (this["yassetload",DataRowVersion.Original]==DBNull.Value)return null; return  (Int16?)this["yassetload",DataRowVersion.Original];}
+	public Int16 yassetloadOriginal { 
+		get {return  (Int16)this["yassetload",DataRowVersion.Original];}
 	}
 	///<summary>
 	///data contabile
@@ -71,30 +73,30 @@ public class assetloadRow: MetaRow  {
 	///<summary>
 	///data creazione
 	///</summary>
-	public DateTime? ct{ 
-		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
-		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
+	public DateTime ct{ 
+		get {return  (DateTime)this["ct"];}
+		set {this["ct"]= value;}
 	}
 	public object ctValue { 
 		get{ return this["ct"];}
-		set {if (value==null|| value==DBNull.Value) this["ct"]= DBNull.Value; else this["ct"]= value;}
+		set {this["ct"]= value;}
 	}
-	public DateTime? ctOriginal { 
-		get {if (this["ct",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["ct",DataRowVersion.Original];}
+	public DateTime ctOriginal { 
+		get {return  (DateTime)this["ct",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome utente creazione
 	///</summary>
 	public String cu{ 
-		get {if (this["cu"]==DBNull.Value)return null; return  (String)this["cu"];}
-		set {if (value==null) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		get {return  (String)this["cu"];}
+		set {this["cu"]= value;}
 	}
 	public object cuValue { 
 		get{ return this["cu"];}
-		set {if (value==null|| value==DBNull.Value) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		set {this["cu"]= value;}
 	}
 	public String cuOriginal { 
-		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
+		get {return  (String)this["cu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Descrizione
@@ -183,30 +185,30 @@ public class assetloadRow: MetaRow  {
 	///<summary>
 	///data ultima modifica
 	///</summary>
-	public DateTime? lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
-		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
+	public DateTime lt{ 
+		get {return  (DateTime)this["lt"];}
+		set {this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
-		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
+		set {this["lt"]= value;}
 	}
-	public DateTime? ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
+	public DateTime ltOriginal { 
+		get {return  (DateTime)this["lt",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome ultimo utente modifica
 	///</summary>
 	public String lu{ 
-		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
-		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		get {return  (String)this["lu"];}
+		set {this["lu"]= value;}
 	}
 	public object luValue { 
 		get{ return this["lu"];}
-		set {if (value==null|| value==DBNull.Value) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		set {this["lu"]= value;}
 	}
 	public String luOriginal { 
-		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
+		get {return  (String)this["lu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Data stampa
@@ -295,30 +297,30 @@ public class assetloadRow: MetaRow  {
 	///<summary>
 	///ID Tipi di buoni di carico (tabella assetloadkind)
 	///</summary>
-	public Int32? idassetloadkind{ 
-		get {if (this["idassetloadkind"]==DBNull.Value)return null; return  (Int32?)this["idassetloadkind"];}
-		set {if (value==null) this["idassetloadkind"]= DBNull.Value; else this["idassetloadkind"]= value;}
+	public Int32 idassetloadkind{ 
+		get {return  (Int32)this["idassetloadkind"];}
+		set {this["idassetloadkind"]= value;}
 	}
 	public object idassetloadkindValue { 
 		get{ return this["idassetloadkind"];}
-		set {if (value==null|| value==DBNull.Value) this["idassetloadkind"]= DBNull.Value; else this["idassetloadkind"]= value;}
+		set {this["idassetloadkind"]= value;}
 	}
-	public Int32? idassetloadkindOriginal { 
-		get {if (this["idassetloadkind",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idassetloadkind",DataRowVersion.Original];}
+	public Int32 idassetloadkindOriginal { 
+		get {return  (Int32)this["idassetloadkind",DataRowVersion.Original];}
 	}
 	///<summary>
 	///id buono carico (tabella assetload)
 	///</summary>
-	public Int32? idassetload{ 
-		get {if (this["idassetload"]==DBNull.Value)return null; return  (Int32?)this["idassetload"];}
-		set {if (value==null) this["idassetload"]= DBNull.Value; else this["idassetload"]= value;}
+	public Int32 idassetload{ 
+		get {return  (Int32)this["idassetload"];}
+		set {this["idassetload"]= value;}
 	}
 	public object idassetloadValue { 
 		get{ return this["idassetload"];}
-		set {if (value==null|| value==DBNull.Value) this["idassetload"]= DBNull.Value; else this["idassetload"]= value;}
+		set {this["idassetload"]= value;}
 	}
-	public Int32? idassetloadOriginal { 
-		get {if (this["idassetload",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idassetload",DataRowVersion.Original];}
+	public Int32 idassetloadOriginal { 
+		get {return  (Int32)this["idassetload",DataRowVersion.Original];}
 	}
 	#endregion
 
@@ -329,29 +331,28 @@ public class assetloadRow: MetaRow  {
 public class assetloadTable : MetaTableBase<assetloadRow> {
 	public assetloadTable() : base("assetload"){
 		baseColumns = new Dictionary<string, DataColumn>(){
-			{"nassetload",createColumn("nassetload",typeof(Int32),false,false)},
-			{"yassetload",createColumn("yassetload",typeof(Int16),false,false)},
+			{"nassetload",createColumn("nassetload",typeof(int),false,false)},
+			{"yassetload",createColumn("yassetload",typeof(short),false,false)},
 			{"adate",createColumn("adate",typeof(DateTime),true,false)},
 			{"ct",createColumn("ct",typeof(DateTime),false,false)},
-			{"cu",createColumn("cu",typeof(String),false,false)},
-			{"description",createColumn("description",typeof(String),true,false)},
-			{"doc",createColumn("doc",typeof(String),true,false)},
+			{"cu",createColumn("cu",typeof(string),false,false)},
+			{"description",createColumn("description",typeof(string),true,false)},
+			{"doc",createColumn("doc",typeof(string),true,false)},
 			{"docdate",createColumn("docdate",typeof(DateTime),true,false)},
-			{"enactment",createColumn("enactment",typeof(String),true,false)},
+			{"enactment",createColumn("enactment",typeof(string),true,false)},
 			{"enactmentdate",createColumn("enactmentdate",typeof(DateTime),true,false)},
-			{"idreg",createColumn("idreg",typeof(Int32),true,false)},
+			{"idreg",createColumn("idreg",typeof(int),true,false)},
 			{"lt",createColumn("lt",typeof(DateTime),false,false)},
-			{"lu",createColumn("lu",typeof(String),false,false)},
+			{"lu",createColumn("lu",typeof(string),false,false)},
 			{"printdate",createColumn("printdate",typeof(DateTime),true,false)},
 			{"ratificationdate",createColumn("ratificationdate",typeof(DateTime),true,false)},
 			{"rtf",createColumn("rtf",typeof(Byte[]),true,false)},
-			{"txt",createColumn("txt",typeof(String),true,false)},
-			{"transmitted",createColumn("transmitted",typeof(String),true,false)},
-			{"idmot",createColumn("idmot",typeof(Int32),true,false)},
-			{"idassetloadkind",createColumn("idassetloadkind",typeof(Int32),false,false)},
-			{"idassetload",createColumn("idassetload",typeof(Int32),false,false)},
+			{"txt",createColumn("txt",typeof(string),true,false)},
+			{"transmitted",createColumn("transmitted",typeof(string),true,false)},
+			{"idmot",createColumn("idmot",typeof(int),true,false)},
+			{"idassetloadkind",createColumn("idassetloadkind",typeof(int),false,false)},
+			{"idassetload",createColumn("idassetload",typeof(int),false,false)},
 		};
 	}
 }
 }
-

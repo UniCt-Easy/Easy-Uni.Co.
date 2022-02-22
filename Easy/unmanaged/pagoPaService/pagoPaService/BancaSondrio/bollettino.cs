@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing PdfSharp.Drawing;
+
+using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
 using System;
@@ -168,7 +167,7 @@ namespace BancaSondrio {
                     };
                     var textEntePosition = new XPoint(xLogoEnte + logoImage.PointWidth, 
                                 yLogoEnte);
-                    grTextEnte.DrawString(ente, new Font("Times New Roman", 10), //12  √® il font in point
+                    grTextEnte.DrawString(ente, new Font("Times New Roman", 10), //12  Ë il font in point
                             Brushes.Black, new Rectangle(0, 0, txtEnteImage.Width, txtEnteImage.Height),
                             format);
                     grTextEnte.Flush();
@@ -259,11 +258,11 @@ namespace BancaSondrio {
 
             try {
                 doc.Save(nomeCompletoFilePdf);
-                //MessageBox.Show("Salvataggio effettuato");
+                //MetaFactory.factory.getSingleton<IMessageShower>().Show("Salvataggio effettuato");
             }
             catch (Exception e) {
                 /* QueryCreator.ShowError(this, "E*/
-                // rrore salvando il file, probabilmente il file √® gi√† aperto.", e.ToString());
+                // rrore salvando il file, probabilmente il file Ë gi‡ aperto.", e.ToString());
             }
 
             //Process p = new Process();
@@ -288,4 +287,3 @@ namespace BancaSondrio {
 
 }
 
-

@@ -1,23 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-Ôªøusing System;
+using System;
 using System.Collections;
 using System.Configuration;
 using System.Data;
@@ -64,15 +62,12 @@ public partial class MetaMasterBootstrap: System.Web.UI.MasterPage, MetaPageMast
             myIsClientRejectRules = true;
     }
 
-    public void setUniversita(string nome) {
-        lblNomeUniversita.Text = nome;
-    }
     public void Page_Load(object sender, EventArgs e) {
         ReleaseMessages();
         //Carico gli eventi JavaScript che sostituiscono le immagini dei pulsanti del Menu.
         //Questi eventi vengono eseguiti lato client
 
-        lblNomeUniversita.Text = Session["system_config_nome_universita"] as string;
+        //lblNomeUniversita.Text = Session["system_config_nome_universita"] as string;
         //Eventi lato server
         //Gli eventi OnClick degli ImageButton che verranno eseguiti sul server,
         //devono essere aggiunti nel codice ASPX altrimenti non partono.
@@ -111,10 +106,10 @@ public partial class MetaMasterBootstrap: System.Web.UI.MasterPage, MetaPageMast
             lblRuolo.Text = Session["SavedFlowChart"].ToString();
 
         if ((Session["Dipartimento"] == null) || (Session["Dipartimento"].ToString() == "")) {
-            lblNomeUniversita.Visible = false;
+            //lblNomeUniversita.Visible = false;
             lblDipartimento.Visible = false;
             CPH_InfoUtente.Visible = false;
-            //Dovrei nascondere anche il logo, ma attualmente √® un Html Control, dunque non visibile da C#
+            //Dovrei nascondere anche il logo, ma attualmente Ë un Html Control, dunque non visibile da C#
             //Va sostituito con un controllo ASP, in modo che possa gestirlo da codice, e dunque implementare 
             //il caricamento personalizzato dell'immagine del logo.
         }
@@ -122,6 +117,11 @@ public partial class MetaMasterBootstrap: System.Web.UI.MasterPage, MetaPageMast
             lblDipartimento.Text = Session["Dipartimento"].ToString();
             CPH_InfoUtente.Visible = true;
         }
+
+        if (Session["nome_universita"] != null) {
+            lblNomeUniversita.Text = Session["nome_universita"].ToString();
+        }
+
         //ImageButton5.Attributes.Add("onmouseover", "alert('ciao');");
 
 
@@ -250,7 +250,7 @@ public partial class MetaMasterBootstrap: System.Web.UI.MasterPage, MetaPageMast
 
 
     ///// <summary>
-    ///// Disabilita tutti i textbox presenti in un contenitore e aggiunge quelli gi√† disabilitati a List
+    ///// Disabilita tutti i textbox presenti in un contenitore e aggiunge quelli gi‡ disabilitati a List
     ///// </summary>
     ///// <param name="Parent">Container control</param>
     ///// <param name="List">List of controls which were already disabled</param>
@@ -408,10 +408,12 @@ public partial class MetaMasterBootstrap: System.Web.UI.MasterPage, MetaPageMast
     void FillGridWithRules(hwDataGridWeb G, ProcedureMessageCollection PMC) {
         DataSet D = new DataSet("Nino");
         DataTable T = new DataTable("errori");
+        T.Columns.Add("flagsystem", typeof(string));
+        T.Columns["flagsystem"].Caption = "Note";
         T.Columns.Add("msg", typeof(string));
         T.Columns["msg"].Caption = "Messaggio di errore";
         T.Columns.Add("kind", typeof(string));
-        T.Columns["kind"].Caption = "Gravit√†";
+        T.Columns["kind"].Caption = "Gravit‡";
         T.Columns.Add("codice", typeof(string));
         T.Columns["codice"].Caption = "Codice";
         //T.Columns.Add("table", typeof(string));
@@ -425,8 +427,15 @@ public partial class MetaMasterBootstrap: System.Web.UI.MasterPage, MetaPageMast
 
         foreach (EasyProcedureMessage CM in PMC) {
             System.Data.DataRow R = T.NewRow();
+            if (CM.flagsystem) {
+                R["flagsystem"] = "S";
+            }
+            else {
+                R["flagsystem"] = "Regola NON di SISTEMA";
+            }
             string m = ConvertCarriages(CM.LongMess);
             R["msg"] = m;
+            
             if (CM.ErrorType != null)
                 R["kind"] = CM.ErrorType;
             if (CM.AuditID != null)
@@ -602,4 +611,3 @@ public partial class MetaMasterBootstrap: System.Web.UI.MasterPage, MetaPageMast
 
 
 }
-

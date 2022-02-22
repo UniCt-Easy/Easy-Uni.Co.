@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -34,7 +33,7 @@ namespace proceedstransmission_generazioneautomatica {//trasmdocincasso_gener_au
 	/// Author: Leo, start 12 Dec 2002 end 13 Dec 2002
 	/// Revised By NIno on 9/2/2003 (removed 2 SqlDataAdapters)
 	/// </summary>
-	public class Frm_proceedstransmission_generazioneautomatica : System.Windows.Forms.Form {
+	public class Frm_proceedstransmission_generazioneautomatica : MetaDataForm {
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.GroupBox groupBox1;
@@ -503,7 +502,7 @@ namespace proceedstransmission_generazioneautomatica {//trasmdocincasso_gener_au
 			
 		private void CollegaRigheADocumento(){
 			if (TempTable.Rows.Count==0){
-				MessageBox.Show("Non ci sono reversali di incasso da elaborare");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non ci sono reversali di incasso da elaborare");
 				btnSuccessivo.Enabled=false;
 				grpConferma.Enabled=false;
 				return;
@@ -645,4 +644,4 @@ namespace proceedstransmission_generazioneautomatica {//trasmdocincasso_gener_au
 			if (DS.proceeds.Rows.Count==0) DS.proceedstransmission.AcceptChanges();
 		}
 	}
-}
+}

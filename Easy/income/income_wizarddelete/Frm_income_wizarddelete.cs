@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -29,7 +28,7 @@ namespace income_wizarddelete {//entratawizardelimina//
 	/// <summary>
 	/// Summary description for FrmEntrataWizardElimina.
 	/// </summary>
-	public class Frm_income_wizarddelete : System.Windows.Forms.Form {
+	public class Frm_income_wizarddelete : MetaDataForm {
 		private Crownwood.Magic.Controls.TabControl tabController;
 		private Crownwood.Magic.Controls.TabPage tabIntro;
 		private System.Windows.Forms.Label label25;
@@ -1050,7 +1049,9 @@ namespace income_wizarddelete {//entratawizardelimina//
 
                 if (fase == faseentratamax)
                     AddVociFiglieWhereEmpty(DS.incomelast, filter);
-
+                
+                if (fase == faseentratamax)
+                    AddVociFiglieWhereEmpty(DS.incomelastestimatedetail, filter);
 
                 if (fase == faseivaentrata)
                     AddVociFiglieWhereEmpty(DS.incomeinvoice, filter);
@@ -1074,6 +1075,7 @@ namespace income_wizarddelete {//entratawizardelimina//
 			DS.incomeinvoice.Clear();
             DS.expenselast.Clear();
             DS.incomelast.Clear();
+            DS.incomelastestimatedetail.Clear();
             DS.estimate.Clear();
             DS.incomeestimate.Clear();
             DS.underwritingappropriation.Clear();
@@ -1191,7 +1193,7 @@ namespace income_wizarddelete {//entratawizardelimina//
 
 		bool GetMovimentoSelezionato(){
 			if (txtNumeroMovimento.Text.Trim()==""){
-				MessageBox.Show("Selezionare un movimento per procedere");
+				show("Selezionare un movimento per procedere");
 				return false;
 			}
 			string filter= GetFasePrecFilter(true);
@@ -1210,7 +1212,7 @@ namespace income_wizarddelete {//entratawizardelimina//
 		bool doDelete(){
 			DataTable []ToDelete = new DataTable[]{
 													  DS.expenseclawback, DS.expensetax,  DS.incomesorted, DS.expensesorted,
-													  DS.incomeinvoice,
+													  DS.incomeinvoice, DS.incomelastestimatedetail,
                                                       DS.incomelast, DS.expenselast, DS.incomeestimate, 
 													  DS.incomeyear,DS.expenseyear,
 													  DS.incomevar,DS.expensevar, DS.creditpart,DS.proceedspart,
@@ -1224,7 +1226,7 @@ namespace income_wizarddelete {//entratawizardelimina//
 			PostData Post = Meta.Get_PostData();
 			Post.InitClass(DS,Conn);
 			bool res= Post.DO_POST();
-			if (res)MessageBox.Show("Cancellazione eseguita con successo.");
+			if (res) show("Cancellazione eseguita con successo.");
 			return res;
 		}
 
@@ -1333,4 +1335,4 @@ namespace income_wizarddelete {//entratawizardelimina//
 
         }
 	}
-}
+}

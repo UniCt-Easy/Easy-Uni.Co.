@@ -1,0 +1,90 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabpratica_segstud_0" class="nav-link active show" data-toggle="pill" data-target="#tabpratica_segstud_0"><i class="fa fa-exchange-alt mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabpratica_segstud_1" class="nav-link" data-toggle="pill" data-target="#tabpratica_segstud_1"><i class="fa fa-arrows-alt-h mr-1"></i>Convalida/riconoscimento/dispensa </a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabpratica_segstud_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pratica_segstud_idreg">Studente</label>
+					<div>
+						<input id="pratica_segstud_idreg" name="pratica_segstud_idreg" type="text" data-listtype="studenti"  class="form-control" data-minchar="2" data-tag="registrystudentiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pratica_segstud_idiscrizione">Iscrizione</label>
+					<select id="pratica_segstud_idiscrizione" class="custom-select d-block w-100"  data-source-name="iscrizioneseganagstuview" data-value-member="idiscrizione" data-display-member="dropdown_title" data-custom-control="combo" data-tag="pratica.idiscrizione?praticasegstudview.idiscrizione" data-subentity  data-mandatory  > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pratica_segstud_idcorsostudio">Corso di studio</label>
+					<select id="pratica_segstud_idcorsostudio" class="custom-select d-block w-100"  data-source-name="corsostudiodefaultview" data-value-member="idcorsostudio" data-display-member="dropdown_title" data-custom-control="combo" data-tag="pratica.idcorsostudio?praticasegstudview.idcorsostudio" data-subentity  data-mandatory  data-master="iscrizioneseganagstuview"> </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pratica_segstud_iddidprog">Didattica programmata</label>
+					<select id="pratica_segstud_iddidprog" class="custom-select d-block w-100"  data-source-name="didprogdefaultview" data-value-member="iddidprog" data-display-member="dropdown_title" data-custom-control="combo" data-tag="pratica.iddidprog?praticasegstudview.iddidprog" data-subentity  data-mandatory  data-master="corsostudiodefaultview"> </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pratica_segstud_idistanza">Istanza</label>
+					<select id="pratica_segstud_idistanza" class="custom-select d-block w-100"  data-source-name="istanza_alias14" data-value-member="idistanza" data-display-member="idistanzakind" data-custom-control="combo" data-tag="pratica.idistanza?praticasegstudview.idistanza" data-subentity  data-mandatory  data-master="iscrizioneseganagstuview"> </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pratica_segstud_iddichiar">Dichiarazione da convalidare</label>
+					<div>
+						<input id="pratica_segstud_iddichiar" name="pratica_segstud_iddichiar" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="dichiarsegview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pratica_segstud_idiscrizione_from">Iscrizione da cui si vogliono convalidare i sostenimenti</label>
+					<select id="pratica_segstud_idiscrizione_from" class="custom-select d-block w-100"  data-source-name="iscrizioneseganagstuview" data-value-member="idiscrizione" data-display-member="dropdown_title" data-custom-control="combo" data-tag="pratica.idiscrizione_from?praticasegstudview.pratica_idiscrizione_from" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pratica_segstud_idtitolostudio">Titolo studio da cui si vogliono convalidare i sostenimenti</label>
+					<select id="pratica_segstud_idtitolostudio" class="custom-select d-block w-100"  data-source-name="titolostudio" data-value-member="idtitolostudio" data-display-member="idistattitolistudio" data-custom-control="combo" data-tag="pratica.idtitolostudio?praticasegstudview.pratica_idtitolostudio" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pratica_segstud_idistanzakind">Tipologia di istanza</label>
+					<select id="pratica_segstud_idistanzakind" class="custom-select d-block w-100"  data-source-name="istanzakinddefaultview" data-value-member="idistanzakind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="pratica.idistanzakind?praticasegstudview.idistanzakind" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pratica_segstud_idstatuskind">Stato</label>
+					<select id="pratica_segstud_idstatuskind" class="custom-select d-block w-100"  data-source-name="statuskind" data-value-member="idstatuskind" data-display-member="title" data-custom-control="combo" data-tag="pratica.idstatuskind?praticasegstudview.pratica_idstatuskind" data-subentity  data-mandatory  > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pratica_segstud_protnumero">Numero di protocollo</label>
+					<input id="pratica_segstud_protnumero" type="text" class="form-control" data-tag="pratica.protnumero?praticasegstudview.pratica_protnumero" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pratica_segstud_protanno">Anno di protocollo</label>
+					<input id="pratica_segstud_protanno" type="text" class="form-control" data-tag="pratica.protanno?praticasegstudview.pratica_protanno" data-subentity  />
+				</div>
+			</div>
+ <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-stamp mr-1" ></i>Protocolla
+    </button>
+	</div>
+	<div class="tab-pane fade" id="tabpratica_segstud_1" role="tabpanel">
+				<div class="gridx" id="grid_convalida_segstudprat" data-tag="convalida.segstudprat.segstudprat" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="votolode,S,Si;votolode,N,No;" ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

@@ -1,7 +1,24 @@
+
+/*
+Easy
+Copyright (C) 2022 Universit√† degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 /* 
 IMPORTANTE!!!!
 update  CARICO_SCARICO_INVENT_DETT
-set ubicazione = replace(ubicazione,'?','∞' )
+set ubicazione = replace(ubicazione,'?','¬∞' )
 where ubicazione like '%?%'
 */
 
@@ -36,7 +53,7 @@ I.codiceente as codeinvagency,--> Codice Ente Inventariale
 substring(I.descrizioneente,1,150) as descrinvagency ,--> Descrizione Ente Inventariale
 
 CAR.N_INVENTARIO_DA AS 'numinv', --> Numero di inventario
-CAR.PROGRESSIVO+1 AS 'nprogr', --> Numero progressivo. 1 per i cespiti, 2 o pi˘ per gli accessori
+CAR.PROGRESSIVO+1 AS 'nprogr', --> Numero progressivo. 1 per i cespiti, 2 o pi√π per gli accessori
 
 NULL AS 'codiceinv_prec',
 NULL AS 'descrinv_prec',
@@ -140,5 +157,5 @@ GO
 
 --EXEC exp_cespiti NULL --'A.AMMCE'		--'A.DIPEG'
 -- setuser 'amm'
---	amministrazione;10;exec [DBSERVER,1435].[TEST].[DBO].exp_cespiti null
+--	amministrazione;10;exec [GIOVE2-PC\SQL2008,1435].[TEST].[DBO].exp_cespiti null
 ------------------------------------------------------------------------------------------------------------------------------------------------------------

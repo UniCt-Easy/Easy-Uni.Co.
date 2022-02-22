@@ -1,11 +1,11 @@
 MIME-Version: 1.0
-Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occ.)
+Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
 X-Unsent: 1
 Content-Type: Multipart/related;
-  boundary="---------blocknote.net--1X1CZRVIGKLV1PL4YVD18I2IX2"
+  boundary="---------blocknote.net--AHSLCKI269AS9VR7H516IXHX5"
 
 
------------blocknote.net--1X1CZRVIGKLV1PL4YVD18I2IX2
+-----------blocknote.net--AHSLCKI269AS9VR7H516IXHX5
 Content-Type: Text/HTML;
   charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
@@ -36,11 +36,11 @@ gt;Riepiloghi</FONT></STRONG></DIV><HR>
 <DIV align=3D"justify"><FONT size=3D"4">Link guide correlate:</FONT></DIV=
 >
 <DIV align=3D"justify"><A href=3D"csa_contractkind_default.mht"><FONT siz=
-e=3D"4">Regola generale</A></FONT></DIV>
+e=3D"4">Regola generale</FONT></A></FONT></DIV>
 <DIV align=3D"justify"><A href=3D"csa_contract_default.mht"><FONT size=3D=
-"4">Regola specifica</A></FONT></DIV>
+"4">Regola specifica</FONT></A></FONT></DIV>
 <DIV align=3D"justify"><A href=3D"csa_import_default.mht"><FONT size=3D"4=
-">Importazione</A></FONT></DIV><HR>
+">Importazione</FONT></A></FONT></DIV><HR>
 <DIV align=3D"justify">&nbsp;</DIV>
 <P align=3D"justify"><FONT size=3D"4">Il form dei <STRONG>Riepiloghi</STR=
 ONG> =C3=A8 un form di consultazione che pu=C3=B2 essere utilizzato solo =
@@ -57,7 +57,7 @@ omento in poi, tutte le modifiche apportate alla configurazione, non avra=
 nno effetto sulle righe di Riepilogo gi=C3=A0 <U>elaborate</U> e si dovr=C3=
 =A0 ripetere l'elaborazione cliccando nuovamente sul pulsante Elabora del=
 l'Importazione di riferimento.</FONT></P>
-<P align=3D"center"><IMG src=3D"cid:3Y2WPOLJFUU04LTYMZ1B8GBD5"></P>
+<P align=3D"center"><IMG src=3D"cid:4T97N8IZAW9313Y2TNMJ8M6GK"></P>
 <P align=3D"justify">&nbsp;</P>
 <P align=3D"justify"><FONT size=3D"4">Il form dei <STRONG><EM>Riepiloghi<=
 /EM></STRONG> ha una parte generale composta dai seguenti campi:</FONT></=
@@ -85,7 +85,18 @@ e consente ad Easy di rintracciare la <A href=3D"csa_contract_default.mht=
 default.mht"><STRONG>Regola generale</STRONG></A> da prendere a riferimen=
 to per quella singola riga di Riepilogo.</FONT></P></LI>
 <LI><P align=3D"justify"><STRONG><FONT size=3D"4">Matricola: </STRONG>vie=
-ne letta dal file dei RIEPILOGHI che si =C3=A8 importato</FONT></P></LI>
+ne letta dal file dei RIEPILOGHI che si =C3=A8 importato. </FONT></P></LI=
+></UL>
+
+<DIV><STRONG><FONT size=3D"4">NB! La Regola specifica associata ad una Re=
+gola generale viene presa in considerazione in luogo della Regola general=
+e &quot;madre&quot;, solo se:</FONT></STRONG></DIV>
+<DIV align=3D"justify"><STRONG><FONT size=3D"4">- la Regola specifica non=
+ contiene alcuna Matricola nella scheda Anagrafiche</FONT></STRONG></DIV>
+<DIV align=3D"justify"><STRONG><FONT size=3D"4">- la Regola specifica con=
+tiene nella scheda Anagrafiche la Matricola corrispondente alla Riga di R=
+iepilogo o Versamento elaborata.</STRONG></FONT></STRONG></DIV>
+<UL>
 <LI><P align=3D"justify"><STRONG><FONT size=3D"4">Importo: </STRONG>viene=
  letto dal file dei RIEPILOGHI che si =C3=A8 importato</FONT></P></LI>
 <LI><P align=3D"justify"><STRONG><FONT size=3D"4">Anagrafica: </STRONG>at=
@@ -114,7 +125,7 @@ la specifica</STRONG></A>, se esiste, intercettata per la TERNA</FONT> <S=
 TRONG><FONT size=3D"4">Competenza, Capitolo, Ruolo</FONT></STRONG></P></L=
 I></UL>
 
-<P align=3D"center"><IMG src=3D"cid:1XMK2ATL79HP11L43NOL1MBQYI2"></P>
+<P align=3D"center"><IMG src=3D"cid:IBDNTJIJJQIZ1UTUUTL1SHJJP8"></P>
 <P align=3D"center">&nbsp;</P>
 <P align=3D"justify"><STRONG><FONT size=3D"5">SCHEDA Ripartizione Unica</=
 FONT></STRONG></P>
@@ -140,9 +151,9 @@ accedendo al menu <STRONG>Compensi &gt; Contabilizzazione Stipendi&gt; da=
  procedura stipendi (CSA o altro)&gt;Elenchi&gt;Ripartizione unica Riepil=
 oghi. </STRONG>Tale elenco pu=C3=B2 risultare utile ai fini delle verific=
 he e delle quadrature delle singole Importazioni.</FONT></P>
-<P align=3D"center"><IMG src=3D"cid:1Y3LPHLTWQGWY2OFC9161KKFE"></P>
+<P align=3D"center"><IMG src=3D"cid:11E4EARJSUNSTZ13EEI1PBZDVW"></P>
 <P align=3D"center">&nbsp;</P>
-<P align=3D"center"><IMG src=3D"cid:AAYXMQK4KAZMBFMYKW1IY77BT"></P>
+<P align=3D"center"><IMG src=3D"cid:1WIZ1EBIK9BLZ1Q7TQ4I1XR16C1"></P>
 <P align=3D"center">&nbsp;</P>
 <P align=3D"justify"><STRONG><FONT size=3D"5">SCHEDA Movimenti finanziari=
 </FONT></STRONG></P>
@@ -150,14 +161,13 @@ he e delle quadrature delle singole Importazioni.</FONT></P>
 nziari </STRONG>=C3=A8 possibile visualizzare i movimenti finanziari coll=
 egati alla specifica riga di Riepilogo generati automaticamente da <EM>Ea=
 sy</EM>, attraverso il pulsante <STRONG>Crea Lordi</STRONG> presente sull=
-a singola <A href=3D"csa_import_default.mht">Importazione</A>.</FONT></FO=
-NT></P>
+a singola <A href=3D"csa_import_default.mht">Importazione</A>.</FONT></P>
 <P align=3D"justify"><FONT size=3D"4">Gli stessi movimenti finanziari son=
 o disponibili in formato Elenco, accedendo al menu <STRONG>Compensi &gt; =
 Contabilizzazione Stipendi&gt; da procedura stipendi (CSA o altro)&gt;Ele=
 nchi&gt;Movimenti Spesa Generati (Ripart.Riepiloghi) e Movimenti Entrata =
 Generati (Ripart.Riepiloghi).</FONT></STRONG></P>
-<P align=3D"center"><IMG src=3D"cid:ZZIVY4IST1TJM7W0C91U9FK3X"></P>
+<P align=3D"center"><IMG src=3D"cid:1GB9IASM5RTI6TDXZ8E1K7K5ID"></P>
 <P align=3D"justify">&nbsp;</P>
 <DIV><STRONG><FONT size=3D"5">SCHEDA Vecchia configurazione</FONT></STRON=
 G></DIV>
@@ -170,9 +180,9 @@ ella nuova versione della procedura di contabilizzazione degli stipendi.<=
 </BODY>
 </HTML>
 
------------blocknote.net--1X1CZRVIGKLV1PL4YVD18I2IX2
+-----------blocknote.net--AHSLCKI269AS9VR7H516IXHX5
 Content-Type: image/x-png
-Content-Id: <3Y2WPOLJFUU04LTYMZ1B8GBD5>
+Content-Id: <4T97N8IZAW9313Y2TNMJ8M6GK>
 Content-Transfer-Encoding: base64
 Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/importaz.png
 
@@ -658,9 +668,9 @@ HNIAAAAAIOCQBgAAAAABhzQAAAAACDikAQAAAEDAIQ0AAAAAAg5pAAAAABBwSAMA
 AACAgEMaAAAAAAQc0gAAAAAg4JAGAAAAAAGHNAAAAAAIOKQBAAAAQMAhDQAAAAAC
 jBD/H93RauMAGT5zAAAAAElFTkSuQmCC=
 
------------blocknote.net--1X1CZRVIGKLV1PL4YVD18I2IX2
+-----------blocknote.net--AHSLCKI269AS9VR7H516IXHX5
 Content-Type: image/x-png
-Content-Id: <1XMK2ATL79HP11L43NOL1MBQYI2>
+Content-Id: <IBDNTJIJJQIZ1UTUUTL1SHJJP8>
 Content-Transfer-Encoding: base64
 Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/Riepiloghi2.png
 
@@ -874,9 +884,9 @@ edZI4QCmhBSOInxGyq6QczyKBi86OINtAIBedBbBMRzcCwfQFu6FA5iSyaSjUbxJ
 cnQae0eKbBZ6ALAFUjiAyZhMCh/LmyRHp5kUDgAAAI93CmAja1L4bPb/AUQ50NjN
 hIM9AAAAAElFTkSuQmCC=
 
------------blocknote.net--1X1CZRVIGKLV1PL4YVD18I2IX2
+-----------blocknote.net--AHSLCKI269AS9VR7H516IXHX5
 Content-Type: image/x-png
-Content-Id: <1Y3LPHLTWQGWY2OFC9161KKFE>
+Content-Id: <11E4EARJSUNSTZ13EEI1PBZDVW>
 Content-Transfer-Encoding: base64
 Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/Riepiloghi4.png
 
@@ -1603,9 +1613,9 @@ c2yjQc3Rez/46cNmGmbp4uc+XTzz7KXFnY9vP5o/mQYA2IS7P/90cefnnzRztHnp
 eeZDuAYAAJiZPsE65pkH4RoAAGBGBOvdJFwDAADMxJBgneaZD+EaAABgBgTr3SZc
 AwAAzMCDk5ZCcwTnZfPMyWLx/wdQRaAVsfb1vwAAAABJRU5ErkJggg===
 
------------blocknote.net--1X1CZRVIGKLV1PL4YVD18I2IX2
+-----------blocknote.net--AHSLCKI269AS9VR7H516IXHX5
 Content-Type: image/x-png
-Content-Id: <AAYXMQK4KAZMBFMYKW1IY77BT>
+Content-Id: <1WIZ1EBIK9BLZ1Q7TQ4I1XR16C1>
 Content-Transfer-Encoding: base64
 Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/Riepiloghi5.png
 
@@ -2276,9 +2286,9 @@ AAA41Raq/Y41bQRrAADg4K0K1WkeagRrAADgoHUJ1TEPTQRrAADgYAnVjEGwBgAA
 DlKfUJ3moUawBgAADo5QzZgEawAA4KA0heb7y+naPLQRrAEAgIMiNDOuxeL/D+Q8
 UDy90rfcAAAAAElFTkSuQmCC=
 
------------blocknote.net--1X1CZRVIGKLV1PL4YVD18I2IX2
+-----------blocknote.net--AHSLCKI269AS9VR7H516IXHX5
 Content-Type: image/x-png
-Content-Id: <ZZIVY4IST1TJM7W0C91U9FK3X>
+Content-Id: <1GB9IASM5RTI6TDXZ8E1K7K5ID>
 Content-Transfer-Encoding: base64
 Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/Riepiloghi6.png
 
@@ -2791,4 +2801,4 @@ Aj4AAABUQMAHAACACgj4AAAAUAEBHwAAACog4AMAAEAFBHwAAACowCN/Bx8AAACY
 H38HHwAAACpx9MbvvXHWTAMAAAAzdfT8V58X8AEAAGDmju6fnU0m4H/n9eurb7x2
 rZmD3XCewbKEf/PX/JsHAKq3Wv3/tLuiAEhu+n8AAAAASUVORK5CYII==
 
------------blocknote.net--1X1CZRVIGKLV1PL4YVD18I2IX2--
+-----------blocknote.net--AHSLCKI269AS9VR7H516IXHX5--

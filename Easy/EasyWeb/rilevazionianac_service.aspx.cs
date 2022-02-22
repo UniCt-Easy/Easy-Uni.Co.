@@ -1,23 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-ï»¿using funzioni_configurazione;
+using funzioni_configurazione;
 using metadatalibrary;
 using Newtonsoft.Json;
 using System;
@@ -86,13 +84,13 @@ namespace EasyWebReport {
 
             DataTable tAttachments = DepConn.RUN_SELECT("mandateattachment", "filename, attachment", null, filter, "1", false);
             if (tAttachments.Rows.Count == 0) {
-                Error("L'allegato specificato non Ã¨ presente in archivio.");
+                Error("L'allegato specificato non è presente in archivio.");
                 return;
             }
 
             DataRow rAttachment = tAttachments.Rows[0];
             if (DBNull.Value.Equals(rAttachment["attachment"])) {
-                Error("L'allegato specificato non Ã¨ presente in archivio.");
+                Error("L'allegato specificato non è presente in archivio.");
                 return;
             }
 
@@ -156,7 +154,7 @@ namespace EasyWebReport {
                             XmlDocument doc = new XmlDocument();
                             doc.LoadXml(R[C].ToString());
 
-                            string[] fields = R["ID"].ToString().Split('Â§');
+                            string[] fields = R["ID"].ToString().Split('§');
 
                             foreach (XmlElement allegato in doc.DocumentElement.ChildNodes) {
                                 string idattachment = allegato.Attributes["id"].Value;
@@ -213,7 +211,7 @@ namespace EasyWebReport {
                 return;
             }
 
-            // Se c'Ã¨ il parametro idattachment allora Ã¨ una richiesta di allegato
+            // Se c'è il parametro idattachment allora è una richiesta di allegato
             if (Request.Params["idattachment"] != null && Request.Params["idattachment"] != "") {
                 GestisciRichiestaAllegato(DepConn);
                 return;
@@ -267,7 +265,7 @@ namespace EasyWebReport {
                 return null;
             }
             if (CodDip.Rows.Count > 1) {
-                //Attenzione nel DB non Ã¨ garantita l'unicitÃ  dei dati.
+                //Attenzione nel DB non è garantita l'unicità dei dati.
                 Error("Attenzione !!! Duplicazione di codici per " + dep);
                 return null;
             }
@@ -304,7 +302,7 @@ namespace EasyWebReport {
             writer.WriteStartArray();
 
             foreach (DataRow r in T.Rows) {
-                string[] idField = r["ID"].ToString().Split('Â§');
+                string[] idField = r["ID"].ToString().Split('§');
 
                 writer.WriteStartObject();
 
@@ -375,7 +373,7 @@ namespace EasyWebReport {
             foreach (DataRow r in T.Rows) {
                 XmlElement rilevazione = doc.CreateElement("Rilevazione");
 
-                string[] idField = r["ID"].ToString().Split('Â§');
+                string[] idField = r["ID"].ToString().Split('§');
 
                 foreach (DataColumn c in T.Columns) {
                     if (DBNull.Value.Equals(r[c])) continue;
@@ -480,4 +478,4 @@ namespace EasyWebReport {
             return Session["VSTATE"];
         }
     }
-}
+}

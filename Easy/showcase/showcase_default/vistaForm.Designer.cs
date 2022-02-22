@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,48 +26,27 @@ using System.Runtime.Serialization;
 namespace showcase_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Vetrina
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable showcase 		=> Tables["showcase"];
 
-	///<summary>
-	///Dettaglio Vetrina
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable showcasedetail 		=> Tables["showcasedetail"];
 
-	///<summary>
-	///Magazzino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable store 		=> Tables["store"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable showcaseview 		=> Tables["showcaseview"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable listview 		=> Tables["listview"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
-	///<summary>
-	///Tipo di documento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicekind 		=> Tables["invoicekind"];
 
-	///<summary>
-	///Tipo di Contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable estimatekind 		=> Tables["estimatekind"];
 
@@ -128,6 +106,7 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tshowcase.Columns.Add(C);
 	tshowcase.Columns.Add( new DataColumn("paymentexpiring", typeof(short)));
+	tshowcase.Columns.Add( new DataColumn("flagldapvisibility", typeof(int)));
 	Tables.Add(tshowcase);
 	tshowcase.PrimaryKey =  new DataColumn[]{tshowcase.Columns["idshowcase"]};
 
@@ -168,6 +147,10 @@ private void initClass() {
 	tshowcasedetail.Columns.Add( new DataColumn("competencystop", typeof(DateTime)));
 	tshowcasedetail.Columns.Add( new DataColumn("idupb_iva", typeof(string)));
 	tshowcasedetail.Columns.Add( new DataColumn("!codeupb_iva", typeof(string)));
+	tshowcasedetail.Columns.Add( new DataColumn("!tassonomia", typeof(string)));
+	tshowcasedetail.Columns.Add( new DataColumn("idsor1", typeof(int)));
+	tshowcasedetail.Columns.Add( new DataColumn("idsor2", typeof(int)));
+	tshowcasedetail.Columns.Add( new DataColumn("idsor3", typeof(int)));
 	Tables.Add(tshowcasedetail);
 	tshowcasedetail.PrimaryKey =  new DataColumn[]{tshowcasedetail.Columns["idshowcase"], tshowcasedetail.Columns["idlist"]};
 
@@ -207,30 +190,6 @@ private void initClass() {
 	tstore.PrimaryKey =  new DataColumn[]{tstore.Columns["idstore"]};
 
 
-	//////////////////// SHOWCASEVIEW /////////////////////////////////
-	var tshowcaseview= new DataTable("showcaseview");
-	C= new DataColumn("idshowcase", typeof(int));
-	C.AllowDBNull=false;
-	tshowcaseview.Columns.Add(C);
-	C= new DataColumn("showcasetitle", typeof(string));
-	C.AllowDBNull=false;
-	tshowcaseview.Columns.Add(C);
-	C= new DataColumn("showcasedescription", typeof(string));
-	C.AllowDBNull=false;
-	tshowcaseview.Columns.Add(C);
-	C= new DataColumn("idstore", typeof(int));
-	C.AllowDBNull=false;
-	tshowcaseview.Columns.Add(C);
-	C= new DataColumn("storedescription", typeof(string));
-	C.AllowDBNull=false;
-	tshowcaseview.Columns.Add(C);
-	C= new DataColumn("deliveryaddress", typeof(string));
-	C.AllowDBNull=false;
-	tshowcaseview.Columns.Add(C);
-	Tables.Add(tshowcaseview);
-	tshowcaseview.PrimaryKey =  new DataColumn[]{tshowcaseview.Columns["idshowcase"]};
-
-
 	//////////////////// LISTVIEW /////////////////////////////////
 	var tlistview= new DataTable("listview");
 	C= new DataColumn("idlist", typeof(int));
@@ -268,6 +227,9 @@ private void initClass() {
 	tlistview.Columns.Add(C);
 	tlistview.Columns.Add( new DataColumn("pic", typeof(Byte[])));
 	tlistview.Columns.Add( new DataColumn("timesupply", typeof(int)));
+	tlistview.Columns.Add( new DataColumn("idtassonomia", typeof(int)));
+	tlistview.Columns.Add( new DataColumn("codicetassonomia", typeof(string)));
+	tlistview.Columns.Add( new DataColumn("tassonomia", typeof(string)));
 	Tables.Add(tlistview);
 	tlistview.PrimaryKey =  new DataColumn[]{tlistview.Columns["idlist"]};
 
@@ -484,12 +446,8 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{listview.Columns["idlist"]};
-	var cChild = new []{showcasedetail.Columns["idlist"]};
-	Relations.Add(new DataRelation("FK_listview_showcasedetail",cPar,cChild,false));
-
-	cPar = new []{showcase.Columns["idshowcase"]};
-	cChild = new []{showcasedetail.Columns["idshowcase"]};
+	var cPar = new []{showcase.Columns["idshowcase"]};
+	var cChild = new []{showcasedetail.Columns["idshowcase"]};
 	Relations.Add(new DataRelation("FK_showcase_showcasedetail",cPar,cChild,false));
 
 	cPar = new []{store.Columns["idstore"]};
@@ -512,9 +470,12 @@ private void initClass() {
 	cChild = new []{showcasedetail.Columns["idupb_iva"]};
 	Relations.Add(new DataRelation("upb_iva_showcasedetail",cPar,cChild,false));
 
+	cPar = new []{listview.Columns["idlist"]};
+	cChild = new []{showcasedetail.Columns["idlist"]};
+	Relations.Add(new DataRelation("listview_showcasedetail",cPar,cChild,false));
+
 	#endregion
 
 }
 }
 }
-

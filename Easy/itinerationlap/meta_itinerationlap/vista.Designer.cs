@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -44,7 +43,7 @@ public class itinerationlapRow: MetaRow  {
 		get {if (this["advancepercentage",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["advancepercentage",DataRowVersion.Original];}
 	}
 	///<summary>
-	///Indennit√† giornaliera corrisposta
+	///Indennit? giornaliera corrisposta
 	///</summary>
 	public Decimal? allowance{ 
 		get {if (this["allowance"]==DBNull.Value)return null; return  (Decimal?)this["allowance"];}
@@ -339,6 +338,20 @@ public class itinerationlapRow: MetaRow  {
 	public DateTime? stoptimeOriginal { 
 		get {if (this["stoptime",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["stoptime",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Tabella che estende il record
+	///</summary>
+	public String extension{ 
+		get {if (this["extension"]==DBNull.Value)return null; return  (String)this["extension"];}
+		set {if (value==null) this["extension"]= DBNull.Value; else this["extension"]= value;}
+	}
+	public object extensionValue { 
+		get{ return this["extension"];}
+		set {if (value==null|| value==DBNull.Value) this["extension"]= DBNull.Value; else this["extension"]= value;}
+	}
+	public String extensionOriginal { 
+		get {if (this["extension",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["extension",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -370,8 +383,8 @@ public class itinerationlapTable : MetaTableBase<itinerationlapRow> {
 			{"reductionpercentage",createColumn("reductionpercentage",typeof(decimal),true,false)},
 			{"starttime",createColumn("starttime",typeof(DateTime),true,false)},
 			{"stoptime",createColumn("stoptime",typeof(DateTime),true,false)},
+			{"extension",createColumn("extension",typeof(string),true,false)},
 		};
 	}
 }
 }
-

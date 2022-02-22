@@ -76,10 +76,41 @@
         <xsd:complexType>
           <xsd:sequence>
             <xsd:element name="request" type="xsd:string" />
+            <xsd:element minOccurs="0" name="inline" type="xsd:boolean" />
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
       <xsd:element name="PagamentoEsistenteBollettinoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="esito" type="xsd:string" />
+            <xsd:element minOccurs="0" name="errore" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetANNULLOTECNICO">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="content" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetANNULLOTECNICOResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="GetANNULLOTECNICOResult" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetRTPdf">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="content" type="xsd:string" />
+            <xsd:element minOccurs="0" name="inline" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetRTPdfResponse">
         <xsd:complexType>
           <xsd:sequence>
             <xsd:element name="esito" type="xsd:string" />
@@ -124,7 +155,22 @@
   </wsdl:message>
   <wsdl:message name="PagamentoEsistenteBollettinoResponse">
     <wsdl:part name="parameters" element="impl:PagamentoEsistenteBollettinoResponse" />
+    <wsdl:part name="bollettino_inline" type="xsd:base64Binary" />
     <wsdl:part xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmime:expectedContentTypes="*/*" name="bollettino" type="xsd:base64Binary" />
+  </wsdl:message>
+  <wsdl:message name="GetANNULLOTECNICORequest">
+    <wsdl:part name="parameters" element="impl:GetANNULLOTECNICO" />
+  </wsdl:message>
+  <wsdl:message name="GetANNULLOTECNICOResponse">
+    <wsdl:part name="parameters" element="impl:GetANNULLOTECNICOResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRTPdfRequest">
+    <wsdl:part name="parameters" element="impl:GetRTPdf" />
+  </wsdl:message>
+  <wsdl:message name="GetRTPdfResponse">
+    <wsdl:part name="parameters" element="impl:GetRTPdfResponse" />
+    <wsdl:part name="rt_inline" type="xsd:base64Binary" />
+    <wsdl:part xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmime:expectedContentTypes="*/*" name="rt" type="xsd:base64Binary" />
   </wsdl:message>
   <wsdl:portType name="PayPA">
     <wsdl:operation name="Pagamento">
@@ -150,6 +196,14 @@
     <wsdl:operation name="PagamentoEsistenteBollettino">
       <wsdl:input name="PagamentoEsistenteBollettinoRequest" message="impl:PagamentoEsistenteBollettinoRequest" />
       <wsdl:output name="PagamentoEsistenteBollettinoResponse" message="impl:PagamentoEsistenteBollettinoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetANNULLOTECNICO">
+      <wsdl:input name="GetANNULLOTECNICORequest" message="impl:GetANNULLOTECNICORequest" />
+      <wsdl:output name="GetANNULLOTECNICOResponse" message="impl:GetANNULLOTECNICOResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRTPdf">
+      <wsdl:input name="GetRTPdfRequest" message="impl:GetRTPdfRequest" />
+      <wsdl:output name="GetRTPdfResponse" message="impl:GetRTPdfResponse" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="PayPASoapSoapBinding" type="impl:PayPA">
@@ -215,10 +269,35 @@
         </mime:multipartRelated>
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetANNULLOTECNICO">
+      <wsdlsoap:operation soapAction="http://pmpay.it/ws/payPA/GetANNULLOTECNICO" />
+      <wsdl:input name="GetANNULLOTECNICORequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetANNULLOTECNICOResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRTPdf">
+      <wsdlsoap:operation soapAction="http://pmpay.it/ws/payPA/GetRTPdf" />
+      <wsdl:input name="GetRTPdfRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetRTPdfResponse">
+        <mime:multipartRelated>
+          <mime:part>
+            <wsdlsoap:body use="literal" />
+          </mime:part>
+          <mime:part>
+            <mime:content part="rt" type="*/*" />
+          </mime:part>
+        </mime:multipartRelated>
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="PayPA">
     <wsdl:port name="PayPA" binding="impl:PayPASoapSoapBinding">
-      <wsdlsoap:address location="http://service.pmpay.it/payPA/services/PayPA" />
+      <wsdlsoap:address location="https://service.pmpay.it/payPA/services/PayPA" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

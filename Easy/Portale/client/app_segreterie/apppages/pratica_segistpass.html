@@ -1,0 +1,70 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabpratica_segistpass_0" class="nav-link active show" data-toggle="pill" data-target="#tabpratica_segistpass_0"><i class="fa fa-dot-circle-o mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabpratica_segistpass_1" class="nav-link" data-toggle="pill" data-target="#tabpratica_segistpass_1"><i class="fa fa-dot-circle-o mr-1"></i>Convalida/riconoscimento/dispensa</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabpratica_segistpass_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pratica_segistpass_iddichiar">Dichiarazione da convalidare</label>
+					<div>
+						<input id="pratica_segistpass_iddichiar" name="pratica_segistpass_iddichiar" type="text" data-listtype="altre_seg"  class="form-control" data-minchar="2" data-tag="dichiaraltre_segview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pratica_segistpass_idiscrizione">Iscrizione</label>
+					<div>
+						<input id="pratica_segistpass_idiscrizione" name="pratica_segistpass_idiscrizione" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="iscrizionedefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pratica_segistpass_idiscrizione_from">Iscrizione da cui si vogliono convalidare i sostenimenti</label>
+					<div>
+						<input id="pratica_segistpass_idiscrizione_from" name="pratica_segistpass_idiscrizione_from" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="iscrizionedefaultview_alias1.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pratica_segistpass_idstatuskind">Stato</label>
+					<select id="pratica_segistpass_idstatuskind" class="custom-select d-block w-100"  data-source-name="statuskind" data-value-member="idstatuskind" data-display-member="title" data-custom-control="combo" data-tag="pratica.idstatuskind?praticasegistpassview.pratica_idstatuskind" data-subentity  data-mandatory  > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pratica_segistpass_idtitolostudio">Titolo studio da cui si vogliono convalidare i sostenimenti</label>
+					<div>
+						<input id="pratica_segistpass_idtitolostudio" name="pratica_segistpass_idtitolostudio" type="text" data-listtype="docenti"  class="form-control" data-minchar="2" data-tag="titolostudiodocentiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pratica_segistpass_protnumero">Numero di protocollo</label>
+					<input id="pratica_segistpass_protnumero" type="text" class="form-control" data-tag="pratica.protnumero?praticasegistpassview.pratica_protnumero" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pratica_segistpass_protanno">Anno di protocollo</label>
+					<input id="pratica_segistpass_protanno" type="text" class="form-control" data-tag="pratica.protanno?praticasegistpassview.pratica_protanno" data-subentity  />
+				</div>
+			</div>
+ <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+        <i class="fa fa-stamp mr-1" ></i>Protocolla
+    </button>
+	</div>
+	<div class="tab-pane fade" id="tabpratica_segistpass_1" role="tabpanel">
+				<div class="gridx" id="grid_convalida_segistpass" data-tag="convalida.segistpass.segistpass" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="votolode,S,Si;votolode,N,No;" ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

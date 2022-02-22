@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -28,7 +27,7 @@ using funzioni_configurazione;
 using AskInfo;
 
 namespace finvar_default {
-    public partial class FrmStornoTraUpb : Form {
+    public partial class FrmStornoTraUpb : MetaDataForm {
         bool inChiusura = false;
         DataRow finRow;
         DataRow underwritingRow;
@@ -293,25 +292,25 @@ namespace finvar_default {
         private void btnOK_Click(object sender, EventArgs e) {
             this.ActiveControl = null;
             if (finRow == null) {
-                MessageBox.Show(this, "Occorre specificare la voce di bilancio");
+                show(this, "Occorre specificare la voce di bilancio");
                 HelpForm.FocusControl(txtCodiceBilancio);
                 DialogResult = DialogResult.None;
                 return;
             }
             if (SelUPBSource.GetValue() == DBNull.Value || SelUPBSource.GetValue()==null) {
-                MessageBox.Show(this, "Occorre specificare l'upb da cui stornare");
+                show(this, "Occorre specificare l'upb da cui stornare");
                 HelpForm.FocusControl(txtUPBSource);
                 DialogResult = DialogResult.None;
                 return;
             }
             if (SelUPBDest.GetValue() == DBNull.Value || SelUPBDest.GetValue() ==null) {
-                MessageBox.Show(this, "Occorre specificare l'upb in cui stornare");
+                show(this, "Occorre specificare l'upb in cui stornare");
                 HelpForm.FocusControl(txtUPBDest);
                 DialogResult = DialogResult.None;
                 return;
             }
             if (SelUPBSource.GetValue().ToString()==SelUPBDest.GetValue().ToString()) {
-                MessageBox.Show(this, "Occorre specificare due upb diversi");
+                show(this, "Occorre specificare due upb diversi");
                 HelpForm.FocusControl(txtUPBSource);
                 DialogResult = DialogResult.None;
                 return;
@@ -320,7 +319,7 @@ namespace finvar_default {
             object o = HelpForm.GetObjectFromString(typeof(decimal), txtImporto.Text, "x.y");
             decimal importo = CfgFn.GetNoNullDecimal(o);
             if (importo <= 0) {
-                MessageBox.Show(this, "Occorre specificare un importo maggiore di 0");
+                show(this, "Occorre specificare un importo maggiore di 0");
                 HelpForm.FocusControl(txtImporto);
                 DialogResult = DialogResult.None;
                 return;
@@ -328,7 +327,7 @@ namespace finvar_default {
             //string filtro1 = QHS.AppAnd(QHS.CmpEq("idupb", SelUPBSource.GetValue()), QHS.CmpEq("idfin", finRow["idfin"]));
             //DataRow[] rDett1 = dsMain.Tables["finvardetail"].Select(filtro1);
             //if (rDett1.Length > 0) {
-            //    MessageBox.Show(this, "Non è possibile creare una ulteriore variazione con upb='" + txtUPBSource.Text
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non è possibile creare una ulteriore variazione con upb='" + txtUPBSource.Text
             //                                    + "' e bilancio='" + finRow["codefin"] + "'");
             //    DialogResult = DialogResult.None;
             //    return;
@@ -336,7 +335,7 @@ namespace finvar_default {
             //string filtro2 = QHS.AppAnd(QHS.CmpEq("idupb", SelUPBDest.GetValue()), QHS.CmpEq("idfin", finRow["idfin"]));
             //DataRow[] rDett2 = dsMain.Tables["finvardetail"].Select(filtro2);
             //if (rDett2.Length > 0) {
-            //    MessageBox.Show(this, "Non è possibile creare una ulteriore variazione con upb='" + txtUPBDest.Text
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non è possibile creare una ulteriore variazione con upb='" + txtUPBDest.Text
             //                                    + "' e bilancio='" + finRow["codefin"] + "'");
             //    DialogResult = DialogResult.None;
             //    return;
@@ -524,4 +523,4 @@ namespace finvar_default {
             }
         }
     }
-}
+}

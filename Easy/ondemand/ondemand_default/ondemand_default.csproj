@@ -137,7 +137,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="vistaindex.xsd">
-      <Generator>MSDataSetGenerator</Generator>
+      <Generator>HDSGene</Generator>
       <LastGenOutput>vistaindex.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>

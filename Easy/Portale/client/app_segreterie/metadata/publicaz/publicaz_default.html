@@ -1,0 +1,176 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabpublicaz_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabpublicaz_default_0"><i class="fa fa-book mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabpublicaz_default_1" class="nav-link" data-toggle="pill" data-target="#tabpublicaz_default_1"><i class="fa fa-file-word mr-1"></i>Keyword della pubblicazione</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabpublicaz_default_2" class="nav-link" data-toggle="pill" data-target="#tabpublicaz_default_2"><i class="fa fa-book-open mr-1"></i>Tipologie</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabpublicaz_default_3" class="nav-link" data-toggle="pill" data-target="#tabpublicaz_default_3"><i class="fa fa-edit mr-1"></i>Enti promotori (Atti)</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabpublicaz_default_4" class="nav-link" data-toggle="pill" data-target="#tabpublicaz_default_4"><i class="fa fa-address-book mr-1"></i>Autori</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabpublicaz_default_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="publicaz_default_editore">Editore</label>
+					<input id="publicaz_default_editore" type="text" class="form-control" data-tag="publicaz.editore?publicazdefaultview.publicaz_editore" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="publicaz_default_title">Titolo</label>
+					<input id="publicaz_default_title" type="text" class="form-control" data-tag="publicaz.title?publicazdefaultview.title" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="publicaz_default_idcity_ed">Comune editore</label>
+					<div>
+						<input id="publicaz_default_idcity_ed" name="publicaz_default_idcity_ed" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="publicaz_default_title2">Sottotitolo</label>
+					<input id="publicaz_default_title2" type="text" class="form-control" data-tag="publicaz.title2?publicazdefaultview.publicaz_title2" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="publicaz_default_abstractstring">Abstract</label>
+					<textarea class="textarea form-control" id="publicaz_default_abstractstring" type="text"  rows="4" data-tag="publicaz.abstractstring?publicazdefaultview.publicaz_abstractstring" data-subentity></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="publicaz_default_idnation_ed">Nazionalità editore</label>
+					<div>
+						<input id="publicaz_default_idnation_ed" name="publicaz_default_idnation_ed" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_nation.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="publicaz_default_annopub">Anno pubblicazione</label>
+					<input id="publicaz_default_annopub" type="text" class="form-control" data-tag="publicaz.annopub?publicazdefaultview.publicaz_annopub" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="publicaz_default_annocopyright">Anno Copyright</label>
+					<input id="publicaz_default_annocopyright" type="text" class="form-control" data-tag="publicaz.annocopyright?publicazdefaultview.publicaz_annocopyright" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="publicaz_default_idcity">Comune</label>
+					<div>
+						<input id="publicaz_default_idcity" name="publicaz_default_idcity" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city_alias1.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="publicaz_default_idnation_lang">Lingua</label>
+					<div>
+						<input id="publicaz_default_idnation_lang" name="publicaz_default_idnation_lang" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_nation_alias1.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="publicaz_default_isbn">ISBN</label>
+					<input id="publicaz_default_isbn" type="text" class="form-control" data-tag="publicaz.isbn?publicazdefaultview.publicaz_isbn" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="publicaz_default_volume">Volume</label>
+					<input id="publicaz_default_volume" type="text" class="form-control" data-tag="publicaz.volume?publicazdefaultview.publicaz_volume" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="publicaz_default_fascicolo">Fascicolo</label>
+					<input id="publicaz_default_fascicolo" type="text" class="form-control" data-tag="publicaz.fascicolo?publicazdefaultview.publicaz_fascicolo" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="publicaz_default_numrivista">Numero Rivista</label>
+					<input id="publicaz_default_numrivista" type="text" class="form-control" data-tag="publicaz.numrivista?publicazdefaultview.publicaz_numrivista" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="publicaz_default_pagestart">Inizio a pagina</label>
+					<input id="publicaz_default_pagestart" type="text" class="form-control" data-tag="publicaz.pagestart?publicazdefaultview.publicaz_pagestart" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="publicaz_default_pagestop">fine a pagina</label>
+					<input id="publicaz_default_pagestop" type="text" class="form-control" data-tag="publicaz.pagestop?publicazdefaultview.publicaz_pagestop" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="publicaz_default_pagetot">Numero di pagine</label>
+					<input id="publicaz_default_pagetot" type="text" class="form-control" data-tag="publicaz.pagetot?publicazdefaultview.publicaz_pagetot" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="publicaz_default_idprogetto">Idprogetto</label>
+					<div>
+						<input id="publicaz_default_idprogetto" name="publicaz_default_idprogetto" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="progetto.titolobreve" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabpublicaz_default_1" role="tabpanel">
+				<div class="gridx" id="grid_publicazkeyword_default" data-tag="publicazkeyword.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabpublicaz_default_2" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_publicazkindpublicaz_idpublicazkind" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_publicazkindpublicaz_idpublicazkind" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Tipologie
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_publicazkindpublicaz_default" data-tag="publicazkindpublicaz.default.default" data-custom-control="gridx" data-mdlbuttondelete data-mdlconditionallookup="!idpublicazkind_publicazkind_active,S,Si;!idpublicazkind_publicazkind_active,N,No;"  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabpublicaz_default_3" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_publicazregistry_aziende_idreg_aziende" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_publicazregistry_aziende_idreg_aziende" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Enti promotori (Atti)
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_publicazregistry_aziende_default" data-tag="publicazregistry_aziende.default.default" data-custom-control="gridx" data-mdlbuttondelete data-mdlconditionallookup="!idreg_registry_active,S,Si;!idreg_registry_active,N,No;!idreg_registry_flag_pa,S,Si;!idreg_registry_flag_pa,N,No;"  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabpublicaz_default_4" role="tabpanel">
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_publicazregistry_docenti_idreg_docenti" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_publicazregistry_docenti_idreg_docenti" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Autori
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_publicazregistry_docenti_default" data-tag="publicazregistry_docenti.default.default" data-custom-control="gridx" data-mdlbuttondelete data-mdlconditionallookup="!idreg_registry_active,S,Si;!idreg_registry_active,N,No;"  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

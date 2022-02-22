@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_show_expense]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_show_expense]
 GO
@@ -152,6 +169,38 @@ JOIN expenselink ELK
 WHERE E.nphase = (select expenseregphase from uniconfig)
 	AND ELK.idchild = @idexp 
 
+if(@cupcode is null)
+Begin
+	declare @fasecontrattopassivo int
+	select @fasecontrattopassivo = expensephase from config where ayear = @ayear
+
+	 SET @cupcode = 
+		   (SELECT MAX( ltrim(rtrim(cupcode)) )
+			  FROM mandatedetail
+			 WHERE (idexp_taxable IN (SELECT EL1.idparent 
+										FROM expenselink EL1
+									   WHERE EL1.idchild = @idexp and EL1.nlevel=@fasecontrattopassivo) 
+				OR idexp_iva IN (SELECT EL2.idparent 
+								   FROM expenselink EL2
+								  WHERE EL2.idchild = @idexp and EL2.nlevel=@fasecontrattopassivo))
+			   AND cupcode IS NOT NULL)
+End
+if(@cupcode is null)
+Begin
+	 SET @cupcode = (select U.cupcode 
+						from expenseyear EY
+						join upb U 	on EY.idupb= U.idupb
+						where EY.ayear = @ayear and EY.idexp = @idexp	)
+End
+
+if(@cupcode is null)
+Begin
+	 SET @cupcode = (select F.cupcode 
+						from expenseyear EY
+						join finlast F 	on EY.idfin = F.idfin
+						where EY.ayear = @ayear and EY.idexp = @idexp	)
+End
+
 declare @registry varchar(100)
 select @registry = title from registry where idreg = @idreg
 
@@ -217,7 +266,7 @@ end
 
 if(@cupcode is not null)
 Begin
-	INSERT INTO #situation VALUES ('CUP: ' + convert(varchar(10),@cupcode), NULL, 'N',null)
+	INSERT INTO #situation VALUES ('CUP: ' + convert(varchar(15),@cupcode), NULL, 'N',null)
 end
 
 	

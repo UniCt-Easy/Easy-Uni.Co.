@@ -1,4 +1,21 @@
 
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+
 -- CREAZIONE VISTA invoicedeferredview
 IF EXISTS(select * from sysobjects where id = object_id(N'[invoicedeferredview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [invoicedeferredview]
@@ -6,6 +23,7 @@ GO
  
  -- clear_table_info'invoicedeferredview'
  --setuser 'amm'
+ --setuser 'amministrazione'
  -- select * from invoicedeferredview
 CREATE  VIEW [invoicedeferredview]
 (
@@ -49,7 +67,8 @@ CREATE  VIEW [invoicedeferredview]
 	CASE
 		WHEN ((invoicekind.flag&4)=0) THEN invoicedeferred.ivatotalpayed -- Fattura 
 		WHEN ((invoicekind.flag&4)<>0) THEN - (invoicedeferred.ivatotalpayed) -- Nota di variazione
-	END,
+	END
+	,
 	invoice.idinvkind,
 	invoicekind.codeinvkind,
 	invoicekind.description,
@@ -84,6 +103,7 @@ CREATE  VIEW [invoicedeferredview]
 											and IDD.yivapay= invoicedeferred.yivapay and IDD.nivapay=invoicedeferred.nivapay
 		JOIN invoice M		ON D.idinvkind = M.idinvkind AND D.yinv = M.yinv AND D.ninv = M.ninv
 		WHERE D.idinvkind = invoice.idinvkind	AND D.yinv = invoice.yinv	AND D.ninv = invoice.ninv
+		and IDD.idivaregisterkind = ivaregisterkind.idivaregisterkind
 						AND isnull(D.rounding,'N')<>'S'
 		)
 	, 0),
@@ -95,6 +115,7 @@ CREATE  VIEW [invoicedeferredview]
 												and IDD.ninv=D.ninv and IDD.rownum=D.rownum
 												and IDD.yivapay= invoicedeferred.yivapay and IDD.nivapay=invoicedeferred.nivapay
 			WHERE D.idinvkind = invoice.idinvkind 	AND D.yinv = invoice.yinv	AND D.ninv = invoice.ninv
+			and IDD.idivaregisterkind = ivaregisterkind.idivaregisterkind
 			AND isnull(D.rounding,'N')<>'S'
 			)
 		, 0),
@@ -108,6 +129,7 @@ CREATE  VIEW [invoicedeferredview]
 											and IDD.yivapay= invoicedeferred.yivapay and IDD.nivapay=invoicedeferred.nivapay
 		JOIN invoice M		ON D.idinvkind = M.idinvkind AND D.yinv = M.yinv AND D.ninv = M.ninv
 		WHERE D.idinvkind = invoice.idinvkind 	AND D.yinv = invoice.yinv	AND D.ninv = invoice.ninv
+		and IDD.idivaregisterkind = ivaregisterkind.idivaregisterkind
 		AND isnull(D.rounding,'N')<>'S'
 		)
 		
@@ -127,6 +149,7 @@ CREATE  VIEW [invoicedeferredview]
 											and IDD.yivapay= invoicedeferred.yivapay and IDD.nivapay=invoicedeferred.nivapay
 		JOIN invoice M			ON D.idinvkind = M.idinvkind AND D.yinv = M.yinv AND D.ninv = M.ninv
 		WHERE D.idinvkind = invoice.idinvkind AND D.yinv = invoice.yinv	AND D.ninv = invoice.ninv
+		and IDD.idivaregisterkind = ivaregisterkind.idivaregisterkind
 							AND isnull(D.rounding,'N')<>'S'
 		)
 	, 0) +
@@ -138,6 +161,7 @@ CREATE  VIEW [invoicedeferredview]
 											and IDD.yivapay= invoicedeferred.yivapay and IDD.nivapay=invoicedeferred.nivapay
 		JOIN invoice M		ON D.idinvkind = M.idinvkind AND D.yinv = M.yinv AND D.ninv = M.ninv
 		WHERE D.idinvkind = invoice.idinvkind AND D.yinv = invoice.yinv AND D.ninv = invoice.ninv
+		and IDD.idivaregisterkind = ivaregisterkind.idivaregisterkind
 					AND isnull(D.rounding,'N')<>'S')
 	, 0),
 	invoice.active,

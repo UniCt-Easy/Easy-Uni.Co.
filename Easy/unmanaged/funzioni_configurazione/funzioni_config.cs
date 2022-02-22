@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,6 +26,7 @@ using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
 using q= metadatalibrary.MetaExpression;
+using System.Collections.Generic;
 
 namespace funzioni_configurazione{//funzioni_configurazione//
 
@@ -58,8 +58,32 @@ namespace funzioni_configurazione{//funzioni_configurazione//
 
 		}
 
-       
-	
+
+		public static Form ShowFattureLiquidate(DataTable InvoiceDetailDeferred) {
+			string MyAssemblyName = "invoicedeferred_fattureliquidate";
+			Assembly a = System.Reflection.Assembly.Load(MyAssemblyName);
+			if (a == null) {
+				return null;
+			}
+			foreach (System.Type T in a.GetTypes()) {
+				if (!typeof(Form).IsAssignableFrom(T)) continue;
+				System.Reflection.ConstructorInfo FormBuilder =
+					T.GetConstructor(
+					new System.Type[] { typeof(DataTable) });
+				if (FormBuilder == null) continue;
+				Form F = null;
+				try {
+					F = (Form)FormBuilder.Invoke(new object[] { InvoiceDetailDeferred });
+				}
+				catch {
+					continue;
+				}
+
+				return F;
+			}
+			return null;
+
+		}
 		public static Form Show(MetaDataDispatcher Disp, DataRow [] Automatismi,
 			DataRow SpesaRow,
 			string title){
@@ -163,7 +187,152 @@ namespace funzioni_configurazione{//funzioni_configurazione//
             return false;
         }
 
-        
+        public static bool ExtensionDenied(string extension) {
+			List<string> estensioniMalevole = new List<string>() {
+				".ade",
+				".adp",
+				".app",
+				".asp",
+				".bas",
+				".bat",
+				".cer",
+				".chm", 
+				".cla", 
+				".class", 
+				".cmd", 
+				".com", 
+				".cpl",
+				".crt",
+				".csh",
+				".der",
+				".dll",
+				".exe",
+				".fxp",
+				".hlp", 
+				".hpj", 
+				".hta", 
+				".inf", 
+				".ins",
+				".isp",
+				".its",
+				".jar", 
+				".js", 
+				".jse",
+				".ksh",
+				".lnk",
+				".mad",
+				".maf",
+				".mag",
+				".mam",
+				".maq",
+				".mar",
+				".mas",
+				".mat",
+				".mau",
+				".mav",
+				".maw",
+				".mda",
+				".mdb",
+				".mde",
+				".mdt",
+				".mdw",
+				".mdz",
+				".msc", 
+				".msh", 
+				".msh1", 
+				".msh1xml", 
+				".msh2", 
+				".msh2xml", 
+				".mshxml", 
+				".msi", 
+				".msp", 
+				".mst",
+				".ocx", 
+				".ops",
+				".pcd",
+				".pif", 
+				".pl", 
+				".plg",
+				".prf", 
+				".prg", 
+				".ps1", 
+				".ps1xml", 
+				".ps2", 
+				".ps2xml", 
+				".psc1", 
+				".psc2", 
+				".pst",
+				".py",
+				".reg", 
+				".scf", 
+				".scr", 
+				".sct", 
+				".shb", 
+				".shs", 
+				".tmp", 
+				".url", 
+				".vb", 
+				".vbe", 
+				".vbp", 
+				".vbs", 
+				".vsmacros",
+				".vsw",
+				".ws", 
+				".wsc", 
+				".wsf", 
+				".wsh"
+			};
+
+			if (estensioniMalevole.Contains(extension.ToLower())) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+
+		public static bool ExtensionAllowed(string extension) {
+			List<string> estensioniConsentite = new List<string>() {
+				".abw",
+				".arc",
+				".avif",
+				".bmp",
+				".bz",
+				".bz2",
+				".csv",
+				".doc",
+				".docx",
+				".gz",
+				".jpeg",
+				".jpg",
+				".odp",
+				".ods",
+				".odt",
+				".png",
+				".pdf",
+				".ppt",
+				".pptx",
+				".rar",
+				".rtf",
+				".svg",
+				".tar",
+				".tif",
+				".tiff",
+				".txt",
+				".webp",
+				".xls",
+				".xlsx",
+				".zip",
+				".7z"
+			};
+
+			if (estensioniConsentite.Contains(extension.ToLower())) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
 
         static object GetCtrlByName(Form F, string Name) {
             System.Reflection.FieldInfo Ctrl = F.GetType().GetField(Name);
@@ -181,7 +350,7 @@ namespace funzioni_configurazione{//funzioni_configurazione//
             var sec = F.getInstance<ISecurity>();
             var model = MetaFactory.factory.getSingleton<IMetaModel>();
             string nums = num.ToString();
-            if (sortingkind == DBNull.Value) {
+            if (sortingkind==null ||sortingkind == DBNull.Value || sortingkind.ToString()=="null" ) {
                 var g = (GroupBox)GetCtrlByName(F, "gboxclass0" + nums);
                 g.Tag = null;
                 g.Visible = false;
@@ -209,7 +378,7 @@ namespace funzioni_configurazione{//funzioni_configurazione//
                 }
 
                 QueryHelper qhs = conn.GetQueryHelper();
-                string filterkind = qhs.CmpEq("idsorkind", sortingkind);
+                string filterkind = qhs.CmpEq("idsorkind", CfgFn.GetNoNullInt32( sortingkind));
                 string filtercomplete = filterkind;
                 if (filterSec != null) filtercomplete = qhs.AppAnd(filtercomplete, filterSec.ToString());
                 model.setStaticFilter(ds.Tables["sorting0" + nums],filterkind);
@@ -249,7 +418,7 @@ namespace funzioni_configurazione{//funzioni_configurazione//
             var model = MetaFactory.factory.getSingleton<IMetaModel>();
             
             string nums = num.ToString();
-            if (sortingkind == DBNull.Value) {
+            if ( sortingkind==null || sortingkind == DBNull.Value || sortingkind.ToString()=="null" ) {
                 var g = (GroupBox)GetCtrlByName(F, "gboxclass" + nums);
                 g.Tag = null;
                 g.Visible = false;
@@ -260,7 +429,7 @@ namespace funzioni_configurazione{//funzioni_configurazione//
                 var filterSec = sec.GetSys("idflowchart");
                 
                 QueryHelper qhs = conn.GetQueryHelper();
-                var filter = qhs.CmpEq("idsorkind", sortingkind);
+                var filter = qhs.CmpEq("idsorkind", CfgFn.GetNoNullInt32( sortingkind));
                 model.setStaticFilter(ds.Tables["sorting" + nums],filter);
                 //GetData.SetStaticFilter(DS.Tables["sorting" + nums], filter);
                 var gboxclass = (GroupBox)GetCtrlByName(F, "gboxclass" + nums);
@@ -661,11 +830,22 @@ namespace funzioni_configurazione{//funzioni_configurazione//
 			}
 		}
 		public static decimal GetNoNullDecimal(object O){
-			if (O==null) return 0;
-			if (O == DBNull.Value) return 0;
-		    if (O.ToString() == "") return 0;
+			if (O==null || O==DBNull.Value) return 0;
+			//if (O == DBNull.Value) return 0;
+		    //if (O.ToString() == "") return 0;
 			try {
 				return Convert.ToDecimal(O);
+			}
+			catch {
+				return 0;
+			}
+		}
+		public static long GetNoNullInt64(object O){
+			if (O==null) return 0;
+			if (O == DBNull.Value) return 0;
+			if (O.ToString() == "") return 0;
+			try {
+				return Convert.ToInt64(O);
 			}
 			catch {
 				return 0;
@@ -856,7 +1036,7 @@ namespace funzioni_configurazione{//funzioni_configurazione//
 	                return rregistrypaymethod;
 	            }
 
-	            MessageBox.Show("E' necessario selezionare una Modalità di Pagamento");
+	            MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare una Modalità di Pagamento");
 	            return null;
 	        }
 	        return defRow;
@@ -888,7 +1068,7 @@ namespace funzioni_configurazione{//funzioni_configurazione//
                             return rregistrypaymethod;
                         }
 
-				    MessageBox.Show("E' necessario selezionare una Modalità di Pagamento");
+				    MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare una Modalità di Pagamento");
 				    return null;
 			}
 			return defRow;
@@ -898,4 +1078,3 @@ namespace funzioni_configurazione{//funzioni_configurazione//
 	}
 
 }
-

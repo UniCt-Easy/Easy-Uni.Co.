@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -31,7 +30,7 @@ namespace csa_importriep_default
 {
 	/// <summary>
 	/// </summary>
-    public class Frm_csa_importriep_default : System.Windows.Forms.Form {
+    public class Frm_csa_importriep_default : MetaDataForm {
         private System.Windows.Forms.ImageList images;
         public vistaForm DS;
 		private System.ComponentModel.IContainer components;
@@ -1716,7 +1715,7 @@ namespace csa_importriep_default
                     (R["idupb"] != DBNull.Value)) {
 
                     if (DispMessage) {
-                        if (MessageBox.Show("Per abilitare la selezione del movimento di spesa è necessario annullare le altre " +
+                        if (show("Per abilitare la selezione del movimento di spesa è necessario annullare le altre " +
                             "attribuzioni su questo contratto. Proseguo?", "Conferma",
                             MessageBoxButtons.OKCancel) != DialogResult.OK) {
                             chkSpesa.Checked = false;
@@ -1741,7 +1740,7 @@ namespace csa_importriep_default
 
             if (RR["idexp"] != DBNull.Value) {
                   if (DispMessage) {
-                      if (MessageBox.Show("Per abilitare la selezione delle attribuzioni normali su questo contratto è necessario annullare il collegamento al movimento di spesa " +
+                      if (show("Per abilitare la selezione delle attribuzioni normali su questo contratto è necessario annullare il collegamento al movimento di spesa " +
                           ". Proseguo?", "Conferma",
                           MessageBoxButtons.OKCancel) != DialogResult.OK) {
                           chkSpesa.Checked = true;
@@ -2024,7 +2023,7 @@ namespace csa_importriep_default
                 var idrel = BudgetFunction.GetIdForDocument(curr);
                 DataTable mov_budg = Conn.RUN_SELECT("epexp", "idepexp", null, QHS.CmpEq("idrelated", idrel), null, true);
                 if (mov_budg.Rows.Count > 0) {
-                    MessageBox.Show("Non è possibile collegare un preimpegno di budget perchè vi sono già impegni di budget collegati");
+                    show("Non è possibile collegare un preimpegno di budget perchè vi sono già impegni di budget collegati");
                     return;
                 }
             }
@@ -2069,7 +2068,7 @@ namespace csa_importriep_default
                 var idrel = BudgetFunction.GetIdForDocument(Curr);
                 DataTable mov_budg = Conn.RUN_SELECT("epexp", "idepexp", null, QHS.CmpEq("idrelated", idrel), null, true);
                 if ((mov_budg.Rows.Count > 0)&&(Curr["idepexp"]!=DBNull.Value)){
-                    MessageBox.Show("Non è possibile scollegare un preimpegno di budget perchè vi sono già impegni di budget collegati");
+                    show("Non è possibile scollegare un preimpegno di budget perchè vi sono già impegni di budget collegati");
                     return;
                 }
               
@@ -2093,4 +2092,3 @@ namespace csa_importriep_default
         }
     }
 }
-

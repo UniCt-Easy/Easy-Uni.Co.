@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Windows.Forms;
@@ -42,10 +41,12 @@ namespace meta_registryreference//meta_contatto//
 			//----------------------segreterie-------------------------------------------- begin
 			EditTypes.Add("persone");
 			ListingTypes.Add("persone");
+			EditTypes.Add("seg");
+			ListingTypes.Add("seg");
+			EditTypes.Add("user");
+			ListingTypes.Add("user");
 			//----------------------segreterie-------------------------------------------- end
 			Name = "Contatto";
-			EditTypes.Add("instmuser");
-			ListingTypes.Add("instmuser");
 			//$EditTypes$
 		}
 		protected override Form GetForm(string FormName) {
@@ -102,7 +103,7 @@ namespace meta_registryreference//meta_contatto//
 			}
 			if (edit_type == "default") {
 
-				if (!IsSubEntity) {
+				if (!isSubentity) {
 					errmess = "Non è possibile modificare l'entità contatto senza un form padre";
 					errfield = null;
 					return false;
@@ -127,7 +128,7 @@ namespace meta_registryreference//meta_contatto//
 			base.DescribeColumns(T, ListingType);
 
 			if (ListingType == "default") {
-				if (T.DataSet.Tables["registry"] != null)
+				if (T.DataSet !=null && T.DataSet.Tables["registry"] != null)
 					DescribeAColumn(T, "idreg", "", -1);
 				int nPos = 1;
 				DescribeAColumn(T, "idregistryreference", "#", nPos++);
@@ -145,7 +146,7 @@ namespace meta_registryreference//meta_contatto//
 				DescribeAColumn(T, "flagdefault", "Predefinito", nPos++);
 			}
 			if (ListingType == "unione") {
-				if (T.DataSet.Tables["registry"] != null)
+				if (T.DataSet != null && T.DataSet.Tables["registry"] != null)
 					DescribeAColumn(T, "idreg", "", -1);
 				int nPos = 1;
 				DescribeAColumn(T, "!kk", ".aaaa", nPos++);
@@ -173,7 +174,6 @@ namespace meta_registryreference//meta_contatto//
 							DescribeAColumn(T, C.ColumnName, "", -1);
 						}
 						int nPos = 1;
-
 						DescribeAColumn(T, "referencename", "Nome Contatto", nPos++);
 						DescribeAColumn(T, "flagdefault", "Contatto predefinito", nPos++);
 						DescribeAColumn(T, "email", "Email", nPos++);
@@ -189,27 +189,45 @@ namespace meta_registryreference//meta_contatto//
 						DescribeAColumn(T, "website", "Website", nPos++);
 						break;
 					}
-					//----------------------segreterie-------------------------------------------- end
-				case "instmuser": {
+				case "seg": {
 						foreach (DataColumn C in T.Columns) {
 							DescribeAColumn(T, C.ColumnName, "", -1);
 						}
 						int nPos = 1;
 						DescribeAColumn(T, "referencename", "Nome Contatto", nPos++);
+						DescribeAColumn(T, "flagdefault", "Contatto predefinito", nPos++);
 						DescribeAColumn(T, "email", "Email", nPos++);
+						DescribeAColumn(T, "skypenumber", "Skype No.", nPos++);
+						DescribeAColumn(T, "msnnumber", "MSN No.", nPos++);
 						DescribeAColumn(T, "phonenumber", "Numero tel.", nPos++);
 						DescribeAColumn(T, "faxnumber", "Numero fax.", nPos++);
 						DescribeAColumn(T, "mobilenumber", "Num. cellulare", nPos++);
 						DescribeAColumn(T, "pec", "Pec", nPos++);
-						DescribeAColumn(T, "userweb", "login web", nPos++);
-						DescribeAColumn(T, "passwordweb", "password per accesso web", nPos++);
+						DescribeAColumn(T, "website", "Website", nPos++);
+						break;
+					}
+				case "user": {
+						foreach (DataColumn C in T.Columns) {
+							DescribeAColumn(T, C.ColumnName, "", -1);
+						}
+						int nPos = 1;
+						DescribeAColumn(T, "!clientpassword", "Password", nPos++);
+						DescribeAColumn(T, "!confirmpassword", "Conferma password", nPos++);
+						DescribeAColumn(T, "referencename", "Nome Contatto", nPos++);
+						DescribeAColumn(T, "email", "E-Mail", nPos++);
+						DescribeAColumn(T, "phonenumber", "Numero di telefono", nPos++);
+						DescribeAColumn(T, "faxnumber", "Numero Fax", nPos++);
+						DescribeAColumn(T, "mobilenumber", "Numero di cellulare", nPos++);
+						DescribeAColumn(T, "pec", "Pec", nPos++);
+						DescribeAColumn(T, "userweb", "Nome utente", nPos++);
+						DescribeAColumn(T, "passwordweb", "Password", nPos++);
 						DescribeAColumn(T, "website", "Web page", nPos++);
 						break;
 					}
+				//----------------------segreterie-------------------------------------------- end
 					//$DescribeAColumn$
 			}
 		}
 	}
 
 }
-

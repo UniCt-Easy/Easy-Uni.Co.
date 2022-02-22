@@ -1,23 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-Ôªøusing System;
+using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -280,8 +278,8 @@ public partial class finvar_default_new02 : MetaPage {
             variationtime3.Enabled = true;
             variationtime4.Enabled = true;
 
-            //variationtime5.Enabled = true; Questa parte resta commentata, perch√® in realt√† questo check non √® presente nel codice .aspx, esiste ma √® commentato. Per le Var. di tipo Iniziale 
-            //c'√® una voce di menu apposita che richiama questa pagina, e il gruppo Tipo Variazione viene completamente nascoso
+            //variationtime5.Enabled = true; Questa parte resta commentata, perchË in realt‡ questo check non Ë presente nel codice .aspx, esiste ma Ë commentato. Per le Var. di tipo Iniziale 
+            //c'Ë una voce di menu apposita che richiama questa pagina, e il gruppo Tipo Variazione viene completamente nascoso
         }
         if (PState.EditMode) {
             DataRow Curr = DS.finvar.Rows[0];
@@ -589,13 +587,13 @@ public partial class finvar_default_new02 : MetaPage {
                     break;
                 case 3:
                     if (CheckLimit())
-                        ShowClientMessage("Non √® possibile avanzare la richiesta " +
-                            "in quanto il limite totale della variazione √® stato superato.", "Attenzione",
+                        ShowClientMessage("Non Ë possibile avanzare la richiesta " +
+                            "in quanto il limite totale della variazione Ë stato superato.", "Attenzione",
                             System.Windows.Forms.MessageBoxButtons.OK);
                     else
                         if (CheckLimitDetail())
-                            ShowClientMessage("Non √® possibile avanzare la richiesta " +
-                                "in quanto il limite di un dettaglio di variazione √® stato superato.", "Attenzione",
+                            ShowClientMessage("Non Ë possibile avanzare la richiesta " +
+                                "in quanto il limite di un dettaglio di variazione Ë stato superato.", "Attenzione",
                                 System.Windows.Forms.MessageBoxButtons.OK);
                         else {
                             currentRow["idfinvarstatus"] = 2;
@@ -622,7 +620,7 @@ public partial class finvar_default_new02 : MetaPage {
         // I selettori del campo NOFFICIAL sono YVAR e OFFICIAL
         int yvar = CfgFn.GetNoNullInt32(R["yvar"]);
         string official = R["official"].ToString().ToUpper();
-        // Se la variazione non √® ufficiale non calcolo il campo
+        // Se la variazione non Ë ufficiale non calcolo il campo
         if (official != "S") {
             return null;
         }
@@ -690,4 +688,3 @@ public partial class finvar_default_new02 : MetaPage {
 
 }
 
-

@@ -1,0 +1,244 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_idregistryclass">Codice</label>
+					<input id="registryclass_default_idregistryclass" type="text" class="form-control" data-tag="registryclass.idregistryclass?registryclassdefaultview.idregistryclass" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_description">Descrizione</label>
+					<input id="registryclass_default_description" type="text" class="form-control" data-tag="registryclass.description?registryclassdefaultview.description" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_activeSi" type="radio" name="registryclass_default_active" class="custom-control-input" data-tag="registryclass.active:S?registryclassdefaultview.registryclass_active:Si" data-subentity  ><label for="registryclass_default_activeSi"> Si</label>
+						<input id="registryclass_default_activeNo" type="radio" name="registryclass_default_active" class="custom-control-input" data-tag="registryclass.active:N?registryclassdefaultview.registryclass_active:No" data-subentity  ><label for="registryclass_default_activeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagbadgecode">Codice badge visibile</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagbadgecodeSi" type="radio" name="registryclass_default_flagbadgecode" class="custom-control-input" data-tag="registryclass.flagbadgecode:S?registryclassdefaultview.registryclass_flagbadgecode:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagbadgecodeSi"> Si</label>
+						<input id="registryclass_default_flagbadgecodeNo" type="radio" name="registryclass_default_flagbadgecode" class="custom-control-input" data-tag="registryclass.flagbadgecode:N?registryclassdefaultview.registryclass_flagbadgecode:No" data-subentity  data-mandatory ><label for="registryclass_default_flagbadgecodeNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagbadgecode_forced">Codice badge obbligatorio</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagbadgecode_forcedSi" type="radio" name="registryclass_default_flagbadgecode_forced" class="custom-control-input" data-tag="registryclass.flagbadgecode_forced:S?registryclassdefaultview.registryclass_flagbadgecode_forced:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagbadgecode_forcedSi"> Si</label>
+						<input id="registryclass_default_flagbadgecode_forcedNo" type="radio" name="registryclass_default_flagbadgecode_forced" class="custom-control-input" data-tag="registryclass.flagbadgecode_forced:N?registryclassdefaultview.registryclass_flagbadgecode_forced:No" data-subentity  data-mandatory ><label for="registryclass_default_flagbadgecode_forcedNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagCF">Codice fiscale visibile</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagCFSi" type="radio" name="registryclass_default_flagCF" class="custom-control-input" data-tag="registryclass.flagCF:S?registryclassdefaultview.registryclass_flagCF:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagCFSi"> Si</label>
+						<input id="registryclass_default_flagCFNo" type="radio" name="registryclass_default_flagCF" class="custom-control-input" data-tag="registryclass.flagCF:N?registryclassdefaultview.registryclass_flagCF:No" data-subentity  data-mandatory ><label for="registryclass_default_flagCFNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagcf_forced">Codice fiscale obbligatorio</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagcf_forcedSi" type="radio" name="registryclass_default_flagcf_forced" class="custom-control-input" data-tag="registryclass.flagcf_forced:S?registryclassdefaultview.registryclass_flagcf_forced:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagcf_forcedSi"> Si</label>
+						<input id="registryclass_default_flagcf_forcedNo" type="radio" name="registryclass_default_flagcf_forced" class="custom-control-input" data-tag="registryclass.flagcf_forced:N?registryclassdefaultview.registryclass_flagcf_forced:No" data-subentity  data-mandatory ><label for="registryclass_default_flagcf_forcedNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagcfbutton">Bottone \"calcola codice fiscale\" visibile</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagcfbuttonSi" type="radio" name="registryclass_default_flagcfbutton" class="custom-control-input" data-tag="registryclass.flagcfbutton:S?registryclassdefaultview.registryclass_flagcfbutton:Si" data-subentity  ><label for="registryclass_default_flagcfbuttonSi"> Si</label>
+						<input id="registryclass_default_flagcfbuttonNo" type="radio" name="registryclass_default_flagcfbutton" class="custom-control-input" data-tag="registryclass.flagcfbutton:N?registryclassdefaultview.registryclass_flagcfbutton:No" data-subentity  ><label for="registryclass_default_flagcfbuttonNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagextmatricula">Matricola esterna visibile</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagextmatriculaSi" type="radio" name="registryclass_default_flagextmatricula" class="custom-control-input" data-tag="registryclass.flagextmatricula:S?registryclassdefaultview.registryclass_flagextmatricula:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagextmatriculaSi"> Si</label>
+						<input id="registryclass_default_flagextmatriculaNo" type="radio" name="registryclass_default_flagextmatricula" class="custom-control-input" data-tag="registryclass.flagextmatricula:N?registryclassdefaultview.registryclass_flagextmatricula:No" data-subentity  data-mandatory ><label for="registryclass_default_flagextmatriculaNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagextmatricula_forced">Matricola esterna obbligatoria</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagextmatricula_forcedSi" type="radio" name="registryclass_default_flagextmatricula_forced" class="custom-control-input" data-tag="registryclass.flagextmatricula_forced:S?registryclassdefaultview.registryclass_flagextmatricula_forced:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagextmatricula_forcedSi"> Si</label>
+						<input id="registryclass_default_flagextmatricula_forcedNo" type="radio" name="registryclass_default_flagextmatricula_forced" class="custom-control-input" data-tag="registryclass.flagextmatricula_forced:N?registryclassdefaultview.registryclass_flagextmatricula_forced:No" data-subentity  data-mandatory ><label for="registryclass_default_flagextmatricula_forcedNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagfiscalresidence">Campo residenza visibile</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagfiscalresidenceSi" type="radio" name="registryclass_default_flagfiscalresidence" class="custom-control-input" data-tag="registryclass.flagfiscalresidence:S?registryclassdefaultview.registryclass_flagfiscalresidence:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagfiscalresidenceSi"> Si</label>
+						<input id="registryclass_default_flagfiscalresidenceNo" type="radio" name="registryclass_default_flagfiscalresidence" class="custom-control-input" data-tag="registryclass.flagfiscalresidence:N?registryclassdefaultview.registryclass_flagfiscalresidence:No" data-subentity  data-mandatory ><label for="registryclass_default_flagfiscalresidenceNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagfiscalresidence_forced">inserimento residenza obbligatorio</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagfiscalresidence_forcedSi" type="radio" name="registryclass_default_flagfiscalresidence_forced" class="custom-control-input" data-tag="registryclass.flagfiscalresidence_forced:S?registryclassdefaultview.registryclass_flagfiscalresidence_forced:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagfiscalresidence_forcedSi"> Si</label>
+						<input id="registryclass_default_flagfiscalresidence_forcedNo" type="radio" name="registryclass_default_flagfiscalresidence_forced" class="custom-control-input" data-tag="registryclass.flagfiscalresidence_forced:N?registryclassdefaultview.registryclass_flagfiscalresidence_forced:No" data-subentity  data-mandatory ><label for="registryclass_default_flagfiscalresidence_forcedNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagforeigncf">Codice fiscale estero visibile</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagforeigncfSi" type="radio" name="registryclass_default_flagforeigncf" class="custom-control-input" data-tag="registryclass.flagforeigncf:S?registryclassdefaultview.registryclass_flagforeigncf:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagforeigncfSi"> Si</label>
+						<input id="registryclass_default_flagforeigncfNo" type="radio" name="registryclass_default_flagforeigncf" class="custom-control-input" data-tag="registryclass.flagforeigncf:N?registryclassdefaultview.registryclass_flagforeigncf:No" data-subentity  data-mandatory ><label for="registryclass_default_flagforeigncfNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagforeigncf_forced">Codice fiscale estero obbligatorio</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagforeigncf_forcedSi" type="radio" name="registryclass_default_flagforeigncf_forced" class="custom-control-input" data-tag="registryclass.flagforeigncf_forced:S?registryclassdefaultview.registryclass_flagforeigncf_forced:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagforeigncf_forcedSi"> Si</label>
+						<input id="registryclass_default_flagforeigncf_forcedNo" type="radio" name="registryclass_default_flagforeigncf_forced" class="custom-control-input" data-tag="registryclass.flagforeigncf_forced:N?registryclassdefaultview.registryclass_flagforeigncf_forced:No" data-subentity  data-mandatory ><label for="registryclass_default_flagforeigncf_forcedNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flaghuman">Persona fisica</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flaghumanSi" type="radio" name="registryclass_default_flaghuman" class="custom-control-input" data-tag="registryclass.flaghuman:S?registryclassdefaultview.registryclass_flaghuman:Si" data-subentity  ><label for="registryclass_default_flaghumanSi"> Si</label>
+						<input id="registryclass_default_flaghumanNo" type="radio" name="registryclass_default_flaghuman" class="custom-control-input" data-tag="registryclass.flaghuman:N?registryclassdefaultview.registryclass_flaghuman:No" data-subentity  ><label for="registryclass_default_flaghumanNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flaginfofromcfbutton">Bottone \"Comune, Data da C.F.\" visibile</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flaginfofromcfbuttonSi" type="radio" name="registryclass_default_flaginfofromcfbutton" class="custom-control-input" data-tag="registryclass.flaginfofromcfbutton:S?registryclassdefaultview.registryclass_flaginfofromcfbutton:Si" data-subentity  ><label for="registryclass_default_flaginfofromcfbuttonSi"> Si</label>
+						<input id="registryclass_default_flaginfofromcfbuttonNo" type="radio" name="registryclass_default_flaginfofromcfbutton" class="custom-control-input" data-tag="registryclass.flaginfofromcfbutton:N?registryclassdefaultview.registryclass_flaginfofromcfbutton:No" data-subentity  ><label for="registryclass_default_flaginfofromcfbuttonNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagmaritalstatus">Campo stato civile visibile</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagmaritalstatusSi" type="radio" name="registryclass_default_flagmaritalstatus" class="custom-control-input" data-tag="registryclass.flagmaritalstatus:S?registryclassdefaultview.registryclass_flagmaritalstatus:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagmaritalstatusSi"> Si</label>
+						<input id="registryclass_default_flagmaritalstatusNo" type="radio" name="registryclass_default_flagmaritalstatus" class="custom-control-input" data-tag="registryclass.flagmaritalstatus:N?registryclassdefaultview.registryclass_flagmaritalstatus:No" data-subentity  data-mandatory ><label for="registryclass_default_flagmaritalstatusNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagmaritalstatus_forced">Campo stato civile obbligatorio</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagmaritalstatus_forcedSi" type="radio" name="registryclass_default_flagmaritalstatus_forced" class="custom-control-input" data-tag="registryclass.flagmaritalstatus_forced:S?registryclassdefaultview.registryclass_flagmaritalstatus_forced:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagmaritalstatus_forcedSi"> Si</label>
+						<input id="registryclass_default_flagmaritalstatus_forcedNo" type="radio" name="registryclass_default_flagmaritalstatus_forced" class="custom-control-input" data-tag="registryclass.flagmaritalstatus_forced:N?registryclassdefaultview.registryclass_flagmaritalstatus_forced:No" data-subentity  data-mandatory ><label for="registryclass_default_flagmaritalstatus_forcedNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagmaritalsurname">Cognome acquisito visibile</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagmaritalsurnameSi" type="radio" name="registryclass_default_flagmaritalsurname" class="custom-control-input" data-tag="registryclass.flagmaritalsurname:S?registryclassdefaultview.registryclass_flagmaritalsurname:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagmaritalsurnameSi"> Si</label>
+						<input id="registryclass_default_flagmaritalsurnameNo" type="radio" name="registryclass_default_flagmaritalsurname" class="custom-control-input" data-tag="registryclass.flagmaritalsurname:N?registryclassdefaultview.registryclass_flagmaritalsurname:No" data-subentity  data-mandatory ><label for="registryclass_default_flagmaritalsurnameNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagmaritalsurname_forced">Cognome acquisito obbligatorio</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagmaritalsurname_forcedSi" type="radio" name="registryclass_default_flagmaritalsurname_forced" class="custom-control-input" data-tag="registryclass.flagmaritalsurname_forced:S?registryclassdefaultview.registryclass_flagmaritalsurname_forced:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagmaritalsurname_forcedSi"> Si</label>
+						<input id="registryclass_default_flagmaritalsurname_forcedNo" type="radio" name="registryclass_default_flagmaritalsurname_forced" class="custom-control-input" data-tag="registryclass.flagmaritalsurname_forced:N?registryclassdefaultview.registryclass_flagmaritalsurname_forced:No" data-subentity  data-mandatory ><label for="registryclass_default_flagmaritalsurname_forcedNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagothers">campo non usato</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagothersSi" type="radio" name="registryclass_default_flagothers" class="custom-control-input" data-tag="registryclass.flagothers:S?registryclassdefaultview.registryclass_flagothers:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagothersSi"> Si</label>
+						<input id="registryclass_default_flagothersNo" type="radio" name="registryclass_default_flagothers" class="custom-control-input" data-tag="registryclass.flagothers:N?registryclassdefaultview.registryclass_flagothers:No" data-subentity  data-mandatory ><label for="registryclass_default_flagothersNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagothers_forced">campo non usato</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagothers_forcedSi" type="radio" name="registryclass_default_flagothers_forced" class="custom-control-input" data-tag="registryclass.flagothers_forced:S?registryclassdefaultview.registryclass_flagothers_forced:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagothers_forcedSi"> Si</label>
+						<input id="registryclass_default_flagothers_forcedNo" type="radio" name="registryclass_default_flagothers_forced" class="custom-control-input" data-tag="registryclass.flagothers_forced:N?registryclassdefaultview.registryclass_flagothers_forced:No" data-subentity  data-mandatory ><label for="registryclass_default_flagothers_forcedNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagp_iva">Partita iva visibile</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagp_ivaSi" type="radio" name="registryclass_default_flagp_iva" class="custom-control-input" data-tag="registryclass.flagp_iva:S?registryclassdefaultview.registryclass_flagp_iva:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagp_ivaSi"> Si</label>
+						<input id="registryclass_default_flagp_ivaNo" type="radio" name="registryclass_default_flagp_iva" class="custom-control-input" data-tag="registryclass.flagp_iva:N?registryclassdefaultview.registryclass_flagp_iva:No" data-subentity  data-mandatory ><label for="registryclass_default_flagp_ivaNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagp_iva_forced">Partita iva obbligatoria</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagp_iva_forcedSi" type="radio" name="registryclass_default_flagp_iva_forced" class="custom-control-input" data-tag="registryclass.flagp_iva_forced:S?registryclassdefaultview.registryclass_flagp_iva_forced:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagp_iva_forcedSi"> Si</label>
+						<input id="registryclass_default_flagp_iva_forcedNo" type="radio" name="registryclass_default_flagp_iva_forced" class="custom-control-input" data-tag="registryclass.flagp_iva_forced:N?registryclassdefaultview.registryclass_flagp_iva_forced:No" data-subentity  data-mandatory ><label for="registryclass_default_flagp_iva_forcedNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagqualification">campo \"Titolo\" visibile</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagqualificationSi" type="radio" name="registryclass_default_flagqualification" class="custom-control-input" data-tag="registryclass.flagqualification:S?registryclassdefaultview.registryclass_flagqualification:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagqualificationSi"> Si</label>
+						<input id="registryclass_default_flagqualificationNo" type="radio" name="registryclass_default_flagqualification" class="custom-control-input" data-tag="registryclass.flagqualification:N?registryclassdefaultview.registryclass_flagqualification:No" data-subentity  data-mandatory ><label for="registryclass_default_flagqualificationNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagqualification_forced">campo \"Titolo\" obbligatorio</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagqualification_forcedSi" type="radio" name="registryclass_default_flagqualification_forced" class="custom-control-input" data-tag="registryclass.flagqualification_forced:S?registryclassdefaultview.registryclass_flagqualification_forced:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagqualification_forcedSi"> Si</label>
+						<input id="registryclass_default_flagqualification_forcedNo" type="radio" name="registryclass_default_flagqualification_forced" class="custom-control-input" data-tag="registryclass.flagqualification_forced:N?registryclassdefaultview.registryclass_flagqualification_forced:No" data-subentity  data-mandatory ><label for="registryclass_default_flagqualification_forcedNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagresidence">Usato congiuntamente a flagresidence_forced per stabilire se l'indirizzo di residenza ? obbligatorio, Da solo non ha un gran significato poich? non esiste un campo indirizzo di residenza</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagresidenceSi" type="radio" name="registryclass_default_flagresidence" class="custom-control-input" data-tag="registryclass.flagresidence:S?registryclassdefaultview.registryclass_flagresidence:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagresidenceSi"> Si</label>
+						<input id="registryclass_default_flagresidenceNo" type="radio" name="registryclass_default_flagresidence" class="custom-control-input" data-tag="registryclass.flagresidence:N?registryclassdefaultview.registryclass_flagresidence:No" data-subentity  data-mandatory ><label for="registryclass_default_flagresidenceNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagresidence_forced">Informazioni sulla residenza obbligatorie</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagresidence_forcedSi" type="radio" name="registryclass_default_flagresidence_forced" class="custom-control-input" data-tag="registryclass.flagresidence_forced:S?registryclassdefaultview.registryclass_flagresidence_forced:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagresidence_forcedSi"> Si</label>
+						<input id="registryclass_default_flagresidence_forcedNo" type="radio" name="registryclass_default_flagresidence_forced" class="custom-control-input" data-tag="registryclass.flagresidence_forced:N?registryclassdefaultview.registryclass_flagresidence_forced:No" data-subentity  data-mandatory ><label for="registryclass_default_flagresidence_forcedNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagtitle">Campo Denominazione diverso da cognome+nome, inserito manualmente</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagtitleSi" type="radio" name="registryclass_default_flagtitle" class="custom-control-input" data-tag="registryclass.flagtitle:S?registryclassdefaultview.registryclass_flagtitle:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagtitleSi"> Si</label>
+						<input id="registryclass_default_flagtitleNo" type="radio" name="registryclass_default_flagtitle" class="custom-control-input" data-tag="registryclass.flagtitle:N?registryclassdefaultview.registryclass_flagtitle:No" data-subentity  data-mandatory ><label for="registryclass_default_flagtitleNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryclass_default_flagtitle_forced">Non usato, il campo denominazione  ? sempre obbligatorio in un modo o nell'altro</label>
+					<div class="custom-control custom-radio">
+						<input id="registryclass_default_flagtitle_forcedSi" type="radio" name="registryclass_default_flagtitle_forced" class="custom-control-input" data-tag="registryclass.flagtitle_forced:S?registryclassdefaultview.registryclass_flagtitle_forced:Si" data-subentity  data-mandatory ><label for="registryclass_default_flagtitle_forcedSi"> Si</label>
+						<input id="registryclass_default_flagtitle_forcedNo" type="radio" name="registryclass_default_flagtitle_forced" class="custom-control-input" data-tag="registryclass.flagtitle_forced:N?registryclassdefaultview.registryclass_flagtitle_forced:No" data-subentity  data-mandatory ><label for="registryclass_default_flagtitle_forcedNo"> No</label>
+					</div>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

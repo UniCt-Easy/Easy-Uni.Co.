@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,7 +31,7 @@ using System.IO;
 using pagoPaService;
 
 namespace flussocreditidetail_default {
-    public partial class Frm_flussocreditidetail_default :Form {
+    public partial class Frm_flussocreditidetail_default : MetaDataForm {
         MetaData Meta;
         public Frm_flussocreditidetail_default() {
             InitializeComponent();
@@ -63,7 +62,7 @@ namespace flussocreditidetail_default {
 
             DS.accmotiveapplied_credit.ExtendedProperties[MetaData.ExtraParams] = filterEpOperationCred;
 
-
+            
             string filterEpOperation = QHS.CmpEq("idepoperation", "fatven");
             filterEpOperation = AddAccMotiveFilter.AddAmmDepFilter(filterEpOperation, Conn);
             DS.accmotiveapplied_revenue.ExtendedProperties[MetaData.ExtraParams] = filterEpOperation;
@@ -72,12 +71,12 @@ namespace flussocreditidetail_default {
             GetData.SetStaticFilter(DS.accmotiveapplied_revenue, filterEpOperation);
             GetData.SetStaticFilter(DS.accmotiveapplied_undotax, filterEpOperation);
             GetData.SetStaticFilter(DS.accmotiveapplied_undotaxpost, filterEpOperation);
-
+            DataAccess.SetTableForReading(DS.finmotive_iva_income, "finmotive");
             DataTable tConfig = Conn.RUN_SELECT("config", "*", null,
                 QHS.CmpEq("ayear", Meta.GetSys("esercizio")), null, null, true);
 
             if (tConfig == null || tConfig.Rows.Count == 0) {
-                MessageBox.Show("Configurazione annuale non trovata.", "Errore");
+                show("Configurazione annuale non trovata.", "Errore");
                 Meta.ErroreIrrecuperabile = true;
                 return;
             }
@@ -102,8 +101,10 @@ namespace flussocreditidetail_default {
 
         private void enableControls(bool abilita) {
             bool ReadOnly = !abilita;
+            txtCodiceTassonomia.ReadOnly = !abilita;
             cmbIva.Enabled = abilita;
             gboxCausale.Enabled = abilita;
+            gboxCausaleIVA.Enabled = abilita;
             gboxCompetenza.Enabled = abilita;
             gboxUPB.Enabled = abilita;
             gBoxupbIVA.Enabled = abilita;
@@ -138,14 +139,17 @@ namespace flussocreditidetail_default {
             txtUnivoco.ReadOnly = ReadOnly;
             checkBox1.Enabled = !ReadOnly;
             checkBox2.Enabled = !ReadOnly;
+            btnRicevuta.Enabled = !abilita;
         }
 
         private void btnRicevuta_Click(object sender, EventArgs e) {
+            if (DS.flussocreditidetail.Rows.Count == 0) return;
             var curr = DS.flussocreditidetail._First();
+            
             string error;
-            var avviso = PagoPaService.ottieniAvvisoPagamento(Conn, curr.iuv, null, out error);
+            var avviso = PagoPaService.ottieniAvvisoPagamento(Conn, curr.iuv,  out error);
             if (error != null) {
-                MessageBox.Show(error, "Errore");
+                show(error, "Errore");
                 return;
             }
 
@@ -159,7 +163,7 @@ namespace flussocreditidetail_default {
                 f.Write(avviso.pdf, 0, avviso.pdf.Length);
                 f.Flush();
                 f.Close();
-                System.Diagnostics.Process.Start(fName);
+                runProcess(fName, true);
             }
             catch(Exception E) {
                 QueryCreator.ShowException(E);
@@ -167,44 +171,121 @@ namespace flussocreditidetail_default {
         }
 
         private void btnCheckIncassi_Click(object sender, EventArgs e) {
-            DataRow curr = DS.flussocreditidetail.Rows[0];
-            if (curr["iuv"] == DBNull.Value) {
-                MessageBox.Show(this, @"Non Ã¨ presente lo IUV per il credito, non Ã¨ possibile interrogare la banca.",
-                    @"Avviso");
+            DataRow curr;
+
+            if (DS.flussocreditidetail.Rows.Count != 0) {
+                curr = DS.flussocreditidetail.Rows[0];
+                if (curr["iuv"] == DBNull.Value) {
+                    show(this, @"Non è presente lo IUV per il credito, non è possibile interrogare la banca.",
+                        @"Avviso");
+                    return;
+                }
+            }
+            else {
+                show(this, @"Selezionare un flusso per controllare la presenza di incassi.",
+                        @"Avviso");
                 return;
             }
+
+
 
             DataTable Incassi = Conn.RUN_SELECT("flussoincassidetailview", "*", null, QHS.CmpEq("iuv", curr["iuv"]),
                 null, false);
             if (Incassi.Rows.Count > 0) {
                 DataRow rIncasso = Incassi.Rows[0];
-                MessageBox.Show(this,
-                    $@"E' giÃ  presente un incasso collegato, nel flusso di codice {rIncasso["codiceflusso"]}.",
+                show(this,
+                    $@"E' già presente un incasso collegato, nel flusso di codice {rIncasso["codiceflusso"]}.",
                     "Avviso");
                 //return;
             }
 
-            string error;
             var msg = PagoPaService.AggiornaIuv(Conn, curr["iuv"].ToString());
-            if (msg != null) {
-                MessageBox.Show(this, msg,
-                    @"Errore");
-                return;
-            }
-
+           
+            //Controlla prima se ha effettivamente scaricato qualcosa, in questo caso non visualizza mai alcun errore
             Incassi = Conn.RUN_SELECT("flussoincassidetailview", "*", null, QHS.CmpEq("iuv", curr["iuv"]), null, false);
             if (Incassi.Rows.Count > 0) {
                 DataRow rIncasso = Incassi.Rows[0];
-                MessageBox.Show(this,
+                show(this,
                     $@"E' stato letto un incasso collegato, nel flusso di codice {rIncasso["codiceflusso"]}.",
                     @"Avviso");
                 return;
             }
+            
+            if (msg != null) {
+	            show(this, msg,
+		            @"Errore");
+	            return;
+            }
 
-            MessageBox.Show(this, $@"Non sono stati registrati incassi su questo IUV, nell'esercizio corrente.",
+            show(this, $@"Non sono stati registrati incassi su questo IUV, nell'esercizio corrente.",
                 @"Avviso");
         }
-    }
+        
+        private IMetaDataDispatcher _dispatcher;
+        private ISecurity _security;
+        private void btnAnnullaCrediti_Click(object sender, EventArgs e)
+        {
+            if (DS.flussocreditidetail.Rows.Count == 0) return;
+			Meta.GetFormData(true);
+            _dispatcher = this.getInstance<IMetaDataDispatcher>();
+            _security = this.getInstance<ISecurity>();
+            DataRow curr = DS.flussocreditidetail.Rows[0];
+			var f = new FrmAnnullaDettaglio(curr["iduniqueformcode"],DS,Meta,_dispatcher,_security);
+			if (f.ShowDialog(this) != DialogResult.OK) return;
+            else Meta.FreshForm();
+ 
+
+		
+        }
+
+		private void btnEmailToCc_Click(object sender, EventArgs e) {
+
+            DataTable config = Conn.RUN_SELECT("configsmtp", "*", null, null, null, false);
+            if (config.Rows.Count == 0) {
+                show("Il form Gestione Notifiche non contiene campi valorizzati");
+                return;
+			}
+
+            string cc = config.Rows[0]["email_cc"].ToString();
+            //if (cc.Trim() == "") {
+            //    show("Non è stato configurato un indirizzo email in copia conoscenza");
+            //    return;
+            //}
+            
+			List<string> listaErrori = new List<string>();
+            //Reperimento degli avvisi di pagamento dal partner tecnologico
+            Dictionary<string, AvvisoPagamento> cert = new Dictionary<string, AvvisoPagamento>();
+            foreach (var r in DS.flussocreditidetail) {
+                if (r.iuv == null) {
+                    listaErrori.Add("È necessario avere lo IUV per inviare l'email");
+                    continue;
+                }
+                if (cert.ContainsKey(r.iuv)) continue;
+                string result;
+                cert[r.iuv] = PagoPaService.ottieniAvvisoPagamento(Conn, r.iuv,  out result);
+                if (result != null) listaErrori.Add(result);
+            }
+
+            //Invio delle mail dei certificati
+            foreach (var avviso in cert.Keys) {
+                var avvPag = cert[avviso];
+                if (avvPag == null) continue;
+                if (string.IsNullOrEmpty(avvPag.email)) {
+                    listaErrori.Add("Il debitore " + avvPag.debitore + " non ha fornito l'email");
+                    continue;
+                }
+                var error = PagoPaService.InviaAvvisoPagamento(avvPag.ente, avvPag.debitore, avvPag.email, avvPag.pdf, cc, Conn);
+                if (error != null) listaErrori.Add(error);
+            }
+            if (listaErrori.Count > 0) {                
+                show(listaErrori[0].ToString());
+                return;
+            }
+            else {
+                show(this, "Email correttamente inviata", "Avviso");
+            }
+        
+		}
+	}
 
 }
-

@@ -80,6 +80,14 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="metadatalibrary">
+      <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="metaeasylibrary">
+      <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>

@@ -1,23 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-ï»¿using System;
+using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -59,13 +57,19 @@ public partial class ManageAvanzamentoStati : System.Web.UI.Page {
          */
         switch (action) {
             case "call_getnextoffice": {
-                    /* Mostra i possibili Stati in cui puÃ² avanzare la Richiesta.
+                    /* Mostra i possibili Stati in cui può avanzare la Richiesta.
                      * Restituisce un XML contenente il risultato della sp,
                      * altrimenti un XML contenente un messaggio di
                      * "Nessuno Stato selezionabile"
                      */
-                    object idcustomuser = Request.QueryString["idcustomuser"].ToString();
-                    object idflowchart = Request.QueryString["idflowchart"].ToString();
+                    object idcustomuser = Request.QueryString["idcustomuser"];
+                    if (idcustomuser.ToString().Length > 2) {
+                        idcustomuser= idcustomuser.ToString().Substring(1, (idcustomuser.ToString().Length) - 2);
+                    }
+                    object idflowchart = Request.QueryString["idflowchart"];
+                    if (idflowchart.ToString().Length > 2) {
+                        idflowchart = idflowchart.ToString().Substring(1, (idflowchart.ToString().Length) - 2);
+                        }
                     object idmankind = Request.QueryString["idmankind"].ToString();
                     int len = idmankind.ToString().Length;
                     if (len > 2) idmankind = idmankind.ToString().Substring(1, len - 2);
@@ -75,8 +79,8 @@ public partial class ManageAvanzamentoStati : System.Web.UI.Page {
 
                     Easy_DataAccess UsrConnTemp = GetVars.GetUserConn(this);
                     if (UsrConnTemp == null || UsrConnTemp.Open() == false) {
-                        //Il Server del Dipartimento non Ã¨ in rete. 
-                        //Il servizio non Ã¨ disponibile in quanto il computer potrebbe essere spento.
+                        //Il Server del Dipartimento non è in rete. 
+                        //Il servizio non è disponibile in quanto il computer potrebbe essere spento.
                         WebLog.Log(this, "Il Server del dipartimento non risponde.");
                         return;
                     }
@@ -201,4 +205,3 @@ public partial class ManageAvanzamentoStati : System.Web.UI.Page {
 
 
 }
-

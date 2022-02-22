@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -26,7 +25,7 @@ using System.Windows.Forms;
 using metadatalibrary;
 
 namespace authpayment_default {
-    public partial class FrmAuthPayment_Default : Form {
+    public partial class FrmAuthPayment_Default : MetaDataForm {
         public FrmAuthPayment_Default() {
             InitializeComponent();
         }
@@ -98,31 +97,26 @@ namespace authpayment_default {
                 DataRow[] Main = tInfo.Select(QHC.CmpEq("idexp", r["idexp"]));
                 if (Main.Length == 0) {
                     Meta.LogError($"FrmAuthPayment_Default.aggiungiAltriMovimenti(): Movimento di ID {r["idexp"]} non trovato", null);
-                    MessageBox.Show($"Movimento di ID {r["idexp"]} non trovato", "Errore");
+                    show($"Movimento di ID {r["idexp"]} non trovato, probabilmente è stato cancellato", "Errore");
                     continue;
                 }
 
                 DataRow rExp = Main[0];
-
                 string query = "SELECT * FROM expenselast " +
                     " JOIN expense ON expense.idexp = expenselast.idexp " +
                     " WHERE " + QHS.AppAnd(QHS.CmpEq("expenselast.kpay", rExp["kpay"]),
                     QHS.IsNotNull("expenselast.kpay"),
                     QHS.CmpEq("expense.idreg", rExp["idreg"]),
-                    "(NOT EXISTS (SELECT * FROM authpaymentexpense " +
-                    " WHERE idexp = expenselast.idexp))",
+                    $"(NOT EXISTS (SELECT * FROM authpaymentexpense  WHERE idexp = expenselast.idexp))",
                     QHS.CmpNe("expenselast.idexp", rExp["idexp"]));
 
                 DataTable tOther = Meta.Conn.SQLRunner(query);
                 if (tOther != null) {
                     foreach (DataRow rOther in tOther.Rows) {
                         if (DS.authpaymentexpense.Select(QHC.CmpEq("idexp", rOther["idexp"])).Length > 0) continue;
-
                         DataRow rAuthExpense = MetaAuthExp.Get_New_Row(Curr, DS.authpaymentexpense);
                         rAuthExpense["idexp"] = rOther["idexp"];
-
-                        DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.expenseview,
-                            null, QHS.CmpEq("idexp", rOther["idexp"]), null, true);
+                        DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.expenseview,null, QHS.CmpEq("idexp", rOther["idexp"]), null, true);
                     }
                 }
 
@@ -182,4 +176,4 @@ namespace authpayment_default {
             lastSentDate = data;//lastSentDate = authdata;
         }
     }
-}
+}

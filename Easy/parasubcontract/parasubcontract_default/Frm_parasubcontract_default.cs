@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -33,13 +32,15 @@ using ep_functions;
 using ap_functions;
 using metaeasylibrary;
 using q = metadatalibrary.MetaExpression;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace parasubcontract_default { //contratto//
 
     /// <summary>
     /// Summary description for frmcontratto.
     /// </summary>
-    public class Frm_parasubcontract_default : System.Windows.Forms.Form {
+    public class Frm_parasubcontract_default : MetaDataForm {
         InputPerCalcoloCostoTotale inputPerCalcoloCostoTotale;
         InputPerCalcoloCostoTotale inputDatiSalvati;
         InputPerGestioneCud inputPerGestioneCud;
@@ -77,7 +78,7 @@ namespace parasubcontract_default { //contratto//
         private System.Windows.Forms.GroupBox grpPrestazione;
         private System.Windows.Forms.GroupBox grpPercipiente;
         private System.Windows.Forms.GroupBox grpContratto;
-        public vistaForm DS;
+        public dsmeta DS;
         private System.Windows.Forms.GroupBox grpComune;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGrid dataGrid1;
@@ -349,7 +350,18 @@ namespace parasubcontract_default { //contratto//
         private GroupBox grpCausaliAssunzioneDalia;
         private TextBox txtCausaleAssunzione;
         private Button btnEsclusioneCIG;
-        private System.ComponentModel.IContainer components;
+        private GroupBox groupBox22;
+        private ComboBox cmbDaliaFunzionale;
+        private GroupBox gboxDipartimento;
+        private Button btnDipartimento;
+        private TextBox txtCodiceDipartimento;
+        public TextBox txtDaliaDipartimento;
+		private TabPage tabAllegati;
+		private DataGrid dgrAllegati;
+		private Button btnDelAtt;
+		private Button btnEditAtt;
+		private Button btnInsAtt;
+		private System.ComponentModel.IContainer components;
 
         #endregion
 
@@ -357,6 +369,9 @@ namespace parasubcontract_default { //contratto//
             InitializeComponent();
             DS.exhibitedcuddeduction.ExtendedProperties["gridmaster"] = "exhibitedcud";
             DS.exhibitedcudabatement.ExtendedProperties["gridmaster"] = "exhibitedcud";
+            cmbDaliaFunzionale.DataSource = DS.dalia_funzionale;
+            cmbDaliaFunzionale.DisplayMember = "title";
+            cmbDaliaFunzionale.ValueMember = "iddalia_funzionale";
         }
 
         /// <summary>
@@ -397,33 +412,40 @@ namespace parasubcontract_default { //contratto//
             ultimoDellAnno = new DateTime(esercizio, 12, 31);
             ultimoDellAnnoPrec = new DateTime(esercizio - 1, 12, 31);
             string filterTipoPrestazione = QHS.CmpEq("module", "COCOCO");
-            GetData.SetStaticFilter(DS.service, filterTipoPrestazione);
-            GetData.SetStaticFilter(DS.parasubcontractyear, filteresercizio);
-            GetData.SetStaticFilter(DS.parasubcontractview, filteresercizio);
-            GetData.SetStaticFilter(DS.abatementcode, filteresercizio);
-            GetData.SetStaticFilter(DS.deductioncode, filteresercizio);
-            GetData.SetStaticFilter(DS.otherinsurance, filteresercizio);
-            GetData.SetSorting(DS.payroll, "flagbalance, fiscalyear, npayroll");
-            GetData.SetSorting(DS.payroll_altriesercizi, "flagbalance, fiscalyear, npayroll");
+            DS.service.setStaticFilter(filterTipoPrestazione);
+            DS.parasubcontractyear.setStaticFilter(filteresercizio);
+            DS.abatementcode.setStaticFilter(filteresercizio);
+            DS.deductioncode.setStaticFilter(filteresercizio);
+            DS.otherinsurance.setStaticFilter(filteresercizio);
+            DS.parasubcontractview.setStaticFilter(filteresercizio);
+            DS.payroll.setSorting("flagbalance, fiscalyear, npayroll");
+            DS.payroll_altriesercizi.setSorting("flagbalance, fiscalyear, npayroll");
             string filtroAnnoFiscale = QHS.CmpEq("fiscalyear", esercizio);
-            GetData.SetStaticFilter(DS.payroll, filtroAnnoFiscale);
+            DS.payroll.setStaticFilter(filtroAnnoFiscale);
             string filtroAltroAnnoFiscale = QHS.CmpNe("fiscalyear", esercizio);
-            GetData.SetStaticFilter(DS.payroll_altriesercizi, filtroAltroAnnoFiscale);
-            GetData.SetStaticFilter(DS.exhibitedcud, filtroAnnoFiscale);
-            GetData.SetStaticFilter(DS.parasubcontractfamily, filteresercizio);
-            GetData.SetStaticFilter(DS.sortingview1, filteresercizio);
-            DataAccess.SetTableForReading(DS.sortingview1, "sortingview");
-            DataAccess.SetTableForReading(DS.payroll_altriesercizi, "payroll");
-            GetData.SetStaticFilter(DS.deductibleexpense, filteresercizio);
-            GetData.SetStaticFilter(DS.abatableexpense, filteresercizio);
-            GetData.SetStaticFilter(DS.expensepayrollview, QHC.AppAnd(filteresercizio, filtroAnnoFiscale));
-            //GetData.SetStaticFilter(DS.expensepayrollview, filtroMaxFase);
-            GetData.SetSorting(DS.exhibitedcud, "idexhibitedcud DESC");
-            GetData.CacheTable(DS.config, filteresercizio, null, false);
-            GetData.SetSorting(DS.monthname, "code");
-            GetData.CacheTable(DS.abatement);
-            GetData.CacheTable(DS.deduction);
-            GetData.CacheTable(DS.tax);
+            DS.payroll_altriesercizi.setStaticFilter(filtroAltroAnnoFiscale);
+
+            DS.exhibitedcud.setStaticFilter(filtroAnnoFiscale);  // era filtroAltroAnnoFiscale
+            DS.parasubcontractfamily.setStaticFilter(filteresercizio);
+            DS.sortingview1.setStaticFilter(filteresercizio);
+
+            DS.sortingview1.setTableForReading("sortingview");
+			DS.upb_payroll.setTableForReading("upb");
+			DS.upb_payrollother.setTableForReading("upb");
+			DS.payroll_altriesercizi.setTableForReading("payroll");
+            
+            DS.deductibleexpense.setStaticFilter(filteresercizio);
+            DS.abatableexpense.setStaticFilter(filteresercizio);
+            DS.expensepayrollview.setStaticFilter(QHS.AppAnd(filteresercizio, filtroAnnoFiscale));
+
+            DS.exhibitedcud.setSorting("idexhibitedcud DESC");
+            DS.config.CacheTable(filteresercizio, null, false);
+            DS.monthname.setSorting("code");
+
+            DS.abatement.CacheTable();
+            DS.deduction.CacheTable();
+            DS.tax.CacheTable();
+            
             HelpForm.SetDenyNull(DS.parasubcontract.Columns["requested_doc"], true);
             int esercizioprec = esercizio - 1;
             grpAddizionaliPassate.Text = "Addizionali derivanti da contratti della stessa università al 31/12/" +
@@ -673,7 +695,7 @@ namespace parasubcontract_default { //contratto//
                 if (enableold) {
                     filterTipoRapporto = QHS.AppAnd(QHS.CmpEq("idemenscontractkind", oldcode),
                         QHS.CmpEq("ayear", esercizio));
-                    MessageBox.Show(this,
+                    show(this,
                         "Attenzione: il tipo rapporto selezionato non è coerente con il modulo PARASUBORDINATI");
                 }
                 else {
@@ -689,7 +711,7 @@ namespace parasubcontract_default { //contratto//
                 bool rapportoSceltoIsOld = (emensTipoRapporto.Select(
                     QHC.AppAnd(QHC.CmpEq("idemenscontractkind", oldcode), QHC.CmpEq("ayear", esercizio))).Length == 0);
                 if (enableold && rapportoSceltoIsOld) {
-                    MessageBox.Show(this,
+                    show(this,
                         "Attenzione: il tipo rapporto EMENS selezionato non è coerente con il modulo PARASUBORDINATI");
                 }
                 if (enableold)
@@ -735,7 +757,7 @@ namespace parasubcontract_default { //contratto//
                 // Altrimenti viene svuotato il combo box
                 if (enableold) {
                     filterAttPrevINPS = QHS.AppAnd(QHS.CmpEq("activitycode", oldcode), QHS.CmpEq("ayear", esercizio));
-                    MessageBox.Show(this,
+                    show(this,
                         "Attenzione: l'attività previdenziale INPS scelta non è coerente con il rapporto scelto");
                 }
                 else {
@@ -909,7 +931,7 @@ namespace parasubcontract_default { //contratto//
                         DataTable T = CalcoliCococo.verificaAddizionaliPrestazione(Conn, codicePrestazione, "C");
                         if ((T != null) && (T.Rows.Count > 0) && (idreg != 0)) {
                             if ((idComuneAddizionale == DBNull.Value) || (idComuneAddizionale == null)) {
-                                MessageBox.Show(this,
+                                show(this,
                                     "In riferimento all'applicazione delle addizionali comunali non esiste per il percipiente "
                                     + "\nun domicilio fiscale o un indirizzo di residenza valido al " +
                                     primoDellAnno.ToShortDateString());
@@ -924,7 +946,7 @@ namespace parasubcontract_default { //contratto//
                         if ((TGeo != null) && (TGeo.Rows.Count > 0) && (idreg != 0)) {
                             //Messaggi per avvisare l'utente
                             if ((idComuneAddizionale == DBNull.Value) || (idComuneAddizionale == null)) {
-                                MessageBox.Show(this,
+                                show(this,
                                     "In riferimento all'applicazione delle addizionali regionali non esiste per il percipiente "
                                     + "\nun domicilio fiscale o un indirizzo di residenza valido al " +
                                     primoDellAnno.ToShortDateString()
@@ -977,6 +999,7 @@ namespace parasubcontract_default { //contratto//
             if ((!Meta.IsEmpty) && (Meta.FirstFillForThisRow)) {
                 grpPercipiente.Tag = "AutoChoose.txtPercipiente.default.((active='S') and (human = 'S'))";
                 Meta.SetAutoMode(grpPercipiente);
+                grpPercipiente.Enabled = Meta.InsertMode;
             }
 
             if (Meta.EditMode && Meta.FirstFillForThisRow) AggiornaSoloInformazioni();
@@ -1113,6 +1136,7 @@ namespace parasubcontract_default { //contratto//
         public void MetaData_AfterClear() {
             abilitaDisabilitaDalia(null);
             cmb_dalia_position.Enabled = true;
+            grpPercipiente.Enabled = true;
             AggiornaVoceSpesa();
 
             //btnImportaOneri.Enabled = false;
@@ -1208,3661 +1232,3802 @@ namespace parasubcontract_default { //contratto//
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_parasubcontract_default));
-            this.tabGenerale = new System.Windows.Forms.TabPage();
-            this.grpCertificatiNecessari = new System.Windows.Forms.GroupBox();
-            this.chkCCdedicato = new System.Windows.Forms.CheckBox();
-            this.SubEntity_chkExcludeFromCertificate = new System.Windows.Forms.CheckBox();
-            this.groupBox24 = new System.Windows.Forms.GroupBox();
-            this.btnCambiaRuolo = new System.Windows.Forms.Button();
-            this.txtCompartoCSA = new System.Windows.Forms.TextBox();
-            this.txtInquadrcsa = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.lblRuoloCSA = new System.Windows.Forms.Label();
-            this.txtRuoloCSA = new System.Windows.Forms.TextBox();
-            this.groupBox19 = new System.Windows.Forms.GroupBox();
-            this.txtComuneAddRegionali = new System.Windows.Forms.TextBox();
-            this.btnTroncaContratto = new System.Windows.Forms.Button();
-            this.txtStimaCostoTotale = new System.Windows.Forms.TextBox();
-            this.label54 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.grpDettagliPrevidenzialiAssistenziali = new System.Windows.Forms.GroupBox();
-            this.cmbTipoRapporto = new System.Windows.Forms.ComboBox();
-            this.DS = new parasubcontract_default.vistaForm();
-            this.btnTipoRapporto = new System.Windows.Forms.Button();
-            this.cmbAttPrevidenzialeINPS = new System.Windows.Forms.ComboBox();
-            this.btnAttivitaPrevINPS = new System.Windows.Forms.Button();
-            this.cmbAltreFormeAssicurative = new System.Windows.Forms.ComboBox();
-            this.btnAltreFormeAssicurative = new System.Windows.Forms.Button();
-            this.cmbPAT = new System.Windows.Forms.ComboBox();
-            this.btnPAT = new System.Windows.Forms.Button();
-            this.grpDettagliFiscali = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.grpPrestazione = new System.Windows.Forms.GroupBox();
-            this.btnTipoPrestazione = new System.Windows.Forms.Button();
-            this.cmbTipoPrestazione = new System.Windows.Forms.ComboBox();
-            this.grpPercipiente = new System.Windows.Forms.GroupBox();
-            this.txtPercipiente = new System.Windows.Forms.TextBox();
-            this.grpContratto = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtEsercizio = new System.Windows.Forms.TextBox();
-            this.txtNumContratto = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.txtLordoAlBeneficiario = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtDataFine = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtDurataMesi = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtDataInizio = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.grpComune = new System.Windows.Forms.GroupBox();
-            this.txtComuneAddComunali = new System.Windows.Forms.TextBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabImponibili = new System.Windows.Forms.TabPage();
-            this.groupBox17 = new System.Windows.Forms.GroupBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.btnSituazione = new System.Windows.Forms.Button();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.SubEntity_txtImponibilePrevidenziale = new System.Windows.Forms.TextBox();
-            this.label35 = new System.Windows.Forms.Label();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.SubEntity_txtPrevidenzialeCUD = new System.Windows.Forms.TextBox();
-            this.SubEntity_txtGiorniCUD = new System.Windows.Forms.TextBox();
-            this.label33 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.SubEntity_chkApplicaBonus = new System.Windows.Forms.CheckBox();
-            this.grpNoTaxArea = new System.Windows.Forms.GroupBox();
-            this.SubEntity_rbtnNonApplicare = new System.Windows.Forms.RadioButton();
-            this.SubEntity_rbtnDedBaseGiorno = new System.Windows.Forms.RadioButton();
-            this.SubEntity_rbtnDedBaseIntero = new System.Windows.Forms.RadioButton();
-            this.grpAliquoteIrpef = new System.Windows.Forms.GroupBox();
-            this.SubEntity_cmbAliquotaIRPEF = new System.Windows.Forms.ComboBox();
-            this.SubEntity_rbScaglioniIRPEF = new System.Windows.Forms.RadioButton();
-            this.SubEntity_rbAliquotaMarginale = new System.Windows.Forms.RadioButton();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.SubEntity_txtDataFineCompetenza = new System.Windows.Forms.TextBox();
-            this.label44 = new System.Windows.Forms.Label();
-            this.SubEntity_txtDataInizioCompetenza = new System.Windows.Forms.TextBox();
-            this.label43 = new System.Windows.Forms.Label();
-            this.SubEntity_txtGiornicontratto = new System.Windows.Forms.TextBox();
-            this.label40 = new System.Windows.Forms.Label();
-            this.SubEntity_txtImponibilecontratto = new System.Windows.Forms.TextBox();
-            this.label39 = new System.Windows.Forms.Label();
-            this.tabFamiliare = new System.Windows.Forms.TabPage();
-            this.label18 = new System.Windows.Forms.Label();
-            this.dataGrid8 = new System.Windows.Forms.DataGrid();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.tabAltreCollINAIL = new System.Windows.Forms.TabPage();
-            this.dataGrid10 = new System.Windows.Forms.DataGrid();
-            this.button16 = new System.Windows.Forms.Button();
-            this.button15 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
-            this.tabOneri = new System.Windows.Forms.TabPage();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.groupBox15 = new System.Windows.Forms.GroupBox();
-            this.dataGrid4 = new System.Windows.Forms.DataGrid();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.groupBox16 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.dataGrid2 = new System.Windows.Forms.DataGrid();
-            this.button4 = new System.Windows.Forms.Button();
-            this.tabCUD = new System.Windows.Forms.TabPage();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.btnVerificaProblemi = new System.Windows.Forms.Button();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.dgrid_DetCud = new System.Windows.Forms.DataGrid();
-            this.btnDeleteDet = new System.Windows.Forms.Button();
-            this.btnEditDet = new System.Windows.Forms.Button();
-            this.btnInsertDet = new System.Windows.Forms.Button();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.dgrid_DedCud = new System.Windows.Forms.DataGrid();
-            this.btnDeleteDed = new System.Windows.Forms.Button();
-            this.btnEditDed = new System.Windows.Forms.Button();
-            this.btnInsertDed = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.inserisci_CUD = new System.Windows.Forms.Button();
-            this.dgrid_CUD = new System.Windows.Forms.DataGrid();
-            this.tabAddizionali = new System.Windows.Forms.TabPage();
-            this.grpAccontoAddCom = new System.Windows.Forms.GroupBox();
-            this.btnCalcAcconto = new System.Windows.Forms.Button();
-            this.SubEntity_cmbMeseInizioAcconto = new System.Windows.Forms.ComboBox();
-            this.SubEntity_txtNumRateAcconto = new System.Windows.Forms.TextBox();
-            this.SubEntity_txtImportoAcconto = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button20 = new System.Windows.Forms.Button();
-            this.button19 = new System.Windows.Forms.Button();
-            this.button18 = new System.Windows.Forms.Button();
-            this.dataGrid11 = new System.Windows.Forms.DataGrid();
-            this.grpAddizionaliPassate = new System.Windows.Forms.GroupBox();
-            this.groupBox20 = new System.Windows.Forms.GroupBox();
-            this.txtComuneAddRegRata = new System.Windows.Forms.TextBox();
-            this.groupBox21 = new System.Windows.Forms.GroupBox();
-            this.txtComuneAddComRata = new System.Windows.Forms.TextBox();
-            this.SubEntity_cmbMeseInizio = new System.Windows.Forms.ComboBox();
-            this.SubEntity_txtNumRate = new System.Windows.Forms.TextBox();
-            this.SubEntity_txtAddReg = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.SubEntity_txtAddProv = new System.Windows.Forms.TextBox();
-            this.SubEntity_txtAddCom = new System.Windows.Forms.TextBox();
-            this.tabCedolini = new System.Windows.Forms.TabPage();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.dgCedoliniAltriEsercizi = new System.Windows.Forms.DataGrid();
-            this.btnGeneraCedolini = new System.Windows.Forms.Button();
-            this.btnVisualizzaCedolino = new System.Windows.Forms.Button();
-            this.btnCalcolaCedolino = new System.Windows.Forms.Button();
-            this.dgCedolini = new System.Windows.Forms.DataGrid();
-            this.tabErogazioni = new System.Windows.Forms.TabPage();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dataGrid1 = new System.Windows.Forms.DataGrid();
-            this.tabDatiRiepilogativi = new System.Windows.Forms.TabPage();
-            this.label68 = new System.Windows.Forms.Label();
-            this.gridRitenute = new System.Windows.Forms.DataGrid();
-            this.txtCompensoNetto = new System.Windows.Forms.TextBox();
-            this.label67 = new System.Windows.Forms.Label();
-            this.txtLordoAlBeneficiarioRiep = new System.Windows.Forms.TextBox();
-            this.label66 = new System.Windows.Forms.Label();
-            this.txtCostoTotale = new System.Windows.Forms.TextBox();
-            this.label65 = new System.Windows.Forms.Label();
-            this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.txtAssicAmm = new System.Windows.Forms.TextBox();
-            this.label61 = new System.Windows.Forms.Label();
-            this.txtAssisAmm = new System.Windows.Forms.TextBox();
-            this.label62 = new System.Windows.Forms.Label();
-            this.txtPrevAmm = new System.Windows.Forms.TextBox();
-            this.label63 = new System.Windows.Forms.Label();
-            this.txtFiscAmm = new System.Windows.Forms.TextBox();
-            this.label64 = new System.Windows.Forms.Label();
-            this.txtTotaleRitAmmin = new System.Windows.Forms.TextBox();
-            this.label60 = new System.Windows.Forms.Label();
-            this.groupBox13 = new System.Windows.Forms.GroupBox();
-            this.txtAssicDip = new System.Windows.Forms.TextBox();
-            this.label58 = new System.Windows.Forms.Label();
-            this.txtAssisDip = new System.Windows.Forms.TextBox();
-            this.label57 = new System.Windows.Forms.Label();
-            this.txtPrevDip = new System.Windows.Forms.TextBox();
-            this.label56 = new System.Windows.Forms.Label();
-            this.txtFiscDip = new System.Windows.Forms.TextBox();
-            this.label55 = new System.Windows.Forms.Label();
-            this.txtTotaleRitDip = new System.Windows.Forms.TextBox();
-            this.label59 = new System.Windows.Forms.Label();
-            this.TabClassSuppl = new System.Windows.Forms.TabPage();
-            this.btnClassElimina = new System.Windows.Forms.Button();
-            this.btnClassModifica = new System.Windows.Forms.Button();
-            this.btnClassInserisci = new System.Windows.Forms.Button();
-            this.dgrClassSuppl = new System.Windows.Forms.DataGrid();
-            this.tabEconoPatr = new System.Windows.Forms.TabPage();
-            this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.tabFinanziario = new System.Windows.Forms.TabPage();
-            this.gboxUPB = new System.Windows.Forms.GroupBox();
-            this.txtUPB = new System.Windows.Forms.TextBox();
-            this.txtDescrUPB = new System.Windows.Forms.TextBox();
-            this.btnUPBCode = new System.Windows.Forms.Button();
-            this.tabAnalitico = new System.Windows.Forms.TabPage();
-            this.gboxclass3 = new System.Windows.Forms.GroupBox();
-            this.btnCodice3 = new System.Windows.Forms.Button();
-            this.txtDenom3 = new System.Windows.Forms.TextBox();
-            this.txtCodice3 = new System.Windows.Forms.TextBox();
-            this.gboxclass2 = new System.Windows.Forms.GroupBox();
-            this.btnCodice2 = new System.Windows.Forms.Button();
-            this.txtDenom2 = new System.Windows.Forms.TextBox();
-            this.txtCodice2 = new System.Windows.Forms.TextBox();
-            this.gboxclass1 = new System.Windows.Forms.GroupBox();
-            this.btnCodice1 = new System.Windows.Forms.Button();
-            this.txtDenom1 = new System.Windows.Forms.TextBox();
-            this.txtCodice1 = new System.Windows.Forms.TextBox();
-            this.tabEP = new System.Windows.Forms.TabPage();
-            this.grpBoxSiopeEP = new System.Windows.Forms.GroupBox();
-            this.btnSiope = new System.Windows.Forms.Button();
-            this.txtDescSiope = new System.Windows.Forms.TextBox();
-            this.txtCodSiope = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.gBoxCausaleDebitoCrg = new System.Windows.Forms.GroupBox();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.txtCodiceCausaleCrg = new System.Windows.Forms.TextBox();
-            this.button8 = new System.Windows.Forms.Button();
-            this.gBoxCausaleDebito = new System.Windows.Forms.GroupBox();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.txtCodiceCausaleDeb = new System.Windows.Forms.TextBox();
-            this.button21 = new System.Windows.Forms.Button();
-            this.gBoxCausaleCosto = new System.Windows.Forms.GroupBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.txtCodiceCausale = new System.Windows.Forms.TextBox();
-            this.button17 = new System.Windows.Forms.Button();
-            this.tabAttributi = new System.Windows.Forms.TabPage();
-            this.gboxclass05 = new System.Windows.Forms.GroupBox();
-            this.txtCodice05 = new System.Windows.Forms.TextBox();
-            this.btnCodice05 = new System.Windows.Forms.Button();
-            this.txtDenom05 = new System.Windows.Forms.TextBox();
-            this.gboxclass04 = new System.Windows.Forms.GroupBox();
-            this.txtCodice04 = new System.Windows.Forms.TextBox();
-            this.btnCodice04 = new System.Windows.Forms.Button();
-            this.txtDenom04 = new System.Windows.Forms.TextBox();
-            this.gboxclass03 = new System.Windows.Forms.GroupBox();
-            this.txtCodice03 = new System.Windows.Forms.TextBox();
-            this.btnCodice03 = new System.Windows.Forms.Button();
-            this.txtDenom03 = new System.Windows.Forms.TextBox();
-            this.gboxclass02 = new System.Windows.Forms.GroupBox();
-            this.txtCodice02 = new System.Windows.Forms.TextBox();
-            this.btnCodice02 = new System.Windows.Forms.Button();
-            this.txtDenom02 = new System.Windows.Forms.TextBox();
-            this.gboxclass01 = new System.Windows.Forms.GroupBox();
-            this.txtCodice01 = new System.Windows.Forms.TextBox();
-            this.btnCodice01 = new System.Windows.Forms.Button();
-            this.txtDenom01 = new System.Windows.Forms.TextBox();
-            this.tabAP = new System.Windows.Forms.TabPage();
-            this.btnCollegaAP = new System.Windows.Forms.Button();
-            this.btnGeneraAP = new System.Windows.Forms.Button();
-            this.btnVisualizzaAP = new System.Windows.Forms.Button();
-            this.labAPnongenerato = new System.Windows.Forms.Label();
-            this.labAPgenerato = new System.Windows.Forms.Label();
-            this.tabDALIA = new System.Windows.Forms.TabPage();
-            this.grpCausaliAssunzioneDalia = new System.Windows.Forms.GroupBox();
-            this.txtCausaleAssunzione = new System.Windows.Forms.TextBox();
-            this.btnEsclusioneCIG = new System.Windows.Forms.Button();
-            this.txtVoceSpesaDalia = new System.Windows.Forms.TextBox();
-            this.btnVoceSpesaDalia = new System.Windows.Forms.Button();
-            this.groupBox18 = new System.Windows.Forms.GroupBox();
-            this.label91 = new System.Windows.Forms.Label();
-            this.btnQualificaDalia = new System.Windows.Forms.Button();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.cmb_dalia_position = new System.Windows.Forms.ComboBox();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.dataGrid3 = new System.Windows.Forms.DataGrid();
-            this.myTip = new System.Windows.Forms.ToolTip(this.components);
-            this.tabGenerale.SuspendLayout();
-            this.grpCertificatiNecessari.SuspendLayout();
-            this.groupBox24.SuspendLayout();
-            this.groupBox19.SuspendLayout();
-            this.grpDettagliPrevidenzialiAssistenziali.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            this.grpDettagliFiscali.SuspendLayout();
-            this.grpPrestazione.SuspendLayout();
-            this.grpPercipiente.SuspendLayout();
-            this.grpContratto.SuspendLayout();
-            this.grpComune.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabImponibili.SuspendLayout();
-            this.groupBox17.SuspendLayout();
-            this.groupBox12.SuspendLayout();
-            this.groupBox10.SuspendLayout();
-            this.groupBox9.SuspendLayout();
-            this.groupBox8.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.grpNoTaxArea.SuspendLayout();
-            this.grpAliquoteIrpef.SuspendLayout();
-            this.groupBox11.SuspendLayout();
-            this.tabFamiliare.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid8)).BeginInit();
-            this.tabAltreCollINAIL.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid10)).BeginInit();
-            this.tabOneri.SuspendLayout();
-            this.groupBox15.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid4)).BeginInit();
-            this.groupBox16.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid2)).BeginInit();
-            this.tabCUD.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgrid_DetCud)).BeginInit();
-            this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgrid_DedCud)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgrid_CUD)).BeginInit();
-            this.tabAddizionali.SuspendLayout();
-            this.grpAccontoAddCom.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid11)).BeginInit();
-            this.grpAddizionaliPassate.SuspendLayout();
-            this.groupBox20.SuspendLayout();
-            this.groupBox21.SuspendLayout();
-            this.tabCedolini.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgCedoliniAltriEsercizi)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgCedolini)).BeginInit();
-            this.tabErogazioni.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
-            this.tabDatiRiepilogativi.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridRitenute)).BeginInit();
-            this.groupBox14.SuspendLayout();
-            this.groupBox13.SuspendLayout();
-            this.TabClassSuppl.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgrClassSuppl)).BeginInit();
-            this.tabEconoPatr.SuspendLayout();
-            this.tabControl2.SuspendLayout();
-            this.tabFinanziario.SuspendLayout();
-            this.gboxUPB.SuspendLayout();
-            this.tabAnalitico.SuspendLayout();
-            this.gboxclass3.SuspendLayout();
-            this.gboxclass2.SuspendLayout();
-            this.gboxclass1.SuspendLayout();
-            this.tabEP.SuspendLayout();
-            this.grpBoxSiopeEP.SuspendLayout();
-            this.gBoxCausaleDebitoCrg.SuspendLayout();
-            this.gBoxCausaleDebito.SuspendLayout();
-            this.gBoxCausaleCosto.SuspendLayout();
-            this.tabAttributi.SuspendLayout();
-            this.gboxclass05.SuspendLayout();
-            this.gboxclass04.SuspendLayout();
-            this.gboxclass03.SuspendLayout();
-            this.gboxclass02.SuspendLayout();
-            this.gboxclass01.SuspendLayout();
-            this.tabAP.SuspendLayout();
-            this.tabDALIA.SuspendLayout();
-            this.grpCausaliAssunzioneDalia.SuspendLayout();
-            this.groupBox18.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid3)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // tabGenerale
-            // 
-            this.tabGenerale.Controls.Add(this.grpCertificatiNecessari);
-            this.tabGenerale.Controls.Add(this.SubEntity_chkExcludeFromCertificate);
-            this.tabGenerale.Controls.Add(this.groupBox24);
-            this.tabGenerale.Controls.Add(this.groupBox19);
-            this.tabGenerale.Controls.Add(this.btnTroncaContratto);
-            this.tabGenerale.Controls.Add(this.txtStimaCostoTotale);
-            this.tabGenerale.Controls.Add(this.label54);
-            this.tabGenerale.Controls.Add(this.textBox2);
-            this.tabGenerale.Controls.Add(this.grpDettagliPrevidenzialiAssistenziali);
-            this.tabGenerale.Controls.Add(this.grpDettagliFiscali);
-            this.tabGenerale.Controls.Add(this.label8);
-            this.tabGenerale.Controls.Add(this.grpPrestazione);
-            this.tabGenerale.Controls.Add(this.grpPercipiente);
-            this.tabGenerale.Controls.Add(this.grpContratto);
-            this.tabGenerale.Controls.Add(this.txtLordoAlBeneficiario);
-            this.tabGenerale.Controls.Add(this.label6);
-            this.tabGenerale.Controls.Add(this.txtDataFine);
-            this.tabGenerale.Controls.Add(this.label4);
-            this.tabGenerale.Controls.Add(this.txtDurataMesi);
-            this.tabGenerale.Controls.Add(this.label5);
-            this.tabGenerale.Controls.Add(this.txtDataInizio);
-            this.tabGenerale.Controls.Add(this.label3);
-            this.tabGenerale.Controls.Add(this.grpComune);
-            this.tabGenerale.Location = new System.Drawing.Point(4, 22);
-            this.tabGenerale.Name = "tabGenerale";
-            this.tabGenerale.Size = new System.Drawing.Size(865, 461);
-            this.tabGenerale.TabIndex = 0;
-            this.tabGenerale.Text = "Generale";
-            this.tabGenerale.UseVisualStyleBackColor = true;
-            // 
-            // grpCertificatiNecessari
-            // 
-            this.grpCertificatiNecessari.Controls.Add(this.chkCCdedicato);
-            this.grpCertificatiNecessari.Location = new System.Drawing.Point(717, 196);
-            this.grpCertificatiNecessari.Name = "grpCertificatiNecessari";
-            this.grpCertificatiNecessari.Size = new System.Drawing.Size(139, 48);
-            this.grpCertificatiNecessari.TabIndex = 116;
-            this.grpCertificatiNecessari.TabStop = false;
-            this.grpCertificatiNecessari.Text = "Certificati necessari";
-            // 
-            // chkCCdedicato
-            // 
-            this.chkCCdedicato.AutoSize = true;
-            this.chkCCdedicato.Location = new System.Drawing.Point(13, 20);
-            this.chkCCdedicato.Name = "chkCCdedicato";
-            this.chkCCdedicato.Size = new System.Drawing.Size(84, 17);
-            this.chkCCdedicato.TabIndex = 91;
-            this.chkCCdedicato.Tag = "parasubcontract.requested_doc:0";
-            this.chkCCdedicato.Text = "CC dedicato";
-            // 
-            // SubEntity_chkExcludeFromCertificate
-            // 
-            this.SubEntity_chkExcludeFromCertificate.Location = new System.Drawing.Point(7, 123);
-            this.SubEntity_chkExcludeFromCertificate.Name = "SubEntity_chkExcludeFromCertificate";
-            this.SubEntity_chkExcludeFromCertificate.Size = new System.Drawing.Size(314, 16);
-            this.SubEntity_chkExcludeFromCertificate.TabIndex = 5;
-            this.SubEntity_chkExcludeFromCertificate.Tag = "parasubcontractyear.flagexcludefromcertificate:S:N?parasubcontractyearview.flagex" +
+			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_parasubcontract_default));
+			this.tabGenerale = new System.Windows.Forms.TabPage();
+			this.grpCertificatiNecessari = new System.Windows.Forms.GroupBox();
+			this.chkCCdedicato = new System.Windows.Forms.CheckBox();
+			this.SubEntity_chkExcludeFromCertificate = new System.Windows.Forms.CheckBox();
+			this.groupBox24 = new System.Windows.Forms.GroupBox();
+			this.btnCambiaRuolo = new System.Windows.Forms.Button();
+			this.txtCompartoCSA = new System.Windows.Forms.TextBox();
+			this.txtInquadrcsa = new System.Windows.Forms.TextBox();
+			this.label20 = new System.Windows.Forms.Label();
+			this.label22 = new System.Windows.Forms.Label();
+			this.lblRuoloCSA = new System.Windows.Forms.Label();
+			this.txtRuoloCSA = new System.Windows.Forms.TextBox();
+			this.groupBox19 = new System.Windows.Forms.GroupBox();
+			this.txtComuneAddRegionali = new System.Windows.Forms.TextBox();
+			this.btnTroncaContratto = new System.Windows.Forms.Button();
+			this.txtStimaCostoTotale = new System.Windows.Forms.TextBox();
+			this.label54 = new System.Windows.Forms.Label();
+			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.grpDettagliPrevidenzialiAssistenziali = new System.Windows.Forms.GroupBox();
+			this.cmbTipoRapporto = new System.Windows.Forms.ComboBox();
+			this.DS = new parasubcontract_default.dsmeta();
+			this.btnTipoRapporto = new System.Windows.Forms.Button();
+			this.cmbAttPrevidenzialeINPS = new System.Windows.Forms.ComboBox();
+			this.btnAttivitaPrevINPS = new System.Windows.Forms.Button();
+			this.cmbAltreFormeAssicurative = new System.Windows.Forms.ComboBox();
+			this.btnAltreFormeAssicurative = new System.Windows.Forms.Button();
+			this.cmbPAT = new System.Windows.Forms.ComboBox();
+			this.btnPAT = new System.Windows.Forms.Button();
+			this.grpDettagliFiscali = new System.Windows.Forms.GroupBox();
+			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.checkBox3 = new System.Windows.Forms.CheckBox();
+			this.label8 = new System.Windows.Forms.Label();
+			this.grpPrestazione = new System.Windows.Forms.GroupBox();
+			this.btnTipoPrestazione = new System.Windows.Forms.Button();
+			this.cmbTipoPrestazione = new System.Windows.Forms.ComboBox();
+			this.grpPercipiente = new System.Windows.Forms.GroupBox();
+			this.txtPercipiente = new System.Windows.Forms.TextBox();
+			this.grpContratto = new System.Windows.Forms.GroupBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.txtEsercizio = new System.Windows.Forms.TextBox();
+			this.txtNumContratto = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.label17 = new System.Windows.Forms.Label();
+			this.txtLordoAlBeneficiario = new System.Windows.Forms.TextBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.txtDataFine = new System.Windows.Forms.TextBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.txtDurataMesi = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.txtDataInizio = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.grpComune = new System.Windows.Forms.GroupBox();
+			this.txtComuneAddComunali = new System.Windows.Forms.TextBox();
+			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.tabImponibili = new System.Windows.Forms.TabPage();
+			this.groupBox17 = new System.Windows.Forms.GroupBox();
+			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.btnSituazione = new System.Windows.Forms.Button();
+			this.groupBox12 = new System.Windows.Forms.GroupBox();
+			this.groupBox10 = new System.Windows.Forms.GroupBox();
+			this.SubEntity_txtImponibilePrevidenziale = new System.Windows.Forms.TextBox();
+			this.label35 = new System.Windows.Forms.Label();
+			this.groupBox9 = new System.Windows.Forms.GroupBox();
+			this.groupBox8 = new System.Windows.Forms.GroupBox();
+			this.SubEntity_txtPrevidenzialeCUD = new System.Windows.Forms.TextBox();
+			this.SubEntity_txtGiorniCUD = new System.Windows.Forms.TextBox();
+			this.label33 = new System.Windows.Forms.Label();
+			this.label7 = new System.Windows.Forms.Label();
+			this.textBox4 = new System.Windows.Forms.TextBox();
+			this.groupBox7 = new System.Windows.Forms.GroupBox();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.SubEntity_chkApplicaBonus = new System.Windows.Forms.CheckBox();
+			this.grpNoTaxArea = new System.Windows.Forms.GroupBox();
+			this.SubEntity_rbtnNonApplicare = new System.Windows.Forms.RadioButton();
+			this.SubEntity_rbtnDedBaseGiorno = new System.Windows.Forms.RadioButton();
+			this.SubEntity_rbtnDedBaseIntero = new System.Windows.Forms.RadioButton();
+			this.grpAliquoteIrpef = new System.Windows.Forms.GroupBox();
+			this.SubEntity_cmbAliquotaIRPEF = new System.Windows.Forms.ComboBox();
+			this.SubEntity_rbScaglioniIRPEF = new System.Windows.Forms.RadioButton();
+			this.SubEntity_rbAliquotaMarginale = new System.Windows.Forms.RadioButton();
+			this.groupBox11 = new System.Windows.Forms.GroupBox();
+			this.SubEntity_txtDataFineCompetenza = new System.Windows.Forms.TextBox();
+			this.label44 = new System.Windows.Forms.Label();
+			this.SubEntity_txtDataInizioCompetenza = new System.Windows.Forms.TextBox();
+			this.label43 = new System.Windows.Forms.Label();
+			this.SubEntity_txtGiornicontratto = new System.Windows.Forms.TextBox();
+			this.label40 = new System.Windows.Forms.Label();
+			this.SubEntity_txtImponibilecontratto = new System.Windows.Forms.TextBox();
+			this.label39 = new System.Windows.Forms.Label();
+			this.tabFamiliare = new System.Windows.Forms.TabPage();
+			this.label18 = new System.Windows.Forms.Label();
+			this.dataGrid8 = new System.Windows.Forms.DataGrid();
+			this.button13 = new System.Windows.Forms.Button();
+			this.button12 = new System.Windows.Forms.Button();
+			this.button11 = new System.Windows.Forms.Button();
+			this.tabAltreCollINAIL = new System.Windows.Forms.TabPage();
+			this.dataGrid10 = new System.Windows.Forms.DataGrid();
+			this.button16 = new System.Windows.Forms.Button();
+			this.button15 = new System.Windows.Forms.Button();
+			this.button14 = new System.Windows.Forms.Button();
+			this.tabOneri = new System.Windows.Forms.TabPage();
+			this.textBox6 = new System.Windows.Forms.TextBox();
+			this.label21 = new System.Windows.Forms.Label();
+			this.groupBox15 = new System.Windows.Forms.GroupBox();
+			this.dataGrid4 = new System.Windows.Forms.DataGrid();
+			this.button7 = new System.Windows.Forms.Button();
+			this.button6 = new System.Windows.Forms.Button();
+			this.button5 = new System.Windows.Forms.Button();
+			this.groupBox16 = new System.Windows.Forms.GroupBox();
+			this.button2 = new System.Windows.Forms.Button();
+			this.button3 = new System.Windows.Forms.Button();
+			this.dataGrid2 = new System.Windows.Forms.DataGrid();
+			this.button4 = new System.Windows.Forms.Button();
+			this.tabCUD = new System.Windows.Forms.TabPage();
+			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.textBox7 = new System.Windows.Forms.TextBox();
+			this.btnVerificaProblemi = new System.Windows.Forms.Button();
+			this.groupBox6 = new System.Windows.Forms.GroupBox();
+			this.dgrid_DetCud = new System.Windows.Forms.DataGrid();
+			this.btnDeleteDet = new System.Windows.Forms.Button();
+			this.btnEditDet = new System.Windows.Forms.Button();
+			this.btnInsertDet = new System.Windows.Forms.Button();
+			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.dgrid_DedCud = new System.Windows.Forms.DataGrid();
+			this.btnDeleteDed = new System.Windows.Forms.Button();
+			this.btnEditDed = new System.Windows.Forms.Button();
+			this.btnInsertDed = new System.Windows.Forms.Button();
+			this.button10 = new System.Windows.Forms.Button();
+			this.button9 = new System.Windows.Forms.Button();
+			this.inserisci_CUD = new System.Windows.Forms.Button();
+			this.dgrid_CUD = new System.Windows.Forms.DataGrid();
+			this.tabAddizionali = new System.Windows.Forms.TabPage();
+			this.grpAccontoAddCom = new System.Windows.Forms.GroupBox();
+			this.btnCalcAcconto = new System.Windows.Forms.Button();
+			this.SubEntity_cmbMeseInizioAcconto = new System.Windows.Forms.ComboBox();
+			this.SubEntity_txtNumRateAcconto = new System.Windows.Forms.TextBox();
+			this.SubEntity_txtImportoAcconto = new System.Windows.Forms.TextBox();
+			this.label16 = new System.Windows.Forms.Label();
+			this.label15 = new System.Windows.Forms.Label();
+			this.label14 = new System.Windows.Forms.Label();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.button20 = new System.Windows.Forms.Button();
+			this.button19 = new System.Windows.Forms.Button();
+			this.button18 = new System.Windows.Forms.Button();
+			this.dataGrid11 = new System.Windows.Forms.DataGrid();
+			this.grpAddizionaliPassate = new System.Windows.Forms.GroupBox();
+			this.groupBox20 = new System.Windows.Forms.GroupBox();
+			this.txtComuneAddRegRata = new System.Windows.Forms.TextBox();
+			this.groupBox21 = new System.Windows.Forms.GroupBox();
+			this.txtComuneAddComRata = new System.Windows.Forms.TextBox();
+			this.SubEntity_cmbMeseInizio = new System.Windows.Forms.ComboBox();
+			this.SubEntity_txtNumRate = new System.Windows.Forms.TextBox();
+			this.SubEntity_txtAddReg = new System.Windows.Forms.TextBox();
+			this.label10 = new System.Windows.Forms.Label();
+			this.label12 = new System.Windows.Forms.Label();
+			this.label11 = new System.Windows.Forms.Label();
+			this.label9 = new System.Windows.Forms.Label();
+			this.label13 = new System.Windows.Forms.Label();
+			this.SubEntity_txtAddProv = new System.Windows.Forms.TextBox();
+			this.SubEntity_txtAddCom = new System.Windows.Forms.TextBox();
+			this.tabCedolini = new System.Windows.Forms.TabPage();
+			this.label24 = new System.Windows.Forms.Label();
+			this.label23 = new System.Windows.Forms.Label();
+			this.dgCedoliniAltriEsercizi = new System.Windows.Forms.DataGrid();
+			this.btnGeneraCedolini = new System.Windows.Forms.Button();
+			this.btnVisualizzaCedolino = new System.Windows.Forms.Button();
+			this.btnCalcolaCedolino = new System.Windows.Forms.Button();
+			this.dgCedolini = new System.Windows.Forms.DataGrid();
+			this.tabErogazioni = new System.Windows.Forms.TabPage();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.dataGrid1 = new System.Windows.Forms.DataGrid();
+			this.tabDatiRiepilogativi = new System.Windows.Forms.TabPage();
+			this.label68 = new System.Windows.Forms.Label();
+			this.gridRitenute = new System.Windows.Forms.DataGrid();
+			this.txtCompensoNetto = new System.Windows.Forms.TextBox();
+			this.label67 = new System.Windows.Forms.Label();
+			this.txtLordoAlBeneficiarioRiep = new System.Windows.Forms.TextBox();
+			this.label66 = new System.Windows.Forms.Label();
+			this.txtCostoTotale = new System.Windows.Forms.TextBox();
+			this.label65 = new System.Windows.Forms.Label();
+			this.groupBox14 = new System.Windows.Forms.GroupBox();
+			this.txtAssicAmm = new System.Windows.Forms.TextBox();
+			this.label61 = new System.Windows.Forms.Label();
+			this.txtAssisAmm = new System.Windows.Forms.TextBox();
+			this.label62 = new System.Windows.Forms.Label();
+			this.txtPrevAmm = new System.Windows.Forms.TextBox();
+			this.label63 = new System.Windows.Forms.Label();
+			this.txtFiscAmm = new System.Windows.Forms.TextBox();
+			this.label64 = new System.Windows.Forms.Label();
+			this.txtTotaleRitAmmin = new System.Windows.Forms.TextBox();
+			this.label60 = new System.Windows.Forms.Label();
+			this.groupBox13 = new System.Windows.Forms.GroupBox();
+			this.txtAssicDip = new System.Windows.Forms.TextBox();
+			this.label58 = new System.Windows.Forms.Label();
+			this.txtAssisDip = new System.Windows.Forms.TextBox();
+			this.label57 = new System.Windows.Forms.Label();
+			this.txtPrevDip = new System.Windows.Forms.TextBox();
+			this.label56 = new System.Windows.Forms.Label();
+			this.txtFiscDip = new System.Windows.Forms.TextBox();
+			this.label55 = new System.Windows.Forms.Label();
+			this.txtTotaleRitDip = new System.Windows.Forms.TextBox();
+			this.label59 = new System.Windows.Forms.Label();
+			this.TabClassSuppl = new System.Windows.Forms.TabPage();
+			this.btnClassElimina = new System.Windows.Forms.Button();
+			this.btnClassModifica = new System.Windows.Forms.Button();
+			this.btnClassInserisci = new System.Windows.Forms.Button();
+			this.dgrClassSuppl = new System.Windows.Forms.DataGrid();
+			this.tabEconoPatr = new System.Windows.Forms.TabPage();
+			this.tabControl2 = new System.Windows.Forms.TabControl();
+			this.tabFinanziario = new System.Windows.Forms.TabPage();
+			this.gboxUPB = new System.Windows.Forms.GroupBox();
+			this.txtUPB = new System.Windows.Forms.TextBox();
+			this.txtDescrUPB = new System.Windows.Forms.TextBox();
+			this.btnUPBCode = new System.Windows.Forms.Button();
+			this.tabAnalitico = new System.Windows.Forms.TabPage();
+			this.gboxclass3 = new System.Windows.Forms.GroupBox();
+			this.btnCodice3 = new System.Windows.Forms.Button();
+			this.txtDenom3 = new System.Windows.Forms.TextBox();
+			this.txtCodice3 = new System.Windows.Forms.TextBox();
+			this.gboxclass2 = new System.Windows.Forms.GroupBox();
+			this.btnCodice2 = new System.Windows.Forms.Button();
+			this.txtDenom2 = new System.Windows.Forms.TextBox();
+			this.txtCodice2 = new System.Windows.Forms.TextBox();
+			this.gboxclass1 = new System.Windows.Forms.GroupBox();
+			this.btnCodice1 = new System.Windows.Forms.Button();
+			this.txtDenom1 = new System.Windows.Forms.TextBox();
+			this.txtCodice1 = new System.Windows.Forms.TextBox();
+			this.tabEP = new System.Windows.Forms.TabPage();
+			this.grpBoxSiopeEP = new System.Windows.Forms.GroupBox();
+			this.btnSiope = new System.Windows.Forms.Button();
+			this.txtDescSiope = new System.Windows.Forms.TextBox();
+			this.txtCodSiope = new System.Windows.Forms.TextBox();
+			this.label19 = new System.Windows.Forms.Label();
+			this.textBox8 = new System.Windows.Forms.TextBox();
+			this.gBoxCausaleDebitoCrg = new System.Windows.Forms.GroupBox();
+			this.textBox9 = new System.Windows.Forms.TextBox();
+			this.txtCodiceCausaleCrg = new System.Windows.Forms.TextBox();
+			this.button8 = new System.Windows.Forms.Button();
+			this.gBoxCausaleDebito = new System.Windows.Forms.GroupBox();
+			this.textBox10 = new System.Windows.Forms.TextBox();
+			this.txtCodiceCausaleDeb = new System.Windows.Forms.TextBox();
+			this.button21 = new System.Windows.Forms.Button();
+			this.gBoxCausaleCosto = new System.Windows.Forms.GroupBox();
+			this.textBox5 = new System.Windows.Forms.TextBox();
+			this.txtCodiceCausale = new System.Windows.Forms.TextBox();
+			this.button17 = new System.Windows.Forms.Button();
+			this.tabAttributi = new System.Windows.Forms.TabPage();
+			this.gboxclass05 = new System.Windows.Forms.GroupBox();
+			this.txtCodice05 = new System.Windows.Forms.TextBox();
+			this.btnCodice05 = new System.Windows.Forms.Button();
+			this.txtDenom05 = new System.Windows.Forms.TextBox();
+			this.gboxclass04 = new System.Windows.Forms.GroupBox();
+			this.txtCodice04 = new System.Windows.Forms.TextBox();
+			this.btnCodice04 = new System.Windows.Forms.Button();
+			this.txtDenom04 = new System.Windows.Forms.TextBox();
+			this.gboxclass03 = new System.Windows.Forms.GroupBox();
+			this.txtCodice03 = new System.Windows.Forms.TextBox();
+			this.btnCodice03 = new System.Windows.Forms.Button();
+			this.txtDenom03 = new System.Windows.Forms.TextBox();
+			this.gboxclass02 = new System.Windows.Forms.GroupBox();
+			this.txtCodice02 = new System.Windows.Forms.TextBox();
+			this.btnCodice02 = new System.Windows.Forms.Button();
+			this.txtDenom02 = new System.Windows.Forms.TextBox();
+			this.gboxclass01 = new System.Windows.Forms.GroupBox();
+			this.txtCodice01 = new System.Windows.Forms.TextBox();
+			this.btnCodice01 = new System.Windows.Forms.Button();
+			this.txtDenom01 = new System.Windows.Forms.TextBox();
+			this.tabAP = new System.Windows.Forms.TabPage();
+			this.btnCollegaAP = new System.Windows.Forms.Button();
+			this.btnGeneraAP = new System.Windows.Forms.Button();
+			this.btnVisualizzaAP = new System.Windows.Forms.Button();
+			this.labAPnongenerato = new System.Windows.Forms.Label();
+			this.labAPgenerato = new System.Windows.Forms.Label();
+			this.tabDALIA = new System.Windows.Forms.TabPage();
+			this.groupBox22 = new System.Windows.Forms.GroupBox();
+			this.cmbDaliaFunzionale = new System.Windows.Forms.ComboBox();
+			this.gboxDipartimento = new System.Windows.Forms.GroupBox();
+			this.btnDipartimento = new System.Windows.Forms.Button();
+			this.txtCodiceDipartimento = new System.Windows.Forms.TextBox();
+			this.txtDaliaDipartimento = new System.Windows.Forms.TextBox();
+			this.grpCausaliAssunzioneDalia = new System.Windows.Forms.GroupBox();
+			this.txtCausaleAssunzione = new System.Windows.Forms.TextBox();
+			this.btnEsclusioneCIG = new System.Windows.Forms.Button();
+			this.txtVoceSpesaDalia = new System.Windows.Forms.TextBox();
+			this.btnVoceSpesaDalia = new System.Windows.Forms.Button();
+			this.groupBox18 = new System.Windows.Forms.GroupBox();
+			this.label91 = new System.Windows.Forms.Label();
+			this.btnQualificaDalia = new System.Windows.Forms.Button();
+			this.textBox11 = new System.Windows.Forms.TextBox();
+			this.cmb_dalia_position = new System.Windows.Forms.ComboBox();
+			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.dataGrid3 = new System.Windows.Forms.DataGrid();
+			this.myTip = new System.Windows.Forms.ToolTip(this.components);
+			this.tabAllegati = new System.Windows.Forms.TabPage();
+			this.dgrAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button();
+			this.tabGenerale.SuspendLayout();
+			this.grpCertificatiNecessari.SuspendLayout();
+			this.groupBox24.SuspendLayout();
+			this.groupBox19.SuspendLayout();
+			this.grpDettagliPrevidenzialiAssistenziali.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.grpDettagliFiscali.SuspendLayout();
+			this.grpPrestazione.SuspendLayout();
+			this.grpPercipiente.SuspendLayout();
+			this.grpContratto.SuspendLayout();
+			this.grpComune.SuspendLayout();
+			this.tabControl1.SuspendLayout();
+			this.tabImponibili.SuspendLayout();
+			this.groupBox17.SuspendLayout();
+			this.groupBox12.SuspendLayout();
+			this.groupBox10.SuspendLayout();
+			this.groupBox9.SuspendLayout();
+			this.groupBox8.SuspendLayout();
+			this.groupBox7.SuspendLayout();
+			this.groupBox2.SuspendLayout();
+			this.grpNoTaxArea.SuspendLayout();
+			this.grpAliquoteIrpef.SuspendLayout();
+			this.groupBox11.SuspendLayout();
+			this.tabFamiliare.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid8)).BeginInit();
+			this.tabAltreCollINAIL.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid10)).BeginInit();
+			this.tabOneri.SuspendLayout();
+			this.groupBox15.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid4)).BeginInit();
+			this.groupBox16.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid2)).BeginInit();
+			this.tabCUD.SuspendLayout();
+			this.groupBox4.SuspendLayout();
+			this.groupBox6.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgrid_DetCud)).BeginInit();
+			this.groupBox5.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgrid_DedCud)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgrid_CUD)).BeginInit();
+			this.tabAddizionali.SuspendLayout();
+			this.grpAccontoAddCom.SuspendLayout();
+			this.groupBox3.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid11)).BeginInit();
+			this.grpAddizionaliPassate.SuspendLayout();
+			this.groupBox20.SuspendLayout();
+			this.groupBox21.SuspendLayout();
+			this.tabCedolini.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgCedoliniAltriEsercizi)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgCedolini)).BeginInit();
+			this.tabErogazioni.SuspendLayout();
+			this.groupBox1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
+			this.tabDatiRiepilogativi.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.gridRitenute)).BeginInit();
+			this.groupBox14.SuspendLayout();
+			this.groupBox13.SuspendLayout();
+			this.TabClassSuppl.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgrClassSuppl)).BeginInit();
+			this.tabEconoPatr.SuspendLayout();
+			this.tabControl2.SuspendLayout();
+			this.tabFinanziario.SuspendLayout();
+			this.gboxUPB.SuspendLayout();
+			this.tabAnalitico.SuspendLayout();
+			this.gboxclass3.SuspendLayout();
+			this.gboxclass2.SuspendLayout();
+			this.gboxclass1.SuspendLayout();
+			this.tabEP.SuspendLayout();
+			this.grpBoxSiopeEP.SuspendLayout();
+			this.gBoxCausaleDebitoCrg.SuspendLayout();
+			this.gBoxCausaleDebito.SuspendLayout();
+			this.gBoxCausaleCosto.SuspendLayout();
+			this.tabAttributi.SuspendLayout();
+			this.gboxclass05.SuspendLayout();
+			this.gboxclass04.SuspendLayout();
+			this.gboxclass03.SuspendLayout();
+			this.gboxclass02.SuspendLayout();
+			this.gboxclass01.SuspendLayout();
+			this.tabAP.SuspendLayout();
+			this.tabDALIA.SuspendLayout();
+			this.groupBox22.SuspendLayout();
+			this.gboxDipartimento.SuspendLayout();
+			this.grpCausaliAssunzioneDalia.SuspendLayout();
+			this.groupBox18.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid3)).BeginInit();
+			this.tabAllegati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgrAllegati)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// tabGenerale
+			// 
+			this.tabGenerale.Controls.Add(this.grpCertificatiNecessari);
+			this.tabGenerale.Controls.Add(this.SubEntity_chkExcludeFromCertificate);
+			this.tabGenerale.Controls.Add(this.groupBox24);
+			this.tabGenerale.Controls.Add(this.groupBox19);
+			this.tabGenerale.Controls.Add(this.btnTroncaContratto);
+			this.tabGenerale.Controls.Add(this.txtStimaCostoTotale);
+			this.tabGenerale.Controls.Add(this.label54);
+			this.tabGenerale.Controls.Add(this.textBox2);
+			this.tabGenerale.Controls.Add(this.grpDettagliPrevidenzialiAssistenziali);
+			this.tabGenerale.Controls.Add(this.grpDettagliFiscali);
+			this.tabGenerale.Controls.Add(this.label8);
+			this.tabGenerale.Controls.Add(this.grpPrestazione);
+			this.tabGenerale.Controls.Add(this.grpPercipiente);
+			this.tabGenerale.Controls.Add(this.grpContratto);
+			this.tabGenerale.Controls.Add(this.txtLordoAlBeneficiario);
+			this.tabGenerale.Controls.Add(this.label6);
+			this.tabGenerale.Controls.Add(this.txtDataFine);
+			this.tabGenerale.Controls.Add(this.label4);
+			this.tabGenerale.Controls.Add(this.txtDurataMesi);
+			this.tabGenerale.Controls.Add(this.label5);
+			this.tabGenerale.Controls.Add(this.txtDataInizio);
+			this.tabGenerale.Controls.Add(this.label3);
+			this.tabGenerale.Controls.Add(this.grpComune);
+			this.tabGenerale.Location = new System.Drawing.Point(4, 22);
+			this.tabGenerale.Name = "tabGenerale";
+			this.tabGenerale.Size = new System.Drawing.Size(879, 530);
+			this.tabGenerale.TabIndex = 0;
+			this.tabGenerale.Text = "Generale";
+			this.tabGenerale.UseVisualStyleBackColor = true;
+			// 
+			// grpCertificatiNecessari
+			// 
+			this.grpCertificatiNecessari.Controls.Add(this.chkCCdedicato);
+			this.grpCertificatiNecessari.Location = new System.Drawing.Point(717, 196);
+			this.grpCertificatiNecessari.Name = "grpCertificatiNecessari";
+			this.grpCertificatiNecessari.Size = new System.Drawing.Size(139, 48);
+			this.grpCertificatiNecessari.TabIndex = 116;
+			this.grpCertificatiNecessari.TabStop = false;
+			this.grpCertificatiNecessari.Text = "Certificati necessari";
+			// 
+			// chkCCdedicato
+			// 
+			this.chkCCdedicato.AutoSize = true;
+			this.chkCCdedicato.Location = new System.Drawing.Point(13, 20);
+			this.chkCCdedicato.Name = "chkCCdedicato";
+			this.chkCCdedicato.Size = new System.Drawing.Size(84, 17);
+			this.chkCCdedicato.TabIndex = 91;
+			this.chkCCdedicato.Tag = "parasubcontract.requested_doc:0";
+			this.chkCCdedicato.Text = "CC dedicato";
+			// 
+			// SubEntity_chkExcludeFromCertificate
+			// 
+			this.SubEntity_chkExcludeFromCertificate.Location = new System.Drawing.Point(7, 123);
+			this.SubEntity_chkExcludeFromCertificate.Name = "SubEntity_chkExcludeFromCertificate";
+			this.SubEntity_chkExcludeFromCertificate.Size = new System.Drawing.Size(314, 16);
+			this.SubEntity_chkExcludeFromCertificate.TabIndex = 5;
+			this.SubEntity_chkExcludeFromCertificate.Tag = "parasubcontractyear.flagexcludefromcertificate:S:N?parasubcontractyearview.flagex" +
     "cludefromcertificate:S:N";
-            this.SubEntity_chkExcludeFromCertificate.Text = "Escludi  da Certificazione Unica dei Redditi";
-            // 
-            // groupBox24
-            // 
-            this.groupBox24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox24.Controls.Add(this.btnCambiaRuolo);
-            this.groupBox24.Controls.Add(this.txtCompartoCSA);
-            this.groupBox24.Controls.Add(this.txtInquadrcsa);
-            this.groupBox24.Controls.Add(this.label20);
-            this.groupBox24.Controls.Add(this.label22);
-            this.groupBox24.Controls.Add(this.lblRuoloCSA);
-            this.groupBox24.Controls.Add(this.txtRuoloCSA);
-            this.groupBox24.Location = new System.Drawing.Point(731, 8);
-            this.groupBox24.Name = "groupBox24";
-            this.groupBox24.Size = new System.Drawing.Size(126, 138);
-            this.groupBox24.TabIndex = 104;
-            this.groupBox24.TabStop = false;
-            this.groupBox24.Text = "Dati CSA";
-            // 
-            // btnCambiaRuolo
-            // 
-            this.btnCambiaRuolo.Location = new System.Drawing.Point(30, 111);
-            this.btnCambiaRuolo.Name = "btnCambiaRuolo";
-            this.btnCambiaRuolo.Size = new System.Drawing.Size(90, 22);
-            this.btnCambiaRuolo.TabIndex = 109;
-            this.btnCambiaRuolo.Text = "Cambia Ruolo";
-            this.btnCambiaRuolo.UseVisualStyleBackColor = true;
-            this.btnCambiaRuolo.Click += new System.EventHandler(this.btnCambiaRuolo_Click);
-            // 
-            // txtCompartoCSA
-            // 
-            this.txtCompartoCSA.Location = new System.Drawing.Point(68, 19);
-            this.txtCompartoCSA.Name = "txtCompartoCSA";
-            this.txtCompartoCSA.ReadOnly = true;
-            this.txtCompartoCSA.Size = new System.Drawing.Size(52, 20);
-            this.txtCompartoCSA.TabIndex = 108;
-            // 
-            // txtInquadrcsa
-            // 
-            this.txtInquadrcsa.Location = new System.Drawing.Point(47, 83);
-            this.txtInquadrcsa.Name = "txtInquadrcsa";
-            this.txtInquadrcsa.ReadOnly = true;
-            this.txtInquadrcsa.Size = new System.Drawing.Size(73, 20);
-            this.txtInquadrcsa.TabIndex = 107;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(11, 20);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(52, 13);
-            this.label20.TabIndex = 106;
-            this.label20.Text = "Comparto";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(6, 68);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(78, 13);
-            this.label22.TabIndex = 105;
-            this.label22.Text = "Inquadramento";
-            // 
-            // lblRuoloCSA
-            // 
-            this.lblRuoloCSA.AutoSize = true;
-            this.lblRuoloCSA.Location = new System.Drawing.Point(8, 46);
-            this.lblRuoloCSA.Name = "lblRuoloCSA";
-            this.lblRuoloCSA.Size = new System.Drawing.Size(35, 13);
-            this.lblRuoloCSA.TabIndex = 104;
-            this.lblRuoloCSA.Text = "Ruolo";
-            // 
-            // txtRuoloCSA
-            // 
-            this.txtRuoloCSA.Location = new System.Drawing.Point(47, 44);
-            this.txtRuoloCSA.Name = "txtRuoloCSA";
-            this.txtRuoloCSA.ReadOnly = true;
-            this.txtRuoloCSA.Size = new System.Drawing.Size(73, 20);
-            this.txtRuoloCSA.TabIndex = 103;
-            // 
-            // groupBox19
-            // 
-            this.groupBox19.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.SubEntity_chkExcludeFromCertificate.Text = "Escludi  da Certificazione Unica dei Redditi";
+			// 
+			// groupBox24
+			// 
+			this.groupBox24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox24.Controls.Add(this.btnCambiaRuolo);
+			this.groupBox24.Controls.Add(this.txtCompartoCSA);
+			this.groupBox24.Controls.Add(this.txtInquadrcsa);
+			this.groupBox24.Controls.Add(this.label20);
+			this.groupBox24.Controls.Add(this.label22);
+			this.groupBox24.Controls.Add(this.lblRuoloCSA);
+			this.groupBox24.Controls.Add(this.txtRuoloCSA);
+			this.groupBox24.Location = new System.Drawing.Point(745, 8);
+			this.groupBox24.Name = "groupBox24";
+			this.groupBox24.Size = new System.Drawing.Size(126, 138);
+			this.groupBox24.TabIndex = 104;
+			this.groupBox24.TabStop = false;
+			this.groupBox24.Text = "Dati CSA";
+			// 
+			// btnCambiaRuolo
+			// 
+			this.btnCambiaRuolo.Location = new System.Drawing.Point(30, 111);
+			this.btnCambiaRuolo.Name = "btnCambiaRuolo";
+			this.btnCambiaRuolo.Size = new System.Drawing.Size(90, 22);
+			this.btnCambiaRuolo.TabIndex = 109;
+			this.btnCambiaRuolo.Text = "Cambia Ruolo";
+			this.btnCambiaRuolo.UseVisualStyleBackColor = true;
+			this.btnCambiaRuolo.Click += new System.EventHandler(this.btnCambiaRuolo_Click);
+			// 
+			// txtCompartoCSA
+			// 
+			this.txtCompartoCSA.Location = new System.Drawing.Point(68, 19);
+			this.txtCompartoCSA.Name = "txtCompartoCSA";
+			this.txtCompartoCSA.ReadOnly = true;
+			this.txtCompartoCSA.Size = new System.Drawing.Size(52, 20);
+			this.txtCompartoCSA.TabIndex = 108;
+			// 
+			// txtInquadrcsa
+			// 
+			this.txtInquadrcsa.Location = new System.Drawing.Point(47, 83);
+			this.txtInquadrcsa.Name = "txtInquadrcsa";
+			this.txtInquadrcsa.ReadOnly = true;
+			this.txtInquadrcsa.Size = new System.Drawing.Size(73, 20);
+			this.txtInquadrcsa.TabIndex = 107;
+			// 
+			// label20
+			// 
+			this.label20.AutoSize = true;
+			this.label20.Location = new System.Drawing.Point(11, 20);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(52, 13);
+			this.label20.TabIndex = 106;
+			this.label20.Text = "Comparto";
+			// 
+			// label22
+			// 
+			this.label22.AutoSize = true;
+			this.label22.Location = new System.Drawing.Point(6, 68);
+			this.label22.Name = "label22";
+			this.label22.Size = new System.Drawing.Size(78, 13);
+			this.label22.TabIndex = 105;
+			this.label22.Text = "Inquadramento";
+			// 
+			// lblRuoloCSA
+			// 
+			this.lblRuoloCSA.AutoSize = true;
+			this.lblRuoloCSA.Location = new System.Drawing.Point(8, 46);
+			this.lblRuoloCSA.Name = "lblRuoloCSA";
+			this.lblRuoloCSA.Size = new System.Drawing.Size(35, 13);
+			this.lblRuoloCSA.TabIndex = 104;
+			this.lblRuoloCSA.Text = "Ruolo";
+			// 
+			// txtRuoloCSA
+			// 
+			this.txtRuoloCSA.Location = new System.Drawing.Point(47, 44);
+			this.txtRuoloCSA.Name = "txtRuoloCSA";
+			this.txtRuoloCSA.ReadOnly = true;
+			this.txtRuoloCSA.Size = new System.Drawing.Size(73, 20);
+			this.txtRuoloCSA.TabIndex = 103;
+			// 
+			// groupBox19
+			// 
+			this.groupBox19.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox19.Controls.Add(this.txtComuneAddRegionali);
-            this.groupBox19.Location = new System.Drawing.Point(329, 98);
-            this.groupBox19.Name = "groupBox19";
-            this.groupBox19.Size = new System.Drawing.Size(396, 48);
-            this.groupBox19.TabIndex = 21;
-            this.groupBox19.TabStop = false;
-            this.groupBox19.Tag = "";
-            this.groupBox19.Text = "Comune di riferimento per le addizionali regionali";
-            // 
-            // txtComuneAddRegionali
-            // 
-            this.txtComuneAddRegionali.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtComuneAddRegionali.Location = new System.Drawing.Point(9, 19);
-            this.txtComuneAddRegionali.Name = "txtComuneAddRegionali";
-            this.txtComuneAddRegionali.ReadOnly = true;
-            this.txtComuneAddRegionali.Size = new System.Drawing.Size(381, 20);
-            this.txtComuneAddRegionali.TabIndex = 8;
-            this.txtComuneAddRegionali.Tag = "";
-            // 
-            // btnTroncaContratto
-            // 
-            this.btnTroncaContratto.AutoSize = true;
-            this.btnTroncaContratto.Location = new System.Drawing.Point(206, 97);
-            this.btnTroncaContratto.Name = "btnTroncaContratto";
-            this.btnTroncaContratto.Size = new System.Drawing.Size(115, 23);
-            this.btnTroncaContratto.TabIndex = 20;
-            this.btnTroncaContratto.Text = "Chiudi il contratto";
-            this.btnTroncaContratto.UseVisualStyleBackColor = true;
-            this.btnTroncaContratto.Click += new System.EventHandler(this.btnTroncaContratto_Click);
-            // 
-            // txtStimaCostoTotale
-            // 
-            this.txtStimaCostoTotale.Location = new System.Drawing.Point(336, 209);
-            this.txtStimaCostoTotale.Name = "txtStimaCostoTotale";
-            this.txtStimaCostoTotale.Size = new System.Drawing.Size(104, 20);
-            this.txtStimaCostoTotale.TabIndex = 8;
-            this.txtStimaCostoTotale.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.myTip.SetToolTip(this.txtStimaCostoTotale, "La stima si basa sulle aliquote delle varie ritenute valide alla data attuale e n" +
+			this.groupBox19.Controls.Add(this.txtComuneAddRegionali);
+			this.groupBox19.Location = new System.Drawing.Point(329, 98);
+			this.groupBox19.Name = "groupBox19";
+			this.groupBox19.Size = new System.Drawing.Size(410, 48);
+			this.groupBox19.TabIndex = 21;
+			this.groupBox19.TabStop = false;
+			this.groupBox19.Tag = "";
+			this.groupBox19.Text = "Comune di riferimento per le addizionali regionali";
+			// 
+			// txtComuneAddRegionali
+			// 
+			this.txtComuneAddRegionali.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtComuneAddRegionali.Location = new System.Drawing.Point(9, 19);
+			this.txtComuneAddRegionali.Name = "txtComuneAddRegionali";
+			this.txtComuneAddRegionali.ReadOnly = true;
+			this.txtComuneAddRegionali.Size = new System.Drawing.Size(395, 20);
+			this.txtComuneAddRegionali.TabIndex = 8;
+			this.txtComuneAddRegionali.Tag = "";
+			// 
+			// btnTroncaContratto
+			// 
+			this.btnTroncaContratto.AutoSize = true;
+			this.btnTroncaContratto.Location = new System.Drawing.Point(206, 97);
+			this.btnTroncaContratto.Name = "btnTroncaContratto";
+			this.btnTroncaContratto.Size = new System.Drawing.Size(115, 23);
+			this.btnTroncaContratto.TabIndex = 20;
+			this.btnTroncaContratto.Text = "Chiudi il contratto";
+			this.btnTroncaContratto.UseVisualStyleBackColor = true;
+			this.btnTroncaContratto.Click += new System.EventHandler(this.btnTroncaContratto_Click);
+			// 
+			// txtStimaCostoTotale
+			// 
+			this.txtStimaCostoTotale.Location = new System.Drawing.Point(336, 209);
+			this.txtStimaCostoTotale.Name = "txtStimaCostoTotale";
+			this.txtStimaCostoTotale.Size = new System.Drawing.Size(104, 20);
+			this.txtStimaCostoTotale.TabIndex = 8;
+			this.txtStimaCostoTotale.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.myTip.SetToolTip(this.txtStimaCostoTotale, "La stima si basa sulle aliquote delle varie ritenute valide alla data attuale e n" +
         "on tiene conto degli arrotondamenti parziali, pertanto può non coincidere con il" +
         " costo totale reale della prestazione.");
-            this.txtStimaCostoTotale.Leave += new System.EventHandler(this.txtStimaCostoTotale_LostFocus);
-            // 
-            // label54
-            // 
-            this.label54.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label54.Location = new System.Drawing.Point(256, 211);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(77, 20);
-            this.label54.TabIndex = 19;
-            this.label54.Text = "Stima costo totale";
-            this.label54.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtStimaCostoTotale.Leave += new System.EventHandler(this.txtStimaCostoTotale_LostFocus);
+			// 
+			// label54
+			// 
+			this.label54.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label54.Location = new System.Drawing.Point(256, 211);
+			this.label54.Name = "label54";
+			this.label54.Size = new System.Drawing.Size(77, 20);
+			this.label54.TabIndex = 19;
+			this.label54.Text = "Stima costo totale";
+			this.label54.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// textBox2
+			// 
+			this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(72, 403);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(785, 52);
-            this.textBox2.TabIndex = 12;
-            this.textBox2.Tag = "parasubcontract.duty";
-            // 
-            // grpDettagliPrevidenzialiAssistenziali
-            // 
-            this.grpDettagliPrevidenzialiAssistenziali.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.textBox2.Location = new System.Drawing.Point(72, 403);
+			this.textBox2.Multiline = true;
+			this.textBox2.Name = "textBox2";
+			this.textBox2.Size = new System.Drawing.Size(799, 121);
+			this.textBox2.TabIndex = 12;
+			this.textBox2.Tag = "parasubcontract.duty";
+			// 
+			// grpDettagliPrevidenzialiAssistenziali
+			// 
+			this.grpDettagliPrevidenzialiAssistenziali.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpDettagliPrevidenzialiAssistenziali.Controls.Add(this.cmbTipoRapporto);
-            this.grpDettagliPrevidenzialiAssistenziali.Controls.Add(this.btnTipoRapporto);
-            this.grpDettagliPrevidenzialiAssistenziali.Controls.Add(this.cmbAttPrevidenzialeINPS);
-            this.grpDettagliPrevidenzialiAssistenziali.Controls.Add(this.btnAttivitaPrevINPS);
-            this.grpDettagliPrevidenzialiAssistenziali.Controls.Add(this.cmbAltreFormeAssicurative);
-            this.grpDettagliPrevidenzialiAssistenziali.Controls.Add(this.btnAltreFormeAssicurative);
-            this.grpDettagliPrevidenzialiAssistenziali.Controls.Add(this.cmbPAT);
-            this.grpDettagliPrevidenzialiAssistenziali.Controls.Add(this.btnPAT);
-            this.grpDettagliPrevidenzialiAssistenziali.Location = new System.Drawing.Point(8, 243);
-            this.grpDettagliPrevidenzialiAssistenziali.Name = "grpDettagliPrevidenzialiAssistenziali";
-            this.grpDettagliPrevidenzialiAssistenziali.Size = new System.Drawing.Size(849, 152);
-            this.grpDettagliPrevidenzialiAssistenziali.TabIndex = 10;
-            this.grpDettagliPrevidenzialiAssistenziali.TabStop = false;
-            this.grpDettagliPrevidenzialiAssistenziali.Text = "Dettagli Previdenziali/Assistenziali";
-            // 
-            // cmbTipoRapporto
-            // 
-            this.cmbTipoRapporto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.grpDettagliPrevidenzialiAssistenziali.Controls.Add(this.cmbTipoRapporto);
+			this.grpDettagliPrevidenzialiAssistenziali.Controls.Add(this.btnTipoRapporto);
+			this.grpDettagliPrevidenzialiAssistenziali.Controls.Add(this.cmbAttPrevidenzialeINPS);
+			this.grpDettagliPrevidenzialiAssistenziali.Controls.Add(this.btnAttivitaPrevINPS);
+			this.grpDettagliPrevidenzialiAssistenziali.Controls.Add(this.cmbAltreFormeAssicurative);
+			this.grpDettagliPrevidenzialiAssistenziali.Controls.Add(this.btnAltreFormeAssicurative);
+			this.grpDettagliPrevidenzialiAssistenziali.Controls.Add(this.cmbPAT);
+			this.grpDettagliPrevidenzialiAssistenziali.Controls.Add(this.btnPAT);
+			this.grpDettagliPrevidenzialiAssistenziali.Location = new System.Drawing.Point(8, 243);
+			this.grpDettagliPrevidenzialiAssistenziali.Name = "grpDettagliPrevidenzialiAssistenziali";
+			this.grpDettagliPrevidenzialiAssistenziali.Size = new System.Drawing.Size(863, 152);
+			this.grpDettagliPrevidenzialiAssistenziali.TabIndex = 10;
+			this.grpDettagliPrevidenzialiAssistenziali.TabStop = false;
+			this.grpDettagliPrevidenzialiAssistenziali.Text = "Dettagli Previdenziali/Assistenziali";
+			// 
+			// cmbTipoRapporto
+			// 
+			this.cmbTipoRapporto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbTipoRapporto.DataSource = this.DS.emenscontractkind;
-            this.cmbTipoRapporto.DisplayMember = "description";
-            this.cmbTipoRapporto.Location = new System.Drawing.Point(112, 24);
-            this.cmbTipoRapporto.Name = "cmbTipoRapporto";
-            this.cmbTipoRapporto.Size = new System.Drawing.Size(729, 21);
-            this.cmbTipoRapporto.TabIndex = 2;
-            this.cmbTipoRapporto.Tag = "parasubcontractyear.idemenscontractkind?parasubcontractview.idemenscontractkind";
-            this.cmbTipoRapporto.ValueMember = "idemenscontractkind";
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.EnforceConstraints = false;
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // btnTipoRapporto
-            // 
-            this.btnTipoRapporto.Location = new System.Drawing.Point(8, 24);
-            this.btnTipoRapporto.Name = "btnTipoRapporto";
-            this.btnTipoRapporto.Size = new System.Drawing.Size(96, 23);
-            this.btnTipoRapporto.TabIndex = 1;
-            this.btnTipoRapporto.Tag = "manage.emenscontractkind.default";
-            this.btnTipoRapporto.Text = "Tipo rapporto";
-            // 
-            // cmbAttPrevidenzialeINPS
-            // 
-            this.cmbAttPrevidenzialeINPS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbTipoRapporto.DataSource = this.DS.emenscontractkind;
+			this.cmbTipoRapporto.DisplayMember = "description";
+			this.cmbTipoRapporto.Location = new System.Drawing.Point(112, 24);
+			this.cmbTipoRapporto.Name = "cmbTipoRapporto";
+			this.cmbTipoRapporto.Size = new System.Drawing.Size(743, 21);
+			this.cmbTipoRapporto.TabIndex = 2;
+			this.cmbTipoRapporto.Tag = "parasubcontractyear.idemenscontractkind?parasubcontractview.idemenscontractkind";
+			this.cmbTipoRapporto.ValueMember = "idemenscontractkind";
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// btnTipoRapporto
+			// 
+			this.btnTipoRapporto.Location = new System.Drawing.Point(8, 24);
+			this.btnTipoRapporto.Name = "btnTipoRapporto";
+			this.btnTipoRapporto.Size = new System.Drawing.Size(96, 23);
+			this.btnTipoRapporto.TabIndex = 1;
+			this.btnTipoRapporto.Tag = "manage.emenscontractkind.default";
+			this.btnTipoRapporto.Text = "Tipo rapporto";
+			// 
+			// cmbAttPrevidenzialeINPS
+			// 
+			this.cmbAttPrevidenzialeINPS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbAttPrevidenzialeINPS.DataSource = this.DS.inpsactivity;
-            this.cmbAttPrevidenzialeINPS.DisplayMember = "description";
-            this.cmbAttPrevidenzialeINPS.ItemHeight = 13;
-            this.cmbAttPrevidenzialeINPS.Location = new System.Drawing.Point(112, 56);
-            this.cmbAttPrevidenzialeINPS.Name = "cmbAttPrevidenzialeINPS";
-            this.cmbAttPrevidenzialeINPS.Size = new System.Drawing.Size(729, 21);
-            this.cmbAttPrevidenzialeINPS.TabIndex = 4;
-            this.cmbAttPrevidenzialeINPS.Tag = "parasubcontractyear.activitycode?parasubcontractview.activitycode";
-            this.cmbAttPrevidenzialeINPS.ValueMember = "activitycode";
-            // 
-            // btnAttivitaPrevINPS
-            // 
-            this.btnAttivitaPrevINPS.Location = new System.Drawing.Point(8, 56);
-            this.btnAttivitaPrevINPS.Name = "btnAttivitaPrevINPS";
-            this.btnAttivitaPrevINPS.Size = new System.Drawing.Size(96, 23);
-            this.btnAttivitaPrevINPS.TabIndex = 3;
-            this.btnAttivitaPrevINPS.Tag = "manage.inpsactivity.default";
-            this.btnAttivitaPrevINPS.Text = "Att. Prev. INPS";
-            // 
-            // cmbAltreFormeAssicurative
-            // 
-            this.cmbAltreFormeAssicurative.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbAttPrevidenzialeINPS.DataSource = this.DS.inpsactivity;
+			this.cmbAttPrevidenzialeINPS.DisplayMember = "description";
+			this.cmbAttPrevidenzialeINPS.ItemHeight = 13;
+			this.cmbAttPrevidenzialeINPS.Location = new System.Drawing.Point(112, 56);
+			this.cmbAttPrevidenzialeINPS.Name = "cmbAttPrevidenzialeINPS";
+			this.cmbAttPrevidenzialeINPS.Size = new System.Drawing.Size(743, 21);
+			this.cmbAttPrevidenzialeINPS.TabIndex = 4;
+			this.cmbAttPrevidenzialeINPS.Tag = "parasubcontractyear.activitycode?parasubcontractview.activitycode";
+			this.cmbAttPrevidenzialeINPS.ValueMember = "activitycode";
+			// 
+			// btnAttivitaPrevINPS
+			// 
+			this.btnAttivitaPrevINPS.Location = new System.Drawing.Point(8, 56);
+			this.btnAttivitaPrevINPS.Name = "btnAttivitaPrevINPS";
+			this.btnAttivitaPrevINPS.Size = new System.Drawing.Size(96, 23);
+			this.btnAttivitaPrevINPS.TabIndex = 3;
+			this.btnAttivitaPrevINPS.Tag = "manage.inpsactivity.default";
+			this.btnAttivitaPrevINPS.Text = "Att. Prev. INPS";
+			// 
+			// cmbAltreFormeAssicurative
+			// 
+			this.cmbAltreFormeAssicurative.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbAltreFormeAssicurative.DataSource = this.DS.otherinsurance;
-            this.cmbAltreFormeAssicurative.DisplayMember = "description";
-            this.cmbAltreFormeAssicurative.ItemHeight = 13;
-            this.cmbAltreFormeAssicurative.Location = new System.Drawing.Point(112, 88);
-            this.cmbAltreFormeAssicurative.Name = "cmbAltreFormeAssicurative";
-            this.cmbAltreFormeAssicurative.Size = new System.Drawing.Size(729, 21);
-            this.cmbAltreFormeAssicurative.TabIndex = 6;
-            this.cmbAltreFormeAssicurative.Tag = "parasubcontractyear.idotherinsurance?parasubcontractview.idotherinsurance";
-            this.cmbAltreFormeAssicurative.ValueMember = "idotherinsurance";
-            // 
-            // btnAltreFormeAssicurative
-            // 
-            this.btnAltreFormeAssicurative.Location = new System.Drawing.Point(8, 88);
-            this.btnAltreFormeAssicurative.Name = "btnAltreFormeAssicurative";
-            this.btnAltreFormeAssicurative.Size = new System.Drawing.Size(96, 23);
-            this.btnAltreFormeAssicurative.TabIndex = 5;
-            this.btnAltreFormeAssicurative.Tag = "manage.otherinsurance.default";
-            this.btnAltreFormeAssicurative.Text = "Altra Forma Ass.";
-            // 
-            // cmbPAT
-            // 
-            this.cmbPAT.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbAltreFormeAssicurative.DataSource = this.DS.otherinsurance;
+			this.cmbAltreFormeAssicurative.DisplayMember = "description";
+			this.cmbAltreFormeAssicurative.ItemHeight = 13;
+			this.cmbAltreFormeAssicurative.Location = new System.Drawing.Point(112, 88);
+			this.cmbAltreFormeAssicurative.Name = "cmbAltreFormeAssicurative";
+			this.cmbAltreFormeAssicurative.Size = new System.Drawing.Size(743, 21);
+			this.cmbAltreFormeAssicurative.TabIndex = 6;
+			this.cmbAltreFormeAssicurative.Tag = "parasubcontractyear.idotherinsurance?parasubcontractview.idotherinsurance";
+			this.cmbAltreFormeAssicurative.ValueMember = "idotherinsurance";
+			// 
+			// btnAltreFormeAssicurative
+			// 
+			this.btnAltreFormeAssicurative.Location = new System.Drawing.Point(8, 88);
+			this.btnAltreFormeAssicurative.Name = "btnAltreFormeAssicurative";
+			this.btnAltreFormeAssicurative.Size = new System.Drawing.Size(96, 23);
+			this.btnAltreFormeAssicurative.TabIndex = 5;
+			this.btnAltreFormeAssicurative.Tag = "manage.otherinsurance.default";
+			this.btnAltreFormeAssicurative.Text = "Altra Forma Ass.";
+			// 
+			// cmbPAT
+			// 
+			this.cmbPAT.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbPAT.DataSource = this.DS.pat;
-            this.cmbPAT.DisplayMember = "description";
-            this.cmbPAT.ItemHeight = 13;
-            this.cmbPAT.Location = new System.Drawing.Point(112, 120);
-            this.cmbPAT.Name = "cmbPAT";
-            this.cmbPAT.Size = new System.Drawing.Size(729, 21);
-            this.cmbPAT.TabIndex = 8;
-            this.cmbPAT.Tag = "parasubcontract.idpat?parasubcontractview.idpat";
-            this.cmbPAT.ValueMember = "idpat";
-            // 
-            // btnPAT
-            // 
-            this.btnPAT.Location = new System.Drawing.Point(8, 120);
-            this.btnPAT.Name = "btnPAT";
-            this.btnPAT.Size = new System.Drawing.Size(96, 23);
-            this.btnPAT.TabIndex = 7;
-            this.btnPAT.Tag = "manage.pat.default";
-            this.btnPAT.Text = "Pos. Assic.Terr.";
-            // 
-            // grpDettagliFiscali
-            // 
-            this.grpDettagliFiscali.Controls.Add(this.checkBox1);
-            this.grpDettagliFiscali.Controls.Add(this.checkBox3);
-            this.grpDettagliFiscali.Location = new System.Drawing.Point(446, 196);
-            this.grpDettagliFiscali.Name = "grpDettagliFiscali";
-            this.grpDettagliFiscali.Size = new System.Drawing.Size(265, 48);
-            this.grpDettagliFiscali.TabIndex = 9;
-            this.grpDettagliFiscali.TabStop = false;
-            this.grpDettagliFiscali.Text = "Dettagli Fiscali";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.Location = new System.Drawing.Point(185, 17);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(65, 16);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Tag = "parasubcontract.employed:S:N";
-            this.checkBox1.Text = "In Forza";
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.Location = new System.Drawing.Point(6, 19);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(174, 16);
-            this.checkBox3.TabIndex = 4;
-            this.checkBox3.Tag = "parasubcontract.payrollccinfo:S:N";
-            this.checkBox3.Text = "Informazioni CC su Cedolino";
-            // 
-            // label8
-            // 
-            this.label8.Location = new System.Drawing.Point(8, 402);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(56, 23);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "Mansione";
-            // 
-            // grpPrestazione
-            // 
-            this.grpPrestazione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbPAT.DataSource = this.DS.pat;
+			this.cmbPAT.DisplayMember = "description";
+			this.cmbPAT.ItemHeight = 13;
+			this.cmbPAT.Location = new System.Drawing.Point(112, 120);
+			this.cmbPAT.Name = "cmbPAT";
+			this.cmbPAT.Size = new System.Drawing.Size(743, 21);
+			this.cmbPAT.TabIndex = 8;
+			this.cmbPAT.Tag = "parasubcontract.idpat?parasubcontractview.idpat";
+			this.cmbPAT.ValueMember = "idpat";
+			// 
+			// btnPAT
+			// 
+			this.btnPAT.Location = new System.Drawing.Point(8, 120);
+			this.btnPAT.Name = "btnPAT";
+			this.btnPAT.Size = new System.Drawing.Size(96, 23);
+			this.btnPAT.TabIndex = 7;
+			this.btnPAT.Tag = "manage.pat.default";
+			this.btnPAT.Text = "Pos. Assic.Terr.";
+			// 
+			// grpDettagliFiscali
+			// 
+			this.grpDettagliFiscali.Controls.Add(this.checkBox1);
+			this.grpDettagliFiscali.Controls.Add(this.checkBox3);
+			this.grpDettagliFiscali.Location = new System.Drawing.Point(446, 196);
+			this.grpDettagliFiscali.Name = "grpDettagliFiscali";
+			this.grpDettagliFiscali.Size = new System.Drawing.Size(265, 48);
+			this.grpDettagliFiscali.TabIndex = 9;
+			this.grpDettagliFiscali.TabStop = false;
+			this.grpDettagliFiscali.Text = "Dettagli Fiscali";
+			// 
+			// checkBox1
+			// 
+			this.checkBox1.Location = new System.Drawing.Point(185, 17);
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.Size = new System.Drawing.Size(65, 16);
+			this.checkBox1.TabIndex = 2;
+			this.checkBox1.Tag = "parasubcontract.employed:S:N";
+			this.checkBox1.Text = "In Forza";
+			// 
+			// checkBox3
+			// 
+			this.checkBox3.Location = new System.Drawing.Point(6, 19);
+			this.checkBox3.Name = "checkBox3";
+			this.checkBox3.Size = new System.Drawing.Size(174, 16);
+			this.checkBox3.TabIndex = 4;
+			this.checkBox3.Tag = "parasubcontract.payrollccinfo:S:N";
+			this.checkBox3.Text = "Informazioni CC su Cedolino";
+			// 
+			// label8
+			// 
+			this.label8.Location = new System.Drawing.Point(8, 402);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(56, 23);
+			this.label8.TabIndex = 7;
+			this.label8.Text = "Mansione";
+			// 
+			// grpPrestazione
+			// 
+			this.grpPrestazione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpPrestazione.Controls.Add(this.btnTipoPrestazione);
-            this.grpPrestazione.Controls.Add(this.cmbTipoPrestazione);
-            this.grpPrestazione.Location = new System.Drawing.Point(8, 148);
-            this.grpPrestazione.Name = "grpPrestazione";
-            this.grpPrestazione.Size = new System.Drawing.Size(849, 48);
-            this.grpPrestazione.TabIndex = 6;
-            this.grpPrestazione.TabStop = false;
-            this.grpPrestazione.Text = "Prestazione";
-            // 
-            // btnTipoPrestazione
-            // 
-            this.btnTipoPrestazione.Location = new System.Drawing.Point(8, 16);
-            this.btnTipoPrestazione.Name = "btnTipoPrestazione";
-            this.btnTipoPrestazione.Size = new System.Drawing.Size(75, 23);
-            this.btnTipoPrestazione.TabIndex = 6;
-            this.btnTipoPrestazione.Tag = "choose.service.default";
-            this.btnTipoPrestazione.Text = "Tipo";
-            // 
-            // cmbTipoPrestazione
-            // 
-            this.cmbTipoPrestazione.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbTipoPrestazione.DataSource = this.DS.service;
-            this.cmbTipoPrestazione.DisplayMember = "description";
-            this.cmbTipoPrestazione.ItemHeight = 13;
-            this.cmbTipoPrestazione.Location = new System.Drawing.Point(96, 16);
-            this.cmbTipoPrestazione.Name = "cmbTipoPrestazione";
-            this.cmbTipoPrestazione.Size = new System.Drawing.Size(745, 21);
-            this.cmbTipoPrestazione.TabIndex = 7;
-            this.cmbTipoPrestazione.Tag = "parasubcontract.idser";
-            this.cmbTipoPrestazione.ValueMember = "idser";
-            // 
-            // grpPercipiente
-            // 
-            this.grpPercipiente.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.grpPrestazione.Controls.Add(this.btnTipoPrestazione);
+			this.grpPrestazione.Controls.Add(this.cmbTipoPrestazione);
+			this.grpPrestazione.Location = new System.Drawing.Point(8, 148);
+			this.grpPrestazione.Name = "grpPrestazione";
+			this.grpPrestazione.Size = new System.Drawing.Size(863, 48);
+			this.grpPrestazione.TabIndex = 6;
+			this.grpPrestazione.TabStop = false;
+			this.grpPrestazione.Text = "Prestazione";
+			// 
+			// btnTipoPrestazione
+			// 
+			this.btnTipoPrestazione.Location = new System.Drawing.Point(8, 16);
+			this.btnTipoPrestazione.Name = "btnTipoPrestazione";
+			this.btnTipoPrestazione.Size = new System.Drawing.Size(75, 23);
+			this.btnTipoPrestazione.TabIndex = 6;
+			this.btnTipoPrestazione.Tag = "choose.service.default";
+			this.btnTipoPrestazione.Text = "Tipo";
+			// 
+			// cmbTipoPrestazione
+			// 
+			this.cmbTipoPrestazione.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmbTipoPrestazione.DataSource = this.DS.service;
+			this.cmbTipoPrestazione.DisplayMember = "description";
+			this.cmbTipoPrestazione.ItemHeight = 13;
+			this.cmbTipoPrestazione.Location = new System.Drawing.Point(96, 16);
+			this.cmbTipoPrestazione.Name = "cmbTipoPrestazione";
+			this.cmbTipoPrestazione.Size = new System.Drawing.Size(759, 21);
+			this.cmbTipoPrestazione.TabIndex = 7;
+			this.cmbTipoPrestazione.Tag = "parasubcontract.idser";
+			this.cmbTipoPrestazione.ValueMember = "idser";
+			// 
+			// grpPercipiente
+			// 
+			this.grpPercipiente.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpPercipiente.Controls.Add(this.txtPercipiente);
-            this.grpPercipiente.Location = new System.Drawing.Point(330, 8);
-            this.grpPercipiente.Name = "grpPercipiente";
-            this.grpPercipiente.Size = new System.Drawing.Size(395, 40);
-            this.grpPercipiente.TabIndex = 4;
-            this.grpPercipiente.TabStop = false;
-            this.grpPercipiente.Tag = "AutoChoose.txtPercipiente.lista.((active=\'S\'))";
-            this.grpPercipiente.Text = "Percipiente";
-            // 
-            // txtPercipiente
-            // 
-            this.txtPercipiente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPercipiente.Location = new System.Drawing.Point(8, 16);
-            this.txtPercipiente.Name = "txtPercipiente";
-            this.txtPercipiente.Size = new System.Drawing.Size(379, 20);
-            this.txtPercipiente.TabIndex = 0;
-            this.txtPercipiente.Tag = "registry.title?parasubcontractview.registry";
-            // 
-            // grpContratto
-            // 
-            this.grpContratto.Controls.Add(this.label2);
-            this.grpContratto.Controls.Add(this.txtEsercizio);
-            this.grpContratto.Controls.Add(this.txtNumContratto);
-            this.grpContratto.Controls.Add(this.label1);
-            this.grpContratto.Controls.Add(this.textBox1);
-            this.grpContratto.Controls.Add(this.label17);
-            this.grpContratto.Location = new System.Drawing.Point(8, 8);
-            this.grpContratto.Name = "grpContratto";
-            this.grpContratto.Size = new System.Drawing.Size(146, 112);
-            this.grpContratto.TabIndex = 1;
-            this.grpContratto.TabStop = false;
-            this.grpContratto.Text = "Contratto";
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(8, 48);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 20);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Numero";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtEsercizio
-            // 
-            this.txtEsercizio.Location = new System.Drawing.Point(62, 16);
-            this.txtEsercizio.Name = "txtEsercizio";
-            this.txtEsercizio.Size = new System.Drawing.Size(72, 20);
-            this.txtEsercizio.TabIndex = 2;
-            this.txtEsercizio.Tag = "parasubcontract.ycon.year";
-            // 
-            // txtNumContratto
-            // 
-            this.txtNumContratto.Location = new System.Drawing.Point(62, 48);
-            this.txtNumContratto.Name = "txtNumContratto";
-            this.txtNumContratto.Size = new System.Drawing.Size(72, 20);
-            this.txtNumContratto.TabIndex = 3;
-            this.txtNumContratto.Tag = "parasubcontract.ncon";
-            this.txtNumContratto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(8, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Esercizio";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(62, 80);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(72, 20);
-            this.textBox1.TabIndex = 4;
-            this.textBox1.Tag = "parasubcontract.matricula";
-            // 
-            // label17
-            // 
-            this.label17.Location = new System.Drawing.Point(8, 80);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(56, 20);
-            this.label17.TabIndex = 9;
-            this.label17.Text = "Matricola";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtLordoAlBeneficiario
-            // 
-            this.txtLordoAlBeneficiario.Location = new System.Drawing.Point(146, 209);
-            this.txtLordoAlBeneficiario.Name = "txtLordoAlBeneficiario";
-            this.txtLordoAlBeneficiario.Size = new System.Drawing.Size(104, 20);
-            this.txtLordoAlBeneficiario.TabIndex = 7;
-            this.txtLordoAlBeneficiario.Tag = "parasubcontract.grossamount";
-            // 
-            // label6
-            // 
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(8, 205);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(131, 28);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "Lordo al beneficiario";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDataFine
-            // 
-            this.txtDataFine.Location = new System.Drawing.Point(233, 41);
-            this.txtDataFine.Name = "txtDataFine";
-            this.txtDataFine.Size = new System.Drawing.Size(88, 20);
-            this.txtDataFine.TabIndex = 3;
-            this.txtDataFine.Tag = "parasubcontract.stop";
-            this.txtDataFine.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtDataFine.Leave += new System.EventHandler(this.txtDataFine_TextChanged);
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(169, 41);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 23);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Data Fine";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDurataMesi
-            // 
-            this.txtDurataMesi.Location = new System.Drawing.Point(233, 67);
-            this.txtDurataMesi.Name = "txtDurataMesi";
-            this.txtDurataMesi.ReadOnly = true;
-            this.txtDurataMesi.Size = new System.Drawing.Size(88, 20);
-            this.txtDurataMesi.TabIndex = 5;
-            this.txtDurataMesi.TabStop = false;
-            this.txtDurataMesi.Tag = "parasubcontract.monthlen";
-            // 
-            // label5
-            // 
-            this.label5.Location = new System.Drawing.Point(153, 67);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(73, 23);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Durata (Mesi)";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDataInizio
-            // 
-            this.txtDataInizio.Location = new System.Drawing.Point(233, 16);
-            this.txtDataInizio.Name = "txtDataInizio";
-            this.txtDataInizio.Size = new System.Drawing.Size(88, 20);
-            this.txtDataInizio.TabIndex = 2;
-            this.txtDataInizio.Tag = "parasubcontract.start";
-            this.txtDataInizio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtDataInizio.Leave += new System.EventHandler(this.txtDataInizio_TextChanged);
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(161, 16);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(64, 23);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Data Inizio";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // grpComune
-            // 
-            this.grpComune.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.grpPercipiente.Controls.Add(this.txtPercipiente);
+			this.grpPercipiente.Location = new System.Drawing.Point(330, 8);
+			this.grpPercipiente.Name = "grpPercipiente";
+			this.grpPercipiente.Size = new System.Drawing.Size(409, 40);
+			this.grpPercipiente.TabIndex = 4;
+			this.grpPercipiente.TabStop = false;
+			this.grpPercipiente.Tag = "AutoChoose.txtPercipiente.lista.((active=\'S\'))";
+			this.grpPercipiente.Text = "Percipiente";
+			// 
+			// txtPercipiente
+			// 
+			this.txtPercipiente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtPercipiente.Location = new System.Drawing.Point(8, 16);
+			this.txtPercipiente.Name = "txtPercipiente";
+			this.txtPercipiente.Size = new System.Drawing.Size(393, 20);
+			this.txtPercipiente.TabIndex = 0;
+			this.txtPercipiente.Tag = "registry.title?parasubcontractview.registry";
+			// 
+			// grpContratto
+			// 
+			this.grpContratto.Controls.Add(this.label2);
+			this.grpContratto.Controls.Add(this.txtEsercizio);
+			this.grpContratto.Controls.Add(this.txtNumContratto);
+			this.grpContratto.Controls.Add(this.label1);
+			this.grpContratto.Controls.Add(this.textBox1);
+			this.grpContratto.Controls.Add(this.label17);
+			this.grpContratto.Location = new System.Drawing.Point(8, 8);
+			this.grpContratto.Name = "grpContratto";
+			this.grpContratto.Size = new System.Drawing.Size(146, 112);
+			this.grpContratto.TabIndex = 1;
+			this.grpContratto.TabStop = false;
+			this.grpContratto.Text = "Contratto";
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(8, 48);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(48, 20);
+			this.label2.TabIndex = 1;
+			this.label2.Text = "Numero";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtEsercizio
+			// 
+			this.txtEsercizio.Location = new System.Drawing.Point(62, 16);
+			this.txtEsercizio.Name = "txtEsercizio";
+			this.txtEsercizio.Size = new System.Drawing.Size(72, 20);
+			this.txtEsercizio.TabIndex = 2;
+			this.txtEsercizio.Tag = "parasubcontract.ycon.year";
+			// 
+			// txtNumContratto
+			// 
+			this.txtNumContratto.Location = new System.Drawing.Point(62, 48);
+			this.txtNumContratto.Name = "txtNumContratto";
+			this.txtNumContratto.Size = new System.Drawing.Size(72, 20);
+			this.txtNumContratto.TabIndex = 3;
+			this.txtNumContratto.Tag = "parasubcontract.ncon";
+			this.txtNumContratto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(8, 16);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(56, 20);
+			this.label1.TabIndex = 0;
+			this.label1.Text = "Esercizio";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// textBox1
+			// 
+			this.textBox1.Location = new System.Drawing.Point(62, 80);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(72, 20);
+			this.textBox1.TabIndex = 4;
+			this.textBox1.Tag = "parasubcontract.matricula";
+			// 
+			// label17
+			// 
+			this.label17.Location = new System.Drawing.Point(8, 80);
+			this.label17.Name = "label17";
+			this.label17.Size = new System.Drawing.Size(56, 20);
+			this.label17.TabIndex = 9;
+			this.label17.Text = "Matricola";
+			this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtLordoAlBeneficiario
+			// 
+			this.txtLordoAlBeneficiario.Location = new System.Drawing.Point(146, 209);
+			this.txtLordoAlBeneficiario.Name = "txtLordoAlBeneficiario";
+			this.txtLordoAlBeneficiario.Size = new System.Drawing.Size(104, 20);
+			this.txtLordoAlBeneficiario.TabIndex = 7;
+			this.txtLordoAlBeneficiario.Tag = "parasubcontract.grossamount";
+			// 
+			// label6
+			// 
+			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label6.Location = new System.Drawing.Point(8, 205);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(131, 28);
+			this.label6.TabIndex = 6;
+			this.label6.Text = "Lordo al beneficiario";
+			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtDataFine
+			// 
+			this.txtDataFine.Location = new System.Drawing.Point(233, 41);
+			this.txtDataFine.Name = "txtDataFine";
+			this.txtDataFine.Size = new System.Drawing.Size(88, 20);
+			this.txtDataFine.TabIndex = 3;
+			this.txtDataFine.Tag = "parasubcontract.stop";
+			this.txtDataFine.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.txtDataFine.Leave += new System.EventHandler(this.txtDataFine_TextChanged);
+			// 
+			// label4
+			// 
+			this.label4.Location = new System.Drawing.Point(169, 41);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(56, 23);
+			this.label4.TabIndex = 1;
+			this.label4.Text = "Data Fine";
+			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtDurataMesi
+			// 
+			this.txtDurataMesi.Location = new System.Drawing.Point(233, 67);
+			this.txtDurataMesi.Name = "txtDurataMesi";
+			this.txtDurataMesi.ReadOnly = true;
+			this.txtDurataMesi.Size = new System.Drawing.Size(88, 20);
+			this.txtDurataMesi.TabIndex = 5;
+			this.txtDurataMesi.TabStop = false;
+			this.txtDurataMesi.Tag = "parasubcontract.monthlen";
+			// 
+			// label5
+			// 
+			this.label5.Location = new System.Drawing.Point(153, 67);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(73, 23);
+			this.label5.TabIndex = 4;
+			this.label5.Text = "Durata (Mesi)";
+			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtDataInizio
+			// 
+			this.txtDataInizio.Location = new System.Drawing.Point(233, 16);
+			this.txtDataInizio.Name = "txtDataInizio";
+			this.txtDataInizio.Size = new System.Drawing.Size(88, 20);
+			this.txtDataInizio.TabIndex = 2;
+			this.txtDataInizio.Tag = "parasubcontract.start";
+			this.txtDataInizio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.txtDataInizio.Leave += new System.EventHandler(this.txtDataInizio_TextChanged);
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(161, 16);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(64, 23);
+			this.label3.TabIndex = 0;
+			this.label3.Text = "Data Inizio";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// grpComune
+			// 
+			this.grpComune.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpComune.Controls.Add(this.txtComuneAddComunali);
-            this.grpComune.Location = new System.Drawing.Point(330, 49);
-            this.grpComune.Name = "grpComune";
-            this.grpComune.Size = new System.Drawing.Size(395, 48);
-            this.grpComune.TabIndex = 5;
-            this.grpComune.TabStop = false;
-            this.grpComune.Tag = "";
-            this.grpComune.Text = "Comune di riferimento per le addizionali comunali";
-            // 
-            // txtComuneAddComunali
-            // 
-            this.txtComuneAddComunali.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtComuneAddComunali.Location = new System.Drawing.Point(8, 19);
-            this.txtComuneAddComunali.Name = "txtComuneAddComunali";
-            this.txtComuneAddComunali.ReadOnly = true;
-            this.txtComuneAddComunali.Size = new System.Drawing.Size(381, 20);
-            this.txtComuneAddComunali.TabIndex = 8;
-            this.txtComuneAddComunali.Tag = "";
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.grpComune.Controls.Add(this.txtComuneAddComunali);
+			this.grpComune.Location = new System.Drawing.Point(330, 49);
+			this.grpComune.Name = "grpComune";
+			this.grpComune.Size = new System.Drawing.Size(409, 48);
+			this.grpComune.TabIndex = 5;
+			this.grpComune.TabStop = false;
+			this.grpComune.Tag = "";
+			this.grpComune.Text = "Comune di riferimento per le addizionali comunali";
+			// 
+			// txtComuneAddComunali
+			// 
+			this.txtComuneAddComunali.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtComuneAddComunali.Location = new System.Drawing.Point(8, 19);
+			this.txtComuneAddComunali.Name = "txtComuneAddComunali";
+			this.txtComuneAddComunali.ReadOnly = true;
+			this.txtComuneAddComunali.Size = new System.Drawing.Size(395, 20);
+			this.txtComuneAddComunali.TabIndex = 8;
+			this.txtComuneAddComunali.Tag = "";
+			// 
+			// tabControl1
+			// 
+			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabGenerale);
-            this.tabControl1.Controls.Add(this.tabImponibili);
-            this.tabControl1.Controls.Add(this.tabFamiliare);
-            this.tabControl1.Controls.Add(this.tabAltreCollINAIL);
-            this.tabControl1.Controls.Add(this.tabOneri);
-            this.tabControl1.Controls.Add(this.tabCUD);
-            this.tabControl1.Controls.Add(this.tabAddizionali);
-            this.tabControl1.Controls.Add(this.tabCedolini);
-            this.tabControl1.Controls.Add(this.tabErogazioni);
-            this.tabControl1.Controls.Add(this.tabDatiRiepilogativi);
-            this.tabControl1.Controls.Add(this.TabClassSuppl);
-            this.tabControl1.Controls.Add(this.tabEconoPatr);
-            this.tabControl1.Controls.Add(this.tabAttributi);
-            this.tabControl1.Controls.Add(this.tabAP);
-            this.tabControl1.Controls.Add(this.tabDALIA);
-            this.tabControl1.ImageList = this.imageList1;
-            this.tabControl1.ItemSize = new System.Drawing.Size(55, 18);
-            this.tabControl1.Location = new System.Drawing.Point(8, 8);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(873, 487);
-            this.tabControl1.TabIndex = 14;
-            // 
-            // tabImponibili
-            // 
-            this.tabImponibili.Controls.Add(this.groupBox17);
-            this.tabImponibili.Controls.Add(this.groupBox12);
-            this.tabImponibili.Controls.Add(this.groupBox9);
-            this.tabImponibili.Controls.Add(this.groupBox7);
-            this.tabImponibili.Location = new System.Drawing.Point(4, 22);
-            this.tabImponibili.Name = "tabImponibili";
-            this.tabImponibili.Size = new System.Drawing.Size(865, 461);
-            this.tabImponibili.TabIndex = 9;
-            this.tabImponibili.Text = "Imponibili";
-            this.tabImponibili.UseVisualStyleBackColor = true;
-            // 
-            // groupBox17
-            // 
-            this.groupBox17.Controls.Add(this.textBox3);
-            this.groupBox17.Controls.Add(this.btnSituazione);
-            this.groupBox17.Location = new System.Drawing.Point(264, 200);
-            this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(312, 72);
-            this.groupBox17.TabIndex = 106;
-            this.groupBox17.TabStop = false;
-            this.groupBox17.Text = "Situazione del contratto";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(88, 16);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(216, 48);
-            this.textBox3.TabIndex = 102;
-            this.textBox3.TabStop = false;
-            this.textBox3.Text = "Cliccando sul bottone Situazione si conosceranno tutte le informazioni inerenti i" +
+			this.tabControl1.Controls.Add(this.tabGenerale);
+			this.tabControl1.Controls.Add(this.tabImponibili);
+			this.tabControl1.Controls.Add(this.tabFamiliare);
+			this.tabControl1.Controls.Add(this.tabAltreCollINAIL);
+			this.tabControl1.Controls.Add(this.tabOneri);
+			this.tabControl1.Controls.Add(this.tabCUD);
+			this.tabControl1.Controls.Add(this.tabAddizionali);
+			this.tabControl1.Controls.Add(this.tabCedolini);
+			this.tabControl1.Controls.Add(this.tabErogazioni);
+			this.tabControl1.Controls.Add(this.tabDatiRiepilogativi);
+			this.tabControl1.Controls.Add(this.TabClassSuppl);
+			this.tabControl1.Controls.Add(this.tabEconoPatr);
+			this.tabControl1.Controls.Add(this.tabAttributi);
+			this.tabControl1.Controls.Add(this.tabAP);
+			this.tabControl1.Controls.Add(this.tabDALIA);
+			this.tabControl1.Controls.Add(this.tabAllegati);
+			this.tabControl1.ImageList = this.imageList1;
+			this.tabControl1.ItemSize = new System.Drawing.Size(55, 18);
+			this.tabControl1.Location = new System.Drawing.Point(8, 8);
+			this.tabControl1.Name = "tabControl1";
+			this.tabControl1.SelectedIndex = 0;
+			this.tabControl1.Size = new System.Drawing.Size(887, 556);
+			this.tabControl1.TabIndex = 14;
+			// 
+			// tabImponibili
+			// 
+			this.tabImponibili.Controls.Add(this.groupBox17);
+			this.tabImponibili.Controls.Add(this.groupBox12);
+			this.tabImponibili.Controls.Add(this.groupBox9);
+			this.tabImponibili.Controls.Add(this.groupBox7);
+			this.tabImponibili.Location = new System.Drawing.Point(4, 22);
+			this.tabImponibili.Name = "tabImponibili";
+			this.tabImponibili.Size = new System.Drawing.Size(869, 530);
+			this.tabImponibili.TabIndex = 9;
+			this.tabImponibili.Text = "Imponibili";
+			this.tabImponibili.UseVisualStyleBackColor = true;
+			// 
+			// groupBox17
+			// 
+			this.groupBox17.Controls.Add(this.textBox3);
+			this.groupBox17.Controls.Add(this.btnSituazione);
+			this.groupBox17.Location = new System.Drawing.Point(264, 200);
+			this.groupBox17.Name = "groupBox17";
+			this.groupBox17.Size = new System.Drawing.Size(312, 72);
+			this.groupBox17.TabIndex = 106;
+			this.groupBox17.TabStop = false;
+			this.groupBox17.Text = "Situazione del contratto";
+			// 
+			// textBox3
+			// 
+			this.textBox3.Location = new System.Drawing.Point(88, 16);
+			this.textBox3.Multiline = true;
+			this.textBox3.Name = "textBox3";
+			this.textBox3.ReadOnly = true;
+			this.textBox3.Size = new System.Drawing.Size(216, 48);
+			this.textBox3.TabIndex = 102;
+			this.textBox3.TabStop = false;
+			this.textBox3.Text = "Cliccando sul bottone Situazione si conosceranno tutte le informazioni inerenti i" +
     "l contratto e i cedolini associati ad esso";
-            // 
-            // btnSituazione
-            // 
-            this.btnSituazione.Location = new System.Drawing.Point(8, 16);
-            this.btnSituazione.Name = "btnSituazione";
-            this.btnSituazione.Size = new System.Drawing.Size(75, 23);
-            this.btnSituazione.TabIndex = 101;
-            this.btnSituazione.Text = "Situazione";
-            this.btnSituazione.Click += new System.EventHandler(this.btnSituazione_Click);
-            // 
-            // groupBox12
-            // 
-            this.groupBox12.Controls.Add(this.groupBox10);
-            this.groupBox12.Location = new System.Drawing.Point(264, 120);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(312, 72);
-            this.groupBox12.TabIndex = 105;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "Totali Generali";
-            // 
-            // groupBox10
-            // 
-            this.groupBox10.Controls.Add(this.SubEntity_txtImponibilePrevidenziale);
-            this.groupBox10.Controls.Add(this.label35);
-            this.groupBox10.Enabled = false;
-            this.groupBox10.Location = new System.Drawing.Point(8, 24);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(296, 40);
-            this.groupBox10.TabIndex = 97;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Totali Presunti Annui";
-            // 
-            // SubEntity_txtImponibilePrevidenziale
-            // 
-            this.SubEntity_txtImponibilePrevidenziale.Location = new System.Drawing.Point(192, 16);
-            this.SubEntity_txtImponibilePrevidenziale.Name = "SubEntity_txtImponibilePrevidenziale";
-            this.SubEntity_txtImponibilePrevidenziale.Size = new System.Drawing.Size(100, 20);
-            this.SubEntity_txtImponibilePrevidenziale.TabIndex = 90;
-            this.SubEntity_txtImponibilePrevidenziale.Tag = "parasubcontractyear.taxablepension?parasubcontractview.taxablepension";
-            // 
-            // label35
-            // 
-            this.label35.Location = new System.Drawing.Point(8, 16);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(128, 16);
-            this.label35.TabIndex = 89;
-            this.label35.Text = "Imponibile previdenziale";
-            this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.groupBox8);
-            this.groupBox9.Controls.Add(this.textBox4);
-            this.groupBox9.Location = new System.Drawing.Point(264, 8);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(480, 104);
-            this.groupBox9.TabIndex = 104;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Informazioni inerenti altri contratti";
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.SubEntity_txtPrevidenzialeCUD);
-            this.groupBox8.Controls.Add(this.SubEntity_txtGiorniCUD);
-            this.groupBox8.Controls.Add(this.label33);
-            this.groupBox8.Controls.Add(this.label7);
-            this.groupBox8.Enabled = false;
-            this.groupBox8.Location = new System.Drawing.Point(8, 24);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(240, 72);
-            this.groupBox8.TabIndex = 88;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Totali dei CUD presentati";
-            // 
-            // SubEntity_txtPrevidenzialeCUD
-            // 
-            this.SubEntity_txtPrevidenzialeCUD.Location = new System.Drawing.Point(128, 16);
-            this.SubEntity_txtPrevidenzialeCUD.Name = "SubEntity_txtPrevidenzialeCUD";
-            this.SubEntity_txtPrevidenzialeCUD.Size = new System.Drawing.Size(100, 20);
-            this.SubEntity_txtPrevidenzialeCUD.TabIndex = 86;
-            this.SubEntity_txtPrevidenzialeCUD.Tag = "parasubcontractyear.taxablecud?parasubcontractview.taxablecud";
-            // 
-            // SubEntity_txtGiorniCUD
-            // 
-            this.SubEntity_txtGiorniCUD.Location = new System.Drawing.Point(128, 40);
-            this.SubEntity_txtGiorniCUD.Name = "SubEntity_txtGiorniCUD";
-            this.SubEntity_txtGiorniCUD.Size = new System.Drawing.Size(100, 20);
-            this.SubEntity_txtGiorniCUD.TabIndex = 90;
-            this.SubEntity_txtGiorniCUD.Tag = "parasubcontractyear.cuddays?parasubcontractview.cuddays";
-            // 
-            // label33
-            // 
-            this.label33.Location = new System.Drawing.Point(16, 40);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(104, 23);
-            this.label33.TabIndex = 89;
-            this.label33.Text = "Giorni lavorati";
-            this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label7
-            // 
-            this.label7.Location = new System.Drawing.Point(8, 16);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(128, 23);
-            this.label7.TabIndex = 85;
-            this.label7.Text = "Imponibile previdenziale";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(256, 24);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(216, 72);
-            this.textBox4.TabIndex = 107;
-            this.textBox4.TabStop = false;
-            this.textBox4.Text = "Totale dei CUD associati al contratto";
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.groupBox2);
-            this.groupBox7.Controls.Add(this.groupBox11);
-            this.groupBox7.Location = new System.Drawing.Point(8, 6);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(248, 450);
-            this.groupBox7.TabIndex = 103;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Informazioni inerenti questo contratto";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.SubEntity_chkApplicaBonus);
-            this.groupBox2.Controls.Add(this.grpNoTaxArea);
-            this.groupBox2.Controls.Add(this.grpAliquoteIrpef);
-            this.groupBox2.Location = new System.Drawing.Point(8, 24);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(232, 266);
-            this.groupBox2.TabIndex = 102;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Gestione Ritenute Fiscali";
-            // 
-            // SubEntity_chkApplicaBonus
-            // 
-            this.SubEntity_chkApplicaBonus.Location = new System.Drawing.Point(18, 124);
-            this.SubEntity_chkApplicaBonus.Name = "SubEntity_chkApplicaBonus";
-            this.SubEntity_chkApplicaBonus.Size = new System.Drawing.Size(197, 18);
-            this.SubEntity_chkApplicaBonus.TabIndex = 110;
-            this.SubEntity_chkApplicaBonus.Tag = "parasubcontractyear.flagbonusappliance:S:N?parasubcontractyearview.flagbonusappli" +
+			// 
+			// btnSituazione
+			// 
+			this.btnSituazione.Location = new System.Drawing.Point(8, 16);
+			this.btnSituazione.Name = "btnSituazione";
+			this.btnSituazione.Size = new System.Drawing.Size(75, 23);
+			this.btnSituazione.TabIndex = 101;
+			this.btnSituazione.Text = "Situazione";
+			this.btnSituazione.Click += new System.EventHandler(this.btnSituazione_Click);
+			// 
+			// groupBox12
+			// 
+			this.groupBox12.Controls.Add(this.groupBox10);
+			this.groupBox12.Location = new System.Drawing.Point(264, 120);
+			this.groupBox12.Name = "groupBox12";
+			this.groupBox12.Size = new System.Drawing.Size(312, 72);
+			this.groupBox12.TabIndex = 105;
+			this.groupBox12.TabStop = false;
+			this.groupBox12.Text = "Totali Generali";
+			// 
+			// groupBox10
+			// 
+			this.groupBox10.Controls.Add(this.SubEntity_txtImponibilePrevidenziale);
+			this.groupBox10.Controls.Add(this.label35);
+			this.groupBox10.Enabled = false;
+			this.groupBox10.Location = new System.Drawing.Point(8, 24);
+			this.groupBox10.Name = "groupBox10";
+			this.groupBox10.Size = new System.Drawing.Size(296, 40);
+			this.groupBox10.TabIndex = 97;
+			this.groupBox10.TabStop = false;
+			this.groupBox10.Text = "Totali Presunti Annui";
+			// 
+			// SubEntity_txtImponibilePrevidenziale
+			// 
+			this.SubEntity_txtImponibilePrevidenziale.Location = new System.Drawing.Point(192, 16);
+			this.SubEntity_txtImponibilePrevidenziale.Name = "SubEntity_txtImponibilePrevidenziale";
+			this.SubEntity_txtImponibilePrevidenziale.Size = new System.Drawing.Size(100, 20);
+			this.SubEntity_txtImponibilePrevidenziale.TabIndex = 90;
+			this.SubEntity_txtImponibilePrevidenziale.Tag = "parasubcontractyear.taxablepension?parasubcontractview.taxablepension";
+			// 
+			// label35
+			// 
+			this.label35.Location = new System.Drawing.Point(8, 16);
+			this.label35.Name = "label35";
+			this.label35.Size = new System.Drawing.Size(128, 16);
+			this.label35.TabIndex = 89;
+			this.label35.Text = "Imponibile previdenziale";
+			this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// groupBox9
+			// 
+			this.groupBox9.Controls.Add(this.groupBox8);
+			this.groupBox9.Controls.Add(this.textBox4);
+			this.groupBox9.Location = new System.Drawing.Point(264, 8);
+			this.groupBox9.Name = "groupBox9";
+			this.groupBox9.Size = new System.Drawing.Size(480, 104);
+			this.groupBox9.TabIndex = 104;
+			this.groupBox9.TabStop = false;
+			this.groupBox9.Text = "Informazioni inerenti altri contratti";
+			// 
+			// groupBox8
+			// 
+			this.groupBox8.Controls.Add(this.SubEntity_txtPrevidenzialeCUD);
+			this.groupBox8.Controls.Add(this.SubEntity_txtGiorniCUD);
+			this.groupBox8.Controls.Add(this.label33);
+			this.groupBox8.Controls.Add(this.label7);
+			this.groupBox8.Enabled = false;
+			this.groupBox8.Location = new System.Drawing.Point(8, 24);
+			this.groupBox8.Name = "groupBox8";
+			this.groupBox8.Size = new System.Drawing.Size(240, 72);
+			this.groupBox8.TabIndex = 88;
+			this.groupBox8.TabStop = false;
+			this.groupBox8.Text = "Totali dei CUD presentati";
+			// 
+			// SubEntity_txtPrevidenzialeCUD
+			// 
+			this.SubEntity_txtPrevidenzialeCUD.Location = new System.Drawing.Point(128, 16);
+			this.SubEntity_txtPrevidenzialeCUD.Name = "SubEntity_txtPrevidenzialeCUD";
+			this.SubEntity_txtPrevidenzialeCUD.Size = new System.Drawing.Size(100, 20);
+			this.SubEntity_txtPrevidenzialeCUD.TabIndex = 86;
+			this.SubEntity_txtPrevidenzialeCUD.Tag = "parasubcontractyear.taxablecud?parasubcontractview.taxablecud";
+			// 
+			// SubEntity_txtGiorniCUD
+			// 
+			this.SubEntity_txtGiorniCUD.Location = new System.Drawing.Point(128, 40);
+			this.SubEntity_txtGiorniCUD.Name = "SubEntity_txtGiorniCUD";
+			this.SubEntity_txtGiorniCUD.Size = new System.Drawing.Size(100, 20);
+			this.SubEntity_txtGiorniCUD.TabIndex = 90;
+			this.SubEntity_txtGiorniCUD.Tag = "parasubcontractyear.cuddays?parasubcontractview.cuddays";
+			// 
+			// label33
+			// 
+			this.label33.Location = new System.Drawing.Point(16, 40);
+			this.label33.Name = "label33";
+			this.label33.Size = new System.Drawing.Size(104, 23);
+			this.label33.TabIndex = 89;
+			this.label33.Text = "Giorni lavorati";
+			this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label7
+			// 
+			this.label7.Location = new System.Drawing.Point(8, 16);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(128, 23);
+			this.label7.TabIndex = 85;
+			this.label7.Text = "Imponibile previdenziale";
+			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// textBox4
+			// 
+			this.textBox4.Location = new System.Drawing.Point(256, 24);
+			this.textBox4.Multiline = true;
+			this.textBox4.Name = "textBox4";
+			this.textBox4.ReadOnly = true;
+			this.textBox4.Size = new System.Drawing.Size(216, 72);
+			this.textBox4.TabIndex = 107;
+			this.textBox4.TabStop = false;
+			this.textBox4.Text = "Totale dei CUD associati al contratto";
+			// 
+			// groupBox7
+			// 
+			this.groupBox7.Controls.Add(this.groupBox2);
+			this.groupBox7.Controls.Add(this.groupBox11);
+			this.groupBox7.Location = new System.Drawing.Point(8, 6);
+			this.groupBox7.Name = "groupBox7";
+			this.groupBox7.Size = new System.Drawing.Size(248, 450);
+			this.groupBox7.TabIndex = 103;
+			this.groupBox7.TabStop = false;
+			this.groupBox7.Text = "Informazioni inerenti questo contratto";
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.SubEntity_chkApplicaBonus);
+			this.groupBox2.Controls.Add(this.grpNoTaxArea);
+			this.groupBox2.Controls.Add(this.grpAliquoteIrpef);
+			this.groupBox2.Location = new System.Drawing.Point(8, 24);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(232, 266);
+			this.groupBox2.TabIndex = 102;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Gestione Ritenute Fiscali";
+			// 
+			// SubEntity_chkApplicaBonus
+			// 
+			this.SubEntity_chkApplicaBonus.Location = new System.Drawing.Point(18, 124);
+			this.SubEntity_chkApplicaBonus.Name = "SubEntity_chkApplicaBonus";
+			this.SubEntity_chkApplicaBonus.Size = new System.Drawing.Size(197, 18);
+			this.SubEntity_chkApplicaBonus.TabIndex = 110;
+			this.SubEntity_chkApplicaBonus.Tag = "parasubcontractyear.flagbonusappliance:S:N?parasubcontractyearview.flagbonusappli" +
     "ance:S:N";
-            this.SubEntity_chkApplicaBonus.Text = "Applica Bonus Fiscale";
-            // 
-            // grpNoTaxArea
-            // 
-            this.grpNoTaxArea.Controls.Add(this.SubEntity_rbtnNonApplicare);
-            this.grpNoTaxArea.Controls.Add(this.SubEntity_rbtnDedBaseGiorno);
-            this.grpNoTaxArea.Controls.Add(this.SubEntity_rbtnDedBaseIntero);
-            this.grpNoTaxArea.Location = new System.Drawing.Point(8, 24);
-            this.grpNoTaxArea.Name = "grpNoTaxArea";
-            this.grpNoTaxArea.Size = new System.Drawing.Size(216, 90);
-            this.grpNoTaxArea.TabIndex = 84;
-            this.grpNoTaxArea.TabStop = false;
-            this.grpNoTaxArea.Text = "No Tax Area per questo contratto";
-            // 
-            // SubEntity_rbtnNonApplicare
-            // 
-            this.SubEntity_rbtnNonApplicare.Location = new System.Drawing.Point(8, 64);
-            this.SubEntity_rbtnNonApplicare.Name = "SubEntity_rbtnNonApplicare";
-            this.SubEntity_rbtnNonApplicare.Size = new System.Drawing.Size(200, 16);
-            this.SubEntity_rbtnNonApplicare.TabIndex = 2;
-            this.SubEntity_rbtnNonApplicare.Tag = "parasubcontractyear.notaxappliance:N?parasubcontractview.notaxappliance";
-            this.SubEntity_rbtnNonApplicare.Text = "Non applicare la No Tax Area";
-            // 
-            // SubEntity_rbtnDedBaseGiorno
-            // 
-            this.SubEntity_rbtnDedBaseGiorno.Location = new System.Drawing.Point(8, 40);
-            this.SubEntity_rbtnDedBaseGiorno.Name = "SubEntity_rbtnDedBaseGiorno";
-            this.SubEntity_rbtnDedBaseGiorno.Size = new System.Drawing.Size(202, 16);
-            this.SubEntity_rbtnDedBaseGiorno.TabIndex = 1;
-            this.SubEntity_rbtnDedBaseGiorno.Tag = "parasubcontractyear.notaxappliance:G?parasubcontractview.notaxappliance";
-            this.SubEntity_rbtnDedBaseGiorno.Text = "Deduzione Base Giorni Fiscali";
-            // 
-            // SubEntity_rbtnDedBaseIntero
-            // 
-            this.SubEntity_rbtnDedBaseIntero.Checked = true;
-            this.SubEntity_rbtnDedBaseIntero.Location = new System.Drawing.Point(8, 16);
-            this.SubEntity_rbtnDedBaseIntero.Name = "SubEntity_rbtnDedBaseIntero";
-            this.SubEntity_rbtnDedBaseIntero.Size = new System.Drawing.Size(202, 16);
-            this.SubEntity_rbtnDedBaseIntero.TabIndex = 0;
-            this.SubEntity_rbtnDedBaseIntero.TabStop = true;
-            this.SubEntity_rbtnDedBaseIntero.Tag = "parasubcontractyear.notaxappliance:I?parasubcontractview.notaxappliance";
-            this.SubEntity_rbtnDedBaseIntero.Text = "Deduzione Base per Intero";
-            // 
-            // grpAliquoteIrpef
-            // 
-            this.grpAliquoteIrpef.Controls.Add(this.SubEntity_cmbAliquotaIRPEF);
-            this.grpAliquoteIrpef.Controls.Add(this.SubEntity_rbScaglioniIRPEF);
-            this.grpAliquoteIrpef.Controls.Add(this.SubEntity_rbAliquotaMarginale);
-            this.grpAliquoteIrpef.Location = new System.Drawing.Point(8, 164);
-            this.grpAliquoteIrpef.Name = "grpAliquoteIrpef";
-            this.grpAliquoteIrpef.Size = new System.Drawing.Size(216, 96);
-            this.grpAliquoteIrpef.TabIndex = 7;
-            this.grpAliquoteIrpef.TabStop = false;
-            this.grpAliquoteIrpef.Text = "Aliquote IRPEF per questo contratto";
-            // 
-            // SubEntity_cmbAliquotaIRPEF
-            // 
-            this.SubEntity_cmbAliquotaIRPEF.DataSource = this.DS.taxratebracket;
-            this.SubEntity_cmbAliquotaIRPEF.DisplayMember = "employrate";
-            this.SubEntity_cmbAliquotaIRPEF.Enabled = false;
-            this.SubEntity_cmbAliquotaIRPEF.Location = new System.Drawing.Point(24, 64);
-            this.SubEntity_cmbAliquotaIRPEF.Name = "SubEntity_cmbAliquotaIRPEF";
-            this.SubEntity_cmbAliquotaIRPEF.Size = new System.Drawing.Size(120, 21);
-            this.SubEntity_cmbAliquotaIRPEF.TabIndex = 6;
-            this.SubEntity_cmbAliquotaIRPEF.Tag = "parasubcontractyear.highertax.fixed.4..%.100?parasubcontractview.highertax";
-            this.SubEntity_cmbAliquotaIRPEF.ValueMember = "employrate";
-            // 
-            // SubEntity_rbScaglioniIRPEF
-            // 
-            this.SubEntity_rbScaglioniIRPEF.Checked = true;
-            this.SubEntity_rbScaglioniIRPEF.Location = new System.Drawing.Point(8, 16);
-            this.SubEntity_rbScaglioniIRPEF.Name = "SubEntity_rbScaglioniIRPEF";
-            this.SubEntity_rbScaglioniIRPEF.Size = new System.Drawing.Size(128, 24);
-            this.SubEntity_rbScaglioniIRPEF.TabIndex = 4;
-            this.SubEntity_rbScaglioniIRPEF.TabStop = true;
-            this.SubEntity_rbScaglioniIRPEF.Tag = "parasubcontractyear.applybrackets:S?parasubcontractview.applybrackets:S";
-            this.SubEntity_rbScaglioniIRPEF.Text = "Applica gli scaglioni";
-            // 
-            // SubEntity_rbAliquotaMarginale
-            // 
-            this.SubEntity_rbAliquotaMarginale.Location = new System.Drawing.Point(8, 40);
-            this.SubEntity_rbAliquotaMarginale.Name = "SubEntity_rbAliquotaMarginale";
-            this.SubEntity_rbAliquotaMarginale.Size = new System.Drawing.Size(160, 24);
-            this.SubEntity_rbAliquotaMarginale.TabIndex = 5;
-            this.SubEntity_rbAliquotaMarginale.Tag = "parasubcontractyear.applybrackets:N?parasubcontractview.applybrackets:N";
-            this.SubEntity_rbAliquotaMarginale.Text = "Applica l\'aliquota marginale";
-            this.SubEntity_rbAliquotaMarginale.CheckedChanged += new System.EventHandler(this.rbAliquotaMarginale_CheckedChanged);
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.SubEntity_txtDataFineCompetenza);
-            this.groupBox11.Controls.Add(this.label44);
-            this.groupBox11.Controls.Add(this.SubEntity_txtDataInizioCompetenza);
-            this.groupBox11.Controls.Add(this.label43);
-            this.groupBox11.Controls.Add(this.SubEntity_txtGiornicontratto);
-            this.groupBox11.Controls.Add(this.label40);
-            this.groupBox11.Controls.Add(this.SubEntity_txtImponibilecontratto);
-            this.groupBox11.Controls.Add(this.label39);
-            this.groupBox11.Enabled = false;
-            this.groupBox11.Location = new System.Drawing.Point(6, 306);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(232, 144);
-            this.groupBox11.TabIndex = 98;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Totali del contratto";
-            // 
-            // SubEntity_txtDataFineCompetenza
-            // 
-            this.SubEntity_txtDataFineCompetenza.Location = new System.Drawing.Point(127, 78);
-            this.SubEntity_txtDataFineCompetenza.Name = "SubEntity_txtDataFineCompetenza";
-            this.SubEntity_txtDataFineCompetenza.Size = new System.Drawing.Size(96, 20);
-            this.SubEntity_txtDataFineCompetenza.TabIndex = 7;
-            this.SubEntity_txtDataFineCompetenza.Tag = "parasubcontractyear.stopcompetency?parasubcontractview.stopcompetency";
-            this.SubEntity_txtDataFineCompetenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label44
-            // 
-            this.label44.Location = new System.Drawing.Point(23, 78);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(100, 23);
-            this.label44.TabIndex = 6;
-            this.label44.Text = "Data fine";
-            this.label44.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // SubEntity_txtDataInizioCompetenza
-            // 
-            this.SubEntity_txtDataInizioCompetenza.Location = new System.Drawing.Point(127, 46);
-            this.SubEntity_txtDataInizioCompetenza.Name = "SubEntity_txtDataInizioCompetenza";
-            this.SubEntity_txtDataInizioCompetenza.Size = new System.Drawing.Size(96, 20);
-            this.SubEntity_txtDataInizioCompetenza.TabIndex = 5;
-            this.SubEntity_txtDataInizioCompetenza.Tag = "parasubcontractyear.startcompetency?parasubcontractview.startcompetency";
-            this.SubEntity_txtDataInizioCompetenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label43
-            // 
-            this.label43.Location = new System.Drawing.Point(23, 46);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(100, 23);
-            this.label43.TabIndex = 4;
-            this.label43.Text = "Data inizio";
-            this.label43.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // SubEntity_txtGiornicontratto
-            // 
-            this.SubEntity_txtGiornicontratto.Location = new System.Drawing.Point(127, 110);
-            this.SubEntity_txtGiornicontratto.Name = "SubEntity_txtGiornicontratto";
-            this.SubEntity_txtGiornicontratto.Size = new System.Drawing.Size(96, 20);
-            this.SubEntity_txtGiornicontratto.TabIndex = 3;
-            this.SubEntity_txtGiornicontratto.Tag = "parasubcontractyear.ndays?parasubcontractview.ndays";
-            // 
-            // label40
-            // 
-            this.label40.Location = new System.Drawing.Point(23, 110);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(100, 23);
-            this.label40.TabIndex = 2;
-            this.label40.Text = "Durata (giorni)";
-            this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // SubEntity_txtImponibilecontratto
-            // 
-            this.SubEntity_txtImponibilecontratto.Location = new System.Drawing.Point(128, 16);
-            this.SubEntity_txtImponibilecontratto.Name = "SubEntity_txtImponibilecontratto";
-            this.SubEntity_txtImponibilecontratto.Size = new System.Drawing.Size(96, 20);
-            this.SubEntity_txtImponibilecontratto.TabIndex = 1;
-            this.SubEntity_txtImponibilecontratto.Tag = "parasubcontractyear.taxablecontract?parasubcontractview.taxablecontract";
-            // 
-            // label39
-            // 
-            this.label39.Location = new System.Drawing.Point(1, 16);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(126, 23);
-            this.label39.TabIndex = 0;
-            this.label39.Text = "Imponibile previdenziale";
-            this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // tabFamiliare
-            // 
-            this.tabFamiliare.Controls.Add(this.label18);
-            this.tabFamiliare.Controls.Add(this.dataGrid8);
-            this.tabFamiliare.Controls.Add(this.button13);
-            this.tabFamiliare.Controls.Add(this.button12);
-            this.tabFamiliare.Controls.Add(this.button11);
-            this.tabFamiliare.Location = new System.Drawing.Point(4, 22);
-            this.tabFamiliare.Name = "tabFamiliare";
-            this.tabFamiliare.Size = new System.Drawing.Size(865, 461);
-            this.tabFamiliare.TabIndex = 7;
-            this.tabFamiliare.Text = "Familiari";
-            this.tabFamiliare.UseVisualStyleBackColor = true;
-            // 
-            // label18
-            // 
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(13, 45);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(731, 26);
-            this.label18.TabIndex = 4;
-            this.label18.Text = "N.B. Nel caso si vogliano applicare le detrazioni per carichi di famiglia, si dev" +
+			this.SubEntity_chkApplicaBonus.Text = "Applica Bonus Fiscale";
+			// 
+			// grpNoTaxArea
+			// 
+			this.grpNoTaxArea.Controls.Add(this.SubEntity_rbtnNonApplicare);
+			this.grpNoTaxArea.Controls.Add(this.SubEntity_rbtnDedBaseGiorno);
+			this.grpNoTaxArea.Controls.Add(this.SubEntity_rbtnDedBaseIntero);
+			this.grpNoTaxArea.Location = new System.Drawing.Point(8, 24);
+			this.grpNoTaxArea.Name = "grpNoTaxArea";
+			this.grpNoTaxArea.Size = new System.Drawing.Size(216, 90);
+			this.grpNoTaxArea.TabIndex = 84;
+			this.grpNoTaxArea.TabStop = false;
+			this.grpNoTaxArea.Text = "No Tax Area per questo contratto";
+			// 
+			// SubEntity_rbtnNonApplicare
+			// 
+			this.SubEntity_rbtnNonApplicare.Location = new System.Drawing.Point(8, 64);
+			this.SubEntity_rbtnNonApplicare.Name = "SubEntity_rbtnNonApplicare";
+			this.SubEntity_rbtnNonApplicare.Size = new System.Drawing.Size(200, 16);
+			this.SubEntity_rbtnNonApplicare.TabIndex = 2;
+			this.SubEntity_rbtnNonApplicare.Tag = "parasubcontractyear.notaxappliance:N?parasubcontractview.notaxappliance";
+			this.SubEntity_rbtnNonApplicare.Text = "Non applicare la No Tax Area";
+			// 
+			// SubEntity_rbtnDedBaseGiorno
+			// 
+			this.SubEntity_rbtnDedBaseGiorno.Location = new System.Drawing.Point(8, 40);
+			this.SubEntity_rbtnDedBaseGiorno.Name = "SubEntity_rbtnDedBaseGiorno";
+			this.SubEntity_rbtnDedBaseGiorno.Size = new System.Drawing.Size(202, 16);
+			this.SubEntity_rbtnDedBaseGiorno.TabIndex = 1;
+			this.SubEntity_rbtnDedBaseGiorno.Tag = "parasubcontractyear.notaxappliance:G?parasubcontractview.notaxappliance";
+			this.SubEntity_rbtnDedBaseGiorno.Text = "Deduzione Base Giorni Fiscali";
+			// 
+			// SubEntity_rbtnDedBaseIntero
+			// 
+			this.SubEntity_rbtnDedBaseIntero.Checked = true;
+			this.SubEntity_rbtnDedBaseIntero.Location = new System.Drawing.Point(8, 16);
+			this.SubEntity_rbtnDedBaseIntero.Name = "SubEntity_rbtnDedBaseIntero";
+			this.SubEntity_rbtnDedBaseIntero.Size = new System.Drawing.Size(202, 16);
+			this.SubEntity_rbtnDedBaseIntero.TabIndex = 0;
+			this.SubEntity_rbtnDedBaseIntero.TabStop = true;
+			this.SubEntity_rbtnDedBaseIntero.Tag = "parasubcontractyear.notaxappliance:I?parasubcontractview.notaxappliance";
+			this.SubEntity_rbtnDedBaseIntero.Text = "Deduzione Base per Intero";
+			// 
+			// grpAliquoteIrpef
+			// 
+			this.grpAliquoteIrpef.Controls.Add(this.SubEntity_cmbAliquotaIRPEF);
+			this.grpAliquoteIrpef.Controls.Add(this.SubEntity_rbScaglioniIRPEF);
+			this.grpAliquoteIrpef.Controls.Add(this.SubEntity_rbAliquotaMarginale);
+			this.grpAliquoteIrpef.Location = new System.Drawing.Point(8, 164);
+			this.grpAliquoteIrpef.Name = "grpAliquoteIrpef";
+			this.grpAliquoteIrpef.Size = new System.Drawing.Size(216, 96);
+			this.grpAliquoteIrpef.TabIndex = 7;
+			this.grpAliquoteIrpef.TabStop = false;
+			this.grpAliquoteIrpef.Text = "Aliquote IRPEF per questo contratto";
+			// 
+			// SubEntity_cmbAliquotaIRPEF
+			// 
+			this.SubEntity_cmbAliquotaIRPEF.DataSource = this.DS.taxratebracket;
+			this.SubEntity_cmbAliquotaIRPEF.DisplayMember = "employrate";
+			this.SubEntity_cmbAliquotaIRPEF.Enabled = false;
+			this.SubEntity_cmbAliquotaIRPEF.Location = new System.Drawing.Point(24, 64);
+			this.SubEntity_cmbAliquotaIRPEF.Name = "SubEntity_cmbAliquotaIRPEF";
+			this.SubEntity_cmbAliquotaIRPEF.Size = new System.Drawing.Size(120, 21);
+			this.SubEntity_cmbAliquotaIRPEF.TabIndex = 6;
+			this.SubEntity_cmbAliquotaIRPEF.Tag = "parasubcontractyear.highertax.fixed.4..%.100?parasubcontractview.highertax";
+			this.SubEntity_cmbAliquotaIRPEF.ValueMember = "employrate";
+			// 
+			// SubEntity_rbScaglioniIRPEF
+			// 
+			this.SubEntity_rbScaglioniIRPEF.Checked = true;
+			this.SubEntity_rbScaglioniIRPEF.Location = new System.Drawing.Point(8, 16);
+			this.SubEntity_rbScaglioniIRPEF.Name = "SubEntity_rbScaglioniIRPEF";
+			this.SubEntity_rbScaglioniIRPEF.Size = new System.Drawing.Size(128, 24);
+			this.SubEntity_rbScaglioniIRPEF.TabIndex = 4;
+			this.SubEntity_rbScaglioniIRPEF.TabStop = true;
+			this.SubEntity_rbScaglioniIRPEF.Tag = "parasubcontractyear.applybrackets:S?parasubcontractview.applybrackets:S";
+			this.SubEntity_rbScaglioniIRPEF.Text = "Applica gli scaglioni";
+			this.SubEntity_rbScaglioniIRPEF.CheckedChanged += new System.EventHandler(this.SubEntity_rbScaglioniIRPEF_CheckedChanged);
+			// 
+			// SubEntity_rbAliquotaMarginale
+			// 
+			this.SubEntity_rbAliquotaMarginale.Location = new System.Drawing.Point(8, 40);
+			this.SubEntity_rbAliquotaMarginale.Name = "SubEntity_rbAliquotaMarginale";
+			this.SubEntity_rbAliquotaMarginale.Size = new System.Drawing.Size(160, 24);
+			this.SubEntity_rbAliquotaMarginale.TabIndex = 5;
+			this.SubEntity_rbAliquotaMarginale.Tag = "parasubcontractyear.applybrackets:N?parasubcontractview.applybrackets:N";
+			this.SubEntity_rbAliquotaMarginale.Text = "Applica l\'aliquota marginale";
+			this.SubEntity_rbAliquotaMarginale.CheckedChanged += new System.EventHandler(this.rbAliquotaMarginale_CheckedChanged);
+			// 
+			// groupBox11
+			// 
+			this.groupBox11.Controls.Add(this.SubEntity_txtDataFineCompetenza);
+			this.groupBox11.Controls.Add(this.label44);
+			this.groupBox11.Controls.Add(this.SubEntity_txtDataInizioCompetenza);
+			this.groupBox11.Controls.Add(this.label43);
+			this.groupBox11.Controls.Add(this.SubEntity_txtGiornicontratto);
+			this.groupBox11.Controls.Add(this.label40);
+			this.groupBox11.Controls.Add(this.SubEntity_txtImponibilecontratto);
+			this.groupBox11.Controls.Add(this.label39);
+			this.groupBox11.Enabled = false;
+			this.groupBox11.Location = new System.Drawing.Point(6, 306);
+			this.groupBox11.Name = "groupBox11";
+			this.groupBox11.Size = new System.Drawing.Size(232, 144);
+			this.groupBox11.TabIndex = 98;
+			this.groupBox11.TabStop = false;
+			this.groupBox11.Text = "Totali del contratto";
+			// 
+			// SubEntity_txtDataFineCompetenza
+			// 
+			this.SubEntity_txtDataFineCompetenza.Location = new System.Drawing.Point(127, 78);
+			this.SubEntity_txtDataFineCompetenza.Name = "SubEntity_txtDataFineCompetenza";
+			this.SubEntity_txtDataFineCompetenza.Size = new System.Drawing.Size(96, 20);
+			this.SubEntity_txtDataFineCompetenza.TabIndex = 7;
+			this.SubEntity_txtDataFineCompetenza.Tag = "parasubcontractyear.stopcompetency?parasubcontractview.stopcompetency";
+			this.SubEntity_txtDataFineCompetenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label44
+			// 
+			this.label44.Location = new System.Drawing.Point(23, 78);
+			this.label44.Name = "label44";
+			this.label44.Size = new System.Drawing.Size(100, 23);
+			this.label44.TabIndex = 6;
+			this.label44.Text = "Data fine";
+			this.label44.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// SubEntity_txtDataInizioCompetenza
+			// 
+			this.SubEntity_txtDataInizioCompetenza.Location = new System.Drawing.Point(127, 46);
+			this.SubEntity_txtDataInizioCompetenza.Name = "SubEntity_txtDataInizioCompetenza";
+			this.SubEntity_txtDataInizioCompetenza.Size = new System.Drawing.Size(96, 20);
+			this.SubEntity_txtDataInizioCompetenza.TabIndex = 5;
+			this.SubEntity_txtDataInizioCompetenza.Tag = "parasubcontractyear.startcompetency?parasubcontractview.startcompetency";
+			this.SubEntity_txtDataInizioCompetenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label43
+			// 
+			this.label43.Location = new System.Drawing.Point(23, 46);
+			this.label43.Name = "label43";
+			this.label43.Size = new System.Drawing.Size(100, 23);
+			this.label43.TabIndex = 4;
+			this.label43.Text = "Data inizio";
+			this.label43.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// SubEntity_txtGiornicontratto
+			// 
+			this.SubEntity_txtGiornicontratto.Location = new System.Drawing.Point(127, 110);
+			this.SubEntity_txtGiornicontratto.Name = "SubEntity_txtGiornicontratto";
+			this.SubEntity_txtGiornicontratto.Size = new System.Drawing.Size(96, 20);
+			this.SubEntity_txtGiornicontratto.TabIndex = 3;
+			this.SubEntity_txtGiornicontratto.Tag = "parasubcontractyear.ndays?parasubcontractview.ndays";
+			// 
+			// label40
+			// 
+			this.label40.Location = new System.Drawing.Point(23, 110);
+			this.label40.Name = "label40";
+			this.label40.Size = new System.Drawing.Size(100, 23);
+			this.label40.TabIndex = 2;
+			this.label40.Text = "Durata (giorni)";
+			this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// SubEntity_txtImponibilecontratto
+			// 
+			this.SubEntity_txtImponibilecontratto.Location = new System.Drawing.Point(128, 16);
+			this.SubEntity_txtImponibilecontratto.Name = "SubEntity_txtImponibilecontratto";
+			this.SubEntity_txtImponibilecontratto.Size = new System.Drawing.Size(96, 20);
+			this.SubEntity_txtImponibilecontratto.TabIndex = 1;
+			this.SubEntity_txtImponibilecontratto.Tag = "parasubcontractyear.taxablecontract?parasubcontractview.taxablecontract";
+			// 
+			// label39
+			// 
+			this.label39.Location = new System.Drawing.Point(1, 16);
+			this.label39.Name = "label39";
+			this.label39.Size = new System.Drawing.Size(126, 23);
+			this.label39.TabIndex = 0;
+			this.label39.Text = "Imponibile previdenziale";
+			this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// tabFamiliare
+			// 
+			this.tabFamiliare.Controls.Add(this.label18);
+			this.tabFamiliare.Controls.Add(this.dataGrid8);
+			this.tabFamiliare.Controls.Add(this.button13);
+			this.tabFamiliare.Controls.Add(this.button12);
+			this.tabFamiliare.Controls.Add(this.button11);
+			this.tabFamiliare.Location = new System.Drawing.Point(4, 22);
+			this.tabFamiliare.Name = "tabFamiliare";
+			this.tabFamiliare.Size = new System.Drawing.Size(869, 530);
+			this.tabFamiliare.TabIndex = 7;
+			this.tabFamiliare.Text = "Familiari";
+			this.tabFamiliare.UseVisualStyleBackColor = true;
+			// 
+			// label18
+			// 
+			this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label18.Location = new System.Drawing.Point(13, 45);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(731, 26);
+			this.label18.TabIndex = 4;
+			this.label18.Text = "N.B. Nel caso si vogliano applicare le detrazioni per carichi di famiglia, si dev" +
     "e procede all\'inserimento di tutti i componenti del nucleo familiare (sia quelli" +
     " a carico sia quelli non a carico)";
-            // 
-            // dataGrid8
-            // 
-            this.dataGrid8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			// 
+			// dataGrid8
+			// 
+			this.dataGrid8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGrid8.CaptionVisible = false;
-            this.dataGrid8.DataMember = "";
-            this.dataGrid8.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dataGrid8.Location = new System.Drawing.Point(8, 74);
-            this.dataGrid8.Name = "dataGrid8";
-            this.dataGrid8.Size = new System.Drawing.Size(849, 381);
-            this.dataGrid8.TabIndex = 3;
-            this.dataGrid8.Tag = "parasubcontractfamily.contrattodetail.contrattodetail";
-            // 
-            // button13
-            // 
-            this.button13.Location = new System.Drawing.Point(208, 16);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(75, 23);
-            this.button13.TabIndex = 2;
-            this.button13.Tag = "delete";
-            this.button13.Text = "Elimina";
-            // 
-            // button12
-            // 
-            this.button12.Location = new System.Drawing.Point(112, 16);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(75, 23);
-            this.button12.TabIndex = 1;
-            this.button12.Tag = "edit.contrattodetail";
-            this.button12.Text = "Modifica";
-            // 
-            // button11
-            // 
-            this.button11.Location = new System.Drawing.Point(16, 16);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(75, 23);
-            this.button11.TabIndex = 0;
-            this.button11.Tag = "insert.contrattodetail";
-            this.button11.Text = "Inserisci";
-            // 
-            // tabAltreCollINAIL
-            // 
-            this.tabAltreCollINAIL.Controls.Add(this.dataGrid10);
-            this.tabAltreCollINAIL.Controls.Add(this.button16);
-            this.tabAltreCollINAIL.Controls.Add(this.button15);
-            this.tabAltreCollINAIL.Controls.Add(this.button14);
-            this.tabAltreCollINAIL.Location = new System.Drawing.Point(4, 22);
-            this.tabAltreCollINAIL.Name = "tabAltreCollINAIL";
-            this.tabAltreCollINAIL.Size = new System.Drawing.Size(865, 461);
-            this.tabAltreCollINAIL.TabIndex = 11;
-            this.tabAltreCollINAIL.Text = "Altre Coll. INAIL";
-            this.tabAltreCollINAIL.UseVisualStyleBackColor = true;
-            // 
-            // dataGrid10
-            // 
-            this.dataGrid10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dataGrid8.CaptionVisible = false;
+			this.dataGrid8.DataMember = "";
+			this.dataGrid8.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGrid8.Location = new System.Drawing.Point(8, 74);
+			this.dataGrid8.Name = "dataGrid8";
+			this.dataGrid8.Size = new System.Drawing.Size(853, 450);
+			this.dataGrid8.TabIndex = 3;
+			this.dataGrid8.Tag = "parasubcontractfamily.contrattodetail.contrattodetail";
+			// 
+			// button13
+			// 
+			this.button13.Location = new System.Drawing.Point(208, 16);
+			this.button13.Name = "button13";
+			this.button13.Size = new System.Drawing.Size(75, 23);
+			this.button13.TabIndex = 2;
+			this.button13.Tag = "delete";
+			this.button13.Text = "Elimina";
+			// 
+			// button12
+			// 
+			this.button12.Location = new System.Drawing.Point(112, 16);
+			this.button12.Name = "button12";
+			this.button12.Size = new System.Drawing.Size(75, 23);
+			this.button12.TabIndex = 1;
+			this.button12.Tag = "edit.contrattodetail";
+			this.button12.Text = "Modifica";
+			// 
+			// button11
+			// 
+			this.button11.Location = new System.Drawing.Point(16, 16);
+			this.button11.Name = "button11";
+			this.button11.Size = new System.Drawing.Size(75, 23);
+			this.button11.TabIndex = 0;
+			this.button11.Tag = "insert.contrattodetail";
+			this.button11.Text = "Inserisci";
+			// 
+			// tabAltreCollINAIL
+			// 
+			this.tabAltreCollINAIL.Controls.Add(this.dataGrid10);
+			this.tabAltreCollINAIL.Controls.Add(this.button16);
+			this.tabAltreCollINAIL.Controls.Add(this.button15);
+			this.tabAltreCollINAIL.Controls.Add(this.button14);
+			this.tabAltreCollINAIL.Location = new System.Drawing.Point(4, 22);
+			this.tabAltreCollINAIL.Name = "tabAltreCollINAIL";
+			this.tabAltreCollINAIL.Size = new System.Drawing.Size(869, 530);
+			this.tabAltreCollINAIL.TabIndex = 11;
+			this.tabAltreCollINAIL.Text = "Altre Coll. INAIL";
+			this.tabAltreCollINAIL.UseVisualStyleBackColor = true;
+			// 
+			// dataGrid10
+			// 
+			this.dataGrid10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGrid10.CaptionVisible = false;
-            this.dataGrid10.DataMember = "";
-            this.dataGrid10.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dataGrid10.Location = new System.Drawing.Point(8, 48);
-            this.dataGrid10.Name = "dataGrid10";
-            this.dataGrid10.Size = new System.Drawing.Size(849, 407);
-            this.dataGrid10.TabIndex = 3;
-            this.dataGrid10.Tag = "otherinail.default.default";
-            // 
-            // button16
-            // 
-            this.button16.Location = new System.Drawing.Point(208, 16);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(75, 23);
-            this.button16.TabIndex = 2;
-            this.button16.Tag = "delete";
-            this.button16.Text = "Elimina";
-            // 
-            // button15
-            // 
-            this.button15.Location = new System.Drawing.Point(112, 16);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(75, 23);
-            this.button15.TabIndex = 1;
-            this.button15.Tag = "edit.default";
-            this.button15.Text = "Modifica";
-            // 
-            // button14
-            // 
-            this.button14.Location = new System.Drawing.Point(16, 16);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(75, 23);
-            this.button14.TabIndex = 0;
-            this.button14.Tag = "insert.default";
-            this.button14.Text = "Inserisci";
-            // 
-            // tabOneri
-            // 
-            this.tabOneri.Controls.Add(this.textBox6);
-            this.tabOneri.Controls.Add(this.label21);
-            this.tabOneri.Controls.Add(this.groupBox15);
-            this.tabOneri.Controls.Add(this.groupBox16);
-            this.tabOneri.Location = new System.Drawing.Point(4, 22);
-            this.tabOneri.Name = "tabOneri";
-            this.tabOneri.Size = new System.Drawing.Size(865, 461);
-            this.tabOneri.TabIndex = 4;
-            this.tabOneri.Text = "Oneri";
-            this.tabOneri.UseVisualStyleBackColor = true;
-            // 
-            // textBox6
-            // 
-            this.textBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.dataGrid10.CaptionVisible = false;
+			this.dataGrid10.DataMember = "";
+			this.dataGrid10.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGrid10.Location = new System.Drawing.Point(8, 48);
+			this.dataGrid10.Name = "dataGrid10";
+			this.dataGrid10.Size = new System.Drawing.Size(853, 476);
+			this.dataGrid10.TabIndex = 3;
+			this.dataGrid10.Tag = "otherinail.default.default";
+			// 
+			// button16
+			// 
+			this.button16.Location = new System.Drawing.Point(208, 16);
+			this.button16.Name = "button16";
+			this.button16.Size = new System.Drawing.Size(75, 23);
+			this.button16.TabIndex = 2;
+			this.button16.Tag = "delete";
+			this.button16.Text = "Elimina";
+			// 
+			// button15
+			// 
+			this.button15.Location = new System.Drawing.Point(112, 16);
+			this.button15.Name = "button15";
+			this.button15.Size = new System.Drawing.Size(75, 23);
+			this.button15.TabIndex = 1;
+			this.button15.Tag = "edit.default";
+			this.button15.Text = "Modifica";
+			// 
+			// button14
+			// 
+			this.button14.Location = new System.Drawing.Point(16, 16);
+			this.button14.Name = "button14";
+			this.button14.Size = new System.Drawing.Size(75, 23);
+			this.button14.TabIndex = 0;
+			this.button14.Tag = "insert.default";
+			this.button14.Text = "Inserisci";
+			// 
+			// tabOneri
+			// 
+			this.tabOneri.Controls.Add(this.textBox6);
+			this.tabOneri.Controls.Add(this.label21);
+			this.tabOneri.Controls.Add(this.groupBox15);
+			this.tabOneri.Controls.Add(this.groupBox16);
+			this.tabOneri.Location = new System.Drawing.Point(4, 22);
+			this.tabOneri.Name = "tabOneri";
+			this.tabOneri.Size = new System.Drawing.Size(869, 530);
+			this.tabOneri.TabIndex = 4;
+			this.tabOneri.Text = "Oneri";
+			this.tabOneri.UseVisualStyleBackColor = true;
+			// 
+			// textBox6
+			// 
+			this.textBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox6.Location = new System.Drawing.Point(8, 5);
-            this.textBox6.Multiline = true;
-            this.textBox6.Name = "textBox6";
-            this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(849, 37);
-            this.textBox6.TabIndex = 7;
-            this.textBox6.Text = resources.GetString("textBox6.Text");
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(13, 12);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(0, 13);
-            this.label21.TabIndex = 6;
-            // 
-            // groupBox15
-            // 
-            this.groupBox15.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			this.textBox6.Location = new System.Drawing.Point(8, 5);
+			this.textBox6.Multiline = true;
+			this.textBox6.Name = "textBox6";
+			this.textBox6.ReadOnly = true;
+			this.textBox6.Size = new System.Drawing.Size(853, 37);
+			this.textBox6.TabIndex = 7;
+			this.textBox6.Text = resources.GetString("textBox6.Text");
+			// 
+			// label21
+			// 
+			this.label21.AutoSize = true;
+			this.label21.Location = new System.Drawing.Point(13, 12);
+			this.label21.Name = "label21";
+			this.label21.Size = new System.Drawing.Size(0, 13);
+			this.label21.TabIndex = 6;
+			// 
+			// groupBox15
+			// 
+			this.groupBox15.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox15.Controls.Add(this.dataGrid4);
-            this.groupBox15.Controls.Add(this.button7);
-            this.groupBox15.Controls.Add(this.button6);
-            this.groupBox15.Controls.Add(this.button5);
-            this.groupBox15.Location = new System.Drawing.Point(8, 264);
-            this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(857, 191);
-            this.groupBox15.TabIndex = 5;
-            this.groupBox15.TabStop = false;
-            this.groupBox15.Text = "Oneri detraibili";
-            // 
-            // dataGrid4
-            // 
-            this.dataGrid4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox15.Controls.Add(this.dataGrid4);
+			this.groupBox15.Controls.Add(this.button7);
+			this.groupBox15.Controls.Add(this.button6);
+			this.groupBox15.Controls.Add(this.button5);
+			this.groupBox15.Location = new System.Drawing.Point(8, 333);
+			this.groupBox15.Name = "groupBox15";
+			this.groupBox15.Size = new System.Drawing.Size(861, 191);
+			this.groupBox15.TabIndex = 5;
+			this.groupBox15.TabStop = false;
+			this.groupBox15.Text = "Oneri detraibili";
+			// 
+			// dataGrid4
+			// 
+			this.dataGrid4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGrid4.CaptionVisible = false;
-            this.dataGrid4.DataMember = "";
-            this.dataGrid4.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dataGrid4.Location = new System.Drawing.Point(8, 40);
-            this.dataGrid4.Name = "dataGrid4";
-            this.dataGrid4.Size = new System.Drawing.Size(841, 143);
-            this.dataGrid4.TabIndex = 3;
-            this.dataGrid4.Tag = "abatableexpense.contrattodetail.contrattodetail";
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(208, 16);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
-            this.button7.TabIndex = 2;
-            this.button7.Tag = "delete";
-            this.button7.Text = "Elimina";
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(112, 16);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 1;
-            this.button6.Tag = "edit.contrattodetail";
-            this.button6.Text = "Modifica";
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(16, 16);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 0;
-            this.button5.Tag = "insert.contrattodetail";
-            this.button5.Text = "Inserisci";
-            // 
-            // groupBox16
-            // 
-            this.groupBox16.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dataGrid4.CaptionVisible = false;
+			this.dataGrid4.DataMember = "";
+			this.dataGrid4.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGrid4.Location = new System.Drawing.Point(8, 40);
+			this.dataGrid4.Name = "dataGrid4";
+			this.dataGrid4.Size = new System.Drawing.Size(845, 143);
+			this.dataGrid4.TabIndex = 3;
+			this.dataGrid4.Tag = "abatableexpense.contrattodetail.contrattodetail";
+			// 
+			// button7
+			// 
+			this.button7.Location = new System.Drawing.Point(208, 16);
+			this.button7.Name = "button7";
+			this.button7.Size = new System.Drawing.Size(75, 23);
+			this.button7.TabIndex = 2;
+			this.button7.Tag = "delete";
+			this.button7.Text = "Elimina";
+			// 
+			// button6
+			// 
+			this.button6.Location = new System.Drawing.Point(112, 16);
+			this.button6.Name = "button6";
+			this.button6.Size = new System.Drawing.Size(75, 23);
+			this.button6.TabIndex = 1;
+			this.button6.Tag = "edit.contrattodetail";
+			this.button6.Text = "Modifica";
+			// 
+			// button5
+			// 
+			this.button5.Location = new System.Drawing.Point(16, 16);
+			this.button5.Name = "button5";
+			this.button5.Size = new System.Drawing.Size(75, 23);
+			this.button5.TabIndex = 0;
+			this.button5.Tag = "insert.contrattodetail";
+			this.button5.Text = "Inserisci";
+			// 
+			// groupBox16
+			// 
+			this.groupBox16.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox16.Controls.Add(this.button2);
-            this.groupBox16.Controls.Add(this.button3);
-            this.groupBox16.Controls.Add(this.dataGrid2);
-            this.groupBox16.Controls.Add(this.button4);
-            this.groupBox16.Location = new System.Drawing.Point(8, 48);
-            this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(857, 210);
-            this.groupBox16.TabIndex = 4;
-            this.groupBox16.TabStop = false;
-            this.groupBox16.Text = "Oneri deducibili";
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(16, 16);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 0;
-            this.button2.Tag = "insert.contrattodetail";
-            this.button2.Text = "Inserisci";
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(112, 16);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 1;
-            this.button3.Tag = "edit.contrattodetail";
-            this.button3.Text = "Modifica";
-            // 
-            // dataGrid2
-            // 
-            this.dataGrid2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox16.Controls.Add(this.button2);
+			this.groupBox16.Controls.Add(this.button3);
+			this.groupBox16.Controls.Add(this.dataGrid2);
+			this.groupBox16.Controls.Add(this.button4);
+			this.groupBox16.Location = new System.Drawing.Point(8, 48);
+			this.groupBox16.Name = "groupBox16";
+			this.groupBox16.Size = new System.Drawing.Size(861, 279);
+			this.groupBox16.TabIndex = 4;
+			this.groupBox16.TabStop = false;
+			this.groupBox16.Text = "Oneri deducibili";
+			// 
+			// button2
+			// 
+			this.button2.Location = new System.Drawing.Point(16, 16);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(75, 23);
+			this.button2.TabIndex = 0;
+			this.button2.Tag = "insert.contrattodetail";
+			this.button2.Text = "Inserisci";
+			// 
+			// button3
+			// 
+			this.button3.Location = new System.Drawing.Point(112, 16);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(75, 23);
+			this.button3.TabIndex = 1;
+			this.button3.Tag = "edit.contrattodetail";
+			this.button3.Text = "Modifica";
+			// 
+			// dataGrid2
+			// 
+			this.dataGrid2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGrid2.CaptionVisible = false;
-            this.dataGrid2.DataMember = "";
-            this.dataGrid2.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dataGrid2.Location = new System.Drawing.Point(8, 40);
-            this.dataGrid2.Name = "dataGrid2";
-            this.dataGrid2.Size = new System.Drawing.Size(841, 162);
-            this.dataGrid2.TabIndex = 3;
-            this.dataGrid2.Tag = "deductibleexpense.contrattodetail.contrattodetail";
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(208, 16);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 2;
-            this.button4.Tag = "delete";
-            this.button4.Text = "Elimina";
-            // 
-            // tabCUD
-            // 
-            this.tabCUD.Controls.Add(this.groupBox4);
-            this.tabCUD.Location = new System.Drawing.Point(4, 22);
-            this.tabCUD.Name = "tabCUD";
-            this.tabCUD.Size = new System.Drawing.Size(865, 461);
-            this.tabCUD.TabIndex = 6;
-            this.tabCUD.Text = "CUD";
-            this.tabCUD.UseVisualStyleBackColor = true;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dataGrid2.CaptionVisible = false;
+			this.dataGrid2.DataMember = "";
+			this.dataGrid2.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGrid2.Location = new System.Drawing.Point(8, 40);
+			this.dataGrid2.Name = "dataGrid2";
+			this.dataGrid2.Size = new System.Drawing.Size(845, 231);
+			this.dataGrid2.TabIndex = 3;
+			this.dataGrid2.Tag = "deductibleexpense.contrattodetail.contrattodetail";
+			// 
+			// button4
+			// 
+			this.button4.Location = new System.Drawing.Point(208, 16);
+			this.button4.Name = "button4";
+			this.button4.Size = new System.Drawing.Size(75, 23);
+			this.button4.TabIndex = 2;
+			this.button4.Tag = "delete";
+			this.button4.Text = "Elimina";
+			// 
+			// tabCUD
+			// 
+			this.tabCUD.Controls.Add(this.groupBox4);
+			this.tabCUD.Location = new System.Drawing.Point(4, 22);
+			this.tabCUD.Name = "tabCUD";
+			this.tabCUD.Size = new System.Drawing.Size(869, 530);
+			this.tabCUD.TabIndex = 6;
+			this.tabCUD.Text = "CUD";
+			this.tabCUD.UseVisualStyleBackColor = true;
+			// 
+			// groupBox4
+			// 
+			this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.textBox7);
-            this.groupBox4.Controls.Add(this.btnVerificaProblemi);
-            this.groupBox4.Controls.Add(this.groupBox6);
-            this.groupBox4.Controls.Add(this.groupBox5);
-            this.groupBox4.Controls.Add(this.button10);
-            this.groupBox4.Controls.Add(this.button9);
-            this.groupBox4.Controls.Add(this.inserisci_CUD);
-            this.groupBox4.Controls.Add(this.dgrid_CUD);
-            this.groupBox4.Location = new System.Drawing.Point(8, 3);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(849, 452);
-            this.groupBox4.TabIndex = 4;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Dati CUD Presentati";
-            // 
-            // textBox7
-            // 
-            this.textBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			this.groupBox4.Controls.Add(this.textBox7);
+			this.groupBox4.Controls.Add(this.btnVerificaProblemi);
+			this.groupBox4.Controls.Add(this.groupBox6);
+			this.groupBox4.Controls.Add(this.groupBox5);
+			this.groupBox4.Controls.Add(this.button10);
+			this.groupBox4.Controls.Add(this.button9);
+			this.groupBox4.Controls.Add(this.inserisci_CUD);
+			this.groupBox4.Controls.Add(this.dgrid_CUD);
+			this.groupBox4.Location = new System.Drawing.Point(8, 3);
+			this.groupBox4.Name = "groupBox4";
+			this.groupBox4.Size = new System.Drawing.Size(853, 521);
+			this.groupBox4.TabIndex = 4;
+			this.groupBox4.TabStop = false;
+			this.groupBox4.Text = "Dati CUD Presentati";
+			// 
+			// textBox7
+			// 
+			this.textBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox7.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox7.Location = new System.Drawing.Point(8, 153);
-            this.textBox7.Multiline = true;
-            this.textBox7.Name = "textBox7";
-            this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(833, 24);
-            this.textBox7.TabIndex = 10;
-            this.textBox7.Text = "Gli oneri deducibili e detraibili presenti nei CUD sono considerati solo in fase " +
+			this.textBox7.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.textBox7.Location = new System.Drawing.Point(8, 222);
+			this.textBox7.Multiline = true;
+			this.textBox7.Name = "textBox7";
+			this.textBox7.ReadOnly = true;
+			this.textBox7.Size = new System.Drawing.Size(837, 24);
+			this.textBox7.TabIndex = 10;
+			this.textBox7.Text = "Gli oneri deducibili e detraibili presenti nei CUD sono considerati solo in fase " +
     "di conguaglio ";
-            // 
-            // btnVerificaProblemi
-            // 
-            this.btnVerificaProblemi.Location = new System.Drawing.Point(616, 8);
-            this.btnVerificaProblemi.Name = "btnVerificaProblemi";
-            this.btnVerificaProblemi.Size = new System.Drawing.Size(112, 32);
-            this.btnVerificaProblemi.TabIndex = 6;
-            this.btnVerificaProblemi.Text = "Verifica problemi";
-            this.btnVerificaProblemi.Click += new System.EventHandler(this.btnVerificaProblemi_Click);
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			// 
+			// btnVerificaProblemi
+			// 
+			this.btnVerificaProblemi.Location = new System.Drawing.Point(616, 37);
+			this.btnVerificaProblemi.Name = "btnVerificaProblemi";
+			this.btnVerificaProblemi.Size = new System.Drawing.Size(112, 32);
+			this.btnVerificaProblemi.TabIndex = 6;
+			this.btnVerificaProblemi.Text = "Verifica problemi";
+			this.btnVerificaProblemi.Click += new System.EventHandler(this.btnVerificaProblemi_Click);
+			// 
+			// groupBox6
+			// 
+			this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox6.Controls.Add(this.dgrid_DetCud);
-            this.groupBox6.Controls.Add(this.btnDeleteDet);
-            this.groupBox6.Controls.Add(this.btnEditDet);
-            this.groupBox6.Controls.Add(this.btnInsertDet);
-            this.groupBox6.Location = new System.Drawing.Point(8, 319);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(833, 125);
-            this.groupBox6.TabIndex = 5;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Dettagli Detrazioni CUD Presentato";
-            // 
-            // dgrid_DetCud
-            // 
-            this.dgrid_DetCud.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox6.Controls.Add(this.dgrid_DetCud);
+			this.groupBox6.Controls.Add(this.btnDeleteDet);
+			this.groupBox6.Controls.Add(this.btnEditDet);
+			this.groupBox6.Controls.Add(this.btnInsertDet);
+			this.groupBox6.Location = new System.Drawing.Point(8, 388);
+			this.groupBox6.Name = "groupBox6";
+			this.groupBox6.Size = new System.Drawing.Size(837, 125);
+			this.groupBox6.TabIndex = 5;
+			this.groupBox6.TabStop = false;
+			this.groupBox6.Text = "Dettagli Detrazioni CUD Presentato";
+			// 
+			// dgrid_DetCud
+			// 
+			this.dgrid_DetCud.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgrid_DetCud.CaptionVisible = false;
-            this.dgrid_DetCud.DataMember = "";
-            this.dgrid_DetCud.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgrid_DetCud.Location = new System.Drawing.Point(8, 40);
-            this.dgrid_DetCud.Name = "dgrid_DetCud";
-            this.dgrid_DetCud.Size = new System.Drawing.Size(817, 77);
-            this.dgrid_DetCud.TabIndex = 3;
-            this.dgrid_DetCud.Tag = "exhibitedcudabatement.default.default";
-            // 
-            // btnDeleteDet
-            // 
-            this.btnDeleteDet.Location = new System.Drawing.Point(184, 16);
-            this.btnDeleteDet.Name = "btnDeleteDet";
-            this.btnDeleteDet.Size = new System.Drawing.Size(75, 23);
-            this.btnDeleteDet.TabIndex = 2;
-            this.btnDeleteDet.Tag = "delete";
-            this.btnDeleteDet.Text = "Elimina";
-            // 
-            // btnEditDet
-            // 
-            this.btnEditDet.Location = new System.Drawing.Point(96, 16);
-            this.btnEditDet.Name = "btnEditDet";
-            this.btnEditDet.Size = new System.Drawing.Size(75, 23);
-            this.btnEditDet.TabIndex = 1;
-            this.btnEditDet.Tag = "edit.default";
-            this.btnEditDet.Text = "Modifica";
-            // 
-            // btnInsertDet
-            // 
-            this.btnInsertDet.Location = new System.Drawing.Point(8, 16);
-            this.btnInsertDet.Name = "btnInsertDet";
-            this.btnInsertDet.Size = new System.Drawing.Size(75, 23);
-            this.btnInsertDet.TabIndex = 0;
-            this.btnInsertDet.Tag = "insert.default";
-            this.btnInsertDet.Text = "Inserisci";
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			this.dgrid_DetCud.CaptionVisible = false;
+			this.dgrid_DetCud.DataMember = "";
+			this.dgrid_DetCud.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgrid_DetCud.Location = new System.Drawing.Point(8, 40);
+			this.dgrid_DetCud.Name = "dgrid_DetCud";
+			this.dgrid_DetCud.Size = new System.Drawing.Size(821, 77);
+			this.dgrid_DetCud.TabIndex = 3;
+			this.dgrid_DetCud.Tag = "exhibitedcudabatement.default.default";
+			// 
+			// btnDeleteDet
+			// 
+			this.btnDeleteDet.Location = new System.Drawing.Point(184, 16);
+			this.btnDeleteDet.Name = "btnDeleteDet";
+			this.btnDeleteDet.Size = new System.Drawing.Size(75, 23);
+			this.btnDeleteDet.TabIndex = 2;
+			this.btnDeleteDet.Tag = "delete";
+			this.btnDeleteDet.Text = "Elimina";
+			// 
+			// btnEditDet
+			// 
+			this.btnEditDet.Location = new System.Drawing.Point(96, 16);
+			this.btnEditDet.Name = "btnEditDet";
+			this.btnEditDet.Size = new System.Drawing.Size(75, 23);
+			this.btnEditDet.TabIndex = 1;
+			this.btnEditDet.Tag = "edit.default";
+			this.btnEditDet.Text = "Modifica";
+			// 
+			// btnInsertDet
+			// 
+			this.btnInsertDet.Location = new System.Drawing.Point(8, 16);
+			this.btnInsertDet.Name = "btnInsertDet";
+			this.btnInsertDet.Size = new System.Drawing.Size(75, 23);
+			this.btnInsertDet.TabIndex = 0;
+			this.btnInsertDet.Tag = "insert.default";
+			this.btnInsertDet.Text = "Inserisci";
+			// 
+			// groupBox5
+			// 
+			this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox5.Controls.Add(this.dgrid_DedCud);
-            this.groupBox5.Controls.Add(this.btnDeleteDed);
-            this.groupBox5.Controls.Add(this.btnEditDed);
-            this.groupBox5.Controls.Add(this.btnInsertDed);
-            this.groupBox5.Location = new System.Drawing.Point(8, 183);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(835, 130);
-            this.groupBox5.TabIndex = 4;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Dettagli Deduzioni CUD Presentato";
-            // 
-            // dgrid_DedCud
-            // 
-            this.dgrid_DedCud.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox5.Controls.Add(this.dgrid_DedCud);
+			this.groupBox5.Controls.Add(this.btnDeleteDed);
+			this.groupBox5.Controls.Add(this.btnEditDed);
+			this.groupBox5.Controls.Add(this.btnInsertDed);
+			this.groupBox5.Location = new System.Drawing.Point(8, 252);
+			this.groupBox5.Name = "groupBox5";
+			this.groupBox5.Size = new System.Drawing.Size(839, 130);
+			this.groupBox5.TabIndex = 4;
+			this.groupBox5.TabStop = false;
+			this.groupBox5.Text = "Dettagli Deduzioni CUD Presentato";
+			// 
+			// dgrid_DedCud
+			// 
+			this.dgrid_DedCud.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgrid_DedCud.CaptionVisible = false;
-            this.dgrid_DedCud.DataMember = "";
-            this.dgrid_DedCud.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgrid_DedCud.Location = new System.Drawing.Point(8, 40);
-            this.dgrid_DedCud.Name = "dgrid_DedCud";
-            this.dgrid_DedCud.Size = new System.Drawing.Size(819, 85);
-            this.dgrid_DedCud.TabIndex = 3;
-            this.dgrid_DedCud.Tag = "exhibitedcuddeduction.default.default";
-            // 
-            // btnDeleteDed
-            // 
-            this.btnDeleteDed.Location = new System.Drawing.Point(184, 16);
-            this.btnDeleteDed.Name = "btnDeleteDed";
-            this.btnDeleteDed.Size = new System.Drawing.Size(75, 23);
-            this.btnDeleteDed.TabIndex = 2;
-            this.btnDeleteDed.Tag = "delete";
-            this.btnDeleteDed.Text = "Elimina";
-            // 
-            // btnEditDed
-            // 
-            this.btnEditDed.Location = new System.Drawing.Point(96, 16);
-            this.btnEditDed.Name = "btnEditDed";
-            this.btnEditDed.Size = new System.Drawing.Size(75, 23);
-            this.btnEditDed.TabIndex = 1;
-            this.btnEditDed.Tag = "edit.default";
-            this.btnEditDed.Text = "Modifica";
-            // 
-            // btnInsertDed
-            // 
-            this.btnInsertDed.Location = new System.Drawing.Point(8, 16);
-            this.btnInsertDed.Name = "btnInsertDed";
-            this.btnInsertDed.Size = new System.Drawing.Size(75, 23);
-            this.btnInsertDed.TabIndex = 0;
-            this.btnInsertDed.Tag = "insert.default";
-            this.btnInsertDed.Text = "Inserisci";
-            // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(200, 16);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(75, 23);
-            this.button10.TabIndex = 2;
-            this.button10.Tag = "delete";
-            this.button10.Text = "Elimina";
-            // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(104, 16);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(75, 23);
-            this.button9.TabIndex = 1;
-            this.button9.Tag = "edit.default";
-            this.button9.Text = "Modifica";
-            // 
-            // inserisci_CUD
-            // 
-            this.inserisci_CUD.Location = new System.Drawing.Point(8, 16);
-            this.inserisci_CUD.Name = "inserisci_CUD";
-            this.inserisci_CUD.Size = new System.Drawing.Size(75, 23);
-            this.inserisci_CUD.TabIndex = 0;
-            this.inserisci_CUD.Tag = "insert.default";
-            this.inserisci_CUD.Text = "Inserisci";
-            this.inserisci_CUD.Click += new System.EventHandler(this.inserisci_CUD_Click);
-            // 
-            // dgrid_CUD
-            // 
-            this.dgrid_CUD.AllowNavigation = false;
-            this.dgrid_CUD.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dgrid_DedCud.CaptionVisible = false;
+			this.dgrid_DedCud.DataMember = "";
+			this.dgrid_DedCud.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgrid_DedCud.Location = new System.Drawing.Point(14, 39);
+			this.dgrid_DedCud.Name = "dgrid_DedCud";
+			this.dgrid_DedCud.Size = new System.Drawing.Size(823, 85);
+			this.dgrid_DedCud.TabIndex = 3;
+			this.dgrid_DedCud.Tag = "exhibitedcuddeduction.default.default";
+			// 
+			// btnDeleteDed
+			// 
+			this.btnDeleteDed.Location = new System.Drawing.Point(184, 16);
+			this.btnDeleteDed.Name = "btnDeleteDed";
+			this.btnDeleteDed.Size = new System.Drawing.Size(75, 23);
+			this.btnDeleteDed.TabIndex = 2;
+			this.btnDeleteDed.Tag = "delete";
+			this.btnDeleteDed.Text = "Elimina";
+			// 
+			// btnEditDed
+			// 
+			this.btnEditDed.Location = new System.Drawing.Point(96, 16);
+			this.btnEditDed.Name = "btnEditDed";
+			this.btnEditDed.Size = new System.Drawing.Size(75, 23);
+			this.btnEditDed.TabIndex = 1;
+			this.btnEditDed.Tag = "edit.default";
+			this.btnEditDed.Text = "Modifica";
+			// 
+			// btnInsertDed
+			// 
+			this.btnInsertDed.Location = new System.Drawing.Point(8, 16);
+			this.btnInsertDed.Name = "btnInsertDed";
+			this.btnInsertDed.Size = new System.Drawing.Size(75, 23);
+			this.btnInsertDed.TabIndex = 0;
+			this.btnInsertDed.Tag = "insert.default";
+			this.btnInsertDed.Text = "Inserisci";
+			// 
+			// button10
+			// 
+			this.button10.Location = new System.Drawing.Point(200, 45);
+			this.button10.Name = "button10";
+			this.button10.Size = new System.Drawing.Size(75, 23);
+			this.button10.TabIndex = 2;
+			this.button10.Tag = "delete";
+			this.button10.Text = "Elimina";
+			// 
+			// button9
+			// 
+			this.button9.Location = new System.Drawing.Point(104, 45);
+			this.button9.Name = "button9";
+			this.button9.Size = new System.Drawing.Size(75, 23);
+			this.button9.TabIndex = 1;
+			this.button9.Tag = "edit.default";
+			this.button9.Text = "Modifica";
+			// 
+			// inserisci_CUD
+			// 
+			this.inserisci_CUD.Location = new System.Drawing.Point(8, 45);
+			this.inserisci_CUD.Name = "inserisci_CUD";
+			this.inserisci_CUD.Size = new System.Drawing.Size(75, 23);
+			this.inserisci_CUD.TabIndex = 0;
+			this.inserisci_CUD.Tag = "insert.default";
+			this.inserisci_CUD.Text = "Inserisci";
+			this.inserisci_CUD.Click += new System.EventHandler(this.inserisci_CUD_Click);
+			// 
+			// dgrid_CUD
+			// 
+			this.dgrid_CUD.AllowNavigation = false;
+			this.dgrid_CUD.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgrid_CUD.CaptionVisible = false;
-            this.dgrid_CUD.DataMember = "";
-            this.dgrid_CUD.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgrid_CUD.Location = new System.Drawing.Point(8, 40);
-            this.dgrid_CUD.Name = "dgrid_CUD";
-            this.dgrid_CUD.Size = new System.Drawing.Size(833, 107);
-            this.dgrid_CUD.TabIndex = 3;
-            this.dgrid_CUD.Tag = "exhibitedcud.default.default";
-            // 
-            // tabAddizionali
-            // 
-            this.tabAddizionali.Controls.Add(this.grpAccontoAddCom);
-            this.tabAddizionali.Controls.Add(this.groupBox3);
-            this.tabAddizionali.Controls.Add(this.grpAddizionaliPassate);
-            this.tabAddizionali.Location = new System.Drawing.Point(4, 22);
-            this.tabAddizionali.Name = "tabAddizionali";
-            this.tabAddizionali.Size = new System.Drawing.Size(865, 461);
-            this.tabAddizionali.TabIndex = 3;
-            this.tabAddizionali.Text = "Addizionali";
-            this.tabAddizionali.UseVisualStyleBackColor = true;
-            // 
-            // grpAccontoAddCom
-            // 
-            this.grpAccontoAddCom.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dgrid_CUD.CaptionVisible = false;
+			this.dgrid_CUD.DataMember = "";
+			this.dgrid_CUD.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgrid_CUD.Location = new System.Drawing.Point(8, 74);
+			this.dgrid_CUD.Name = "dgrid_CUD";
+			this.dgrid_CUD.Size = new System.Drawing.Size(837, 142);
+			this.dgrid_CUD.TabIndex = 3;
+			this.dgrid_CUD.Tag = "exhibitedcud.default.default";
+			// 
+			// tabAddizionali
+			// 
+			this.tabAddizionali.Controls.Add(this.grpAccontoAddCom);
+			this.tabAddizionali.Controls.Add(this.groupBox3);
+			this.tabAddizionali.Controls.Add(this.grpAddizionaliPassate);
+			this.tabAddizionali.Location = new System.Drawing.Point(4, 22);
+			this.tabAddizionali.Name = "tabAddizionali";
+			this.tabAddizionali.Size = new System.Drawing.Size(869, 530);
+			this.tabAddizionali.TabIndex = 3;
+			this.tabAddizionali.Text = "Addizionali";
+			this.tabAddizionali.UseVisualStyleBackColor = true;
+			// 
+			// grpAccontoAddCom
+			// 
+			this.grpAccontoAddCom.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpAccontoAddCom.Controls.Add(this.btnCalcAcconto);
-            this.grpAccontoAddCom.Controls.Add(this.SubEntity_cmbMeseInizioAcconto);
-            this.grpAccontoAddCom.Controls.Add(this.SubEntity_txtNumRateAcconto);
-            this.grpAccontoAddCom.Controls.Add(this.SubEntity_txtImportoAcconto);
-            this.grpAccontoAddCom.Controls.Add(this.label16);
-            this.grpAccontoAddCom.Controls.Add(this.label15);
-            this.grpAccontoAddCom.Controls.Add(this.label14);
-            this.grpAccontoAddCom.Location = new System.Drawing.Point(429, 256);
-            this.grpAccontoAddCom.Name = "grpAccontoAddCom";
-            this.grpAccontoAddCom.Size = new System.Drawing.Size(433, 199);
-            this.grpAccontoAddCom.TabIndex = 5;
-            this.grpAccontoAddCom.TabStop = false;
-            this.grpAccontoAddCom.Text = "Acconto dell\'addizionale comunale per l\'esercizio XXX";
-            // 
-            // btnCalcAcconto
-            // 
-            this.btnCalcAcconto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.grpAccontoAddCom.Controls.Add(this.btnCalcAcconto);
+			this.grpAccontoAddCom.Controls.Add(this.SubEntity_cmbMeseInizioAcconto);
+			this.grpAccontoAddCom.Controls.Add(this.SubEntity_txtNumRateAcconto);
+			this.grpAccontoAddCom.Controls.Add(this.SubEntity_txtImportoAcconto);
+			this.grpAccontoAddCom.Controls.Add(this.label16);
+			this.grpAccontoAddCom.Controls.Add(this.label15);
+			this.grpAccontoAddCom.Controls.Add(this.label14);
+			this.grpAccontoAddCom.Location = new System.Drawing.Point(429, 256);
+			this.grpAccontoAddCom.Name = "grpAccontoAddCom";
+			this.grpAccontoAddCom.Size = new System.Drawing.Size(437, 268);
+			this.grpAccontoAddCom.TabIndex = 5;
+			this.grpAccontoAddCom.TabStop = false;
+			this.grpAccontoAddCom.Text = "Acconto dell\'addizionale comunale per l\'esercizio XXX";
+			// 
+			// btnCalcAcconto
+			// 
+			this.btnCalcAcconto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCalcAcconto.Location = new System.Drawing.Point(160, 107);
-            this.btnCalcAcconto.Name = "btnCalcAcconto";
-            this.btnCalcAcconto.Size = new System.Drawing.Size(265, 23);
-            this.btnCalcAcconto.TabIndex = 6;
-            this.btnCalcAcconto.Text = "Calcola Acconto";
-            this.btnCalcAcconto.UseVisualStyleBackColor = true;
-            this.btnCalcAcconto.Click += new System.EventHandler(this.btnCalcAcconto_Click);
-            // 
-            // SubEntity_cmbMeseInizioAcconto
-            // 
-            this.SubEntity_cmbMeseInizioAcconto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.btnCalcAcconto.Location = new System.Drawing.Point(160, 107);
+			this.btnCalcAcconto.Name = "btnCalcAcconto";
+			this.btnCalcAcconto.Size = new System.Drawing.Size(269, 23);
+			this.btnCalcAcconto.TabIndex = 6;
+			this.btnCalcAcconto.Text = "Calcola Acconto";
+			this.btnCalcAcconto.UseVisualStyleBackColor = true;
+			this.btnCalcAcconto.Click += new System.EventHandler(this.btnCalcAcconto_Click);
+			// 
+			// SubEntity_cmbMeseInizioAcconto
+			// 
+			this.SubEntity_cmbMeseInizioAcconto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SubEntity_cmbMeseInizioAcconto.DataSource = this.DS.monthname;
-            this.SubEntity_cmbMeseInizioAcconto.DisplayMember = "title";
-            this.SubEntity_cmbMeseInizioAcconto.FormattingEnabled = true;
-            this.SubEntity_cmbMeseInizioAcconto.Location = new System.Drawing.Point(191, 75);
-            this.SubEntity_cmbMeseInizioAcconto.Name = "SubEntity_cmbMeseInizioAcconto";
-            this.SubEntity_cmbMeseInizioAcconto.Size = new System.Drawing.Size(234, 21);
-            this.SubEntity_cmbMeseInizioAcconto.TabIndex = 5;
-            this.SubEntity_cmbMeseInizioAcconto.Tag = "parasubcontractyear.startmonth_account?parasubcontractview.startmonth_account";
-            this.SubEntity_cmbMeseInizioAcconto.ValueMember = "code";
-            // 
-            // SubEntity_txtNumRateAcconto
-            // 
-            this.SubEntity_txtNumRateAcconto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.SubEntity_cmbMeseInizioAcconto.DataSource = this.DS.monthname;
+			this.SubEntity_cmbMeseInizioAcconto.DisplayMember = "title";
+			this.SubEntity_cmbMeseInizioAcconto.FormattingEnabled = true;
+			this.SubEntity_cmbMeseInizioAcconto.Location = new System.Drawing.Point(191, 75);
+			this.SubEntity_cmbMeseInizioAcconto.Name = "SubEntity_cmbMeseInizioAcconto";
+			this.SubEntity_cmbMeseInizioAcconto.Size = new System.Drawing.Size(238, 21);
+			this.SubEntity_cmbMeseInizioAcconto.TabIndex = 5;
+			this.SubEntity_cmbMeseInizioAcconto.Tag = "parasubcontractyear.startmonth_account?parasubcontractview.startmonth_account";
+			this.SubEntity_cmbMeseInizioAcconto.ValueMember = "code";
+			// 
+			// SubEntity_txtNumRateAcconto
+			// 
+			this.SubEntity_txtNumRateAcconto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SubEntity_txtNumRateAcconto.Location = new System.Drawing.Point(191, 49);
-            this.SubEntity_txtNumRateAcconto.Name = "SubEntity_txtNumRateAcconto";
-            this.SubEntity_txtNumRateAcconto.Size = new System.Drawing.Size(234, 20);
-            this.SubEntity_txtNumRateAcconto.TabIndex = 4;
-            this.SubEntity_txtNumRateAcconto.Tag = "parasubcontractyear.ratequantity_account?parasubcontractview.ratequantity_account" +
+			this.SubEntity_txtNumRateAcconto.Location = new System.Drawing.Point(191, 49);
+			this.SubEntity_txtNumRateAcconto.Name = "SubEntity_txtNumRateAcconto";
+			this.SubEntity_txtNumRateAcconto.Size = new System.Drawing.Size(238, 20);
+			this.SubEntity_txtNumRateAcconto.TabIndex = 4;
+			this.SubEntity_txtNumRateAcconto.Tag = "parasubcontractyear.ratequantity_account?parasubcontractview.ratequantity_account" +
     "";
-            // 
-            // SubEntity_txtImportoAcconto
-            // 
-            this.SubEntity_txtImportoAcconto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			// 
+			// SubEntity_txtImportoAcconto
+			// 
+			this.SubEntity_txtImportoAcconto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SubEntity_txtImportoAcconto.Location = new System.Drawing.Point(191, 23);
-            this.SubEntity_txtImportoAcconto.Name = "SubEntity_txtImportoAcconto";
-            this.SubEntity_txtImportoAcconto.Size = new System.Drawing.Size(234, 20);
-            this.SubEntity_txtImportoAcconto.TabIndex = 3;
-            this.SubEntity_txtImportoAcconto.Tag = "parasubcontractyear.citytax_account?parasubcontractview.citytax_account";
-            // 
-            // label16
-            // 
-            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.SubEntity_txtImportoAcconto.Location = new System.Drawing.Point(191, 23);
+			this.SubEntity_txtImportoAcconto.Name = "SubEntity_txtImportoAcconto";
+			this.SubEntity_txtImportoAcconto.Size = new System.Drawing.Size(238, 20);
+			this.SubEntity_txtImportoAcconto.TabIndex = 3;
+			this.SubEntity_txtImportoAcconto.Tag = "parasubcontractyear.citytax_account?parasubcontractview.citytax_account";
+			// 
+			// label16
+			// 
+			this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(71, 77);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(63, 13);
-            this.label16.TabIndex = 2;
-            this.label16.Text = "Mese Inizio:";
-            // 
-            // label15
-            // 
-            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.label16.AutoSize = true;
+			this.label16.Location = new System.Drawing.Point(71, 77);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(63, 13);
+			this.label16.TabIndex = 2;
+			this.label16.Text = "Mese Inizio:";
+			// 
+			// label15
+			// 
+			this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(71, 52);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(73, 13);
-            this.label15.TabIndex = 1;
-            this.label15.Text = "Numero Rate:";
-            // 
-            // label14
-            // 
-            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.label15.AutoSize = true;
+			this.label15.Location = new System.Drawing.Point(71, 52);
+			this.label15.Name = "label15";
+			this.label15.Size = new System.Drawing.Size(73, 13);
+			this.label15.TabIndex = 1;
+			this.label15.Text = "Numero Rate:";
+			// 
+			// label14
+			// 
+			this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(71, 26);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(105, 13);
-            this.label14.TabIndex = 0;
-            this.label14.Text = "Importo dell\'acconto:";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.label14.AutoSize = true;
+			this.label14.Location = new System.Drawing.Point(71, 26);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(105, 13);
+			this.label14.TabIndex = 0;
+			this.label14.Text = "Importo dell\'acconto:";
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.button20);
-            this.groupBox3.Controls.Add(this.button19);
-            this.groupBox3.Controls.Add(this.button18);
-            this.groupBox3.Controls.Add(this.dataGrid11);
-            this.groupBox3.Location = new System.Drawing.Point(8, 8);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(849, 248);
-            this.groupBox3.TabIndex = 4;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Comunicazioni dal Centro di Assistenza Fiscale";
-            // 
-            // button20
-            // 
-            this.button20.Location = new System.Drawing.Point(208, 24);
-            this.button20.Name = "button20";
-            this.button20.Size = new System.Drawing.Size(75, 23);
-            this.button20.TabIndex = 6;
-            this.button20.Tag = "delete";
-            this.button20.Text = "Elimina";
-            // 
-            // button19
-            // 
-            this.button19.Location = new System.Drawing.Point(112, 24);
-            this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(75, 23);
-            this.button19.TabIndex = 5;
-            this.button19.Tag = "edit.default";
-            this.button19.Text = "Modifica";
-            // 
-            // button18
-            // 
-            this.button18.Location = new System.Drawing.Point(16, 24);
-            this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(75, 23);
-            this.button18.TabIndex = 4;
-            this.button18.Tag = "insert.default";
-            this.button18.Text = "Inserisci";
-            this.button18.Click += new System.EventHandler(this.button18_Click);
-            // 
-            // dataGrid11
-            // 
-            this.dataGrid11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox3.Controls.Add(this.button20);
+			this.groupBox3.Controls.Add(this.button19);
+			this.groupBox3.Controls.Add(this.button18);
+			this.groupBox3.Controls.Add(this.dataGrid11);
+			this.groupBox3.Location = new System.Drawing.Point(8, 8);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(853, 248);
+			this.groupBox3.TabIndex = 4;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Comunicazioni dal Centro di Assistenza Fiscale";
+			// 
+			// button20
+			// 
+			this.button20.Location = new System.Drawing.Point(208, 24);
+			this.button20.Name = "button20";
+			this.button20.Size = new System.Drawing.Size(75, 23);
+			this.button20.TabIndex = 6;
+			this.button20.Tag = "delete";
+			this.button20.Text = "Elimina";
+			// 
+			// button19
+			// 
+			this.button19.Location = new System.Drawing.Point(112, 24);
+			this.button19.Name = "button19";
+			this.button19.Size = new System.Drawing.Size(75, 23);
+			this.button19.TabIndex = 5;
+			this.button19.Tag = "edit.default";
+			this.button19.Text = "Modifica";
+			// 
+			// button18
+			// 
+			this.button18.Location = new System.Drawing.Point(16, 24);
+			this.button18.Name = "button18";
+			this.button18.Size = new System.Drawing.Size(75, 23);
+			this.button18.TabIndex = 4;
+			this.button18.Tag = "insert.default";
+			this.button18.Text = "Inserisci";
+			this.button18.Click += new System.EventHandler(this.button18_Click);
+			// 
+			// dataGrid11
+			// 
+			this.dataGrid11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGrid11.CaptionVisible = false;
-            this.dataGrid11.DataMember = "";
-            this.dataGrid11.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dataGrid11.Location = new System.Drawing.Point(8, 56);
-            this.dataGrid11.Name = "dataGrid11";
-            this.dataGrid11.Size = new System.Drawing.Size(833, 186);
-            this.dataGrid11.TabIndex = 3;
-            this.dataGrid11.Tag = "cafdocument.contratto.contratto";
-            // 
-            // grpAddizionaliPassate
-            // 
-            this.grpAddizionaliPassate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dataGrid11.CaptionVisible = false;
+			this.dataGrid11.DataMember = "";
+			this.dataGrid11.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGrid11.Location = new System.Drawing.Point(8, 56);
+			this.dataGrid11.Name = "dataGrid11";
+			this.dataGrid11.Size = new System.Drawing.Size(837, 186);
+			this.dataGrid11.TabIndex = 3;
+			this.dataGrid11.Tag = "cafdocument.contratto.contratto";
+			// 
+			// grpAddizionaliPassate
+			// 
+			this.grpAddizionaliPassate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.grpAddizionaliPassate.Controls.Add(this.groupBox20);
-            this.grpAddizionaliPassate.Controls.Add(this.groupBox21);
-            this.grpAddizionaliPassate.Controls.Add(this.SubEntity_cmbMeseInizio);
-            this.grpAddizionaliPassate.Controls.Add(this.SubEntity_txtNumRate);
-            this.grpAddizionaliPassate.Controls.Add(this.SubEntity_txtAddReg);
-            this.grpAddizionaliPassate.Controls.Add(this.label10);
-            this.grpAddizionaliPassate.Controls.Add(this.label12);
-            this.grpAddizionaliPassate.Controls.Add(this.label11);
-            this.grpAddizionaliPassate.Controls.Add(this.label9);
-            this.grpAddizionaliPassate.Controls.Add(this.label13);
-            this.grpAddizionaliPassate.Controls.Add(this.SubEntity_txtAddProv);
-            this.grpAddizionaliPassate.Controls.Add(this.SubEntity_txtAddCom);
-            this.grpAddizionaliPassate.Location = new System.Drawing.Point(8, 256);
-            this.grpAddizionaliPassate.Name = "grpAddizionaliPassate";
-            this.grpAddizionaliPassate.Size = new System.Drawing.Size(415, 199);
-            this.grpAddizionaliPassate.TabIndex = 2;
-            this.grpAddizionaliPassate.TabStop = false;
-            this.grpAddizionaliPassate.Text = "Addizionali derivanti da contratti della stessa università per l\'esercizio XXXX";
-            // 
-            // groupBox20
-            // 
-            this.groupBox20.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.grpAddizionaliPassate.Controls.Add(this.groupBox20);
+			this.grpAddizionaliPassate.Controls.Add(this.groupBox21);
+			this.grpAddizionaliPassate.Controls.Add(this.SubEntity_cmbMeseInizio);
+			this.grpAddizionaliPassate.Controls.Add(this.SubEntity_txtNumRate);
+			this.grpAddizionaliPassate.Controls.Add(this.SubEntity_txtAddReg);
+			this.grpAddizionaliPassate.Controls.Add(this.label10);
+			this.grpAddizionaliPassate.Controls.Add(this.label12);
+			this.grpAddizionaliPassate.Controls.Add(this.label11);
+			this.grpAddizionaliPassate.Controls.Add(this.label9);
+			this.grpAddizionaliPassate.Controls.Add(this.label13);
+			this.grpAddizionaliPassate.Controls.Add(this.SubEntity_txtAddProv);
+			this.grpAddizionaliPassate.Controls.Add(this.SubEntity_txtAddCom);
+			this.grpAddizionaliPassate.Location = new System.Drawing.Point(8, 256);
+			this.grpAddizionaliPassate.Name = "grpAddizionaliPassate";
+			this.grpAddizionaliPassate.Size = new System.Drawing.Size(415, 268);
+			this.grpAddizionaliPassate.TabIndex = 2;
+			this.grpAddizionaliPassate.TabStop = false;
+			this.grpAddizionaliPassate.Text = "Addizionali derivanti da contratti della stessa università per l\'esercizio XXXX";
+			// 
+			// groupBox20
+			// 
+			this.groupBox20.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox20.Controls.Add(this.txtComuneAddRegRata);
-            this.groupBox20.Location = new System.Drawing.Point(7, 147);
-            this.groupBox20.Name = "groupBox20";
-            this.groupBox20.Size = new System.Drawing.Size(400, 43);
-            this.groupBox20.TabIndex = 23;
-            this.groupBox20.TabStop = false;
-            this.groupBox20.Tag = "";
-            this.groupBox20.Text = "Comune di riferimento per le addizionali regionali da rateizzare";
-            // 
-            // txtComuneAddRegRata
-            // 
-            this.txtComuneAddRegRata.Location = new System.Drawing.Point(9, 19);
-            this.txtComuneAddRegRata.Name = "txtComuneAddRegRata";
-            this.txtComuneAddRegRata.ReadOnly = true;
-            this.txtComuneAddRegRata.Size = new System.Drawing.Size(384, 20);
-            this.txtComuneAddRegRata.TabIndex = 8;
-            this.txtComuneAddRegRata.Tag = "";
-            // 
-            // groupBox21
-            // 
-            this.groupBox21.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.groupBox20.Controls.Add(this.txtComuneAddRegRata);
+			this.groupBox20.Location = new System.Drawing.Point(7, 147);
+			this.groupBox20.Name = "groupBox20";
+			this.groupBox20.Size = new System.Drawing.Size(400, 43);
+			this.groupBox20.TabIndex = 23;
+			this.groupBox20.TabStop = false;
+			this.groupBox20.Tag = "";
+			this.groupBox20.Text = "Comune di riferimento per le addizionali regionali da rateizzare";
+			// 
+			// txtComuneAddRegRata
+			// 
+			this.txtComuneAddRegRata.Location = new System.Drawing.Point(9, 19);
+			this.txtComuneAddRegRata.Name = "txtComuneAddRegRata";
+			this.txtComuneAddRegRata.ReadOnly = true;
+			this.txtComuneAddRegRata.Size = new System.Drawing.Size(384, 20);
+			this.txtComuneAddRegRata.TabIndex = 8;
+			this.txtComuneAddRegRata.Tag = "";
+			// 
+			// groupBox21
+			// 
+			this.groupBox21.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox21.Controls.Add(this.txtComuneAddComRata);
-            this.groupBox21.Location = new System.Drawing.Point(8, 100);
-            this.groupBox21.Name = "groupBox21";
-            this.groupBox21.Size = new System.Drawing.Size(400, 43);
-            this.groupBox21.TabIndex = 22;
-            this.groupBox21.TabStop = false;
-            this.groupBox21.Tag = "";
-            this.groupBox21.Text = "Comune di riferimento per le addizionali comunali da rateizzare";
-            // 
-            // txtComuneAddComRata
-            // 
-            this.txtComuneAddComRata.Location = new System.Drawing.Point(8, 19);
-            this.txtComuneAddComRata.Name = "txtComuneAddComRata";
-            this.txtComuneAddComRata.ReadOnly = true;
-            this.txtComuneAddComRata.Size = new System.Drawing.Size(384, 20);
-            this.txtComuneAddComRata.TabIndex = 8;
-            this.txtComuneAddComRata.Tag = "";
-            // 
-            // SubEntity_cmbMeseInizio
-            // 
-            this.SubEntity_cmbMeseInizio.DataSource = this.DS.monthname;
-            this.SubEntity_cmbMeseInizio.DisplayMember = "title";
-            this.SubEntity_cmbMeseInizio.Location = new System.Drawing.Point(279, 47);
-            this.SubEntity_cmbMeseInizio.Name = "SubEntity_cmbMeseInizio";
-            this.SubEntity_cmbMeseInizio.Size = new System.Drawing.Size(104, 21);
-            this.SubEntity_cmbMeseInizio.TabIndex = 9;
-            this.SubEntity_cmbMeseInizio.Tag = "parasubcontractyear.startmonth?parasubcontractview.startmonth";
-            this.SubEntity_cmbMeseInizio.ValueMember = "code";
-            // 
-            // SubEntity_txtNumRate
-            // 
-            this.SubEntity_txtNumRate.Location = new System.Drawing.Point(279, 18);
-            this.SubEntity_txtNumRate.Name = "SubEntity_txtNumRate";
-            this.SubEntity_txtNumRate.Size = new System.Drawing.Size(104, 20);
-            this.SubEntity_txtNumRate.TabIndex = 7;
-            this.SubEntity_txtNumRate.Tag = "parasubcontractyear.ratequantity?parasubcontractview.ratequantity";
-            // 
-            // SubEntity_txtAddReg
-            // 
-            this.SubEntity_txtAddReg.Location = new System.Drawing.Point(82, 19);
-            this.SubEntity_txtAddReg.Name = "SubEntity_txtAddReg";
-            this.SubEntity_txtAddReg.Size = new System.Drawing.Size(112, 20);
-            this.SubEntity_txtAddReg.TabIndex = 1;
-            this.SubEntity_txtAddReg.Tag = "parasubcontractyear.regionaltax?parasubcontractview.regionaltax";
-            // 
-            // label10
-            // 
-            this.label10.Enabled = false;
-            this.label10.Location = new System.Drawing.Point(6, 49);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(70, 18);
-            this.label10.TabIndex = 2;
-            this.label10.Text = "Provinciale:";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label12
-            // 
-            this.label12.Location = new System.Drawing.Point(205, 19);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(104, 16);
-            this.label12.TabIndex = 6;
-            this.label12.Text = "Numero Rate:";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
-            // label11
-            // 
-            this.label11.Location = new System.Drawing.Point(6, 77);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(70, 18);
-            this.label11.TabIndex = 4;
-            this.label11.Text = "Comunale:";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label9
-            // 
-            this.label9.Location = new System.Drawing.Point(6, 21);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(70, 18);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Regionale:";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label13
-            // 
-            this.label13.Location = new System.Drawing.Point(205, 48);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(78, 16);
-            this.label13.TabIndex = 8;
-            this.label13.Text = "Mese Inizio:";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
-            // SubEntity_txtAddProv
-            // 
-            this.SubEntity_txtAddProv.Enabled = false;
-            this.SubEntity_txtAddProv.Location = new System.Drawing.Point(82, 47);
-            this.SubEntity_txtAddProv.Name = "SubEntity_txtAddProv";
-            this.SubEntity_txtAddProv.Size = new System.Drawing.Size(112, 20);
-            this.SubEntity_txtAddProv.TabIndex = 3;
-            this.SubEntity_txtAddProv.Tag = "parasubcontractyear.countrytax?parasubcontractview.countrytax";
-            // 
-            // SubEntity_txtAddCom
-            // 
-            this.SubEntity_txtAddCom.Location = new System.Drawing.Point(82, 75);
-            this.SubEntity_txtAddCom.Name = "SubEntity_txtAddCom";
-            this.SubEntity_txtAddCom.Size = new System.Drawing.Size(112, 20);
-            this.SubEntity_txtAddCom.TabIndex = 5;
-            this.SubEntity_txtAddCom.Tag = "parasubcontractyear.citytax?parasubcontractview.citytax";
-            // 
-            // tabCedolini
-            // 
-            this.tabCedolini.Controls.Add(this.label24);
-            this.tabCedolini.Controls.Add(this.label23);
-            this.tabCedolini.Controls.Add(this.dgCedoliniAltriEsercizi);
-            this.tabCedolini.Controls.Add(this.btnGeneraCedolini);
-            this.tabCedolini.Controls.Add(this.btnVisualizzaCedolino);
-            this.tabCedolini.Controls.Add(this.btnCalcolaCedolino);
-            this.tabCedolini.Controls.Add(this.dgCedolini);
-            this.tabCedolini.Location = new System.Drawing.Point(4, 22);
-            this.tabCedolini.Name = "tabCedolini";
-            this.tabCedolini.Size = new System.Drawing.Size(865, 461);
-            this.tabCedolini.TabIndex = 8;
-            this.tabCedolini.Text = "Cedolini";
-            this.tabCedolini.UseVisualStyleBackColor = true;
-            this.tabCedolini.Click += new System.EventHandler(this.tabCedolini_Click);
-            // 
-            // label24
-            // 
-            this.label24.Location = new System.Drawing.Point(17, 42);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(841, 20);
-            this.label24.TabIndex = 9;
-            this.label24.Text = "Esercizio Corrente";
-            this.label24.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // label23
-            // 
-            this.label23.Location = new System.Drawing.Point(16, 254);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(841, 20);
-            this.label23.TabIndex = 8;
-            this.label23.Text = "Altri Esercizi";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // dgCedoliniAltriEsercizi
-            // 
-            this.dgCedoliniAltriEsercizi.AllowNavigation = false;
-            this.dgCedoliniAltriEsercizi.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox21.Controls.Add(this.txtComuneAddComRata);
+			this.groupBox21.Location = new System.Drawing.Point(8, 100);
+			this.groupBox21.Name = "groupBox21";
+			this.groupBox21.Size = new System.Drawing.Size(400, 43);
+			this.groupBox21.TabIndex = 22;
+			this.groupBox21.TabStop = false;
+			this.groupBox21.Tag = "";
+			this.groupBox21.Text = "Comune di riferimento per le addizionali comunali da rateizzare";
+			// 
+			// txtComuneAddComRata
+			// 
+			this.txtComuneAddComRata.Location = new System.Drawing.Point(8, 19);
+			this.txtComuneAddComRata.Name = "txtComuneAddComRata";
+			this.txtComuneAddComRata.ReadOnly = true;
+			this.txtComuneAddComRata.Size = new System.Drawing.Size(384, 20);
+			this.txtComuneAddComRata.TabIndex = 8;
+			this.txtComuneAddComRata.Tag = "";
+			// 
+			// SubEntity_cmbMeseInizio
+			// 
+			this.SubEntity_cmbMeseInizio.DataSource = this.DS.monthname;
+			this.SubEntity_cmbMeseInizio.DisplayMember = "title";
+			this.SubEntity_cmbMeseInizio.Location = new System.Drawing.Point(279, 47);
+			this.SubEntity_cmbMeseInizio.Name = "SubEntity_cmbMeseInizio";
+			this.SubEntity_cmbMeseInizio.Size = new System.Drawing.Size(104, 21);
+			this.SubEntity_cmbMeseInizio.TabIndex = 9;
+			this.SubEntity_cmbMeseInizio.Tag = "parasubcontractyear.startmonth?parasubcontractview.startmonth";
+			this.SubEntity_cmbMeseInizio.ValueMember = "code";
+			// 
+			// SubEntity_txtNumRate
+			// 
+			this.SubEntity_txtNumRate.Location = new System.Drawing.Point(279, 18);
+			this.SubEntity_txtNumRate.Name = "SubEntity_txtNumRate";
+			this.SubEntity_txtNumRate.Size = new System.Drawing.Size(104, 20);
+			this.SubEntity_txtNumRate.TabIndex = 7;
+			this.SubEntity_txtNumRate.Tag = "parasubcontractyear.ratequantity?parasubcontractview.ratequantity";
+			// 
+			// SubEntity_txtAddReg
+			// 
+			this.SubEntity_txtAddReg.Location = new System.Drawing.Point(82, 19);
+			this.SubEntity_txtAddReg.Name = "SubEntity_txtAddReg";
+			this.SubEntity_txtAddReg.Size = new System.Drawing.Size(112, 20);
+			this.SubEntity_txtAddReg.TabIndex = 1;
+			this.SubEntity_txtAddReg.Tag = "parasubcontractyear.regionaltax?parasubcontractview.regionaltax";
+			// 
+			// label10
+			// 
+			this.label10.Enabled = false;
+			this.label10.Location = new System.Drawing.Point(6, 49);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(70, 18);
+			this.label10.TabIndex = 2;
+			this.label10.Text = "Provinciale:";
+			this.label10.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// label12
+			// 
+			this.label12.Location = new System.Drawing.Point(205, 19);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(104, 16);
+			this.label12.TabIndex = 6;
+			this.label12.Text = "Numero Rate:";
+			this.label12.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+			// 
+			// label11
+			// 
+			this.label11.Location = new System.Drawing.Point(6, 77);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(70, 18);
+			this.label11.TabIndex = 4;
+			this.label11.Text = "Comunale:";
+			this.label11.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// label9
+			// 
+			this.label9.Location = new System.Drawing.Point(6, 21);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(70, 18);
+			this.label9.TabIndex = 0;
+			this.label9.Text = "Regionale:";
+			this.label9.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// label13
+			// 
+			this.label13.Location = new System.Drawing.Point(205, 48);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(78, 16);
+			this.label13.TabIndex = 8;
+			this.label13.Text = "Mese Inizio:";
+			this.label13.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+			// 
+			// SubEntity_txtAddProv
+			// 
+			this.SubEntity_txtAddProv.Enabled = false;
+			this.SubEntity_txtAddProv.Location = new System.Drawing.Point(82, 47);
+			this.SubEntity_txtAddProv.Name = "SubEntity_txtAddProv";
+			this.SubEntity_txtAddProv.Size = new System.Drawing.Size(112, 20);
+			this.SubEntity_txtAddProv.TabIndex = 3;
+			this.SubEntity_txtAddProv.Tag = "parasubcontractyear.countrytax?parasubcontractview.countrytax";
+			// 
+			// SubEntity_txtAddCom
+			// 
+			this.SubEntity_txtAddCom.Location = new System.Drawing.Point(82, 75);
+			this.SubEntity_txtAddCom.Name = "SubEntity_txtAddCom";
+			this.SubEntity_txtAddCom.Size = new System.Drawing.Size(112, 20);
+			this.SubEntity_txtAddCom.TabIndex = 5;
+			this.SubEntity_txtAddCom.Tag = "parasubcontractyear.citytax?parasubcontractview.citytax";
+			// 
+			// tabCedolini
+			// 
+			this.tabCedolini.Controls.Add(this.label24);
+			this.tabCedolini.Controls.Add(this.label23);
+			this.tabCedolini.Controls.Add(this.dgCedoliniAltriEsercizi);
+			this.tabCedolini.Controls.Add(this.btnGeneraCedolini);
+			this.tabCedolini.Controls.Add(this.btnVisualizzaCedolino);
+			this.tabCedolini.Controls.Add(this.btnCalcolaCedolino);
+			this.tabCedolini.Controls.Add(this.dgCedolini);
+			this.tabCedolini.Location = new System.Drawing.Point(4, 22);
+			this.tabCedolini.Name = "tabCedolini";
+			this.tabCedolini.Size = new System.Drawing.Size(869, 530);
+			this.tabCedolini.TabIndex = 8;
+			this.tabCedolini.Text = "Cedolini";
+			this.tabCedolini.UseVisualStyleBackColor = true;
+			this.tabCedolini.Click += new System.EventHandler(this.tabCedolini_Click);
+			// 
+			// label24
+			// 
+			this.label24.Location = new System.Drawing.Point(17, 42);
+			this.label24.Name = "label24";
+			this.label24.Size = new System.Drawing.Size(841, 20);
+			this.label24.TabIndex = 9;
+			this.label24.Text = "Esercizio Corrente";
+			this.label24.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// label23
+			// 
+			this.label23.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.label23.Location = new System.Drawing.Point(16, 264);
+			this.label23.Name = "label23";
+			this.label23.Size = new System.Drawing.Size(848, 20);
+			this.label23.TabIndex = 8;
+			this.label23.Text = "Altri Esercizi";
+			this.label23.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// dgCedoliniAltriEsercizi
+			// 
+			this.dgCedoliniAltriEsercizi.AllowNavigation = false;
+			this.dgCedoliniAltriEsercizi.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dgCedoliniAltriEsercizi.CaptionVisible = false;
+			this.dgCedoliniAltriEsercizi.DataMember = "";
+			this.dgCedoliniAltriEsercizi.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgCedoliniAltriEsercizi.Location = new System.Drawing.Point(8, 287);
+			this.dgCedoliniAltriEsercizi.Name = "dgCedoliniAltriEsercizi";
+			this.dgCedoliniAltriEsercizi.Size = new System.Drawing.Size(853, 238);
+			this.dgCedoliniAltriEsercizi.TabIndex = 7;
+			this.dgCedoliniAltriEsercizi.Tag = "payroll_altriesercizi.default";
+			this.dgCedoliniAltriEsercizi.DoubleClick += new System.EventHandler(this.dgCedoliniAltriEsercizi_DoubleClick);
+			// 
+			// btnGeneraCedolini
+			// 
+			this.btnGeneraCedolini.Location = new System.Drawing.Point(556, 13);
+			this.btnGeneraCedolini.Name = "btnGeneraCedolini";
+			this.btnGeneraCedolini.Size = new System.Drawing.Size(128, 23);
+			this.btnGeneraCedolini.TabIndex = 6;
+			this.btnGeneraCedolini.Text = "Reimposta compensi";
+			this.btnGeneraCedolini.Click += new System.EventHandler(this.btnGeneraCedolini_Click);
+			// 
+			// btnVisualizzaCedolino
+			// 
+			this.btnVisualizzaCedolino.Location = new System.Drawing.Point(371, 13);
+			this.btnVisualizzaCedolino.Name = "btnVisualizzaCedolino";
+			this.btnVisualizzaCedolino.Size = new System.Drawing.Size(128, 23);
+			this.btnVisualizzaCedolino.TabIndex = 5;
+			this.btnVisualizzaCedolino.Tag = "";
+			this.btnVisualizzaCedolino.Text = "Visualizza";
+			this.btnVisualizzaCedolino.Click += new System.EventHandler(this.btnVisualizzaCedolino_Click);
+			// 
+			// btnCalcolaCedolino
+			// 
+			this.btnCalcolaCedolino.Location = new System.Drawing.Point(195, 13);
+			this.btnCalcolaCedolino.Name = "btnCalcolaCedolino";
+			this.btnCalcolaCedolino.Size = new System.Drawing.Size(128, 23);
+			this.btnCalcolaCedolino.TabIndex = 3;
+			this.btnCalcolaCedolino.Tag = "";
+			this.btnCalcolaCedolino.Text = "Calcola";
+			this.btnCalcolaCedolino.Click += new System.EventHandler(this.btnCalcolaCedolino_Click);
+			// 
+			// dgCedolini
+			// 
+			this.dgCedolini.AllowNavigation = false;
+			this.dgCedolini.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgCedoliniAltriEsercizi.CaptionVisible = false;
-            this.dgCedoliniAltriEsercizi.DataMember = "";
-            this.dgCedoliniAltriEsercizi.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgCedoliniAltriEsercizi.Location = new System.Drawing.Point(8, 277);
-            this.dgCedoliniAltriEsercizi.Name = "dgCedoliniAltriEsercizi";
-            this.dgCedoliniAltriEsercizi.Size = new System.Drawing.Size(849, 179);
-            this.dgCedoliniAltriEsercizi.TabIndex = 7;
-            this.dgCedoliniAltriEsercizi.Tag = "payroll_altriesercizi.default";
-            this.dgCedoliniAltriEsercizi.DoubleClick += new System.EventHandler(this.dgCedoliniAltriEsercizi_DoubleClick);
-            // 
-            // btnGeneraCedolini
-            // 
-            this.btnGeneraCedolini.Location = new System.Drawing.Point(556, 13);
-            this.btnGeneraCedolini.Name = "btnGeneraCedolini";
-            this.btnGeneraCedolini.Size = new System.Drawing.Size(128, 23);
-            this.btnGeneraCedolini.TabIndex = 6;
-            this.btnGeneraCedolini.Text = "Reimposta compensi";
-            this.btnGeneraCedolini.Click += new System.EventHandler(this.btnGeneraCedolini_Click);
-            // 
-            // btnVisualizzaCedolino
-            // 
-            this.btnVisualizzaCedolino.Location = new System.Drawing.Point(371, 13);
-            this.btnVisualizzaCedolino.Name = "btnVisualizzaCedolino";
-            this.btnVisualizzaCedolino.Size = new System.Drawing.Size(128, 23);
-            this.btnVisualizzaCedolino.TabIndex = 5;
-            this.btnVisualizzaCedolino.Tag = "";
-            this.btnVisualizzaCedolino.Text = "Visualizza";
-            this.btnVisualizzaCedolino.Click += new System.EventHandler(this.btnVisualizzaCedolino_Click);
-            // 
-            // btnCalcolaCedolino
-            // 
-            this.btnCalcolaCedolino.Location = new System.Drawing.Point(195, 13);
-            this.btnCalcolaCedolino.Name = "btnCalcolaCedolino";
-            this.btnCalcolaCedolino.Size = new System.Drawing.Size(128, 23);
-            this.btnCalcolaCedolino.TabIndex = 3;
-            this.btnCalcolaCedolino.Tag = "";
-            this.btnCalcolaCedolino.Text = "Calcola";
-            this.btnCalcolaCedolino.Click += new System.EventHandler(this.btnCalcolaCedolino_Click);
-            // 
-            // dgCedolini
-            // 
-            this.dgCedolini.AllowNavigation = false;
-            this.dgCedolini.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgCedolini.CaptionVisible = false;
-            this.dgCedolini.DataMember = "";
-            this.dgCedolini.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgCedolini.Location = new System.Drawing.Point(8, 62);
-            this.dgCedolini.Name = "dgCedolini";
-            this.dgCedolini.Size = new System.Drawing.Size(849, 154);
-            this.dgCedolini.TabIndex = 1;
-            this.dgCedolini.Tag = "payroll.default";
-            // 
-            // tabErogazioni
-            // 
-            this.tabErogazioni.Controls.Add(this.groupBox1);
-            this.tabErogazioni.Location = new System.Drawing.Point(4, 22);
-            this.tabErogazioni.Name = "tabErogazioni";
-            this.tabErogazioni.Size = new System.Drawing.Size(865, 461);
-            this.tabErogazioni.TabIndex = 2;
-            this.tabErogazioni.Text = "Erogazioni";
-            this.tabErogazioni.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dgCedolini.CaptionVisible = false;
+			this.dgCedolini.DataMember = "";
+			this.dgCedolini.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgCedolini.Location = new System.Drawing.Point(8, 62);
+			this.dgCedolini.Name = "dgCedolini";
+			this.dgCedolini.Size = new System.Drawing.Size(853, 188);
+			this.dgCedolini.TabIndex = 1;
+			this.dgCedolini.Tag = "payroll.default";
+			// 
+			// tabErogazioni
+			// 
+			this.tabErogazioni.Controls.Add(this.groupBox1);
+			this.tabErogazioni.Location = new System.Drawing.Point(4, 22);
+			this.tabErogazioni.Name = "tabErogazioni";
+			this.tabErogazioni.Size = new System.Drawing.Size(869, 530);
+			this.tabErogazioni.TabIndex = 2;
+			this.tabErogazioni.Text = "Erogazioni";
+			this.tabErogazioni.UseVisualStyleBackColor = true;
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.dataGrid1);
-            this.groupBox1.Location = new System.Drawing.Point(8, 8);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(849, 447);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Erogazioni legate al contratto corrente";
-            // 
-            // dataGrid1
-            // 
-            this.dataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox1.Controls.Add(this.dataGrid1);
+			this.groupBox1.Location = new System.Drawing.Point(8, 8);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(853, 516);
+			this.groupBox1.TabIndex = 0;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Erogazioni legate al contratto corrente";
+			// 
+			// dataGrid1
+			// 
+			this.dataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGrid1.CaptionVisible = false;
-            this.dataGrid1.DataMember = "";
-            this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dataGrid1.Location = new System.Drawing.Point(8, 24);
-            this.dataGrid1.Name = "dataGrid1";
-            this.dataGrid1.Size = new System.Drawing.Size(833, 415);
-            this.dataGrid1.TabIndex = 3;
-            this.dataGrid1.Tag = "expensepayrollview.contratto";
-            // 
-            // tabDatiRiepilogativi
-            // 
-            this.tabDatiRiepilogativi.Controls.Add(this.label68);
-            this.tabDatiRiepilogativi.Controls.Add(this.gridRitenute);
-            this.tabDatiRiepilogativi.Controls.Add(this.txtCompensoNetto);
-            this.tabDatiRiepilogativi.Controls.Add(this.label67);
-            this.tabDatiRiepilogativi.Controls.Add(this.txtLordoAlBeneficiarioRiep);
-            this.tabDatiRiepilogativi.Controls.Add(this.label66);
-            this.tabDatiRiepilogativi.Controls.Add(this.txtCostoTotale);
-            this.tabDatiRiepilogativi.Controls.Add(this.label65);
-            this.tabDatiRiepilogativi.Controls.Add(this.groupBox14);
-            this.tabDatiRiepilogativi.Controls.Add(this.groupBox13);
-            this.tabDatiRiepilogativi.Location = new System.Drawing.Point(4, 22);
-            this.tabDatiRiepilogativi.Name = "tabDatiRiepilogativi";
-            this.tabDatiRiepilogativi.Size = new System.Drawing.Size(865, 461);
-            this.tabDatiRiepilogativi.TabIndex = 12;
-            this.tabDatiRiepilogativi.Text = "Riepilogo";
-            this.tabDatiRiepilogativi.UseVisualStyleBackColor = true;
-            // 
-            // label68
-            // 
-            this.label68.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label68.Location = new System.Drawing.Point(8, 8);
-            this.label68.Name = "label68";
-            this.label68.Size = new System.Drawing.Size(752, 24);
-            this.label68.TabIndex = 9;
-            this.label68.Text = "Dati riepilogativi dei cedolini finora calcolati";
-            this.label68.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // gridRitenute
-            // 
-            this.gridRitenute.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dataGrid1.CaptionVisible = false;
+			this.dataGrid1.DataMember = "";
+			this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGrid1.Location = new System.Drawing.Point(8, 24);
+			this.dataGrid1.Name = "dataGrid1";
+			this.dataGrid1.Size = new System.Drawing.Size(837, 484);
+			this.dataGrid1.TabIndex = 3;
+			this.dataGrid1.Tag = "expensepayrollview.contratto";
+			// 
+			// tabDatiRiepilogativi
+			// 
+			this.tabDatiRiepilogativi.Controls.Add(this.label68);
+			this.tabDatiRiepilogativi.Controls.Add(this.gridRitenute);
+			this.tabDatiRiepilogativi.Controls.Add(this.txtCompensoNetto);
+			this.tabDatiRiepilogativi.Controls.Add(this.label67);
+			this.tabDatiRiepilogativi.Controls.Add(this.txtLordoAlBeneficiarioRiep);
+			this.tabDatiRiepilogativi.Controls.Add(this.label66);
+			this.tabDatiRiepilogativi.Controls.Add(this.txtCostoTotale);
+			this.tabDatiRiepilogativi.Controls.Add(this.label65);
+			this.tabDatiRiepilogativi.Controls.Add(this.groupBox14);
+			this.tabDatiRiepilogativi.Controls.Add(this.groupBox13);
+			this.tabDatiRiepilogativi.Location = new System.Drawing.Point(4, 22);
+			this.tabDatiRiepilogativi.Name = "tabDatiRiepilogativi";
+			this.tabDatiRiepilogativi.Size = new System.Drawing.Size(869, 530);
+			this.tabDatiRiepilogativi.TabIndex = 12;
+			this.tabDatiRiepilogativi.Text = "Riepilogo";
+			this.tabDatiRiepilogativi.UseVisualStyleBackColor = true;
+			// 
+			// label68
+			// 
+			this.label68.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label68.Location = new System.Drawing.Point(8, 8);
+			this.label68.Name = "label68";
+			this.label68.Size = new System.Drawing.Size(752, 24);
+			this.label68.TabIndex = 9;
+			this.label68.Text = "Dati riepilogativi dei cedolini finora calcolati";
+			this.label68.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// gridRitenute
+			// 
+			this.gridRitenute.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridRitenute.CaptionVisible = false;
-            this.gridRitenute.DataMember = "";
-            this.gridRitenute.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.gridRitenute.Location = new System.Drawing.Point(8, 208);
-            this.gridRitenute.Name = "gridRitenute";
-            this.gridRitenute.Size = new System.Drawing.Size(849, 247);
-            this.gridRitenute.TabIndex = 8;
-            // 
-            // txtCompensoNetto
-            // 
-            this.txtCompensoNetto.Location = new System.Drawing.Point(136, 176);
-            this.txtCompensoNetto.Name = "txtCompensoNetto";
-            this.txtCompensoNetto.ReadOnly = true;
-            this.txtCompensoNetto.Size = new System.Drawing.Size(100, 20);
-            this.txtCompensoNetto.TabIndex = 7;
-            this.txtCompensoNetto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label67
-            // 
-            this.label67.Location = new System.Drawing.Point(48, 176);
-            this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(100, 20);
-            this.label67.TabIndex = 6;
-            this.label67.Text = "Compenso netto";
-            this.label67.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtLordoAlBeneficiarioRiep
-            // 
-            this.txtLordoAlBeneficiarioRiep.Location = new System.Drawing.Point(392, 176);
-            this.txtLordoAlBeneficiarioRiep.Name = "txtLordoAlBeneficiarioRiep";
-            this.txtLordoAlBeneficiarioRiep.ReadOnly = true;
-            this.txtLordoAlBeneficiarioRiep.Size = new System.Drawing.Size(100, 20);
-            this.txtLordoAlBeneficiarioRiep.TabIndex = 5;
-            this.txtLordoAlBeneficiarioRiep.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label66
-            // 
-            this.label66.Location = new System.Drawing.Point(288, 176);
-            this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(112, 20);
-            this.label66.TabIndex = 4;
-            this.label66.Text = "Lordo al beneficiario";
-            this.label66.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtCostoTotale
-            // 
-            this.txtCostoTotale.Location = new System.Drawing.Point(616, 176);
-            this.txtCostoTotale.Name = "txtCostoTotale";
-            this.txtCostoTotale.ReadOnly = true;
-            this.txtCostoTotale.Size = new System.Drawing.Size(100, 20);
-            this.txtCostoTotale.TabIndex = 3;
-            this.txtCostoTotale.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label65
-            // 
-            this.label65.Location = new System.Drawing.Point(552, 176);
-            this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(100, 20);
-            this.label65.TabIndex = 2;
-            this.label65.Text = "Costo totale";
-            this.label65.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // groupBox14
-            // 
-            this.groupBox14.Controls.Add(this.txtAssicAmm);
-            this.groupBox14.Controls.Add(this.label61);
-            this.groupBox14.Controls.Add(this.txtAssisAmm);
-            this.groupBox14.Controls.Add(this.label62);
-            this.groupBox14.Controls.Add(this.txtPrevAmm);
-            this.groupBox14.Controls.Add(this.label63);
-            this.groupBox14.Controls.Add(this.txtFiscAmm);
-            this.groupBox14.Controls.Add(this.label64);
-            this.groupBox14.Controls.Add(this.txtTotaleRitAmmin);
-            this.groupBox14.Controls.Add(this.label60);
-            this.groupBox14.Location = new System.Drawing.Point(8, 32);
-            this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(736, 64);
-            this.groupBox14.TabIndex = 1;
-            this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "Ritenute conto Amministrazione";
-            // 
-            // txtAssicAmm
-            // 
-            this.txtAssicAmm.Location = new System.Drawing.Point(408, 32);
-            this.txtAssicAmm.Name = "txtAssicAmm";
-            this.txtAssicAmm.ReadOnly = true;
-            this.txtAssicAmm.Size = new System.Drawing.Size(100, 20);
-            this.txtAssicAmm.TabIndex = 7;
-            this.txtAssicAmm.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label61
-            // 
-            this.label61.Location = new System.Drawing.Point(408, 16);
-            this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(100, 20);
-            this.label61.TabIndex = 6;
-            this.label61.Text = "Assicurative";
-            this.label61.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtAssisAmm
-            // 
-            this.txtAssisAmm.Location = new System.Drawing.Point(288, 32);
-            this.txtAssisAmm.Name = "txtAssisAmm";
-            this.txtAssisAmm.ReadOnly = true;
-            this.txtAssisAmm.Size = new System.Drawing.Size(100, 20);
-            this.txtAssisAmm.TabIndex = 5;
-            this.txtAssisAmm.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label62
-            // 
-            this.label62.Location = new System.Drawing.Point(288, 16);
-            this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(100, 20);
-            this.label62.TabIndex = 4;
-            this.label62.Text = "Assistenziali";
-            this.label62.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtPrevAmm
-            // 
-            this.txtPrevAmm.Location = new System.Drawing.Point(168, 32);
-            this.txtPrevAmm.Name = "txtPrevAmm";
-            this.txtPrevAmm.ReadOnly = true;
-            this.txtPrevAmm.Size = new System.Drawing.Size(100, 20);
-            this.txtPrevAmm.TabIndex = 3;
-            this.txtPrevAmm.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label63
-            // 
-            this.label63.Location = new System.Drawing.Point(168, 16);
-            this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(100, 20);
-            this.label63.TabIndex = 2;
-            this.label63.Text = "Previdenziali";
-            this.label63.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtFiscAmm
-            // 
-            this.txtFiscAmm.Location = new System.Drawing.Point(48, 32);
-            this.txtFiscAmm.Name = "txtFiscAmm";
-            this.txtFiscAmm.ReadOnly = true;
-            this.txtFiscAmm.Size = new System.Drawing.Size(100, 20);
-            this.txtFiscAmm.TabIndex = 1;
-            this.txtFiscAmm.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label64
-            // 
-            this.label64.Location = new System.Drawing.Point(48, 16);
-            this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(100, 20);
-            this.label64.TabIndex = 0;
-            this.label64.Text = "Fiscali";
-            this.label64.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtTotaleRitAmmin
-            // 
-            this.txtTotaleRitAmmin.Location = new System.Drawing.Point(608, 32);
-            this.txtTotaleRitAmmin.Name = "txtTotaleRitAmmin";
-            this.txtTotaleRitAmmin.ReadOnly = true;
-            this.txtTotaleRitAmmin.Size = new System.Drawing.Size(100, 20);
-            this.txtTotaleRitAmmin.TabIndex = 9;
-            this.txtTotaleRitAmmin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label60
-            // 
-            this.label60.Location = new System.Drawing.Point(608, 8);
-            this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(100, 20);
-            this.label60.TabIndex = 8;
-            this.label60.Text = "Totale rit. c/Amm";
-            this.label60.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // groupBox13
-            // 
-            this.groupBox13.Controls.Add(this.txtAssicDip);
-            this.groupBox13.Controls.Add(this.label58);
-            this.groupBox13.Controls.Add(this.txtAssisDip);
-            this.groupBox13.Controls.Add(this.label57);
-            this.groupBox13.Controls.Add(this.txtPrevDip);
-            this.groupBox13.Controls.Add(this.label56);
-            this.groupBox13.Controls.Add(this.txtFiscDip);
-            this.groupBox13.Controls.Add(this.label55);
-            this.groupBox13.Controls.Add(this.txtTotaleRitDip);
-            this.groupBox13.Controls.Add(this.label59);
-            this.groupBox13.Location = new System.Drawing.Point(8, 96);
-            this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(736, 64);
-            this.groupBox13.TabIndex = 0;
-            this.groupBox13.TabStop = false;
-            this.groupBox13.Text = "Ritenute conto dipendente";
-            // 
-            // txtAssicDip
-            // 
-            this.txtAssicDip.Location = new System.Drawing.Point(408, 32);
-            this.txtAssicDip.Name = "txtAssicDip";
-            this.txtAssicDip.ReadOnly = true;
-            this.txtAssicDip.Size = new System.Drawing.Size(100, 20);
-            this.txtAssicDip.TabIndex = 7;
-            this.txtAssicDip.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label58
-            // 
-            this.label58.Location = new System.Drawing.Point(408, 16);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(100, 20);
-            this.label58.TabIndex = 6;
-            this.label58.Text = "Assicurative";
-            this.label58.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtAssisDip
-            // 
-            this.txtAssisDip.Location = new System.Drawing.Point(288, 32);
-            this.txtAssisDip.Name = "txtAssisDip";
-            this.txtAssisDip.ReadOnly = true;
-            this.txtAssisDip.Size = new System.Drawing.Size(100, 20);
-            this.txtAssisDip.TabIndex = 5;
-            this.txtAssisDip.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label57
-            // 
-            this.label57.Location = new System.Drawing.Point(288, 16);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(100, 20);
-            this.label57.TabIndex = 4;
-            this.label57.Text = "Assistenziali";
-            this.label57.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtPrevDip
-            // 
-            this.txtPrevDip.Location = new System.Drawing.Point(168, 32);
-            this.txtPrevDip.Name = "txtPrevDip";
-            this.txtPrevDip.ReadOnly = true;
-            this.txtPrevDip.Size = new System.Drawing.Size(100, 20);
-            this.txtPrevDip.TabIndex = 3;
-            this.txtPrevDip.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label56
-            // 
-            this.label56.Location = new System.Drawing.Point(168, 16);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(100, 20);
-            this.label56.TabIndex = 2;
-            this.label56.Text = "Previdenziali";
-            this.label56.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtFiscDip
-            // 
-            this.txtFiscDip.Location = new System.Drawing.Point(48, 32);
-            this.txtFiscDip.Name = "txtFiscDip";
-            this.txtFiscDip.ReadOnly = true;
-            this.txtFiscDip.Size = new System.Drawing.Size(100, 20);
-            this.txtFiscDip.TabIndex = 1;
-            this.txtFiscDip.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label55
-            // 
-            this.label55.Location = new System.Drawing.Point(48, 16);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(100, 20);
-            this.label55.TabIndex = 0;
-            this.label55.Text = "Fiscali";
-            this.label55.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtTotaleRitDip
-            // 
-            this.txtTotaleRitDip.Location = new System.Drawing.Point(608, 32);
-            this.txtTotaleRitDip.Name = "txtTotaleRitDip";
-            this.txtTotaleRitDip.ReadOnly = true;
-            this.txtTotaleRitDip.Size = new System.Drawing.Size(100, 20);
-            this.txtTotaleRitDip.TabIndex = 9;
-            this.txtTotaleRitDip.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label59
-            // 
-            this.label59.Location = new System.Drawing.Point(608, 8);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(100, 20);
-            this.label59.TabIndex = 8;
-            this.label59.Text = "Totale rit. c/dip";
-            this.label59.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // TabClassSuppl
-            // 
-            this.TabClassSuppl.Controls.Add(this.btnClassElimina);
-            this.TabClassSuppl.Controls.Add(this.btnClassModifica);
-            this.TabClassSuppl.Controls.Add(this.btnClassInserisci);
-            this.TabClassSuppl.Controls.Add(this.dgrClassSuppl);
-            this.TabClassSuppl.ImageIndex = 0;
-            this.TabClassSuppl.Location = new System.Drawing.Point(4, 22);
-            this.TabClassSuppl.Name = "TabClassSuppl";
-            this.TabClassSuppl.Size = new System.Drawing.Size(865, 461);
-            this.TabClassSuppl.TabIndex = 13;
-            this.TabClassSuppl.Text = "Classificazione";
-            this.TabClassSuppl.UseVisualStyleBackColor = true;
-            // 
-            // btnClassElimina
-            // 
-            this.btnClassElimina.Location = new System.Drawing.Point(208, 16);
-            this.btnClassElimina.Name = "btnClassElimina";
-            this.btnClassElimina.Size = new System.Drawing.Size(75, 23);
-            this.btnClassElimina.TabIndex = 29;
-            this.btnClassElimina.Tag = "delete";
-            this.btnClassElimina.Text = "Elimina";
-            // 
-            // btnClassModifica
-            // 
-            this.btnClassModifica.Location = new System.Drawing.Point(112, 16);
-            this.btnClassModifica.Name = "btnClassModifica";
-            this.btnClassModifica.Size = new System.Drawing.Size(75, 23);
-            this.btnClassModifica.TabIndex = 28;
-            this.btnClassModifica.Tag = "edit.default";
-            this.btnClassModifica.Text = "Modifica";
-            // 
-            // btnClassInserisci
-            // 
-            this.btnClassInserisci.Location = new System.Drawing.Point(16, 16);
-            this.btnClassInserisci.Name = "btnClassInserisci";
-            this.btnClassInserisci.Size = new System.Drawing.Size(75, 23);
-            this.btnClassInserisci.TabIndex = 27;
-            this.btnClassInserisci.Tag = "insert.default";
-            this.btnClassInserisci.Text = "Inserisci";
-            // 
-            // dgrClassSuppl
-            // 
-            this.dgrClassSuppl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.gridRitenute.CaptionVisible = false;
+			this.gridRitenute.DataMember = "";
+			this.gridRitenute.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.gridRitenute.Location = new System.Drawing.Point(8, 208);
+			this.gridRitenute.Name = "gridRitenute";
+			this.gridRitenute.Size = new System.Drawing.Size(853, 316);
+			this.gridRitenute.TabIndex = 8;
+			// 
+			// txtCompensoNetto
+			// 
+			this.txtCompensoNetto.Location = new System.Drawing.Point(136, 176);
+			this.txtCompensoNetto.Name = "txtCompensoNetto";
+			this.txtCompensoNetto.ReadOnly = true;
+			this.txtCompensoNetto.Size = new System.Drawing.Size(100, 20);
+			this.txtCompensoNetto.TabIndex = 7;
+			this.txtCompensoNetto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label67
+			// 
+			this.label67.Location = new System.Drawing.Point(48, 176);
+			this.label67.Name = "label67";
+			this.label67.Size = new System.Drawing.Size(100, 20);
+			this.label67.TabIndex = 6;
+			this.label67.Text = "Compenso netto";
+			this.label67.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtLordoAlBeneficiarioRiep
+			// 
+			this.txtLordoAlBeneficiarioRiep.Location = new System.Drawing.Point(392, 176);
+			this.txtLordoAlBeneficiarioRiep.Name = "txtLordoAlBeneficiarioRiep";
+			this.txtLordoAlBeneficiarioRiep.ReadOnly = true;
+			this.txtLordoAlBeneficiarioRiep.Size = new System.Drawing.Size(100, 20);
+			this.txtLordoAlBeneficiarioRiep.TabIndex = 5;
+			this.txtLordoAlBeneficiarioRiep.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label66
+			// 
+			this.label66.Location = new System.Drawing.Point(288, 176);
+			this.label66.Name = "label66";
+			this.label66.Size = new System.Drawing.Size(112, 20);
+			this.label66.TabIndex = 4;
+			this.label66.Text = "Lordo al beneficiario";
+			this.label66.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtCostoTotale
+			// 
+			this.txtCostoTotale.Location = new System.Drawing.Point(616, 176);
+			this.txtCostoTotale.Name = "txtCostoTotale";
+			this.txtCostoTotale.ReadOnly = true;
+			this.txtCostoTotale.Size = new System.Drawing.Size(100, 20);
+			this.txtCostoTotale.TabIndex = 3;
+			this.txtCostoTotale.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label65
+			// 
+			this.label65.Location = new System.Drawing.Point(552, 176);
+			this.label65.Name = "label65";
+			this.label65.Size = new System.Drawing.Size(100, 20);
+			this.label65.TabIndex = 2;
+			this.label65.Text = "Costo totale";
+			this.label65.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// groupBox14
+			// 
+			this.groupBox14.Controls.Add(this.txtAssicAmm);
+			this.groupBox14.Controls.Add(this.label61);
+			this.groupBox14.Controls.Add(this.txtAssisAmm);
+			this.groupBox14.Controls.Add(this.label62);
+			this.groupBox14.Controls.Add(this.txtPrevAmm);
+			this.groupBox14.Controls.Add(this.label63);
+			this.groupBox14.Controls.Add(this.txtFiscAmm);
+			this.groupBox14.Controls.Add(this.label64);
+			this.groupBox14.Controls.Add(this.txtTotaleRitAmmin);
+			this.groupBox14.Controls.Add(this.label60);
+			this.groupBox14.Location = new System.Drawing.Point(8, 32);
+			this.groupBox14.Name = "groupBox14";
+			this.groupBox14.Size = new System.Drawing.Size(736, 64);
+			this.groupBox14.TabIndex = 1;
+			this.groupBox14.TabStop = false;
+			this.groupBox14.Text = "Ritenute conto Amministrazione";
+			// 
+			// txtAssicAmm
+			// 
+			this.txtAssicAmm.Location = new System.Drawing.Point(408, 32);
+			this.txtAssicAmm.Name = "txtAssicAmm";
+			this.txtAssicAmm.ReadOnly = true;
+			this.txtAssicAmm.Size = new System.Drawing.Size(100, 20);
+			this.txtAssicAmm.TabIndex = 7;
+			this.txtAssicAmm.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label61
+			// 
+			this.label61.Location = new System.Drawing.Point(408, 16);
+			this.label61.Name = "label61";
+			this.label61.Size = new System.Drawing.Size(100, 20);
+			this.label61.TabIndex = 6;
+			this.label61.Text = "Assicurative";
+			this.label61.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtAssisAmm
+			// 
+			this.txtAssisAmm.Location = new System.Drawing.Point(288, 32);
+			this.txtAssisAmm.Name = "txtAssisAmm";
+			this.txtAssisAmm.ReadOnly = true;
+			this.txtAssisAmm.Size = new System.Drawing.Size(100, 20);
+			this.txtAssisAmm.TabIndex = 5;
+			this.txtAssisAmm.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label62
+			// 
+			this.label62.Location = new System.Drawing.Point(288, 16);
+			this.label62.Name = "label62";
+			this.label62.Size = new System.Drawing.Size(100, 20);
+			this.label62.TabIndex = 4;
+			this.label62.Text = "Assistenziali";
+			this.label62.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtPrevAmm
+			// 
+			this.txtPrevAmm.Location = new System.Drawing.Point(168, 32);
+			this.txtPrevAmm.Name = "txtPrevAmm";
+			this.txtPrevAmm.ReadOnly = true;
+			this.txtPrevAmm.Size = new System.Drawing.Size(100, 20);
+			this.txtPrevAmm.TabIndex = 3;
+			this.txtPrevAmm.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label63
+			// 
+			this.label63.Location = new System.Drawing.Point(168, 16);
+			this.label63.Name = "label63";
+			this.label63.Size = new System.Drawing.Size(100, 20);
+			this.label63.TabIndex = 2;
+			this.label63.Text = "Previdenziali";
+			this.label63.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtFiscAmm
+			// 
+			this.txtFiscAmm.Location = new System.Drawing.Point(48, 32);
+			this.txtFiscAmm.Name = "txtFiscAmm";
+			this.txtFiscAmm.ReadOnly = true;
+			this.txtFiscAmm.Size = new System.Drawing.Size(100, 20);
+			this.txtFiscAmm.TabIndex = 1;
+			this.txtFiscAmm.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label64
+			// 
+			this.label64.Location = new System.Drawing.Point(48, 16);
+			this.label64.Name = "label64";
+			this.label64.Size = new System.Drawing.Size(100, 20);
+			this.label64.TabIndex = 0;
+			this.label64.Text = "Fiscali";
+			this.label64.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtTotaleRitAmmin
+			// 
+			this.txtTotaleRitAmmin.Location = new System.Drawing.Point(608, 32);
+			this.txtTotaleRitAmmin.Name = "txtTotaleRitAmmin";
+			this.txtTotaleRitAmmin.ReadOnly = true;
+			this.txtTotaleRitAmmin.Size = new System.Drawing.Size(100, 20);
+			this.txtTotaleRitAmmin.TabIndex = 9;
+			this.txtTotaleRitAmmin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label60
+			// 
+			this.label60.Location = new System.Drawing.Point(608, 8);
+			this.label60.Name = "label60";
+			this.label60.Size = new System.Drawing.Size(100, 20);
+			this.label60.TabIndex = 8;
+			this.label60.Text = "Totale rit. c/Amm";
+			this.label60.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// groupBox13
+			// 
+			this.groupBox13.Controls.Add(this.txtAssicDip);
+			this.groupBox13.Controls.Add(this.label58);
+			this.groupBox13.Controls.Add(this.txtAssisDip);
+			this.groupBox13.Controls.Add(this.label57);
+			this.groupBox13.Controls.Add(this.txtPrevDip);
+			this.groupBox13.Controls.Add(this.label56);
+			this.groupBox13.Controls.Add(this.txtFiscDip);
+			this.groupBox13.Controls.Add(this.label55);
+			this.groupBox13.Controls.Add(this.txtTotaleRitDip);
+			this.groupBox13.Controls.Add(this.label59);
+			this.groupBox13.Location = new System.Drawing.Point(8, 96);
+			this.groupBox13.Name = "groupBox13";
+			this.groupBox13.Size = new System.Drawing.Size(736, 64);
+			this.groupBox13.TabIndex = 0;
+			this.groupBox13.TabStop = false;
+			this.groupBox13.Text = "Ritenute conto dipendente";
+			// 
+			// txtAssicDip
+			// 
+			this.txtAssicDip.Location = new System.Drawing.Point(408, 32);
+			this.txtAssicDip.Name = "txtAssicDip";
+			this.txtAssicDip.ReadOnly = true;
+			this.txtAssicDip.Size = new System.Drawing.Size(100, 20);
+			this.txtAssicDip.TabIndex = 7;
+			this.txtAssicDip.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label58
+			// 
+			this.label58.Location = new System.Drawing.Point(408, 16);
+			this.label58.Name = "label58";
+			this.label58.Size = new System.Drawing.Size(100, 20);
+			this.label58.TabIndex = 6;
+			this.label58.Text = "Assicurative";
+			this.label58.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtAssisDip
+			// 
+			this.txtAssisDip.Location = new System.Drawing.Point(288, 32);
+			this.txtAssisDip.Name = "txtAssisDip";
+			this.txtAssisDip.ReadOnly = true;
+			this.txtAssisDip.Size = new System.Drawing.Size(100, 20);
+			this.txtAssisDip.TabIndex = 5;
+			this.txtAssisDip.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label57
+			// 
+			this.label57.Location = new System.Drawing.Point(288, 16);
+			this.label57.Name = "label57";
+			this.label57.Size = new System.Drawing.Size(100, 20);
+			this.label57.TabIndex = 4;
+			this.label57.Text = "Assistenziali";
+			this.label57.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtPrevDip
+			// 
+			this.txtPrevDip.Location = new System.Drawing.Point(168, 32);
+			this.txtPrevDip.Name = "txtPrevDip";
+			this.txtPrevDip.ReadOnly = true;
+			this.txtPrevDip.Size = new System.Drawing.Size(100, 20);
+			this.txtPrevDip.TabIndex = 3;
+			this.txtPrevDip.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label56
+			// 
+			this.label56.Location = new System.Drawing.Point(168, 16);
+			this.label56.Name = "label56";
+			this.label56.Size = new System.Drawing.Size(100, 20);
+			this.label56.TabIndex = 2;
+			this.label56.Text = "Previdenziali";
+			this.label56.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtFiscDip
+			// 
+			this.txtFiscDip.Location = new System.Drawing.Point(48, 32);
+			this.txtFiscDip.Name = "txtFiscDip";
+			this.txtFiscDip.ReadOnly = true;
+			this.txtFiscDip.Size = new System.Drawing.Size(100, 20);
+			this.txtFiscDip.TabIndex = 1;
+			this.txtFiscDip.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label55
+			// 
+			this.label55.Location = new System.Drawing.Point(48, 16);
+			this.label55.Name = "label55";
+			this.label55.Size = new System.Drawing.Size(100, 20);
+			this.label55.TabIndex = 0;
+			this.label55.Text = "Fiscali";
+			this.label55.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtTotaleRitDip
+			// 
+			this.txtTotaleRitDip.Location = new System.Drawing.Point(608, 32);
+			this.txtTotaleRitDip.Name = "txtTotaleRitDip";
+			this.txtTotaleRitDip.ReadOnly = true;
+			this.txtTotaleRitDip.Size = new System.Drawing.Size(100, 20);
+			this.txtTotaleRitDip.TabIndex = 9;
+			this.txtTotaleRitDip.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label59
+			// 
+			this.label59.Location = new System.Drawing.Point(608, 8);
+			this.label59.Name = "label59";
+			this.label59.Size = new System.Drawing.Size(100, 20);
+			this.label59.TabIndex = 8;
+			this.label59.Text = "Totale rit. c/dip";
+			this.label59.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// TabClassSuppl
+			// 
+			this.TabClassSuppl.Controls.Add(this.btnClassElimina);
+			this.TabClassSuppl.Controls.Add(this.btnClassModifica);
+			this.TabClassSuppl.Controls.Add(this.btnClassInserisci);
+			this.TabClassSuppl.Controls.Add(this.dgrClassSuppl);
+			this.TabClassSuppl.ImageIndex = 0;
+			this.TabClassSuppl.Location = new System.Drawing.Point(4, 22);
+			this.TabClassSuppl.Name = "TabClassSuppl";
+			this.TabClassSuppl.Size = new System.Drawing.Size(869, 530);
+			this.TabClassSuppl.TabIndex = 13;
+			this.TabClassSuppl.Text = "Classificazione";
+			this.TabClassSuppl.UseVisualStyleBackColor = true;
+			// 
+			// btnClassElimina
+			// 
+			this.btnClassElimina.Location = new System.Drawing.Point(208, 16);
+			this.btnClassElimina.Name = "btnClassElimina";
+			this.btnClassElimina.Size = new System.Drawing.Size(75, 23);
+			this.btnClassElimina.TabIndex = 29;
+			this.btnClassElimina.Tag = "delete";
+			this.btnClassElimina.Text = "Elimina";
+			// 
+			// btnClassModifica
+			// 
+			this.btnClassModifica.Location = new System.Drawing.Point(112, 16);
+			this.btnClassModifica.Name = "btnClassModifica";
+			this.btnClassModifica.Size = new System.Drawing.Size(75, 23);
+			this.btnClassModifica.TabIndex = 28;
+			this.btnClassModifica.Tag = "edit.default";
+			this.btnClassModifica.Text = "Modifica";
+			// 
+			// btnClassInserisci
+			// 
+			this.btnClassInserisci.Location = new System.Drawing.Point(16, 16);
+			this.btnClassInserisci.Name = "btnClassInserisci";
+			this.btnClassInserisci.Size = new System.Drawing.Size(75, 23);
+			this.btnClassInserisci.TabIndex = 27;
+			this.btnClassInserisci.Tag = "insert.default";
+			this.btnClassInserisci.Text = "Inserisci";
+			// 
+			// dgrClassSuppl
+			// 
+			this.dgrClassSuppl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgrClassSuppl.CaptionVisible = false;
-            this.dgrClassSuppl.DataMember = "";
-            this.dgrClassSuppl.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgrClassSuppl.Location = new System.Drawing.Point(8, 48);
-            this.dgrClassSuppl.Name = "dgrClassSuppl";
-            this.dgrClassSuppl.ReadOnly = true;
-            this.dgrClassSuppl.Size = new System.Drawing.Size(849, 407);
-            this.dgrClassSuppl.TabIndex = 23;
-            this.dgrClassSuppl.Tag = "parasubcontractsorting.default.default";
-            // 
-            // tabEconoPatr
-            // 
-            this.tabEconoPatr.Controls.Add(this.tabControl2);
-            this.tabEconoPatr.Location = new System.Drawing.Point(4, 22);
-            this.tabEconoPatr.Name = "tabEconoPatr";
-            this.tabEconoPatr.Size = new System.Drawing.Size(865, 461);
-            this.tabEconoPatr.TabIndex = 14;
-            this.tabEconoPatr.Text = "E/P";
-            this.tabEconoPatr.UseVisualStyleBackColor = true;
-            // 
-            // tabControl2
-            // 
-            this.tabControl2.Controls.Add(this.tabFinanziario);
-            this.tabControl2.Controls.Add(this.tabAnalitico);
-            this.tabControl2.Controls.Add(this.tabEP);
-            this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl2.Location = new System.Drawing.Point(0, 0);
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(865, 461);
-            this.tabControl2.TabIndex = 0;
-            // 
-            // tabFinanziario
-            // 
-            this.tabFinanziario.Controls.Add(this.gboxUPB);
-            this.tabFinanziario.Location = new System.Drawing.Point(4, 22);
-            this.tabFinanziario.Name = "tabFinanziario";
-            this.tabFinanziario.Size = new System.Drawing.Size(857, 435);
-            this.tabFinanziario.TabIndex = 0;
-            this.tabFinanziario.Text = "Finanziario";
-            // 
-            // gboxUPB
-            // 
-            this.gboxUPB.Controls.Add(this.txtUPB);
-            this.gboxUPB.Controls.Add(this.txtDescrUPB);
-            this.gboxUPB.Controls.Add(this.btnUPBCode);
-            this.gboxUPB.Location = new System.Drawing.Point(3, 3);
-            this.gboxUPB.Name = "gboxUPB";
-            this.gboxUPB.Size = new System.Drawing.Size(413, 104);
-            this.gboxUPB.TabIndex = 9;
-            this.gboxUPB.TabStop = false;
-            this.gboxUPB.Tag = "AutoChoose.txtUPB.default.(active=\'S\')";
-            // 
-            // txtUPB
-            // 
-            this.txtUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.dgrClassSuppl.CaptionVisible = false;
+			this.dgrClassSuppl.DataMember = "";
+			this.dgrClassSuppl.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgrClassSuppl.Location = new System.Drawing.Point(8, 48);
+			this.dgrClassSuppl.Name = "dgrClassSuppl";
+			this.dgrClassSuppl.ReadOnly = true;
+			this.dgrClassSuppl.Size = new System.Drawing.Size(853, 476);
+			this.dgrClassSuppl.TabIndex = 23;
+			this.dgrClassSuppl.Tag = "parasubcontractsorting.default.default";
+			// 
+			// tabEconoPatr
+			// 
+			this.tabEconoPatr.Controls.Add(this.tabControl2);
+			this.tabEconoPatr.Location = new System.Drawing.Point(4, 22);
+			this.tabEconoPatr.Name = "tabEconoPatr";
+			this.tabEconoPatr.Size = new System.Drawing.Size(869, 530);
+			this.tabEconoPatr.TabIndex = 14;
+			this.tabEconoPatr.Text = "E/P";
+			this.tabEconoPatr.UseVisualStyleBackColor = true;
+			// 
+			// tabControl2
+			// 
+			this.tabControl2.Controls.Add(this.tabFinanziario);
+			this.tabControl2.Controls.Add(this.tabAnalitico);
+			this.tabControl2.Controls.Add(this.tabEP);
+			this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tabControl2.Location = new System.Drawing.Point(0, 0);
+			this.tabControl2.Name = "tabControl2";
+			this.tabControl2.SelectedIndex = 0;
+			this.tabControl2.Size = new System.Drawing.Size(869, 530);
+			this.tabControl2.TabIndex = 0;
+			// 
+			// tabFinanziario
+			// 
+			this.tabFinanziario.Controls.Add(this.gboxUPB);
+			this.tabFinanziario.Location = new System.Drawing.Point(4, 22);
+			this.tabFinanziario.Name = "tabFinanziario";
+			this.tabFinanziario.Size = new System.Drawing.Size(861, 504);
+			this.tabFinanziario.TabIndex = 0;
+			this.tabFinanziario.Text = "Finanziario";
+			// 
+			// gboxUPB
+			// 
+			this.gboxUPB.Controls.Add(this.txtUPB);
+			this.gboxUPB.Controls.Add(this.txtDescrUPB);
+			this.gboxUPB.Controls.Add(this.btnUPBCode);
+			this.gboxUPB.Location = new System.Drawing.Point(3, 3);
+			this.gboxUPB.Name = "gboxUPB";
+			this.gboxUPB.Size = new System.Drawing.Size(413, 104);
+			this.gboxUPB.TabIndex = 9;
+			this.gboxUPB.TabStop = false;
+			this.gboxUPB.Tag = "AutoChoose.txtUPB.default.(active=\'S\')";
+			// 
+			// txtUPB
+			// 
+			this.txtUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtUPB.Location = new System.Drawing.Point(8, 77);
-            this.txtUPB.Name = "txtUPB";
-            this.txtUPB.Size = new System.Drawing.Size(396, 20);
-            this.txtUPB.TabIndex = 5;
-            this.txtUPB.Tag = "upb.codeupb?x";
-            // 
-            // txtDescrUPB
-            // 
-            this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtUPB.Location = new System.Drawing.Point(8, 77);
+			this.txtUPB.Name = "txtUPB";
+			this.txtUPB.Size = new System.Drawing.Size(396, 20);
+			this.txtUPB.TabIndex = 5;
+			this.txtUPB.Tag = "upb.codeupb?x";
+			// 
+			// txtDescrUPB
+			// 
+			this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescrUPB.Location = new System.Drawing.Point(175, 9);
-            this.txtDescrUPB.Multiline = true;
-            this.txtDescrUPB.Name = "txtDescrUPB";
-            this.txtDescrUPB.ReadOnly = true;
-            this.txtDescrUPB.Size = new System.Drawing.Size(229, 62);
-            this.txtDescrUPB.TabIndex = 4;
-            this.txtDescrUPB.TabStop = false;
-            this.txtDescrUPB.Tag = "upb.title";
-            // 
-            // btnUPBCode
-            // 
-            this.btnUPBCode.BackColor = System.Drawing.SystemColors.Control;
-            this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUPBCode.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnUPBCode.Location = new System.Drawing.Point(8, 51);
-            this.btnUPBCode.Name = "btnUPBCode";
-            this.btnUPBCode.Size = new System.Drawing.Size(112, 20);
-            this.btnUPBCode.TabIndex = 2;
-            this.btnUPBCode.TabStop = false;
-            this.btnUPBCode.Tag = "manage.upb.tree";
-            this.btnUPBCode.Text = "UPB:";
-            this.btnUPBCode.UseVisualStyleBackColor = false;
-            // 
-            // tabAnalitico
-            // 
-            this.tabAnalitico.Controls.Add(this.gboxclass3);
-            this.tabAnalitico.Controls.Add(this.gboxclass2);
-            this.tabAnalitico.Controls.Add(this.gboxclass1);
-            this.tabAnalitico.Location = new System.Drawing.Point(4, 22);
-            this.tabAnalitico.Name = "tabAnalitico";
-            this.tabAnalitico.Size = new System.Drawing.Size(857, 435);
-            this.tabAnalitico.TabIndex = 1;
-            this.tabAnalitico.Text = "Analitico";
-            // 
-            // gboxclass3
-            // 
-            this.gboxclass3.Controls.Add(this.btnCodice3);
-            this.gboxclass3.Controls.Add(this.txtDenom3);
-            this.gboxclass3.Controls.Add(this.txtCodice3);
-            this.gboxclass3.Location = new System.Drawing.Point(12, 202);
-            this.gboxclass3.Name = "gboxclass3";
-            this.gboxclass3.Size = new System.Drawing.Size(433, 85);
-            this.gboxclass3.TabIndex = 9;
-            this.gboxclass3.TabStop = false;
-            this.gboxclass3.Tag = "AutoManage.txtCodice.treeclassmovimenti";
-            this.gboxclass3.Text = "Classificazione 3";
-            // 
-            // btnCodice3
-            // 
-            this.btnCodice3.Location = new System.Drawing.Point(8, 30);
-            this.btnCodice3.Name = "btnCodice3";
-            this.btnCodice3.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice3.TabIndex = 4;
-            this.btnCodice3.Tag = "manage.sorting3.tree";
-            this.btnCodice3.Text = "Codice";
-            this.btnCodice3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom3
-            // 
-            this.txtDenom3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtDescrUPB.Location = new System.Drawing.Point(175, 9);
+			this.txtDescrUPB.Multiline = true;
+			this.txtDescrUPB.Name = "txtDescrUPB";
+			this.txtDescrUPB.ReadOnly = true;
+			this.txtDescrUPB.Size = new System.Drawing.Size(229, 62);
+			this.txtDescrUPB.TabIndex = 4;
+			this.txtDescrUPB.TabStop = false;
+			this.txtDescrUPB.Tag = "upb.title";
+			// 
+			// btnUPBCode
+			// 
+			this.btnUPBCode.BackColor = System.Drawing.SystemColors.Control;
+			this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnUPBCode.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.btnUPBCode.Location = new System.Drawing.Point(8, 51);
+			this.btnUPBCode.Name = "btnUPBCode";
+			this.btnUPBCode.Size = new System.Drawing.Size(112, 20);
+			this.btnUPBCode.TabIndex = 2;
+			this.btnUPBCode.TabStop = false;
+			this.btnUPBCode.Tag = "manage.upb.tree";
+			this.btnUPBCode.Text = "UPB:";
+			this.btnUPBCode.UseVisualStyleBackColor = false;
+			// 
+			// tabAnalitico
+			// 
+			this.tabAnalitico.Controls.Add(this.gboxclass3);
+			this.tabAnalitico.Controls.Add(this.gboxclass2);
+			this.tabAnalitico.Controls.Add(this.gboxclass1);
+			this.tabAnalitico.Location = new System.Drawing.Point(4, 22);
+			this.tabAnalitico.Name = "tabAnalitico";
+			this.tabAnalitico.Size = new System.Drawing.Size(861, 504);
+			this.tabAnalitico.TabIndex = 1;
+			this.tabAnalitico.Text = "Analitico";
+			// 
+			// gboxclass3
+			// 
+			this.gboxclass3.Controls.Add(this.btnCodice3);
+			this.gboxclass3.Controls.Add(this.txtDenom3);
+			this.gboxclass3.Controls.Add(this.txtCodice3);
+			this.gboxclass3.Location = new System.Drawing.Point(12, 202);
+			this.gboxclass3.Name = "gboxclass3";
+			this.gboxclass3.Size = new System.Drawing.Size(433, 85);
+			this.gboxclass3.TabIndex = 9;
+			this.gboxclass3.TabStop = false;
+			this.gboxclass3.Tag = "AutoManage.txtCodice.treeclassmovimenti";
+			this.gboxclass3.Text = "Classificazione 3";
+			// 
+			// btnCodice3
+			// 
+			this.btnCodice3.Location = new System.Drawing.Point(8, 30);
+			this.btnCodice3.Name = "btnCodice3";
+			this.btnCodice3.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice3.TabIndex = 4;
+			this.btnCodice3.Tag = "manage.sorting3.tree";
+			this.btnCodice3.Text = "Codice";
+			this.btnCodice3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom3
+			// 
+			this.txtDenom3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom3.Location = new System.Drawing.Point(150, 8);
-            this.txtDenom3.Multiline = true;
-            this.txtDenom3.Name = "txtDenom3";
-            this.txtDenom3.ReadOnly = true;
-            this.txtDenom3.Size = new System.Drawing.Size(275, 45);
-            this.txtDenom3.TabIndex = 3;
-            this.txtDenom3.TabStop = false;
-            this.txtDenom3.Tag = "sorting3.description";
-            // 
-            // txtCodice3
-            // 
-            this.txtCodice3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtDenom3.Location = new System.Drawing.Point(150, 8);
+			this.txtDenom3.Multiline = true;
+			this.txtDenom3.Name = "txtDenom3";
+			this.txtDenom3.ReadOnly = true;
+			this.txtDenom3.Size = new System.Drawing.Size(275, 45);
+			this.txtDenom3.TabIndex = 3;
+			this.txtDenom3.TabStop = false;
+			this.txtDenom3.Tag = "sorting3.description";
+			// 
+			// txtCodice3
+			// 
+			this.txtCodice3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtCodice3.Location = new System.Drawing.Point(8, 59);
-            this.txtCodice3.Name = "txtCodice3";
-            this.txtCodice3.Size = new System.Drawing.Size(419, 20);
-            this.txtCodice3.TabIndex = 4;
-            this.txtCodice3.Tag = "sorting3.sortcode?x";
-            // 
-            // gboxclass2
-            // 
-            this.gboxclass2.Controls.Add(this.btnCodice2);
-            this.gboxclass2.Controls.Add(this.txtDenom2);
-            this.gboxclass2.Controls.Add(this.txtCodice2);
-            this.gboxclass2.Location = new System.Drawing.Point(12, 98);
-            this.gboxclass2.Name = "gboxclass2";
-            this.gboxclass2.Size = new System.Drawing.Size(433, 89);
-            this.gboxclass2.TabIndex = 8;
-            this.gboxclass2.TabStop = false;
-            this.gboxclass2.Tag = "AutoManage.txtCodice.treeclassmovimenti";
-            this.gboxclass2.Text = "Classificazione 2";
-            // 
-            // btnCodice2
-            // 
-            this.btnCodice2.Location = new System.Drawing.Point(8, 34);
-            this.btnCodice2.Name = "btnCodice2";
-            this.btnCodice2.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice2.TabIndex = 4;
-            this.btnCodice2.Tag = "manage.sorting2.tree";
-            this.btnCodice2.Text = "Codice";
-            this.btnCodice2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom2
-            // 
-            this.txtDenom2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtCodice3.Location = new System.Drawing.Point(8, 59);
+			this.txtCodice3.Name = "txtCodice3";
+			this.txtCodice3.Size = new System.Drawing.Size(419, 20);
+			this.txtCodice3.TabIndex = 4;
+			this.txtCodice3.Tag = "sorting3.sortcode?x";
+			// 
+			// gboxclass2
+			// 
+			this.gboxclass2.Controls.Add(this.btnCodice2);
+			this.gboxclass2.Controls.Add(this.txtDenom2);
+			this.gboxclass2.Controls.Add(this.txtCodice2);
+			this.gboxclass2.Location = new System.Drawing.Point(12, 98);
+			this.gboxclass2.Name = "gboxclass2";
+			this.gboxclass2.Size = new System.Drawing.Size(433, 89);
+			this.gboxclass2.TabIndex = 8;
+			this.gboxclass2.TabStop = false;
+			this.gboxclass2.Tag = "AutoManage.txtCodice.treeclassmovimenti";
+			this.gboxclass2.Text = "Classificazione 2";
+			// 
+			// btnCodice2
+			// 
+			this.btnCodice2.Location = new System.Drawing.Point(8, 34);
+			this.btnCodice2.Name = "btnCodice2";
+			this.btnCodice2.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice2.TabIndex = 4;
+			this.btnCodice2.Tag = "manage.sorting2.tree";
+			this.btnCodice2.Text = "Codice";
+			this.btnCodice2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom2
+			// 
+			this.txtDenom2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom2.Location = new System.Drawing.Point(150, 8);
-            this.txtDenom2.Multiline = true;
-            this.txtDenom2.Name = "txtDenom2";
-            this.txtDenom2.ReadOnly = true;
-            this.txtDenom2.Size = new System.Drawing.Size(275, 52);
-            this.txtDenom2.TabIndex = 3;
-            this.txtDenom2.TabStop = false;
-            this.txtDenom2.Tag = "sorting2.description";
-            // 
-            // txtCodice2
-            // 
-            this.txtCodice2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtDenom2.Location = new System.Drawing.Point(150, 8);
+			this.txtDenom2.Multiline = true;
+			this.txtDenom2.Name = "txtDenom2";
+			this.txtDenom2.ReadOnly = true;
+			this.txtDenom2.Size = new System.Drawing.Size(275, 52);
+			this.txtDenom2.TabIndex = 3;
+			this.txtDenom2.TabStop = false;
+			this.txtDenom2.Tag = "sorting2.description";
+			// 
+			// txtCodice2
+			// 
+			this.txtCodice2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtCodice2.Location = new System.Drawing.Point(8, 63);
-            this.txtCodice2.Name = "txtCodice2";
-            this.txtCodice2.Size = new System.Drawing.Size(417, 20);
-            this.txtCodice2.TabIndex = 2;
-            this.txtCodice2.Tag = "sorting2.sortcode?x";
-            // 
-            // gboxclass1
-            // 
-            this.gboxclass1.Controls.Add(this.btnCodice1);
-            this.gboxclass1.Controls.Add(this.txtDenom1);
-            this.gboxclass1.Controls.Add(this.txtCodice1);
-            this.gboxclass1.Location = new System.Drawing.Point(12, 3);
-            this.gboxclass1.Name = "gboxclass1";
-            this.gboxclass1.Size = new System.Drawing.Size(433, 89);
-            this.gboxclass1.TabIndex = 7;
-            this.gboxclass1.TabStop = false;
-            this.gboxclass1.Tag = "AutoManage.txtCodice.treeclassmovimenti";
-            this.gboxclass1.Text = "Classificazione 1";
-            // 
-            // btnCodice1
-            // 
-            this.btnCodice1.Location = new System.Drawing.Point(8, 37);
-            this.btnCodice1.Name = "btnCodice1";
-            this.btnCodice1.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice1.TabIndex = 4;
-            this.btnCodice1.Tag = "manage.sorting1.tree";
-            this.btnCodice1.Text = "Codice";
-            this.btnCodice1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom1
-            // 
-            this.txtDenom1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtCodice2.Location = new System.Drawing.Point(8, 63);
+			this.txtCodice2.Name = "txtCodice2";
+			this.txtCodice2.Size = new System.Drawing.Size(417, 20);
+			this.txtCodice2.TabIndex = 2;
+			this.txtCodice2.Tag = "sorting2.sortcode?x";
+			// 
+			// gboxclass1
+			// 
+			this.gboxclass1.Controls.Add(this.btnCodice1);
+			this.gboxclass1.Controls.Add(this.txtDenom1);
+			this.gboxclass1.Controls.Add(this.txtCodice1);
+			this.gboxclass1.Location = new System.Drawing.Point(12, 3);
+			this.gboxclass1.Name = "gboxclass1";
+			this.gboxclass1.Size = new System.Drawing.Size(433, 89);
+			this.gboxclass1.TabIndex = 7;
+			this.gboxclass1.TabStop = false;
+			this.gboxclass1.Tag = "AutoManage.txtCodice.treeclassmovimenti";
+			this.gboxclass1.Text = "Classificazione 1";
+			// 
+			// btnCodice1
+			// 
+			this.btnCodice1.Location = new System.Drawing.Point(8, 37);
+			this.btnCodice1.Name = "btnCodice1";
+			this.btnCodice1.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice1.TabIndex = 4;
+			this.btnCodice1.Tag = "manage.sorting1.tree";
+			this.btnCodice1.Text = "Codice";
+			this.btnCodice1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom1
+			// 
+			this.txtDenom1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom1.Location = new System.Drawing.Point(150, 8);
-            this.txtDenom1.Multiline = true;
-            this.txtDenom1.Name = "txtDenom1";
-            this.txtDenom1.ReadOnly = true;
-            this.txtDenom1.Size = new System.Drawing.Size(275, 52);
-            this.txtDenom1.TabIndex = 3;
-            this.txtDenom1.TabStop = false;
-            this.txtDenom1.Tag = "sorting1.description";
-            // 
-            // txtCodice1
-            // 
-            this.txtCodice1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtDenom1.Location = new System.Drawing.Point(150, 8);
+			this.txtDenom1.Multiline = true;
+			this.txtDenom1.Name = "txtDenom1";
+			this.txtDenom1.ReadOnly = true;
+			this.txtDenom1.Size = new System.Drawing.Size(275, 52);
+			this.txtDenom1.TabIndex = 3;
+			this.txtDenom1.TabStop = false;
+			this.txtDenom1.Tag = "sorting1.description";
+			// 
+			// txtCodice1
+			// 
+			this.txtCodice1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtCodice1.Location = new System.Drawing.Point(8, 63);
-            this.txtCodice1.Name = "txtCodice1";
-            this.txtCodice1.Size = new System.Drawing.Size(417, 20);
-            this.txtCodice1.TabIndex = 2;
-            this.txtCodice1.Tag = "sorting1.sortcode?x";
-            // 
-            // tabEP
-            // 
-            this.tabEP.Controls.Add(this.grpBoxSiopeEP);
-            this.tabEP.Controls.Add(this.label19);
-            this.tabEP.Controls.Add(this.textBox8);
-            this.tabEP.Controls.Add(this.gBoxCausaleDebitoCrg);
-            this.tabEP.Controls.Add(this.gBoxCausaleDebito);
-            this.tabEP.Controls.Add(this.gBoxCausaleCosto);
-            this.tabEP.Location = new System.Drawing.Point(4, 22);
-            this.tabEP.Name = "tabEP";
-            this.tabEP.Size = new System.Drawing.Size(857, 435);
-            this.tabEP.TabIndex = 2;
-            this.tabEP.Text = "E/P";
-            // 
-            // grpBoxSiopeEP
-            // 
-            this.grpBoxSiopeEP.Controls.Add(this.btnSiope);
-            this.grpBoxSiopeEP.Controls.Add(this.txtDescSiope);
-            this.grpBoxSiopeEP.Controls.Add(this.txtCodSiope);
-            this.grpBoxSiopeEP.Location = new System.Drawing.Point(364, 40);
-            this.grpBoxSiopeEP.Name = "grpBoxSiopeEP";
-            this.grpBoxSiopeEP.Size = new System.Drawing.Size(320, 92);
-            this.grpBoxSiopeEP.TabIndex = 52;
-            this.grpBoxSiopeEP.TabStop = false;
-            this.grpBoxSiopeEP.Tag = "AutoChoose.txtCodSiope.tree";
-            this.grpBoxSiopeEP.Text = "Class.SIOPE";
-            // 
-            // btnSiope
-            // 
-            this.btnSiope.Location = new System.Drawing.Point(8, 35);
-            this.btnSiope.Name = "btnSiope";
-            this.btnSiope.Size = new System.Drawing.Size(106, 20);
-            this.btnSiope.TabIndex = 11;
-            this.btnSiope.Text = "Codice";
-            this.btnSiope.UseVisualStyleBackColor = true;
-            // 
-            // txtDescSiope
-            // 
-            this.txtDescSiope.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtCodice1.Location = new System.Drawing.Point(8, 63);
+			this.txtCodice1.Name = "txtCodice1";
+			this.txtCodice1.Size = new System.Drawing.Size(417, 20);
+			this.txtCodice1.TabIndex = 2;
+			this.txtCodice1.Tag = "sorting1.sortcode?x";
+			// 
+			// tabEP
+			// 
+			this.tabEP.Controls.Add(this.grpBoxSiopeEP);
+			this.tabEP.Controls.Add(this.label19);
+			this.tabEP.Controls.Add(this.textBox8);
+			this.tabEP.Controls.Add(this.gBoxCausaleDebitoCrg);
+			this.tabEP.Controls.Add(this.gBoxCausaleDebito);
+			this.tabEP.Controls.Add(this.gBoxCausaleCosto);
+			this.tabEP.Location = new System.Drawing.Point(4, 22);
+			this.tabEP.Name = "tabEP";
+			this.tabEP.Size = new System.Drawing.Size(861, 504);
+			this.tabEP.TabIndex = 2;
+			this.tabEP.Text = "E/P";
+			// 
+			// grpBoxSiopeEP
+			// 
+			this.grpBoxSiopeEP.Controls.Add(this.btnSiope);
+			this.grpBoxSiopeEP.Controls.Add(this.txtDescSiope);
+			this.grpBoxSiopeEP.Controls.Add(this.txtCodSiope);
+			this.grpBoxSiopeEP.Location = new System.Drawing.Point(364, 40);
+			this.grpBoxSiopeEP.Name = "grpBoxSiopeEP";
+			this.grpBoxSiopeEP.Size = new System.Drawing.Size(320, 92);
+			this.grpBoxSiopeEP.TabIndex = 52;
+			this.grpBoxSiopeEP.TabStop = false;
+			this.grpBoxSiopeEP.Tag = "AutoChoose.txtCodSiope.tree";
+			this.grpBoxSiopeEP.Text = "Class.SIOPE";
+			// 
+			// btnSiope
+			// 
+			this.btnSiope.Location = new System.Drawing.Point(8, 35);
+			this.btnSiope.Name = "btnSiope";
+			this.btnSiope.Size = new System.Drawing.Size(106, 20);
+			this.btnSiope.TabIndex = 11;
+			this.btnSiope.Text = "Codice";
+			this.btnSiope.UseVisualStyleBackColor = true;
+			// 
+			// txtDescSiope
+			// 
+			this.txtDescSiope.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescSiope.Location = new System.Drawing.Point(118, 12);
-            this.txtDescSiope.Multiline = true;
-            this.txtDescSiope.Name = "txtDescSiope";
-            this.txtDescSiope.ReadOnly = true;
-            this.txtDescSiope.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescSiope.Size = new System.Drawing.Size(194, 69);
-            this.txtDescSiope.TabIndex = 2;
-            this.txtDescSiope.Tag = "sorting_siope.description";
-            // 
-            // txtCodSiope
-            // 
-            this.txtCodSiope.Location = new System.Drawing.Point(8, 61);
-            this.txtCodSiope.Name = "txtCodSiope";
-            this.txtCodSiope.Size = new System.Drawing.Size(108, 20);
-            this.txtCodSiope.TabIndex = 9;
-            this.txtCodSiope.Tag = "sorting_siope.sortcode?x";
-            // 
-            // label19
-            // 
-            this.label19.Location = new System.Drawing.Point(365, 135);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(265, 16);
-            this.label19.TabIndex = 16;
-            this.label19.Text = "Data correzione causale di debito";
-            // 
-            // textBox8
-            // 
-            this.textBox8.Location = new System.Drawing.Point(364, 154);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(134, 20);
-            this.textBox8.TabIndex = 2;
-            this.textBox8.Tag = "parasubcontract.idaccmotivedebit_datacrg";
-            // 
-            // gBoxCausaleDebitoCrg
-            // 
-            this.gBoxCausaleDebitoCrg.Controls.Add(this.textBox9);
-            this.gBoxCausaleDebitoCrg.Controls.Add(this.txtCodiceCausaleCrg);
-            this.gBoxCausaleDebitoCrg.Controls.Add(this.button8);
-            this.gBoxCausaleDebitoCrg.Location = new System.Drawing.Point(364, 180);
-            this.gBoxCausaleDebitoCrg.Name = "gBoxCausaleDebitoCrg";
-            this.gBoxCausaleDebitoCrg.Size = new System.Drawing.Size(328, 149);
-            this.gBoxCausaleDebitoCrg.TabIndex = 3;
-            this.gBoxCausaleDebitoCrg.TabStop = false;
-            this.gBoxCausaleDebitoCrg.Tag = "AutoManage.txtCodiceCausaleCrg.tree.(in_use = \'S\')";
-            this.gBoxCausaleDebitoCrg.Text = "Causale di debito aggiornata";
-            this.gBoxCausaleDebitoCrg.UseCompatibleTextRendering = true;
-            // 
-            // textBox9
-            // 
-            this.textBox9.Location = new System.Drawing.Point(120, 16);
-            this.textBox9.Multiline = true;
-            this.textBox9.Name = "textBox9";
-            this.textBox9.ReadOnly = true;
-            this.textBox9.Size = new System.Drawing.Size(200, 92);
-            this.textBox9.TabIndex = 2;
-            this.textBox9.TabStop = false;
-            this.textBox9.Tag = "accmotiveapplied_crg.motive";
-            // 
-            // txtCodiceCausaleCrg
-            // 
-            this.txtCodiceCausaleCrg.Location = new System.Drawing.Point(8, 114);
-            this.txtCodiceCausaleCrg.Name = "txtCodiceCausaleCrg";
-            this.txtCodiceCausaleCrg.Size = new System.Drawing.Size(312, 20);
-            this.txtCodiceCausaleCrg.TabIndex = 1;
-            this.txtCodiceCausaleCrg.Tag = "accmotiveapplied_crg.codemotive?parasubcontractview.codemotivedebit_crg";
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(10, 85);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(104, 23);
-            this.button8.TabIndex = 0;
-            this.button8.Tag = "manage.accmotiveapplied_crg.tree";
-            this.button8.Text = "Causale";
-            // 
-            // gBoxCausaleDebito
-            // 
-            this.gBoxCausaleDebito.Controls.Add(this.textBox10);
-            this.gBoxCausaleDebito.Controls.Add(this.txtCodiceCausaleDeb);
-            this.gBoxCausaleDebito.Controls.Add(this.button21);
-            this.gBoxCausaleDebito.Location = new System.Drawing.Point(16, 180);
-            this.gBoxCausaleDebito.Name = "gBoxCausaleDebito";
-            this.gBoxCausaleDebito.Size = new System.Drawing.Size(328, 149);
-            this.gBoxCausaleDebito.TabIndex = 1;
-            this.gBoxCausaleDebito.TabStop = false;
-            this.gBoxCausaleDebito.Tag = "AutoManage.txtCodiceCausaleDeb.tree.(in_use = \'S\')";
-            this.gBoxCausaleDebito.Text = "Causale di debito";
-            this.gBoxCausaleDebito.UseCompatibleTextRendering = true;
-            // 
-            // textBox10
-            // 
-            this.textBox10.Location = new System.Drawing.Point(120, 16);
-            this.textBox10.Multiline = true;
-            this.textBox10.Name = "textBox10";
-            this.textBox10.ReadOnly = true;
-            this.textBox10.Size = new System.Drawing.Size(200, 92);
-            this.textBox10.TabIndex = 2;
-            this.textBox10.TabStop = false;
-            this.textBox10.Tag = "accmotiveapplied_debit.motive";
-            // 
-            // txtCodiceCausaleDeb
-            // 
-            this.txtCodiceCausaleDeb.Location = new System.Drawing.Point(6, 114);
-            this.txtCodiceCausaleDeb.Name = "txtCodiceCausaleDeb";
-            this.txtCodiceCausaleDeb.Size = new System.Drawing.Size(314, 20);
-            this.txtCodiceCausaleDeb.TabIndex = 1;
-            this.txtCodiceCausaleDeb.Tag = "accmotiveapplied_debit.codemotive?parasubcontractview.codemotivedebit";
-            // 
-            // button21
-            // 
-            this.button21.Location = new System.Drawing.Point(10, 85);
-            this.button21.Name = "button21";
-            this.button21.Size = new System.Drawing.Size(104, 23);
-            this.button21.TabIndex = 0;
-            this.button21.Tag = "manage.accmotiveapplied_debit.tree";
-            this.button21.Text = "Causale";
-            // 
-            // gBoxCausaleCosto
-            // 
-            this.gBoxCausaleCosto.Controls.Add(this.textBox5);
-            this.gBoxCausaleCosto.Controls.Add(this.txtCodiceCausale);
-            this.gBoxCausaleCosto.Controls.Add(this.button17);
-            this.gBoxCausaleCosto.Location = new System.Drawing.Point(16, 31);
-            this.gBoxCausaleCosto.Name = "gBoxCausaleCosto";
-            this.gBoxCausaleCosto.Size = new System.Drawing.Size(328, 143);
-            this.gBoxCausaleCosto.TabIndex = 1;
-            this.gBoxCausaleCosto.TabStop = false;
-            this.gBoxCausaleCosto.Tag = "AutoManage.txtCodiceCausale.tree.(in_use=\'S\')";
-            this.gBoxCausaleCosto.Text = "Causale";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(120, 16);
-            this.textBox5.Multiline = true;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(200, 95);
-            this.textBox5.TabIndex = 2;
-            this.textBox5.TabStop = false;
-            this.textBox5.Tag = "accmotiveapplied_cost.motive";
-            // 
-            // txtCodiceCausale
-            // 
-            this.txtCodiceCausale.Location = new System.Drawing.Point(8, 117);
-            this.txtCodiceCausale.Name = "txtCodiceCausale";
-            this.txtCodiceCausale.Size = new System.Drawing.Size(312, 20);
-            this.txtCodiceCausale.TabIndex = 1;
-            this.txtCodiceCausale.Tag = "accmotiveapplied_cost.codemotive?parasubcontractview.codemotive";
-            // 
-            // button17
-            // 
-            this.button17.Location = new System.Drawing.Point(10, 88);
-            this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(104, 23);
-            this.button17.TabIndex = 0;
-            this.button17.Tag = "manage.accmotiveapplied_cost.tree";
-            this.button17.Text = "Causale";
-            // 
-            // tabAttributi
-            // 
-            this.tabAttributi.Controls.Add(this.gboxclass05);
-            this.tabAttributi.Controls.Add(this.gboxclass04);
-            this.tabAttributi.Controls.Add(this.gboxclass03);
-            this.tabAttributi.Controls.Add(this.gboxclass02);
-            this.tabAttributi.Controls.Add(this.gboxclass01);
-            this.tabAttributi.Location = new System.Drawing.Point(4, 22);
-            this.tabAttributi.Name = "tabAttributi";
-            this.tabAttributi.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAttributi.Size = new System.Drawing.Size(865, 461);
-            this.tabAttributi.TabIndex = 16;
-            this.tabAttributi.Text = "Attributi";
-            this.tabAttributi.UseVisualStyleBackColor = true;
-            // 
-            // gboxclass05
-            // 
-            this.gboxclass05.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDescSiope.Location = new System.Drawing.Point(118, 12);
+			this.txtDescSiope.Multiline = true;
+			this.txtDescSiope.Name = "txtDescSiope";
+			this.txtDescSiope.ReadOnly = true;
+			this.txtDescSiope.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtDescSiope.Size = new System.Drawing.Size(194, 69);
+			this.txtDescSiope.TabIndex = 2;
+			this.txtDescSiope.Tag = "sorting_siope.description";
+			// 
+			// txtCodSiope
+			// 
+			this.txtCodSiope.Location = new System.Drawing.Point(8, 61);
+			this.txtCodSiope.Name = "txtCodSiope";
+			this.txtCodSiope.Size = new System.Drawing.Size(108, 20);
+			this.txtCodSiope.TabIndex = 9;
+			this.txtCodSiope.Tag = "sorting_siope.sortcode?x";
+			// 
+			// label19
+			// 
+			this.label19.Location = new System.Drawing.Point(365, 135);
+			this.label19.Name = "label19";
+			this.label19.Size = new System.Drawing.Size(265, 16);
+			this.label19.TabIndex = 16;
+			this.label19.Text = "Data correzione causale di debito";
+			// 
+			// textBox8
+			// 
+			this.textBox8.Location = new System.Drawing.Point(364, 154);
+			this.textBox8.Name = "textBox8";
+			this.textBox8.Size = new System.Drawing.Size(134, 20);
+			this.textBox8.TabIndex = 2;
+			this.textBox8.Tag = "parasubcontract.idaccmotivedebit_datacrg";
+			// 
+			// gBoxCausaleDebitoCrg
+			// 
+			this.gBoxCausaleDebitoCrg.Controls.Add(this.textBox9);
+			this.gBoxCausaleDebitoCrg.Controls.Add(this.txtCodiceCausaleCrg);
+			this.gBoxCausaleDebitoCrg.Controls.Add(this.button8);
+			this.gBoxCausaleDebitoCrg.Location = new System.Drawing.Point(364, 180);
+			this.gBoxCausaleDebitoCrg.Name = "gBoxCausaleDebitoCrg";
+			this.gBoxCausaleDebitoCrg.Size = new System.Drawing.Size(328, 149);
+			this.gBoxCausaleDebitoCrg.TabIndex = 3;
+			this.gBoxCausaleDebitoCrg.TabStop = false;
+			this.gBoxCausaleDebitoCrg.Tag = "AutoManage.txtCodiceCausaleCrg.tree.(in_use = \'S\')";
+			this.gBoxCausaleDebitoCrg.Text = "Causale di debito aggiornata";
+			this.gBoxCausaleDebitoCrg.UseCompatibleTextRendering = true;
+			// 
+			// textBox9
+			// 
+			this.textBox9.Location = new System.Drawing.Point(120, 16);
+			this.textBox9.Multiline = true;
+			this.textBox9.Name = "textBox9";
+			this.textBox9.ReadOnly = true;
+			this.textBox9.Size = new System.Drawing.Size(200, 92);
+			this.textBox9.TabIndex = 2;
+			this.textBox9.TabStop = false;
+			this.textBox9.Tag = "accmotiveapplied_crg.motive";
+			// 
+			// txtCodiceCausaleCrg
+			// 
+			this.txtCodiceCausaleCrg.Location = new System.Drawing.Point(8, 114);
+			this.txtCodiceCausaleCrg.Name = "txtCodiceCausaleCrg";
+			this.txtCodiceCausaleCrg.Size = new System.Drawing.Size(312, 20);
+			this.txtCodiceCausaleCrg.TabIndex = 1;
+			this.txtCodiceCausaleCrg.Tag = "accmotiveapplied_crg.codemotive?parasubcontractview.codemotivedebit_crg";
+			// 
+			// button8
+			// 
+			this.button8.Location = new System.Drawing.Point(10, 85);
+			this.button8.Name = "button8";
+			this.button8.Size = new System.Drawing.Size(104, 23);
+			this.button8.TabIndex = 0;
+			this.button8.Tag = "manage.accmotiveapplied_crg.tree";
+			this.button8.Text = "Causale";
+			// 
+			// gBoxCausaleDebito
+			// 
+			this.gBoxCausaleDebito.Controls.Add(this.textBox10);
+			this.gBoxCausaleDebito.Controls.Add(this.txtCodiceCausaleDeb);
+			this.gBoxCausaleDebito.Controls.Add(this.button21);
+			this.gBoxCausaleDebito.Location = new System.Drawing.Point(16, 180);
+			this.gBoxCausaleDebito.Name = "gBoxCausaleDebito";
+			this.gBoxCausaleDebito.Size = new System.Drawing.Size(328, 149);
+			this.gBoxCausaleDebito.TabIndex = 1;
+			this.gBoxCausaleDebito.TabStop = false;
+			this.gBoxCausaleDebito.Tag = "AutoManage.txtCodiceCausaleDeb.tree.(in_use = \'S\')";
+			this.gBoxCausaleDebito.Text = "Causale di debito";
+			this.gBoxCausaleDebito.UseCompatibleTextRendering = true;
+			// 
+			// textBox10
+			// 
+			this.textBox10.Location = new System.Drawing.Point(120, 16);
+			this.textBox10.Multiline = true;
+			this.textBox10.Name = "textBox10";
+			this.textBox10.ReadOnly = true;
+			this.textBox10.Size = new System.Drawing.Size(200, 92);
+			this.textBox10.TabIndex = 2;
+			this.textBox10.TabStop = false;
+			this.textBox10.Tag = "accmotiveapplied_debit.motive";
+			// 
+			// txtCodiceCausaleDeb
+			// 
+			this.txtCodiceCausaleDeb.Location = new System.Drawing.Point(6, 114);
+			this.txtCodiceCausaleDeb.Name = "txtCodiceCausaleDeb";
+			this.txtCodiceCausaleDeb.Size = new System.Drawing.Size(314, 20);
+			this.txtCodiceCausaleDeb.TabIndex = 1;
+			this.txtCodiceCausaleDeb.Tag = "accmotiveapplied_debit.codemotive?parasubcontractview.codemotivedebit";
+			// 
+			// button21
+			// 
+			this.button21.Location = new System.Drawing.Point(10, 85);
+			this.button21.Name = "button21";
+			this.button21.Size = new System.Drawing.Size(104, 23);
+			this.button21.TabIndex = 0;
+			this.button21.Tag = "manage.accmotiveapplied_debit.tree";
+			this.button21.Text = "Causale";
+			// 
+			// gBoxCausaleCosto
+			// 
+			this.gBoxCausaleCosto.Controls.Add(this.textBox5);
+			this.gBoxCausaleCosto.Controls.Add(this.txtCodiceCausale);
+			this.gBoxCausaleCosto.Controls.Add(this.button17);
+			this.gBoxCausaleCosto.Location = new System.Drawing.Point(16, 31);
+			this.gBoxCausaleCosto.Name = "gBoxCausaleCosto";
+			this.gBoxCausaleCosto.Size = new System.Drawing.Size(328, 143);
+			this.gBoxCausaleCosto.TabIndex = 1;
+			this.gBoxCausaleCosto.TabStop = false;
+			this.gBoxCausaleCosto.Tag = "AutoManage.txtCodiceCausale.tree.(in_use=\'S\')";
+			this.gBoxCausaleCosto.Text = "Causale";
+			// 
+			// textBox5
+			// 
+			this.textBox5.Location = new System.Drawing.Point(120, 16);
+			this.textBox5.Multiline = true;
+			this.textBox5.Name = "textBox5";
+			this.textBox5.ReadOnly = true;
+			this.textBox5.Size = new System.Drawing.Size(200, 95);
+			this.textBox5.TabIndex = 2;
+			this.textBox5.TabStop = false;
+			this.textBox5.Tag = "accmotiveapplied_cost.motive";
+			// 
+			// txtCodiceCausale
+			// 
+			this.txtCodiceCausale.Location = new System.Drawing.Point(8, 117);
+			this.txtCodiceCausale.Name = "txtCodiceCausale";
+			this.txtCodiceCausale.Size = new System.Drawing.Size(312, 20);
+			this.txtCodiceCausale.TabIndex = 1;
+			this.txtCodiceCausale.Tag = "accmotiveapplied_cost.codemotive?parasubcontractview.codemotive";
+			// 
+			// button17
+			// 
+			this.button17.Location = new System.Drawing.Point(10, 88);
+			this.button17.Name = "button17";
+			this.button17.Size = new System.Drawing.Size(104, 23);
+			this.button17.TabIndex = 0;
+			this.button17.Tag = "manage.accmotiveapplied_cost.tree";
+			this.button17.Text = "Causale";
+			// 
+			// tabAttributi
+			// 
+			this.tabAttributi.Controls.Add(this.gboxclass05);
+			this.tabAttributi.Controls.Add(this.gboxclass04);
+			this.tabAttributi.Controls.Add(this.gboxclass03);
+			this.tabAttributi.Controls.Add(this.gboxclass02);
+			this.tabAttributi.Controls.Add(this.gboxclass01);
+			this.tabAttributi.Location = new System.Drawing.Point(4, 22);
+			this.tabAttributi.Name = "tabAttributi";
+			this.tabAttributi.Padding = new System.Windows.Forms.Padding(3);
+			this.tabAttributi.Size = new System.Drawing.Size(869, 530);
+			this.tabAttributi.TabIndex = 16;
+			this.tabAttributi.Text = "Attributi";
+			this.tabAttributi.UseVisualStyleBackColor = true;
+			// 
+			// gboxclass05
+			// 
+			this.gboxclass05.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxclass05.Controls.Add(this.txtCodice05);
-            this.gboxclass05.Controls.Add(this.btnCodice05);
-            this.gboxclass05.Controls.Add(this.txtDenom05);
-            this.gboxclass05.Location = new System.Drawing.Point(6, 286);
-            this.gboxclass05.Name = "gboxclass05";
-            this.gboxclass05.Size = new System.Drawing.Size(567, 64);
-            this.gboxclass05.TabIndex = 38;
-            this.gboxclass05.TabStop = false;
-            this.gboxclass05.Tag = "";
-            this.gboxclass05.Text = "Classificazione 5";
-            // 
-            // txtCodice05
-            // 
-            this.txtCodice05.Location = new System.Drawing.Point(9, 38);
-            this.txtCodice05.Name = "txtCodice05";
-            this.txtCodice05.Size = new System.Drawing.Size(219, 20);
-            this.txtCodice05.TabIndex = 6;
-            // 
-            // btnCodice05
-            // 
-            this.btnCodice05.Location = new System.Drawing.Point(8, 16);
-            this.btnCodice05.Name = "btnCodice05";
-            this.btnCodice05.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice05.TabIndex = 4;
-            this.btnCodice05.Tag = "manage.sorting05.tree";
-            this.btnCodice05.Text = "Codice";
-            this.btnCodice05.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom05
-            // 
-            this.txtDenom05.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.gboxclass05.Controls.Add(this.txtCodice05);
+			this.gboxclass05.Controls.Add(this.btnCodice05);
+			this.gboxclass05.Controls.Add(this.txtDenom05);
+			this.gboxclass05.Location = new System.Drawing.Point(6, 286);
+			this.gboxclass05.Name = "gboxclass05";
+			this.gboxclass05.Size = new System.Drawing.Size(571, 64);
+			this.gboxclass05.TabIndex = 38;
+			this.gboxclass05.TabStop = false;
+			this.gboxclass05.Tag = "";
+			this.gboxclass05.Text = "Classificazione 5";
+			// 
+			// txtCodice05
+			// 
+			this.txtCodice05.Location = new System.Drawing.Point(9, 38);
+			this.txtCodice05.Name = "txtCodice05";
+			this.txtCodice05.Size = new System.Drawing.Size(219, 20);
+			this.txtCodice05.TabIndex = 6;
+			// 
+			// btnCodice05
+			// 
+			this.btnCodice05.Location = new System.Drawing.Point(8, 16);
+			this.btnCodice05.Name = "btnCodice05";
+			this.btnCodice05.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice05.TabIndex = 4;
+			this.btnCodice05.Tag = "manage.sorting05.tree";
+			this.btnCodice05.Text = "Codice";
+			this.btnCodice05.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom05
+			// 
+			this.txtDenom05.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom05.Location = new System.Drawing.Point(234, 8);
-            this.txtDenom05.Multiline = true;
-            this.txtDenom05.Name = "txtDenom05";
-            this.txtDenom05.ReadOnly = true;
-            this.txtDenom05.Size = new System.Drawing.Size(325, 52);
-            this.txtDenom05.TabIndex = 3;
-            this.txtDenom05.TabStop = false;
-            this.txtDenom05.Tag = "sorting05.description";
-            // 
-            // gboxclass04
-            // 
-            this.gboxclass04.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDenom05.Location = new System.Drawing.Point(234, 8);
+			this.txtDenom05.Multiline = true;
+			this.txtDenom05.Name = "txtDenom05";
+			this.txtDenom05.ReadOnly = true;
+			this.txtDenom05.Size = new System.Drawing.Size(329, 52);
+			this.txtDenom05.TabIndex = 3;
+			this.txtDenom05.TabStop = false;
+			this.txtDenom05.Tag = "sorting05.description";
+			// 
+			// gboxclass04
+			// 
+			this.gboxclass04.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxclass04.Controls.Add(this.txtCodice04);
-            this.gboxclass04.Controls.Add(this.btnCodice04);
-            this.gboxclass04.Controls.Add(this.txtDenom04);
-            this.gboxclass04.Location = new System.Drawing.Point(6, 216);
-            this.gboxclass04.Name = "gboxclass04";
-            this.gboxclass04.Size = new System.Drawing.Size(567, 64);
-            this.gboxclass04.TabIndex = 37;
-            this.gboxclass04.TabStop = false;
-            this.gboxclass04.Tag = "";
-            this.gboxclass04.Text = "Classificazione 4";
-            // 
-            // txtCodice04
-            // 
-            this.txtCodice04.Location = new System.Drawing.Point(9, 38);
-            this.txtCodice04.Name = "txtCodice04";
-            this.txtCodice04.Size = new System.Drawing.Size(219, 20);
-            this.txtCodice04.TabIndex = 6;
-            // 
-            // btnCodice04
-            // 
-            this.btnCodice04.Location = new System.Drawing.Point(8, 16);
-            this.btnCodice04.Name = "btnCodice04";
-            this.btnCodice04.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice04.TabIndex = 4;
-            this.btnCodice04.Tag = "manage.sorting04.tree";
-            this.btnCodice04.Text = "Codice";
-            this.btnCodice04.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom04
-            // 
-            this.txtDenom04.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.gboxclass04.Controls.Add(this.txtCodice04);
+			this.gboxclass04.Controls.Add(this.btnCodice04);
+			this.gboxclass04.Controls.Add(this.txtDenom04);
+			this.gboxclass04.Location = new System.Drawing.Point(6, 216);
+			this.gboxclass04.Name = "gboxclass04";
+			this.gboxclass04.Size = new System.Drawing.Size(571, 64);
+			this.gboxclass04.TabIndex = 37;
+			this.gboxclass04.TabStop = false;
+			this.gboxclass04.Tag = "";
+			this.gboxclass04.Text = "Classificazione 4";
+			// 
+			// txtCodice04
+			// 
+			this.txtCodice04.Location = new System.Drawing.Point(9, 38);
+			this.txtCodice04.Name = "txtCodice04";
+			this.txtCodice04.Size = new System.Drawing.Size(219, 20);
+			this.txtCodice04.TabIndex = 6;
+			// 
+			// btnCodice04
+			// 
+			this.btnCodice04.Location = new System.Drawing.Point(8, 16);
+			this.btnCodice04.Name = "btnCodice04";
+			this.btnCodice04.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice04.TabIndex = 4;
+			this.btnCodice04.Tag = "manage.sorting04.tree";
+			this.btnCodice04.Text = "Codice";
+			this.btnCodice04.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom04
+			// 
+			this.txtDenom04.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom04.Location = new System.Drawing.Point(234, 12);
-            this.txtDenom04.Multiline = true;
-            this.txtDenom04.Name = "txtDenom04";
-            this.txtDenom04.ReadOnly = true;
-            this.txtDenom04.Size = new System.Drawing.Size(325, 46);
-            this.txtDenom04.TabIndex = 3;
-            this.txtDenom04.TabStop = false;
-            this.txtDenom04.Tag = "sorting04.description";
-            // 
-            // gboxclass03
-            // 
-            this.gboxclass03.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDenom04.Location = new System.Drawing.Point(234, 12);
+			this.txtDenom04.Multiline = true;
+			this.txtDenom04.Name = "txtDenom04";
+			this.txtDenom04.ReadOnly = true;
+			this.txtDenom04.Size = new System.Drawing.Size(329, 46);
+			this.txtDenom04.TabIndex = 3;
+			this.txtDenom04.TabStop = false;
+			this.txtDenom04.Tag = "sorting04.description";
+			// 
+			// gboxclass03
+			// 
+			this.gboxclass03.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxclass03.Controls.Add(this.txtCodice03);
-            this.gboxclass03.Controls.Add(this.btnCodice03);
-            this.gboxclass03.Controls.Add(this.txtDenom03);
-            this.gboxclass03.Location = new System.Drawing.Point(6, 146);
-            this.gboxclass03.Name = "gboxclass03";
-            this.gboxclass03.Size = new System.Drawing.Size(567, 64);
-            this.gboxclass03.TabIndex = 35;
-            this.gboxclass03.TabStop = false;
-            this.gboxclass03.Tag = "";
-            this.gboxclass03.Text = "Classificazione 3";
-            // 
-            // txtCodice03
-            // 
-            this.txtCodice03.Location = new System.Drawing.Point(8, 38);
-            this.txtCodice03.Name = "txtCodice03";
-            this.txtCodice03.Size = new System.Drawing.Size(219, 20);
-            this.txtCodice03.TabIndex = 6;
-            // 
-            // btnCodice03
-            // 
-            this.btnCodice03.Location = new System.Drawing.Point(8, 16);
-            this.btnCodice03.Name = "btnCodice03";
-            this.btnCodice03.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice03.TabIndex = 4;
-            this.btnCodice03.Tag = "manage.sorting03.tree";
-            this.btnCodice03.Text = "Codice";
-            this.btnCodice03.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom03
-            // 
-            this.txtDenom03.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.gboxclass03.Controls.Add(this.txtCodice03);
+			this.gboxclass03.Controls.Add(this.btnCodice03);
+			this.gboxclass03.Controls.Add(this.txtDenom03);
+			this.gboxclass03.Location = new System.Drawing.Point(6, 146);
+			this.gboxclass03.Name = "gboxclass03";
+			this.gboxclass03.Size = new System.Drawing.Size(571, 64);
+			this.gboxclass03.TabIndex = 35;
+			this.gboxclass03.TabStop = false;
+			this.gboxclass03.Tag = "";
+			this.gboxclass03.Text = "Classificazione 3";
+			// 
+			// txtCodice03
+			// 
+			this.txtCodice03.Location = new System.Drawing.Point(8, 38);
+			this.txtCodice03.Name = "txtCodice03";
+			this.txtCodice03.Size = new System.Drawing.Size(219, 20);
+			this.txtCodice03.TabIndex = 6;
+			// 
+			// btnCodice03
+			// 
+			this.btnCodice03.Location = new System.Drawing.Point(8, 16);
+			this.btnCodice03.Name = "btnCodice03";
+			this.btnCodice03.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice03.TabIndex = 4;
+			this.btnCodice03.Tag = "manage.sorting03.tree";
+			this.btnCodice03.Text = "Codice";
+			this.btnCodice03.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom03
+			// 
+			this.txtDenom03.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom03.Location = new System.Drawing.Point(233, 8);
-            this.txtDenom03.Multiline = true;
-            this.txtDenom03.Name = "txtDenom03";
-            this.txtDenom03.ReadOnly = true;
-            this.txtDenom03.Size = new System.Drawing.Size(326, 52);
-            this.txtDenom03.TabIndex = 3;
-            this.txtDenom03.TabStop = false;
-            this.txtDenom03.Tag = "sorting03.description";
-            // 
-            // gboxclass02
-            // 
-            this.gboxclass02.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDenom03.Location = new System.Drawing.Point(233, 8);
+			this.txtDenom03.Multiline = true;
+			this.txtDenom03.Name = "txtDenom03";
+			this.txtDenom03.ReadOnly = true;
+			this.txtDenom03.Size = new System.Drawing.Size(330, 52);
+			this.txtDenom03.TabIndex = 3;
+			this.txtDenom03.TabStop = false;
+			this.txtDenom03.Tag = "sorting03.description";
+			// 
+			// gboxclass02
+			// 
+			this.gboxclass02.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxclass02.Controls.Add(this.txtCodice02);
-            this.gboxclass02.Controls.Add(this.btnCodice02);
-            this.gboxclass02.Controls.Add(this.txtDenom02);
-            this.gboxclass02.Location = new System.Drawing.Point(6, 76);
-            this.gboxclass02.Name = "gboxclass02";
-            this.gboxclass02.Size = new System.Drawing.Size(567, 64);
-            this.gboxclass02.TabIndex = 36;
-            this.gboxclass02.TabStop = false;
-            this.gboxclass02.Tag = "";
-            this.gboxclass02.Text = "Classificazione 2";
-            // 
-            // txtCodice02
-            // 
-            this.txtCodice02.Location = new System.Drawing.Point(8, 38);
-            this.txtCodice02.Name = "txtCodice02";
-            this.txtCodice02.Size = new System.Drawing.Size(219, 20);
-            this.txtCodice02.TabIndex = 6;
-            // 
-            // btnCodice02
-            // 
-            this.btnCodice02.Location = new System.Drawing.Point(8, 16);
-            this.btnCodice02.Name = "btnCodice02";
-            this.btnCodice02.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice02.TabIndex = 4;
-            this.btnCodice02.Tag = "manage.sorting02.tree";
-            this.btnCodice02.Text = "Codice";
-            this.btnCodice02.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom02
-            // 
-            this.txtDenom02.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.gboxclass02.Controls.Add(this.txtCodice02);
+			this.gboxclass02.Controls.Add(this.btnCodice02);
+			this.gboxclass02.Controls.Add(this.txtDenom02);
+			this.gboxclass02.Location = new System.Drawing.Point(6, 76);
+			this.gboxclass02.Name = "gboxclass02";
+			this.gboxclass02.Size = new System.Drawing.Size(571, 64);
+			this.gboxclass02.TabIndex = 36;
+			this.gboxclass02.TabStop = false;
+			this.gboxclass02.Tag = "";
+			this.gboxclass02.Text = "Classificazione 2";
+			// 
+			// txtCodice02
+			// 
+			this.txtCodice02.Location = new System.Drawing.Point(8, 38);
+			this.txtCodice02.Name = "txtCodice02";
+			this.txtCodice02.Size = new System.Drawing.Size(219, 20);
+			this.txtCodice02.TabIndex = 6;
+			// 
+			// btnCodice02
+			// 
+			this.btnCodice02.Location = new System.Drawing.Point(8, 16);
+			this.btnCodice02.Name = "btnCodice02";
+			this.btnCodice02.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice02.TabIndex = 4;
+			this.btnCodice02.Tag = "manage.sorting02.tree";
+			this.btnCodice02.Text = "Codice";
+			this.btnCodice02.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom02
+			// 
+			this.txtDenom02.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom02.Location = new System.Drawing.Point(233, 8);
-            this.txtDenom02.Multiline = true;
-            this.txtDenom02.Name = "txtDenom02";
-            this.txtDenom02.ReadOnly = true;
-            this.txtDenom02.Size = new System.Drawing.Size(326, 52);
-            this.txtDenom02.TabIndex = 3;
-            this.txtDenom02.TabStop = false;
-            this.txtDenom02.Tag = "sorting02.description";
-            // 
-            // gboxclass01
-            // 
-            this.gboxclass01.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDenom02.Location = new System.Drawing.Point(233, 8);
+			this.txtDenom02.Multiline = true;
+			this.txtDenom02.Name = "txtDenom02";
+			this.txtDenom02.ReadOnly = true;
+			this.txtDenom02.Size = new System.Drawing.Size(330, 52);
+			this.txtDenom02.TabIndex = 3;
+			this.txtDenom02.TabStop = false;
+			this.txtDenom02.Tag = "sorting02.description";
+			// 
+			// gboxclass01
+			// 
+			this.gboxclass01.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxclass01.Controls.Add(this.txtCodice01);
-            this.gboxclass01.Controls.Add(this.btnCodice01);
-            this.gboxclass01.Controls.Add(this.txtDenom01);
-            this.gboxclass01.Location = new System.Drawing.Point(6, 6);
-            this.gboxclass01.Name = "gboxclass01";
-            this.gboxclass01.Size = new System.Drawing.Size(567, 64);
-            this.gboxclass01.TabIndex = 34;
-            this.gboxclass01.TabStop = false;
-            this.gboxclass01.Tag = "";
-            this.gboxclass01.Text = "Classificazione 1";
-            // 
-            // txtCodice01
-            // 
-            this.txtCodice01.Location = new System.Drawing.Point(7, 40);
-            this.txtCodice01.Name = "txtCodice01";
-            this.txtCodice01.Size = new System.Drawing.Size(220, 20);
-            this.txtCodice01.TabIndex = 5;
-            // 
-            // btnCodice01
-            // 
-            this.btnCodice01.Location = new System.Drawing.Point(8, 16);
-            this.btnCodice01.Name = "btnCodice01";
-            this.btnCodice01.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice01.TabIndex = 4;
-            this.btnCodice01.Tag = "manage.sorting01.tree";
-            this.btnCodice01.Text = "Codice";
-            this.btnCodice01.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom01
-            // 
-            this.txtDenom01.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.gboxclass01.Controls.Add(this.txtCodice01);
+			this.gboxclass01.Controls.Add(this.btnCodice01);
+			this.gboxclass01.Controls.Add(this.txtDenom01);
+			this.gboxclass01.Location = new System.Drawing.Point(6, 6);
+			this.gboxclass01.Name = "gboxclass01";
+			this.gboxclass01.Size = new System.Drawing.Size(571, 64);
+			this.gboxclass01.TabIndex = 34;
+			this.gboxclass01.TabStop = false;
+			this.gboxclass01.Tag = "";
+			this.gboxclass01.Text = "Classificazione 1";
+			// 
+			// txtCodice01
+			// 
+			this.txtCodice01.Location = new System.Drawing.Point(7, 40);
+			this.txtCodice01.Name = "txtCodice01";
+			this.txtCodice01.Size = new System.Drawing.Size(220, 20);
+			this.txtCodice01.TabIndex = 5;
+			// 
+			// btnCodice01
+			// 
+			this.btnCodice01.Location = new System.Drawing.Point(8, 16);
+			this.btnCodice01.Name = "btnCodice01";
+			this.btnCodice01.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice01.TabIndex = 4;
+			this.btnCodice01.Tag = "manage.sorting01.tree";
+			this.btnCodice01.Text = "Codice";
+			this.btnCodice01.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom01
+			// 
+			this.txtDenom01.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom01.Location = new System.Drawing.Point(233, 8);
-            this.txtDenom01.Multiline = true;
-            this.txtDenom01.Name = "txtDenom01";
-            this.txtDenom01.ReadOnly = true;
-            this.txtDenom01.Size = new System.Drawing.Size(326, 52);
-            this.txtDenom01.TabIndex = 3;
-            this.txtDenom01.TabStop = false;
-            this.txtDenom01.Tag = "sorting01.description";
-            // 
-            // tabAP
-            // 
-            this.tabAP.Controls.Add(this.btnCollegaAP);
-            this.tabAP.Controls.Add(this.btnGeneraAP);
-            this.tabAP.Controls.Add(this.btnVisualizzaAP);
-            this.tabAP.Controls.Add(this.labAPnongenerato);
-            this.tabAP.Controls.Add(this.labAPgenerato);
-            this.tabAP.Location = new System.Drawing.Point(4, 22);
-            this.tabAP.Name = "tabAP";
-            this.tabAP.Size = new System.Drawing.Size(865, 461);
-            this.tabAP.TabIndex = 15;
-            this.tabAP.Text = "A/P";
-            this.tabAP.UseVisualStyleBackColor = true;
-            // 
-            // btnCollegaAP
-            // 
-            this.btnCollegaAP.Location = new System.Drawing.Point(476, 106);
-            this.btnCollegaAP.Name = "btnCollegaAP";
-            this.btnCollegaAP.Size = new System.Drawing.Size(224, 39);
-            this.btnCollegaAP.TabIndex = 23;
-            this.btnCollegaAP.Text = "Collega ad Anagrafe delle Prestazioni  già esistente";
-            this.btnCollegaAP.Click += new System.EventHandler(this.btnCollegaAP_Click);
-            // 
-            // btnGeneraAP
-            // 
-            this.btnGeneraAP.Location = new System.Drawing.Point(476, 64);
-            this.btnGeneraAP.Name = "btnGeneraAP";
-            this.btnGeneraAP.Size = new System.Drawing.Size(224, 23);
-            this.btnGeneraAP.TabIndex = 13;
-            this.btnGeneraAP.Text = "Genera Anagrafe delle Prestazioni";
-            this.btnGeneraAP.Click += new System.EventHandler(this.btnGeneraAP_Click);
-            // 
-            // btnVisualizzaAP
-            // 
-            this.btnVisualizzaAP.Location = new System.Drawing.Point(476, 32);
-            this.btnVisualizzaAP.Name = "btnVisualizzaAP";
-            this.btnVisualizzaAP.Size = new System.Drawing.Size(224, 23);
-            this.btnVisualizzaAP.TabIndex = 12;
-            this.btnVisualizzaAP.Text = "Visualizza Anagrafe delle Prestazione";
-            this.btnVisualizzaAP.Click += new System.EventHandler(this.btnVisualizzaAP_Click);
-            // 
-            // labAPnongenerato
-            // 
-            this.labAPnongenerato.Location = new System.Drawing.Point(32, 64);
-            this.labAPnongenerato.Name = "labAPnongenerato";
-            this.labAPnongenerato.Size = new System.Drawing.Size(432, 24);
-            this.labAPnongenerato.TabIndex = 11;
-            this.labAPnongenerato.Text = "Le informazioni per l\'Anagrafe delle Prestazioni  NON sono state ancora generate." +
+			this.txtDenom01.Location = new System.Drawing.Point(233, 8);
+			this.txtDenom01.Multiline = true;
+			this.txtDenom01.Name = "txtDenom01";
+			this.txtDenom01.ReadOnly = true;
+			this.txtDenom01.Size = new System.Drawing.Size(330, 52);
+			this.txtDenom01.TabIndex = 3;
+			this.txtDenom01.TabStop = false;
+			this.txtDenom01.Tag = "sorting01.description";
+			// 
+			// tabAP
+			// 
+			this.tabAP.Controls.Add(this.btnCollegaAP);
+			this.tabAP.Controls.Add(this.btnGeneraAP);
+			this.tabAP.Controls.Add(this.btnVisualizzaAP);
+			this.tabAP.Controls.Add(this.labAPnongenerato);
+			this.tabAP.Controls.Add(this.labAPgenerato);
+			this.tabAP.Location = new System.Drawing.Point(4, 22);
+			this.tabAP.Name = "tabAP";
+			this.tabAP.Size = new System.Drawing.Size(869, 530);
+			this.tabAP.TabIndex = 15;
+			this.tabAP.Text = "A/P";
+			this.tabAP.UseVisualStyleBackColor = true;
+			// 
+			// btnCollegaAP
+			// 
+			this.btnCollegaAP.Location = new System.Drawing.Point(476, 106);
+			this.btnCollegaAP.Name = "btnCollegaAP";
+			this.btnCollegaAP.Size = new System.Drawing.Size(224, 39);
+			this.btnCollegaAP.TabIndex = 23;
+			this.btnCollegaAP.Text = "Collega ad Anagrafe delle Prestazioni  già esistente";
+			this.btnCollegaAP.Click += new System.EventHandler(this.btnCollegaAP_Click);
+			// 
+			// btnGeneraAP
+			// 
+			this.btnGeneraAP.Location = new System.Drawing.Point(476, 64);
+			this.btnGeneraAP.Name = "btnGeneraAP";
+			this.btnGeneraAP.Size = new System.Drawing.Size(224, 23);
+			this.btnGeneraAP.TabIndex = 13;
+			this.btnGeneraAP.Text = "Genera Anagrafe delle Prestazioni";
+			this.btnGeneraAP.Click += new System.EventHandler(this.btnGeneraAP_Click);
+			// 
+			// btnVisualizzaAP
+			// 
+			this.btnVisualizzaAP.Location = new System.Drawing.Point(476, 32);
+			this.btnVisualizzaAP.Name = "btnVisualizzaAP";
+			this.btnVisualizzaAP.Size = new System.Drawing.Size(224, 23);
+			this.btnVisualizzaAP.TabIndex = 12;
+			this.btnVisualizzaAP.Text = "Visualizza Anagrafe delle Prestazione";
+			this.btnVisualizzaAP.Click += new System.EventHandler(this.btnVisualizzaAP_Click);
+			// 
+			// labAPnongenerato
+			// 
+			this.labAPnongenerato.Location = new System.Drawing.Point(32, 64);
+			this.labAPnongenerato.Name = "labAPnongenerato";
+			this.labAPnongenerato.Size = new System.Drawing.Size(432, 24);
+			this.labAPnongenerato.TabIndex = 11;
+			this.labAPnongenerato.Text = "Le informazioni per l\'Anagrafe delle Prestazioni  NON sono state ancora generate." +
     "";
-            // 
-            // labAPgenerato
-            // 
-            this.labAPgenerato.Location = new System.Drawing.Point(32, 40);
-            this.labAPgenerato.Name = "labAPgenerato";
-            this.labAPgenerato.Size = new System.Drawing.Size(448, 16);
-            this.labAPgenerato.TabIndex = 10;
-            this.labAPgenerato.Text = "Le informazioni per l\'Anagrafe delle Prestazioni sono state generate.";
-            // 
-            // tabDALIA
-            // 
-            this.tabDALIA.Controls.Add(this.grpCausaliAssunzioneDalia);
-            this.tabDALIA.Controls.Add(this.txtVoceSpesaDalia);
-            this.tabDALIA.Controls.Add(this.btnVoceSpesaDalia);
-            this.tabDALIA.Controls.Add(this.groupBox18);
-            this.tabDALIA.Location = new System.Drawing.Point(4, 22);
-            this.tabDALIA.Name = "tabDALIA";
-            this.tabDALIA.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDALIA.Size = new System.Drawing.Size(865, 461);
-            this.tabDALIA.TabIndex = 17;
-            this.tabDALIA.Text = "DALIA";
-            this.tabDALIA.UseVisualStyleBackColor = true;
-            // 
-            // grpCausaliAssunzioneDalia
-            // 
-            this.grpCausaliAssunzioneDalia.Controls.Add(this.txtCausaleAssunzione);
-            this.grpCausaliAssunzioneDalia.Controls.Add(this.btnEsclusioneCIG);
-            this.grpCausaliAssunzioneDalia.Location = new System.Drawing.Point(21, 164);
-            this.grpCausaliAssunzioneDalia.Name = "grpCausaliAssunzioneDalia";
-            this.grpCausaliAssunzioneDalia.Size = new System.Drawing.Size(814, 46);
-            this.grpCausaliAssunzioneDalia.TabIndex = 113;
-            this.grpCausaliAssunzioneDalia.TabStop = false;
-            this.grpCausaliAssunzioneDalia.Tag = "AutoChoose.txtCausaleAssunzione.default.(active = \'S\')";
-            this.grpCausaliAssunzioneDalia.Text = " Causali immissione qualifica - Causali assunzione";
-            // 
-            // txtCausaleAssunzione
-            // 
-            this.txtCausaleAssunzione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			// 
+			// labAPgenerato
+			// 
+			this.labAPgenerato.Location = new System.Drawing.Point(32, 40);
+			this.labAPgenerato.Name = "labAPgenerato";
+			this.labAPgenerato.Size = new System.Drawing.Size(448, 16);
+			this.labAPgenerato.TabIndex = 10;
+			this.labAPgenerato.Text = "Le informazioni per l\'Anagrafe delle Prestazioni sono state generate.";
+			// 
+			// tabDALIA
+			// 
+			this.tabDALIA.Controls.Add(this.groupBox22);
+			this.tabDALIA.Controls.Add(this.gboxDipartimento);
+			this.tabDALIA.Controls.Add(this.grpCausaliAssunzioneDalia);
+			this.tabDALIA.Controls.Add(this.txtVoceSpesaDalia);
+			this.tabDALIA.Controls.Add(this.btnVoceSpesaDalia);
+			this.tabDALIA.Controls.Add(this.groupBox18);
+			this.tabDALIA.Location = new System.Drawing.Point(4, 22);
+			this.tabDALIA.Name = "tabDALIA";
+			this.tabDALIA.Padding = new System.Windows.Forms.Padding(3);
+			this.tabDALIA.Size = new System.Drawing.Size(869, 530);
+			this.tabDALIA.TabIndex = 17;
+			this.tabDALIA.Text = "DALIA";
+			this.tabDALIA.UseVisualStyleBackColor = true;
+			// 
+			// groupBox22
+			// 
+			this.groupBox22.Controls.Add(this.cmbDaliaFunzionale);
+			this.groupBox22.Location = new System.Drawing.Point(21, 285);
+			this.groupBox22.Name = "groupBox22";
+			this.groupBox22.Size = new System.Drawing.Size(379, 54);
+			this.groupBox22.TabIndex = 117;
+			this.groupBox22.TabStop = false;
+			this.groupBox22.Text = "Area funzionale - richiesta per il personale Tecnico / Amministrativo";
+			// 
+			// cmbDaliaFunzionale
+			// 
+			this.cmbDaliaFunzionale.FormattingEnabled = true;
+			this.cmbDaliaFunzionale.Location = new System.Drawing.Point(6, 19);
+			this.cmbDaliaFunzionale.Name = "cmbDaliaFunzionale";
+			this.cmbDaliaFunzionale.Size = new System.Drawing.Size(367, 21);
+			this.cmbDaliaFunzionale.TabIndex = 0;
+			this.cmbDaliaFunzionale.Tag = "parasubcontract.iddalia_funzionale";
+			// 
+			// gboxDipartimento
+			// 
+			this.gboxDipartimento.Controls.Add(this.btnDipartimento);
+			this.gboxDipartimento.Controls.Add(this.txtCodiceDipartimento);
+			this.gboxDipartimento.Controls.Add(this.txtDaliaDipartimento);
+			this.gboxDipartimento.Location = new System.Drawing.Point(21, 229);
+			this.gboxDipartimento.Name = "gboxDipartimento";
+			this.gboxDipartimento.Size = new System.Drawing.Size(814, 50);
+			this.gboxDipartimento.TabIndex = 116;
+			this.gboxDipartimento.TabStop = false;
+			this.gboxDipartimento.Tag = "AutoChoose.txtDaliaDipartimento.default";
+			this.gboxDipartimento.Text = "Dipartimento (colonna  DIP-IST)";
+			// 
+			// btnDipartimento
+			// 
+			this.btnDipartimento.Location = new System.Drawing.Point(9, 18);
+			this.btnDipartimento.Name = "btnDipartimento";
+			this.btnDipartimento.Size = new System.Drawing.Size(104, 23);
+			this.btnDipartimento.TabIndex = 2;
+			this.btnDipartimento.Tag = "choose.dalia_dipartimento.default";
+			this.btnDipartimento.Text = "Dipartimento";
+			this.btnDipartimento.UseVisualStyleBackColor = true;
+			// 
+			// txtCodiceDipartimento
+			// 
+			this.txtCodiceDipartimento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCodiceDipartimento.Location = new System.Drawing.Point(701, 19);
+			this.txtCodiceDipartimento.Name = "txtCodiceDipartimento";
+			this.txtCodiceDipartimento.Size = new System.Drawing.Size(107, 20);
+			this.txtCodiceDipartimento.TabIndex = 1;
+			this.txtCodiceDipartimento.Tag = "dalia_dipartimento.codedip";
+			// 
+			// txtDaliaDipartimento
+			// 
+			this.txtDaliaDipartimento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCausaleAssunzione.Location = new System.Drawing.Point(121, 16);
-            this.txtCausaleAssunzione.Name = "txtCausaleAssunzione";
-            this.txtCausaleAssunzione.Size = new System.Drawing.Size(685, 20);
-            this.txtCausaleAssunzione.TabIndex = 2;
-            this.txtCausaleAssunzione.Tag = "dalia_recruitmentmotive.description?x";
-            // 
-            // btnEsclusioneCIG
-            // 
-            this.btnEsclusioneCIG.Location = new System.Drawing.Point(9, 14);
-            this.btnEsclusioneCIG.Name = "btnEsclusioneCIG";
-            this.btnEsclusioneCIG.Size = new System.Drawing.Size(104, 23);
-            this.btnEsclusioneCIG.TabIndex = 0;
-            this.btnEsclusioneCIG.TabStop = false;
-            this.btnEsclusioneCIG.Tag = "choose.dalia_recruitmentmotive.default";
-            this.btnEsclusioneCIG.Text = "Causale";
-            this.btnEsclusioneCIG.UseVisualStyleBackColor = true;
-            // 
-            // txtVoceSpesaDalia
-            // 
-            this.txtVoceSpesaDalia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDaliaDipartimento.Location = new System.Drawing.Point(131, 19);
+			this.txtDaliaDipartimento.Name = "txtDaliaDipartimento";
+			this.txtDaliaDipartimento.Size = new System.Drawing.Size(566, 20);
+			this.txtDaliaDipartimento.TabIndex = 0;
+			this.txtDaliaDipartimento.Tag = "dalia_dipartimento.title";
+			// 
+			// grpCausaliAssunzioneDalia
+			// 
+			this.grpCausaliAssunzioneDalia.Controls.Add(this.txtCausaleAssunzione);
+			this.grpCausaliAssunzioneDalia.Controls.Add(this.btnEsclusioneCIG);
+			this.grpCausaliAssunzioneDalia.Location = new System.Drawing.Point(21, 164);
+			this.grpCausaliAssunzioneDalia.Name = "grpCausaliAssunzioneDalia";
+			this.grpCausaliAssunzioneDalia.Size = new System.Drawing.Size(814, 46);
+			this.grpCausaliAssunzioneDalia.TabIndex = 113;
+			this.grpCausaliAssunzioneDalia.TabStop = false;
+			this.grpCausaliAssunzioneDalia.Tag = "AutoChoose.txtCausaleAssunzione.default.(active = \'S\')";
+			this.grpCausaliAssunzioneDalia.Text = " Causali immissione qualifica - Causali assunzione";
+			// 
+			// txtCausaleAssunzione
+			// 
+			this.txtCausaleAssunzione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtVoceSpesaDalia.Location = new System.Drawing.Point(206, 129);
-            this.txtVoceSpesaDalia.Name = "txtVoceSpesaDalia";
-            this.txtVoceSpesaDalia.ReadOnly = true;
-            this.txtVoceSpesaDalia.Size = new System.Drawing.Size(612, 20);
-            this.txtVoceSpesaDalia.TabIndex = 112;
-            // 
-            // btnVoceSpesaDalia
-            // 
-            this.btnVoceSpesaDalia.Location = new System.Drawing.Point(27, 126);
-            this.btnVoceSpesaDalia.Name = "btnVoceSpesaDalia";
-            this.btnVoceSpesaDalia.Size = new System.Drawing.Size(166, 23);
-            this.btnVoceSpesaDalia.TabIndex = 30;
-            this.btnVoceSpesaDalia.Text = "Seleziona Voce di spesa Dalia";
-            this.btnVoceSpesaDalia.UseVisualStyleBackColor = true;
-            this.btnVoceSpesaDalia.Click += new System.EventHandler(this.btnVoceSpesaDalia_Click);
-            // 
-            // groupBox18
-            // 
-            this.groupBox18.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtCausaleAssunzione.Location = new System.Drawing.Point(121, 16);
+			this.txtCausaleAssunzione.Name = "txtCausaleAssunzione";
+			this.txtCausaleAssunzione.Size = new System.Drawing.Size(685, 20);
+			this.txtCausaleAssunzione.TabIndex = 2;
+			this.txtCausaleAssunzione.Tag = "dalia_recruitmentmotive.description?x";
+			// 
+			// btnEsclusioneCIG
+			// 
+			this.btnEsclusioneCIG.Location = new System.Drawing.Point(9, 14);
+			this.btnEsclusioneCIG.Name = "btnEsclusioneCIG";
+			this.btnEsclusioneCIG.Size = new System.Drawing.Size(104, 23);
+			this.btnEsclusioneCIG.TabIndex = 0;
+			this.btnEsclusioneCIG.TabStop = false;
+			this.btnEsclusioneCIG.Tag = "choose.dalia_recruitmentmotive.default";
+			this.btnEsclusioneCIG.Text = "Causale";
+			this.btnEsclusioneCIG.UseVisualStyleBackColor = true;
+			// 
+			// txtVoceSpesaDalia
+			// 
+			this.txtVoceSpesaDalia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox18.Controls.Add(this.label91);
-            this.groupBox18.Controls.Add(this.btnQualificaDalia);
-            this.groupBox18.Controls.Add(this.textBox11);
-            this.groupBox18.Controls.Add(this.cmb_dalia_position);
-            this.groupBox18.Location = new System.Drawing.Point(21, 23);
-            this.groupBox18.Name = "groupBox18";
-            this.groupBox18.Size = new System.Drawing.Size(814, 80);
-            this.groupBox18.TabIndex = 110;
-            this.groupBox18.TabStop = false;
-            this.groupBox18.Text = "Banca Dati DALIA";
-            // 
-            // label91
-            // 
-            this.label91.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label91.AutoSize = true;
-            this.label91.Location = new System.Drawing.Point(681, 26);
-            this.label91.Name = "label91";
-            this.label91.Size = new System.Drawing.Size(118, 13);
-            this.label91.TabIndex = 110;
-            this.label91.Text = "Codice Qualifica DALIA";
-            // 
-            // btnQualificaDalia
-            // 
-            this.btnQualificaDalia.Location = new System.Drawing.Point(56, 38);
-            this.btnQualificaDalia.Name = "btnQualificaDalia";
-            this.btnQualificaDalia.Size = new System.Drawing.Size(116, 23);
-            this.btnQualificaDalia.TabIndex = 113;
-            this.btnQualificaDalia.Text = "Qualifica Dalia";
-            this.btnQualificaDalia.UseVisualStyleBackColor = true;
-            this.btnQualificaDalia.Click += new System.EventHandler(this.btnQualificaDalia_Click);
-            // 
-            // textBox11
-            // 
-            this.textBox11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox11.Location = new System.Drawing.Point(681, 42);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.ReadOnly = true;
-            this.textBox11.Size = new System.Drawing.Size(116, 20);
-            this.textBox11.TabIndex = 109;
-            this.textBox11.Tag = "dalia_position.codedaliaposition";
-            // 
-            // cmb_dalia_position
-            // 
-            this.cmb_dalia_position.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtVoceSpesaDalia.Location = new System.Drawing.Point(206, 129);
+			this.txtVoceSpesaDalia.Name = "txtVoceSpesaDalia";
+			this.txtVoceSpesaDalia.ReadOnly = true;
+			this.txtVoceSpesaDalia.Size = new System.Drawing.Size(616, 20);
+			this.txtVoceSpesaDalia.TabIndex = 112;
+			// 
+			// btnVoceSpesaDalia
+			// 
+			this.btnVoceSpesaDalia.Location = new System.Drawing.Point(27, 126);
+			this.btnVoceSpesaDalia.Name = "btnVoceSpesaDalia";
+			this.btnVoceSpesaDalia.Size = new System.Drawing.Size(166, 23);
+			this.btnVoceSpesaDalia.TabIndex = 30;
+			this.btnVoceSpesaDalia.Text = "Seleziona Voce di spesa Dalia";
+			this.btnVoceSpesaDalia.UseVisualStyleBackColor = true;
+			this.btnVoceSpesaDalia.Click += new System.EventHandler(this.btnVoceSpesaDalia_Click);
+			// 
+			// groupBox18
+			// 
+			this.groupBox18.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmb_dalia_position.DataSource = this.DS.dalia_position;
-            this.cmb_dalia_position.DisplayMember = "description";
-            this.cmb_dalia_position.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmb_dalia_position.Location = new System.Drawing.Point(185, 40);
-            this.cmb_dalia_position.Name = "cmb_dalia_position";
-            this.cmb_dalia_position.Size = new System.Drawing.Size(473, 21);
-            this.cmb_dalia_position.TabIndex = 6;
-            this.cmb_dalia_position.Tag = "parasubcontract.iddaliaposition";
-            this.cmb_dalia_position.ValueMember = "iddaliaposition";
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "");
-            // 
-            // dataGrid3
-            // 
-            this.dataGrid3.DataMember = "";
-            this.dataGrid3.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dataGrid3.Location = new System.Drawing.Point(0, 0);
-            this.dataGrid3.Name = "dataGrid3";
-            this.dataGrid3.Size = new System.Drawing.Size(130, 80);
-            this.dataGrid3.TabIndex = 0;
-            // 
-            // myTip
-            // 
-            this.myTip.AutomaticDelay = 30;
-            this.myTip.AutoPopDelay = 30000;
-            this.myTip.InitialDelay = 30;
-            this.myTip.ReshowDelay = 6;
-            // 
-            // Frm_parasubcontract_default
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(886, 501);
-            this.Controls.Add(this.tabControl1);
-            this.Name = "Frm_parasubcontract_default";
-            this.Text = "frmcontratto";
-            this.tabGenerale.ResumeLayout(false);
-            this.tabGenerale.PerformLayout();
-            this.grpCertificatiNecessari.ResumeLayout(false);
-            this.grpCertificatiNecessari.PerformLayout();
-            this.groupBox24.ResumeLayout(false);
-            this.groupBox24.PerformLayout();
-            this.groupBox19.ResumeLayout(false);
-            this.groupBox19.PerformLayout();
-            this.grpDettagliPrevidenzialiAssistenziali.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.grpDettagliFiscali.ResumeLayout(false);
-            this.grpPrestazione.ResumeLayout(false);
-            this.grpPercipiente.ResumeLayout(false);
-            this.grpPercipiente.PerformLayout();
-            this.grpContratto.ResumeLayout(false);
-            this.grpContratto.PerformLayout();
-            this.grpComune.ResumeLayout(false);
-            this.grpComune.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabImponibili.ResumeLayout(false);
-            this.groupBox17.ResumeLayout(false);
-            this.groupBox17.PerformLayout();
-            this.groupBox12.ResumeLayout(false);
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox10.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.grpNoTaxArea.ResumeLayout(false);
-            this.grpAliquoteIrpef.ResumeLayout(false);
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
-            this.tabFamiliare.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid8)).EndInit();
-            this.tabAltreCollINAIL.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid10)).EndInit();
-            this.tabOneri.ResumeLayout(false);
-            this.tabOneri.PerformLayout();
-            this.groupBox15.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid4)).EndInit();
-            this.groupBox16.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid2)).EndInit();
-            this.tabCUD.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgrid_DetCud)).EndInit();
-            this.groupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgrid_DedCud)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgrid_CUD)).EndInit();
-            this.tabAddizionali.ResumeLayout(false);
-            this.grpAccontoAddCom.ResumeLayout(false);
-            this.grpAccontoAddCom.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid11)).EndInit();
-            this.grpAddizionaliPassate.ResumeLayout(false);
-            this.grpAddizionaliPassate.PerformLayout();
-            this.groupBox20.ResumeLayout(false);
-            this.groupBox20.PerformLayout();
-            this.groupBox21.ResumeLayout(false);
-            this.groupBox21.PerformLayout();
-            this.tabCedolini.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgCedoliniAltriEsercizi)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgCedolini)).EndInit();
-            this.tabErogazioni.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
-            this.tabDatiRiepilogativi.ResumeLayout(false);
-            this.tabDatiRiepilogativi.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridRitenute)).EndInit();
-            this.groupBox14.ResumeLayout(false);
-            this.groupBox14.PerformLayout();
-            this.groupBox13.ResumeLayout(false);
-            this.groupBox13.PerformLayout();
-            this.TabClassSuppl.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgrClassSuppl)).EndInit();
-            this.tabEconoPatr.ResumeLayout(false);
-            this.tabControl2.ResumeLayout(false);
-            this.tabFinanziario.ResumeLayout(false);
-            this.gboxUPB.ResumeLayout(false);
-            this.gboxUPB.PerformLayout();
-            this.tabAnalitico.ResumeLayout(false);
-            this.gboxclass3.ResumeLayout(false);
-            this.gboxclass3.PerformLayout();
-            this.gboxclass2.ResumeLayout(false);
-            this.gboxclass2.PerformLayout();
-            this.gboxclass1.ResumeLayout(false);
-            this.gboxclass1.PerformLayout();
-            this.tabEP.ResumeLayout(false);
-            this.tabEP.PerformLayout();
-            this.grpBoxSiopeEP.ResumeLayout(false);
-            this.grpBoxSiopeEP.PerformLayout();
-            this.gBoxCausaleDebitoCrg.ResumeLayout(false);
-            this.gBoxCausaleDebitoCrg.PerformLayout();
-            this.gBoxCausaleDebito.ResumeLayout(false);
-            this.gBoxCausaleDebito.PerformLayout();
-            this.gBoxCausaleCosto.ResumeLayout(false);
-            this.gBoxCausaleCosto.PerformLayout();
-            this.tabAttributi.ResumeLayout(false);
-            this.gboxclass05.ResumeLayout(false);
-            this.gboxclass05.PerformLayout();
-            this.gboxclass04.ResumeLayout(false);
-            this.gboxclass04.PerformLayout();
-            this.gboxclass03.ResumeLayout(false);
-            this.gboxclass03.PerformLayout();
-            this.gboxclass02.ResumeLayout(false);
-            this.gboxclass02.PerformLayout();
-            this.gboxclass01.ResumeLayout(false);
-            this.gboxclass01.PerformLayout();
-            this.tabAP.ResumeLayout(false);
-            this.tabDALIA.ResumeLayout(false);
-            this.tabDALIA.PerformLayout();
-            this.grpCausaliAssunzioneDalia.ResumeLayout(false);
-            this.grpCausaliAssunzioneDalia.PerformLayout();
-            this.groupBox18.ResumeLayout(false);
-            this.groupBox18.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid3)).EndInit();
-            this.ResumeLayout(false);
+			this.groupBox18.Controls.Add(this.label91);
+			this.groupBox18.Controls.Add(this.btnQualificaDalia);
+			this.groupBox18.Controls.Add(this.textBox11);
+			this.groupBox18.Controls.Add(this.cmb_dalia_position);
+			this.groupBox18.Location = new System.Drawing.Point(21, 23);
+			this.groupBox18.Name = "groupBox18";
+			this.groupBox18.Size = new System.Drawing.Size(818, 80);
+			this.groupBox18.TabIndex = 110;
+			this.groupBox18.TabStop = false;
+			this.groupBox18.Text = "Banca Dati DALIA";
+			// 
+			// label91
+			// 
+			this.label91.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label91.AutoSize = true;
+			this.label91.Location = new System.Drawing.Point(685, 26);
+			this.label91.Name = "label91";
+			this.label91.Size = new System.Drawing.Size(118, 13);
+			this.label91.TabIndex = 110;
+			this.label91.Text = "Codice Qualifica DALIA";
+			// 
+			// btnQualificaDalia
+			// 
+			this.btnQualificaDalia.Location = new System.Drawing.Point(56, 38);
+			this.btnQualificaDalia.Name = "btnQualificaDalia";
+			this.btnQualificaDalia.Size = new System.Drawing.Size(116, 23);
+			this.btnQualificaDalia.TabIndex = 113;
+			this.btnQualificaDalia.Text = "Qualifica Dalia";
+			this.btnQualificaDalia.UseVisualStyleBackColor = true;
+			this.btnQualificaDalia.Click += new System.EventHandler(this.btnQualificaDalia_Click);
+			// 
+			// textBox11
+			// 
+			this.textBox11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox11.Location = new System.Drawing.Point(685, 42);
+			this.textBox11.Name = "textBox11";
+			this.textBox11.ReadOnly = true;
+			this.textBox11.Size = new System.Drawing.Size(116, 20);
+			this.textBox11.TabIndex = 109;
+			this.textBox11.Tag = "dalia_position.codedaliaposition";
+			// 
+			// cmb_dalia_position
+			// 
+			this.cmb_dalia_position.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmb_dalia_position.DataSource = this.DS.dalia_position;
+			this.cmb_dalia_position.DisplayMember = "description";
+			this.cmb_dalia_position.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmb_dalia_position.Location = new System.Drawing.Point(185, 40);
+			this.cmb_dalia_position.Name = "cmb_dalia_position";
+			this.cmb_dalia_position.Size = new System.Drawing.Size(477, 21);
+			this.cmb_dalia_position.TabIndex = 6;
+			this.cmb_dalia_position.Tag = "parasubcontract.iddaliaposition";
+			this.cmb_dalia_position.ValueMember = "iddaliaposition";
+			// 
+			// imageList1
+			// 
+			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.imageList1.Images.SetKeyName(0, "");
+			// 
+			// dataGrid3
+			// 
+			this.dataGrid3.DataMember = "";
+			this.dataGrid3.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGrid3.Location = new System.Drawing.Point(0, 0);
+			this.dataGrid3.Name = "dataGrid3";
+			this.dataGrid3.Size = new System.Drawing.Size(130, 80);
+			this.dataGrid3.TabIndex = 0;
+			// 
+			// myTip
+			// 
+			this.myTip.AutomaticDelay = 30;
+			this.myTip.AutoPopDelay = 30000;
+			this.myTip.InitialDelay = 30;
+			this.myTip.ReshowDelay = 6;
+			// 
+			// tabAllegati
+			// 
+			this.tabAllegati.Controls.Add(this.dgrAllegati);
+			this.tabAllegati.Controls.Add(this.btnDelAtt);
+			this.tabAllegati.Controls.Add(this.btnEditAtt);
+			this.tabAllegati.Controls.Add(this.btnInsAtt);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 22);
+			this.tabAllegati.Name = "tabAllegati";
+			this.tabAllegati.Size = new System.Drawing.Size(879, 530);
+			this.tabAllegati.TabIndex = 18;
+			this.tabAllegati.Text = "Allegati";
+			this.tabAllegati.UseVisualStyleBackColor = true;
+			// 
+			// dgrAllegati
+			// 
+			this.dgrAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dgrAllegati.DataMember = "";
+			this.dgrAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgrAllegati.Location = new System.Drawing.Point(11, 41);
+			this.dgrAllegati.Name = "dgrAllegati";
+			this.dgrAllegati.ReadOnly = true;
+			this.dgrAllegati.Size = new System.Drawing.Size(850, 474);
+			this.dgrAllegati.TabIndex = 27;
+			this.dgrAllegati.Tag = "parasubcontractattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(171, 11);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(68, 23);
+			this.btnDelAtt.TabIndex = 26;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(91, 11);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(69, 23);
+			this.btnEditAtt.TabIndex = 25;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(11, 11);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(68, 23);
+			this.btnInsAtt.TabIndex = 24;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
+			// 
+			// Frm_parasubcontract_default
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(900, 570);
+			this.Controls.Add(this.tabControl1);
+			this.Name = "Frm_parasubcontract_default";
+			this.Text = "frmcontratto";
+			this.tabGenerale.ResumeLayout(false);
+			this.tabGenerale.PerformLayout();
+			this.grpCertificatiNecessari.ResumeLayout(false);
+			this.grpCertificatiNecessari.PerformLayout();
+			this.groupBox24.ResumeLayout(false);
+			this.groupBox24.PerformLayout();
+			this.groupBox19.ResumeLayout(false);
+			this.groupBox19.PerformLayout();
+			this.grpDettagliPrevidenzialiAssistenziali.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.grpDettagliFiscali.ResumeLayout(false);
+			this.grpPrestazione.ResumeLayout(false);
+			this.grpPercipiente.ResumeLayout(false);
+			this.grpPercipiente.PerformLayout();
+			this.grpContratto.ResumeLayout(false);
+			this.grpContratto.PerformLayout();
+			this.grpComune.ResumeLayout(false);
+			this.grpComune.PerformLayout();
+			this.tabControl1.ResumeLayout(false);
+			this.tabImponibili.ResumeLayout(false);
+			this.groupBox17.ResumeLayout(false);
+			this.groupBox17.PerformLayout();
+			this.groupBox12.ResumeLayout(false);
+			this.groupBox10.ResumeLayout(false);
+			this.groupBox10.PerformLayout();
+			this.groupBox9.ResumeLayout(false);
+			this.groupBox9.PerformLayout();
+			this.groupBox8.ResumeLayout(false);
+			this.groupBox8.PerformLayout();
+			this.groupBox7.ResumeLayout(false);
+			this.groupBox2.ResumeLayout(false);
+			this.grpNoTaxArea.ResumeLayout(false);
+			this.grpAliquoteIrpef.ResumeLayout(false);
+			this.groupBox11.ResumeLayout(false);
+			this.groupBox11.PerformLayout();
+			this.tabFamiliare.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid8)).EndInit();
+			this.tabAltreCollINAIL.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid10)).EndInit();
+			this.tabOneri.ResumeLayout(false);
+			this.tabOneri.PerformLayout();
+			this.groupBox15.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid4)).EndInit();
+			this.groupBox16.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid2)).EndInit();
+			this.tabCUD.ResumeLayout(false);
+			this.groupBox4.ResumeLayout(false);
+			this.groupBox4.PerformLayout();
+			this.groupBox6.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dgrid_DetCud)).EndInit();
+			this.groupBox5.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dgrid_DedCud)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgrid_CUD)).EndInit();
+			this.tabAddizionali.ResumeLayout(false);
+			this.grpAccontoAddCom.ResumeLayout(false);
+			this.grpAccontoAddCom.PerformLayout();
+			this.groupBox3.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid11)).EndInit();
+			this.grpAddizionaliPassate.ResumeLayout(false);
+			this.grpAddizionaliPassate.PerformLayout();
+			this.groupBox20.ResumeLayout(false);
+			this.groupBox20.PerformLayout();
+			this.groupBox21.ResumeLayout(false);
+			this.groupBox21.PerformLayout();
+			this.tabCedolini.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dgCedoliniAltriEsercizi)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgCedolini)).EndInit();
+			this.tabErogazioni.ResumeLayout(false);
+			this.groupBox1.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
+			this.tabDatiRiepilogativi.ResumeLayout(false);
+			this.tabDatiRiepilogativi.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.gridRitenute)).EndInit();
+			this.groupBox14.ResumeLayout(false);
+			this.groupBox14.PerformLayout();
+			this.groupBox13.ResumeLayout(false);
+			this.groupBox13.PerformLayout();
+			this.TabClassSuppl.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dgrClassSuppl)).EndInit();
+			this.tabEconoPatr.ResumeLayout(false);
+			this.tabControl2.ResumeLayout(false);
+			this.tabFinanziario.ResumeLayout(false);
+			this.gboxUPB.ResumeLayout(false);
+			this.gboxUPB.PerformLayout();
+			this.tabAnalitico.ResumeLayout(false);
+			this.gboxclass3.ResumeLayout(false);
+			this.gboxclass3.PerformLayout();
+			this.gboxclass2.ResumeLayout(false);
+			this.gboxclass2.PerformLayout();
+			this.gboxclass1.ResumeLayout(false);
+			this.gboxclass1.PerformLayout();
+			this.tabEP.ResumeLayout(false);
+			this.tabEP.PerformLayout();
+			this.grpBoxSiopeEP.ResumeLayout(false);
+			this.grpBoxSiopeEP.PerformLayout();
+			this.gBoxCausaleDebitoCrg.ResumeLayout(false);
+			this.gBoxCausaleDebitoCrg.PerformLayout();
+			this.gBoxCausaleDebito.ResumeLayout(false);
+			this.gBoxCausaleDebito.PerformLayout();
+			this.gBoxCausaleCosto.ResumeLayout(false);
+			this.gBoxCausaleCosto.PerformLayout();
+			this.tabAttributi.ResumeLayout(false);
+			this.gboxclass05.ResumeLayout(false);
+			this.gboxclass05.PerformLayout();
+			this.gboxclass04.ResumeLayout(false);
+			this.gboxclass04.PerformLayout();
+			this.gboxclass03.ResumeLayout(false);
+			this.gboxclass03.PerformLayout();
+			this.gboxclass02.ResumeLayout(false);
+			this.gboxclass02.PerformLayout();
+			this.gboxclass01.ResumeLayout(false);
+			this.gboxclass01.PerformLayout();
+			this.tabAP.ResumeLayout(false);
+			this.tabDALIA.ResumeLayout(false);
+			this.tabDALIA.PerformLayout();
+			this.groupBox22.ResumeLayout(false);
+			this.gboxDipartimento.ResumeLayout(false);
+			this.gboxDipartimento.PerformLayout();
+			this.grpCausaliAssunzioneDalia.ResumeLayout(false);
+			this.grpCausaliAssunzioneDalia.PerformLayout();
+			this.groupBox18.ResumeLayout(false);
+			this.groupBox18.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid3)).EndInit();
+			this.tabAllegati.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dgrAllegati)).EndInit();
+			this.ResumeLayout(false);
 
         }
 
@@ -4907,7 +5072,7 @@ namespace parasubcontract_default { //contratto//
             //DataTable TGeo = CalcoliCococo.verificaAddizionaliPrestazione(Conn, idser, "R");
             //if ((TGeo != null) && (TGeo.Rows.Count > 0) && (idreg != 0)) {
             //    if ((idComuneAddRegionale == DBNull.Value) || (idComuneAddRegionale == null)) {
-            //        MessageBox.Show(this, "In riferimento all'applicazione delle addizionali regionali non esiste per il percipiente "
+            //        show(this, "In riferimento all'applicazione delle addizionali regionali non esiste per il percipiente "
             //        + "\nun domicilio fiscale o un indirizzo di residenza valido al " + ultimoDellAnno.ToShortDateString()
             //        + "\no alla data di fine contratto. ");
             //    }
@@ -4932,7 +5097,7 @@ namespace parasubcontract_default { //contratto//
         }
 
         public void MetaData_AfterGetFormFata() {
-            Meta.myHelpForm.ExtraEntities["parasubcontractyear"] = "parasubcontractyear";
+            Meta.myHelpForm.addExtraEntity("parasubcontractyear");
         }
 
         private void AbilitaCUD(bool enable) {
@@ -4941,282 +5106,297 @@ namespace parasubcontract_default { //contratto//
 
         public void MetaData_AfterRowSelect(DataTable T, DataRow R) {
             btnSituazione.Enabled = !Meta.InsertMode;
-            switch (T.TableName) {
-                case "registry": {
-                    bool scegliDalia = false;
-                    GeneraSelect(txtPercipiente);
-                    int idreg = 0;
-                    if (R != null) idreg = CfgFn.GetNoNullInt32(R["idreg"]);
+			switch (T.TableName) {
+				case "registry": {
+						bool scegliDalia = false;
+						GeneraSelect(txtPercipiente);
+						int idreg = 0;
+						object idaccmotivedebit=null;
+						if (R != null) {
+							idreg = CfgFn.GetNoNullInt32(R["idreg"]);
+							idaccmotivedebit = R["idaccmotivedebit"];
+						}
 
-                    if (!Meta.IsEmpty) {
-                        DataRow Curr = DS.parasubcontract.Rows[0];
-                        DataRow rService = Curr.GetParentRow("serviceparasubcontract");
-                        if ((rService != null) && (rService["certificatekind"].ToString().ToUpper() == "U")) {
-                            generaCudDaAltriContratti();
-                        }
-                        else {
-                            cancellaCud();
-                        }
+						if (!Meta.IsEmpty) {
+							DataRow Curr = DS.parasubcontract.Rows[0];
+							DataRow rService = Curr.GetParentRow("serviceparasubcontract");
+							if ((rService != null) && (rService["certificatekind"].ToString().ToUpper() == "U")) {
+								generaCudDaAltriContratti();//genera un freshForm
+							} else {
+								cancellaCud();
+							}
 
-                        if (Meta.DrawStateIsDone && R != null) {
-                            Curr["idaccmotive"] = R["idaccmotivedebit"];
-                            DS.accmotiveapplied_debit.Clear();
-                            Conn.RUN_SELECT_INTO_TABLE(DS.accmotiveapplied_debit, 
-                                q.eq("idaccmotive", Curr["idaccmotive"]) & q.eq("idepoperation", "cococo_deb"));
-                            Meta.helpForm.FillControls(gBoxCausaleDebito.Controls);
+							if (Meta.DrawStateIsDone && R != null) {
+								Curr["idaccmotivedebit"] = idaccmotivedebit;
+								DS.accmotiveapplied_debit.Clear();
+								Conn.RUN_SELECT_INTO_TABLE(DS.accmotiveapplied_debit, null,
+									(q.eq("idaccmotive", Curr["idaccmotivedebit"]) & q.eq("idepoperation", "cococo_deb")).toSql(QHS), null, false);
+								Meta.helpForm.FillControls(gBoxCausaleDebito.Controls);
 
-                        }
-
-
-                    }
-                    if (R == null) {
-                        txtComuneAddComunali.Text = null;
-                        txtComuneAddRegionali.Text = null;
-                        txtComuneAddComRata.Text = null;
-                        txtComuneAddRegRata.Text = null;
-                        return;
-                    }
-
-                    //Verifica che la residenza del cred/deb sia coerente con quella del contratto
-
-                    if (!Meta.IsEmpty) {
-                        if (DaliaAbilitato && Meta.DrawStateIsDone) {
-                            scegliDalia = true;
-                        }
-
-                        object idComuneAddizionale = CalcoliCococo.calcolaComuneIndirizzoValido(Conn, idreg,
-                            primoDellAnno);
-                        string denomComuneAddizionale = ricavaDenominazioneComune(idComuneAddizionale);
-                        txtComuneAddComunali.Text = denomComuneAddizionale;
-
-                        object idComuneAddizionaleRata = CalcoliCococo.calcolaComuneIndirizzoValido(Conn, idreg,
-                            primoDellAnnoPrec);
-                        string denomComuneAddizionaleRata = ricavaDenominazioneComune(idComuneAddizionaleRata);
-                        txtComuneAddComRata.Text = denomComuneAddizionaleRata;
-                        object idser = DS.parasubcontract.Rows[0]["idser"];
-
-                        if (idser != DBNull.Value) {
-                            DataTable TCom = CalcoliCococo.verificaAddizionaliPrestazione(Conn, idser, "C");
-                            if ((TCom != null) && (TCom.Rows.Count > 0)) {
-                                if ((idComuneAddizionale == DBNull.Value) || (idComuneAddizionale == null)) {
-                                    MessageBox.Show(this,
-                                        "In riferimento all'applicazione delle addizionali comunali non esiste per il percipiente "
-                                        + "\nun domicilio fiscale o un indirizzo di residenza valido al " +
-                                        primoDellAnno.ToShortDateString());
-                                }
-                            }
-                        }
+							}
 
 
-                        txtComuneAddRegRata.Text = denomComuneAddizionaleRata;
+						}
+						if (R == null) {
+							txtComuneAddComunali.Text = null;
+							txtComuneAddRegionali.Text = null;
+							txtComuneAddComRata.Text = null;
+							txtComuneAddRegRata.Text = null;
+							return;
+						}
 
-                        txtComuneAddRegionali.Text = denomComuneAddizionale;
-                        aggiornaComuneResidenza(idComuneAddizionale);
+						//Verifica che la residenza del cred/deb sia coerente con quella del contratto
 
-                        if (idser != DBNull.Value) {
-                            DataTable TGeo = CalcoliCococo.verificaAddizionaliPrestazione(Conn, idser, "R");
-                            if ((TGeo != null) && (TGeo.Rows.Count > 0)) {
-                                if ((idComuneAddizionale == DBNull.Value) || (idComuneAddizionale == null)) {
-                                    MessageBox.Show(this,
-                                        "In riferimento all'applicazione delle addizionali regionali non esiste per il percipiente "
-                                        + "\nun domicilio fiscale o un indirizzo di residenza valido al " +
-                                        primoDellAnno.ToShortDateString()
-                                        + "\no alla data di fine contratto. ");
-                                }
-                            }
+						if (!Meta.IsEmpty) {
+							if (DaliaAbilitato && Meta.DrawStateIsDone) {
+								scegliDalia = true;
+							}
 
-                        }
-                    }
-                    if (scegliDalia) {
-                        selezionaQualificaDalia(true);
-                    }
-                    return;
-                }
+							object idComuneAddizionale = CalcoliCococo.calcolaComuneIndirizzoValido(Conn, idreg, primoDellAnno);
+							string denomComuneAddizionale = ricavaDenominazioneComune(idComuneAddizionale);
+							txtComuneAddComunali.Text = denomComuneAddizionale;
 
-                case "exhibitedcud": {
-                    EnableDisableBtnCUDdeduzionidetrazioni();
-                    break;
-                }
+							object idComuneAddizionaleRata = CalcoliCococo.calcolaComuneIndirizzoValido(Conn, idreg, primoDellAnnoPrec);
+							string denomComuneAddizionaleRata = ricavaDenominazioneComune(idComuneAddizionaleRata);
+							txtComuneAddComRata.Text = denomComuneAddizionaleRata;
+							object idser = DS.parasubcontract.Rows[0]["idser"];
 
-                case "payroll": {
-                    //Abilita/disabilita i bottoni calcola/visualizza cedolino in base al flagcompleto e 
-                    // alla data erogazione. Si può visualizzare solo un cedolino calcolato,
-                    // e si può calcolare solo il primo cedolino non calcolato
-                    if (R != null) {
-                        object idCedolino = R["idpayroll"];
-                        string flagCalcolato = R["flagcomputed"].ToString().ToUpper();
-                        btnVisualizzaCedolino.Enabled = flagCalcolato == "S";
+							if (idser != DBNull.Value) {
+								DataTable TCom = CalcoliCococo.verificaAddizionaliPrestazione(Conn, idser, "C");
+								if ((TCom != null) && (TCom.Rows.Count > 0)) {
+									if ((idComuneAddizionale == DBNull.Value) || (idComuneAddizionale == null)) {
+										show(this,
+											"In riferimento all'applicazione delle addizionali comunali non esiste per il percipiente "
+											+ "\nun domicilio fiscale o un indirizzo di residenza valido al " +
+											primoDellAnno.ToShortDateString());
+									}
+								}
+							}
 
-                        //Cedolini non calcolati
-                        DataRow[] rCedoliniNonCalcolati = DS.payroll.Select(
-                            QHC.CmpEq("flagcomputed", "N"),
-                            "fiscalyear asc, npayroll asc");
 
-                        //Calcolo cedolino abilitato se:
-                        // ci sono cedolini non calcolati ed il primo è quello selezionato
-                        btnCalcolaCedolino.Enabled =
-                            (rCedoliniNonCalcolati.Length != 0)
-                            && (idCedolino.Equals(rCedoliniNonCalcolati[0]["idpayroll"]));
-                    }
-                    else {
-                        btnCalcolaCedolino.Enabled = false;
-                        btnVisualizzaCedolino.Enabled = false;
-                    }
-                    break;
-                }
-                case "sortingview1": {
-                    if (R == null) return;
-                    if (Meta.IsEmpty) return;
-                    selezionaVoceSpesaDalia(R["idsor"]);
-                    return;
-                }
-                case "service": {
-                    abilitaDisabilitaDalia(R);
-                    abilitaDisabilitaCCdedicato(R);
-                        if ((!Meta.IsEmpty) && (R != null) && (DS.parasubcontract.Select().Length > 0) &&
-                        (!verificaPrestazioneStranieri())) {
-                        int idreg = CfgFn.GetNoNullInt32(DS.parasubcontract.Rows[0]["idreg"]);
-                        if (idreg != 0) {
-                            object idComuneAddRegionale = DBNull.Value;
-                            idComuneAddRegionale = CalcoliCococo.calcolaComuneIndirizzoValido(Conn, idreg, primoDellAnno);
-                            aggiornaComuneResidenza(idComuneAddRegionale);
-                        }
-                    }
+							txtComuneAddRegRata.Text = denomComuneAddizionaleRata;
 
-                    if (R != null) {
-                        abilitaCmbAltreFormeAssicurative(R["idser"]);
-                        abilitaChiudiContratto(R["idser"]);
-                        abilitaCmbTipoRapporto(R["idser"]);
-                        abilitaCmbPat(R["idser"]);
-                        // Ricalcola l'imponibile dei CUD nel caso sia cambiato
-                        if (Meta.DrawStateIsDone && !Meta.FirstFillForThisRow && !Meta.IsEmpty) {
-                            decimal totImponibileCud = calcolaSommaImponibileCud();
-                            totImponibileCud += calcolaImponibileFiscalePresuntoAnnuo();
-                            object currPrestazione = R["idser"];
-                            if ((lastTotImponibileCud != totImponibileCud) && (!lastPrestazione.Equals(currPrestazione))) {
-                                Meta.GetFormData(true);
-                                bool aliquotaImpostata = impostaAliquotaFiscaleMarginale();
-                                if (aliquotaImpostata) {
-                                    lastTotImponibileCud = totImponibileCud;
-                                }
-                            }
-                        }
-                        lastPrestazione = R["idser"];
-                    }
-                    else {
-                        lastPrestazione = DBNull.Value;
-                        abilitaCmbTipoRapporto(null);
-                        abilitaCmbPat(null);
-                        abilitaCmbAltreFormeAssicurative(null);
-                        abilitaCmbAttivitaPrevINPS(null);
-                    }
+							txtComuneAddRegionali.Text = denomComuneAddizionale;
+							aggiornaComuneResidenza(idComuneAddizionale);
 
-                    if (Meta.DrawStateIsDone) {
-                        if (!Meta.IsEmpty) {
-                            Meta.GetFormData(true);
-                        }
-                        gestisciFlagDetrazioni(R);
-                        ricalcoloEventualeDelCostoTotale();
-                        gestisciSubEntity_cmbAliquotaIRPEF(true);
-                    }
+							if (idser != DBNull.Value) {
+								DataTable TGeo = CalcoliCococo.verificaAddizionaliPrestazione(Conn, idser, "R");
+								if ((TGeo != null) && (TGeo.Rows.Count > 0)) {
+									if ((idComuneAddizionale == DBNull.Value) || (idComuneAddizionale == null)) {
+										show(this,
+											"In riferimento all'applicazione delle addizionali regionali non esiste per il percipiente "
+											+ "\nun domicilio fiscale o un indirizzo di residenza valido al " +
+											primoDellAnno.ToShortDateString()
+											+ "\no alla data di fine contratto. ");
+									}
+								}
 
-                    if ((R != null) && (R["certificatekind"].ToString() == "U")) {
-                        generaCudDaAltriContratti();
-                        AbilitaCUD(true);
-                    }
-                    else {
-                        cancellaCud();
-                        AbilitaCUD(false);
-                    }
+							}
+						}
+						if (scegliDalia) {
+							selezionaQualificaDalia(true);
+						}
+						return;
+					}
 
-                    break;
-                }
+				case "exhibitedcud": {
+						EnableDisableBtnCUDdeduzionidetrazioni();
+						break;
+					}
 
-                case "emenscontractkind": {
-                    if (Meta.InsertMode || Meta.EditMode) {
-                        DS.parasubcontractyear.Rows[0]["idemenscontractkind"] = (R == null)
-                            ? DBNull.Value
-                            : R["idemenscontractkind"];
-                    }
-                    if (R == null) {
-                        if (Meta.InsertMode || Meta.EditMode) {
-                            btnAttivitaPrevINPS.Enabled = false;
-                            cmbAttPrevidenzialeINPS.Enabled = false;
-                            cmbAttPrevidenzialeINPS.SelectedIndex = -1;
-                        }
-                        else {
-                            btnAttivitaPrevINPS.Enabled = true;
-                            cmbAttPrevidenzialeINPS.Enabled = true;
-                        }
-                        return;
-                    }
+				case "payroll": {
+						//Abilita/disabilita i bottoni calcola/visualizza cedolino in base al flagcompleto e 
+						// alla data erogazione. Si può visualizzare solo un cedolino calcolato,
+						// e si può calcolare solo il primo cedolino non calcolato
+						if (R != null) {
+							object idCedolino = R["idpayroll"];
+							string flagCalcolato = R["flagcomputed"].ToString().ToUpper();
+							btnVisualizzaCedolino.Enabled = flagCalcolato == "S";
 
-                    if (!Meta.FirstFillForThisRow) {
-                        bool datoSelezionatoNonValido = (R["module"] == DBNull.Value)
-                                                        ||
-                                                        (R["module"].ToString()
-                                                            .IndexOf("C", 0, R["module"].ToString().Length) == -1);
-                        if (datoSelezionatoNonValido && !Meta.IsEmpty) {
-                            DS.parasubcontractyear.Rows[0]["idemenscontractkind"] = DBNull.Value;
-                        }
-                    }
+							//Cedolini non calcolati
+							DataRow[] rCedoliniNonCalcolati = DS.payroll.Select(
+							QHC.CmpEq("flagcomputed", "N"),
+							"fiscalyear asc, npayroll asc");
 
-                    if (R["flagactivityrequested"].ToString() == "S") {
-                        // Caso 1: Il rapporto ha il flag attività obbligatorio
-                        // abilito combo e il bottone dell'attività
-                        btnAttivitaPrevINPS.Enabled = true;
-                        cmbAttPrevidenzialeINPS.Enabled = true;
-                    }
-                    else {
-                        // Caso 2: Il rapporto non ha il flag attività obbligatorio
-                        // solo se non sono in fase di caricamento del form disabilito il combo di sotto
-                        // e scelgo come elemento del combo quello vuoto
-                        if (!Meta.FirstFillForThisRow) {
-                            btnAttivitaPrevINPS.Enabled = false;
-                            cmbAttPrevidenzialeINPS.Enabled = false;
-                            cmbAttPrevidenzialeINPS.SelectedIndex = -1;
-                        }
-                    }
-                    break;
-                }
+							//Calcolo cedolino abilitato se:
+							// ci sono cedolini non calcolati ed il primo è quello selezionato
+							btnCalcolaCedolino.Enabled =
+								(rCedoliniNonCalcolati.Length != 0)
+								&& (idCedolino.Equals(rCedoliniNonCalcolati[0]["idpayroll"]));
+						} else {
+							btnCalcolaCedolino.Enabled = false;
+							btnVisualizzaCedolino.Enabled = false;
+						}
+						break;
+					}
+				case "sortingview1": {
+						if (R == null) return;
+						if (Meta.IsEmpty) return;
+						if (!Meta.DrawStateIsDone) return;
+						Meta.GetFormData(true);
+						selezionaVoceSpesaDalia(R["idsor"]);
+						return;
+					}
 
-                case "inpsactivity": {
-                    if (Meta.InsertMode || Meta.EditMode) {
-                        DS.parasubcontractyear.Rows[0]["activitycode"] = (R == null) ? DBNull.Value : R["activitycode"];
-                    }
-                    break;
-                }
+				case "service": {
+						abilitaDisabilitaDalia(R);
+						abilitaDisabilitaCCdedicato(R);
+						if ((!Meta.IsEmpty) && (R != null) && (DS.parasubcontract.Select().Length > 0) &&
+							(!verificaPrestazioneStranieri())) {
+							int idreg = CfgFn.GetNoNullInt32(DS.parasubcontract.Rows[0]["idreg"]);
+							if (idreg != 0) {
+								var idComuneAddRegionale = CalcoliCococo.calcolaComuneIndirizzoValido(Conn, idreg, primoDellAnno);
+								aggiornaComuneResidenza(idComuneAddRegionale);
+							}
+						}
 
-                case "otherinsurance": {
-                    if (Meta.InsertMode || Meta.EditMode) {
-                        DS.parasubcontractyear.Rows[0]["idotherinsurance"] = (R == null)
-                            ? DBNull.Value
-                            : R["idotherinsurance"];
-                    }
-                    break;
-                }
+						if (R != null) {
+							abilitaCmbAltreFormeAssicurative(R["idser"]);
+							abilitaChiudiContratto(R["idser"]);
+							abilitaCmbTipoRapporto(R["idser"]);
+							abilitaCmbPat(R["idser"]);
+							// Ricalcola l'imponibile dei CUD nel caso sia cambiato
+							if (Meta.DrawStateIsDone && !Meta.FirstFillForThisRow && !Meta.IsEmpty) {
+								decimal totImponibileCud = calcolaSommaImponibileCud();
+								totImponibileCud += calcolaImponibileFiscalePresuntoAnnuo();
+								object currPrestazione = R["idser"];
+								if ((lastTotImponibileCud != totImponibileCud) &&
+									(!lastPrestazione.Equals(currPrestazione))) {
+									Meta.GetFormData(true);
+									bool aliquotaImpostata = impostaAliquotaFiscaleMarginale();
+									if (aliquotaImpostata) {
+										lastTotImponibileCud = totImponibileCud;
+									}
+								}
+							}
 
-                case "pat": {
-                    if (Meta.DrawStateIsDone) {
-                        if (!verificaCambioNumODenDellImponibile(R)) {
-                            MessageBox.Show(this, "Poichè si è cambiata la posizione assicurativa territoriale\n"
-                                                  + "prima di salvare occorre reimpostare i compensi\n" +
-                                                  "e ricalcolare i cedolini non ancora erogati. ");
-                        }
-                        if (DS.parasubcontract.Rows.Count != 0) {
-                            DataRow currPara = DS.parasubcontract.Rows[0];
-                            currPara["idpat"] = (R == null) ? DBNull.Value : R["idpat"];
-                        }
-                        ricalcoloEventualeDelCostoTotale();
-                    }
-                    break;
-                }
-            case "accmotiveapplied_cost": {
-                        SiopeObj.setCausaleEPCorrente(R?["idaccmotive"]);
-                        SiopeObj.selectSiope();
-                        break;
-                }
-            }
+							lastPrestazione = R["idser"];
+						} else {
+							lastPrestazione = DBNull.Value;
+							abilitaCmbTipoRapporto(null);
+							abilitaCmbPat(null);
+							abilitaCmbAltreFormeAssicurative(null);
+							abilitaCmbAttivitaPrevINPS(null);
+						}
+
+						if (Meta.DrawStateIsDone) {
+							if (!Meta.IsEmpty) {
+								Meta.GetFormData(true);
+							}
+
+							gestisciFlagDetrazioni(R);
+							ricalcoloEventualeDelCostoTotale();
+							gestisciSubEntity_cmbAliquotaIRPEF(true);
+						}
+
+						if ((R != null) && (R["certificatekind"].ToString() == "U")) {
+							generaCudDaAltriContratti();
+							AbilitaCUD(true);
+						} else {
+							cancellaCud();
+							AbilitaCUD(false);
+						}
+
+						break;
+					}
+
+				case "emenscontractkind": {
+						if (Meta.InsertMode || Meta.EditMode) {
+							DS.parasubcontractyear.Rows[0]["idemenscontractkind"] = (R == null)
+								? DBNull.Value
+								: R["idemenscontractkind"];
+						}
+						if (R == null) {
+							if (Meta.InsertMode || Meta.EditMode) {
+								btnAttivitaPrevINPS.Enabled = false;
+								cmbAttPrevidenzialeINPS.Enabled = false;
+								cmbAttPrevidenzialeINPS.SelectedIndex = -1;
+							} else {
+								btnAttivitaPrevINPS.Enabled = true;
+								cmbAttPrevidenzialeINPS.Enabled = true;
+							}
+							return;
+						}
+
+						if (!Meta.FirstFillForThisRow) {
+							bool datoSelezionatoNonValido = (R["module"] == DBNull.Value)
+														||
+														(R["module"].ToString()
+															.IndexOf("C", 0, R["module"].ToString().Length) == -1);
+							if (datoSelezionatoNonValido && !Meta.IsEmpty) {
+								DS.parasubcontractyear.Rows[0]["idemenscontractkind"] = DBNull.Value;
+							}
+						}
+
+						if (R["flagactivityrequested"].ToString() == "S") {
+							// Caso 1: Il rapporto ha il flag attività obbligatorio
+							// abilito combo e il bottone dell'attività
+							btnAttivitaPrevINPS.Enabled = true;
+							cmbAttPrevidenzialeINPS.Enabled = true;
+						} else {
+							// Caso 2: Il rapporto non ha il flag attività obbligatorio
+							// solo se non sono in fase di caricamento del form disabilito il combo di sotto
+							// e scelgo come elemento del combo quello vuoto
+							if (!Meta.FirstFillForThisRow) {
+								btnAttivitaPrevINPS.Enabled = false;
+								cmbAttPrevidenzialeINPS.Enabled = false;
+								cmbAttPrevidenzialeINPS.SelectedIndex = -1;
+							}
+						}
+						break;
+					}
+
+				case "inpsactivity": {
+						if (Meta.InsertMode || Meta.EditMode) {
+							DS.parasubcontractyear.Rows[0]["activitycode"] = (R == null) ? DBNull.Value : R["activitycode"];
+						}
+						break;
+					}
+
+				case "otherinsurance": {
+						if (Meta.InsertMode || Meta.EditMode) {
+							DS.parasubcontractyear.Rows[0]["idotherinsurance"] = (R == null)
+								? DBNull.Value
+								: R["idotherinsurance"];
+						}
+						break;
+					}
+
+				case "pat": {
+						if (Meta.DrawStateIsDone) {
+							if (!verificaCambioNumODenDellImponibile(R)) {
+								show(this, "Poichè si è cambiata la posizione assicurativa territoriale\n"
+													  + "prima di salvare occorre reimpostare i compensi\n" +
+													  "e ricalcolare i cedolini non ancora erogati. ");
+							}
+							if (DS.parasubcontract.Rows.Count != 0) {
+								DataRow currPara = DS.parasubcontract.Rows[0];
+								currPara["idpat"] = (R == null) ? DBNull.Value : R["idpat"];
+							}
+							ricalcoloEventualeDelCostoTotale();
+						}
+						break;
+					}
+				case "accmotiveapplied_cost": {
+						SiopeObj.setCausaleEPCorrente(R?["idaccmotive"]);
+						SiopeObj.selectSiope();
+						break;
+					}
+				case "upb": {
+						if (Meta.DrawStateIsDone) {
+							Meta.GetFormData(true);
+							if (R != null) {
+								foreach (DataRow Dett in DS.payroll.Rows) {
+									if (Dett["disbursementdate"] != DBNull.Value) continue;
+									Dett["idupb"] = R["idupb"];
+								}
+								Meta.FreshForm(tabCedolini.Controls, true,"upb_payroll");
+							}
+						}
+						break;
+						}
+					}
+		
         }
         private bool verificaCambioNumODenDellImponibile(DataRow pat) {
             if (pat == null) return true;
@@ -5264,7 +5444,8 @@ namespace parasubcontract_default { //contratto//
                 case "05_COORDM": //INPS 10%
                 case "05_ASSRICM": //INPS 10%
                 case "10_COSTCONMUT": //CoCoCo stranieri mutuati in convenz con INPS - Vedi task 4729     
-                case "16_COORDM_DS": //task 9186  e poi 9206
+				case "05_COOSTRA": //Co.co.co.stranieri mutuati non convenz
+				case "16_COORDM_DS": //task 9186  e poi 9206
                 case "16_COORDM_AS": //task 9186  e poi 9206
                 case "CUST_COORDMCONTR": //Co.co.co. mutuati docenti a contratto task  10436
                 case "15_BRS_POSTM": //Borse post-doc mutuati (con solo rit. Inps) 
@@ -5543,9 +5724,20 @@ namespace parasubcontract_default { //contratto//
         }
 
         bool comingFromBtnGeneraCedolini = false;
+        private bool insideCalcolaCedolini = false;
 
+		List <DataRow> cedoliniModificati = new  List<DataRow>();
         public void MetaData_BeforePost() {
+	        cedoliniModificati.Clear();
             if (DS.parasubcontract.Rows.Count == 0) return;
+
+            if (insideCalcolaCedolini == false) {
+	            foreach (var p in DS.payroll.Select()) {
+		            if (p.RowState == DataRowState.Modified) {
+			            cedoliniModificati.Add(p);
+		            }
+	            }
+            }
 
             DataRowState contrattoRowState = DS.parasubcontract.Rows[0].RowState;
             if (contrattoRowState == DataRowState.Deleted) {
@@ -5555,7 +5747,7 @@ namespace parasubcontract_default { //contratto//
                 int count = Meta.Conn.RUN_SELECT_COUNT("payroll",
                     QHS.AppAnd(QHS.CmpEq("idcon", idContratto), QHS.IsNotNull("disbursementdate")),
                     true);
-                if (count == 0) {
+                if (count == 0) {//Solo se non ci sono cedolino erogati cancella tutti i cedolini con i loro figli
                     EPM.beforePost();
                     DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.payroll, null,
                         QHS.CmpEq("idcon", idContratto), null, true);
@@ -5624,7 +5816,8 @@ namespace parasubcontract_default { //contratto//
                     (decimal) DS.parasubcontract.Rows[0]["grossamount"],
                     (DateTime) DS.parasubcontract.Rows[0]["start"],
                     (DateTime) DS.parasubcontract.Rows[0]["stop"],
-                    rCedoliniErogati
+					DS.parasubcontract.Rows[0]["idupb"],
+					rCedoliniErogati
                     );
 
                 DialogResult dr = frmGenCed.ShowDialog();
@@ -5657,7 +5850,7 @@ namespace parasubcontract_default { //contratto//
                 0) return;
             //VisualizzaEtichetteAP();
             if (btnGeneraAP.Visible) {
-                MessageBox.Show("Ricordarsi di compilare la scheda Anagrafe prestazioni");
+                show("Ricordarsi di compilare la scheda Anagrafe prestazioni");
             }
         }
 
@@ -5666,6 +5859,12 @@ namespace parasubcontract_default { //contratto//
         public void MetaData_AfterPost() {
             EPM.afterPost();
 
+            foreach (var p in cedoliniModificati) {
+	            if (p.RowState == DataRowState.Detached) continue;
+	            EPM_payroll.setForcedCurrentRow(p);
+				EPM_payroll.afterPost();
+            }
+            cedoliniModificati.Clear();
             if (Meta.PrimaryDataTable.Rows.Count > 0) {
                 VisualizzaEtichetteAP();
                 AvvisoAnagrafePrestazioni();
@@ -5726,10 +5925,12 @@ namespace parasubcontract_default { //contratto//
         }
 
         private void btnCalcolaCedolino_Click(object sender, System.EventArgs e) {
+
             if (!Meta.GetFormData(false)) {
-                MessageBox.Show(this, "E' necessario salvare per usare questa funzionalità");
+                show(this, "E' necessario salvare per usare questa funzionalità");
                 return;
             }
+
             if (Meta.IsEmpty)
                 return;
             if (Meta.InsertMode)
@@ -5739,7 +5940,7 @@ namespace parasubcontract_default { //contratto//
             if (inputDatiSalvati != null && !inputDatiSalvati.EqualsRicalcolaCedolini(inputPerCalcoloCostoTotale)) {
                 string messaggio = "Sono stati modificati dei dati presenti nel contratto che sono influenti al calcolo del cedolino"
                                    + "\nPer calcolare un cedolino occorre prima salvare il contratto!";
-                MessageBox.Show(this, messaggio);
+                show(this, messaggio);
                 return;
             }
 
@@ -5748,7 +5949,7 @@ namespace parasubcontract_default { //contratto//
                 string messaggio = "Il cedolino non può essere calcolato in quanto non esiste il cedolino di conguaglio per l'anno in corso."
                                    +
                                    "\nPer creare il cedolino di conguaglio si prega di cliccare sul bottone Reimposta Compensi";
-                MessageBox.Show(this, messaggio, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                show(this, messaggio, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -5758,7 +5959,7 @@ namespace parasubcontract_default { //contratto//
             string flagCalcolato = rCedolino["flagcomputed"].ToString();
             int rigaGridCedolino = dgCedolini.CurrentRowIndex;
             if (flagCalcolato == "S") {
-                DialogResult dr = MessageBox.Show(this,
+                DialogResult dr = show(this,
                     "Si desidera calcolare nuovamente il cedolino cancellando tutti i dati esistenti?",
                     "Richiesta conferma", MessageBoxButtons.YesNoCancel);
 
@@ -5793,7 +5994,7 @@ namespace parasubcontract_default { //contratto//
                 //Genera impegni e scritture nell'anno di competenza del cedolino
                 newConn = ottieniConnessioneNuovoEsercizio(Conn, annostop);
                 if (newConn == null) {
-                    MessageBox.Show("Ci sono problemi nell'accedere all'anno " + annostop + 
+                    show("Ci sono problemi nell'accedere all'anno " + annostop + 
                         ", non saranno generati impegni di budget o scritture", "Errore");
                     erroriep = true;
                 }
@@ -5801,7 +6002,7 @@ namespace parasubcontract_default { //contratto//
                     d = new Meta_EasyDispatcher(newConn);
                     metaParasub = d.Get("parasubcontract");
                     metaParasub.DS = Meta.DS;
-                    metaParasub.LinkedForm = this;
+                    metaParasub.linkedForm = this;
                     epManagerCedolino = new EP_Manager(metaParasub, null, null, null, null, null, null, null, null, "payroll");
                 }
             }
@@ -5811,40 +6012,45 @@ namespace parasubcontract_default { //contratto//
                 CalcoliCococo coc = new CalcoliCococo(Meta.Dispatcher, Meta.Conn, DS);
                 errMess = coc.calcolaCedolino(idCedolino, true, "N");
                 if (errMess != null) {
-                    MessageBox.Show(this, "Errore nel calcolo del cedolino n° " + idCedolino + ".\n" + errMess);
+                    show(this, "Errore nel calcolo del cedolino n° " + idCedolino + ".\n" + errMess);
                     return;
                 }
                 // 2. Calcola Ritenute Fiscali del Cedolino di Conguaglio
                 errMess = coc.calcolaCedolino(idCedolinoConguaglio, true, "F");
                 if (errMess != null) {
-                    MessageBox.Show(this, "Errore nel calcolo del cedolino n° " + idCedolinoConguaglio + ".\n" + errMess);
+                    show(this, "Errore nel calcolo del cedolino n° " + idCedolinoConguaglio + ".\n" + errMess);
                     return;
                 }
                 // 3. Aggiungi Ritenute non Fiscali al Cedolino di Conguaglio
                 errMess = coc.aggiungiRitenuteNonFiscaliCedolinoConguaglio(idCedolinoConguaglio, true);
                 if (errMess != null) {
-                    MessageBox.Show(this, "Errore nel calcolo del cedolino n° " + idCedolinoConguaglio + ".\n" + errMess);
+                    show(this, "Errore nel calcolo del cedolino n° " + idCedolinoConguaglio + ".\n" + errMess);
                     return;
                 }
                 // 4. Aggiungi Ritenute Fiscali al Cedolino Rata
                 errMess = coc.aggiungiRitenuteFiscaliUltimoCedolinoRata(idCedolino, idCedolinoConguaglio, true);
                 if (errMess != null) {
-                    MessageBox.Show(this, "Errore nel calcolo del cedolino n° " + idCedolino + ".\n" + errMess);
+                    show(this, "Errore nel calcolo del cedolino n° " + idCedolino + ".\n" + errMess);
                     return;
                 }
                 // 5. Aggiorna Ritenute Fiscali al Cedolino di Conguaglio
                 errMess = coc.aggiornaDatiCedolinoConguaglio(idCedolinoConguaglio, true);
                 if (errMess != null) {
-                    MessageBox.Show(this, "Errore nel calcolo del cedolino n° " + idCedolinoConguaglio + ".\n" + errMess);
+                    show(this, "Errore nel calcolo del cedolino n° " + idCedolinoConguaglio + ".\n" + errMess);
                 }
                 // 6. Salva il Cedolino Rata e il Cedolino di Conguaglio
                 Meta.SaveFormData();
                 if (DS.HasChanges()) {
-                    MessageBox.Show(this, "Attenzione! Si sono verificati errori nel calcolo del cedolino");
+                    show(this, "Attenzione! Si sono verificati errori nel calcolo del cedolino");
                     return;
                 }
 
-                DataRow currCedolino = DS.payroll.Select(QHC.CmpEq("idpayroll", idCedolino))[0];
+                DataRow currCedolino = DS.payroll.Select(QHC.CmpEq("idpayroll", idCedolino)).FirstOrDefault();
+                if (currCedolino == null) {
+	                show(this, "Attenzione! Si sono verificati errori nel calcolo del cedolino");
+	                return;
+                }
+
                 if ((erroriep==false) && epManagerCedolino.abilitaScritture(currCedolino)) {
                     epManagerCedolino.setForcedCurrentRow(currCedolino);
                     epManagerCedolino.afterPost();
@@ -5862,13 +6068,16 @@ namespace parasubcontract_default { //contratto//
                 // 1. Calcola il Cedolino Rata
                 errMess = coc.calcolaCedolino(idCedolino, true, "T");
                 if (errMess != null) {
-                    MessageBox.Show(this, "Errore nel calcolo del cedolino n° " + idCedolino + ".\n" + errMess);
+                    show(this, "Errore nel calcolo del cedolino n° " + idCedolino + ".\n" + errMess);
                     return;
                 }
                 // 2. Salva il Cedolino Rata
+                insideCalcolaCedolini = true; //inibisce ulteriori generazioni di impegni o scritture annidati
                 Meta.SaveFormData();
+                insideCalcolaCedolini = false;
                 if (DS.HasChanges()) {
-                    MessageBox.Show(this, "Attenzione! Si sono verificati errori nel calcolo del cedolino");
+					DS.RejectChanges();
+                    show(this, "Attenzione! Si sono verificati errori nel calcolo del cedolino, le modifiche sono state annullate");
                     return;
                 }
                 DataRow currCedolino = DS.payroll.Select(QHC.CmpEq("idpayroll", idCedolino))[0];
@@ -5895,7 +6104,7 @@ namespace parasubcontract_default { //contratto//
                 Conn.RUN_SELECT("accountingyear", "*", null, QHS.CmpEq("ayear", esercizio), null, true);
 
             if (EsercizioTable.Rows.Count == 0) {
-                MessageBox.Show("L'esercizio " + esercizio + " non è stato creato.");
+                show("L'esercizio " + esercizio + " non è stato creato.");
                 return false;
             }
             return true;
@@ -5925,7 +6134,7 @@ namespace parasubcontract_default { //contratto//
 
             DateTime newDate = new DateTime(newEsercizio, 12, 31);
             if (!CambioDataConsentita(Conn, newDate)) {
-                MessageBox.Show("L'utente non ha diritto ad agire nell'esercizio " + newEsercizio, "Errore");
+                show("L'utente non ha diritto ad agire nell'esercizio " + newEsercizio, "Errore");
                 return null;
             }
             Easy_DataAccess newConn = (Easy_DataAccess)Conn.Duplicate();
@@ -5975,37 +6184,6 @@ namespace parasubcontract_default { //contratto//
             return idrelated;
         }
 
-        private void CancellaImpegnoBudget(ArrayList listaRelated) {
-            BudgetFunction BF = new BudgetFunction(Meta.Dispatcher);
-            if (!BF.attivo) return;
-            foreach (string idrelatedBudget in listaRelated) {
-                BF.GetEpExpForDocument(idrelatedBudget);
-
-                foreach (DataRow rEpExpSorting in BF.D.Tables["epexpsorting"].Rows) {
-                    rEpExpSorting.Delete();
-                }
-
-                foreach (DataRow rEpExp in BF.D.Tables["epexp"].Rows) {
-                    rEpExp.Delete();
-                }
-
-                MetaData MetaEpExp = MetaData.GetMetaData(this, "epexp");
-                PostData Post = MetaEpExp.Get_PostData();
-
-                Post.InitClass(BF.D, Meta.Conn);
-                if (!Post.DO_POST()) {
-                    MessageBox.Show(this, "Errore durante la cancellazione degli impegni di budget");
-                }
-            }
-        }
-
-        void EditEpExp(DataRow rCedolino) {
-            if (rCedolino == null) return;
-
-            BudgetFunction BF = new BudgetFunction(Meta.Dispatcher);
-            string idrel = BudgetFunction.GetIdForDocument(rCedolino);
-            BF.EditRelatedEpExpLike(Meta, idrel);
-        }
 
         private void riempiDatiRiepilogativi() {
             string queryRitenute = "select 'Codice Ritenuta'= tax.taxref, "
@@ -6065,34 +6243,50 @@ namespace parasubcontract_default { //contratto//
                            " GROUP BY tax.taxkind";
 
             DataTable t = Meta.Conn.SQLRunner(query);
-            DataRow[] rPrev = t.Select(QHC.CmpEq("taxkind", 3));
             decimal ritAmmin = 0, ritDip = 0;
-            if (rPrev.Length > 0) {
-                ritAmmin += CfgFn.GetNoNullDecimal(rPrev[0]["admintax"]);
-                ritDip += CfgFn.GetNoNullDecimal(rPrev[0]["employtax"]);
-                txtPrevAmm.Text = HelpForm.StringValue(rPrev[0]["admintax"], "x.x");
-                txtPrevDip.Text = HelpForm.StringValue(rPrev[0]["employtax"], "x.x");
+            if (t != null) {
+	            DataRow[] rPrev = t.Select(QHC.CmpEq("taxkind", 3));
+
+	            if (rPrev.Length > 0) {
+		            ritAmmin += CfgFn.GetNoNullDecimal(rPrev[0]["admintax"]);
+		            ritDip += CfgFn.GetNoNullDecimal(rPrev[0]["employtax"]);
+		            txtPrevAmm.Text = HelpForm.StringValue(rPrev[0]["admintax"], "x.x");
+		            txtPrevDip.Text = HelpForm.StringValue(rPrev[0]["employtax"], "x.x");
+	            }
+
+	            DataRow[] rFisc = t.Select(QHC.CmpEq("taxkind", 1));
+	            if (rFisc.Length > 0) {
+		            ritAmmin += CfgFn.GetNoNullDecimal(rFisc[0]["admintax"]);
+		            ritDip += CfgFn.GetNoNullDecimal(rFisc[0]["employtax"]);
+		            txtFiscAmm.Text = HelpForm.StringValue(rFisc[0]["admintax"], "x.x");
+		            txtFiscDip.Text = HelpForm.StringValue(rFisc[0]["employtax"], "x.x");
+	            }
+
+	            DataRow[] rAssic = t.Select(QHC.CmpEq("taxkind", 4));
+	            if (rAssic.Length > 0) {
+		            ritAmmin += CfgFn.GetNoNullDecimal(rAssic[0]["admintax"]);
+		            ritDip += CfgFn.GetNoNullDecimal(rAssic[0]["employtax"]);
+		            txtAssicAmm.Text = HelpForm.StringValue(rAssic[0]["admintax"], "x.x");
+		            txtAssicDip.Text = HelpForm.StringValue(rAssic[0]["employtax"], "x.x");
+	            }
+
+	            DataRow[] rAssis = t.Select(QHC.CmpEq("taxkind", 2));
+	            if (rAssis.Length > 0) {
+		            ritAmmin += CfgFn.GetNoNullDecimal(rAssis[0]["admintax"]);
+		            ritDip += CfgFn.GetNoNullDecimal(rAssis[0]["employtax"]);
+		            txtAssisAmm.Text = HelpForm.StringValue(rAssis[0]["admintax"], "x.x");
+		            txtAssisDip.Text = HelpForm.StringValue(rAssis[0]["employtax"], "x.x");
+	            }
             }
-            DataRow[] rFisc = t.Select(QHC.CmpEq("taxkind", 1));
-            if (rFisc.Length > 0) {
-                ritAmmin += CfgFn.GetNoNullDecimal(rFisc[0]["admintax"]);
-                ritDip += CfgFn.GetNoNullDecimal(rFisc[0]["employtax"]);
-                txtFiscAmm.Text = HelpForm.StringValue(rFisc[0]["admintax"], "x.x");
-                txtFiscDip.Text = HelpForm.StringValue(rFisc[0]["employtax"], "x.x");
-            }
-            DataRow[] rAssic = t.Select(QHC.CmpEq("taxkind", 4));
-            if (rAssic.Length > 0) {
-                ritAmmin += CfgFn.GetNoNullDecimal(rAssic[0]["admintax"]);
-                ritDip += CfgFn.GetNoNullDecimal(rAssic[0]["employtax"]);
-                txtAssicAmm.Text = HelpForm.StringValue(rAssic[0]["admintax"], "x.x");
-                txtAssicDip.Text = HelpForm.StringValue(rAssic[0]["employtax"], "x.x");
-            }
-            DataRow[] rAssis = t.Select(QHC.CmpEq("taxkind", 2));
-            if (rAssis.Length > 0) {
-                ritAmmin += CfgFn.GetNoNullDecimal(rAssis[0]["admintax"]);
-                ritDip += CfgFn.GetNoNullDecimal(rAssis[0]["employtax"]);
-                txtAssisAmm.Text = HelpForm.StringValue(rAssis[0]["admintax"], "x.x");
-                txtAssisDip.Text = HelpForm.StringValue(rAssis[0]["employtax"], "x.x");
+            else {
+	            txtPrevAmm.Text = "";
+	            txtPrevDip.Text = "";
+	            txtAssisAmm.Text = "";
+	            txtAssisDip.Text = "";
+	            txtFiscAmm.Text = "";
+	            txtFiscDip.Text = "";
+	            txtAssicAmm.Text = "";
+	            txtAssicDip.Text = "";
             }
 
             txtLordoAlBeneficiarioRiep.Text = lordoAlBeneficiario.ToString("c");
@@ -6115,7 +6309,7 @@ namespace parasubcontract_default { //contratto//
             if (numCedoliniTrasferiti > 0) {
                 string messaggio = "Per poter reimpostare i compensi verranno cancellati i cedolini che erano stati trasferiti nell'anno successivo"
                                    + "\nProseguire?";
-                DialogResult dr = MessageBox.Show(this, messaggio, "Avviso", MessageBoxButtons.YesNoCancel,
+                DialogResult dr = show(this, messaggio, "Avviso", MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Warning);
                 if (dr != DialogResult.Yes) {
                     comingFromBtnGeneraCedolini = false;
@@ -6132,7 +6326,7 @@ namespace parasubcontract_default { //contratto//
                     QHS.CmpEq("idrelated", EP_functions.GetIdForDocument(rced)), QHS.CmpNe("yentry", esercizio)
                 ), false);
                 if (nEntry > 0) {
-                    MessageBox.Show(
+                    show(
                         $"Per il cedolino n.{rced["npayroll"]} anno fiscale {rced["fiscalyear"]} esistono scritture in altri anni, non è "
                         + "possibile reimpostare i compensi. Occorre prima pagare tali cedolini.", "Errore");
                     return;
@@ -6141,9 +6335,9 @@ namespace parasubcontract_default { //contratto//
             comingFromBtnGeneraCedolini = true;
             if (Meta.GetFormData(false)) {
                 EPM.beforePost();
-                Meta.SaveFormData();
+                Meta.SaveFormData();//Il ricalcolo avviene nel beforePost
                 if (DS.HasChanges()) {
-                    MessageBox.Show(this, "Errore nel salvataggio si consiglia di chiamare il settore assistenza");
+                    show(this, "Errore nel salvataggio si consiglia di chiamare il settore assistenza");
                     Meta.CanSave = false;
                     return;
                 }
@@ -6241,7 +6435,7 @@ namespace parasubcontract_default { //contratto//
             string errMsg;
             DataTable t = Meta.Conn.SQLRunner(query, 0, out errMsg);
             if (errMsg != null) {
-                MessageBox.Show(this, errMsg);
+                show(this, errMsg);
                 return -1;
             }
             return CfgFn.GetNoNullDecimal(t.Rows[0][0]);
@@ -6265,7 +6459,7 @@ namespace parasubcontract_default { //contratto//
             if (!calcoloRiuscito) {
                 decimal newtotale = CfgFn.RoundValuta(calcolaCostoTotale(inputPerCalcoloCostoTotale));
                 txtStimaCostoTotale.Text = newtotale.ToString("c");
-                MessageBox.Show(this,
+                show(this,
                     "Non è stato possibile trovare un lordo al beneficiario a cui corrisponda in modo esatto il costo digitato." +
                     "Il valore è stato pertanto approssimato.", "Avviso");
             }
@@ -6322,7 +6516,7 @@ namespace parasubcontract_default { //contratto//
                 input.lordoAlBeneficiario = (decimal) o;
             }
             else {
-                //				MessageBox.Show(this, "Inserire il lordo al beneficiario");
+                //				show(this, "Inserire il lordo al beneficiario");
                 if (calcoloInverso) {
                     //input.lordoAlBeneficiario = 0;
                 }
@@ -6332,7 +6526,7 @@ namespace parasubcontract_default { //contratto//
             }
 
             if (input.codicePrestazione == DBNull.Value) {
-                //				MessageBox.Show(this, "Inserire il tipo di prestazione");
+                //				show(this, "Inserire il tipo di prestazione");
                 return null;
             }
 
@@ -6341,7 +6535,7 @@ namespace parasubcontract_default { //contratto//
                 input.dataInizioContratto = (DateTime) o;
             }
             else {
-                //				MessageBox.Show(this, "Inserire la data di inizio del contratto");
+                //				show(this, "Inserire la data di inizio del contratto");
                 return null;
             }
 
@@ -6350,12 +6544,12 @@ namespace parasubcontract_default { //contratto//
                 input.dataFineContratto = DateTime.Parse(txtDataFine.Text);
             }
             else {
-                //				MessageBox.Show(this, "Inserire la data di fine del contratto");
+                //				show(this, "Inserire la data di fine del contratto");
                 return null;
             }
 
             //			if (input.idPat==0) {
-            //				//				MessageBox.Show(this, "Inserire la Posizione Assicurativa Territoriale");
+            //				//				show(this, "Inserire la Posizione Assicurativa Territoriale");
             //				return null;
             //			}
 
@@ -6378,7 +6572,7 @@ namespace parasubcontract_default { //contratto//
                 return 0;
             }
             if (input.dataInizioContratto.Year > esercizio) {
-                MessageBox.Show(this,
+                show(this,
                     "L'anno della data di inizio del contratto deve essere minore o uguale all'esercizio corrente");
                 return 0;
             }
@@ -6477,7 +6671,7 @@ namespace parasubcontract_default { //contratto//
             string filtroPat = QHC.CmpEq("idpat", idpat);
             DataRow[] pat = DS.pat.Select(filtroPat);
             if (pat.Length == 0) {
-                //MessageBox.Show(this, "Attenzione: deve essere inserita la PAT (Posizione Assicurativa Territoriale)");
+                //show(this, "Attenzione: deve essere inserita la PAT (Posizione Assicurativa Territoriale)");
                 return 0;
             }
             else {
@@ -6596,10 +6790,11 @@ namespace parasubcontract_default { //contratto//
                                        ".\nVerranno aggiunti i CUD corrispondenti a tali contratti in questo contratto?"
                                        +
                                        "\nNota Bene: Verrà automaticamente impostata l'aliquota marginale per la ritenuta fiscale";
-            MessageBox.Show(this, messaggioAggiungi, "Avviso");
+            show(this, messaggioAggiungi, "Avviso");
             // Generazione dei CUD
             Meta.GetFormData(true);
             inserisciCud(tContratto);
+            QueryCreator.MarkEvent("generaCudDaAltriContratti.FreshForm");
             Meta.FreshForm();
             // E' stata commentata questa chiamata perchè il FreshForm provoca la chiamata all'AfterFill
             // il quale chiama impostaAliquotaFiscaleMarginale(), quindi c'è una ridondanza di operazione 
@@ -6641,7 +6836,7 @@ namespace parasubcontract_default { //contratto//
                 //        "In un contratto esistente ne è stata trovata una di importo pari a " +
                 //            CfgFn.GetNoNullDecimal(OnDeb["totalamount"]).ToString("c") + ".\r\n" +
                 //            "Se si intende sommare le due deduzioni premere Ok altrimenti sarà ignorata la detrazione trovata";
-                //    if (MessageBox.Show(this, msg, "Conferma", MessageBoxButtons.OKCancel) != DialogResult.OK) continue;
+                //    if (show(this, msg, "Conferma", MessageBoxButtons.OKCancel) != DialogResult.OK) continue;
                 //    OnereFound = Existent[0];
                 //    OnereFound["totalamount"] = CfgFn.GetNoNullDecimal(OnereFound["totalamount"]) +
                 //                                    CfgFn.GetNoNullDecimal(OnDeb["totalamount"]);
@@ -6726,7 +6921,7 @@ namespace parasubcontract_default { //contratto//
         //                "In un contratto esistente ne è stata trovata una di importo pari a " +
         //                    CfgFn.GetNoNullDecimal(OnDeb["totalamount"]).ToString("c") + ".\r\n" +
         //                    "Se si intende sommare le due deduzioni premere Ok altrimenti sarà ignorata la detrazione trovata";
-        //            if (MessageBox.Show(this, msg, "Conferma", MessageBoxButtons.OKCancel) != DialogResult.OK) continue;
+        //            if (show(this, msg, "Conferma", MessageBoxButtons.OKCancel) != DialogResult.OK) continue;
         //            OnereFound = Existent[0];
         //            OnereFound["totalamount"] = CfgFn.GetNoNullDecimal(OnereFound["totalamount"]) +
         //                                            CfgFn.GetNoNullDecimal(OnDeb["totalamount"]);
@@ -6794,7 +6989,7 @@ namespace parasubcontract_default { //contratto//
                 //        "In un contratto esistente ne è stata trovata una di importo pari a " +
                 //            CfgFn.GetNoNullDecimal(OnDeb["totalamount"]).ToString("c") + ".\r\n" +
                 //            "Se si intende sommare le due deduzioni premere Ok altrimenti sarà ignorata la deduzione trovata";
-                //    if (MessageBox.Show(this, msg, "Conferma", MessageBoxButtons.OKCancel) != DialogResult.OK) continue;
+                //    if (show(this, msg, "Conferma", MessageBoxButtons.OKCancel) != DialogResult.OK) continue;
                 //    OnereFound = Existent[0];
                 //    OnereFound["totalamount"] = CfgFn.GetNoNullDecimal(OnereFound["totalamount"]) +
                 //                                    CfgFn.GetNoNullDecimal(OnDeb["totalamount"]);
@@ -6851,7 +7046,7 @@ namespace parasubcontract_default { //contratto//
             }
 
             if (showMessage) {
-                MessageBox.Show(this, "Verranno aggiunti i familiari presenti in altri contratti. " +
+                show(this, "Verranno aggiunti i familiari presenti in altri contratti. " +
                                       "Nel caso non si vogliano applicare le detrazioni rimuoverli manualmente",
                     "Informazione",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -6903,7 +7098,7 @@ namespace parasubcontract_default { //contratto//
                 //    return false;
                 //}
                 //messaggio = "Verrà ora impostata l'aliquota della ritenuta fiscale per scaglioni in quanto non ci sono più CUD associati al contratto";
-                //MessageBox.Show(this, messaggio, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //show(this, messaggio, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //SubEntity_rbScaglioniIRPEF.Checked = true;
                 //setValoreInComboAliquota(DBNull.Value);
 
@@ -6931,7 +7126,7 @@ namespace parasubcontract_default { //contratto//
                         + " A conguaglio sarà comunque possibile togliere la spunta per evitare un'applicazione "
                         + " eccessiva di imposte. Avvisare il percipiente di questa situazione.";
 
-            MessageBox.Show(this, messaggio, "Avviso impotante", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            show(this, messaggio, "Avviso impotante", MessageBoxButtons.OK, MessageBoxIcon.Information);
             SubEntity_rbAliquotaMarginale.Checked = true;
             setValoreInComboAliquota(aliquotaFiscale);
             return true;
@@ -7019,7 +7214,7 @@ namespace parasubcontract_default { //contratto//
                     if (Meta.FirstFillForThisRow) {
                         if ((Meta.InsertMode) || (Meta.EditMode)) {
                             if (!verificaPrestazioneStranieri()) {
-                                MessageBox.Show(this, "Il comune di residenza del percipiente " +
+                                show(this, "Il comune di residenza del percipiente " +
                                 "non risulta essere "
                                 + txtComuneAddRegionali.Text
                                 + ". Pertanto sarà aggiornato ",
@@ -7134,7 +7329,7 @@ namespace parasubcontract_default { //contratto//
                                        " che rappresenta la data di fine dell'ultimo cedolino erogato" +
                                        "\n Verrà automaticamente impostata la seguente data " +
                                        ultimaDataErogazione.AddDays(1).ToString();
-                    MessageBox.Show(this, messaggio, "Errore", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    show(this, messaggio, "Errore", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     txtDataFine.Text = ultimaDataErogazione.AddDays(1).ToString();
                 }
             }
@@ -7228,13 +7423,13 @@ namespace parasubcontract_default { //contratto//
             AP.GetEntryForDocument(Curr);
 
             if (AP.MainSrvRegExists()) {
-                MessageBox.Show(this, "L'Anagrafe Prestazione è stata già generata.",
+                show(this, "L'Anagrafe Prestazione è stata già generata.",
                     "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             MetaData ToMeta = Meta.Dispatcher.Get("serviceregistry");
-            ToMeta.Edit(Meta.LinkedForm.ParentForm, "default", false);
+            ToMeta.Edit(Meta.linkedForm.ParentForm, "default", false);
 
             //ToMeta.PrimaryDataTable. è la tabella principale del form creato
             Hashtable saveddefaults = new Hashtable();
@@ -7244,7 +7439,7 @@ namespace parasubcontract_default { //contratto//
 
             bool isOk = AP.SetSrvRegDefault(ToMeta, Curr, Curr["idreg"], AP_fun.GetIdForDocument(Curr));
             if (!isOk) {
-                MessageBox.Show(this, "Errore nella assegnazione dei valori di default",
+                show(this, "Errore nella assegnazione dei valori di default",
                     "Anagrafe Prestazioni non generata");
                 return;
             }
@@ -7300,7 +7495,7 @@ namespace parasubcontract_default { //contratto//
                 messaggio += "\nche non sono ancora stati conguagliati.";
             }
             messaggio += "\nSi consiglia di conguagliare un contratto prima di aprirne un altro.";
-            MessageBox.Show(this, messaggio);
+            show(this, messaggio);
             return true;
         }
 
@@ -7335,7 +7530,7 @@ namespace parasubcontract_default { //contratto//
                         "\n\nEssendo già stato erogato il conguaglio non è possibile rimediare in questo contratto";
                 }
             }
-            MessageBox.Show(this, messaggio);
+            show(this, messaggio);
             return true;
         }
 
@@ -7346,7 +7541,7 @@ namespace parasubcontract_default { //contratto//
             if (rCud.Length == 0) {
                 return false;
             }
-            MessageBox.Show(this, "In questo contratto esistono cud che non puntano a nessun altro contratto");
+            show(this, "In questo contratto esistono cud che non puntano a nessun altro contratto");
             return true;
         }
 
@@ -7376,7 +7571,7 @@ namespace parasubcontract_default { //contratto//
                 messaggio += ", " + "(" + t.Rows[i]["idcon"] + "," + t.Rows[i]["idexhibitedcud"] + ")";
             }
             messaggio += "\n\nOccorre pertanto prima sistemare tali cud e poi tornare a questo contratto!";
-            MessageBox.Show(this, messaggio);
+            show(this, messaggio);
             return true;
         }
 
@@ -7392,7 +7587,7 @@ namespace parasubcontract_default { //contratto//
                 if (t.Rows.Count > 0) {
                     errori = true;
                     foreach (DataRow r in t.Rows) {
-                        MessageBox.Show("Il cud n° " + rCud["idexhibitedcud"] + " punta allo stesso contratto "
+                        show("Il cud n° " + rCud["idexhibitedcud"] + " punta allo stesso contratto "
                                         + QueryCreator.quotedstrvalue(rCud["idlinkedcon"], true)
                                         + " che è puntato"
                                         + "\n anche dal cud (" + r["idcon"] + "," + r["idexhibitedcud"] + ").");
@@ -7429,6 +7624,7 @@ namespace parasubcontract_default { //contratto//
                 rCud["irpefapplied"] = cud.irpefApplicata;
                 rCud["irpefgross"] = cud.irpefGross;
                 rCud["earnings_based_abatements"] = cud.earnings_based_abatements;
+                rCud["earnings_based_abatements2020"] = cud.earnings_based_abatements2020	;
                 rCud["totabatements"] = cud.totabatements;
                 rCud["fiscalbonusapplied"] = cud.fiscalBonusApplied;
                 rCud["inpsretained"] = cud.contributiTrattenuti;
@@ -7467,7 +7663,7 @@ namespace parasubcontract_default { //contratto//
 
             DataRow[] rCedCong = DS.payroll.Select(QHC.CmpEq("flagbalance", "S"));
             if (rCedCong.Length == 0) {
-                MessageBox.Show(this, "Questo contratto non ha il cedolino di conguaglio!");
+                show(this, "Questo contratto non ha il cedolino di conguaglio!");
             }
             bool contrattoChiuso = (rCedCong.Length > 0) && !(rCedCong[0]["disbursementdate"] is DBNull);
             DataTable t = DataAccess.SQLRunner(Meta.Conn, query);
@@ -7475,7 +7671,7 @@ namespace parasubcontract_default { //contratto//
                 return false;
             }
             if ((t.Rows.Count >= 1) && (DS.exhibitedcud.Rows.Count == 0) && !contrattoChiuso) {
-                DialogResult dr = MessageBox.Show(this, "Per lo stesso percipiente esiste il contratto "
+                DialogResult dr = show(this, "Per lo stesso percipiente esiste il contratto "
                                                         + t.Rows[0]["idcon"]
                                                         +
                                                         " già conguagliato. Procedere con l'inserimento del relativo cud in questo contratto?",
@@ -7503,7 +7699,7 @@ namespace parasubcontract_default { //contratto//
                     messaggio += "\nNon è possibile rimediare in questo contratto";
                 }
             }
-            MessageBox.Show(this, messaggio);
+            show(this, messaggio);
             return true;
         }
 
@@ -7527,7 +7723,7 @@ namespace parasubcontract_default { //contratto//
                 }
             }
             if (!errori) {
-                MessageBox.Show(this, "Non sono stati riscontrati errori nei cud");
+                show(this, "Non sono stati riscontrati errori nei cud");
             }
         }
 
@@ -7570,19 +7766,19 @@ namespace parasubcontract_default { //contratto//
                     QHS.AppAnd(QHS.IsNotNull("disbursementdate"),
                         QHS.CmpEq("idcon", DS.parasubcontract.Rows[0]["idcon"])), true);
                 if (count > 0) {
-                    MessageBox.Show(this,
+                    show(this,
                         "Non ci sono cedolini erogati in quest'anno, pertano questo contratto può essere ignorato");
                 }
-                MessageBox.Show(this, "Non ci sono cedolini erogati; si può cancellare direttamente il contratto");
+                show(this, "Non ci sono cedolini erogati; si può cancellare direttamente il contratto");
                 return;
             }
             DataRow[] rCedCong = DS.payroll.Select(QHC.CmpEq("flagbalance", "S"));
             if (rCedCong.Length == 0) {
-                MessageBox.Show(this, "Manca il cedolino di conguaglio!");
+                show(this, "Manca il cedolino di conguaglio!");
                 return;
             }
             if (rCedCong[0]["disbursementdate"] != DBNull.Value) {
-                MessageBox.Show(this, "Il contratto è già chiuso");
+                show(this, "Il contratto è già chiuso");
                 return;
             }
             object dataErogazione = DS.payroll.Compute("max(disbursementdate)", "disbursementdate is not null");
@@ -7943,13 +8139,13 @@ namespace parasubcontract_default { //contratto//
             DataTable main = Meta.PrimaryDataTable;
             //object idsorkind = Conn.DO_READ_VALUE("sortingkind", QHS.CmpEq("codesorkind", "VOCISPESA"), "idsorkind");
             //if (idsorkind == null || idsorkind == DBNull.Value) {
-            //    MessageBox.Show("Non è installata la classificazione per DALIA avente codice VOCISPESA", "Errore");
+            //    show("Non è installata la classificazione per DALIA avente codice VOCISPESA", "Errore");
             //    return;
             //}
             DataRow r = main.Rows[0];
             object idser = r["idser"];
             if (idser == DBNull.Value) {
-                MessageBox.Show("Occorre selezionare prima la prestazione", "Avviso");
+                show("Occorre selezionare prima la prestazione", "Avviso");
                 return;
             }
             DataRow[] classR =
@@ -7963,7 +8159,7 @@ namespace parasubcontract_default { //contratto//
                 //Il resto lo fa nell'afterrowselect, che chiama selezionaVoceSpesaDalia
             }
             else {
-                MessageBox.Show("La prestazione selezionata non è associata ad alcuna classificazione DALIA", "Avviso");
+                show("La prestazione selezionata non è associata ad alcuna classificazione DALIA", "Avviso");
             }
         }
 
@@ -8074,7 +8270,7 @@ namespace parasubcontract_default { //contratto//
             DataRow newClass = MSor.Get_New_Row(Curr, sortingT);
             newClass["idsor"] = idsor;
             newClass["quota"] = 1.0;
-            Meta.FreshForm(true);
+            Meta.FreshForm();
 
         }
         private void btnQualificaDalia_Click(object sender, EventArgs e) {
@@ -8090,7 +8286,7 @@ namespace parasubcontract_default { //contratto//
             DataRow Curr = main.Rows[0];
             object idreg = Curr["idreg"];
             if (idreg == DBNull.Value && !quiet) {
-                MessageBox.Show("Occorre selezionare prima il percipiente", "Avviso");
+                show("Occorre selezionare prima il percipiente", "Avviso");
                 return;
             }
 
@@ -8114,7 +8310,7 @@ namespace parasubcontract_default { //contratto//
             DataRow[] dalia =
                 Conn.RUN_SELECT("registrylegalstatus", "iddaliaposition", null, filter, null, false).Select();
             if (dalia.Length == 0 && !quiet) {
-                MessageBox.Show("Il percipiente selezionato non ha una qualifica Dalia negli inquadramenti", "Errore");
+                show("Il percipiente selezionato non ha una qualifica Dalia negli inquadramenti", "Errore");
                 return;
             }
             if (dalia.Length > 0) {
@@ -8135,6 +8331,34 @@ namespace parasubcontract_default { //contratto//
 
         private void inserisci_CUD_Click(object sender, EventArgs e) {
 
+        }
+
+        private void SubEntity_rbScaglioniIRPEF_CheckedChanged(object sender, EventArgs e) {
+            //se è stato inserito un CUD nel cui contratto è stata applicata un'aliquota marginale, in questo contratto NON si può applicare 
+            // l'aliquota per scaglioni
+            if (Meta.IsEmpty) return;
+            if (Meta.EditMode) return;
+            if (!SubEntity_rbScaglioniIRPEF.Checked) return;
+            DataRow Curr = DS.parasubcontract.Rows[0];
+            DataRow ImpCurr = DS.parasubcontractyear.Rows[0];
+
+            object nCud = DS.exhibitedcud.Rows.Count;
+            string messaggio = "";
+            if (CfgFn.GetNoNullInt32(nCud) == 0) {
+                return;
+            }
+            //idlinkedcon
+            DataRow row_exhibitedcud = DS.exhibitedcud.Select()._First();
+            object idlinkedcon = row_exhibitedcud["idlinkedcon"];
+            
+            DataTable T = Conn.RUN_SELECT("parasubcontractyear", "*", null, QHS.AppAnd(QHS.CmpEq("ayear", esercizio), QHS.CmpEq("idcon", idlinkedcon)), null, false);//filtrare anche per esercizio
+
+            if (T == null || T.Rows.Count == 0) return;
+            if (T.Rows[0]["applybrackets"].ToString().ToUpper() != "S")
+                messaggio = "Nel contratto inserito come CUD è stata applicata l'aliquota marginale, pertanto adesso non si potrà applicare l'aliquota per scaglione.\n ";
+
+            show(this, messaggio, "Avviso importante", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // SubEntity_rbAliquotaMarginale.Checked = false;
         }
     }
 
@@ -8199,4 +8423,4 @@ namespace parasubcontract_default { //contratto//
                    && (certificateKind == y.certificateKind);
         }
     }
-}
+}

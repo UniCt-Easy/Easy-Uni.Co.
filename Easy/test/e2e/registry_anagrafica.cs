@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using metadatalibrary;
 using System.Data;
@@ -43,6 +42,7 @@ namespace e2e {
         [ClassInitialize]
         public static void testInitialize(TestContext t) {
             mainTester = new testE2EMainHelper();
+			mainTester.clearErrors();
             staticTestContext = t;
 
         }
@@ -50,6 +50,7 @@ namespace e2e {
         [ClassCleanup]
         public static void testEnd() {
             mainTester.close();
+           
         }
 
         //Use TestInitialize to run code before running each test
@@ -68,18 +69,21 @@ namespace e2e {
         [TestMethod]
         public void checkInsertCancelMessage() {
             var listMsg = testF.resp.getMessages();
+			testF.resp.clearMessages();
             Assert.AreEqual(0,listMsg.Count,"No messages at start");
             testF.ctrl.DoMainCommand("maininsert");
+            testF.ctrl.DontWarnOnInsertCancel = false;
             testF.ctrl.DoMainCommand("maindelete");
             Assert.AreEqual(1,listMsg.Count,"One message at end");
-            Assert.AreEqual("Annullo l'inserimento dell'oggetto Anagrafica nella tabella registry",listMsg[0]);
-
+            Assert.AreEqual("Annullo l'inserimento dell'oggetto Cliente/Fornitore nella tabella registry",listMsg[0]);
+            testF.closeForm();
         }
 
         //Use TestCleanup to run code after each test has run
         [TestCleanup()]
         public void MyTestCleanup() {
             testF.closeForm();
+            Assert.AreEqual(false, testF.f.Visible);
             testF.resp.clearMessages();
         }
 
@@ -99,6 +103,8 @@ namespace e2e {
 
             cbTipologia.setDisplayHaving("persona fisica");
             Assert.IsTrue(grpGeo.Visible, "grpGeo  visible for persona fisica");
+
+            testF.closeForm();
         }
 
         [TestMethod]
@@ -108,7 +114,7 @@ namespace e2e {
             TextBox tSurName = testF.findByTag("registry.surname") as TextBox;
             Assert.IsTrue(tSurName.Visible, "Surname visible for anagrafica complementare");
             Assert.IsNotNull(ctrlTipologia, "Esiste un controllo che indica il tipo anagrafica");
-            Assert.IsInstanceOfType(ctrlTipologia, typeof(ComboBox), "Tipologia Ã¨ un combo");
+            Assert.IsInstanceOfType(ctrlTipologia, typeof(ComboBox), "Tipologia è un combo");
             ComboBox cbTipologia = ctrlTipologia as ComboBox;
             Assert.IsTrue(cbTipologia.Visible, "combo tipologia visibile");
             Assert.IsTrue(cbTipologia.Enabled, "combo tipologia abilitato");
@@ -125,6 +131,8 @@ namespace e2e {
 
             cbTipologia.SelectedIndex = 0;
             Assert.IsTrue(tSurName.Visible, "Surname visible for no selection in combo tipologia");
+
+            testF.closeForm();
         }
 
         private TestContext testContextInstance;
@@ -193,7 +201,7 @@ namespace e2e {
             Assert.IsNotNull(ctrlTipologiaSpese, "Esiste un controllo che indica il tipo anagrafica");
             Assert.IsTrue(ctrlTipologiaSpese.Visible, "Tipologia Spese visible for anagrafica complementare");
 		
-            Assert.IsInstanceOfType(ctrlTipologiaSpese, typeof(ComboBox), "Tipologia Ã¨ un combo");
+            Assert.IsInstanceOfType(ctrlTipologiaSpese, typeof(ComboBox), "Tipologia è un combo");
             ComboBox cbTipologia = ctrlTipologiaSpese as ComboBox;
             Assert.IsTrue(cbTipologia.Visible, "combo tipologia trattamento spese visibile");
             Assert.IsTrue(cbTipologia.Enabled, "combo tipologia trattamento spese abilitato");
@@ -221,6 +229,7 @@ namespace e2e {
             testFRegistry.ctrl.DoMainCommand("maininsert");
             testFRegistry.clickByName("btnPagInserisci");
             Assert.IsTrue(testE2EFrmHelper.hasBeenInvoked("registrypaymethod","anagrafica"));
+            testFRegistry.closeForm();
            
         }
 
@@ -249,6 +258,13 @@ namespace e2e {
 			testE2EFrmHelper.registerFormTest("registrypaymethod", "anagrafica", testchildFormVisibility);
 			mainTester.openFromMenu("registry", "anagrafica");
         }
+
+        [TestCleanup()]
+        public void MyTestCleanup() {
+	        testE2EFrmHelper.unregisterFormTest("registry", "anagrafica");
+	        testE2EFrmHelper.unregisterFormTest("registrypaymethod", "anagrafica");
+        }
+
 
         private testE2EFrmHelper testFRegistry;
         private testE2EFrmHelper testFRegistryPaymethod;
@@ -289,7 +305,7 @@ namespace e2e {
             testFRegistry.ctrl.DoMainCommand("maininsert");
             testFRegistry.clickByName("btnPagInserisci");
             Assert.IsTrue(testE2EFrmHelper.hasBeenInvoked("registrypaymethod","anagrafica"));
-           
+            testFRegistry.closeForm();
         }
 
     
@@ -358,8 +374,9 @@ namespace e2e {
 			testFRegistry.ctrl.DoMainCommand("maininsert");
 			testFRegistry.clickByName("btnIndInserisci");
 			Assert.IsTrue(testE2EFrmHelper.hasBeenInvoked("registryaddress", "anagraficasingle"));
+            testFRegistry.closeForm();
 
-		}
+        }
 
 
 
@@ -415,10 +432,10 @@ namespace e2e {
 			testFRegistry.ctrl.DoMainCommand("maininsert");
 			testFRegistry.clickByName("btnIndInserisci");
 			Assert.IsTrue(testE2EFrmHelper.hasBeenInvoked("registryaddress", "anagraficasingle"));
-
+			testFRegistry.closeForm();
 		}
 
-		[TestMethod]
+		
 		public void testIndirizzoEsteroVisibility(Form form) {
 			testFRegistryAddress = new testE2EFrmHelper(form);
 			Assert.IsNotNull(testFRegistryAddress, "Test Inizializzato");
@@ -468,6 +485,7 @@ namespace e2e {
 
 		private testE2EFrmHelper testFRegistry;
 		private testE2EFrmHelper testFRegistryAddress;
+
 		public void registerTestForm(Form form) {
 			if (form.Name == "Frm_registry_anagrafica") {
 				testFRegistry = new testE2EFrmHelper(form);
@@ -491,10 +509,10 @@ namespace e2e {
 			testFRegistry.ctrl.DoMainCommand("maininsert");
 			testFRegistry.clickByName("btnIndInserisci");
 			Assert.IsTrue(testE2EFrmHelper.hasBeenInvoked("registryaddress", "anagraficasingle"));
-
+			testFRegistry.closeForm();
 		}
 
-		[TestMethod]
+		
 		public void testIndirizzoItaliaVisibility(Form form) {
 			testFRegistryAddress = new testE2EFrmHelper(form);
 			Assert.IsNotNull(testFRegistryAddress, "Test Inizializzato");
@@ -577,8 +595,8 @@ namespace e2e {
 			testFRegistry.ctrl.DoMainCommand("maininsert");
 			testFRegistry.clickByName("button13");
 			Assert.IsTrue(testE2EFrmHelper.hasBeenInvoked("registrydurc", "anagraficadetail"));
-
-		}
+            testFRegistry.closeForm();
+        }
 
 	}
 	[TestClass]
@@ -643,6 +661,7 @@ namespace e2e {
 		public void testChildFormRegistryCvAttachment() {			
 			testFRegistry.clickByName("btnInsAtt");
 			Assert.IsTrue(testE2EFrmHelper.hasBeenInvoked("registrycvattachment", "default"));
+			testFRegistry.closeForm();
 
 		}
 
@@ -669,6 +688,13 @@ namespace e2e {
 				testE2EFrmHelper.registerFormTest("registryreference", "default", testchildFormVisibility);
 				mainTester.openFromMenu("registry", "anagrafica");
 			}
+
+            [TestCleanup()]
+            public void MyTestCleanup() {
+                testFRegistryReference.closeForm();
+                testFRegistry.closeForm();
+            }
+
 
 			private testE2EFrmHelper testFRegistry;
 			private testE2EFrmHelper testFRegistryReference;
@@ -710,6 +736,7 @@ namespace e2e {
 				Assert.IsTrue(btnlInsertReference.Enabled, "Button inizialmente abilitato");
 				testFRegistry.clickByName("btnContInserisci");
 				Assert.IsTrue(testE2EFrmHelper.hasBeenInvoked("registryreference", "default"));
+				testFRegistry.closeForm();
 			}
 
 		}
@@ -778,6 +805,7 @@ namespace e2e {
 	 
 				//testFRegistry.clickByName("button3");
 				//Assert.IsTrue(!testE2EFrmHelper.hasBeenInvoked("registrycf", "default"));
+				testFRegistry.closeForm();
 
 			}
 
@@ -853,4 +881,3 @@ namespace e2e {
 		}
 	}
 }
-

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Windows.Forms;
@@ -28,7 +27,7 @@ namespace expensetax_default {//dettaglioritenute//
 	/// Summary description for frmdettaglioritenute.
 	/// Revised By Nino on 14/3/2003 (mancavano tutte le formule)
 	/// </summary>
-	public class Frm_expensetax_default : System.Windows.Forms.Form {
+	public class Frm_expensetax_default : MetaDataForm {
 		decimal lastImponibileLordo;
 		decimal lastQuotaEsente;
 		decimal lastImponibileNetto;
@@ -859,7 +858,7 @@ namespace expensetax_default {//dettaglioritenute//
 				idSer=Meta.ExtraParameter;
 			}
 			else {
-				MessageBox.Show("E' necessario inserire il tipo prestazione prima di aprire questa maschera.");
+				show("E' necessario inserire il tipo prestazione prima di aprire questa maschera.");
 			}
 
             rendiReadOnly();
@@ -1066,7 +1065,7 @@ namespace expensetax_default {//dettaglioritenute//
 		}
 
 		private void txtImponibileLordo_Leave(object sender, System.EventArgs e) {
-			if (inChiusura|| Meta.inchiusura) return;
+			if (inChiusura|| Meta.formController.isClosing) return;
 			if (!Meta.InsertMode) return;
 			object o = HelpForm.GetObjectFromString(typeof(decimal),txtImponibileLordo.Text,txtImponibileLordo.Tag.ToString());
             decimal imponibileLordo = CfgFn.GetNoNullDecimal(o);
@@ -1082,7 +1081,7 @@ namespace expensetax_default {//dettaglioritenute//
 		}
 
 		private void txtQuotaEsente_Leave(object sender, System.EventArgs e) {
-            if (inChiusura || Meta.inchiusura) return;
+            if (inChiusura || Meta.formController.isClosing) return;
             if (!Meta.InsertMode) return;
 			object o = HelpForm.GetObjectFromString(typeof(decimal),txtQuotaEsente.Text,txtQuotaEsente.Tag.ToString());
             decimal quotaEsente = CfgFn.GetNoNullDecimal(o);
@@ -1130,7 +1129,7 @@ namespace expensetax_default {//dettaglioritenute//
 		}
 
 		private void txtDetrazioni_Leave(object sender, System.EventArgs e) {
-            if (inChiusura || Meta.inchiusura) return;
+            if (inChiusura || Meta.formController.isClosing) return;
             decimal detrazioni = decimalDaTextBox(txtDetrazioni);
 			if (detrazioni == lastDetrazioni) return;
 			Meta.GetFormData(true);
@@ -1139,7 +1138,7 @@ namespace expensetax_default {//dettaglioritenute//
 		}
 		
 		private void txtAliquotaDip_Leave(object sender, System.EventArgs e) {
-            if (inChiusura || Meta.inchiusura) return;
+            if (inChiusura || Meta.formController.isClosing) return;
             decimal aliquotaDip = decimalDaTextBox(txtAliquotaDip);
 			if (aliquotaDip == lastAliquotaDip) return;
 			Meta.GetFormData(true);
@@ -1148,7 +1147,7 @@ namespace expensetax_default {//dettaglioritenute//
 		}
 
 		private void txtQuotaDip1_Leave(object sender, System.EventArgs e) {
-            if (inChiusura || Meta.inchiusura) return;
+            if (inChiusura || Meta.formController.isClosing) return;
             decimal quotaNumDip = decimalDaTextBox(txtQuotaDip1);
 			if (quotaNumDip == lastQuotaNumDip) return;
 			Meta.GetFormData(true);
@@ -1157,7 +1156,7 @@ namespace expensetax_default {//dettaglioritenute//
 		}
 
 		private void txtQuotaDip2_Leave(object sender, System.EventArgs e) {
-            if (inChiusura || Meta.inchiusura) return;
+            if (inChiusura || Meta.formController.isClosing) return;
             decimal quotaDenDip = decimalDaTextBox(txtQuotaDip2);
 			if (quotaDenDip == lastQuotaDenDip) return;
 			Meta.GetFormData(true);
@@ -1166,7 +1165,7 @@ namespace expensetax_default {//dettaglioritenute//
 		}
 
 		private void txtAliquotaAmm_Leave(object sender, System.EventArgs e) {
-            if (inChiusura || Meta.inchiusura) return;
+            if (inChiusura || Meta.formController.isClosing) return;
             decimal aliquotaAmm = decimalDaTextBox(txtAliquotaAmm);
 			if (aliquotaAmm == lastAliquotaAmm) return;
 			Meta.GetFormData(true);
@@ -1175,7 +1174,7 @@ namespace expensetax_default {//dettaglioritenute//
 		}
 
 		private void txtQuotaAmm1_Leave(object sender, System.EventArgs e) {
-            if (inChiusura || Meta.inchiusura) return;
+            if (inChiusura || Meta.formController.isClosing) return;
             decimal quotaNumAmm = decimalDaTextBox(txtQuotaAmm1);
 			if (quotaNumAmm == lastQuotaNumAmm) return;
 			Meta.GetFormData(true);
@@ -1184,7 +1183,7 @@ namespace expensetax_default {//dettaglioritenute//
 		}
 
 		private void txtQuotaAmm2_Leave(object sender, System.EventArgs e) {
-            if (inChiusura || Meta.inchiusura) return;
+            if (inChiusura || Meta.formController.isClosing) return;
             decimal quotaDenAmm = decimalDaTextBox(txtQuotaAmm2);
 			if (quotaDenAmm == lastQuotaDenAmm) return;
 			Meta.GetFormData(true);
@@ -1193,7 +1192,7 @@ namespace expensetax_default {//dettaglioritenute//
 		}
 
 		private void txtImponibileNetto_Leave(object sender, System.EventArgs e) {
-            if (inChiusura || Meta.inchiusura) return;
+            if (inChiusura || Meta.formController.isClosing) return;
             decimal imponibileNetto = decimalDaTextBox(txtImponibileNetto);
 			if (imponibileNetto == lastImponibileNetto) return;
 			Meta.GetFormData(true);
@@ -1294,7 +1293,7 @@ namespace expensetax_default {//dettaglioritenute//
 	    }
 
 	    private void txtNumeroMovimento_Leave(object sender, EventArgs e) {
-            if (inChiusura || Meta.inchiusura) return;
+            if (inChiusura || Meta.formController.isClosing) return;
             if (txtNumeroMovimento.Text.Trim() != "") {
                 DoChooseCommand((Control)sender);
                 return;
@@ -1355,4 +1354,4 @@ namespace expensetax_default {//dettaglioritenute//
             inChiusura = true;
         }
     }
-}
+}

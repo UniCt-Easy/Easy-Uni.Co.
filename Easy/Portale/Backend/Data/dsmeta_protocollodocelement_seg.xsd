@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_protocollodocelement_seg" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_protocollodocelement_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="protocollodockind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idprotocollodockind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="protocollodocelement_alias1" msprop:TableForReading="protocollodocelement" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idprotocollodoc" type="xs:int" />
+              <xs:element name="idprotocollodocelement" type="xs:int" />
+              <xs:element name="protanno" type="xs:int" />
+              <xs:element name="protnumero" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="protocollodocelement" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idprotocollodoc" type="xs:int" />
+              <xs:element name="idprotocollodocelement" type="xs:int" />
+              <xs:element name="idprotocollodocelement_primo" type="xs:int" />
+              <xs:element name="idprotocollodockind" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="oggetto" type="xs:string" />
+              <xs:element name="protanno" type="xs:int" />
+              <xs:element name="protnumero" type="xs:int" />
+              <xs:element name="telematicocolloc" type="xs:string" minOccurs="0" />
+              <xs:element name="telematicohash" type="xs:base64Binary" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:protocollodockind" />
+      <xs:field xpath="mstns:idprotocollodockind" />
+    </xs:unique>
+    <xs:unique name="protocollodocelement_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:protocollodocelement_alias1" />
+      <xs:field xpath="mstns:idprotocollodoc" />
+      <xs:field xpath="mstns:idprotocollodocelement" />
+      <xs:field xpath="mstns:protanno" />
+      <xs:field xpath="mstns:protnumero" />
+    </xs:unique>
+    <xs:unique name="protocollodocelement_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:protocollodocelement" />
+      <xs:field xpath="mstns:idprotocollodoc" />
+      <xs:field xpath="mstns:idprotocollodocelement" />
+      <xs:field xpath="mstns:protanno" />
+      <xs:field xpath="mstns:protnumero" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_protocollodocelement_protocollodockind_idprotocollodockind" msdata:parent="protocollodockind" msdata:child="protocollodocelement" msdata:parentkey="idprotocollodockind" msdata:childkey="idprotocollodockind" />
+      <msdata:Relationship name="FK_protocollodocelement_protocollodocelement_alias1_idprotocollodocelement_primo" msdata:parent="protocollodocelement_alias1" msdata:child="protocollodocelement" msdata:parentkey="idprotocollodocelement" msdata:childkey="idprotocollodocelement_primo" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

@@ -1,0 +1,29 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_description">Descrizione</label>
+					<input id="position_default_description" type="text" class="form-control" data-tag="position.description?positiondefaultview.description" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="position_default_activeSi" type="radio" name="position_default_active" class="custom-control-input" data-tag="position.active:S?positiondefaultview.position_active:Si" data-subentity  ><label for="position_default_activeSi"> Si</label>
+						<input id="position_default_activeNo" type="radio" name="position_default_active" class="custom-control-input" data-tag="position.active:N?positiondefaultview.position_active:No" data-subentity  ><label for="position_default_activeNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_codeposition">Codice</label>
+					<input id="position_default_codeposition" type="text" class="form-control" data-tag="position.codeposition?positiondefaultview.position_codeposition" data-subentity  data-mandatory />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

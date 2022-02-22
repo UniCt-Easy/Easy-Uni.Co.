@@ -89,7 +89,7 @@
                                             <div class="col-md-7">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <cc1:hwButton ID="btnUpbDisponibile" runat="server" Text="UPB" class="btn btn-block" Tag="choose.upbitinerationavailable.default" />
+                                                        <cc1:hwButton ID="btnUpbDisponibile" runat="server" Text="UPB" class="btn btn-primary" Tag="choose.upbitinerationavailable.default" />
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -152,10 +152,10 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <cc1:hwButton runat="server" ID="btnspese" class="btn btn-block" Tag="spesepreviste" TabIndex="92" Text="Spese Previste" />
+                                            <cc1:hwButton runat="server" ID="btnspese" class="btn btn-primary" Tag="spesepreviste" TabIndex="92" Text="Spese Previste" />
                                         </div>
                                         <div class="col-md-6">
-                                            <cc1:hwButton runat="server" ID="btntappe" class="btn btn-block" Tag="tappe" TabIndex="91" Text="Tappe" />
+                                            <cc1:hwButton runat="server" ID="btntappe" class="btn btn-primary" Tag="tappe" TabIndex="91" Text="Tappe" />
                                         </div>
                                     </div>
                                     <div class="row">
@@ -182,16 +182,25 @@
                                     <label for="txtapplierannotation">Appunti per il Pagamento/Tipologia di Fondo</label>
                                     <cc1:hwTextBox ID="txtapplierannotation" runat="server" TabIndex="500" CssClass="input-md form-control" Tag="itinerationauthview.applierannotations" TextMode="MultiLine" Rows="2" ReadOnly="True"></cc1:hwTextBox>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="txtMotivazione">Motivazione per l'eventuale uso del mezzo proprio</label>
                                     <cc1:hwTextBox ID="txtMotivazione" runat="server" ReadOnly="True" TabIndex="500" CssClass="input-md form-control" Tag="itinerationauthview.vehicle_motive" TextMode="MultiLine" Rows="2"></cc1:hwTextBox>
                                 </div>
+                                 <div class="col-md-2">
+                                    <label for="txtInfoVeicolo">Dati identif. veicolo</label>
+                                    <cc1:hwTextBox ID="txtInfoVeicolo" runat="server" ReadOnly="True" TabIndex="500" CssClass="input-md form-control" Tag="itinerationauthview.vehicle_info" TextMode="MultiLine" Rows="2"></cc1:hwTextBox>
+                                </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <label for="txtAnnotazioniRifiutoApprovazione">Annotazioni per il Rifiuto o Approvazione</label>
                                     <cc1:hwTextBox ID="txtAnnotazioniRifiutoApprovazione" runat="server" TabIndex="500" CssClass="input-md form-control" Tag="itinerationauthview.annotationsrejectapproval" TextMode="MultiLine" Rows="2"></cc1:hwTextBox>
                                 </div>
+                                <div class="col-md-6">
+                                    <label for="txtmessaggioagenteprecedente">Messaggio Agente Precedente</label>
+                                    <cc1:hwTextBox ID="txtmessaggioagenteprecedente" runat="server" TabIndex="500" CssClass="input-md form-control" Tag="itinerationauthview.annotationsrejectapproval_prec" TextMode="MultiLine" Rows="2" ReadOnly="True"></cc1:hwTextBox>
+                                </div>
+
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -201,13 +210,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <cc1:hwButton ID="btnApproveAll" runat="server" TabIndex="95" Tag="approvatutto" class="btn btn-block" Text="Approva tutte le missioni" />
+                                    <cc1:hwButton ID="btnApproveAll" runat="server" TabIndex="95" Tag="approvatutto" class="btn btn-primary" Text="Approva tutte le missioni" />
                                 </div>
                                 <div class="col-md-4">
-                                    <cc1:hwButton ID="btnapprova" runat="server" TabIndex="95" Tag="approva" class="btn btn-block" Text="Approva" />
+                                    <cc1:hwButton ID="btnapprova" runat="server" TabIndex="95" Tag="approva" class="btn btn-primary" Text="Approva" />
                                 </div>
                                 <div class="col-md-4">
-                                    <cc1:hwButton runat="server" ID="btnresp" Tag="respingi" TabIndex="96" class="btn btn-block" Text="Nega autorizzazione" />
+                                    <cc1:hwButton runat="server" ID="btnresp" Tag="respingi" TabIndex="96" class="btn btn-danger" Text="Nega autorizzazione" />
                                 </div>
                             </div>
                             <cc1:hwPanel runat="server" ID="panelAutorizzazioni" Visible="false">
@@ -219,8 +228,8 @@
                                                 <div class="col-md-12">
                                                     <label for="txtrejectreason">Motivo della negazione</label>
                                                     <cc1:hwTextBox runat="server" ID="txtrejectreason" CssClass="input-md form-control" TextMode="SingleLine"></cc1:hwTextBox>
-                                                    <cc1:hwButton runat="server" ID="btnproceed" Tag="negaAutorizzazione" Text="Procedi con la negazione" />
-                                                    <cc1:hwButton runat="server" ID="btncancel" Tag="nonNegare" Text="Non procedere" />
+                                                    <cc1:hwButton runat="server" ID="btnproceed" Tag="negaAutorizzazione" class="btn btn-primary" Text="Procedi con la negazione" />
+                                                    <cc1:hwButton runat="server" ID="btncancel" Tag="nonNegare" class="btn btn-danger" Text="Non procedere" />
 
                                                 </div>
                                             </div>
@@ -240,7 +249,7 @@
                                    <asp:Panel ID="Panel2" runat="server">
                                        <div class="row">		 		
 								            <div class="col-md-2">	
-                                              <cc1:hwButton id="btnEditAtt" runat="server"  Tag="edit.defaultnew02" Text="Modifica" TabIndex="220"></cc1:hwButton>
+                                              <cc1:hwButton id="btnEditAtt" runat="server"  Tag="edit.defaultnew02" Text="Modifica" class="btn btn-primary" TabIndex="220"></cc1:hwButton>
                                             </div>
                                             <div class="col-md-10">	
                                                 <cc1:hwDataGridWeb ID="gridAtt" runat="server"   Tag="itinerationattachment.default.default" TabIndex="240" />

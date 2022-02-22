@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_perfprogettocambiostatoperfruolo_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_perfprogettocambiostatoperfruolo_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="perfruolodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idperfruolo" type="xs:string" />
+              <xs:element name="perfruolo_aggiorna" type="xs:string" minOccurs="0" />
+              <xs:element name="perfruolo_crea" type="xs:string" minOccurs="0" />
+              <xs:element name="perfruolo_ct" type="xs:dateTime" />
+              <xs:element name="perfruolo_cu" type="xs:string" />
+              <xs:element name="perfruolo_leggi" type="xs:string" minOccurs="0" />
+              <xs:element name="perfruolo_lt" type="xs:dateTime" />
+              <xs:element name="perfruolo_lu" type="xs:string" />
+              <xs:element name="perfruolo_oper" type="xs:string" minOccurs="0" />
+              <xs:element name="perfruolo_valuta" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettocambiostatoperfruolo" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idperfprogettocambiostato" type="xs:int" />
+              <xs:element name="idperfruolo" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfruolodefaultview" />
+      <xs:field xpath="mstns:idperfruolo" />
+    </xs:unique>
+    <xs:unique name="perfprogettocambiostatoperfruolo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettocambiostatoperfruolo" />
+      <xs:field xpath="mstns:idperfprogettocambiostato" />
+      <xs:field xpath="mstns:idperfruolo" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_perfprogettocambiostatoperfruolo_perfruolodefaultview_idperfruolo" msdata:parent="perfruolodefaultview" msdata:child="perfprogettocambiostatoperfruolo" msdata:parentkey="idperfruolo" msdata:childkey="idperfruolo" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

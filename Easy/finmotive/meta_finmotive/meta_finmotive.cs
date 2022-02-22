@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -93,7 +92,7 @@ namespace meta_finmotive {
 				//SetDefault(T,"paridaccmotive",GetSys("esercizio").ToString().Substring(2,2));
 			}
 			if (level > (maxDepth)){
-				MessageBox.Show("Non è possibile inserire un livello inferiore a quello selezionato");
+				//MessageBox. Show("Non è possibile inserire un livello inferiore a quello selezionato");
 				return null;
 			}
 
@@ -224,9 +223,9 @@ namespace meta_finmotive {
 			if (HasAutoChildren()) return false;
 		    if (Conn == null) return false;
             QueryHelper QHS = Conn.GetQueryHelper();
-			string filter = QHS.Like("idfinmotive", Row["idfinmotive"] + "%");
+			string filter = QHS.CmpEq("paridfinmotive", Row["idfinmotive"]);
 			int ResultCount = Conn.RUN_SELECT_COUNT("finmotiveusable", filter, true);
-			if (ResultCount!=1) return false;
+			if (ResultCount!=0) return false;
 			return true;
 		}
 	}
@@ -248,4 +247,3 @@ namespace meta_finmotive {
 }
 
 
-

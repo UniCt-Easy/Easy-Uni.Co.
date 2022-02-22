@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -40,7 +39,7 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
     /// revised By Nino 26/1/2003
     /// revised by NIno on 20/2/2003
     /// </summary>
-    public class Frm_proceeds_generazioneautomatica : System.Windows.Forms.Form {
+    public class Frm_proceeds_generazioneautomatica : MetaDataForm {
         QueryHelper QHS;
         CQueryHelper QHC;
         private System.Windows.Forms.ComboBox cmbCodiceIstituto;
@@ -93,7 +92,7 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
         private Label label10;
         private TextBox textBox1;
         private CheckBox chkCrediti;
-        private System.ComponentModel.IContainer components;
+		private System.ComponentModel.IContainer components;
 
         public Frm_proceeds_generazioneautomatica() {
             InitializeComponent();
@@ -120,590 +119,591 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_proceeds_generazioneautomatica));
-            this.cmbCodiceIstituto = new System.Windows.Forms.ComboBox();
-            this.DS = new proceeds_generazioneautomatica.vistaForm();
-            this.btnIstitutoCassiere = new System.Windows.Forms.Button();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.DetailGrid = new System.Windows.Forms.DataGrid();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtImporto = new System.Windows.Forms.TextBox();
-            this.grpConferma = new System.Windows.Forms.GroupBox();
-            this.btnNo = new System.Windows.Forms.Button();
-            this.btnSiTutti = new System.Windows.Forms.Button();
-            this.btnSi = new System.Windows.Forms.Button();
-            this.btnChiudi = new System.Windows.Forms.Button();
-            this.btnSuccessivo = new System.Windows.Forms.Button();
-            this.btnInizia = new System.Windows.Forms.Button();
-            this.txtResponsabile = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.txtDataContabile = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtCreditoreDebitore = new System.Windows.Forms.TextBox();
-            this.txtDescrBilancio = new System.Windows.Forms.TextBox();
-            this.txtBilancio = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtNumeroDocumento = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtEsercizioDocumento = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtTipoDocumento = new System.Windows.Forms.TextBox();
-            this.grpConto = new System.Windows.Forms.GroupBox();
-            this.rdbInfruttifero = new System.Windows.Forms.RadioButton();
-            this.rdbFruttifero = new System.Windows.Forms.RadioButton();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.btnBollo = new System.Windows.Forms.Button();
-            this.cmbBollo = new System.Windows.Forms.ComboBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.chkCSA = new System.Windows.Forms.CheckBox();
-            this.chkCrediti = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DetailGrid)).BeginInit();
-            this.grpConferma.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.grpConto.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox8.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // cmbCodiceIstituto
-            // 
-            this.cmbCodiceIstituto.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.cmbCodiceIstituto.DataSource = this.DS.treasurer;
-            this.cmbCodiceIstituto.DisplayMember = "description";
-            this.cmbCodiceIstituto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCodiceIstituto.Location = new System.Drawing.Point(78, 16);
-            this.cmbCodiceIstituto.Name = "cmbCodiceIstituto";
-            this.cmbCodiceIstituto.Size = new System.Drawing.Size(210, 21);
-            this.cmbCodiceIstituto.TabIndex = 1;
-            this.cmbCodiceIstituto.Tag = "proceeds.idtreasurer";
-            this.cmbCodiceIstituto.ValueMember = "idtreasurer";
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.EnforceConstraints = false;
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // btnIstitutoCassiere
-            // 
-            this.btnIstitutoCassiere.Location = new System.Drawing.Point(8, 16);
-            this.btnIstitutoCassiere.Name = "btnIstitutoCassiere";
-            this.btnIstitutoCassiere.Size = new System.Drawing.Size(64, 24);
-            this.btnIstitutoCassiere.TabIndex = 52;
-            this.btnIstitutoCassiere.TabStop = false;
-            this.btnIstitutoCassiere.Tag = "choose.treasurer.lista";
-            this.btnIstitutoCassiere.Text = "Cassiere:";
-            this.btnIstitutoCassiere.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_proceeds_generazioneautomatica));
+			this.cmbCodiceIstituto = new System.Windows.Forms.ComboBox();
+			this.DS = new proceeds_generazioneautomatica.vistaForm();
+			this.btnIstitutoCassiere = new System.Windows.Forms.Button();
+			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.DetailGrid = new System.Windows.Forms.DataGrid();
+			this.label5 = new System.Windows.Forms.Label();
+			this.txtImporto = new System.Windows.Forms.TextBox();
+			this.grpConferma = new System.Windows.Forms.GroupBox();
+			this.btnNo = new System.Windows.Forms.Button();
+			this.btnSiTutti = new System.Windows.Forms.Button();
+			this.btnSi = new System.Windows.Forms.Button();
+			this.btnChiudi = new System.Windows.Forms.Button();
+			this.btnSuccessivo = new System.Windows.Forms.Button();
+			this.btnInizia = new System.Windows.Forms.Button();
+			this.txtResponsabile = new System.Windows.Forms.TextBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.label4 = new System.Windows.Forms.Label();
+			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.txtDataContabile = new System.Windows.Forms.TextBox();
+			this.label9 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.txtCreditoreDebitore = new System.Windows.Forms.TextBox();
+			this.txtDescrBilancio = new System.Windows.Forms.TextBox();
+			this.txtBilancio = new System.Windows.Forms.TextBox();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.txtNumeroDocumento = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.txtEsercizioDocumento = new System.Windows.Forms.TextBox();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.txtTipoDocumento = new System.Windows.Forms.TextBox();
+			this.grpConto = new System.Windows.Forms.GroupBox();
+			this.rdbInfruttifero = new System.Windows.Forms.RadioButton();
+			this.rdbFruttifero = new System.Windows.Forms.RadioButton();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.groupBox8 = new System.Windows.Forms.GroupBox();
+			this.label10 = new System.Windows.Forms.Label();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.btnBollo = new System.Windows.Forms.Button();
+			this.cmbBollo = new System.Windows.Forms.ComboBox();
+			this.groupBox7 = new System.Windows.Forms.GroupBox();
+			this.groupBox6 = new System.Windows.Forms.GroupBox();
+			this.chkCSA = new System.Windows.Forms.CheckBox();
+			this.chkCrediti = new System.Windows.Forms.CheckBox();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.groupBox4.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DetailGrid)).BeginInit();
+			this.grpConferma.SuspendLayout();
+			this.groupBox1.SuspendLayout();
+			this.groupBox2.SuspendLayout();
+			this.grpConto.SuspendLayout();
+			this.groupBox3.SuspendLayout();
+			this.groupBox5.SuspendLayout();
+			this.groupBox8.SuspendLayout();
+			this.groupBox7.SuspendLayout();
+			this.groupBox6.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// cmbCodiceIstituto
+			// 
+			this.cmbCodiceIstituto.Anchor = System.Windows.Forms.AnchorStyles.Left;
+			this.cmbCodiceIstituto.DataSource = this.DS.treasurer;
+			this.cmbCodiceIstituto.DisplayMember = "description";
+			this.cmbCodiceIstituto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbCodiceIstituto.Location = new System.Drawing.Point(78, 16);
+			this.cmbCodiceIstituto.Name = "cmbCodiceIstituto";
+			this.cmbCodiceIstituto.Size = new System.Drawing.Size(210, 21);
+			this.cmbCodiceIstituto.TabIndex = 1;
+			this.cmbCodiceIstituto.Tag = "proceeds.idtreasurer";
+			this.cmbCodiceIstituto.ValueMember = "idtreasurer";
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// btnIstitutoCassiere
+			// 
+			this.btnIstitutoCassiere.Location = new System.Drawing.Point(8, 16);
+			this.btnIstitutoCassiere.Name = "btnIstitutoCassiere";
+			this.btnIstitutoCassiere.Size = new System.Drawing.Size(64, 24);
+			this.btnIstitutoCassiere.TabIndex = 52;
+			this.btnIstitutoCassiere.TabStop = false;
+			this.btnIstitutoCassiere.Tag = "choose.treasurer.lista";
+			this.btnIstitutoCassiere.Text = "Cassiere:";
+			this.btnIstitutoCassiere.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// groupBox4
+			// 
+			this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.DetailGrid);
-            this.groupBox4.Location = new System.Drawing.Point(8, 120);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(800, 160);
-            this.groupBox4.TabIndex = 7;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Elenco dei movimenti di entrata associati alla reversale";
-            // 
-            // DetailGrid
-            // 
-            this.DetailGrid.AllowNavigation = false;
-            this.DetailGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox4.Controls.Add(this.DetailGrid);
+			this.groupBox4.Location = new System.Drawing.Point(8, 120);
+			this.groupBox4.Name = "groupBox4";
+			this.groupBox4.Size = new System.Drawing.Size(800, 160);
+			this.groupBox4.TabIndex = 7;
+			this.groupBox4.TabStop = false;
+			this.groupBox4.Text = "Elenco dei movimenti di entrata associati alla reversale";
+			// 
+			// DetailGrid
+			// 
+			this.DetailGrid.AllowNavigation = false;
+			this.DetailGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DetailGrid.DataMember = "";
-            this.DetailGrid.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.DetailGrid.Location = new System.Drawing.Point(8, 16);
-            this.DetailGrid.Name = "DetailGrid";
-            this.DetailGrid.Size = new System.Drawing.Size(785, 136);
-            this.DetailGrid.TabIndex = 66;
-            this.DetailGrid.Tag = "incomelastview.reversaleautomatica";
-            this.DetailGrid.Paint += new System.Windows.Forms.PaintEventHandler(this.DetailGrid_Paint);
-            // 
-            // label5
-            // 
-            this.label5.Location = new System.Drawing.Point(8, 16);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(80, 24);
-            this.label5.TabIndex = 65;
-            this.label5.Text = "Importo totale della reversale:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtImporto
-            // 
-            this.txtImporto.Location = new System.Drawing.Point(96, 16);
-            this.txtImporto.Name = "txtImporto";
-            this.txtImporto.ReadOnly = true;
-            this.txtImporto.Size = new System.Drawing.Size(96, 20);
-            this.txtImporto.TabIndex = 63;
-            this.txtImporto.TabStop = false;
-            this.txtImporto.Tag = "";
-            // 
-            // grpConferma
-            // 
-            this.grpConferma.Controls.Add(this.btnNo);
-            this.grpConferma.Controls.Add(this.btnSiTutti);
-            this.grpConferma.Controls.Add(this.btnSi);
-            this.grpConferma.Enabled = false;
-            this.grpConferma.Location = new System.Drawing.Point(432, 0);
-            this.grpConferma.Name = "grpConferma";
-            this.grpConferma.Size = new System.Drawing.Size(256, 48);
-            this.grpConferma.TabIndex = 2;
-            this.grpConferma.TabStop = false;
-            this.grpConferma.Text = "Genera Reversale";
-            // 
-            // btnNo
-            // 
-            this.btnNo.Location = new System.Drawing.Point(96, 16);
-            this.btnNo.Name = "btnNo";
-            this.btnNo.Size = new System.Drawing.Size(64, 23);
-            this.btnNo.TabIndex = 74;
-            this.btnNo.TabStop = false;
-            this.btnNo.Tag = "unlink";
-            this.btnNo.Text = "No";
-            this.btnNo.Click += new System.EventHandler(this.btnNo_Click);
-            // 
-            // btnSiTutti
-            // 
-            this.btnSiTutti.Location = new System.Drawing.Point(184, 16);
-            this.btnSiTutti.Name = "btnSiTutti";
-            this.btnSiTutti.Size = new System.Drawing.Size(64, 23);
-            this.btnSiTutti.TabIndex = 73;
-            this.btnSiTutti.TabStop = false;
-            this.btnSiTutti.Text = "Sì tutte";
-            this.btnSiTutti.Click += new System.EventHandler(this.btnSiTutti_Click);
-            // 
-            // btnSi
-            // 
-            this.btnSi.Location = new System.Drawing.Point(8, 16);
-            this.btnSi.Name = "btnSi";
-            this.btnSi.Size = new System.Drawing.Size(64, 23);
-            this.btnSi.TabIndex = 72;
-            this.btnSi.TabStop = false;
-            this.btnSi.Text = "Sì";
-            this.btnSi.Click += new System.EventHandler(this.btnSi_Click);
-            // 
-            // btnChiudi
-            // 
-            this.btnChiudi.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnChiudi.Location = new System.Drawing.Point(208, 16);
-            this.btnChiudi.Name = "btnChiudi";
-            this.btnChiudi.Size = new System.Drawing.Size(80, 23);
-            this.btnChiudi.TabIndex = 88;
-            this.btnChiudi.TabStop = false;
-            this.btnChiudi.Text = "Termina";
-            // 
-            // btnSuccessivo
-            // 
-            this.btnSuccessivo.Enabled = false;
-            this.btnSuccessivo.Location = new System.Drawing.Point(112, 16);
-            this.btnSuccessivo.Name = "btnSuccessivo";
-            this.btnSuccessivo.Size = new System.Drawing.Size(80, 23);
-            this.btnSuccessivo.TabIndex = 87;
-            this.btnSuccessivo.TabStop = false;
-            this.btnSuccessivo.Text = "Prossimo >>";
-            this.btnSuccessivo.Click += new System.EventHandler(this.btnSuccessivo_Click);
-            // 
-            // btnInizia
-            // 
-            this.btnInizia.Location = new System.Drawing.Point(16, 16);
-            this.btnInizia.Name = "btnInizia";
-            this.btnInizia.Size = new System.Drawing.Size(80, 23);
-            this.btnInizia.TabIndex = 86;
-            this.btnInizia.TabStop = false;
-            this.btnInizia.Text = "Inizia Ricerca";
-            this.btnInizia.Click += new System.EventHandler(this.btnInizia_Click);
-            // 
-            // txtResponsabile
-            // 
-            this.txtResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.DetailGrid.DataMember = "";
+			this.DetailGrid.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.DetailGrid.Location = new System.Drawing.Point(8, 16);
+			this.DetailGrid.Name = "DetailGrid";
+			this.DetailGrid.Size = new System.Drawing.Size(785, 136);
+			this.DetailGrid.TabIndex = 66;
+			this.DetailGrid.Tag = "incomelastview.reversaleautomatica";
+			this.DetailGrid.Paint += new System.Windows.Forms.PaintEventHandler(this.DetailGrid_Paint);
+			// 
+			// label5
+			// 
+			this.label5.Location = new System.Drawing.Point(8, 16);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(80, 24);
+			this.label5.TabIndex = 65;
+			this.label5.Text = "Importo totale della reversale:";
+			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtImporto
+			// 
+			this.txtImporto.Location = new System.Drawing.Point(96, 16);
+			this.txtImporto.Name = "txtImporto";
+			this.txtImporto.ReadOnly = true;
+			this.txtImporto.Size = new System.Drawing.Size(96, 20);
+			this.txtImporto.TabIndex = 63;
+			this.txtImporto.TabStop = false;
+			this.txtImporto.Tag = "";
+			this.txtImporto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// grpConferma
+			// 
+			this.grpConferma.Controls.Add(this.btnNo);
+			this.grpConferma.Controls.Add(this.btnSiTutti);
+			this.grpConferma.Controls.Add(this.btnSi);
+			this.grpConferma.Enabled = false;
+			this.grpConferma.Location = new System.Drawing.Point(457, 0);
+			this.grpConferma.Name = "grpConferma";
+			this.grpConferma.Size = new System.Drawing.Size(256, 48);
+			this.grpConferma.TabIndex = 2;
+			this.grpConferma.TabStop = false;
+			this.grpConferma.Text = "Genera Reversale";
+			// 
+			// btnNo
+			// 
+			this.btnNo.Location = new System.Drawing.Point(96, 16);
+			this.btnNo.Name = "btnNo";
+			this.btnNo.Size = new System.Drawing.Size(64, 23);
+			this.btnNo.TabIndex = 74;
+			this.btnNo.TabStop = false;
+			this.btnNo.Tag = "unlink";
+			this.btnNo.Text = "No";
+			this.btnNo.Click += new System.EventHandler(this.btnNo_Click);
+			// 
+			// btnSiTutti
+			// 
+			this.btnSiTutti.Location = new System.Drawing.Point(184, 16);
+			this.btnSiTutti.Name = "btnSiTutti";
+			this.btnSiTutti.Size = new System.Drawing.Size(64, 23);
+			this.btnSiTutti.TabIndex = 73;
+			this.btnSiTutti.TabStop = false;
+			this.btnSiTutti.Text = "Sì tutte";
+			this.btnSiTutti.Click += new System.EventHandler(this.btnSiTutti_Click);
+			// 
+			// btnSi
+			// 
+			this.btnSi.Location = new System.Drawing.Point(8, 16);
+			this.btnSi.Name = "btnSi";
+			this.btnSi.Size = new System.Drawing.Size(64, 23);
+			this.btnSi.TabIndex = 72;
+			this.btnSi.TabStop = false;
+			this.btnSi.Text = "Sì";
+			this.btnSi.Click += new System.EventHandler(this.btnSi_Click);
+			// 
+			// btnChiudi
+			// 
+			this.btnChiudi.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.btnChiudi.Location = new System.Drawing.Point(208, 16);
+			this.btnChiudi.Name = "btnChiudi";
+			this.btnChiudi.Size = new System.Drawing.Size(80, 23);
+			this.btnChiudi.TabIndex = 88;
+			this.btnChiudi.TabStop = false;
+			this.btnChiudi.Text = "Termina";
+			// 
+			// btnSuccessivo
+			// 
+			this.btnSuccessivo.Enabled = false;
+			this.btnSuccessivo.Location = new System.Drawing.Point(112, 16);
+			this.btnSuccessivo.Name = "btnSuccessivo";
+			this.btnSuccessivo.Size = new System.Drawing.Size(80, 23);
+			this.btnSuccessivo.TabIndex = 87;
+			this.btnSuccessivo.TabStop = false;
+			this.btnSuccessivo.Text = "Prossimo >>";
+			this.btnSuccessivo.Click += new System.EventHandler(this.btnSuccessivo_Click);
+			// 
+			// btnInizia
+			// 
+			this.btnInizia.Location = new System.Drawing.Point(16, 16);
+			this.btnInizia.Name = "btnInizia";
+			this.btnInizia.Size = new System.Drawing.Size(80, 23);
+			this.btnInizia.TabIndex = 86;
+			this.btnInizia.TabStop = false;
+			this.btnInizia.Text = "Inizia Ricerca";
+			this.btnInizia.Click += new System.EventHandler(this.btnInizia_Click);
+			// 
+			// txtResponsabile
+			// 
+			this.txtResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtResponsabile.Location = new System.Drawing.Point(296, 80);
-            this.txtResponsabile.Name = "txtResponsabile";
-            this.txtResponsabile.ReadOnly = true;
-            this.txtResponsabile.Size = new System.Drawing.Size(480, 20);
-            this.txtResponsabile.TabIndex = 85;
-            this.txtResponsabile.TabStop = false;
-            this.txtResponsabile.Tag = "manager.title";
-            // 
-            // label7
-            // 
-            this.label7.Location = new System.Drawing.Point(296, 64);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(88, 16);
-            this.label7.TabIndex = 84;
-            this.label7.Text = "Responsabile:";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
-            // label4
-            // 
-            this.label4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label4.ImageIndex = 0;
-            this.label4.ImageList = this.imageList1;
-            this.label4.Location = new System.Drawing.Point(8, 16);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 16);
-            this.label4.TabIndex = 83;
-            this.label4.Text = "Bilancio:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "");
-            // 
-            // txtDataContabile
-            // 
-            this.txtDataContabile.Location = new System.Drawing.Point(96, 48);
-            this.txtDataContabile.Name = "txtDataContabile";
-            this.txtDataContabile.Size = new System.Drawing.Size(96, 20);
-            this.txtDataContabile.TabIndex = 2;
-            this.txtDataContabile.Tag = "proceeds.adate";
-            // 
-            // label9
-            // 
-            this.label9.Location = new System.Drawing.Point(8, 48);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(80, 16);
-            this.label9.TabIndex = 82;
-            this.label9.Text = "Data contabile:";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(8, 64);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 16);
-            this.label3.TabIndex = 80;
-            this.label3.Text = "Versante:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtCreditoreDebitore
-            // 
-            this.txtCreditoreDebitore.Location = new System.Drawing.Point(8, 80);
-            this.txtCreditoreDebitore.Name = "txtCreditoreDebitore";
-            this.txtCreditoreDebitore.ReadOnly = true;
-            this.txtCreditoreDebitore.Size = new System.Drawing.Size(280, 20);
-            this.txtCreditoreDebitore.TabIndex = 79;
-            this.txtCreditoreDebitore.TabStop = false;
-            this.txtCreditoreDebitore.Tag = "registry.title?proceedsview.registry";
-            // 
-            // txtDescrBilancio
-            // 
-            this.txtDescrBilancio.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtResponsabile.Location = new System.Drawing.Point(296, 80);
+			this.txtResponsabile.Name = "txtResponsabile";
+			this.txtResponsabile.ReadOnly = true;
+			this.txtResponsabile.Size = new System.Drawing.Size(480, 20);
+			this.txtResponsabile.TabIndex = 85;
+			this.txtResponsabile.TabStop = false;
+			this.txtResponsabile.Tag = "manager.title";
+			// 
+			// label7
+			// 
+			this.label7.Location = new System.Drawing.Point(296, 64);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(88, 16);
+			this.label7.TabIndex = 84;
+			this.label7.Text = "Responsabile:";
+			this.label7.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+			// 
+			// label4
+			// 
+			this.label4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.label4.ImageIndex = 0;
+			this.label4.ImageList = this.imageList1;
+			this.label4.Location = new System.Drawing.Point(8, 16);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(72, 16);
+			this.label4.TabIndex = 83;
+			this.label4.Text = "Bilancio:";
+			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// imageList1
+			// 
+			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.imageList1.Images.SetKeyName(0, "");
+			// 
+			// txtDataContabile
+			// 
+			this.txtDataContabile.Location = new System.Drawing.Point(96, 48);
+			this.txtDataContabile.Name = "txtDataContabile";
+			this.txtDataContabile.Size = new System.Drawing.Size(96, 20);
+			this.txtDataContabile.TabIndex = 2;
+			this.txtDataContabile.Tag = "proceeds.adate";
+			// 
+			// label9
+			// 
+			this.label9.Location = new System.Drawing.Point(8, 48);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(80, 16);
+			this.label9.TabIndex = 82;
+			this.label9.Text = "Data contabile:";
+			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(8, 64);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(72, 16);
+			this.label3.TabIndex = 80;
+			this.label3.Text = "Versante:";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtCreditoreDebitore
+			// 
+			this.txtCreditoreDebitore.Location = new System.Drawing.Point(8, 80);
+			this.txtCreditoreDebitore.Name = "txtCreditoreDebitore";
+			this.txtCreditoreDebitore.ReadOnly = true;
+			this.txtCreditoreDebitore.Size = new System.Drawing.Size(280, 20);
+			this.txtCreditoreDebitore.TabIndex = 79;
+			this.txtCreditoreDebitore.TabStop = false;
+			this.txtCreditoreDebitore.Tag = "registry.title?proceedsview.registry";
+			// 
+			// txtDescrBilancio
+			// 
+			this.txtDescrBilancio.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescrBilancio.Location = new System.Drawing.Point(112, 16);
-            this.txtDescrBilancio.Multiline = true;
-            this.txtDescrBilancio.Name = "txtDescrBilancio";
-            this.txtDescrBilancio.ReadOnly = true;
-            this.txtDescrBilancio.Size = new System.Drawing.Size(448, 48);
-            this.txtDescrBilancio.TabIndex = 78;
-            this.txtDescrBilancio.TabStop = false;
-            this.txtDescrBilancio.Tag = "fin.title";
-            // 
-            // txtBilancio
-            // 
-            this.txtBilancio.Location = new System.Drawing.Point(8, 40);
-            this.txtBilancio.Name = "txtBilancio";
-            this.txtBilancio.ReadOnly = true;
-            this.txtBilancio.Size = new System.Drawing.Size(96, 20);
-            this.txtBilancio.TabIndex = 77;
-            this.txtBilancio.TabStop = false;
-            this.txtBilancio.Tag = "fin.codefin?proceedsview.codefin";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.txtNumeroDocumento);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.txtEsercizioDocumento);
-            this.groupBox1.Location = new System.Drawing.Point(8, 48);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(144, 72);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Documento";
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(16, 40);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(64, 16);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Numero:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtNumeroDocumento
-            // 
-            this.txtNumeroDocumento.Location = new System.Drawing.Point(80, 40);
-            this.txtNumeroDocumento.Name = "txtNumeroDocumento";
-            this.txtNumeroDocumento.ReadOnly = true;
-            this.txtNumeroDocumento.Size = new System.Drawing.Size(56, 20);
-            this.txtNumeroDocumento.TabIndex = 2;
-            this.txtNumeroDocumento.TabStop = false;
-            this.txtNumeroDocumento.Tag = "proceeds.npro";
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(16, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 16);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Esercizio:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtEsercizioDocumento
-            // 
-            this.txtEsercizioDocumento.Location = new System.Drawing.Point(80, 16);
-            this.txtEsercizioDocumento.Name = "txtEsercizioDocumento";
-            this.txtEsercizioDocumento.ReadOnly = true;
-            this.txtEsercizioDocumento.Size = new System.Drawing.Size(56, 20);
-            this.txtEsercizioDocumento.TabIndex = 0;
-            this.txtEsercizioDocumento.TabStop = false;
-            this.txtEsercizioDocumento.Tag = "proceeds.ypro";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.txtTipoDocumento);
-            this.groupBox2.Location = new System.Drawing.Point(160, 48);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(120, 72);
-            this.groupBox2.TabIndex = 4;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Tipo";
-            // 
-            // txtTipoDocumento
-            // 
-            this.txtTipoDocumento.Location = new System.Drawing.Point(8, 24);
-            this.txtTipoDocumento.Name = "txtTipoDocumento";
-            this.txtTipoDocumento.ReadOnly = true;
-            this.txtTipoDocumento.Size = new System.Drawing.Size(104, 20);
-            this.txtTipoDocumento.TabIndex = 3;
-            this.txtTipoDocumento.TabStop = false;
-            this.txtTipoDocumento.Tag = "";
-            // 
-            // grpConto
-            // 
-            this.grpConto.Controls.Add(this.rdbInfruttifero);
-            this.grpConto.Controls.Add(this.rdbFruttifero);
-            this.grpConto.Location = new System.Drawing.Point(288, 48);
-            this.grpConto.Name = "grpConto";
-            this.grpConto.Size = new System.Drawing.Size(96, 72);
-            this.grpConto.TabIndex = 5;
-            this.grpConto.TabStop = false;
-            this.grpConto.Text = "Conto";
-            // 
-            // rdbInfruttifero
-            // 
-            this.rdbInfruttifero.Location = new System.Drawing.Point(8, 40);
-            this.rdbInfruttifero.Name = "rdbInfruttifero";
-            this.rdbInfruttifero.Size = new System.Drawing.Size(80, 16);
-            this.rdbInfruttifero.TabIndex = 1;
-            this.rdbInfruttifero.Tag = "proceeds.flag::#3";
-            this.rdbInfruttifero.Text = "Infruttifero";
-            // 
-            // rdbFruttifero
-            // 
-            this.rdbFruttifero.Location = new System.Drawing.Point(8, 16);
-            this.rdbFruttifero.Name = "rdbFruttifero";
-            this.rdbFruttifero.Size = new System.Drawing.Size(80, 16);
-            this.rdbFruttifero.TabIndex = 0;
-            this.rdbFruttifero.Tag = "proceeds.flag::3";
-            this.rdbFruttifero.Text = "Fruttifero";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.btnChiudi);
-            this.groupBox3.Controls.Add(this.btnSuccessivo);
-            this.groupBox3.Controls.Add(this.btnInizia);
-            this.groupBox3.Location = new System.Drawing.Point(129, 0);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(296, 48);
-            this.groupBox3.TabIndex = 1;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Operazioni";
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDescrBilancio.Location = new System.Drawing.Point(112, 16);
+			this.txtDescrBilancio.Multiline = true;
+			this.txtDescrBilancio.Name = "txtDescrBilancio";
+			this.txtDescrBilancio.ReadOnly = true;
+			this.txtDescrBilancio.Size = new System.Drawing.Size(448, 48);
+			this.txtDescrBilancio.TabIndex = 78;
+			this.txtDescrBilancio.TabStop = false;
+			this.txtDescrBilancio.Tag = "fin.title";
+			// 
+			// txtBilancio
+			// 
+			this.txtBilancio.Location = new System.Drawing.Point(8, 40);
+			this.txtBilancio.Name = "txtBilancio";
+			this.txtBilancio.ReadOnly = true;
+			this.txtBilancio.Size = new System.Drawing.Size(96, 20);
+			this.txtBilancio.TabIndex = 77;
+			this.txtBilancio.TabStop = false;
+			this.txtBilancio.Tag = "fin.codefin?proceedsview.codefin";
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.label2);
+			this.groupBox1.Controls.Add(this.txtNumeroDocumento);
+			this.groupBox1.Controls.Add(this.label1);
+			this.groupBox1.Controls.Add(this.txtEsercizioDocumento);
+			this.groupBox1.Location = new System.Drawing.Point(8, 48);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(144, 72);
+			this.groupBox1.TabIndex = 3;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Documento";
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(16, 40);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(64, 16);
+			this.label2.TabIndex = 3;
+			this.label2.Text = "Numero:";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtNumeroDocumento
+			// 
+			this.txtNumeroDocumento.Location = new System.Drawing.Point(80, 40);
+			this.txtNumeroDocumento.Name = "txtNumeroDocumento";
+			this.txtNumeroDocumento.ReadOnly = true;
+			this.txtNumeroDocumento.Size = new System.Drawing.Size(56, 20);
+			this.txtNumeroDocumento.TabIndex = 2;
+			this.txtNumeroDocumento.TabStop = false;
+			this.txtNumeroDocumento.Tag = "proceeds.npro";
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(16, 16);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(64, 16);
+			this.label1.TabIndex = 1;
+			this.label1.Text = "Esercizio:";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtEsercizioDocumento
+			// 
+			this.txtEsercizioDocumento.Location = new System.Drawing.Point(80, 16);
+			this.txtEsercizioDocumento.Name = "txtEsercizioDocumento";
+			this.txtEsercizioDocumento.ReadOnly = true;
+			this.txtEsercizioDocumento.Size = new System.Drawing.Size(56, 20);
+			this.txtEsercizioDocumento.TabIndex = 0;
+			this.txtEsercizioDocumento.TabStop = false;
+			this.txtEsercizioDocumento.Tag = "proceeds.ypro";
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.txtTipoDocumento);
+			this.groupBox2.Location = new System.Drawing.Point(160, 48);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(120, 72);
+			this.groupBox2.TabIndex = 4;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Tipo";
+			// 
+			// txtTipoDocumento
+			// 
+			this.txtTipoDocumento.Location = new System.Drawing.Point(8, 24);
+			this.txtTipoDocumento.Name = "txtTipoDocumento";
+			this.txtTipoDocumento.ReadOnly = true;
+			this.txtTipoDocumento.Size = new System.Drawing.Size(104, 20);
+			this.txtTipoDocumento.TabIndex = 3;
+			this.txtTipoDocumento.TabStop = false;
+			this.txtTipoDocumento.Tag = "";
+			// 
+			// grpConto
+			// 
+			this.grpConto.Controls.Add(this.rdbInfruttifero);
+			this.grpConto.Controls.Add(this.rdbFruttifero);
+			this.grpConto.Location = new System.Drawing.Point(288, 48);
+			this.grpConto.Name = "grpConto";
+			this.grpConto.Size = new System.Drawing.Size(96, 72);
+			this.grpConto.TabIndex = 5;
+			this.grpConto.TabStop = false;
+			this.grpConto.Text = "Conto";
+			// 
+			// rdbInfruttifero
+			// 
+			this.rdbInfruttifero.Location = new System.Drawing.Point(8, 40);
+			this.rdbInfruttifero.Name = "rdbInfruttifero";
+			this.rdbInfruttifero.Size = new System.Drawing.Size(80, 16);
+			this.rdbInfruttifero.TabIndex = 1;
+			this.rdbInfruttifero.Tag = "proceeds.flag::#3";
+			this.rdbInfruttifero.Text = "Infruttifero";
+			// 
+			// rdbFruttifero
+			// 
+			this.rdbFruttifero.Location = new System.Drawing.Point(8, 16);
+			this.rdbFruttifero.Name = "rdbFruttifero";
+			this.rdbFruttifero.Size = new System.Drawing.Size(80, 16);
+			this.rdbFruttifero.TabIndex = 0;
+			this.rdbFruttifero.Tag = "proceeds.flag::3";
+			this.rdbFruttifero.Text = "Fruttifero";
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Controls.Add(this.btnChiudi);
+			this.groupBox3.Controls.Add(this.btnSuccessivo);
+			this.groupBox3.Controls.Add(this.btnInizia);
+			this.groupBox3.Location = new System.Drawing.Point(155, 0);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(296, 48);
+			this.groupBox3.TabIndex = 1;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Operazioni";
+			// 
+			// groupBox5
+			// 
+			this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox5.Controls.Add(this.groupBox8);
-            this.groupBox5.Controls.Add(this.groupBox7);
-            this.groupBox5.Location = new System.Drawing.Point(8, 288);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(800, 192);
-            this.groupBox5.TabIndex = 8;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Dati riepilogativi";
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.groupBox5.Controls.Add(this.groupBox8);
+			this.groupBox5.Controls.Add(this.groupBox7);
+			this.groupBox5.Location = new System.Drawing.Point(8, 288);
+			this.groupBox5.Name = "groupBox5";
+			this.groupBox5.Size = new System.Drawing.Size(800, 192);
+			this.groupBox5.TabIndex = 8;
+			this.groupBox5.TabStop = false;
+			this.groupBox5.Text = "Dati riepilogativi";
+			// 
+			// groupBox8
+			// 
+			this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox8.Controls.Add(this.label10);
-            this.groupBox8.Controls.Add(this.textBox1);
-            this.groupBox8.Controls.Add(this.btnBollo);
-            this.groupBox8.Controls.Add(this.cmbBollo);
-            this.groupBox8.Controls.Add(this.btnIstitutoCassiere);
-            this.groupBox8.Controls.Add(this.cmbCodiceIstituto);
-            this.groupBox8.Location = new System.Drawing.Point(8, 136);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(784, 48);
-            this.groupBox8.TabIndex = 2;
-            this.groupBox8.TabStop = false;
-            // 
-            // label10
-            // 
-            this.label10.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label10.Location = new System.Drawing.Point(599, 7);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(101, 38);
-            this.label10.TabIndex = 58;
-            this.label10.Text = "Numero Progr. Cassiere:";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.textBox1.Location = new System.Drawing.Point(706, 16);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(72, 20);
-            this.textBox1.TabIndex = 57;
-            this.textBox1.TabStop = false;
-            this.textBox1.Tag = "proceeds.npro_treasurer";
-            // 
-            // btnBollo
-            // 
-            this.btnBollo.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnBollo.Location = new System.Drawing.Point(294, 14);
-            this.btnBollo.Name = "btnBollo";
-            this.btnBollo.Size = new System.Drawing.Size(48, 24);
-            this.btnBollo.TabIndex = 56;
-            this.btnBollo.TabStop = false;
-            this.btnBollo.Tag = "choose.stamphandling.lista";
-            this.btnBollo.Text = "Bollo:";
-            this.btnBollo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cmbBollo
-            // 
-            this.cmbBollo.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.cmbBollo.DataSource = this.DS.stamphandling;
-            this.cmbBollo.DisplayMember = "description";
-            this.cmbBollo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbBollo.Location = new System.Drawing.Point(347, 16);
-            this.cmbBollo.Name = "cmbBollo";
-            this.cmbBollo.Size = new System.Drawing.Size(246, 21);
-            this.cmbBollo.TabIndex = 55;
-            this.cmbBollo.Tag = "proceeds.idstamphandling";
-            this.cmbBollo.ValueMember = "idstamphandling";
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.groupBox8.Controls.Add(this.label10);
+			this.groupBox8.Controls.Add(this.textBox1);
+			this.groupBox8.Controls.Add(this.btnBollo);
+			this.groupBox8.Controls.Add(this.cmbBollo);
+			this.groupBox8.Controls.Add(this.btnIstitutoCassiere);
+			this.groupBox8.Controls.Add(this.cmbCodiceIstituto);
+			this.groupBox8.Location = new System.Drawing.Point(8, 136);
+			this.groupBox8.Name = "groupBox8";
+			this.groupBox8.Size = new System.Drawing.Size(784, 48);
+			this.groupBox8.TabIndex = 2;
+			this.groupBox8.TabStop = false;
+			// 
+			// label10
+			// 
+			this.label10.Anchor = System.Windows.Forms.AnchorStyles.Left;
+			this.label10.Location = new System.Drawing.Point(599, 7);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(101, 38);
+			this.label10.TabIndex = 58;
+			this.label10.Text = "Numero Progr. Cassiere:";
+			this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// textBox1
+			// 
+			this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+			this.textBox1.Location = new System.Drawing.Point(706, 16);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.ReadOnly = true;
+			this.textBox1.Size = new System.Drawing.Size(72, 20);
+			this.textBox1.TabIndex = 57;
+			this.textBox1.TabStop = false;
+			this.textBox1.Tag = "proceeds.npro_treasurer";
+			// 
+			// btnBollo
+			// 
+			this.btnBollo.Anchor = System.Windows.Forms.AnchorStyles.Left;
+			this.btnBollo.Location = new System.Drawing.Point(294, 14);
+			this.btnBollo.Name = "btnBollo";
+			this.btnBollo.Size = new System.Drawing.Size(48, 24);
+			this.btnBollo.TabIndex = 56;
+			this.btnBollo.TabStop = false;
+			this.btnBollo.Tag = "choose.stamphandling.lista";
+			this.btnBollo.Text = "Bollo:";
+			this.btnBollo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// cmbBollo
+			// 
+			this.cmbBollo.Anchor = System.Windows.Forms.AnchorStyles.Left;
+			this.cmbBollo.DataSource = this.DS.stamphandling;
+			this.cmbBollo.DisplayMember = "description";
+			this.cmbBollo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbBollo.Location = new System.Drawing.Point(347, 16);
+			this.cmbBollo.Name = "cmbBollo";
+			this.cmbBollo.Size = new System.Drawing.Size(246, 21);
+			this.cmbBollo.TabIndex = 55;
+			this.cmbBollo.Tag = "proceeds.idstamphandling";
+			this.cmbBollo.ValueMember = "idstamphandling";
+			// 
+			// groupBox7
+			// 
+			this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox7.Controls.Add(this.label4);
-            this.groupBox7.Controls.Add(this.txtBilancio);
-            this.groupBox7.Controls.Add(this.txtDescrBilancio);
-            this.groupBox7.Controls.Add(this.label3);
-            this.groupBox7.Controls.Add(this.txtCreditoreDebitore);
-            this.groupBox7.Controls.Add(this.txtResponsabile);
-            this.groupBox7.Controls.Add(this.label7);
-            this.groupBox7.Location = new System.Drawing.Point(8, 16);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(784, 114);
-            this.groupBox7.TabIndex = 1;
-            this.groupBox7.TabStop = false;
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.txtDataContabile);
-            this.groupBox6.Controls.Add(this.label9);
-            this.groupBox6.Controls.Add(this.label5);
-            this.groupBox6.Controls.Add(this.txtImporto);
-            this.groupBox6.Location = new System.Drawing.Point(391, 48);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(200, 72);
-            this.groupBox6.TabIndex = 6;
-            this.groupBox6.TabStop = false;
-            // 
-            // chkCSA
-            // 
-            this.chkCSA.AutoSize = true;
-            this.chkCSA.Location = new System.Drawing.Point(16, 12);
-            this.chkCSA.Name = "chkCSA";
-            this.chkCSA.Size = new System.Drawing.Size(94, 17);
-            this.chkCSA.TabIndex = 9;
-            this.chkCSA.Text = "Reversali CSA";
-            this.chkCSA.UseVisualStyleBackColor = true;
-            this.chkCSA.CheckedChanged += new System.EventHandler(this.chkCSA_CheckedChanged);
-            // 
-            // chkCrediti
-            // 
-            this.chkCrediti.AutoSize = true;
-            this.chkCrediti.Location = new System.Drawing.Point(16, 31);
-            this.chkCrediti.Name = "chkCrediti";
-            this.chkCrediti.Size = new System.Drawing.Size(88, 17);
-            this.chkCrediti.TabIndex = 10;
-            this.chkCrediti.Text = "Flusso Crediti";
-            this.chkCrediti.UseVisualStyleBackColor = true;
-            this.chkCrediti.CheckStateChanged += new System.EventHandler(this.chkCrediti_CheckStateChanged);
-            // 
-            // Frm_proceeds_generazioneautomatica
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(818, 486);
-            this.Controls.Add(this.chkCrediti);
-            this.Controls.Add(this.chkCSA);
-            this.Controls.Add(this.groupBox6);
-            this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.grpConferma);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.grpConto);
-            this.Name = "Frm_proceeds_generazioneautomatica";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DetailGrid)).EndInit();
-            this.grpConferma.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.grpConto.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+			this.groupBox7.Controls.Add(this.label4);
+			this.groupBox7.Controls.Add(this.txtBilancio);
+			this.groupBox7.Controls.Add(this.txtDescrBilancio);
+			this.groupBox7.Controls.Add(this.label3);
+			this.groupBox7.Controls.Add(this.txtCreditoreDebitore);
+			this.groupBox7.Controls.Add(this.txtResponsabile);
+			this.groupBox7.Controls.Add(this.label7);
+			this.groupBox7.Location = new System.Drawing.Point(8, 16);
+			this.groupBox7.Name = "groupBox7";
+			this.groupBox7.Size = new System.Drawing.Size(784, 114);
+			this.groupBox7.TabIndex = 1;
+			this.groupBox7.TabStop = false;
+			// 
+			// groupBox6
+			// 
+			this.groupBox6.Controls.Add(this.txtDataContabile);
+			this.groupBox6.Controls.Add(this.label9);
+			this.groupBox6.Controls.Add(this.label5);
+			this.groupBox6.Controls.Add(this.txtImporto);
+			this.groupBox6.Location = new System.Drawing.Point(391, 48);
+			this.groupBox6.Name = "groupBox6";
+			this.groupBox6.Size = new System.Drawing.Size(200, 72);
+			this.groupBox6.TabIndex = 6;
+			this.groupBox6.TabStop = false;
+			// 
+			// chkCSA
+			// 
+			this.chkCSA.AutoSize = true;
+			this.chkCSA.Location = new System.Drawing.Point(16, 12);
+			this.chkCSA.Name = "chkCSA";
+			this.chkCSA.Size = new System.Drawing.Size(122, 17);
+			this.chkCSA.TabIndex = 9;
+			this.chkCSA.Text = "Filtra incassi stipendi";
+			this.chkCSA.UseVisualStyleBackColor = true;
+			this.chkCSA.CheckedChanged += new System.EventHandler(this.chkCSA_CheckedChanged);
+			// 
+			// chkCrediti
+			// 
+			this.chkCrediti.AutoSize = true;
+			this.chkCrediti.Location = new System.Drawing.Point(16, 31);
+			this.chkCrediti.Name = "chkCrediti";
+			this.chkCrediti.Size = new System.Drawing.Size(130, 17);
+			this.chkCrediti.TabIndex = 10;
+			this.chkCrediti.Text = "Non filtrare anagrafica";
+			this.chkCrediti.UseVisualStyleBackColor = true;
+			this.chkCrediti.CheckStateChanged += new System.EventHandler(this.chkCrediti_CheckStateChanged);
+			// 
+			// Frm_proceeds_generazioneautomatica
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(818, 486);
+			this.Controls.Add(this.chkCrediti);
+			this.Controls.Add(this.chkCSA);
+			this.Controls.Add(this.groupBox6);
+			this.Controls.Add(this.groupBox5);
+			this.Controls.Add(this.groupBox3);
+			this.Controls.Add(this.groupBox4);
+			this.Controls.Add(this.grpConferma);
+			this.Controls.Add(this.groupBox1);
+			this.Controls.Add(this.groupBox2);
+			this.Controls.Add(this.grpConto);
+			this.Name = "Frm_proceeds_generazioneautomatica";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.groupBox4.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.DetailGrid)).EndInit();
+			this.grpConferma.ResumeLayout(false);
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
+			this.grpConto.ResumeLayout(false);
+			this.groupBox3.ResumeLayout(false);
+			this.groupBox5.ResumeLayout(false);
+			this.groupBox8.ResumeLayout(false);
+			this.groupBox8.PerformLayout();
+			this.groupBox7.ResumeLayout(false);
+			this.groupBox7.PerformLayout();
+			this.groupBox6.ResumeLayout(false);
+			this.groupBox6.PerformLayout();
+			this.ResumeLayout(false);
+			this.PerformLayout();
 
         }
 
@@ -828,9 +828,14 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
             byte proceeds_flag = (byte) DS.Tables["config"].Rows[0]["proceeds_flag"];
             bool flagcreddeb = (proceeds_flag & 4) == 4;
             bool flagbilancio = (proceeds_flag & 2) == 2;
+
+            if (chkCrediti.Checked) {
+                flagcreddeb = false;
+                //flagbilancio = false;
+            }
+
             livbilancio = DS.Tables["config"].Rows[0]["proceeds_finlevel"];
-            object maxlivbilancio = Meta.Conn.DO_READ_VALUE("finlevel",
-                QHS.CmpEq("ayear", eserccorrente), "max(nlevel)");
+            object maxlivbilancio = Meta.Conn.DO_READ_VALUE("finlevel", QHS.CmpEq("ayear", eserccorrente), "max(nlevel)");
             if ((livbilancio.Equals(maxlivbilancio)) || !flagbilancio) {
                 livbilancio = DBNull.Value;
             }
@@ -870,6 +875,10 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
                 }
             }
             string MainTable = "incomelastview";
+            if (chkCrediti.Checked) {
+                flagcreddeb = false;
+                //flagbilancio = false;
+            }
 
             ParteFrom = "incomelastview";
             SelectClause = "SELECT ";
@@ -1004,6 +1013,11 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
             bool flagbilancio = (proceeds_flag & 2) == 2;
             bool flagrespons = (proceeds_flag & 16) == 16;
             bool flagresidui = (proceeds_flag & 8) == 8;
+            if (chkCrediti.Checked) {
+                flagcreddeb = false;
+                //flagbilancio = false;
+            }
+
             //int giornianticipo = CfgFn.GetNoNullInt32(rPersEntrata["income_expiringdays"]);
             int codicefase = CfgFn.GetNoNullInt32(Meta.GetSys("maxincomephase"));
             int eserccorrente = (int)Meta.GetSys("esercizio");
@@ -1185,10 +1199,9 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
 
         private void CollegaRigheADocumento(bool quiet) {
             string dataContabile = txtDataContabile.Text;
-
             while (true) {
                 if (TempTable == null || TempTable.Rows.Count == 0) {
-                    if (!quiet) MessageBox.Show("Non ci sono movimenti di entrata da elaborare");
+                    if (!quiet) MetaFactory.factory.getSingleton<IMessageShower>().Show("Non ci sono movimenti di entrata da elaborare");
                     btnSuccessivo.Enabled = false;
                     grpConferma.Enabled = false;
                     return;
@@ -1202,6 +1215,11 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
                 bool flagbilancio = (proceeds_flag & 2) == 2;
                 bool flagrespons = (proceeds_flag & 16) == 16;
                 bool flagresidui = (proceeds_flag & 8) == 8;
+                if (chkCrediti.Checked) {
+                    flagcreddeb = false;
+                    //flagbilancio = false;
+                }
+
                 //int giornianticipo = CfgFn.GetNoNullInt32(rPersEntrata["income_expiringdays"]);
                 int codicefase = CfgFn.GetNoNullInt32(Meta.GetSys("maxincomephase"));
                 int eserccorrente = (int) Meta.GetSys("esercizio");
@@ -1360,13 +1378,14 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
                     filtroIncome = QHS.AppAnd(filtroIncome, security);
                 }
 
-
                 DataAccess.RUN_SELECT_INTO_TABLE(Conn, DS.incomelastview,
                     "ymov  ASC, nmov  ASC",
                     filtroIncome,
                     null, false);
 
-                if ((incassiCrediti != null)&&(incassiCrediti.Count>0)) {
+                //Se impostato flusso crediti prende solo le righe associate all'elenco "incassiCrediti" e che siano collegate a tipi contratti col flag
+                //   non raggruppare per anagrafica in fase di reversale
+                if (chkCrediti.Checked && (incassiCrediti != null)) { //&&(incassiCrediti.Count>0)
                     foreach (DataRow r in DS.incomelastview.Rows) {
                         if (!incassiCrediti.ContainsKey(CfgFn.GetNoNullInt32(r["idinc"]))) {
                             r.Delete();
@@ -1374,7 +1393,6 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
                     }
                     DS.incomelastview.AcceptChanges();
                 }
-
 
                 if (DS.incomelastview.Rows.Count > 0) break; //continua come prima della modifica dei crediti
 
@@ -1403,11 +1421,12 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
 
         private void btnSi_Click(object sender, System.EventArgs e) {
             bool res = AccettaDocumentoConDimensione(false); //<-
-            if (res) {
+            //if (res) {
                 //selezionaRighe();
                 DS.incomelastview.Clear();
                 Meta.GetFormData(true);
-            }
+            //}
+			 
         }
 
         /*private void dataGrid1_Click(object sender, System.EventArgs e) {
@@ -1471,15 +1490,15 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
                 }
             }
             if (currblockLen>0) sb.AppendLine(";");
-            sb.AppendLine($"exec  trasmele_income_opisiopeplus_ins {Conn.GetEsercizio()},null,@lista");
-            return Conn.SQLRunner(sb.ToString());
+            sb.AppendLine($"exec  trasmele_income_opisiopeplus_ins {Conn.GetEsercizio()},null,'N',@lista");
+            return Conn.SQLRunner(sb.ToString(),false,900);
         }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="all">Vale TRUE se è stato premuto il bottone "Si Tutti", altrimenti vale FALSE</param>
         private bool AccettaDocumentoConDimensione(bool all) {
-            object spexport = "trasmele_income_opisiopeplus_ins";
+            //object spexport = "trasmele_income_opisiopeplus_ins";
             object ypro = Conn.GetSys("esercizio");
             int dimensioneTotale = 0;
             int dimensioneMovCorrente = 0;
@@ -1487,25 +1506,24 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
             int dimensioneReversaleVuota = 0;
             string Dsingolo = null;
             string DocReversaleVuota = null;
-            
             siopeplus_export SS = new siopeplus_export(Conn);
             var infoVersante = new incassi.reversaleInformazioni_versante();
 
-            bool success = true; 
+            bool success = true;
             int gridrowsnumber = DS.incomelastview.Rows.Count;
             int i;
             DataRow Curr = DS.proceeds.Rows[0];
             int keydocincasso = CfgFn.GetNoNullInt32(Curr["kpro"]);
-            object flagautostampa = Meta.Conn.DO_READ_VALUE("config", 
+            object flagautostampa = Meta.Conn.DO_READ_VALUE("config",
                 "(ayear='" + Meta.GetSys("esercizio").ToString() + "')", "proceeds_flagautoprintdate");
             List<DataRow> Lincassi = new List<DataRow>();
 
-            Dictionary<int,DataRow> rowsByIdInc= new Dictionary<int, DataRow>();
-            foreach (DataRow r in DS.incomelastview.Rows) rowsByIdInc[(int) r["idinc"]] = r;
+            Dictionary<int, DataRow> rowsByIdInc = new Dictionary<int, DataRow>();
+            foreach (DataRow r in DS.incomelastview.Rows) rowsByIdInc[(int)r["idinc"]] = r;
 
             for (i = 0; i < gridrowsnumber; i++) {
                 if (DetailGrid.IsSelected(i)) {
-                    DataRow CurrEntrata = rowsByIdInc[(int) DetailGrid[i, 0]];
+                    DataRow CurrEntrata = rowsByIdInc[(int)DetailGrid[i, 0]];
                     Lincassi.Add(CurrEntrata);
                 }
             }
@@ -1518,28 +1536,37 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
                 return false;
             }
             var reversaleVuota = SS.creaReversale(MM[0]);
+
+            reversaleVuota.dati_a_disposizione_ente_reversale = new incassi.ctDati_a_disposizione_ente_reversale();
+            reversaleVuota.dati_a_disposizione_ente_reversale.struttura = MM[0]["dati_codice_struttura"].ToString();
+            reversaleVuota.dati_a_disposizione_ente_reversale.codice_struttura = MM[0]["dati_codice_struttura"].ToString();
+            reversaleVuota.dati_a_disposizione_ente_reversale.codice_ipa_struttura = MM[0]["dati_codice_ipa_struttura"].ToString();
+
             DocReversaleVuota = reversaleVuota.toXml(Encoding.GetEncoding("ISO-8859-1"));
-            dimensioneReversaleVuota = DocReversaleVuota.Length+50;//include header xml 
+            dimensioneReversaleVuota = DocReversaleVuota.Length + 50;//include header xml 
             dimensioneTotale = dimensioneReversaleVuota;
 
             var infoVersanti = SS.get_listaVersanti(T);
-
+            var dimReversali = new Dictionary<int, int>();
             foreach (DataRow CurrEntrata in Lincassi) {
                 object idinc = CurrEntrata["idinc"];
-                infoVersante = infoVersanti[(int) idinc];
+                infoVersante = infoVersanti[(int)idinc];
 
                 Dsingolo = infoVersante.toXml(Encoding.GetEncoding("ISO-8859-1"));
                 dimensioneMovCorrente = Dsingolo.Length;
-                //File.WriteAllText(Path.Combine(Application.StartupPath,idinc.ToString()+"__"+Dsingolo.Length.ToString()),Dsingolo);
-
-                if ((dimensioneTotale + dimensioneMovCorrente > limiteOPIinByte) && UsoSiope) {
+                // riduco  qui un poco il limite in byte perchè nel metadato, le lunghezze calcolate potrebbero differire 
+                // da quelle calcolate in questo contesto e superare il limite consentito
+                if ((dimensioneTotale + dimensioneMovCorrente > limiteOPIinByte - 16) && UsoSiope) {
                     //Salva l'i-esima reversale
-                   // DocReversaleVuota = null;
+                    // DocReversaleVuota = null;
                     if ((flagautostampa != null) && (flagautostampa.ToString().ToUpper() == "S")) {
                         Curr["printdate"] = Curr["adate"];
                     }
                     //fillProceedsBank();
                     // Crea una nuova riga e legge le righe del raggruppamento corrente in spesaview
+                    if (!dimReversali.ContainsKey(keydocincasso)) dimReversali[keydocincasso] = dimensioneTotale;
+
+                    QueryCreator.MarkEvent($"Dimensione calcolata:{dimensioneTotale}");
                     Curr = PredisponiNuovoDocumento();
                     dimensioneTotale = dimensioneReversaleVuota;
                     keydocincasso = CfgFn.GetNoNullInt32(Curr["kpro"]);
@@ -1547,6 +1574,21 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
                 dimensioneTotale = dimensioneTotale + dimensioneMovCorrente;
                 CurrEntrata["kpro"] = keydocincasso;
             }
+            //// controllo dimensione sforata
+            //foreach (int kpro in dimReversali.Keys) {
+            //    int reve = dimReversali[kpro];
+            //    if (reve > limiteOPIinByte -16)
+            //        QueryCreator.MarkEvent($"Dimensione calcolata:{reve} per la reversale {kpro} contro il limite {limiteOPIinByte} ");
+            //}
+            // Stringa per monitorare le lunghezze delle singole reversali, 
+            // utile soprattutto nella generazione automatica
+            StringBuilder sb = new StringBuilder();
+            foreach (int kpro in dimReversali.Keys) {
+                int reve = dimReversali[kpro];
+                sb.AppendLine(" Reversale " + kpro + " lunghezza " + reve);
+            }
+            
+            QueryCreator.MarkEvent($"Ultima dimensione calcolata:{dimensioneTotale}");
 
             Meta.GetFormData(true);
             // Imposta la data sull'ultima reversale
@@ -1571,6 +1613,7 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
 
         private void fillProceedsBank() {
             foreach (DataRow Curr in DS.proceeds.Select()) {
+	            if (Curr.RowState == DataRowState.Added) continue;
                 DataSet Out = Meta.Conn.CallSP("compute_proceeds_bank",
                     new object[] { Curr["kpro"] }, false, 0);
             }
@@ -1616,4 +1659,3 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
         }
     }
 }
-

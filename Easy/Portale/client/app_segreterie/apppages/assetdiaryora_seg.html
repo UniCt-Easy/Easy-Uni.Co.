@@ -1,0 +1,41 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+					<input hidden id="assetdiaryora_seg_title" type="text" class="form-control" data-tag="assetdiaryora.!title" />
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#assetdiaryora_seg_start").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="assetdiaryora_seg_start">Data e ora di inizio</label>
+					<input id="assetdiaryora_seg_start" type="text" class="form-control" data-tag="assetdiaryora.start.g?assetdiaryorasegview.assetdiaryora_start.g" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#assetdiaryora_seg_stop").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="assetdiaryora_seg_stop">Data e ora di fine</label>
+					<input id="assetdiaryora_seg_stop" type="text" class="form-control" data-tag="assetdiaryora.stop.g?assetdiaryorasegview.assetdiaryora_stop.g" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="assetdiaryora_seg_amount">Amount</label>
+					<input id="assetdiaryora_seg_amount" type="text" class="form-control" data-tag="assetdiaryora.amount.fixed.2?assetdiaryorasegview.assetdiaryora_amount" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="assetdiaryora_seg_idsal">Stato avanzamento lavori</label>
+					<select id="assetdiaryora_seg_idsal" class="custom-select d-block w-100"  data-source-name="saldefaultview" data-value-member="idsal" data-display-member="dropdown_title" data-custom-control="combo" data-tag="assetdiaryora.idsal?assetdiaryorasegview.assetdiaryora_idsal" data-subentity   > </select>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[exp_posizionidebitoriebsondrio]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 DROP PROCEDURE [exp_posizionidebitoriebsondrio]
 GO
@@ -7,10 +24,11 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 --setuser 'amm'
+--setuser 'amministrazione'
 -- =========================================================================
 -- Prepara gli avvisi di pagamento da caricare sul WS della Banca di Sondrio
 -- =========================================================================
--- exp_posizionidebitoriebsondrio 1,2017
+-- exp_posizionidebitoriebsondrio 22197,2021
 
 CREATE PROCEDURE exp_posizionidebitoriebsondrio
 	@idflusso INT,
@@ -18,7 +36,8 @@ CREATE PROCEDURE exp_posizionidebitoriebsondrio
 AS
 BEGIN
 	SET NOCOUNT ON;
-
+	DECLARE @len_email int
+	SET @len_email = 70
 	CREATE TABLE #advice
 	(
 		idflusso int,
@@ -29,7 +48,8 @@ BEGIN
 		finevalidita datetime,
 		causale varchar(150),
 		iddisposizione bigint,
-		iduniqueformcode varchar(100)
+		iduniqueformcode varchar(100),
+		codicetassonomia varchar(100)
 		--codiceavviso varchar(100)
 	);
 	
@@ -42,7 +62,7 @@ BEGIN
 		scadenza,
 		iduniqueformcode,
 		--barcodevalue, qrcodevalue ,codiceavviso,
-		iddisposizione
+		iddisposizione,codicetassonomia
 	)	
 				
 		SELECT
@@ -51,14 +71,28 @@ BEGIN
 				sum(isnull(f1.importoversamento,0)+isnull(f1.tax,0)),	min(f1.expirationdate), --min(f1.competencystart), min(f1.competencystop), 				
 				f1.iduniqueformcode,
 		-- barcodevalue, qrcodevalue, codiceavviso,
-			min(f1.idunivoco) 
+			min(f1.idunivoco) ,  f1.codicetassonomia 
 			FROM flussocreditidetail F1
 			WHERE  f1.annulment is null and f1.idflusso=@idflusso AND (f1.iuv IS NULL OR ((f1.flag & 2)<>0)) --  and
-		group by f1.idflusso, f1.iduniqueformcode,f1.idreg
+		group by f1.idflusso, f1.iduniqueformcode,f1.idreg,  f1.codicetassonomia 
+
+		--	select * from #advice
+		;
 		
+
+	with max_codice_tassonomia (idflusso,idreg,iduniqueformcode,codicetassonomia) as (
+			select top 1 idflusso,idreg,iduniqueformcode, codicetassonomia  FROM #advice
+			WHERE importo = ( select max(importo) from #advice A where 
+				A.idflusso = #advice.idflusso  AND
+				A.idreg = #advice.idreg  AND
+				A.iduniqueformcode = #advice.iduniqueformcode)
+			)	
+	-- Valorizzo il codice tassonomia prevalente ovvero in base alla riga di imporot massimo
+	UPDATE #advice  SET codicetassonomia = (SELECT codicetassonomia FROM max_codice_tassonomia A
+											WHERE A.idflusso = #advice.idflusso  AND
+												  A.idreg = #advice.idreg  AND
+												  A.iduniqueformcode = #advice.iduniqueformcode)
 	--select * from #advice
-
-
 	CREATE TABLE #address
 	(
 		idaddresskind int,
@@ -139,7 +173,7 @@ BEGIN
 		
 
 
-with descr_crediti (descr,idflusso,idreg,iduniqueformcode) as (
+with descr_crediti (descr,idflusso,idreg,iduniqueformcode,codicetassonomia) as (
 			select distinct coalesce(
 			invoicekind.description+' n.'+convert(varchar(10),f2.ninv)+'/'+convert(varchar(4),f2.yinv),
 			estimatekind.description+' n.'+convert(varchar(10),f2.nestim)+'/'+convert(varchar(4),f2.yestim),
@@ -148,7 +182,7 @@ with descr_crediti (descr,idflusso,idreg,iduniqueformcode) as (
 			),
 			f2.idflusso,
 			f2.idreg,
-			f2.iduniqueformcode
+			f2.iduniqueformcode,f2.codicetassonomia
 			from flussocreditidetail  f2
 			left outer join invoicekind on f2.idinvkind  = invoicekind.idinvkind
 			left outer join estimatekind on f2.idestimkind  = estimatekind.idestimkind
@@ -170,7 +204,8 @@ with descr_crediti (descr,idflusso,idreg,iduniqueformcode) as (
 			ELSE REG.cf
 		END AS codice,
 		REG.forename,REG.surname,
-		REG.title AS anagrafica, ADDR.indirizzo, ADDR.cap, ADDR.citta, ADDR.provincia, ADDR.nazione, REF.email, NULL as pec,
+		REG.title AS anagrafica, ADDR.indirizzo, ADDR.cap, ADDR.citta, ADDR.provincia, ADDR.nazione, SUBSTRING(REF.email,1,@len_email) as email , NULL as pec,
+		ADV.codicetassonomia,
 		ADV.iduniqueformcode, 		
 		SUBSTRING(
 					(SELECT distinct ', ' + st1.descr AS [text()]

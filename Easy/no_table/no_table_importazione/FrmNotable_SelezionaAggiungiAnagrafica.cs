@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -31,12 +30,11 @@ using System.Collections;
 
 namespace notable_importazione
 {
-    public partial class FrmNotable_SelezionaAggiungiAnagrafica : Form
+    public partial class FrmNotable_SelezionaAggiungiAnagrafica : MetaDataForm
     {
         public DataRow SelectedRow;
         public DataTable Anagrafiche;
         public string Esito;
-
 
         public FrmNotable_SelezionaAggiungiAnagrafica(DataTable DT, DataRow RegistryFromInputFile,int RowNumberInInputFile)
         {
@@ -85,7 +83,7 @@ namespace notable_importazione
 
         private void btnCrea_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Si desidera procedere all'inserimento di una nuova anagrafica?", "Crea", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (show("Si desidera procedere all'inserimento di una nuova anagrafica?", "Crea", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 Esito = "Crea";
                 this.Close();
@@ -95,7 +93,7 @@ namespace notable_importazione
         private void btnSeleziona_Click(object sender, EventArgs e)
         {
             Esito = "Seleziona";
-            if (MessageBox.Show("Procedere con la riga selezionata?", "Seleziona", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (show("Procedere con la riga selezionata?", "Seleziona", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 // Riga selezionata
                 int CurrentRowNumber = DetailGrid.CurrentRowIndex;
@@ -106,14 +104,11 @@ namespace notable_importazione
 
         private void btnAnnulla_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Annullare l'operazione?", "Annulla", MessageBoxButtons.OKCancel)==DialogResult.OK)
+            if (show("Annullare l'operazione?", "Annulla", MessageBoxButtons.OKCancel)==DialogResult.OK)
             {
                 Esito = "Annulla";
                 this.Close();
             }
         }
-
-
-
     }
-}
+}

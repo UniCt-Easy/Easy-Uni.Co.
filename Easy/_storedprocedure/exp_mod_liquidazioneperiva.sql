@@ -1,4 +1,21 @@
 
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+
 --setuser'amm'
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_liquidazioneperiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_mod_liquidazioneperiva]
@@ -335,21 +352,30 @@ AND (flagbuysell ='A' OR (select count(*) from invoicekindregisterkind  IRK
 				join ivaregisterkind RK on RK.idivaregisterkind=IRK.idivaregisterkind
 				 where  IRK.idinvkind = invoicedetailview.idinvkind
 					and RK.registerclass<>'P'
-				) = 2 ) and month(adate) = @month and year(adate)= @esercizio
+				) = 2 ) 
+AND month(adate) = @month and year(adate)= @esercizio
 AND Idivataxablekind NOT IN (5, /*Fuori campo*/ 6  /*Escluse Articolo 15*/ )
- 
 
-SELECT @TotaleOperazioniAttive = ISNULL(sum(CASE WHEN flagvariation = 'S' THEN - taxable_euro ELSE taxable_euro END),0) FROM  invoicedetailview 
+
+SELECT @TotaleOperazioniAttive = 
+ISNULL(sum(CASE WHEN (flagvariation = 'S' OR flagbuysell ='A')  THEN - taxable_euro ELSE taxable_euro END),0) FROM  invoicedetailview 
  JOIN ivaregister 
 	ON ivaregister.idinvkind = invoicedetailview.idinvkind
 	AND ivaregister.yinv = invoicedetailview.yinv
 	AND ivaregister.ninv = invoicedetailview.ninv
 JOIN ivaregisterkind 
 	ON ivaregisterkind.idivaregisterkind = ivaregister.idivaregisterkind
-WHERE registerclass = 'V' AND (flagactivity = 2 /*commerciale*/ OR  flagactivity = 3 /*promiscua*/)
-AND flagbuysell ='V'  and month(adate) = @month and year(adate)= @esercizio
+WHERE registerclass = 'V' 
+AND (flagactivity = 2 /*commerciale*/ OR  flagactivity = 3 /*promiscua*/)
+AND (flagbuysell ='V' OR  (select count(*) from invoicekindregisterkind  IRK
+				join ivaregisterkind RK on RK.idivaregisterkind=IRK.idivaregisterkind
+				 where  IRK.idinvkind = invoicedetailview.idinvkind
+					and RK.registerclass<>'P'
+				) = 1 )
+
+AND month(adate) = @month and year(adate)= @esercizio
 AND Idivataxablekind NOT IN (5, /*Fuori campo*/ 6  /*Escluse Articolo 15*/ )
- 
+
 
 
 DECLARE @IvaEsigibile decimal(19,2) -- Ammontare IVA a debito relativo alle operazioni attive del periodo	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 … 16

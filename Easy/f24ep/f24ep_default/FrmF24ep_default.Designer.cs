@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 namespace f24ep_default {
     partial class FrmF24ep_default {
@@ -84,11 +83,17 @@ namespace f24ep_default {
             this.btnModificaDetail = new System.Windows.Forms.Button();
             this.btnInserisciDetail = new System.Windows.Forms.Button();
             this.GridDetails = new System.Windows.Forms.DataGrid();
+            this.tabPageIVA = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.gridIVA = new System.Windows.Forms.DataGrid();
             this.grpTotaleAddebito = new System.Windows.Forms.GroupBox();
             this.DS = new f24ep_default.vistaForm();
             this.cmbMese = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridLiquidazioni)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -99,8 +104,11 @@ namespace f24ep_default {
             ((System.ComponentModel.ISupportInitialize)(this.gridSanzioni)).BeginInit();
             this.tabPageDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GridDetails)).BeginInit();
+            this.tabPageIVA.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridIVA)).BeginInit();
             this.grpTotaleAddebito.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -109,32 +117,29 @@ namespace f24ep_default {
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.AutoSize = true;
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.txtDataUltimaLiquid);
-            this.groupBox1.Controls.Add(this.txtDataPrimaLiquid);
-            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.groupBox4);
             this.groupBox1.Controls.Add(this.btnRimuovi);
             this.groupBox1.Controls.Add(this.btnModifica);
             this.groupBox1.Controls.Add(this.btnInserisci);
             this.groupBox1.Controls.Add(this.gridLiquidazioni);
             this.groupBox1.Location = new System.Drawing.Point(2, -1);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(633, 274);
+            this.groupBox1.Size = new System.Drawing.Size(662, 274);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 174);
+            this.label8.Location = new System.Drawing.Point(10, 60);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(90, 13);
+            this.label8.Size = new System.Drawing.Size(50, 13);
             this.label8.TabIndex = 15;
-            this.label8.Text = "Data ultima liquid.";
+            this.label8.Text = "Data fine";
             // 
             // txtDataUltimaLiquid
             // 
-            this.txtDataUltimaLiquid.Location = new System.Drawing.Point(7, 190);
+            this.txtDataUltimaLiquid.Location = new System.Drawing.Point(11, 76);
             this.txtDataUltimaLiquid.Name = "txtDataUltimaLiquid";
             this.txtDataUltimaLiquid.Size = new System.Drawing.Size(82, 20);
             this.txtDataUltimaLiquid.TabIndex = 4;
@@ -142,7 +147,7 @@ namespace f24ep_default {
             // 
             // txtDataPrimaLiquid
             // 
-            this.txtDataPrimaLiquid.Location = new System.Drawing.Point(7, 151);
+            this.txtDataPrimaLiquid.Location = new System.Drawing.Point(11, 37);
             this.txtDataPrimaLiquid.Name = "txtDataPrimaLiquid";
             this.txtDataPrimaLiquid.Size = new System.Drawing.Size(82, 20);
             this.txtDataPrimaLiquid.TabIndex = 16;
@@ -151,17 +156,17 @@ namespace f24ep_default {
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(7, 135);
+            this.label7.Location = new System.Drawing.Point(11, 21);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(88, 13);
+            this.label7.Size = new System.Drawing.Size(56, 13);
             this.label7.TabIndex = 14;
-            this.label7.Text = "Data prima liquid.";
+            this.label7.Text = "Data inizio";
             // 
             // btnRimuovi
             // 
-            this.btnRimuovi.Location = new System.Drawing.Point(6, 53);
+            this.btnRimuovi.Location = new System.Drawing.Point(11, 49);
             this.btnRimuovi.Name = "btnRimuovi";
-            this.btnRimuovi.Size = new System.Drawing.Size(82, 23);
+            this.btnRimuovi.Size = new System.Drawing.Size(101, 23);
             this.btnRimuovi.TabIndex = 7;
             this.btnRimuovi.Text = "Rimuovi";
             this.btnRimuovi.UseVisualStyleBackColor = true;
@@ -169,9 +174,9 @@ namespace f24ep_default {
             // 
             // btnModifica
             // 
-            this.btnModifica.Location = new System.Drawing.Point(6, 82);
+            this.btnModifica.Location = new System.Drawing.Point(11, 78);
             this.btnModifica.Name = "btnModifica";
-            this.btnModifica.Size = new System.Drawing.Size(82, 23);
+            this.btnModifica.Size = new System.Drawing.Size(101, 23);
             this.btnModifica.TabIndex = 8;
             this.btnModifica.Text = "Modifica...";
             this.btnModifica.UseVisualStyleBackColor = true;
@@ -179,9 +184,9 @@ namespace f24ep_default {
             // 
             // btnInserisci
             // 
-            this.btnInserisci.Location = new System.Drawing.Point(6, 24);
+            this.btnInserisci.Location = new System.Drawing.Point(11, 20);
             this.btnInserisci.Name = "btnInserisci";
-            this.btnInserisci.Size = new System.Drawing.Size(82, 23);
+            this.btnInserisci.Size = new System.Drawing.Size(101, 23);
             this.btnInserisci.TabIndex = 6;
             this.btnInserisci.Text = "Inserisci";
             this.btnInserisci.UseVisualStyleBackColor = true;
@@ -195,9 +200,9 @@ namespace f24ep_default {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridLiquidazioni.DataMember = "";
             this.gridLiquidazioni.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.gridLiquidazioni.Location = new System.Drawing.Point(99, 20);
+            this.gridLiquidazioni.Location = new System.Drawing.Point(130, 20);
             this.gridLiquidazioni.Name = "gridLiquidazioni";
-            this.gridLiquidazioni.Size = new System.Drawing.Size(522, 231);
+            this.gridLiquidazioni.Size = new System.Drawing.Size(527, 231);
             this.gridLiquidazioni.TabIndex = 4;
             this.gridLiquidazioni.TabStop = false;
             this.gridLiquidazioni.Tag = "taxpayview.liqcollegata";
@@ -208,7 +213,7 @@ namespace f24ep_default {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTotaleAddebito.Location = new System.Drawing.Point(99, 7);
             this.txtTotaleAddebito.Name = "txtTotaleAddebito";
-            this.txtTotaleAddebito.Size = new System.Drawing.Size(137, 20);
+            this.txtTotaleAddebito.Size = new System.Drawing.Size(166, 20);
             this.txtTotaleAddebito.TabIndex = 10;
             this.txtTotaleAddebito.Tag = "";
             // 
@@ -259,7 +264,7 @@ namespace f24ep_default {
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Location = new System.Drawing.Point(12, 104);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(641, 81);
+            this.groupBox2.Size = new System.Drawing.Size(670, 81);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Dati identificativi del fornitore del file";
@@ -280,7 +285,7 @@ namespace f24ep_default {
             this.txtEmail.Location = new System.Drawing.Point(389, 49);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.ReadOnly = true;
-            this.txtEmail.Size = new System.Drawing.Size(246, 20);
+            this.txtEmail.Size = new System.Drawing.Size(275, 20);
             this.txtEmail.TabIndex = 6;
             // 
             // txtDenominazione
@@ -290,7 +295,7 @@ namespace f24ep_default {
             this.txtDenominazione.Location = new System.Drawing.Point(288, 23);
             this.txtDenominazione.Name = "txtDenominazione";
             this.txtDenominazione.ReadOnly = true;
-            this.txtDenominazione.Size = new System.Drawing.Size(347, 20);
+            this.txtDenominazione.Size = new System.Drawing.Size(376, 20);
             this.txtDenominazione.TabIndex = 3;
             // 
             // label4
@@ -329,7 +334,7 @@ namespace f24ep_default {
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Location = new System.Drawing.Point(12, 191);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(641, 52);
+            this.groupBox3.Size = new System.Drawing.Size(670, 52);
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Modalità di versamento";
@@ -369,7 +374,7 @@ namespace f24ep_default {
             this.txtPercorso.Location = new System.Drawing.Point(177, 71);
             this.txtPercorso.Name = "txtPercorso";
             this.txtPercorso.ReadOnly = true;
-            this.txtPercorso.Size = new System.Drawing.Size(476, 20);
+            this.txtPercorso.Size = new System.Drawing.Size(505, 20);
             this.txtPercorso.TabIndex = 13;
             // 
             // label9
@@ -407,7 +412,7 @@ namespace f24ep_default {
             this.txtDataGenerazione.Location = new System.Drawing.Point(552, 41);
             this.txtDataGenerazione.Name = "txtDataGenerazione";
             this.txtDataGenerazione.ReadOnly = true;
-            this.txtDataGenerazione.Size = new System.Drawing.Size(100, 20);
+            this.txtDataGenerazione.Size = new System.Drawing.Size(129, 20);
             this.txtDataGenerazione.TabIndex = 17;
             this.txtDataGenerazione.Tag = "f24ep.adate";
             // 
@@ -423,10 +428,11 @@ namespace f24ep_default {
             this.tabControl1.Controls.Add(this.tabPageLiquidazioni);
             this.tabControl1.Controls.Add(this.tabPageSanzioni);
             this.tabControl1.Controls.Add(this.tabPageDetails);
+            this.tabControl1.Controls.Add(this.tabPageIVA);
             this.tabControl1.Location = new System.Drawing.Point(12, 265);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(644, 300);
+            this.tabControl1.Size = new System.Drawing.Size(673, 300);
             this.tabControl1.TabIndex = 19;
             // 
             // tabPageLiquidazioni
@@ -435,7 +441,7 @@ namespace f24ep_default {
             this.tabPageLiquidazioni.Location = new System.Drawing.Point(4, 22);
             this.tabPageLiquidazioni.Name = "tabPageLiquidazioni";
             this.tabPageLiquidazioni.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLiquidazioni.Size = new System.Drawing.Size(636, 274);
+            this.tabPageLiquidazioni.Size = new System.Drawing.Size(665, 274);
             this.tabPageLiquidazioni.TabIndex = 0;
             this.tabPageLiquidazioni.Text = "Liquidazioni";
             this.tabPageLiquidazioni.UseVisualStyleBackColor = true;
@@ -449,7 +455,7 @@ namespace f24ep_default {
             this.tabPageSanzioni.Location = new System.Drawing.Point(4, 22);
             this.tabPageSanzioni.Name = "tabPageSanzioni";
             this.tabPageSanzioni.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSanzioni.Size = new System.Drawing.Size(636, 274);
+            this.tabPageSanzioni.Size = new System.Drawing.Size(665, 274);
             this.tabPageSanzioni.TabIndex = 1;
             this.tabPageSanzioni.Text = "Sanzioni Ravvedimento";
             this.tabPageSanzioni.UseVisualStyleBackColor = true;
@@ -494,7 +500,7 @@ namespace f24ep_default {
             this.gridSanzioni.HeaderForeColor = System.Drawing.SystemColors.ControlText;
             this.gridSanzioni.Location = new System.Drawing.Point(90, 17);
             this.gridSanzioni.Name = "gridSanzioni";
-            this.gridSanzioni.Size = new System.Drawing.Size(540, 243);
+            this.gridSanzioni.Size = new System.Drawing.Size(569, 243);
             this.gridSanzioni.TabIndex = 9;
             this.gridSanzioni.TabStop = false;
             this.gridSanzioni.Tag = "f24epsanction.default.single";
@@ -508,7 +514,7 @@ namespace f24ep_default {
             this.tabPageDetails.Location = new System.Drawing.Point(4, 22);
             this.tabPageDetails.Name = "tabPageDetails";
             this.tabPageDetails.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDetails.Size = new System.Drawing.Size(636, 274);
+            this.tabPageDetails.Size = new System.Drawing.Size(665, 274);
             this.tabPageDetails.TabIndex = 2;
             this.tabPageDetails.Text = "Interventi Sostitutivi";
             this.tabPageDetails.UseVisualStyleBackColor = true;
@@ -554,10 +560,68 @@ namespace f24ep_default {
             this.GridDetails.HeaderForeColor = System.Drawing.SystemColors.ControlText;
             this.GridDetails.Location = new System.Drawing.Point(104, 22);
             this.GridDetails.Name = "GridDetails";
-            this.GridDetails.Size = new System.Drawing.Size(522, 231);
+            this.GridDetails.Size = new System.Drawing.Size(551, 231);
             this.GridDetails.TabIndex = 9;
             this.GridDetails.TabStop = false;
             this.GridDetails.Tag = "expenseclawbackview.dettagliocollegato";
+            // 
+            // tabPageIVA
+            // 
+            this.tabPageIVA.Controls.Add(this.button2);
+            this.tabPageIVA.Controls.Add(this.button3);
+            this.tabPageIVA.Controls.Add(this.button4);
+            this.tabPageIVA.Controls.Add(this.gridIVA);
+            this.tabPageIVA.Location = new System.Drawing.Point(4, 22);
+            this.tabPageIVA.Name = "tabPageIVA";
+            this.tabPageIVA.Size = new System.Drawing.Size(636, 274);
+            this.tabPageIVA.TabIndex = 3;
+            this.tabPageIVA.Text = "IVA";
+            this.tabPageIVA.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(11, 42);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(82, 23);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "Rimuovi";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(11, 71);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(82, 23);
+            this.button3.TabIndex = 12;
+            this.button3.Text = "Modifica...";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(11, 13);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(82, 23);
+            this.button4.TabIndex = 10;
+            this.button4.Text = "Inserisci";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // gridIVA
+            // 
+            this.gridIVA.AllowNavigation = false;
+            this.gridIVA.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridIVA.DataMember = "";
+            this.gridIVA.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+            this.gridIVA.Location = new System.Drawing.Point(104, 9);
+            this.gridIVA.Name = "gridIVA";
+            this.gridIVA.Size = new System.Drawing.Size(522, 248);
+            this.gridIVA.TabIndex = 9;
+            this.gridIVA.TabStop = false;
+            this.gridIVA.Tag = "ivapay.default";
             // 
             // grpTotaleAddebito
             // 
@@ -566,7 +630,7 @@ namespace f24ep_default {
             this.grpTotaleAddebito.Controls.Add(this.txtTotaleAddebito);
             this.grpTotaleAddebito.Location = new System.Drawing.Point(409, 247);
             this.grpTotaleAddebito.Name = "grpTotaleAddebito";
-            this.grpTotaleAddebito.Size = new System.Drawing.Size(244, 33);
+            this.grpTotaleAddebito.Size = new System.Drawing.Size(273, 33);
             this.grpTotaleAddebito.TabIndex = 20;
             this.grpTotaleAddebito.TabStop = false;
             this.grpTotaleAddebito.Text = "Totale Addebito";
@@ -608,11 +672,24 @@ namespace f24ep_default {
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.txtDataUltimaLiquid);
+            this.groupBox4.Controls.Add(this.label8);
+            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.txtDataPrimaLiquid);
+            this.groupBox4.Location = new System.Drawing.Point(3, 147);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(121, 104);
+            this.groupBox4.TabIndex = 24;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Periodo competenza";
+            // 
             // FrmF24ep_default
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(665, 569);
+            this.ClientSize = new System.Drawing.Size(694, 569);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cmbMese);
@@ -631,7 +708,6 @@ namespace f24ep_default {
             this.Name = "FrmF24ep_default";
             this.Text = "FrmF24ep_default";
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridLiquidazioni)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -644,9 +720,13 @@ namespace f24ep_default {
             ((System.ComponentModel.ISupportInitialize)(this.gridSanzioni)).EndInit();
             this.tabPageDetails.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.GridDetails)).EndInit();
+            this.tabPageIVA.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridIVA)).EndInit();
             this.grpTotaleAddebito.ResumeLayout(false);
             this.grpTotaleAddebito.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -702,5 +782,11 @@ namespace f24ep_default {
         private System.Windows.Forms.Button btnInserisciDetail;
         private System.Windows.Forms.DataGrid GridDetails;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TabPage tabPageIVA;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.DataGrid gridIVA;
+        private System.Windows.Forms.GroupBox groupBox4;
     }
-}
+}

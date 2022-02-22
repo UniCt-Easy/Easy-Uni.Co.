@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -26,7 +25,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
-using System.Windows.Forms;
 using LiveUpdate;//LiveUpdate
 using System.IO;
 using System.Xml.XPath;
@@ -38,6 +36,7 @@ using Xceed.Compression;
 using Xceed.Zip;
 using Xceed.Utils;
 using Xceed.FileSystem;
+using Newtonsoft.Json;
 
 
 namespace GeneraLiveUpdateForServices {
@@ -67,10 +66,11 @@ namespace GeneraLiveUpdateForServices {
     //m_LocalDir = txtLocalDLL_sdi.Text;
    
 
-    public partial class Frm_GeneraLiveUpdateForServices :Form {
+    public partial class Frm_GeneraLiveUpdateForServices : MetaDataForm {
 
         [STAThread]
         static void Main(string[] args) {
+	        initLicenses();
             Frm_GeneraLiveUpdateForServices F = new Frm_GeneraLiveUpdateForServices();
             try {
                 Application.Run(F);
@@ -84,45 +84,11 @@ namespace GeneraLiveUpdateForServices {
 
 
         //m_Filter = "*.dll";
-
-        public configLiveUpdate getConfig() {
-            var lu = currLuType();
-            switch (lu) {
-                case Frm_GeneraLiveUpdateForServices.eTipoLiveUpdate.EASYWEB:return new EasyWebConfig(getWebAddress());
-                case Frm_GeneraLiveUpdateForServices.eTipoLiveUpdate.PAYMENT:return new EasyPaymentConfig(getWebAddress());
-                case Frm_GeneraLiveUpdateForServices.eTipoLiveUpdate.MULTISDI:return new EasyMultiSdiConfig(getWebAddress());
-                case Frm_GeneraLiveUpdateForServices.eTipoLiveUpdate.PORTALE:return new PortaleConfig(getWebAddress());
-                case Frm_GeneraLiveUpdateForServices.eTipoLiveUpdate.REPORTING_SERVICES:return new ReportingServicesConfig(getWebAddress());
-                case Frm_GeneraLiveUpdateForServices.eTipoLiveUpdate.SDI: return new SdiConfig(getWebAddress());
-                case Frm_GeneraLiveUpdateForServices.eTipoLiveUpdate.WEBPROT:return new WebProtConfig(getWebAddress());
-                default: return null;
-
-            }
-        }
-
+   
 
         private IContainer components;
 
-        private Dictionary<eTipoLiveUpdate, string> serviceName = new Dictionary<eTipoLiveUpdate, string>() {
-            { eTipoLiveUpdate.PORTALE , "portale"},
-            { eTipoLiveUpdate.SDI , "sdi"},
-            { eTipoLiveUpdate.WEBPROT , "webprot"},
-            { eTipoLiveUpdate.EASYWEB , "easyweb"},
-            { eTipoLiveUpdate.PAYMENT , "payment"},
-            { eTipoLiveUpdate.REPORTING_SERVICES , "reportingservices"},
-            {  eTipoLiveUpdate.MULTISDI , "multisdi"}
-        };
-
-        public enum eTipoLiveUpdate {
-            PORTALE,
-            SDI,
-            WEBPROT,
-            EASYWEB,
-            PAYMENT,
-            REPORTING_SERVICES,
-            MULTISDI,
-            UNKNOWN
-        };
+       
         //private eTipoLiveUpdate m_TipoLiveUpdate = eTipoLiveUpdate.UNKNOWN;
 
         //public string C_XMLFileDLL = "servicefileindex.xml";
@@ -157,15 +123,21 @@ namespace GeneraLiveUpdateForServices {
 		//private string m_Filter = "*.rdl";
         private string m_IndexFileName = "";
 
+        Dictionary<string,configLiveUpdate> services = new Dictionary<string, configLiveUpdate>();
         public Frm_GeneraLiveUpdateForServices() {
             InitializeComponent();
             //
             // TODO: Add any constructor code after InitializeComponent call
             //
             Init();
+        
+
         }
 
-        Dictionary<string, eTipoLiveUpdate> tipoPerNome = new Dictionary<string, eTipoLiveUpdate>();
+        string getCurrService() {
+	        if (cmbTipoAggiornamento.SelectedIndex <= 0) return null;
+	        return cmbTipoAggiornamento.SelectedValue.ToString();
+        }
         private void Init() {
             m_IndexFileName = Application.StartupPath + @"\genliveupdateforservices.xml";
             //m_XMLFile = null;
@@ -174,7 +146,7 @@ namespace GeneraLiveUpdateForServices {
             currConfig = null;
             MetaData.SetColor(this, true);
             DS.Clear();
-            foreach (string service in serviceName.Values) {
+            foreach (string service in services.Keys) {
                 string colName = "dir_" + service;           
                 if (!DS.config.Columns.Contains(colName)) DS.config.Columns.Add(colName, typeof(string));
             }
@@ -187,32 +159,49 @@ namespace GeneraLiveUpdateForServices {
 
             txtDirUff_main.Text = DS.config.Rows[0]["diruff_main"].ToString();
 
-            foreach (string service in serviceName.Values) {
-                var txtFolder = getTextBoxFolderByServiceName(service);
-                string colName = "dir_" + service;              
-                txtFolder.Text = DS.config.Rows[0][colName].ToString();
-                XDir.CheckCreate(txtFolder.Text);
+            foreach (var service in services.Values) {
+                var folder = service.rifFolder;
+                XDir.CheckCreate(folder);
             }
             
-            foreach (string service in serviceName.Values) {
+            foreach (string service in services.Keys) {
                 XDir.CheckCreate(Path.Combine(txtDirUff_main.Text,service));
             }
 
             XDir.Svuota(txtDirDiff.Text, true);
             XDir.CheckCreate(txtDirDiff.Text + "zip");
 
-            radio_Dummy.Checked = true;
-            foreach (RadioButton R in gboxTipoAggiornamento.Controls) {
-                R.CheckedChanged += radio_CheckedChanged;
+            DataTable t = new DataTable();
+            t.Columns.Add("codice");
+            t.Columns.Add("title");
+            var ff = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "services_*.json");
+            var r = t.NewRow();
+            r["codice"] = "";
+            t.Rows.Add(r);
+            foreach (var f in ff) {
+	            var c = new configLiveUpdate("dummy");
+	            c.LoadConfig(f);
+	            var cfgName = Path.GetFileNameWithoutExtension(f).Replace("services_", "");
+	            services[cfgName] = c;
+	            r = t.NewRow();
+	            r["codice"] = cfgName;
+	            r["title"] = c.Caption + ' ' + c.rifFolder;
+	            t.Rows.Add(r);
             }
-            foreach (object O in gboxCartelle.Controls) {
-                Button b=  O as Button;
-                if (b==null)continue;
-                b.Click += folderBottonClick;
-            }
-            radio_CheckedChanged(null,null);
-            foreach (var x in serviceName) tipoPerNome[x.Value] = x.Key;
+
+            cmbTipoAggiornamento.DataSource = t;
+            
+            cmbTipoAggiornamento.ValueMember = "codice";
+            cmbTipoAggiornamento.DisplayMember = "title";
+
+            cmbTipoAggiornamento.SelectedIndex = -1;
+            cmbTipoAggiornamento.SelectedIndexChanged += CmbTipoAggiornamentoOnSelectedIndexChanged;
+            
+            CmbTipoAggiornamentoOnSelectedIndexChanged(null,null);
+           
         }
+
+        
 
 
         private void Archivia() {
@@ -220,10 +209,6 @@ namespace GeneraLiveUpdateForServices {
                 DS.config.Rows.Add(DS.config.NewRow());
             }
             DS.config.Rows[0]["dirweb_main"] = txtWeb_main.Text;
-            foreach (string service in serviceName.Values) {
-                var txtFolder = getTextBoxFolderByServiceName(service);
-                DS.config.Rows[0]["dir_" + service]=txtFolder.Text;                
-            }
 
             DS.config.Rows[0]["dirdiff"] = txtDirDiff.Text;
             DS.config.Rows[0]["diruff_main"] = txtDirUff_main.Text;
@@ -248,15 +233,11 @@ namespace GeneraLiveUpdateForServices {
             }
         }
 
-        eTipoLiveUpdate currLuType() {
-            foreach (RadioButton r in gboxTipoAggiornamento.Controls) {
-                if (r == null) continue;
-                if (!r.Checked)continue;
-                if (r.Tag==null)   return eTipoLiveUpdate.UNKNOWN;;
-                return tipoPerNome[r.Tag.ToString()];
-            }
-            return eTipoLiveUpdate.UNKNOWN;
+        configLiveUpdate getConfig() {
+	        if (getCurrService() == null) return null;
+	        return services[getCurrService()];
         }
+
         private configLiveUpdate currConfig = null;
         /// <summary>
         /// Imposta le variabili di ambiente per il filtro, la cartella locale e per il sito web di riferimento in base
@@ -294,15 +275,18 @@ namespace GeneraLiveUpdateForServices {
         Hashtable ListaDiff = new Hashtable();
 
         private void btnDiff_Click(object sender, EventArgs e) {
-            if (currLuType() == eTipoLiveUpdate.UNKNOWN) {
-                MessageBox.Show("Selezionare il tipo di aggiornamento", "Attenzione",
+	      
+	        var cfg = getConfig();
+            if (cfg == null) {
+                show("Selezionare il tipo di aggiornamento", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
+            string serviceName = getCurrService();
             //Cartella remota specifica di quel servizio
             string webAddr = getWebAddress(); //http://www.temposrl.it/easyservices/reportingservices/
             if(webAddr== "") {
-                MessageBox.Show($"Impostare l'indirizzo web per il servizio {currLuType()}", "Attenzione",
+                show($"Impostare l'indirizzo web per il servizio {serviceName}", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
@@ -336,9 +320,9 @@ namespace GeneraLiveUpdateForServices {
 
          
             
-            ///Legge i numeri di versione dll e report remoti e sceglie il sito di liveupdate di riferimento come il piÃ¹ veloce
+            ///Legge i numeri di versione dll e report remoti e sceglie il sito di liveupdate di riferimento come il più veloce
             int K2 = metaprofiler.StartTimer("new Download");
-            Download download = new Download(null, rempath, currConfig.xmlFile, getLocalDirectory(), serviceName[currLuType()]);//localDir diventa la TargetDir per la creazione dei file differenze
+            Download download = new Download(null, rempath, currConfig.xmlFile, getLocalDirectory(), serviceName);//localDir diventa la TargetDir per la creazione dei file differenze
             metaprofiler.StopTimer(K2);
             
             ListaDiff = new Hashtable(); ;
@@ -384,7 +368,7 @@ namespace GeneraLiveUpdateForServices {
                 }
             }
             if (nonaggiornati.Items.Count > 0) {
-                MessageBox.Show("Mancano file nella directory attuale, verificare attentamente prima di procedere", "Avviso");
+                show("Mancano file nella directory attuale, verificare attentamente prima di procedere", "Avviso");
             }
             int tot = checkList.Items.Count;
             if (tot == 1)
@@ -405,7 +389,7 @@ namespace GeneraLiveUpdateForServices {
 
             foreach (FileInfo f in d.GetFiles("*.*", SearchOption.AllDirectories)) {
                 if (f.Name == currConfig.xmlFile + ".zip") continue;//salta l'indice
-                //f.Name Ã¨ il nome semplice ma a noi serve il folder relativo almeno
+                //f.Name è il nome semplice ma a noi serve il folder relativo almeno
                 //Dobbiamo sottrarre da f.FullName la parte relativa alla cartella folderDifferenzeTemporaneo
                 string relativeFileName = f.FullName.Substring(dirdiff.Length);
                 string diffPath= relativeFileName.Substring(0,relativeFileName.Length-Path.GetFileName(relativeFileName).Length);
@@ -438,6 +422,31 @@ namespace GeneraLiveUpdateForServices {
             for (int j = 0; j < checkList.Items.Count; j++) {
                 checkList.SetItemChecked(j, true);
             }
+        }
+
+        static void initLicenses() {
+	        string txtFile = "";
+	        string licFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "licenses.dat");
+	        if (File.Exists(licFileName)) {
+		        var b = File.ReadAllBytes(licFileName);
+		        var c = DataAccess.DecryptBytes(b);
+		        txtFile = UTF32Encoding.UTF8.GetString(c).Trim();
+	        }
+	        else {
+		        //txtFile ="Grid;GGGG-GGGG-GGGG-GGGG|Editors;EEEE-EEEE-EEEE-EEEE|Zip;ZZZZZZZZZZZZZZZZZZZ|Ftp;FFFFFFFFFFFFFFFFFFF";
+		        //var c = DataAccess.CryptBytes(UTF32Encoding.UTF8.GetBytes(txtFile));
+		        //File.WriteAllBytes(licFileName, c);
+	        }
+
+	        var couples = txtFile.Split('|');
+	        foreach (var cc in couples) {
+		        var kv = cc.Split(';');
+		        if (kv[0] == "Grid") Xceed.Grid.Licenser.LicenseKey = kv[1];
+		        if (kv[0] == "Editors") Xceed.Editors.Licenser.LicenseKey = kv[1];
+		        if (kv[0] == "Zip") Xceed.Zip.Licenser.LicenseKey = kv[1];
+		        if (kv[0] == "Ftp") Xceed.Ftp.Licenser.LicenseKey = kv[1];
+	        }
+
         }
 
         /// <summary>
@@ -481,20 +490,20 @@ namespace GeneraLiveUpdateForServices {
                 for (int i = 0; i < checkList.Items.Count; i++) {
                     string[] item = checkList.Items[i].ToString().Split('\t');
                     string fname = Path.Combine(dirdiff,item[0]) + ".zip";    //percorso in cui copiare i file  D:\\software\\tempLuServices\\zip\\_SessionTimeOut.aspx.zip
-                    string fnametmp = Path.Combine(dirtemp, item[0]) + ".zip";//percorso origine da cui prendere i file, che devono giÃ  essere presenti
+                    string fnametmp = Path.Combine(dirtemp, item[0]) + ".zip";//percorso origine da cui prendere i file, che devono già essere presenti
                                                                     //es. D:\\software\\tempLuServices\\zip\\tmp\\_SessionTimeOut.aspx.zip
                     if (checkList.GetItemChecked(i)) {
-                        //se Ã¨ selezionato copio il file da tmp in diff
+                        //se è selezionato copio il file da tmp in diff
                         lasttemp = "Copio " + fname + " in " + dirtemp;
                         File.Copy(fnametmp, fname, true);
                     }
                     else {
                         //altrimenti lo rimuovo dalla cartella diff
                         lasttemp = "Sposto " + fname + " in " + fnametmp;
-                        //se il sorgente non esiste vuol dire che Ã¨ stato
+                        //se il sorgente non esiste vuol dire che è stato
                         //deselezionato in precedenza
                         if (!File.Exists(fname)) continue;
-                        //Ã¨ stato deselezionato, lo elimino da diff
+                        //è stato deselezionato, lo elimino da diff
                         if (File.Exists(fnametmp)) File.Delete(fnametmp);
                         //e lo sposto in tmp (non vedo lo scopo di questo spostamento, chi se ne importa di cosa rimane in diff/temp?)
                         File.Move(fname, fnametmp);
@@ -508,7 +517,7 @@ namespace GeneraLiveUpdateForServices {
                 File.Copy(Path.Combine(getLocalDirectory() ,currConfig.xmlFile) + ".zip",Path.Combine( dirdiff , currConfig.xmlFile) + ".zip", true);
             }
             catch (Exception e) {
-                MessageBox.Show(lasttemp + " - " + "Errore: " + e.Message, "Errore",
+                show(lasttemp + " - " + "Errore: " + e.Message, "Errore",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -526,7 +535,7 @@ namespace GeneraLiveUpdateForServices {
                 //    MessageBox.Show("File XML generato con successo", "Generazione file XML",
                 //        MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //else
-                MessageBox.Show("Sono stati riscontrati i seguenti errori nella generazione:\r"
+                show("Sono stati riscontrati i seguenti errori nella generazione:\r"
                     + errori, "Generazione file XML", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             this.Cursor = Cursors.Default;
@@ -587,10 +596,11 @@ namespace GeneraLiveUpdateForServices {
             TextBox txtNew = null;
              
             string oldversion = "";
-            var tipo = currLuType();
-            if (tipo==eTipoLiveUpdate.UNKNOWN)return;
+            var tipo = getConfig();
+            if (tipo==null)return;
+            string serviceName = getCurrService();
 
-            string dir = XDir.Concat(txtDirUff_main.Text, serviceName[tipo]);
+            string dir = XDir.Concat(txtDirUff_main.Text, serviceName);
             string filename  = dir + "versionesw4.txt";
             string tipoversione = null;
 
@@ -615,14 +625,14 @@ namespace GeneraLiveUpdateForServices {
             if (filename == null) return;
             XFile.EliminaSolaLettura(filename);
             if (oldversion.CompareTo(newVersion) >= 0) {
-                if (MessageBox.Show("La versione " + newVersion + tipoversione + " risulta minore o uguale di quella corrente. Continuare?",
+                if (show("La versione " + newVersion + tipoversione + " risulta minore o uguale di quella corrente. Continuare?",
                     "Attenzione", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) != DialogResult.Yes) {
                     txtNew.Text = "";
                     return;
                 }
             }
             //else {
-            //    if (MessageBox.Show("La versione "+tipoversione+" verrÃ  aggiornata. Continuare?",
+            //    if (MessageBox.Show("La versione "+tipoversione+" verrà aggiornata. Continuare?",
             //        "Attenzione",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question)!=DialogResult.Yes) {
             //        txtNew.Text="";
             //        return;
@@ -635,18 +645,18 @@ namespace GeneraLiveUpdateForServices {
         }
 
         string getVersionFileName() {
-            if (!radio_Dummy.Checked)return"versionesw4.txt";
+            if (cmbTipoAggiornamento.SelectedIndex>0)return"versionesw4.txt";
             return "";
         }
 
         string getDirUff() {
-            if (currLuType() == eTipoLiveUpdate.UNKNOWN) return "";
-            return Path.Combine(txtDirUff_main.Text.Trim(), serviceName[currLuType()]);
+            if (getConfig() == null) return "";
+            return Path.Combine(txtDirUff_main.Text.Trim(), getCurrService());
         }
 
         string getWebAddress() {
-            if (currLuType() == eTipoLiveUpdate.UNKNOWN) return "";
-            return Ftp.ConcatFtpDir(txtWeb_main.Text.Trim(), serviceName[currLuType()]);
+	        if (getConfig() == null) return "";
+            return Ftp.ConcatFtpDir(txtWeb_main.Text.Trim(), getCurrService());
         }
 
         /// <summary>
@@ -654,8 +664,8 @@ namespace GeneraLiveUpdateForServices {
         /// </summary>
         /// <returns></returns>
         string getLocalDirectory() { //es.D:\\Easy\\_reportingServices\\
-            if (currLuType() == eTipoLiveUpdate.UNKNOWN) return "";
-            return getTextBoxFolderByServiceName(serviceName[currLuType()]).Text.Trim();
+	        if (getConfig() == null) return "";
+            return getConfig().rifFolder;
         }
 
         private void CaricaVersioni() {
@@ -701,7 +711,7 @@ namespace GeneraLiveUpdateForServices {
         private void btnCopia_Click(object sender, EventArgs e) {
             
             if (txtDirDiff.Text.Trim() == "") {
-                MessageBox.Show("Specificare la cartella temporanea", "Copia",
+                show("Specificare la cartella temporanea", "Copia",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
@@ -711,12 +721,12 @@ namespace GeneraLiveUpdateForServices {
             string dirUff = getDirUff();            //Y:\\services\\easyweb
 
             if (dirUff == "") {
-                MessageBox.Show("Specificare la cartella ufficiale", "Copia",
+                show("Specificare la cartella ufficiale", "Copia",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             if (dirUff.ToLower() == dirDiff.ToLower()) {
-                MessageBox.Show("Le cartelle sorgente/destinazioni sono uguali", "Copia",
+                show("Le cartelle sorgente/destinazioni sono uguali", "Copia",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
@@ -729,7 +739,7 @@ namespace GeneraLiveUpdateForServices {
                 btnCopia.Visible = false;
                 return;
             }
-            MessageBox.Show("Errori riscontrati durante la copia:\r\r", "Attenzione",
+            show("Errori riscontrati durante la copia:\r\r", "Attenzione",
                 MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
         /// <summary>
@@ -741,7 +751,7 @@ namespace GeneraLiveUpdateForServices {
 
             string dllFileIndex = "servicefileindex.xml.zip";
             
-            //di regola nella cartella c'Ã¨ l'indice  e nelle sottocartelle zip ci sono i file zippati
+            //di regola nella cartella c'è l'indice  e nelle sottocartelle zip ci sono i file zippati
             string sourcedir = txtDirDiff.Text;//XDir.Concat(txtDirDiff.Text, (radioDLL_sdi.Checked ? dllDir : reportDir)); D:\\software\\tempLuServices\\
             string destdir = getDirUff();//XDir.Concat(txtDirUff_RS.Text, (radioDLL_sdi.Checked ? dllDir : reportDir));     Y:\\services\\easyweb
             string index = dllFileIndex;// (radioDLL_sdi.Checked ? dllFileIndex : reportFileIndex);                         servicefileindex.xml.zip
@@ -842,39 +852,51 @@ namespace GeneraLiveUpdateForServices {
       
         
         
-
-     
-        private void radio_CheckedChanged(object sender, EventArgs e) {
-            PulisciCampi();
-            CaricaVersioni();
+        private void CmbTipoAggiornamentoOnSelectedIndexChanged(object sender, EventArgs e) {
+	        PulisciCampi();
+	        CaricaVersioni();
         }
+   
 
-        TextBox getTextBoxFolderByServiceName(string serviceName) {
-            foreach (Control o in gboxCartelle.Controls) {
-                TextBox t = o as TextBox;
-                if (t==null)continue;
-                if (t.Tag.ToString().ToLower()!=serviceName.ToLower())continue;
-                return t;
-            }
+       
 
-            return null;
-        }
+       
 
-        void folderBottonClick(object sender, EventArgs e) {
-            string serviceName = ((Button) sender).Tag.ToString();
-            var t = getTextBoxFolderByServiceName(serviceName);
-            if (t==null)return;
-            string path = GetFolder($"Selezionare la cartella ufficiale del Live Update ({serviceName})", t.Text);
-            if (path == null) return;
-            t.Text = path;
-        }
+	
 
-    
-    }
+		//private void btnScriviJson_Click(object sender, EventArgs e) {
+		//	foreach (var c in serviceName) {
+		//		var cfg = getConfig(c.Key);
+		//		cfg.rifFolder = services(c.Value).Text;
+  //              cfg.SaveConfig("services_"+c.Value+".json");
+		//	}
+		//}
+
+		//private void btnReadJson_Click(object sender, EventArgs e) {
+		//	foreach (var c in serviceName) {
+		//		var cfg = new configLiveUpdate("dummy");
+		//		cfg.LoadConfig("services_"+c.Value+".json");
+		//	}
+		//}
+	}
+
+	public class JsonConfigLiveUpdate {
+	    public string[] allowedExtensions= new string[0];
+	    public string[] subDirectories= new string[0];
+	    public string[] filesToSkip= new string[0];
+	    public string[] filter = new string[0];
+	    public string webRootDir;
+	    public string xmlFile;
+	    public string windowsServiceName;
+	    public string rifFolder;
+	    public string caption;
+	}
 
     public class configLiveUpdate {
-     
+	    public string Caption;
+	    public string windowsServiceName;
 
+	    public string rifFolder;
 
         public List<string> allowedExtensions = new List<string>();
         /// <summary>
@@ -895,7 +917,7 @@ namespace GeneraLiveUpdateForServices {
         /// <summary>
         /// Sottocartelle da considerare (escluso nome root)
         /// </summary>
-        public IEnumerable<string> subDirectories;
+        public IEnumerable<string> subDirectories= new List<string>();
 
         /// <summary>
         /// Singoli file da escludere (solo il nome), ogni item contiene la versione da saltare (o simili)
@@ -931,53 +953,45 @@ namespace GeneraLiveUpdateForServices {
         public void mergeFilesToSkip(Hashtable skipHash) {
             foreach (var s in skipHash.Keys) filesToSkip[s] = skipHash[s];
         }
+
+        public void LoadConfig(string fileName) {
+	        string JSon = File.ReadAllText(fileName);
+	        var c = JsonConvert.DeserializeObject<JsonConfigLiveUpdate>(JSon, new JsonSerializerSettings());
+	        allowedExtensions = c.allowedExtensions?.ToList();
+	        filesToSkip.Clear();
+	        foreach (var f in c.filesToSkip) filesToSkip[f] = f;
+	        filter = c.filter?.ToList();
+	        subDirectories = c.subDirectories;
+	        xmlFile = c.xmlFile;
+	        webRootDir = c.webRootDir;
+	        windowsServiceName = c.windowsServiceName;
+	        rifFolder = c.rifFolder;
+	        Caption = c.caption;
+        }
+
+        public void SaveConfig(string fileName) {
+	        var c = new JsonConfigLiveUpdate {
+		        allowedExtensions = allowedExtensions.ToArray(),
+		        filesToSkip = (from object f in filesToSkip.Keys select filesToSkip[f] as string).ToArray(),
+		        filter = filter.ToArray(),
+		        subDirectories = subDirectories.ToArray(),
+		        webRootDir= webRootDir,
+		        xmlFile= xmlFile,
+		        windowsServiceName = windowsServiceName,
+                rifFolder=rifFolder,
+                caption= Caption
+	        };
+	        string json = JsonConvert.SerializeObject(c, new JsonSerializerSettings());
+	        File.WriteAllText(fileName, json);
+        }
     }
 
     public class EasyPaymentConfig : configLiveUpdate {
         public EasyPaymentConfig(string webRootDir):base(webRootDir) {
-            addFilterExtension("dll","exe","cer","pfx");
+            addFilterExtension("dll","exe","cer","pfx","dat");
             subDirectories = new List<string>() { };
+            windowsServiceName = "PaymentService";
         }
     }
     
-    public class EasyMultiSdiConfig : configLiveUpdate {
-        public EasyMultiSdiConfig(string webRootDir):base(webRootDir) {
-            addFilterExtension("dll","exe","cer","pfx");
-            subDirectories = new List<string>() { };
-        }
-    }
-
-    public class EasyWebConfig : configLiveUpdate {
-        public EasyWebConfig(string webRootDir):base(webRootDir) {
-            addFilterExtension("html", "dll","aspx","cs","js","css","jpg","exe","ico","png","gif","cer","pfx");
-            subDirectories = new List<string>() {"App_Code", "js","css","bin","img",
-                "immagini","Immagini_CheckBox","saml" };
-        }
-    }
-    public class SdiConfig : configLiveUpdate {
-        public SdiConfig(string webRootDir):base(webRootDir) {
-            addFilterExtension("dll", "exe");
-            subDirectories = new List<string>() { };
-            
-        }
-    }
-    public class ReportingServicesConfig : configLiveUpdate {
-        public ReportingServicesConfig(string webRootDir):base(webRootDir) {
-            addFilterExtension("rdl");  
-        }
-    }
-    public class WebProtConfig : configLiveUpdate {
-        public WebProtConfig(string webRootDir):base(webRootDir) {
-            addFilterExtension("html", "dll","aspx","cs","js","css","jpg","exe","ico","png","gif","wsdl","cer","pfx");
-            subDirectories = new List<string>() {"WebApp", "WebApp\\App_Code","WebApp\\Bin","WebApp\\Dll"};
-        }
-    }
-    public class PortaleConfig : configLiveUpdate {
-        public PortaleConfig(string webRootDir):base(webRootDir) {
-            addFilterExtension("html", "dll","aspx","cs","js","css","jpg","exe","ico","png","gif","wsdl","cer","pfx");
-            subDirectories = new List<string>() {"App_Code","App_Code\\Data","App_Code\\Extensions","App_Code\\Extra",
-                "js","css","Bin","immagini","Immagini_CheckBox" };
-        }
-    }
 }
-

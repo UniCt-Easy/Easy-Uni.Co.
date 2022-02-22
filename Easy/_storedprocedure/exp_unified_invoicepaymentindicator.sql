@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_unified_invoicepaymentindicator]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_unified_invoicepaymentindicator]
 GO
@@ -14,7 +31,8 @@ CREATE  PROCEDURE [exp_unified_invoicepaymentindicator](
 	@idsor02 int=null,
 	@idsor03 int=null,
 	@idsor04 int=null,
-	@idsor05 int=null
+	@idsor05 int=null,
+	@mode char(1)-- M: Considera la data Mandato	T: Considera la data Trasmissione
 ) 
 
 AS BEGIN	
@@ -37,7 +55,7 @@ Ultima modifica Gianni 31/01/2015
 
 	IF (@unified <> 'S')
 	BEGIN
-	        EXEC exp_invoicepaymentindicator @year, @idivaregisterkind, @codeinvkind, @codeivaregisterkind, @start, @stop, @unified, @idsor01, @idsor02, @idsor03, @idsor04, @idsor05
+	        EXEC exp_invoicepaymentindicator @year, @idivaregisterkind, @codeinvkind, @codeivaregisterkind, @start, @stop, @unified, @idsor01, @idsor02, @idsor03, @idsor04, @idsor05,@mode
 	        RETURN
 	END 
 	

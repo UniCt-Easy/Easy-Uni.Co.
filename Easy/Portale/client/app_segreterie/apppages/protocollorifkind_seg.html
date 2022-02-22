@@ -1,0 +1,33 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="protocollorifkind_seg_title">Tipologia</label>
+					<input id="protocollorifkind_seg_title" type="text" class="form-control" data-tag="protocollorifkind.title?protocollorifkindsegview.title" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="protocollorifkind_seg_description">Descrizione</label>
+					<input id="protocollorifkind_seg_description" type="text" class="form-control" data-tag="protocollorifkind.description?protocollorifkindsegview.protocollorifkind_description" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="protocollorifkind_seg_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="protocollorifkind_seg_activeSi" type="radio" name="protocollorifkind_seg_active" class="custom-control-input" data-tag="protocollorifkind.active:S?protocollorifkindsegview.protocollorifkind_active:Si" data-subentity  data-mandatory ><label for="protocollorifkind_seg_activeSi"> Si</label>
+						<input id="protocollorifkind_seg_activeNo" type="radio" name="protocollorifkind_seg_active" class="custom-control-input" data-tag="protocollorifkind.active:N?protocollorifkindsegview.protocollorifkind_active:No" data-subentity  data-mandatory ><label for="protocollorifkind_seg_activeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="protocollorifkind_seg_sortcode">Sortcode</label>
+					<input id="protocollorifkind_seg_sortcode" type="text" class="form-control" data-tag="protocollorifkind.sortcode?protocollorifkindsegview.protocollorifkind_sortcode" data-subentity  data-mandatory />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

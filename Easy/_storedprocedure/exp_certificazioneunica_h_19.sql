@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_certificazioneunica_h_19]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_certificazioneunica_h_19]
 GO
@@ -117,6 +134,7 @@ AS BEGIN
 			      AND   expensetaxofficial.stop IS NULL) > 0
 			and expense.idreg = @idreg
 
+
 	declare @fattoprestazioni char(1)
 	set @fattoprestazioni='N'
 
@@ -168,10 +186,11 @@ AS BEGIN
 			#expense2018.cfagency,
 			#expense2018.titleagency 
 		FROM #expense2018
-		join expenselink  			on expenselink.idchild = #expense2018.idexp			and nlevel = @expensephase
-		left outer join expenseprofservice 			on expenselink.idparent = expenseprofservice.idexp
-		WHERE isnull(movkind,0) <> 2 
+		left outer join expenseinvoice 			on #expense2018.idexp = expenseinvoice.idexp
+		WHERE isnull(movkind,0) <> 2 --Serve ad escludere le contab. professionali con causale 2 - Contabilizzazione iva documento
+									-- per cui possiamo interrogare anche solo expenseinvoice
 
+-- Dobbiamo escludere i pagamenti di 						
 		OPEN cursoreexpense
 		FETCH NEXT FROM cursoreexpense
 			INTO @employtaxamount, @idexp, @idser, @au01_causale, @au33_socialseccode, @cfenteprev,@denomenteprev
@@ -298,10 +317,16 @@ AS BEGIN
 	BEGIN
 		SELECT @ypro = ycon, @npro = ncon
 		FROM profservice  C
-		WHERE EXISTS(select * from expenseprofservice EC
-				join expenselink EL on EC.idexp=EL.idparent						
-				where EL.idchild=@idexp
-					AND C.ycon=EC.ycon and C.ncon=EC.ncon)
+		WHERE EXISTS(select * from expenseinvoice EC
+		--		expenseprofservice EC
+				--join expenselink EL on EC.idexp=EL.idparent						
+				join invoice I
+					on EC.idinvkind = I.idinvkind and EC.yinv = I.yinv and EC.ninv = I.ninv
+				join profservice P
+						on P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv
+				where EC.idexp=@idexp
+					AND C.ycon=P.ycon and C.ncon=P.ncon)
+					
 		IF (@ypro is not null)  -- si tratta di un contratto professionale
 		BEGIN
 		print  @idexp

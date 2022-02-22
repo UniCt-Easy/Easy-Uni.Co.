@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -132,16 +131,16 @@ public class registryaddressRow: MetaRow  {
 	///<summary>
 	///tipo indirizzo (idaddress di tabella address)
 	///</summary>
-	public Int32? idaddresskind{ 
-		get {if (this["idaddresskind"]==DBNull.Value)return null; return  (Int32?)this["idaddresskind"];}
-		set {if (value==null) this["idaddresskind"]= DBNull.Value; else this["idaddresskind"]= value;}
+	public Int32 idaddresskind{ 
+		get {return  (Int32)this["idaddresskind"];}
+		set {this["idaddresskind"]= value;}
 	}
 	public object idaddresskindValue { 
 		get{ return this["idaddresskind"];}
-		set {if (value==null|| value==DBNull.Value) this["idaddresskind"]= DBNull.Value; else this["idaddresskind"]= value;}
+		set {this["idaddresskind"]= value;}
 	}
-	public Int32? idaddresskindOriginal { 
-		get {if (this["idaddresskind",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idaddresskind",DataRowVersion.Original];}
+	public Int32 idaddresskindOriginal { 
+		get {return  (Int32)this["idaddresskind",DataRowVersion.Original];}
 	}
 	///<summary>
 	///id citt√† (tabella geo_city)
@@ -174,16 +173,16 @@ public class registryaddressRow: MetaRow  {
 	///<summary>
 	///id anagrafica (tabella registry)
 	///</summary>
-	public Int32? idreg{ 
-		get {if (this["idreg"]==DBNull.Value)return null; return  (Int32?)this["idreg"];}
-		set {if (value==null) this["idreg"]= DBNull.Value; else this["idreg"]= value;}
+	public Int32 idreg{ 
+		get {return  (Int32)this["idreg"];}
+		set {this["idreg"]= value;}
 	}
 	public object idregValue { 
 		get{ return this["idreg"];}
-		set {if (value==null|| value==DBNull.Value) this["idreg"]= DBNull.Value; else this["idreg"]= value;}
+		set {this["idreg"]= value;}
 	}
-	public Int32? idregOriginal { 
-		get {if (this["idreg",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idreg",DataRowVersion.Original];}
+	public Int32 idregOriginal { 
+		get {return  (Int32)this["idreg",DataRowVersion.Original];}
 	}
 	///<summary>
 	///ubicazione
@@ -258,16 +257,16 @@ public class registryaddressRow: MetaRow  {
 	///<summary>
 	///data inizio
 	///</summary>
-	public DateTime? start{ 
-		get {if (this["start"]==DBNull.Value)return null; return  (DateTime?)this["start"];}
-		set {if (value==null) this["start"]= DBNull.Value; else this["start"]= value;}
+	public DateTime start{ 
+		get {return  (DateTime)this["start"];}
+		set {this["start"]= value;}
 	}
 	public object startValue { 
 		get{ return this["start"];}
-		set {if (value==null|| value==DBNull.Value) this["start"]= DBNull.Value; else this["start"]= value;}
+		set {this["start"]= value;}
 	}
-	public DateTime? startOriginal { 
-		get {if (this["start",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["start",DataRowVersion.Original];}
+	public DateTime startOriginal { 
+		get {return  (DateTime)this["start",DataRowVersion.Original];}
 	}
 	///<summary>
 	///data fine
@@ -314,4 +313,3 @@ public class registryaddressTable : MetaTableBase<registryaddressRow> {
 	}
 }
 }
-

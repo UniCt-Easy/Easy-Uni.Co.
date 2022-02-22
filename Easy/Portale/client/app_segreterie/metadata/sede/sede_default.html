@@ -1,0 +1,80 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabsede_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabsede_default_0"><i class="fa fa-city mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabsede_default_1" class="nav-link" data-toggle="pill" data-target="#tabsede_default_1"><i class="fa fa-building mr-1"></i>Edifici</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabsede_default_2" class="nav-link" data-toggle="pill" data-target="#tabsede_default_2"><i class="fa fa-stopwatch mr-1"></i>Sospensione delle attività</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabsede_default_0" role="tabpanel">
+					<input hidden id="sede_default_idreg" type="text" class="form-control" data-tag="sede.idreg" />
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sede_default_title">Denominazione</label>
+					<input id="sede_default_title" type="text" class="form-control" data-tag="sede.title?sededefaultview.title" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sede_default_address">Indirizzo</label>
+					<input id="sede_default_address" type="text" class="form-control" data-tag="sede.address?sededefaultview.sede_address" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sede_default_idsedemiur">Identificativo MIUR</label>
+					<input id="sede_default_idsedemiur" type="text" class="form-control" data-tag="sede.idsedemiur?sededefaultview.sede_idsedemiur" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sede_default_annotations">Note</label>
+					<input id="sede_default_annotations" type="text" class="form-control" data-tag="sede.annotations?sededefaultview.sede_annotations" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sede_default_cap">CAP</label>
+					<input id="sede_default_cap" type="text" class="form-control" data-tag="sede.cap?sededefaultview.sede_cap" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sede_default_idcity">Comune</label>
+					<div>
+						<input id="sede_default_idcity" name="sede_default_idcity" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sede_default_idnation">Nazione</label>
+					<div>
+						<input id="sede_default_idnation" name="sede_default_idnation" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_nation.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sede_default_latitude">Latitudine</label>
+					<input id="sede_default_latitude" type="text" class="form-control" data-tag="sede.latitude.fixed.7?sededefaultview.sede_latitude" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sede_default_longitude">Longitudine</label>
+					<input id="sede_default_longitude" type="text" class="form-control" data-tag="sede.longitude.fixed.7?sededefaultview.sede_longitude" data-subentity  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabsede_default_1" role="tabpanel">
+				<div class="gridx" id="grid_edificio_seg_child" data-tag="edificio.seg_child.seg_child" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabsede_default_2" role="tabpanel">
+				<div class="gridx" id="grid_sospensione_default" data-tag="sospensione.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

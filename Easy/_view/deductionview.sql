@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA deductionview
 IF EXISTS(select * from sysobjects where id = object_id(N'[dbo].[deductionview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [dbo].[deductionview]
@@ -86,9 +103,9 @@ INSERT INTO columntypes (createuser,lastmoduser,col_scale,sqltype,defaultvalue,a
 GO
 
 IF exists(SELECT * FROM columntypes WHERE tablename = 'deductionview' AND field = 'longdescription')
-UPDATE columntypes set createuser = 'VISTA',lastmoduser = '''SA''',col_scale = '',sqltype = 'text',defaultvalue = '',allownull = 'S',systemtype = 'System.String',sqldeclaration = 'text',iskey = 'N',tablename = 'deductionview',denynull = 'N',format = '',col_len = '16',field = 'longdescription',col_precision = '' where tablename = 'deductionview' AND field = 'longdescription'
+UPDATE columntypes set createuser = 'VISTA',lastmoduser = '''SA''',col_scale = '',sqltype = 'varchar',defaultvalue = '',allownull = 'S',systemtype = 'System.String',sqldeclaration = 'varchar(max)',iskey = 'N',tablename = 'deductionview',denynull = 'N',format = '',col_len = '-1',field = 'longdescription',col_precision = '' where tablename = 'deductionview' AND field = 'longdescription'
 ELSE
-INSERT INTO columntypes (createuser,lastmoduser,col_scale,sqltype,defaultvalue,allownull,systemtype,sqldeclaration,iskey,tablename,denynull,format,col_len,field,col_precision) VALUES('VISTA','''SA''','','text','','S','System.String','text','N','deductionview','N','','16','longdescription','')
+INSERT INTO columntypes (createuser,lastmoduser,col_scale,sqltype,defaultvalue,allownull,systemtype,sqldeclaration,iskey,tablename,denynull,format,col_len,field,col_precision) VALUES('VISTA','''SA''','','varchar','','S','System.String','varchar(max)','N','deductionview','N','','-1','longdescription','')
 GO
 
 IF exists(SELECT * FROM columntypes WHERE tablename = 'deductionview' AND field = 'maximal')

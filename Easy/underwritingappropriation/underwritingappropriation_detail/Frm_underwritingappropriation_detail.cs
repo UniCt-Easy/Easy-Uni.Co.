@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -28,7 +27,7 @@ using metaeasylibrary;
 using funzioni_configurazione;
 
 namespace underwritingappropriation_detail {
-    public partial class Frm_underwritingappropriation_detail : Form {
+    public partial class Frm_underwritingappropriation_detail : MetaDataForm {
         MetaData Meta;
         CQueryHelper QHC;
         QueryHelper QHS;
@@ -83,7 +82,7 @@ namespace underwritingappropriation_detail {
 
             MetaData MetaUpbunderwritingyearview = MetaData.GetMetaData(this, "upbunderwritingyearview");
             MetaUpbunderwritingyearview.DS = new DataSet();
-            MetaUpbunderwritingyearview.LinkedForm = this;
+            MetaUpbunderwritingyearview.linkedForm = this;
             MetaUpbunderwritingyearview.FilterLocked = true;
             DataRow Upbunderwritingyearview = MetaUpbunderwritingyearview.SelectOne("impegni", filter, "upbunderwritingyearview", null);
             if (Upbunderwritingyearview == null) return;
@@ -134,7 +133,7 @@ namespace underwritingappropriation_detail {
             DataTable tupbunderwritingyearview = DataAccess.CreateTableByName(Meta.Conn, "upbunderwritingyearview", "*");
             DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, tupbunderwritingyearview, null, filter, null, true);
             if (tupbunderwritingyearview.Rows.Count == 0) {
-                MessageBox.Show(this, "Nessun finanziamento trovato");
+                show(this, "Nessun finanziamento trovato");
                 return;
             }
             MetaData MetaUpbunderwritingyearview = MetaData.GetMetaData(this, "upbunderwritingyearview");
@@ -149,4 +148,4 @@ namespace underwritingappropriation_detail {
 
         }
     }
-}
+}

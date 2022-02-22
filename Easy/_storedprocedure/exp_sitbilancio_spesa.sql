@@ -1,4 +1,21 @@
 
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_sitbilancio_spesa]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_sitbilancio_spesa]
 GO
@@ -1016,6 +1033,7 @@ BEGIN
 		sum(isnull(var_main_prevision,0.0)) 	as 'Variazioni previsione principale',
 		sum(isnull(main_initial_prevision,0.0)) + sum(isnull(var_main_prevision,0.0))	as 'Previsione principale definitiva',
 		sum(isnull(appropriations,0.0)) + sum(isnull(var_appropriations,0.0))	   as 'Impegni',
+		(isnull(main_initial_prevision,0) +  isnull(var_main_prevision,0) ) - (isnull(appropriations,0)	 + isnull(var_appropriations,0) )as 'Disponibile ad Impegnare',
 		sum(isnull(max_ph_comp,0.0)) + 	sum(isnull(max_ph_resid,0.0))  + 
 		sum(isnull(var_max_ph_comp,0.0)) + sum(isnull(var_max_ph_resid,0.0))  as 'Pagamenti ', 
 		sum(isnull(main_initial_prevision,0.0)) + sum(isnull(var_main_prevision,0.0))  - 
@@ -1064,6 +1082,7 @@ END
 			var_main_prevision		as 'Variazioni previsione principale',
 			isnull(main_initial_prevision,0) +  isnull(var_main_prevision,0) as 'Previsione principale definitiva',
 			isnull(appropriations,0)	 + isnull(var_appropriations,0) as 'Impegni',
+			(isnull(main_initial_prevision,0) +  isnull(var_main_prevision,0) ) - (isnull(appropriations,0)	 + isnull(var_appropriations,0) )as 'Disponibile ad Impegnare',
 			isnull(max_ph_comp,0.0) +  isnull(max_ph_resid,0.0)  + 
 			isnull(var_max_ph_comp,0.0) + isnull(var_max_ph_resid,0.0)  as 'Pagamenti ', 
 			isnull(main_initial_prevision,0) +  isnull(var_main_prevision,0) -

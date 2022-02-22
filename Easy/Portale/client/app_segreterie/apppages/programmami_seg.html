@@ -1,0 +1,48 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="programmami_seg_title">Title</label>
+					<textarea class="textarea form-control" id="programmami_seg_title" type="text"  rows="4" data-tag="programmami.title"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="programmami_seg_description">Description</label>
+					<textarea class="textarea form-control" id="programmami_seg_description" type="text"  rows="4" data-tag="programmami.description"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="programmami_seg_acronimo">Acronimo</label>
+					<input id="programmami_seg_acronimo" type="text" class="form-control" data-tag="programmami.acronimo"  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#programmami_seg_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="programmami_seg_start">Start</label>
+					<input id="programmami_seg_start" type="text" class="form-control" data-tag="programmami.start"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#programmami_seg_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="programmami_seg_stop">Stop</label>
+					<input id="programmami_seg_stop" type="text" class="form-control" data-tag="programmami.stop"  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

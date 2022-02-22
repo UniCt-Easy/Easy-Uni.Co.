@@ -1,0 +1,36 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#sospensione_sedi_start").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="sospensione_sedi_start">Inizio</label>
+					<input id="sospensione_sedi_start" type="text" class="form-control" data-tag="sospensione.start.g"  data-mandatory />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#sospensione_sedi_stop").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="sospensione_sedi_stop">Fine</label>
+					<input id="sospensione_sedi_stop" type="text" class="form-control" data-tag="sospensione.stop.g"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sospensione_sedi_motivo">Motivo</label>
+					<input id="sospensione_sedi_motivo" type="text" class="form-control" data-tag="sospensione.motivo"  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

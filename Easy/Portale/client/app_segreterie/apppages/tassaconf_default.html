@@ -1,0 +1,32 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tassaconf_default_aa">Anno accademico</label>
+					<select id="tassaconf_default_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="tassaconf.aa?tassaconfdefaultview.aa" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tassaconf_default_title">Titolo</label>
+					<input id="tassaconf_default_title" type="text" class="form-control" data-tag="tassaconf.title?tassaconfdefaultview.title" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tassaconf_default_idcostoscontodef">Costo</label>
+					<div>
+						<input id="tassaconf_default_idcostoscontodef" name="tassaconf_default_idcostoscontodef" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="costoscontodef.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tassaconf_default_idtassaconfkind">Tipo di tassa</label>
+					<select id="tassaconf_default_idtassaconfkind" class="custom-select d-block w-100"  data-source-name="tassaconfkinddefaultview" data-value-member="idtassaconfkind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="tassaconf.idtassaconfkind?tassaconfdefaultview.tassaconf_idtassaconfkind" data-subentity  data-mandatory  > </select>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

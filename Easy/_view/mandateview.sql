@@ -1,9 +1,26 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA mandateview
 IF EXISTS(select * from sysobjects where id = object_id(N'[mandateview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [mandateview]
 GO
 -- setuser 'amm'
--- clear_table_info'mandate,mandateview'
+-- clear_table_info'mandateview'
 -- select * from mandateview
 CREATE VIEW [mandateview]
 (
@@ -97,7 +114,8 @@ CREATE VIEW [mandateview]
 	publishdate,
 	publishdatekind,
 	publishdatekinddescr,
-	requested_doc
+	requested_doc,
+	flagbit
 	)
 AS SELECT
 	mandate.idmankind,
@@ -332,7 +350,8 @@ AS SELECT
 		WHEN 'M' THEN 'data acquisto su MEPA'
 	 ELSE NULL
 	END,
-	mandate.requested_doc
+	mandate.requested_doc,
+	mandate.flagbit
 FROM mandate with (nolock)
 JOIN mandatekind with (nolock)  	ON mandatekind.idmankind = mandate.idmankind
 LEFT OUTER JOIN mandatekind mandatekind_origin with (nolock) 	ON mandatekind_origin.idmankind = mandate.idmankind_origin

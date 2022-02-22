@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -28,7 +27,7 @@ using metaeasylibrary;
 using funzioni_configurazione;
 
 namespace no_table_trasf_prevision_in_budget {
-    public partial class FrmTrasfPrevisionInBudget : Form {
+    public partial class FrmTrasfPrevisionInBudget : MetaDataForm {
         MetaData Meta;
         int ayear;
         int idsorkind;
@@ -45,6 +44,8 @@ namespace no_table_trasf_prevision_in_budget {
             Meta.CanInsert = false;
             Meta.CanInsertCopy = false;
             Meta.CanCancel = false;
+            Meta.MainRefreshEnabled = false;
+            Meta.searchEnabled = false;
             ayear = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
             idsorkind = CfgFn.GetNoNullInt32(Meta.ExtraParameter);
         }
@@ -61,9 +62,9 @@ namespace no_table_trasf_prevision_in_budget {
             Meta.Conn.CallSP("compute_transf_prevision_in_budget", new object[] {ayear,
             idsorkind}, 600, out errMsg);
             if (errMsg!=null)
-                MessageBox.Show("Errore", errMsg);
+                show("Errore", errMsg);
             else
-                MessageBox.Show("Operazione eseguita");
+                show("Operazione eseguita");
         }
 
         private void btnTrasferisciVariazioni_Click(object sender, EventArgs e)
@@ -78,9 +79,9 @@ namespace no_table_trasf_prevision_in_budget {
                 idsorkind, "N"}, 600, out errMsg);
 
             if (errMsg != null)
-                MessageBox.Show("Errore", errMsg);
+                show("Errore", errMsg);
             else
-                MessageBox.Show("Operazione eseguita");
+                show("Operazione eseguita");
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -88,4 +89,4 @@ namespace no_table_trasf_prevision_in_budget {
             Close();
         }
     }
-}
+}

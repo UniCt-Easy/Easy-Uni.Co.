@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilconsuntivosorting_esiope_riep]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_bilconsuntivosorting_esiope_riep]
 GO
@@ -6,12 +23,13 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
+--setuser'amministrazione'
 -- exec rpt_bilconsuntivosorting_esiope_riep 2018,{ts '2018-12-31 00:00:00'},4,'%','N','N','S', null, null, null, null, null,69
  
 CREATE   PROCEDURE [rpt_bilconsuntivosorting_esiope_riep] 
 (
 	@ayear int,
-	@date datetime,
+	@date datetime,   --- deve essere sempre pari alla data corrente, per un problema di storicizzazione delle classificazioni sui movimenti finanziari
 	@levelusable tinyint,
 	@idupb varchar(36),
 	@showupb char(1),
@@ -96,10 +114,7 @@ begin
 	SET @levelusable = @maxoplevel
 end
 
-
-DECLARE @cashvaliditykind tinyint
-
-SELECT @cashvaliditykind = cashvaliditykind FROM config WHERE ayear = @ayear
+ 
 DECLARE @fin_kind tinyint
 
 SELECT @fin_kind = fin_kind FROM config WHERE ayear = @ayear
@@ -188,7 +203,7 @@ DECLARE @maxphase tinyint
 	SELECT
 		isnull(SLK.idparent, SortSiope.idsor),
 		isnull(@fixedidupb,iy.idupb),
-		SUM(HPV.amount*ISNULL(FS.amount/HPV.amount,0))
+	    sum(FS.amount)   --- importo classificato alla data corrente, non è possibile storicizzare i passaggi di classificazione
 	FROM historyproceedsview HPV
 	JOIN incomeyear IY
 		ON IY.idinc = HPV.idinc
@@ -205,7 +220,7 @@ DECLARE @maxphase tinyint
 		ON SortSiope.nlevel = sl.nlevel 
 	LEFT OUTER JOIN sortinglink SLK 
 		ON SLK.idchild = SortSiope.idsor and SLK.nlevel = 1
-	WHERE HPV.competencydate <= @date
+	WHERE HPV.competencydate <= @date and HPV.amount <>0
 		AND sl.idsorkind = @idsorkind_siope
 		AND SortSiope.idsorkind = @idsorkind_siope
 		AND (SortSiope.nlevel = @levelusable
@@ -226,57 +241,7 @@ DECLARE @maxphase tinyint
 	U.idsor01,  U.idsor02,  U.idsor03,  U.idsor04, U.idsor05
 	
 
-	IF (@cashvaliditykind <> 4)
-	BEGIN
-		INSERT INTO #data
-		(
-			idsor,
-			idupb,
-			incassi --var_maxphase_C
-		)
-		SELECT 
-			isnull(SLK.idparent, SortSiope.idsor),
-			isnull(@fixedidupb,iy.idupb),
-			SUM(IV.amount*ISNULL(FS.amount/IV.amount ,0))
-		FROM incomevar IV
-		JOIN incomeyear IY
-			ON IY.idinc = IV.idinc
-		--JOIN fin F
-			--ON F.idfin = IY.idfin
-		JOIN upb U
-			ON IY.idupb = U.idupb
-		JOIN historyproceedsview HPV
-			ON HPV.idinc = IV.idinc
-		JOIN incomesorted FS
-			ON FS.idinc = HPV.idinc
-		JOIN sorting SortSiope
-			ON SortSiope.idsor = FS.idsor				
-		JOIN sortinglevel sl
-			ON SortSiope.nlevel = sl.nlevel 
-		LEFT OUTER JOIN sortinglink SLK 
-			ON SLK.idchild = SortSiope.idsor and SLK.nlevel = 1	
-		WHERE IV.yvar = @ayear
-			AND sl.idsorkind = @idsorkind_siope
-			AND SortSiope.idsorkind = @idsorkind_siope
-			AND (SortSiope.nlevel = @levelusable
-			OR (SortSiope.nlevel < @levelusable
-				and (select count(*) from sorting S where S.idsorkind = @idsorkind_siope and S.paridsor = SortSiope.idsor)=0
-				AND (sl.flag&2)<>0
-			   )
-			)
-			AND (IY.idupb LIKE @idupb)
-			AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)
-			AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)
-			AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)
-			AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)
-			AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-			AND IV.adate <= @date
-			AND IY.ayear = @ayear
-			AND IV.amount >0
-			AND HPV.competencydate <= @date	AND HPV.ymov = @ayear
-		GROUP BY isnull(@fixedidupb,iy.idupb), isnull(SLK.idparent, SortSiope.idsor),
-		U.idsor01,  U.idsor02,  U.idsor03,  U.idsor04, U.idsor05
-	END
+	 
 
 DECLARE @MostraTutteVoci char(1)
 SELECT @MostraTutteVoci = isnull(paramvalue,'N') 

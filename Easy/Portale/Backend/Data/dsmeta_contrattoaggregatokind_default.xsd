@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_contrattoaggregatokind_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_contrattoaggregatokind_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="contrattokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idcontrattokind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inquadramento" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="costolordoannuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="costolordoannuooneri" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idcontrattokind" type="xs:int" />
+              <xs:element name="idinquadramento" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="siglaimportazione" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="tempdef" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="contrattoaggregatokindinquadramento" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idcontrattoaggregatokind" type="xs:int" />
+              <xs:element name="idcontrattokind" type="xs:int" />
+              <xs:element name="idinquadramento" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idinquadramento_contrattokind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idinquadramento_inquadramento_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idinquadramento_inquadramento_tempdef" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idinquadramento_inquadramento_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idinquadramento_inquadramento_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idinquadramento_inquadramento_costolordoannuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_idinquadramento_inquadramento_costolordoannuooneri" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="contrattoaggregatokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idcontrattoaggregatokind" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:contrattokind" />
+      <xs:field xpath="mstns:idcontrattokind" />
+    </xs:unique>
+    <xs:unique name="inquadramento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inquadramento" />
+      <xs:field xpath="mstns:idcontrattokind" />
+      <xs:field xpath="mstns:idinquadramento" />
+    </xs:unique>
+    <xs:unique name="contrattoaggregatokindinquadramento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:contrattoaggregatokindinquadramento" />
+      <xs:field xpath="mstns:idcontrattoaggregatokind" />
+      <xs:field xpath="mstns:idcontrattokind" />
+      <xs:field xpath="mstns:idinquadramento" />
+    </xs:unique>
+    <xs:unique name="contrattoaggregatokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:contrattoaggregatokind" />
+      <xs:field xpath="mstns:idcontrattoaggregatokind" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_contrattoaggregatokindinquadramento_contrattoaggregatokind_idcontrattoaggregatokind" msdata:parent="contrattoaggregatokind" msdata:child="contrattoaggregatokindinquadramento" msdata:parentkey="idcontrattoaggregatokind" msdata:childkey="idcontrattoaggregatokind" />
+      <msdata:Relationship name="FK_contrattoaggregatokindinquadramento_inquadramento_idinquadramento" msdata:parent="inquadramento" msdata:child="contrattoaggregatokindinquadramento" msdata:parentkey="idinquadramento" msdata:childkey="idinquadramento" />
+      <msdata:Relationship name="FK_inquadramento_contrattokind_idcontrattokind" msdata:parent="contrattokind" msdata:child="inquadramento" msdata:parentkey="idcontrattokind" msdata:childkey="idcontrattokind" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

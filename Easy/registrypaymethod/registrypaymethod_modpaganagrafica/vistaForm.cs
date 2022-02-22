@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,42 +26,24 @@ using System.Runtime.Serialization;
 namespace registrypaymethod_modpaganagrafica {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Modalit√† pagamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registrypaymethod 		=> Tables["registrypaymethod"];
 
-	///<summary>
-	///Modalit√† di pagamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable paymethod 		=> Tables["paymethod"];
 
-	///<summary>
-	///Banca
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable bank 		=> Tables["bank"];
 
-	///<summary>
-	/// Tipo Scadenza
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expirationkind 		=> Tables["expirationkind"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
-	///<summary>
-	///Sportello Banca
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable cab 		=> Tables["cab"];
 
@@ -72,15 +53,9 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable deputy 		=> Tables["deputy"];
 
-	///<summary>
-	///Valuta
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable currency 		=> Tables["currency"];
 
-	///<summary>
-	///Trattamento delle spese
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable chargehandling 		=> Tables["chargehandling"];
 
@@ -157,6 +132,7 @@ private void initClass() {
 	tregistrypaymethod.Columns.Add( new DataColumn("ccdedicato_cf", typeof(Byte[])));
 	tregistrypaymethod.Columns.Add( new DataColumn("ccdedicato_doc", typeof(Byte[])));
 	tregistrypaymethod.Columns.Add( new DataColumn("requested_doc", typeof(int)));
+	tregistrypaymethod.Columns.Add( new DataColumn("ccdedicato_stop", typeof(DateTime)));
 	Tables.Add(tregistrypaymethod);
 	tregistrypaymethod.PrimaryKey =  new DataColumn[]{tregistrypaymethod.Columns["idreg"], tregistrypaymethod.Columns["idregistrypaymethod"]};
 
@@ -501,4 +477,3 @@ private void initClass() {
 }
 }
 }
-

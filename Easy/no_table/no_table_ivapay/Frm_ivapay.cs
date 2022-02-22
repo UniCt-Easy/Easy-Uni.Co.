@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing metadatalibrary;
+
+using metadatalibrary;
 using metaeasylibrary;
 using System;
 using System.Collections.Generic;
@@ -39,7 +38,7 @@ using PdfSharp.Pdf.IO;
 
 namespace no_table_ivapay {
 
-    public partial class Frm_ivapay :Form {
+    public partial class Frm_ivapay : MetaDataForm {
 
         private const int SP_TIMEOUT = 10000;
 
@@ -94,19 +93,19 @@ namespace no_table_ivapay {
                 esercizio = (int)HelpForm.GetObjectFromString(typeof(int),
                     txtEsercizio.Text.ToString(), "x.y.year");
                 if ((esercizio < 0)) {
-                    MessageBox.Show("L'esercizio non pu√≤ essere negativo");
+                    show("L'esercizio non puÚ essere negativo");
                     txtEsercizio.Focus();
                     return false;
                 }
             }
             catch {
-                MessageBox.Show("E' necessario inserire un esercizio");
+                show("E' necessario inserire un esercizio");
                 txtEsercizio.Focus();
                 return false;
             }
 
             if (cmbTrimestre.SelectedValue == null) {
-                MessageBox.Show("E' necessario selezionare un trimestre");
+                show("E' necessario selezionare un trimestre");
                 return false;
             }
 
@@ -142,12 +141,12 @@ namespace no_table_ivapay {
 
         private string aggiustaStringa(string stringa, bool toglichiocciola) {
 
-            string s = stringa.Replace('‚Äô', ' ').Replace('¬¥', ' ').Replace('√á', 'c').Replace('√ß', 'c').Replace('‚Ç¨', 'e').Replace('|', ' ').Replace('\\', ' ').Replace('¬£', ' ').Replace('¬ß', ' ').Replace('[', ' ').Replace('#', ' ').Replace('!', ' ').Replace('√ô', 'u').Replace(
-                '√ñ', 'o').Replace('√ú', 'u').Replace('√ë', 'n').Replace('√ê', 'd').Replace('√ä', 'e').Replace('√ã', 'e').Replace('√é', 'i').Replace('√è', 'i').Replace('√î', 'o').Replace('√ï', 'o').Replace('√õ', 'u').Replace('√ù', 'y').Replace(
-                ']', ' ').Replace('`', ' ').Replace('{', ' ').Replace('}', ' ').Replace('~', ' ').Replace('√º', 'u').Replace('√¢', 'a').Replace('√§', 'a').Replace('√•', 'a').Replace('√™', 'e').Replace('√´', 'e').Replace('√Ø', 'i').Replace(
-                '√Æ', 'i').Replace('√Ñ', 'a').Replace('√Ö', 'a').Replace('√¥', 'o').Replace('√∂', 'o').Replace('√ª', 'u').Replace('√ø', 'y').Replace('√±', 'n').Replace('√Ç', 'a').Replace('¬•', 'y').Replace('√£', 'a').Replace('√É', 'a').Replace(
-                '√µ', 'o').Replace('√Ω', 'y').Replace('√©', 'e').Replace('√†', 'a').Replace('√®', 'e').Replace('√¨', 'i').Replace('√≤', 'o').Replace('√π', 'u').Replace('√°', 'a').Replace('√≠', 'i').Replace('√≥', 'o').Replace('√â', 'e').Replace(
-                '√Å', 'a').Replace('√Ä', 'a').Replace('√à', 'e').Replace('√ç', 'i').Replace('√å', 'i').Replace('√ì', 'o').Replace('√í', 'o').Replace('√ö', 'u').Replace('\t', ' ').Replace('\n', ' ').Replace('\r', ' ').Replace('¬∞', ' ');
+            string s = stringa.Replace('í', ' ').Replace('¥', ' ').Replace('«', 'c').Replace('Á', 'c').Replace('Ä', 'e').Replace('|', ' ').Replace('\\', ' ').Replace('£', ' ').Replace('ß', ' ').Replace('[', ' ').Replace('#', ' ').Replace('!', ' ').Replace('Ÿ', 'u').Replace(
+                '÷', 'o').Replace('‹', 'u').Replace('—', 'n').Replace('–', 'd').Replace(' ', 'e').Replace('À', 'e').Replace('Œ', 'i').Replace('œ', 'i').Replace('‘', 'o').Replace('’', 'o').Replace('€', 'u').Replace('›', 'y').Replace(
+                ']', ' ').Replace('`', ' ').Replace('{', ' ').Replace('}', ' ').Replace('~', ' ').Replace('¸', 'u').Replace('‚', 'a').Replace('‰', 'a').Replace('Â', 'a').Replace('Í', 'e').Replace('Î', 'e').Replace('Ô', 'i').Replace(
+                'Ó', 'i').Replace('ƒ', 'a').Replace('≈', 'a').Replace('Ù', 'o').Replace('ˆ', 'o').Replace('˚', 'u').Replace('ˇ', 'y').Replace('Ò', 'n').Replace('¬', 'a').Replace('•', 'y').Replace('„', 'a').Replace('√', 'a').Replace(
+                'ı', 'o').Replace('˝', 'y').Replace('È', 'e').Replace('‡', 'a').Replace('Ë', 'e').Replace('Ï', 'i').Replace('Ú', 'o').Replace('˘', 'u').Replace('·', 'a').Replace('Ì', 'i').Replace('Û', 'o').Replace('…', 'e').Replace(
+                '¡', 'a').Replace('¿', 'a').Replace('»', 'e').Replace('Õ', 'i').Replace('Ã', 'i').Replace('”', 'o').Replace('“', 'o').Replace('⁄', 'u').Replace('\t', ' ').Replace('\n', ' ').Replace('\r', ' ').Replace('∞', ' ');
             if (toglichiocciola)
                 s = s.Replace('@', ' ');
             return s;
@@ -303,7 +302,7 @@ namespace no_table_ivapay {
             fg.AutosizeColumnWidth();
 
             if (LiquidazioniIva.Columns.Contains("message")) { 
-                MessageBox.Show("Il file non √® stato generato");
+                show("Il file non Ë stato generato");
                 return;
             }
             string filterIntestazione = QHC.CmpEq("kind", "I");
@@ -316,7 +315,7 @@ namespace no_table_ivapay {
             txtPercorso.Text = "";
             faiScegliereCartella();
             if (txtPercorso.Text == "") {
-                MessageBox.Show(this, "Occorre specificare la cartella in cui creare il file", "errore");
+                show(this, "Occorre specificare la cartella in cui creare il file", "errore");
                 return;
             }
             Application.DoEvents();
@@ -349,12 +348,12 @@ namespace no_table_ivapay {
             /*
 			1   <Fornitura>											<1.1>	
 				1.1   <Intestazione>								Blocco obbligatorio		<1.1>	
-					1.1.1   <CodiceFornitura>						xs:string	L'elemento √® obbligatorio e contiene il codice della fornitura	"Valori ammessi:[ IVP17]"	<1.1>	5
+					1.1.1   <CodiceFornitura>						xs:string	L'elemento Ë obbligatorio e contiene il codice della fornitura	"Valori ammessi:[ IVP17]"	<1.1>	5
 					1.1.2   <CodiceFiscaleDichiarante>				xs:string	"Codice fiscale del soggetto obbligato alla trasmissione della comunicazione IVA quando non coincide con il soggetto passivo al quale i dati si riferiscono (p.e. tutore, curatore fallimentare etc.). Deve essere valorizzato tranne nei casi in cui il soggetto che appone la firma elettronica sul file:
 																	- coincide  con il soggetto IVA al quale i dati si riferiscono;
-																	- √® un incaricato del soggetto IVA registrato presso i servizi telematici dell‚ÄôAgenzia delle Entrate ed autorizzato attraverso le specifiche funzionalit√† di profilazione riservate ai ‚Äúgestori incaricati‚Äù;
-																	- √® un intermediario (art. 3, commi 2 bis e 3 del DPR 322/1978)"	formato alfanumerico	<0.1>	16
-					1.1.3   <CodiceCarica>							xs:string	Codice riferibile al soggetto che invia la comunicazione IVA in relazione alla carica rivestita	"Valori ammessi: vedi tabella generale dei codici di carica disponibile nelle istruzioni del modello IVA annuale"	<0.1>	1 ‚Ä¶ 2
+																	- Ë un incaricato del soggetto IVA registrato presso i servizi telematici dellíAgenzia delle Entrate ed autorizzato attraverso le specifiche funzionalit‡ di profilazione riservate ai ìgestori incaricatiî;
+																	- Ë un intermediario (art. 3, commi 2 bis e 3 del DPR 322/1978)"	formato alfanumerico	<0.1>	16
+					1.1.3   <CodiceCarica>							xs:string	Codice riferibile al soggetto che invia la comunicazione IVA in relazione alla carica rivestita	"Valori ammessi: vedi tabella generale dei codici di carica disponibile nelle istruzioni del modello IVA annuale"	<0.1>	1 Ö 2
 					1.1.4   <IdSistema>						        xs:string	Campo riservato al Sistema: da NON valorizzare	formato alfanumerico	<0.1>	11 _16
 			*/
 
@@ -372,22 +371,22 @@ namespace no_table_ivapay {
             /*	
 			1.2   <Comunicazione>						Blocco contenente i dati della comunicazione trimestrale IVA		<1.1>	
 			1.2.1   <Frontespizio>						Blocco contenente i dati del fronterspizio della comunicazione trimestrale IVA		<1.1>	
-			1.2.1.1   <CodiceFiscale>					xs:string	Codice fiscale del soggetto cui si riferisce la comunicazione trimestrale IVA	formato alfanumerico	<1.1>	11 ‚Ä¶ 16
+			1.2.1.1   <CodiceFiscale>					xs:string	Codice fiscale del soggetto cui si riferisce la comunicazione trimestrale IVA	formato alfanumerico	<1.1>	11 Ö 16
 			1.2.1.2   <AnnoImposta>					    xs:string	Anno di imposta  cui si riferisce la comunicazione	formato numerico	<1.1>	4
 			1.2.1.3   <PartitaIVA>					    xs:string	Partita IVA del soggetto cui si riferisce la comunicazione trimestrale IVA	formato alfanumerico	<1.1>	11
-			1.2.1.4   <PIVAControllante>			    xs:string	Partita IVA dell'ente o societ√† controllante  nel caso di liquidazione di gruppo ultimo comma dell‚Äôart. 73,	formato alfanumerico	<0.1>	11
-			1.2.1.5   <UltimoMese>					    xs:string	Ultime mese di controllo nel caso di interruzione della liquidazione di gruppo ultimo comma dell‚Äôart.73.	"Valori ammessi: [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [13] [99]"	<0.1>	1 ‚Ä¶ 2
-			1.2.1.6   <LiquidazioneGruppo>			    xs:string	Indica se la comunicazione si riferisce alla liquidazione di gruppo dell‚Äôultimo comma dell‚Äôart. 73,	"Valori ammessi:[0] [1]"	<0.1>	1
+			1.2.1.4   <PIVAControllante>			    xs:string	Partita IVA dell'ente o societ‡ controllante  nel caso di liquidazione di gruppo ultimo comma dellíart. 73,	formato alfanumerico	<0.1>	11
+			1.2.1.5   <UltimoMese>					    xs:string	Ultime mese di controllo nel caso di interruzione della liquidazione di gruppo ultimo comma dellíart.73.	"Valori ammessi: [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [13] [99]"	<0.1>	1 Ö 2
+			1.2.1.6   <LiquidazioneGruppo>			    xs:string	Indica se la comunicazione si riferisce alla liquidazione di gruppo dellíultimo comma dellíart. 73,	"Valori ammessi:[0] [1]"	<0.1>	1
 			1.2.1.7   <CFDichiarante>					xs:string	Codice fiscale del dichiarante persona fisica che sottoscrive la Comunicazione	formato alfanumerico	<0.1>	16
-			1.2.1.8   <CodiceCaricaDichiarante>			xs:string	Codice di carica del dichiarante	formato numerico	<0.1>	1 ‚Ä¶ 2
-			1.2.1.9   <CodiceFiscaleSocieta>			xs:string	Codice fiscale della societ√† dichiarante 	formato alfanumerico	<0.1>	11
+			1.2.1.8   <CodiceCaricaDichiarante>			xs:string	Codice di carica del dichiarante	formato numerico	<0.1>	1 Ö 2
+			1.2.1.9   <CodiceFiscaleSocieta>			xs:string	Codice fiscale della societ‡ dichiarante 	formato alfanumerico	<0.1>	11
 			1.2.1.10  <FirmaDichiarazione>			    xs:string	Indica la presenza della firma del contribuente o di chi ne ha la rappresentanza legale o negoziale	"Valori ammessi:[0] [1]"	<1.1>	1
 			1.2.1.11  <CFIntermediario>					xs:string	Codice fiscale dell'incaricato alla trasmissione	formato alfanumerico	<0.1>	16
-			1.2.1.12  <ImpegnoPresentazione>			xs:string	Tipo di impegno a trasmettere; vale 1 se la comunicazione √® stata predisposta dal contribuente, o   2  se √® stata predisposta da chi effettua l'invio	"Valori ammessi:[1] [2]"	<0.1>	1
-			1.2.1.13  <DataImpegno>					    xs:string	Data (giorno, mese e anno) di assunzione dell‚Äôimpegno a trasmettere	formato ggmmaaaa	<0.1>	8
+			1.2.1.12  <ImpegnoPresentazione>			xs:string	Tipo di impegno a trasmettere; vale 1 se la comunicazione Ë stata predisposta dal contribuente, o   2  se Ë stata predisposta da chi effettua l'invio	"Valori ammessi:[1] [2]"	<0.1>	1
+			1.2.1.13  <DataImpegno>					    xs:string	Data (giorno, mese e anno) di assunzione dellíimpegno a trasmettere	formato ggmmaaaa	<0.1>	8
 			1.2.1.14  <FirmaIntermediario>				xs:string	Indica la presenza della firma da parte dell'intermediario	"Valori ammessi:[0] [1]"	<0.1>	1
 			1.2.1.15  <FlagConferma>					xs:string	Flag , la cui  valorizzazione a 1 indica presenza di anomalie nella comunicazione	"Valori ammessi:[0] [1]"	<0.1>	1
-			1.2.1.16  <IdentificativoProdSoftware>		xs:string	Elemento a disposizione dei produttori di software	formato alfanumerico	<0.1>	1 ‚Ä¶ *
+			1.2.1.16  <IdentificativoProdSoftware>		xs:string	Elemento a disposizione dei produttori di software	formato alfanumerico	<0.1>	1 Ö *
 			*/
             //< iv:Fornitura xmlns:iv = "urn:www.agenziaentrate.gov.it:specificheTecniche:sco:ivp" xmlns: ds = "http://www.w3.org/2000/09/xmldsig#" >
             writer.WriteStartElement("iv:Comunicazione"); //apre <Comunicazione>
@@ -418,25 +417,25 @@ namespace no_table_ivapay {
             /*
 				1.2.2   <DatiContabili>						Blocco relativo ai dati contabili della comunicazione IVA		<1.1>	
 				1.2.2.1   <Modulo>							Blocco contenente i dati dei moduli della comunicazione trimestrale IVA. E' obbligatoria la presenza di almeno un modulo fino ad un massimo di cinque 		<1.5>	
-				1.2.2.1.1   <Mese>							xs:string	Mese di riferimento della liquidazione IVA	"Valori ammessi:[1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12]"	<0.1>	1 ‚Ä¶ 2
+				1.2.2.1.1   <Mese>							xs:string	Mese di riferimento della liquidazione IVA	"Valori ammessi:[1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12]"	<0.1>	1 Ö 2
 				1.2.2.1.2   <Trimestre>						xs:string	Trimestre di riferimento della liquidazione IVA	"Valori ammessi:[1] [2] [3] [4] [5]"	<0.1>	1
-				1.2.2.1.3   <Subfornitura>					xs:string	Indica se il contribuente si √® avvalso delle agevolazioni previste dall‚Äôart. 74, comma 5	"Valori ammessi:[0] [1]"	<0.1>	1
-				1.2.2.1.4   <EventiEccezionali>				xs:string	Riservato ai soggetti chehanno fruito per il periodo di riferimento, agli effetti dell‚ÄôIVA,delle agevolazioni fiscali	"Valori ammessi:[1] [9]"	<0.1>	1
-				1.2.2.1.5   <TotaleOperazioniAttive>		xs:decimal	Ammontare complessivo delle cessioni/prestazioni al netto dell'IVA effettuate nel periodo di riferimento	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.6   <TotaleOperazioniPassive>		xs:decimal	Ammontare complessivo degli acquisti al netto dell'IVA effettuati nel periodo di riferimento	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.7   <IvaEsigibile>					xs:decimal	Ammontare IVA a debito relativo alle operazioni attive del periodo	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.8   <IvaDetratta>					xs:decimal	Ammontare IVA da portare in detrazione del periodo	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.9   <IvaDovuta>						xs:decimal	Vale  (IvaEsigibile - IvaDetratta) se positiva 	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.10  <IvaCredito>					xs:decimal	Vale  (IvaDetratta - IvaEsigibile) se positiva 	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.11  <DebitoPrecedente>				xs:decimal	Importo a debito non versato nel periodo precedente in quanto non superiore a 25,82 euro	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.12  <CreditoPeriodoPrecedente>		xs:decimal	Ammontare IVA a credito computata in detrazione, risultante dalle liquidazioni precedenti	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.13  <CreditoAnnoPrecedente>			xs:decimal	Ammontare IVA a credito compensabile che viene portato in detrazione e risultante dalla dichiarazione annuale dell'anno precedente	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.14  <VersamentiAutoUE>				xs:decimal	Ammontare complessivo dei versamenti relativi all'imposta dovuta per la prima cessione interna di autoveicoli	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.15  <CreditiImposta>				xs:decimal	Ammontare dei particolari crediti di imposta utilizzati nel periodo di riferimento a scomputo del versamento	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.16  <InteressiDovuti>				xs:decimal	Ammontare degli interessi dovuti relativamente alla liquidazione del trimestre	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.17  <Acconto>						xs:decimal	Amontare dell'acconto dovuto anche se non effettivamente versato 	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.18  <ImportoDaVersare>				xs:decimal	Vale (IvaDovuta - IvaCredito +  DebitoPrecedente + InteressiDovuti ‚Äì CreditiImposta ‚Äì CreditoPeriodoPrecedente ‚Äì CreditoAnnoPrecedente - VersamentiAutoUE - Acconto)  se positivo	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.19  <ImportoACredito>				xs:decimal	Vale (IvaDovuta - IvaCredito +  DebitoPrecedente + InteressiDovuti ‚Äì CreditiImposta ‚Äì CreditoPeriodoPrecedente ‚Äì CreditoAnnoPrecedente - VersamentiAautoUE - Acconto) se negativo senza segno	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
+				1.2.2.1.3   <Subfornitura>					xs:string	Indica se il contribuente si Ë avvalso delle agevolazioni previste dallíart. 74, comma 5	"Valori ammessi:[0] [1]"	<0.1>	1
+				1.2.2.1.4   <EventiEccezionali>				xs:string	Riservato ai soggetti chehanno fruito per il periodo di riferimento, agli effetti dellíIVA,delle agevolazioni fiscali	"Valori ammessi:[1] [9]"	<0.1>	1
+				1.2.2.1.5   <TotaleOperazioniAttive>		xs:decimal	Ammontare complessivo delle cessioni/prestazioni al netto dell'IVA effettuate nel periodo di riferimento	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.6   <TotaleOperazioniPassive>		xs:decimal	Ammontare complessivo degli acquisti al netto dell'IVA effettuati nel periodo di riferimento	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.7   <IvaEsigibile>					xs:decimal	Ammontare IVA a debito relativo alle operazioni attive del periodo	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.8   <IvaDetratta>					xs:decimal	Ammontare IVA da portare in detrazione del periodo	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.9   <IvaDovuta>						xs:decimal	Vale  (IvaEsigibile - IvaDetratta) se positiva 	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.10  <IvaCredito>					xs:decimal	Vale  (IvaDetratta - IvaEsigibile) se positiva 	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.11  <DebitoPrecedente>				xs:decimal	Importo a debito non versato nel periodo precedente in quanto non superiore a 25,82 euro	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.12  <CreditoPeriodoPrecedente>		xs:decimal	Ammontare IVA a credito computata in detrazione, risultante dalle liquidazioni precedenti	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.13  <CreditoAnnoPrecedente>			xs:decimal	Ammontare IVA a credito compensabile che viene portato in detrazione e risultante dalla dichiarazione annuale dell'anno precedente	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.14  <VersamentiAutoUE>				xs:decimal	Ammontare complessivo dei versamenti relativi all'imposta dovuta per la prima cessione interna di autoveicoli	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.15  <CreditiImposta>				xs:decimal	Ammontare dei particolari crediti di imposta utilizzati nel periodo di riferimento a scomputo del versamento	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.16  <InteressiDovuti>				xs:decimal	Ammontare degli interessi dovuti relativamente alla liquidazione del trimestre	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.17  <Acconto>						xs:decimal	Amontare dell'acconto dovuto anche se non effettivamente versato 	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.18  <ImportoDaVersare>				xs:decimal	Vale (IvaDovuta - IvaCredito +  DebitoPrecedente + InteressiDovuti ñ CreditiImposta ñ CreditoPeriodoPrecedente ñ CreditoAnnoPrecedente - VersamentiAutoUE - Acconto)  se positivo	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.19  <ImportoACredito>				xs:decimal	Vale (IvaDovuta - IvaCredito +  DebitoPrecedente + InteressiDovuti ñ CreditiImposta ñ CreditoPeriodoPrecedente ñ CreditoAnnoPrecedente - VersamentiAautoUE - Acconto) se negativo senza segno	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
 			*/
             writer.WriteStartElement("iv:DatiContabili"); //Apre <DatiContabili>
             foreach (DataRow RMod in RModuli) {
@@ -502,10 +501,10 @@ namespace no_table_ivapay {
          
 
             Meta.SaveFormData();
-            MessageBox.Show("Creato il file " + NomeCompletoFileXML, "Avviso");
+            show("Creato il file " + NomeCompletoFileXML, "Avviso");
             //ValidaFile_conXSD();
 
-            MessageBox.Show("Salvataggio eseguito.");
+            show("Salvataggio eseguito.");
         }
 
        
@@ -539,7 +538,7 @@ namespace no_table_ivapay {
             DataTable LiquidazioniIva = Out.Tables[0];
         HelpForm.SetDataGrid(gridLiquidazioni, LiquidazioniIva);
             if (LiquidazioniIva.Columns.Contains("message")) {
-                MessageBox.Show("Il file non √® stato generato");
+                show("Il file non Ë stato generato");
                 return;
             }
     string filterIntestazione = QHC.CmpEq("kind", "I");
@@ -548,11 +547,11 @@ namespace no_table_ivapay {
     DataRow RIntestazione = LiquidazioniIva.First(filterIntestazione);
     DataRow RFrontespizio = LiquidazioniIva.First(filterFrontespizio);
             if (RIntestazione == null) {
-                MessageBox.Show("Dati Intestazione Mancanti. La dichiarazione non sar√† stampata");
+                show("Dati Intestazione Mancanti. La dichiarazione non sar‡ stampata");
                 return;
             }
             if (RFrontespizio == null) {
-                MessageBox.Show("Dati Frontespizio Mancanti. La dichiarazione non sar√† stampata");
+                show("Dati Frontespizio Mancanti. La dichiarazione non sar‡ stampata");
                 return;
             }
             
@@ -562,13 +561,13 @@ namespace no_table_ivapay {
             DataRow RModulo_3 = LiquidazioniIva.First(QHC.AppAnd(filterModulo, QHC.CmpEq("modulo", 3)));
 
             if (RModulo_1 == null) {
-                MessageBox.Show("Dati primo mese assenti");
+                show("Dati primo mese assenti");
             }
             if (RModulo_2 == null) {
-                MessageBox.Show("Dati secondo mese assenti");
+                show("Dati secondo mese assenti");
             }
             if (RModulo_3 == null) {
-                MessageBox.Show("Dati terzo mese assenti");
+                show("Dati terzo mese assenti");
             }
 
            
@@ -586,7 +585,7 @@ txtNomeFile.Text = NomeFile;
                 string nomeModello = "IVA_period_2018_mod_istr.pdf";
 string[] fnames = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, nomeModello);
                 if (fnames.Length == 0) {
-                    MessageBox.Show(
+                    show(
                         "File " + nomeModello + " non trovato nella cartella " + AppDomain.CurrentDomain.BaseDirectory,
                         "Errore");
                 }
@@ -684,7 +683,7 @@ PdfDocument document = PdfReader.Open(path, PdfDocumentOpenMode.Modify);
                                 field.ReadOnly = false;
                             }
                             else
-                                MessageBox.Show("Errore nella scrittura del campo " + name);
+                                show("Errore nella scrittura del campo " + name);
                         }
 
                         stampaDocumento(document, NomeFile, null, null, null, null);
@@ -692,7 +691,7 @@ PdfDocument document = PdfReader.Open(path, PdfDocumentOpenMode.Modify);
                     }
                 }
                 catch (Exception ex) {
-                    MessageBox.Show(ex.Message, "Errore");
+                    show(ex.Message, "Errore");
                     //do any cleanup and return
                     return;
                 }
@@ -711,7 +710,7 @@ PdfDocument document = PdfReader.Open(path, PdfDocumentOpenMode.Modify);
             txtPercorso.Text = "";
             faiScegliereCartella();
             if (txtPercorso.Text == "") {
-                MessageBox.Show(this, "Occorre specificare la cartella in cui creare il file", "errore");
+                show(this, "Occorre specificare la cartella in cui creare il file", "errore");
                 return;
             }
 
@@ -726,10 +725,10 @@ PdfDocument document = PdfReader.Open(path, PdfDocumentOpenMode.Modify);
 
             try {
                 doc.Save(NomeCompletoFilePDF);
-                MessageBox.Show("Salvataggio effettuato");
+                show("Salvataggio effettuato");
             }
             catch (Exception e) {
-                QueryCreator.ShowError(this, "Errore salvando il file, probabilmente il file √® gi√† aperto.", e.ToString());
+                QueryCreator.ShowError(this, "Errore salvando il file, probabilmente il file Ë gi‡ aperto.", e.ToString());
             }
 
             //Process p = new Process();
@@ -743,7 +742,7 @@ PdfDocument document = PdfReader.Open(path, PdfDocumentOpenMode.Modify);
 
         private void Excel_Click(object sender, EventArgs e, DataTable T) {
             if (T.Rows.Count == 0) {
-                MessageBox.Show("Nessun elemento trovato");
+                show("Nessun elemento trovato");
                 return;
             }
             exportclass.DataTableToExcel(T, true);
@@ -761,14 +760,33 @@ PdfDocument document = PdfReader.Open(path, PdfDocumentOpenMode.Modify);
 
             int meseinizio = 3*(trimestre - 1) + 1;
             int mesefine = 3 * (trimestre - 1) + 3;
+            string filter = "";
+            if (B.Name == "btnOpAttive") { 
+               filter = QHS.AppAnd(
 
-            string filter = QHS.AppAnd(QHS.CmpEq("flagbuysell", flagbuysell), QHS.CmpEq("registerclass", flagbuysell),
+              QHS.DoPar(QHS.AppOr(QHS.CmpEq("flagbuysell", flagbuysell), 
+              //includo note di credito liquidate sono fatture di acquisto registrate nel registro vendite
+               " (select count(*) from invoicekindregisterkind  IRK " +
+               " join ivaregisterkind RK on RK.idivaregisterkind = IRK.idivaregisterkind " +
+               " where  IRK.idinvkind = invoicedetailview.idinvkind " +
+               " and RK.registerclass <> 'P' " +
+               " ) = 1"
+                )), 
+               
+               QHS.CmpEq("registerclass", flagbuysell),
                QHS.Between("month(adate)", meseinizio,mesefine), QHS.CmpEq("year(adate)", esercizio),
                // Filtro su tipo imposizione, tipi esclusi
                QHS.FieldNotInList("idivataxablekind", QHS.List(5, /*Fuori campo*/ 6  /*Escluse Articolo 15*/)),
                QHS.DoPar(QHS.AppOr(QHS.CmpEq("flagactivity",2)/*commerciale*/, QHS.CmpEq("flagactivity", 3)/*promiscua*/)));
-             
-
+            }
+            else {
+                // filtro sulle operazioni passive
+                filter = QHS.AppAnd(QHS.CmpEq("flagbuysell", flagbuysell), QHS.CmpEq("registerclass", flagbuysell),
+                 QHS.Between("month(adate)", meseinizio, mesefine), QHS.CmpEq("year(adate)", esercizio),
+                 // Filtro su tipo imposizione, tipi esclusi
+                 QHS.FieldNotInList("idivataxablekind", QHS.List(5, /*Fuori campo*/ 6  /*Escluse Articolo 15*/)),
+                 QHS.DoPar(QHS.AppOr(QHS.CmpEq("flagactivity", 2)/*commerciale*/, QHS.CmpEq("flagactivity", 3)/*promiscua*/)));
+            }
             string sqlCmd = " SELECT  " +
                             " ivaregisterkind.registerclass AS 'Classe Registro', " +
                             " ivaregisterkind.description AS 'Registro', " +
@@ -779,7 +797,7 @@ PdfDocument document = PdfReader.Open(path, PdfDocumentOpenMode.Modify);
                             " CASE ivaregisterkind.flagactivity  WHEN 1 THEN 'Istituzionale' " +
                             " WHEN 2 THEN 'Commerciale' " +
                             " WHEN 3 THEN 'Promiscua' " +
-                            " END as 'Attivit√†', " +
+                            " END as 'Attivit‡', " +
                             " invoicedetailview.ivakind as 'Tipo IVA'," +
                             " registry as 'Anagrafica', " +
                             " month(adate) as 'Mese reg.'," +
@@ -788,10 +806,10 @@ PdfDocument document = PdfReader.Open(path, PdfDocumentOpenMode.Modify);
                             " detaildescription as 'Descr. Dettaglio'," +
                             " flagbuysell as 'Vendite/Acquisto'," +
                             " flagvariation as 'Nota variaz.'," +
-                            " CASE WHEN flagvariation = 'S' THEN - taxable_euro ELSE taxable_euro END as 'Imponibile'," +
-                            " CASE WHEN flagvariation = 'S' THEN - tax ELSE tax END as 'Imposta'," +
-                            " CASE WHEN flagvariation = 'S' THEN - unabatable ELSE unabatable END as 'Indetraibile'," +
-                            " CASE WHEN flagvariation = 'S' THEN - rowtotal ELSE rowtotal END  as 'Totale Riga (IVA inclusa)'" +
+                            " CASE WHEN (flagvariation = 'S' OR (flagbuysell <> ivaregisterkind.registerclass))  THEN - taxable_euro ELSE taxable_euro END as 'Imponibile'," +
+                            " CASE WHEN (flagvariation = 'S' OR (flagbuysell <> ivaregisterkind.registerclass))  THEN - tax ELSE tax END as 'Imposta'," +
+                            " CASE WHEN (flagvariation = 'S' OR (flagbuysell <> ivaregisterkind.registerclass))  THEN - unabatable ELSE unabatable END as 'Indetraibile'," +
+                            " CASE WHEN (flagvariation = 'S' OR (flagbuysell <> ivaregisterkind.registerclass))  THEN - rowtotal ELSE rowtotal END  as 'Totale Riga (IVA inclusa)'" +
                             " FROM  invoicedetailview  " +
                             " JOIN ivaregister " +
                             " ON ivaregister.idinvkind = invoicedetailview.idinvkind " +
@@ -831,4 +849,3 @@ PdfDocument document = PdfReader.Open(path, PdfDocumentOpenMode.Modify);
     }
           
 }
-

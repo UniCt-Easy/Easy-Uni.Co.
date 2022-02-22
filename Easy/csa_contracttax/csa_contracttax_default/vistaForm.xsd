@@ -483,7 +483,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="idepexp" type="xs:int" minOccurs="0"/>
+              <xs:element name="idepexp" type="xs:int" minOccurs="0" />
               <xs:element name="idupb" type="xs:string" minOccurs="0" />
               <xs:element name="idacc" type="xs:string" minOccurs="0" />
               <xs:element name="idfin" type="xs:int" minOccurs="0" />
@@ -871,8 +871,6 @@
     <xs:appinfo>
       <msdata:Relationship name="epexpview2_csa_contracttaxepexp" msdata:parent="epexpview2" msdata:child="csa_contracttaxepexp" msdata:parentkey="idepexp" msdata:childkey="idepexp" />
       <msdata:Relationship name="csa_contracttax_csa_contracttaxepexp" msdata:parent="csa_contracttax" msdata:child="csa_contracttaxepexp" msdata:parentkey="idcsa_contract idcsa_contracttax ayear" msdata:childkey="idcsa_contract idcsa_contracttax ayear" />
-      <msdata:Relationship name="FK_expenseview1_csa_contracttaxexpense" msdata:parent="expenseview2" msdata:child="csa_contracttaxexpense" msdata:parentkey="idexp" msdata:childkey="idexp" />
-      <msdata:Relationship name="FK_csa_contracttax_csa_contracttaxexpense" msdata:parent="csa_contracttax" msdata:child="csa_contracttaxexpense" msdata:parentkey="idcsa_contract idcsa_contracttax ayear" msdata:childkey="idcsa_contract idcsa_contracttax ayear" />
       <msdata:Relationship name="FK_sorting_csa_contracttax" msdata:parent="sorting" msdata:child="csa_contracttax" msdata:parentkey="idsor" msdata:childkey="idsor_siope" />
       <msdata:Relationship name="account_csa_contracttax" msdata:parent="account" msdata:child="csa_contracttax" msdata:parentkey="idacc" msdata:childkey="idacc" />
       <msdata:Relationship name="upb_csa_contracttax" msdata:parent="upb" msdata:child="csa_contracttax" msdata:parentkey="idupb" msdata:childkey="idupb" />
@@ -887,6 +885,8 @@
       <msdata:Relationship name="expenseview3_csa_contracttax_partition" msdata:parent="expenseview3" msdata:child="csa_contracttax_partition" msdata:parentkey="idexp" msdata:childkey="idexp" />
       <msdata:Relationship name="epexpview3_csa_contracttax_partition" msdata:parent="epexpview3" msdata:child="csa_contracttax_partition" msdata:parentkey="idepexp" msdata:childkey="idepexp" />
       <msdata:Relationship name="sorting1_csa_contracttax_partition" msdata:parent="sorting1" msdata:child="csa_contracttax_partition" msdata:parentkey="idsor" msdata:childkey="idsor_siope" />
+      <msdata:Relationship name="FK_csa_contracttax_csa_contracttaxexpense" msdata:parent="csa_contracttax" msdata:child="csa_contracttaxexpense" msdata:parentkey="idcsa_contract idcsa_contracttax ayear" msdata:childkey="idcsa_contract idcsa_contracttax ayear" />
+      <msdata:Relationship name="FK_expenseview1_csa_contracttaxexpense" msdata:parent="expenseview2" msdata:child="csa_contracttaxexpense" msdata:parentkey="idexp ayear" msdata:childkey="idexp ayear" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

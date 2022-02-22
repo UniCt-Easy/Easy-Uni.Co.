@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_perfprogettoobiettivoattivita_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_perfprogettoobiettivoattivita_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="attach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="filename" type="xs:string" />
+              <xs:element name="hash" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="size" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettoobiettivoattivitaattach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivo" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivoattivita" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idattach_attach_filename" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idattach_attach_size" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="getregistrydocentiamministratividefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="getregistrydocentiamministrativi_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_contratto" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_forename" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_istituto" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_ssd" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_struttura" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettoobiettivoattivita" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="completamento" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="datafineeffettiva" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datafineprevista" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datainizioeffettiva" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datainizioprevista" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivo" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivoattivita" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="paridperfprogettoobiettivoattivita" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attach" />
+      <xs:field xpath="mstns:idattach" />
+    </xs:unique>
+    <xs:unique name="perfprogettoobiettivoattivitaattach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettoobiettivoattivitaattach" />
+      <xs:field xpath="mstns:idattach" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettoobiettivo" />
+      <xs:field xpath="mstns:idperfprogettoobiettivoattivita" />
+    </xs:unique>
+    <xs:unique name="getregistrydocentiamministratividefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getregistrydocentiamministratividefaultview" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="perfprogettoobiettivoattivita_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettoobiettivoattivita" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettoobiettivo" />
+      <xs:field xpath="mstns:idperfprogettoobiettivoattivita" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_perfprogettoobiettivoattivitaattach_perfprogettoobiettivoattivita_idperfprogetto-idperfprogettoobiettivo-idperfprogettoobiettivoattivita" msdata:parent="perfprogettoobiettivoattivita" msdata:child="perfprogettoobiettivoattivitaattach" msdata:parentkey="idperfprogetto idperfprogettoobiettivo idperfprogettoobiettivoattivita" msdata:childkey="idperfprogetto idperfprogettoobiettivo idperfprogettoobiettivoattivita" />
+      <msdata:Relationship name="FK_perfprogettoobiettivoattivitaattach_attach_idattach" msdata:parent="attach" msdata:child="perfprogettoobiettivoattivitaattach" msdata:parentkey="idattach" msdata:childkey="idattach" />
+      <msdata:Relationship name="FK_perfprogettoobiettivoattivita_getregistrydocentiamministratividefaultview_idreg" msdata:parent="getregistrydocentiamministratividefaultview" msdata:child="perfprogettoobiettivoattivita" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_perfprogettoobiettivoattivita_perfprogettoobiettivoattivita_idperfprogettoobiettivoattivita" msdata:parent="perfprogettoobiettivoattivita" msdata:child="perfprogettoobiettivoattivita" msdata:parentkey="idperfprogettoobiettivoattivita" msdata:childkey="paridperfprogettoobiettivoattivita" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

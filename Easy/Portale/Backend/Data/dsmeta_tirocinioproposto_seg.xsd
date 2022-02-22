@@ -1,0 +1,453 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_tirocinioproposto_seg" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_tirocinioproposto_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="tirocinioappr" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="approvazione" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="dataora" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idreg_docenti" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg_referente" type="xs:int" />
+              <xs:element name="idreg_studenti" type="xs:int" />
+              <xs:element name="idtirocinioappr" type="xs:int" />
+              <xs:element name="idtirocinioapprkind" type="xs:int" minOccurs="0" />
+              <xs:element name="idtirociniocandidatura" type="xs:int" />
+              <xs:element name="idtirocinioprogetto" type="xs:int" />
+              <xs:element name="idtirocinioproposto" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tirocinioinvioazienda" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="dataora" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idreg_referente" type="xs:int" />
+              <xs:element name="idreg_studenti" type="xs:int" />
+              <xs:element name="idtirociniocandidatura" type="xs:int" />
+              <xs:element name="idtirocinioinvioazienda" type="xs:int" />
+              <xs:element name="idtirocinioprogetto" type="xs:int" />
+              <xs:element name="idtirocinioproposto" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tirociniorelazione" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attivitasvolta" type="xs:string" minOccurs="0" />
+              <xs:element name="autovalutazione" type="xs:string" minOccurs="0" />
+              <xs:element name="competenze" type="xs:string" minOccurs="0" />
+              <xs:element name="conclusioni" type="xs:string" minOccurs="0" />
+              <xs:element name="considerazioni" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="descrazienda" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg_referente" type="xs:int" />
+              <xs:element name="idreg_studenti" type="xs:int" />
+              <xs:element name="idtirociniocandidatura" type="xs:int" />
+              <xs:element name="idtirocinioprogetto" type="xs:int" />
+              <xs:element name="idtirocinioproposto" type="xs:int" />
+              <xs:element name="idtirociniorelazione" type="xs:int" />
+              <xs:element name="introduzione" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tirociniodiario" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg_referente" type="xs:int" />
+              <xs:element name="idreg_studenti" type="xs:int" />
+              <xs:element name="idtirociniocandidatura" type="xs:int" />
+              <xs:element name="idtirociniodiario" type="xs:int" />
+              <xs:element name="idtirocinioprogetto" type="xs:int" />
+              <xs:element name="idtirocinioproposto" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="ore" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tirocinioprogetto" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="competenze" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="datafineeffettiva" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datafineprevista" type="xs:dateTime" />
+              <xs:element name="datainizioeffettiva" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datainizioprevista" type="xs:dateTime" />
+              <xs:element name="dataverbale" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="description_en" type="xs:string" minOccurs="0" />
+              <xs:element name="idaoo" type="xs:int" />
+              <xs:element name="idreg_docenti" type="xs:int" />
+              <xs:element name="idreg_referente" type="xs:int" />
+              <xs:element name="idreg_studenti" type="xs:int" />
+              <xs:element name="idsede" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="idtirociniocandidatura" type="xs:int" />
+              <xs:element name="idtirocinioprogetto" type="xs:int" />
+              <xs:element name="idtirocinioproposto" type="xs:int" />
+              <xs:element name="idtirociniostato" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="ore" type="xs:int" />
+              <xs:element name="protanno" type="xs:int" minOccurs="0" />
+              <xs:element name="protnumero" type="xs:int" minOccurs="0" />
+              <xs:element name="tempiaccesso" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="title_en" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tirociniocandidaturakind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idtirociniocandidaturakind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry_alias1" msprop:TableForReading="registry" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="annotation" type="xs:string" minOccurs="0" />
+              <xs:element name="authorization_free" type="xs:string" minOccurs="0" />
+              <xs:element name="badgecode" type="xs:string" minOccurs="0" />
+              <xs:element name="birthdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ccp" type="xs:string" minOccurs="0" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="email_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="extension" type="xs:string" minOccurs="0" />
+              <xs:element name="extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_pa" type="xs:string" minOccurs="0" />
+              <xs:element name="flagbankitaliaproceeds" type="xs:string" minOccurs="0" />
+              <xs:element name="foreigncf" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="gender" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcentralizedcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idexternal" type="xs:int" minOccurs="0" />
+              <xs:element name="idmaritalstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
+              <xs:element name="idregistrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_perlapa" type="xs:string" minOccurs="0" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="maritalsurname" type="xs:string" minOccurs="0" />
+              <xs:element name="multi_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="p_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="pec_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="residence" type="xs:int" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="sdi_defrifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="sdi_norifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="toredirect" type="xs:int" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry_studenti" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="authinps" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idstuddirittokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idstudprenotkind" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="annotation" type="xs:string" minOccurs="0" />
+              <xs:element name="authorization_free" type="xs:string" minOccurs="0" />
+              <xs:element name="badgecode" type="xs:string" minOccurs="0" />
+              <xs:element name="birthdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ccp" type="xs:string" minOccurs="0" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="email_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="extension" type="xs:string" minOccurs="0" />
+              <xs:element name="extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_pa" type="xs:string" minOccurs="0" />
+              <xs:element name="flagbankitaliaproceeds" type="xs:string" minOccurs="0" />
+              <xs:element name="foreigncf" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="gender" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcentralizedcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idexternal" type="xs:int" minOccurs="0" />
+              <xs:element name="idmaritalstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
+              <xs:element name="idregistrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_perlapa" type="xs:string" minOccurs="0" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="maritalsurname" type="xs:string" minOccurs="0" />
+              <xs:element name="multi_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="p_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="pec_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="residence" type="xs:int" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="sdi_defrifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="sdi_norifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="toredirect" type="xs:int" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry_docenti" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="cv" type="xs:string" minOccurs="0" />
+              <xs:element name="idclassconsorsuale" type="xs:int" minOccurs="0" />
+              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idfonteindicebibliometrico" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idreg_istituti" type="xs:int" minOccurs="0" />
+              <xs:element name="idsasd" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="indicebibliometrico" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="matricola" type="xs:string" minOccurs="0" />
+              <xs:element name="ricevimento" type="xs:string" minOccurs="0" />
+              <xs:element name="soggiorno" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tirociniocandidatura" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idreg_docenti" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg_referente" type="xs:int" />
+              <xs:element name="idreg_studenti" type="xs:int" />
+              <xs:element name="idtirociniocandidatura" type="xs:int" />
+              <xs:element name="idtirociniocandidaturakind" type="xs:int" />
+              <xs:element name="idtirocinioproposto" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idreg_docenti_registry_docenti_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_studenti_registry_studenti_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idtirociniocandidaturakind_tirociniocandidaturakind_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="aoodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idaoo" type="xs:int" />
+              <xs:element name="idsede" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="strutturadefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="paridstruttura" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrydefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcentralizedcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
+              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_active" type="xs:string" minOccurs="0" />
+              <xs:element name="residence" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tirocinioproposto" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="description_en" type="xs:string" minOccurs="0" />
+              <xs:element name="idaoo" type="xs:int" />
+              <xs:element name="idreg_referente" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="idtirocinioproposto" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="ore" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="title_en" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tirocinioappr" />
+      <xs:field xpath="mstns:idreg_referente" />
+      <xs:field xpath="mstns:idreg_studenti" />
+      <xs:field xpath="mstns:idtirocinioappr" />
+      <xs:field xpath="mstns:idtirociniocandidatura" />
+      <xs:field xpath="mstns:idtirocinioprogetto" />
+      <xs:field xpath="mstns:idtirocinioproposto" />
+    </xs:unique>
+    <xs:unique name="tirocinioinvioazienda_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tirocinioinvioazienda" />
+      <xs:field xpath="mstns:idreg_referente" />
+      <xs:field xpath="mstns:idreg_studenti" />
+      <xs:field xpath="mstns:idtirociniocandidatura" />
+      <xs:field xpath="mstns:idtirocinioinvioazienda" />
+      <xs:field xpath="mstns:idtirocinioprogetto" />
+      <xs:field xpath="mstns:idtirocinioproposto" />
+    </xs:unique>
+    <xs:unique name="tirociniorelazione_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tirociniorelazione" />
+      <xs:field xpath="mstns:idreg_referente" />
+      <xs:field xpath="mstns:idreg_studenti" />
+      <xs:field xpath="mstns:idtirociniocandidatura" />
+      <xs:field xpath="mstns:idtirocinioprogetto" />
+      <xs:field xpath="mstns:idtirocinioproposto" />
+      <xs:field xpath="mstns:idtirociniorelazione" />
+    </xs:unique>
+    <xs:unique name="tirociniodiario_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tirociniodiario" />
+      <xs:field xpath="mstns:idreg_referente" />
+      <xs:field xpath="mstns:idreg_studenti" />
+      <xs:field xpath="mstns:idtirociniocandidatura" />
+      <xs:field xpath="mstns:idtirociniodiario" />
+      <xs:field xpath="mstns:idtirocinioprogetto" />
+      <xs:field xpath="mstns:idtirocinioproposto" />
+    </xs:unique>
+    <xs:unique name="tirocinioprogetto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tirocinioprogetto" />
+      <xs:field xpath="mstns:idreg_referente" />
+      <xs:field xpath="mstns:idreg_studenti" />
+      <xs:field xpath="mstns:idtirociniocandidatura" />
+      <xs:field xpath="mstns:idtirocinioprogetto" />
+      <xs:field xpath="mstns:idtirocinioproposto" />
+    </xs:unique>
+    <xs:unique name="tirociniocandidaturakind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tirociniocandidaturakind" />
+      <xs:field xpath="mstns:idtirociniocandidaturakind" />
+    </xs:unique>
+    <xs:unique name="registry_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry_alias1" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="registry_studenti_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry_studenti" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="registry_docenti_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry_docenti" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="tirociniocandidatura_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tirociniocandidatura" />
+      <xs:field xpath="mstns:idreg_referente" />
+      <xs:field xpath="mstns:idreg_studenti" />
+      <xs:field xpath="mstns:idtirociniocandidatura" />
+      <xs:field xpath="mstns:idtirocinioproposto" />
+    </xs:unique>
+    <xs:unique name="aoodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:aoodefaultview" />
+      <xs:field xpath="mstns:idaoo" />
+    </xs:unique>
+    <xs:unique name="strutturadefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:strutturadefaultview" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+    <xs:unique name="registrydefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrydefaultview" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="tirocinioproposto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tirocinioproposto" />
+      <xs:field xpath="mstns:idreg_referente" />
+      <xs:field xpath="mstns:idtirocinioproposto" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_tirociniocandidatura_tirocinioproposto_idreg_referente-idtirocinioproposto" msdata:parent="tirocinioproposto" msdata:child="tirociniocandidatura" msdata:parentkey="idreg_referente idtirocinioproposto" msdata:childkey="idreg_referente idtirocinioproposto" />
+      <msdata:Relationship name="FK_tirocinioprogetto_tirociniocandidatura_idreg_referente-idreg_studenti-idtirociniocandidatura-idtirocinioproposto" msdata:parent="tirociniocandidatura" msdata:child="tirocinioprogetto" msdata:parentkey="idreg_referente idreg_studenti idtirociniocandidatura idtirocinioproposto" msdata:childkey="idreg_referente idreg_studenti idtirociniocandidatura idtirocinioproposto" />
+      <msdata:Relationship name="FK_tirocinioappr_tirocinioprogetto_idreg_referente-idreg_studenti-idtirociniocandidatura-idtirocinioprogetto-idtirocinioproposto" msdata:parent="tirocinioprogetto" msdata:child="tirocinioappr" msdata:parentkey="idreg_referente idreg_studenti idtirociniocandidatura idtirocinioprogetto idtirocinioproposto" msdata:childkey="idreg_referente idreg_studenti idtirociniocandidatura idtirocinioprogetto idtirocinioproposto" />
+      <msdata:Relationship name="FK_tirocinioinvioazienda_tirocinioprogetto_idreg_referente-idreg_studenti-idtirociniocandidatura-idtirocinioprogetto-idtirocinioproposto" msdata:parent="tirocinioprogetto" msdata:child="tirocinioinvioazienda" msdata:parentkey="idreg_referente idreg_studenti idtirociniocandidatura idtirocinioprogetto idtirocinioproposto" msdata:childkey="idreg_referente idreg_studenti idtirociniocandidatura idtirocinioprogetto idtirocinioproposto" />
+      <msdata:Relationship name="FK_tirociniorelazione_tirocinioprogetto_idreg_referente-idreg_studenti-idtirociniocandidatura-idtirocinioprogetto-idtirocinioproposto" msdata:parent="tirocinioprogetto" msdata:child="tirociniorelazione" msdata:parentkey="idreg_referente idreg_studenti idtirociniocandidatura idtirocinioprogetto idtirocinioproposto" msdata:childkey="idreg_referente idreg_studenti idtirociniocandidatura idtirocinioprogetto idtirocinioproposto" />
+      <msdata:Relationship name="FK_tirociniodiario_tirocinioprogetto_idreg_referente-idreg_studenti-idtirociniocandidatura-idtirocinioprogetto-idtirocinioproposto" msdata:parent="tirocinioprogetto" msdata:child="tirociniodiario" msdata:parentkey="idreg_referente idreg_studenti idtirociniocandidatura idtirocinioprogetto idtirocinioproposto" msdata:childkey="idreg_referente idreg_studenti idtirociniocandidatura idtirocinioprogetto idtirocinioproposto" />
+      <msdata:Relationship name="FK_tirociniocandidatura_tirociniocandidaturakind_idtirociniocandidaturakind" msdata:parent="tirociniocandidaturakind" msdata:child="tirociniocandidatura" msdata:parentkey="idtirociniocandidaturakind" msdata:childkey="idtirociniocandidaturakind" />
+      <msdata:Relationship name="FK_tirociniocandidatura_registry_alias1_idreg_studenti" msdata:parent="registry_alias1" msdata:child="tirociniocandidatura" msdata:parentkey="idreg" msdata:childkey="idreg_studenti" />
+      <msdata:Relationship name="FK_registry_studenti_registry_alias1_idreg" msdata:parent="registry_alias1" msdata:child="registry_studenti" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_tirociniocandidatura_registry_idreg_docenti" msdata:parent="registry" msdata:child="tirociniocandidatura" msdata:parentkey="idreg" msdata:childkey="idreg_docenti" />
+      <msdata:Relationship name="FK_registry_docenti_registry_idreg" msdata:parent="registry" msdata:child="registry_docenti" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_tirocinioproposto_aoodefaultview_idaoo" msdata:parent="aoodefaultview" msdata:child="tirocinioproposto" msdata:parentkey="idaoo" msdata:childkey="idaoo" />
+      <msdata:Relationship name="FK_tirocinioproposto_strutturadefaultview_idstruttura" msdata:parent="strutturadefaultview" msdata:child="tirocinioproposto" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
+      <msdata:Relationship name="FK_tirocinioproposto_registrydefaultview_idreg_referente" msdata:parent="registrydefaultview" msdata:child="tirocinioproposto" msdata:parentkey="idreg" msdata:childkey="idreg_referente" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

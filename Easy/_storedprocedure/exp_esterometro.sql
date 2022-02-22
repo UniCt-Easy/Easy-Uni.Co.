@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_esterometro]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_esterometro]
 GO
@@ -16,7 +33,7 @@ CREATE procedure exp_esterometro(
 	) as
 begin
 --setuser'amm'
--- exec exp_esterometro 2015,2,null,'A'
+-- exec exp_esterometro 2019,2,6,'A'
  
 
 DECLARE @meseinizio int
@@ -79,7 +96,7 @@ select @cf = case when upper(substring(cf,1,2)) ='IT' then substring(cf,3,(len(c
     idreg int,
 	address varchar(60),	
 	location varchar(60),
-	cap varchar(5),		
+	cap varchar(20),		
 	province varchar(2),
 	nation varchar(2)
 )
@@ -159,7 +176,7 @@ se dettaglio = beni => TD10
 se dettaglio = servizi =>TD11
 
 Acquisto Intracom X Extra UE: 
-se autofatture => TD11 Diventa: se Acquisto  Extra UE e NON bolla doganale => TD11
+se autofatture => TD11 Diventa: se Acquisto  Extra UE e NON bolla doganale => TD11* => diventa TD01
 se bolla doganale => TD10
 
 TD10 fattura di acquisto intracomunitario beni									
@@ -180,8 +197,8 @@ TD11 fattura di acquisto intracomunitario servizi
 			<
 			isnull((select sum(rowtotal) from invoicedetailview ID where I.ninv = ID.ninv and I.yinv = ID.yinv and I.idinvkind = ID.idinvkind and isnull(ID.intrastatoperationkind,'') = 'S'),0)
 			then 'TD11'
-		when @kind='A'and I.flagintracom='X' and ((flagbit & 1)= 0)	 then 'TD11'
-		when @kind='A'and I.flagintracom='X' and ((flagbit & 1)<>0)			then 'TD10'
+		when @kind='A'and I.flagintracom='X' and ((flagbit & 1)= 0)	 then 'TD01'
+		when @kind='A'and I.flagintracom='X' and ((flagbit & 1)<>0)	then 'TD10'
 
 	END as 'Tipodocumento',
 	I.docdate as 'datadocumento',

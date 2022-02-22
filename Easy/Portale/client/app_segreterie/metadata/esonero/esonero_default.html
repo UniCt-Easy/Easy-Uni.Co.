@@ -1,0 +1,61 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_default_aa">Anno accademico</label>
+					<select id="esonero_default_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="esonero.aa?esonerodefaultview.aa" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_default_title">Denominazione</label>
+					<input id="esonero_default_title" type="text" class="form-control" data-tag="esonero.title?esonerodefaultview.title" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_default_description">Descrizione</label>
+					<input id="esonero_default_description" type="text" class="form-control" data-tag="esonero.description?esonerodefaultview.esonero_description" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_default_applunavolta">Applicabile una sola volta</label>
+					<div class="custom-control custom-radio">
+						<input id="esonero_default_applunavoltaSi" type="radio" name="esonero_default_applunavolta" class="custom-control-input" data-tag="esonero.applunavolta:S?esonerodefaultview.esonero_applunavolta:Si" data-subentity  ><label for="esonero_default_applunavoltaSi"> Si</label>
+						<input id="esonero_default_applunavoltaNo" type="radio" name="esonero_default_applunavolta" class="custom-control-input" data-tag="esonero.applunavolta:N?esonerodefaultview.esonero_applunavolta:No" data-subentity  ><label for="esonero_default_applunavoltaNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_default_idcostoscontodef">Sconto</label>
+					<div>
+						<input id="esonero_default_idcostoscontodef" name="esonero_default_idcostoscontodef" type="text" data-listtype="sconti"  class="form-control" data-minchar="2" data-tag="costoscontodefscontiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_default_idesoneroanskind">Codice ANS</label>
+					<select id="esonero_default_idesoneroanskind" class="custom-select d-block w-100"  data-source-name="esoneroanskind" data-value-member="idesoneroanskind" data-display-member="title" data-custom-control="combo" data-tag="esonero.idesoneroanskind?esonerodefaultview.esonero_idesoneroanskind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_default_retroattivo">Retroattivo</label>
+					<div class="custom-control custom-radio">
+						<input id="esonero_default_retroattivoSi" type="radio" name="esonero_default_retroattivo" class="custom-control-input" data-tag="esonero.retroattivo:S?esonerodefaultview.esonero_retroattivo:Si" data-subentity  ><label for="esonero_default_retroattivoSi"> Si</label>
+						<input id="esonero_default_retroattivoNo" type="radio" name="esonero_default_retroattivo" class="custom-control-input" data-tag="esonero.retroattivo:N?esonerodefaultview.esonero_retroattivo:No" data-subentity  ><label for="esonero_default_retroattivoNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="esonero_default_soloconisee">Applicabile solo con ISEE</label>
+					<div class="custom-control custom-radio">
+						<input id="esonero_default_soloconiseeSi" type="radio" name="esonero_default_soloconisee" class="custom-control-input" data-tag="esonero.soloconisee:S?esonerodefaultview.esonero_soloconisee:Si" data-subentity  ><label for="esonero_default_soloconiseeSi"> Si</label>
+						<input id="esonero_default_soloconiseeNo" type="radio" name="esonero_default_soloconisee" class="custom-control-input" data-tag="esonero.soloconisee:N?esonerodefaultview.esonero_soloconisee:No" data-subentity  ><label for="esonero_default_soloconiseeNo"> No</label>
+					</div>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

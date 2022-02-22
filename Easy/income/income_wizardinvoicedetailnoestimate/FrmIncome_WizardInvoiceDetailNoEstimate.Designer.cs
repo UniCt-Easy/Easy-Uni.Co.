@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 namespace income_wizardinvoicedetailnoestimate
 {
@@ -87,8 +86,6 @@ namespace income_wizardinvoicedetailnoestimate
             this.radioNewCont = new System.Windows.Forms.RadioButton();
             this.radioAddCont = new System.Windows.Forms.RadioButton();
             this.labelMessage = new System.Windows.Forms.Label();
-            this.tabIntro = new Crownwood.Magic.Controls.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
             this.tabSetDetail = new Crownwood.Magic.Controls.TabPage();
             this.cmbTipoFattura = new System.Windows.Forms.ComboBox();
             this.txtDescrFattura = new System.Windows.Forms.TextBox();
@@ -150,7 +147,6 @@ namespace income_wizardinvoicedetailnoestimate
             this.groupBox20.SuspendLayout();
             this.groupBox18.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tabIntro.SuspendLayout();
             this.tabSetDetail.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridDetails)).BeginInit();
@@ -179,7 +175,6 @@ namespace income_wizardinvoicedetailnoestimate
             this.tabController.Size = new System.Drawing.Size(865, 544);
             this.tabController.TabIndex = 24;
             this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
-            this.tabIntro,
             this.tabSetDetail,
             this.tabSplit,
             this.tabSelMov,
@@ -198,7 +193,7 @@ namespace income_wizardinvoicedetailnoestimate
             this.tabSelMov.Selected = false;
             this.tabSelMov.Size = new System.Drawing.Size(865, 519);
             this.tabSelMov.TabIndex = 5;
-            this.tabSelMov.Title = "Pagina 4 di 5";
+            this.tabSelMov.Title = "Pagina 3 di 4";
             // 
             // gboxSelMov
             // 
@@ -585,25 +580,6 @@ namespace income_wizardinvoicedetailnoestimate
             this.labelMessage.Size = new System.Drawing.Size(847, 32);
             this.labelMessage.TabIndex = 106;
             // 
-            // tabIntro
-            // 
-            this.tabIntro.Controls.Add(this.label1);
-            this.tabIntro.Location = new System.Drawing.Point(0, 0);
-            this.tabIntro.Name = "tabIntro";
-            this.tabIntro.Selected = false;
-            this.tabIntro.Size = new System.Drawing.Size(865, 519);
-            this.tabIntro.TabIndex = 3;
-            this.tabIntro.Title = "Pagina 1 di 5";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(746, 105);
-            this.label1.TabIndex = 0;
-            this.label1.Text = resources.GetString("label1.Text");
-            // 
             // tabSetDetail
             // 
             this.tabSetDetail.Controls.Add(this.cmbTipoFattura);
@@ -626,7 +602,7 @@ namespace income_wizardinvoicedetailnoestimate
             this.tabSetDetail.Name = "tabSetDetail";
             this.tabSetDetail.Size = new System.Drawing.Size(865, 519);
             this.tabSetDetail.TabIndex = 4;
-            this.tabSetDetail.Title = "Pagina 2 di 5";
+            this.tabSetDetail.Title = "Pagina 1 di 4";
             // 
             // cmbTipoFattura
             // 
@@ -863,7 +839,7 @@ namespace income_wizardinvoicedetailnoestimate
             this.tabSplit.Selected = false;
             this.tabSplit.Size = new System.Drawing.Size(865, 519);
             this.tabSplit.TabIndex = 7;
-            this.tabSplit.Title = "Pagina 3 di 5";
+            this.tabSplit.Title = "Pagina 2 di 4";
             // 
             // groupBox3
             // 
@@ -987,7 +963,7 @@ namespace income_wizardinvoicedetailnoestimate
             this.tabConfirm.Selected = false;
             this.tabConfirm.Size = new System.Drawing.Size(865, 519);
             this.tabConfirm.TabIndex = 6;
-            this.tabConfirm.Title = "Pagina 5 di 5";
+            this.tabConfirm.Title = "Pagina 4 di 4";
             // 
             // grpInfoOpzionali
             // 
@@ -1094,7 +1070,7 @@ namespace income_wizardinvoicedetailnoestimate
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 23;
             this.btnCancel.Tag = "maincancel";
-            this.btnCancel.Text = "Cancel";
+            this.btnCancel.Text = "Annulla";
             // 
             // btnNext
             // 
@@ -1156,8 +1132,6 @@ namespace income_wizardinvoicedetailnoestimate
             this.groupBox18.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.tabIntro.ResumeLayout(false);
-            this.tabIntro.PerformLayout();
             this.tabSetDetail.ResumeLayout(false);
             this.tabSetDetail.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -1182,8 +1156,6 @@ namespace income_wizardinvoicedetailnoestimate
 
         public vistaForm DS;
         private Crownwood.Magic.Controls.TabControl tabController;
-        private Crownwood.Magic.Controls.TabPage tabIntro;
-        private System.Windows.Forms.Label label1;
         private Crownwood.Magic.Controls.TabPage tabSetDetail;
         private System.Windows.Forms.ComboBox cmbTipoFattura;
         private System.Windows.Forms.TextBox txtDescrFattura;
@@ -1273,4 +1245,4 @@ namespace income_wizardinvoicedetailnoestimate
         private System.Windows.Forms.TextBox txtUPB;
         private System.Windows.Forms.Panel panel1;
     }
-}
+}

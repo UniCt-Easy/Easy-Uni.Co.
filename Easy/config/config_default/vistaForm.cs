@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -39,168 +38,87 @@ using metadatalibrary;
 namespace config_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public configTable config 		=> (configTable)Tables["config"];
 
-	///<summary>
-	///Tipi di buoni di carico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public assetloadkindTable assetloadkind 		=> (assetloadkindTable)Tables["assetloadkind"];
 
-	///<summary>
-	///Tipi di buoni di scarico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public assetunloadkindTable assetunloadkind 		=> (assetunloadkindTable)Tables["assetunloadkind"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_pat 		=> (accountTable)Tables["account_pat"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_economic_result 		=> (accountTable)Tables["account_economic_result"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_previous_economic_result 		=> (accountTable)Tables["account_previous_economic_result"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_ivapayment 		=> (accountTable)Tables["account_ivapayment"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_supplier 		=> (accountTable)Tables["account_supplier"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_ivarefund 		=> (accountTable)Tables["account_ivarefund"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_customer 		=> (accountTable)Tables["account_customer"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_accruedcost 		=> (accountTable)Tables["account_accruedcost"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_accruedrevenue 		=> (accountTable)Tables["account_accruedrevenue"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_deferredcost 		=> (accountTable)Tables["account_deferredcost"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_deferredrevenue 		=> (accountTable)Tables["account_deferredrevenue"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_pl 		=> (accountTable)Tables["account_pl"];
 
-	///<summary>
-	///Fasi di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expensephase 		=> (MetaTable)Tables["expensephase"];
 
-	///<summary>
-	///Livelli del bilancio annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable finlevel 		=> (MetaTable)Tables["finlevel"];
 
-	///<summary>
-	///Tipo di Rilevanza analitica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingkindTable sortingkind1 		=> (sortingkindTable)Tables["sortingkind1"];
 
-	///<summary>
-	///Tipo di Rilevanza analitica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingkindTable sortingkind2 		=> (sortingkindTable)Tables["sortingkind2"];
 
-	///<summary>
-	///Tipo di Rilevanza analitica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingkindTable sortingkind3 		=> (sortingkindTable)Tables["sortingkind3"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable registry 		=> (registryTable)Tables["registry"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable registry_csa 		=> (registryTable)Tables["registry_csa"];
 
-	///<summary>
-	///Fasi di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable incomephase 		=> (MetaTable)Tables["incomephase"];
 
-	///<summary>
-	///Fasi di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expensephase1 		=> (MetaTable)Tables["expensephase1"];
 
-	///<summary>
-	///Livelli del bilancio annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable finlevel1 		=> (MetaTable)Tables["finlevel1"];
 
-	///<summary>
-	///Fasi di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable incomephase1 		=> (MetaTable)Tables["incomephase1"];
 
-	///<summary>
-	///Peridiocit√† della liquidazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable ivapayperiodicity 		=> (MetaTable)Tables["ivapayperiodicity"];
 
@@ -210,21 +128,12 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public finviewTable bilanciorimborso 		=> (finviewTable)Tables["bilanciorimborso"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable creddebrimborso 		=> (registryTable)Tables["creddebrimborso"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable creddebversamento 		=> (registryTable)Tables["creddebversamento"];
 
-	///<summary>
-	///Tipi di recupero
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable clawback 		=> (MetaTable)Tables["clawback"];
 
@@ -243,39 +152,21 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable appkind 		=> (MetaTable)Tables["appkind"];
 
-	///<summary>
-	///Modalit√† di pagamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable paymethodabi 		=> (MetaTable)Tables["paymethodabi"];
 
-	///<summary>
-	///Modalit√† di pagamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable paymethodnoabi 		=> (MetaTable)Tables["paymethodnoabi"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_unabatable_versamento 		=> (accountTable)Tables["account_unabatable_versamento"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_unabatable_rimborso 		=> (accountTable)Tables["account_unabatable_rimborso"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable maincreddebrimborso 		=> (registryTable)Tables["maincreddebrimborso"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable maincreddebversamento 		=> (registryTable)Tables["maincreddebversamento"];
 
@@ -285,75 +176,39 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public finviewTable mainbilancioversamento 		=> (finviewTable)Tables["mainbilancioversamento"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_mainunabatable_versamento 		=> (accountTable)Tables["account_mainunabatable_versamento"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_mainunabatable_rimborso 		=> (accountTable)Tables["account_mainunabatable_rimborso"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_mainivapayment 		=> (accountTable)Tables["account_mainivapayment"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_mainivapayment_internal 		=> (accountTable)Tables["account_mainivapayment_internal"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_mainivarefund 		=> (accountTable)Tables["account_mainivarefund"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_mainivarefund_internal 		=> (accountTable)Tables["account_mainivarefund_internal"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_ivarefund12 		=> (accountTable)Tables["account_ivarefund12"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_ivapayment12 		=> (accountTable)Tables["account_ivapayment12"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_mainivarefund12 		=> (accountTable)Tables["account_mainivarefund12"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_mainivarefund_internal12 		=> (accountTable)Tables["account_mainivarefund_internal12"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_mainivapayment12 		=> (accountTable)Tables["account_mainivapayment12"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_mainivapayment_internal12 		=> (accountTable)Tables["account_mainivapayment_internal12"];
 
@@ -363,15 +218,9 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public finviewTable bilanciorimborso12 		=> (finviewTable)Tables["bilanciorimborso12"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable creddebversamento12 		=> (registryTable)Tables["creddebversamento12"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable creddebrimborso12 		=> (registryTable)Tables["creddebrimborso12"];
 
@@ -381,129 +230,72 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public finviewTable mainbilancioversamento12 		=> (finviewTable)Tables["mainbilancioversamento12"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable maincreddebversamento12 		=> (registryTable)Tables["maincreddebversamento12"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable maincreddebrimborso12 		=> (registryTable)Tables["maincreddebrimborso12"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public finviewTable fin_income_gross_csa 		=> (finviewTable)Tables["fin_income_gross_csa"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_revenue_gross_csa 		=> (accountTable)Tables["account_revenue_gross_csa"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting3 		=> (sortingTable)Tables["sorting3"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting1 		=> (sortingTable)Tables["sorting1"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting2 		=> (sortingTable)Tables["sorting2"];
 
-	///<summary>
-	///Ufficio inps
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable inpscenter 		=> (MetaTable)Tables["inpscenter"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public finviewTable fin_store 		=> (finviewTable)Tables["fin_store"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sortingincomecsa 		=> (sortingTable)Tables["sortingincomecsa"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_invoicetoreceive 		=> (accountTable)Tables["account_invoicetoreceive"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_invoicetoemit 		=> (accountTable)Tables["account_invoicetoemit"];
 
-	///<summary>
-	///trattasi di valori codificati dalla PCC
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable pccdebitstatus 		=> (MetaTable)Tables["pccdebitstatus"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_unabatable_split 		=> (accountTable)Tables["account_unabatable_split"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_split_ivapayment 		=> (accountTable)Tables["account_split_ivapayment"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public finviewTable mainbilancioversamentosplit 		=> (finviewTable)Tables["mainbilancioversamentosplit"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable maincreddebversamentosplit 		=> (registryTable)Tables["maincreddebversamentosplit"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_bankpaydoc 		=> (accountTable)Tables["account_bankpaydoc"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account_bankprodoc 		=> (accountTable)Tables["account_bankprodoc"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accmotiveappliedTable accmotiveapplied_forwarder 		=> (accmotiveappliedTable)Tables["accmotiveapplied_forwarder"];
 
-	///<summary>
-	///Elenco aliquote
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public ivakindTable ivakind 		=> (ivakindTable)Tables["ivakind"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accmotiveTable accmotive_grantdeferredcost 		=> (accmotiveTable)Tables["accmotive_grantdeferredcost"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accmotiveTable accmotive_grantrevenue 		=> (accmotiveTable)Tables["accmotive_grantrevenue"];
 
@@ -531,11 +323,14 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sorting_siopeivainc 		=> (MetaTable)Tables["sorting_siopeivainc"];
 
-	///<summary>
-	///Trattamento delle spese
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable chargehandling 		=> (MetaTable)Tables["chargehandling"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable account_unabatable_estera 		=> (MetaTable)Tables["account_unabatable_estera"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable siopeivavendita 		=> (MetaTable)Tables["siopeivavendita"];
 
 	#endregion
 
@@ -564,7 +359,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// CONFIG /////////////////////////////////
 	var tconfig= new configTable();
-	tconfig.addBaseColumns("ayear","agencycode","appname","appropriationphasecode","assessmentphasecode","asset_flagnumbering","asset_flagrestart","assetload_flag","boxpartitiontitle","casualcontract_flagrestart","ct","cu","currpartitiontitle","deferredexpensephase","deferredincomephase","electronicimport","electronictrasmission","expense_expiringdays","expensephase","flagautopayment","flagautoproceeds","flagcredit","flagepexp","flagfruitful","flagpayment","flagproceeds","flagrefund","foreignhours","idacc_accruedcost","idacc_accruedrevenue","idacc_customer","idacc_deferredcost","idacc_deferredcredit","idacc_deferreddebit","idacc_deferredrevenue","idacc_ivapayment","idacc_ivarefund","idacc_patrimony","idacc_pl","idacc_supplier","idacc_economic_result","idacc_previous_economic_result","idaccmotive_admincar","idaccmotive_foot","idaccmotive_owncar","idclawback","idfinexpense","idfinexpensesurplus","idfinincomesurplus","idfinivapayment","idfinivarefund","idregauto","idreg_csa","importappname","income_expiringdays","incomephase","linktoinvoice","lt","lu","minpayment","minrefund","motivelen","motiveprefix","motiveseparator","payment_finlevel","payment_flag","payment_flagautoprintdate","paymentagency","prevpartitiontitle","proceeds_finlevel","proceeds_flag","proceeds_flagautoprintdate","profservice_flagrestart","refundagency","wageaddition_flagrestart","idivapayperiodicity","idsortingkind1","idsortingkind2","idsortingkind3","fin_kind","taxvaliditykind","flag_paymentamount","automanagekind","flag_autodocnumbering","flagbank_grouping","cashvaliditykind","wageimportappname","balancekind","idpaymethodabi","idpaymethodnoabi","finvarofficial_default","iban_f24","cudactivitycode","flagivapaybyrow","startivabalance","idacc_unabatable","idacc_unabatable_refund","invoice_flagregister","default_idfinvarstatus","flagivaregphase","mainrefundagency","mainpaymentagency","mainminrefund","mainminpayment","mainidfinivarefund","mainidfinivapayment","mainflagrefund","mainflagpayment","mainflagivaregphase","mainstartivabalance","mainidacc_unabatable","mainidacc_unabatable_refund","idacc_mainivapayment","idacc_mainivapayment_internal","idacc_mainivarefund","idacc_mainivarefund_internal","flagva3","flagrefund12","flagpayment12","refundagency12","paymentagency12","idfinivarefund12","idfinivapayment12","minrefund12","minpayment12","idacc_ivapayment12","idacc_ivarefund12","idacc_mainivarefund12","idacc_mainivapayment12","idacc_mainivapayment_internal12","idacc_mainivarefund_internal12","startivabalance12","mainrefundagency12","mainpaymentagency12","mainflagrefund12","mainflagpayment12","mainidfinivarefund12","mainidfinivapayment12","mainminrefund12","mainminpayment12","mainstartivabalance12","idfinincome_gross_csa","idacc_revenue_gross_csa","flagdirectcsaclawback","finvar_warnmail","idsor1_stock","idsor2_stock","idsor3_stock","idinpscenter","flagpcashautopayment","flagpcashautoproceeds","idfin_store","email","booking_on_invoice","itineration_directauth","email_f24","csa_flaggroupby_income","csa_flaggroupby_expense","csa_flaglinktoexp","csa_nominativo","idsiopeincome_csa","idacc_invoicetoreceive","idacc_invoicetoemit","epannualthreeshold","flagbalance_csa","flagiva_immediate_or_deferred","flagenabletransmission","idpccdebitstatus","flagsplitpayment","idacc_ivapaymentsplit","idacc_unabatable_split","flagpaymentsplit","paymentagencysplit","idfinivapaymentsplit","startivabalancesplit","agencynumber","femode","idacc_bankpaydoc","idacc_bankprodoc","csa_flagtransmissionlinking","csa_idchargehandling","csa_flag","idaccmotive_forwarder","idivakind_forwarder","idaccmotive_grantrevenue","idaccmotive_grantdeferredcost","idaccmotive_assetrevenue","idaccmotive_prorata_cost","idaccmotive_prorata_revenue","idsor_siopeivaexp","idsor_siopeiva12exp","idsor_siopeivasplitexp","idsor_siopeiva12inc","idsor_siopeivainc","flag");
+	tconfig.addBaseColumns("ayear","agencycode","appname","appropriationphasecode","assessmentphasecode","asset_flagnumbering","asset_flagrestart","assetload_flag","boxpartitiontitle","casualcontract_flagrestart","ct","cu","currpartitiontitle","deferredexpensephase","deferredincomephase","electronicimport","electronictrasmission","expense_expiringdays","expensephase","flagautopayment","flagautoproceeds","flagcredit","flagepexp","flagfruitful","flagpayment","flagproceeds","flagrefund","foreignhours","idacc_accruedcost","idacc_accruedrevenue","idacc_customer","idacc_deferredcost","idacc_deferredcredit","idacc_deferreddebit","idacc_deferredrevenue","idacc_ivapayment","idacc_ivarefund","idacc_patrimony","idacc_pl","idacc_supplier","idacc_economic_result","idacc_previous_economic_result","idaccmotive_admincar","idaccmotive_foot","idaccmotive_owncar","idclawback","idfinexpense","idfinexpensesurplus","idfinincomesurplus","idfinivapayment","idfinivarefund","idregauto","idreg_csa","importappname","income_expiringdays","incomephase","linktoinvoice","lt","lu","minpayment","minrefund","motivelen","motiveprefix","motiveseparator","payment_finlevel","payment_flag","payment_flagautoprintdate","paymentagency","prevpartitiontitle","proceeds_finlevel","proceeds_flag","proceeds_flagautoprintdate","profservice_flagrestart","refundagency","wageaddition_flagrestart","idivapayperiodicity","idsortingkind1","idsortingkind2","idsortingkind3","fin_kind","taxvaliditykind","flag_paymentamount","automanagekind","flag_autodocnumbering","flagbank_grouping","cashvaliditykind","wageimportappname","balancekind","idpaymethodabi","idpaymethodnoabi","finvarofficial_default","iban_f24","cudactivitycode","flagivapaybyrow","startivabalance","idacc_unabatable","idacc_unabatable_refund","invoice_flagregister","default_idfinvarstatus","flagivaregphase","mainrefundagency","mainpaymentagency","mainminrefund","mainminpayment","mainidfinivarefund","mainidfinivapayment","mainflagrefund","mainflagpayment","mainflagivaregphase","mainstartivabalance","mainidacc_unabatable","mainidacc_unabatable_refund","idacc_mainivapayment","idacc_mainivapayment_internal","idacc_mainivarefund","idacc_mainivarefund_internal","flagva3","flagrefund12","flagpayment12","refundagency12","paymentagency12","idfinivarefund12","idfinivapayment12","minrefund12","minpayment12","idacc_ivapayment12","idacc_ivarefund12","idacc_mainivarefund12","idacc_mainivapayment12","idacc_mainivapayment_internal12","idacc_mainivarefund_internal12","startivabalance12","mainrefundagency12","mainpaymentagency12","mainflagrefund12","mainflagpayment12","mainidfinivarefund12","mainidfinivapayment12","mainminrefund12","mainminpayment12","mainstartivabalance12","idfinincome_gross_csa","idacc_revenue_gross_csa","flagdirectcsaclawback","finvar_warnmail","idsor1_stock","idsor2_stock","idsor3_stock","idinpscenter","flagpcashautopayment","flagpcashautoproceeds","idfin_store","email","booking_on_invoice","itineration_directauth","email_f24","csa_flaggroupby_income","csa_flaggroupby_expense","csa_flaglinktoexp","csa_nominativo","idsiopeincome_csa","idacc_invoicetoreceive","idacc_invoicetoemit","epannualthreeshold","flagbalance_csa","flagiva_immediate_or_deferred","flagenabletransmission","idpccdebitstatus","flagsplitpayment","idacc_ivapaymentsplit","idacc_unabatable_split","flagpaymentsplit","paymentagencysplit","idfinivapaymentsplit","startivabalancesplit","agencynumber","femode","idacc_bankpaydoc","idacc_bankprodoc","csa_flagtransmissionlinking","csa_idchargehandling","csa_flag","idaccmotive_forwarder","idivakind_forwarder","idaccmotive_grantrevenue","idaccmotive_grantdeferredcost","idaccmotive_assetrevenue","idaccmotive_prorata_cost","idaccmotive_prorata_revenue","idsor_siopeivaexp","idsor_siopeiva12exp","idsor_siopeivasplitexp","idsor_siopeiva12inc","idsor_siopeivainc","flag","assignedrequirement","risconta_ammortamenti_futuri","idacc_unabatable_estera","idsor_siopeivavendita");
 	Tables.Add(tconfig);
 	tconfig.defineKey("ayear");
 
@@ -1524,12 +1319,96 @@ private void initClass() {
 	Tables.Add(tchargehandling);
 	tchargehandling.defineKey("idchargehandling");
 
+	//////////////////// ACCOUNT_UNABATABLE_ESTERA /////////////////////////////////
+	var taccount_unabatable_estera= new MetaTable("account_unabatable_estera");
+	taccount_unabatable_estera.defineColumn("idacc", typeof(string),false);
+	taccount_unabatable_estera.defineColumn("ayear", typeof(short),false);
+	taccount_unabatable_estera.defineColumn("codeacc", typeof(string),false);
+	taccount_unabatable_estera.defineColumn("ct", typeof(DateTime),false);
+	taccount_unabatable_estera.defineColumn("cu", typeof(string),false);
+	taccount_unabatable_estera.defineColumn("flagregistry", typeof(string));
+	taccount_unabatable_estera.defineColumn("flagtransitory", typeof(string));
+	taccount_unabatable_estera.defineColumn("flagupb", typeof(string));
+	taccount_unabatable_estera.defineColumn("idaccountkind", typeof(string));
+	taccount_unabatable_estera.defineColumn("lt", typeof(DateTime),false);
+	taccount_unabatable_estera.defineColumn("lu", typeof(string),false);
+	taccount_unabatable_estera.defineColumn("nlevel", typeof(string),false);
+	taccount_unabatable_estera.defineColumn("paridacc", typeof(string));
+	taccount_unabatable_estera.defineColumn("printingorder", typeof(string),false);
+	taccount_unabatable_estera.defineColumn("rtf", typeof(Byte[]));
+	taccount_unabatable_estera.defineColumn("title", typeof(string),false);
+	taccount_unabatable_estera.defineColumn("txt", typeof(string));
+	taccount_unabatable_estera.defineColumn("idpatrimony", typeof(string));
+	taccount_unabatable_estera.defineColumn("idplaccount", typeof(string));
+	taccount_unabatable_estera.defineColumn("flagprofit", typeof(string));
+	taccount_unabatable_estera.defineColumn("flagloss", typeof(string));
+	taccount_unabatable_estera.defineColumn("placcount_sign", typeof(string));
+	taccount_unabatable_estera.defineColumn("patrimony_sign", typeof(string));
+	taccount_unabatable_estera.defineColumn("flagcompetency", typeof(string));
+	taccount_unabatable_estera.defineColumn("flag", typeof(int));
+	taccount_unabatable_estera.defineColumn("idacc_special", typeof(string));
+	taccount_unabatable_estera.defineColumn("flagenablebudgetprev", typeof(string));
+	taccount_unabatable_estera.defineColumn("flagaccountusage", typeof(int));
+	taccount_unabatable_estera.defineColumn("idsor_economicbudget", typeof(int));
+	taccount_unabatable_estera.defineColumn("economicbudget_sign", typeof(string));
+	taccount_unabatable_estera.defineColumn("idsor_investmentbudget", typeof(int));
+	taccount_unabatable_estera.defineColumn("investmentbudget_sign", typeof(string));
+	Tables.Add(taccount_unabatable_estera);
+	taccount_unabatable_estera.defineKey("idacc");
+
+	//////////////////// SIOPEIVAVENDITA /////////////////////////////////
+	var tsiopeivavendita= new MetaTable("siopeivavendita");
+	tsiopeivavendita.defineColumn("ct", typeof(DateTime),false);
+	tsiopeivavendita.defineColumn("cu", typeof(string),false);
+	tsiopeivavendita.defineColumn("defaultN1", typeof(decimal));
+	tsiopeivavendita.defineColumn("defaultN2", typeof(decimal));
+	tsiopeivavendita.defineColumn("defaultN3", typeof(decimal));
+	tsiopeivavendita.defineColumn("defaultN4", typeof(decimal));
+	tsiopeivavendita.defineColumn("defaultN5", typeof(decimal));
+	tsiopeivavendita.defineColumn("defaultS1", typeof(string));
+	tsiopeivavendita.defineColumn("defaultS2", typeof(string));
+	tsiopeivavendita.defineColumn("defaultS3", typeof(string));
+	tsiopeivavendita.defineColumn("defaultS4", typeof(string));
+	tsiopeivavendita.defineColumn("defaultS5", typeof(string));
+	tsiopeivavendita.defineColumn("defaultv1", typeof(decimal));
+	tsiopeivavendita.defineColumn("defaultv2", typeof(decimal));
+	tsiopeivavendita.defineColumn("defaultv3", typeof(decimal));
+	tsiopeivavendita.defineColumn("defaultv4", typeof(decimal));
+	tsiopeivavendita.defineColumn("defaultv5", typeof(decimal));
+	tsiopeivavendita.defineColumn("description", typeof(string),false);
+	tsiopeivavendita.defineColumn("flagnodate", typeof(string));
+	tsiopeivavendita.defineColumn("lt", typeof(DateTime),false);
+	tsiopeivavendita.defineColumn("lu", typeof(string),false);
+	tsiopeivavendita.defineColumn("movkind", typeof(string));
+	tsiopeivavendita.defineColumn("printingorder", typeof(string));
+	tsiopeivavendita.defineColumn("rtf", typeof(Byte[]));
+	tsiopeivavendita.defineColumn("sortcode", typeof(string),false);
+	tsiopeivavendita.defineColumn("txt", typeof(string));
+	tsiopeivavendita.defineColumn("idsorkind", typeof(int),false);
+	tsiopeivavendita.defineColumn("idsor", typeof(int),false);
+	tsiopeivavendita.defineColumn("paridsor", typeof(int));
+	tsiopeivavendita.defineColumn("nlevel", typeof(byte),false);
+	tsiopeivavendita.defineColumn("start", typeof(short));
+	tsiopeivavendita.defineColumn("stop", typeof(short));
+	tsiopeivavendita.defineColumn("email", typeof(string));
+	tsiopeivavendita.defineColumn("idsor01", typeof(int));
+	tsiopeivavendita.defineColumn("idsor02", typeof(int));
+	tsiopeivavendita.defineColumn("idsor03", typeof(int));
+	tsiopeivavendita.defineColumn("idsor04", typeof(int));
+	tsiopeivavendita.defineColumn("idsor05", typeof(int));
+	Tables.Add(tsiopeivavendita);
+	tsiopeivavendita.defineKey("idsor");
+
 	#endregion
 
 
 	#region DataRelation creation
-	var cPar = new []{accmotive_grantdeferredcost.Columns["idaccmotive"]};
-	var cChild = new []{config.Columns["idaccmotive_grantdeferredcost"]};
+	var cPar = new []{siopeivavendita.Columns["idsor"]};
+	var cChild = new []{config.Columns["idsor_siopeivavendita"]};
+	Relations.Add(new DataRelation("FK_siopeivavendita_config",cPar,cChild,false));
+
+	cPar = new []{accmotive_grantdeferredcost.Columns["idaccmotive"]};
+	cChild = new []{config.Columns["idaccmotive_grantdeferredcost"]};
 	Relations.Add(new DataRelation("config_accmotive_grantdeferredcost",cPar,cChild,false));
 
 	cPar = new []{accmotive_grantrevenue.Columns["idaccmotive"]};
@@ -1880,9 +1759,12 @@ private void initClass() {
 	cChild = new []{config.Columns["csa_idchargehandling"]};
 	Relations.Add(new DataRelation("chargehandling_config",cPar,cChild,false));
 
+	cPar = new []{account_unabatable_estera.Columns["idacc"]};
+	cChild = new []{config.Columns["idacc_unabatable_estera"]};
+	Relations.Add(new DataRelation("account_unabatable_estera_config",cPar,cChild,false));
+
 	#endregion
 
 }
 }
 }
-

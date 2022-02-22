@@ -1,0 +1,67 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabconvalida_segistrein_0" class="nav-link active show" data-toggle="pill" data-target="#tabconvalida_segistrein_0"><i class="fa fa-arrows-alt-h mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabconvalida_segistrein_1" class="nav-link" data-toggle="pill" data-target="#tabconvalida_segistrein_1"><i class="fa fa-sign-out-alt mr-1"></i>Convalidanti</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabconvalida_segistrein_2" class="nav-link" data-toggle="pill" data-target="#tabconvalida_segistrein_2"><i class="fa fa-sign-in-alt mr-1"></i>Convalidati</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabconvalida_segistrein_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segistrein_cf">Crediti formativi</label>
+					<input id="convalida_segistrein_cf" type="text" class="form-control" data-tag="convalida.cf.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segistrein_cfintegrazione">Crediti formativi di integrazione</label>
+					<input id="convalida_segistrein_cfintegrazione" type="text" class="form-control" data-tag="convalida.cfintegrazione.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#convalida_segistrein_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="convalida_segistrein_data">Data</label>
+					<input id="convalida_segistrein_data" type="text" class="form-control" data-tag="convalida.data.g"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segistrein_voto">Voto</label>
+					<input id="convalida_segistrein_voto" type="text" class="form-control" data-tag="convalida.voto.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segistrein_votolode">Lode</label>
+					<div class="custom-control custom-radio">
+						<input id="convalida_segistrein_votolodeSi" type="radio" name="convalida_segistrein_votolode" class="custom-control-input" data-tag="convalida.votolode:S"  ><label for="convalida_segistrein_votolodeSi"> Si</label>
+						<input id="convalida_segistrein_votolodeNo" type="radio" name="convalida_segistrein_votolode" class="custom-control-input" data-tag="convalida.votolode:N"  ><label for="convalida_segistrein_votolodeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segistrein_votosu">Su</label>
+					<input id="convalida_segistrein_votosu" type="text" class="form-control" data-tag="convalida.votosu"  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabconvalida_segistrein_1" role="tabpanel">
+				<div class="gridx" id="grid_convalidante_segistrein" data-tag="convalidante.segistrein.segistrein" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="changes,S,Si;changes,N,No;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabconvalida_segistrein_2" role="tabpanel">
+				<div class="gridx" id="grid_convalidato_segistrein" data-tag="convalidato.segistrein.segistrein" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

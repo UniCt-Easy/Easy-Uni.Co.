@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -53,7 +52,7 @@ namespace meta_payrollview{//meta_cedolinoview//
 
         public override void DescribeColumns(DataTable T, string ListingType) {
 			base.DescribeColumns(T, ListingType);
-			int nPos = 1;
+			int nPos = 1;			
 			if (ListingType=="default") {
                 //3) numero mandato di pagamento
                 //4) numero liquidazione (ultima fase)
@@ -69,9 +68,6 @@ namespace meta_payrollview{//meta_cedolinoview//
 				DescribeAColumn(T,"ncon","Num. Contratto", nPos++);
                 DescribeAColumn(T, "codeser", ".Cod. Prestazione", nPos++);
 				DescribeAColumn(T,"service","Prestazione", nPos++);
-				DescribeAColumn(T,"ymov_lastphase","Eserc. Pagamento", nPos++);
-                DescribeAColumn(T,"nmov_lastphase", "Num. Pagamento", nPos++);
-                DescribeAColumn(T, "npay", "Num. Mandato", nPos++);
                 DescribeAColumn(T,"workingdays","gg. lavorati", nPos++);
 				DescribeAColumn(T,"feegross","Comp. Lordo", nPos++);
 				DescribeAColumn(T,"netfee","Comp. Netto", nPos++);
@@ -80,7 +76,11 @@ namespace meta_payrollview{//meta_cedolinoview//
                 DescribeAColumn(T, "flagsummarybalance", "riepilogo", nPos++);
                 DescribeAColumn(T,"currentrounding","Arrotond.", nPos++);
 				DescribeAColumn(T,"enabletaxrelief","Applica Ag.Fiscali", nPos++);
-				DescribeAColumn(T,"residencecity","Comune residenza", nPos++);
+				DescribeAColumn(T,"residencecity","Comune residenza", nPos++);	
+				  if (Conn.GetSys("idsortingkind1") != DBNull.Value) {
+                    DescribeAColumn(T, "sortcode1", Conn.GetSys("titlesortingkind1").ToString(), nPos++);
+                }
+				
 			}
 			
 			if (ListingType=="lista") {
@@ -101,4 +101,4 @@ namespace meta_payrollview{//meta_cedolinoview//
 			}
 		}
 	}
-}
+}

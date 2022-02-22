@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -31,7 +30,7 @@ namespace ivapay_wizard_acconto {//liquidazioneiva_acconto//
 	/// <summary>
 	/// Summary description for frmliquidazioneiva_acconto.
 	/// </summary>
-	public class Frm_ivapay_wizard_acconto : System.Windows.Forms.Form {
+	public class Frm_ivapay_wizard_acconto : MetaDataForm {
 		public vistaForm DS;
 		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.Button btnNext;
@@ -464,7 +463,7 @@ namespace ivapay_wizard_acconto {//liquidazioneiva_acconto//
 		/// </summary>
 		private void ShowMsg(string msg, string error) {
 			if (error==null || error=="")
-				MessageBox.Show(msg,"Attenzione",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+				show(msg,"Attenzione",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 			else
 				QueryCreator.ShowError(this,msg,error);
 		}
@@ -521,7 +520,7 @@ namespace ivapay_wizard_acconto {//liquidazioneiva_acconto//
 		bool CustomChangeTab(int oldTab, int newTab) {
 			if ((oldTab==0)&&(newTab==1)) {
                 if (!(rdbMetodoAcconto1.Checked || rdbMetodoAcconto2.Checked || rdbMetodoAcconto3.Checked || rdbMetodoAcconto4.Checked)) {
-                    MessageBox.Show(this, "Selezionare il Metodo usato per il calcolo dell'Acconto");
+                    show(this, "Selezionare il Metodo usato per il calcolo dell'Acconto");
                     return false;
                 }
                 CheckImporto();
@@ -600,7 +599,7 @@ namespace ivapay_wizard_acconto {//liquidazioneiva_acconto//
 		private bool GeneraMovimenti() {
 			DataTable tIva = calcolaAnticipo();
 			if (tIva == null) {
-				MessageBox.Show(this, "Manca la cfg. del modulo iva. Andare in Menu/Configurazione/.. ed impostarli");
+				show(this, "Manca la cfg. del modulo iva. Andare in Menu/Configurazione/.. ed impostarli");
 				return false;
 			}
 			tIva.Columns.Add("idmovimento", typeof(string));
@@ -806,7 +805,7 @@ namespace ivapay_wizard_acconto {//liquidazioneiva_acconto//
 			string rowfilter;
 			int maxfase = GetMaxFaseForSelection(RigheSelezionate, "expense");
 			if (maxfase<1){
-				MessageBox.Show("Non è possibile collegare tutte le righe selezionate ad uno stesso movimento.\n"+
+				show("Non è possibile collegare tutte le righe selezionate ad uno stesso movimento.\n"+
 					"Le informazioni di U.P.B., bilancio, percipiente sono troppo diverse tra loro.","Errore");
 				return;
 			}
@@ -998,7 +997,7 @@ namespace ivapay_wizard_acconto {//liquidazioneiva_acconto//
                         object codicecreddeb = R["idreg"];
                         DataRow ModPagam = CfgFn.ModalitaPagamentoDefault(Meta.Conn, codicecreddeb);
                         if (ModPagam == null) {
-                            MessageBox.Show(this,
+                            show(this,
                                 "E' necessario che sia definita almeno una modalità di pagamento per il percipiente " +
                                 "\"" + R["registry"].ToString() + "\"\n\n" +
                                 "Dati non salvati", "Errore", MessageBoxButtons.OK);
@@ -1169,7 +1168,7 @@ namespace ivapay_wizard_acconto {//liquidazioneiva_acconto//
                 Easy_PostData EP = new Easy_PostData();
                 EP.InitClass(DS, Conn);
                 bool res2 = EP.DO_POST();
-                if (res2) MessageBox.Show("Acconto creato correttamente.");
+                if (res2) show("Acconto creato correttamente.");
                 return;
             }
 
@@ -1181,7 +1180,7 @@ namespace ivapay_wizard_acconto {//liquidazioneiva_acconto//
             ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
             bool res = ga.GeneraAutomatismiAfterPost(true);
 			if (!res) {
-				MessageBox.Show(this, "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
+				show(this, "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
 				return;
 			}
             //ga.GeneraClassificazioniIndirette(ga.DSP, true);lo fa già GeneraClassificazioniAutomatiche
@@ -1221,4 +1220,4 @@ namespace ivapay_wizard_acconto {//liquidazioneiva_acconto//
             }
         }
 	}
-}
+}

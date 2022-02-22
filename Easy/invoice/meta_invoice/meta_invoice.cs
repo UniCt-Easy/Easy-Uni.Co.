@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -88,7 +87,7 @@ namespace meta_invoice//meta_documentoiva//
             SetDefault(PrimaryTable, "flag_ddt", "N");
             SetDefault(PrimaryTable, "toincludeinpaymentindicator", "S");
             SetDefault(PrimaryTable, "resendingpcc", "N");
-            SetDefault(PrimaryTable, "touniqueregister", "S");
+            //SetDefault(PrimaryTable, "touniqueregister", "S"); task 16033
             SetDefault(PrimaryTable, "flag_enable_split_payment", "N");
             SetDefault(PrimaryTable, "flag_reverse_charge", "N");
             SetDefault(PrimaryTable, "rounding", "N");
@@ -153,7 +152,7 @@ namespace meta_invoice//meta_documentoiva//
                 int pos = 1;
                 DescribeAColumn(T, "idinvkind", ".idinvkind", pos++);
                 DescribeAColumn(T, "yinv", "Esercizio", pos++);
-                DescribeAColumn(T, "yinv", "Numero", pos++);
+                DescribeAColumn(T, "ninv", "Numero", pos++);
                 DescribeAColumn(T, "!registry", "Cliente", pos++);
                 DescribeAColumn(T, "doc", "Documento", pos++);
                 DescribeAColumn(T, "docdate", "Data doc.", pos++);
@@ -165,7 +164,7 @@ namespace meta_invoice//meta_documentoiva//
         public override DataRow Get_New_Row(DataRow ParentRow, DataTable T){
 			RowChange.SetSelector(T, "idinvkind");
 			RowChange.SetSelector(T, "yinv");
-			RowChange.MarkAsAutoincrement(T.Columns["ninv"], null, null, 0);
+			RowChange.MarkAsAutoincrement(T.Columns["ninv"], null, null, -1);
             if (!RowChange.IsCustomAutoIncrement(T.Columns["ninv"])) {
                 RowChange.MarkAsCustomAutoincrement(T.Columns["ninv"],calcId);
             }
@@ -194,7 +193,7 @@ namespace meta_invoice//meta_documentoiva//
                         " ORDER BY IR.registerclass ASC ";
             var T = conn.SQLRunner(sql);
             if (T.Rows.Count == 0) {
-                MessageBox.Show("Errore nella configurazione del tipo documento");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nella configurazione del tipo documento");
                 return 1;
             }
             var idivaregisterkind = T.Rows[0]["idivaregisterkind"];
@@ -223,6 +222,7 @@ namespace meta_invoice//meta_documentoiva//
 
 		Dictionary<string,string>veroTipo= new Dictionary<string, string>();
 		private string veroTipoFatturaAv(object idInvKind) {
+            if (idInvKind == null) return "A";
 			if (veroTipo.ContainsKey(idInvKind.ToString())) return veroTipo[idInvKind.ToString()];
 			string filterreg = QHS.CmpEq("idinvkind", idInvKind);
 			DataTable invRegKind = Conn.RUN_SELECT("invoicekindregisterkind", "*", null, filterreg, null, false);
@@ -232,7 +232,7 @@ namespace meta_invoice//meta_documentoiva//
 				object regClass = Conn.DO_READ_VALUE("ivaregisterkind",
 					QHS.CmpEq("idivaregisterkind", iReg["idivaregisterkind"]),
 					"registerclass");
-				if (regClass.ToString().ToUpper() == "A")
+				if (regClass==null || regClass.ToString().ToUpper() == "A")
 					acquisto = true;
 			}
 			veroTipo[idInvKind.ToString()] = (acquisto ? "A" : "V");
@@ -538,7 +538,7 @@ namespace meta_invoice//meta_documentoiva//
                     "flag_reverse_charge","idsdi_acquisto","idsdi_vendita","yelectronicinvoice","nelectronicinvoice",
                         "arrivalprotocolnum","resendingpcc","touniqueregister","idinvkind_real","yinv_real","ninv_real",
                         "doc","docdate","officiallyprinted","protocoldate",  
-                        "idinvkind_forwarder","yinv_forwarder","ninv_forwarder"
+                        "idinvkind_forwarder","yinv_forwarder","ninv_forwarder","idtreasurer_acq_estere","idsdi_acquistoestere","idfedocumentkind"
             };
             foreach (string field in dontcopy) {
                 if (C.ColumnName.ToLower()==field){
@@ -550,4 +550,3 @@ namespace meta_invoice//meta_documentoiva//
 		}
 	}
 }
-

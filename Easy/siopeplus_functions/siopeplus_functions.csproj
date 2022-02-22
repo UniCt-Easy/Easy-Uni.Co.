@@ -30,14 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="funzioni_configurazione">
-      <HintPath>..\unmanaged\funzioni_configurazione\bin\Debug\funzioni_configurazione.dll</HintPath>
-    </Reference>
     <Reference Include="metadatalibrary">
       <HintPath>..\dll\metadatalibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="pagoPaService">
-      <HintPath>..\unmanaged\pagoPaService\pagoPaService\bin\Debug\pagoPaService.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -66,6 +60,16 @@
     <None Include="OPI_pagamenti.XSD">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
+      <Project>{c0dacf4d-2f3e-44d6-a718-7c9821a1bdcd}</Project>
+      <Name>funzioni_configurazione</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\unmanaged\pagoPaService\pagoPaService\pagoPaService.csproj">
+      <Project>{0dc2a503-5cc5-4afd-a1b5-1776f0557559}</Project>
+      <Name>pagoPaService</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

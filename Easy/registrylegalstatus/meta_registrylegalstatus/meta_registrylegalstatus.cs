@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 //using PosizioneGiuridica;
@@ -86,11 +85,14 @@ namespace meta_registrylegalstatus//meta_posgiuridica//
         public override void DescribeColumns(DataTable T, string ListingType){
             base.DescribeColumns(T, ListingType);
             if (ListingType=="default"){
+	            foreach (DataColumn C in T.Columns)
+		            DescribeAColumn(T, C.ColumnName, "", -1);
+	            int nPos = 1;
                 AddColumn(T,"descrqualifica",typeof(string),"position.description","Qualifica");                
-                DescribeAColumn(T,"idposition","");
-				DescribeAColumn(T,"start","Data inizio");
-				DescribeAColumn(T,"incomeclass","Classe");
-				DescribeAColumn(T,"incomeclassvalidity","Data Classe");
+				DescribeAColumn(T,"start","Data inizio", nPos++);
+				DescribeAColumn(T,"stop","Termine", nPos++);
+				DescribeAColumn(T,"incomeclass","Classe", nPos++);
+				DescribeAColumn(T,"incomeclassvalidity","Data Decorrenza", nPos++);
 			}
 
 			if (ListingType=="anagraficadetail") {
@@ -99,11 +101,11 @@ namespace meta_registrylegalstatus//meta_posgiuridica//
                 int nPos = 1;
                 AddColumn(T, "!qualificadalia", typeof(string), "dalia_position.description", "Qualifica Dalia");
                 DescribeAColumn(T, "start", "Data inizio", nPos++);
+                DescribeAColumn(T, "stop", "Termine", nPos++);
                 DescribeAColumn(T, "incomeclass", "Classe", nPos++);
-                DescribeAColumn(T, "incomeclassvalidity", "Data Classe", nPos++);
+                DescribeAColumn(T, "incomeclassvalidity", "Data Decorrenza", nPos++);
                 DescribeAColumn(T, "!qualifica", "Qualifica", "position.description", nPos++);
                 DescribeAColumn(T, "!qualificadalia", "Qualifica Dalia", "dalia_position.description", nPos++);
-                DescribeAColumn(T, "stop", "Termine", nPos++);
                 DescribeAColumn(T, "csa_compartment", "Comparto CSA", nPos++);
                 DescribeAColumn(T, "csa_role", "Ruolo CSA", nPos++);
                 DescribeAColumn(T, "csa_class", "Inquadr.CSA", nPos++);
@@ -116,8 +118,9 @@ namespace meta_registrylegalstatus//meta_posgiuridica//
                 DescribeAColumn(T, "!kk", ".aaaa", nPos++);
                 DescribeAColumn(T, "idreg", "#", nPos++);
                 DescribeAColumn(T, "start", "Data inizio", nPos++);
+                DescribeAColumn(T, "stop", "Termine", nPos++);
                 DescribeAColumn(T, "incomeclass", "Classe", nPos++);
-                DescribeAColumn(T, "incomeclassvalidity", "Data Classe", nPos++);
+                DescribeAColumn(T, "incomeclassvalidity", "Data Decorrenza", nPos++);
                 DescribeAColumn(T, "!qualifica", "Qualifica", "position.description", nPos++);
                 DescribeAColumn(T, "active", "Attivo", nPos++);
                 DescribeAColumn(T, "lt", "Data ultima mod.", nPos++);
@@ -194,4 +197,3 @@ namespace meta_registrylegalstatus//meta_posgiuridica//
 
 
 }
-

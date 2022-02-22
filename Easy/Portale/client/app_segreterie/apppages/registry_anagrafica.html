@@ -1,0 +1,185 @@
+﻿<ul class="nav nav-tabs">
+	<li class="nav-item">
+		<a href="" class="nav-link active show" data-toggle="pill" data-target="#tab1"><i class="fa fa-user mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="" class="nav-link" data-toggle="pill" data-target="#tab2"><i class="fa fa-euro-sign mr-1"></i>Modalità di pagamento</a>
+	</li>
+	<li class="nav-item">
+		<a href="" class="nav-link" data-toggle="pill" data-target="#tab3"><i class="fa fa-home mr-1"></i>Indirizzi</a>
+	</li>
+	<li class="nav-item">
+		<a href="" class="nav-link" data-toggle="pill" data-target="#tab4"><i class="fa fa-plus-square mr-1"></i>Altro</a>
+	</li>
+	<li class="nav-item">
+		<a href="" class="nav-link" data-toggle="pill" data-target="#tab5"><i class="fa fa-pen-square mr-1"></i>Contatti</a>
+	</li>
+	<li class="nav-item">
+		<a href="" class="nav-link" data-toggle="pill" data-target="#tab6"><i class="fa fa-car mr-1"></i>Missioni</a>
+	</li>
+	<li class="nav-item">
+		<a href="" class="nav-link" data-toggle="pill" data-target="#tab7"><i class="fa fa-id-card mr-1"></i>Classificazione</a>
+	</li>
+	<li class="nav-item">
+		<a href="" class="nav-link" data-toggle="pill" data-target="#tab8"><i class="fa fa-history mr-1"></i>Dati storici</a>
+	</li>
+	<li class="nav-item">
+		<a href="" class="nav-link" data-toggle="pill" data-target="#tab9"><i class="fa fa-paperclip mr-1"></i>DURC</a>
+	</li>
+	<li class="nav-item">
+		<a href="" class="nav-link" data-toggle="pill" data-target="#tab10"><i class="fa fa-paperclip mr-1"></i>CV</a>
+	</li>
+	<li class="nav-item">
+		<a href="" class="nav-link" data-toggle="pill" data-target="#tab11"><i class="fa fa-paperclip mr-1"></i>Modello 770</a>
+	</li>
+	<li class="nav-item">
+		<a href="" class="nav-link" data-toggle="pill" data-target="#tab12"><i class="fa fa-paperclip mr-1"></i>Visura</a>
+	</li>
+</ul>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tab1" role="tabpanel">
+		<form class="needs-validation" novalidate>
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label for="registry.idreg">Codice</label>
+					<input id="registry.idreg" type="text" class="form-control" data-tag="registry.idreg" />
+				</div>
+				<div class="col-md-3 mb-3">
+					<label for="sesso">Sesso</label>
+					<div class="custom-control custom-radio">
+						<input type="radio" name="sesso" class="custom-control-input" data-tag="registry.gender:M"> Maschio
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" name="sesso" class="custom-control-input" data-tag="registry.gender:F"> Femmina
+					</div>
+				</div>
+				<div class="col-md-3 mb-3">
+					<label for="active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input type="radio" name="active" class="custom-control-input" required data-tag="registry.active:S"> Si
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" name="active" class="custom-control-input" required data-tag="registry.active:N"> No
+					</div>
+					<div class="invalid-feedback">
+						Il campo è obbligatorio
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-7">
+					<label for="idregistryclass">Tipologia</label>
+					<select id="idregistryclass" class="custom-select d-block w-100" data-tag="registry.idregistryclass" data-source-name="registryclass" data-value-member="idregistryclass" data-display-member="description" data-custom-control="combo"></select>
+				</div>
+				<div class="col-md-5">
+					<label for="idtitle">Titolo</label>
+					<select id="idtitle" class="custom-select d-block w-100" required data-tag="registry.idtitle" data-source-name="title" data-value-member="idtitle" data-display-member="description" data-no-blank="true" data-custom-control="combo"></select>
+					<div class="invalid-feedback">
+						Il campo è obbligatorio
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-7">
+					<label for="residencex">Tipo residenza</label>
+					<select id="residencex" class="custom-select d-block w-100" required data-tag="registry.residence" data-source-name="residence" data-value-member="idresidence" data-display-member="description" data-custom-control="combo"></select>
+					<div class="invalid-feedback">
+						Il campo è obbligatorio
+					</div>
+				</div>
+				<div class="col-md-5">
+					<label for="idmaritalstatus">Stato civile</label>
+					<select id="idmaritalstatus" class="custom-select d-block w-100" data-tag="registry.idmaritalstatus" data-source-name="maritalstatus" data-value-member="idmaritalstatus" data-display-member="description" data-custom-control="combo"></select>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<label for="formGroupExampleInput">Denominazione</label>
+					<input type="text" class="form-control" id="txt_title_id" data-tag="registry.title" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label for="formGroupExampleInput">Cognome</label>
+					<input type="text" class="form-control" id="txt_surname_id" data-tag="registry.surname" />
+				</div>
+				<div class="col-md-6">
+					<label for="formGroupExampleInput">Nome</label>
+					<input type="text" class="form-control" id="txt_forename_id" data-tag="registry.forename" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label for="formGroupExampleInput">Codice Fiscale</label>
+					<input type="text" class="form-control" data-tag="registry.cf" />
+				</div>
+				<div class="col-md-6">
+					<label for="formGroupExampleInput">Utente Creatore</label>
+					<input type="text" class="form-control" data-tag="registry.cu" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label for="formGroupExampleInput">Partita Iva</label>
+					<input type="text" class="form-control" data-tag="registry.p_iva" />
+				</div>
+				<div class="col-md-6">
+					<label for="formGroupExampleInput">Note</label>
+					<input type="text" class="form-control" data-tag="registry.annotation" />
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="tab-pane fade" id="tab2" role="tabpanel">
+
+		<br><br>
+
+		<div id="grid1" data-tag="registrypaymethod.anagrafica.anagrafica" data-custom-control="grid" data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
+
+	</div>
+
+	<div class="tab-pane fade" id="tab3" role="tabpanel">
+		3
+	</div>
+
+	<div class="tab-pane fade" id="tab4" role="tabpanel">
+		4
+	</div>
+
+	<div class="tab-pane fade" id="tab5" role="tabpanel">
+		5
+	</div>
+
+	<div class="tab-pane fade" id="tab6" role="tabpanel">
+		6
+	</div>
+
+	<div class="tab-pane fade" id="tab7" role="tabpanel">
+		7
+	</div>
+
+	<div class="tab-pane fade" id="tab8" role="tabpanel">
+		8
+	</div>
+
+	<div class="tab-pane fade" id="tab9" role="tabpanel">
+		9
+	</div>
+
+	<div class="tab-pane fade" id="tab10" role="tabpanel">
+		10
+	</div>
+
+	<div class="tab-pane fade" id="tab11" role="tabpanel">
+		11
+	</div>
+
+	<div class="tab-pane fade" id="tab12" role="tabpanel">
+		12
+	</div>
+
+</div>
+

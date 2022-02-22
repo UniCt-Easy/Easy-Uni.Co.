@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -32,7 +31,7 @@ namespace assetload_storico
 	/// <summary>
 	/// Summary description for frmbuonocaricoinventario.
 	/// </summary>
-	public class Frm_assetload_storico : System.Windows.Forms.Form {
+	public class Frm_assetload_storico : MetaDataForm {
         DataTable tInventoryTree;
        
 		public MetaData Meta;
@@ -1226,7 +1225,7 @@ namespace assetload_storico
 		private void EsaminaFlag() {	
 			if (Warning) return;
 			if (DS.config.Rows.Count==0) {
-				MessageBox.Show("La configurazione del PATRIMONIO non è stata definita per l'esercizio corrente. "+
+				show("La configurazione del PATRIMONIO non è stata definita per l'esercizio corrente. "+
 					"Non sarà possibile salvare il buono di carico.\r"+
 					@"La configurazione si trova alla voce di menu Configurazione\Operazioni inventariabili\Configurazione","Attenzione",
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -1237,7 +1236,7 @@ namespace assetload_storico
 			DataRow r=DS.Tables["config"].Rows[0];
             string flagnumerazione = r["asset_flagnumbering"].ToString().ToUpper();
 			if (flagnumerazione=="" || flagnumerazione=="N") {
-				MessageBox.Show("Non è stato definito il tipo di numerazione per la configurazione "+
+				show("Non è stato definito il tipo di numerazione per la configurazione "+
 					"del PATRIMONIO per l'esercizio corrente. "+
 					"Non sarà possibile salvare il buono di carico.\r"+
 					@"La configurazione si trova alla voce di menu Configurazione\Operazioni inventariabili\Configurazione","Attenzione",
@@ -1341,7 +1340,7 @@ namespace assetload_storico
 		private void Collega(string tipo) {
 			if (MetaData.Empty(this)) return;
 			if (cboTipo.SelectedIndex<=0) {
-				MessageBox.Show("E' necessario selezionare prima il tipo buono.");
+				show("E' necessario selezionare prima il tipo buono.");
 				tabControl1.SelectedTab= tabBuono;
 				cboTipo.Focus();
 				return;
@@ -1515,7 +1514,7 @@ namespace assetload_storico
 
             if (EP.MainEntryExists())
             {
-                if (MessageBox.Show("Attenzione, le scritture in E/P risultano già generate." +
+                if (show("Attenzione, le scritture in E/P risultano già generate." +
                     " Si desidera sovrascriverle per aggiornarle?", "Avviso",
                     MessageBoxButtons.OKCancel) == DialogResult.Cancel) return;
             }
@@ -1544,7 +1543,7 @@ namespace assetload_storico
                 object idaccmotive = calcolaIdAccMotiveCaricoCespite(rAssetAcquire["idinv"]);
                 if ((idaccmotive == null) || (idaccmotive == DBNull.Value))
                 {
-                    MessageBox.Show(this, "Non è stata specificata la causale per la class. inventariale del carico n." +
+                    show(this, "Non è stata specificata la causale per la class. inventariale del carico n." +
                         rAssetAcquire["nassetacquire"] , "Errore");
                     return;
                 }
@@ -1601,7 +1600,7 @@ namespace assetload_storico
             Post.InitClass(EP.D, Meta.Conn);
             if (!Post.DO_POST())
             {
-                MessageBox.Show(this, "Errore durante la cancellazione delle scritture in PD");
+                show(this, "Errore durante la cancellazione delle scritture in PD");
             }
         }
 
@@ -1669,7 +1668,7 @@ namespace assetload_storico
            {
                if (!(DS.assetload.Rows[0]["ratificationdate"].Equals(compDate)))
                {
-                   if (MessageBox.Show("Sostituire la data ratifica con la data di competenza " + HelpForm.StringValue(compDate, tag) + 
+                   if (show("Sostituire la data ratifica con la data di competenza " + HelpForm.StringValue(compDate, tag) + 
                                        " del movimento selezionato?",
                    "Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes)
                    {
@@ -1731,4 +1730,3 @@ namespace assetload_storico
         }	
 	}
 }
-

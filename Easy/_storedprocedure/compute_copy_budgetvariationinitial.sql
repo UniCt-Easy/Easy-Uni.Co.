@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
@@ -14,7 +31,10 @@ CREATE PROCEDURE compute_copy_budgetvariationinitial
 )
 AS BEGIN
 
--- exec compute_copy_budgetvariationinitial 2014, {ts '2014-12-31 00:00:00'}
+-- exec compute_copy_budgetvariationinitial 2019, {ts '2019-12-31 00:00:00'}
+-- setuser 'amm'
+-- setuser 'amministrazione'
+-- select * from accountyear where ayear=2019
 
 CREATE TABLE #initialvariation
 (
@@ -47,7 +67,33 @@ WHERE  V.yvar = @ayear
 		AND V.variationkind = 5 -- Tipo iniziale
 GROUP BY D.idupb, D.idacc
 
+--SELECT fy.idupb,fy.idacc,0,0,0,0,0
+--	from accountyear fy
+--	left outer join #initialvariation on fy.idacc= #initialvariation.idacc and fy.idupb=#initialvariation.idupb
+--	where #initialvariation.idacc is null
+--		and fy.ayear=@ayear
+	
+
  
+--integra con quello che già c'è in finyear per azzerarlo, task 13298
+INSERT INTO  #initialvariation(
+	idupb,	idacc,	prevision,prevision2,prevision3,  prevision4, prevision5
+	)
+SELECT fy.idupb,fy.idacc,0,0,0,0,0
+	from accountyear fy
+	left outer join #initialvariation on fy.idacc= #initialvariation.idacc and fy.idupb=#initialvariation.idupb
+	where #initialvariation.idacc is null
+		and fy.ayear=@ayear
+	
+
+--SELECT fy.idupb,fy.idacc,0,0,0,0,0
+--	from accountyear fy
+--	left outer join #initialvariation on fy.idacc= #initialvariation.idacc and fy.idupb=#initialvariation.idupb
+--	where #initialvariation.idacc is null
+--		and fy.ayear=@ayear
+
+--select * from #initialvariation
+
 DECLARE @curridupb varchar(36)
 DECLARE @curridacc varchar(38)
 DECLARE @newprevision decimal(19,2)

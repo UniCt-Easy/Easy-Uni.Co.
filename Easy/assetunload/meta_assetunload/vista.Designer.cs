@@ -1,25 +1,28 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using metadatalibrary;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_assetunload {
 public class assetunloadRow: MetaRow  {
 	public assetunloadRow(DataRowBuilder rb) : base(rb) {} 
@@ -28,33 +31,33 @@ public class assetunloadRow: MetaRow  {
 	///<summary>
 	///Num. buono
 	///</summary>
-	public Int32? nassetunload{ 
-		get {if (this["nassetunload"]==DBNull.Value)return null; return  (Int32?)this["nassetunload"];}
-		set {if (value==null) this["nassetunload"]= DBNull.Value; else this["nassetunload"]= value;}
+	public Int32 nassetunload{ 
+		get {return  (Int32)this["nassetunload"];}
+		set {this["nassetunload"]= value;}
 	}
 	public object nassetunloadValue { 
 		get{ return this["nassetunload"];}
-		set {if (value==null|| value==DBNull.Value) this["nassetunload"]= DBNull.Value; else this["nassetunload"]= value;}
+		set {this["nassetunload"]= value;}
 	}
-	public Int32? nassetunloadOriginal { 
-		get {if (this["nassetunload",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["nassetunload",DataRowVersion.Original];}
+	public Int32 nassetunloadOriginal { 
+		get {return  (Int32)this["nassetunload",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Eserc. buono
 	///</summary>
-	public Int16? yassetunload{ 
-		get {if (this["yassetunload"]==DBNull.Value)return null; return  (Int16?)this["yassetunload"];}
-		set {if (value==null) this["yassetunload"]= DBNull.Value; else this["yassetunload"]= value;}
+	public Int16 yassetunload{ 
+		get {return  (Int16)this["yassetunload"];}
+		set {this["yassetunload"]= value;}
 	}
 	public object yassetunloadValue { 
 		get{ return this["yassetunload"];}
-		set {if (value==null|| value==DBNull.Value) this["yassetunload"]= DBNull.Value; else this["yassetunload"]= value;}
+		set {this["yassetunload"]= value;}
 	}
-	public Int16? yassetunloadOriginal { 
-		get {if (this["yassetunload",DataRowVersion.Original]==DBNull.Value)return null; return  (Int16?)this["yassetunload",DataRowVersion.Original];}
+	public Int16 yassetunloadOriginal { 
+		get {return  (Int16)this["yassetunload",DataRowVersion.Original];}
 	}
 	///<summary>
-	///data contabile, ? la data a partire dalla quale il buono ? efficace
+	///data contabile, √® la data a partire dalla quale il buono √® efficace
 	///</summary>
 	public DateTime? adate{ 
 		get {if (this["adate"]==DBNull.Value)return null; return  (DateTime?)this["adate"];}
@@ -70,30 +73,30 @@ public class assetunloadRow: MetaRow  {
 	///<summary>
 	///data creazione
 	///</summary>
-	public DateTime? ct{ 
-		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
-		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
+	public DateTime ct{ 
+		get {return  (DateTime)this["ct"];}
+		set {this["ct"]= value;}
 	}
 	public object ctValue { 
 		get{ return this["ct"];}
-		set {if (value==null|| value==DBNull.Value) this["ct"]= DBNull.Value; else this["ct"]= value;}
+		set {this["ct"]= value;}
 	}
-	public DateTime? ctOriginal { 
-		get {if (this["ct",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["ct",DataRowVersion.Original];}
+	public DateTime ctOriginal { 
+		get {return  (DateTime)this["ct",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome utente creazione
 	///</summary>
 	public String cu{ 
-		get {if (this["cu"]==DBNull.Value)return null; return  (String)this["cu"];}
-		set {if (value==null) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		get {return  (String)this["cu"];}
+		set {this["cu"]= value;}
 	}
 	public object cuValue { 
 		get{ return this["cu"];}
-		set {if (value==null|| value==DBNull.Value) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		set {this["cu"]= value;}
 	}
 	public String cuOriginal { 
-		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
+		get {return  (String)this["cu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Descrizione
@@ -182,30 +185,30 @@ public class assetunloadRow: MetaRow  {
 	///<summary>
 	///data ultima modifica
 	///</summary>
-	public DateTime? lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
-		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
+	public DateTime lt{ 
+		get {return  (DateTime)this["lt"];}
+		set {this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
-		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
+		set {this["lt"]= value;}
 	}
-	public DateTime? ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
+	public DateTime ltOriginal { 
+		get {return  (DateTime)this["lt",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome ultimo utente modifica
 	///</summary>
 	public String lu{ 
-		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
-		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		get {return  (String)this["lu"];}
+		set {this["lu"]= value;}
 	}
 	public object luValue { 
 		get{ return this["lu"];}
-		set {if (value==null|| value==DBNull.Value) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		set {this["lu"]= value;}
 	}
 	public String luOriginal { 
-		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
+		get {return  (String)this["lu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Data stampa
@@ -264,7 +267,7 @@ public class assetunloadRow: MetaRow  {
 		get {if (this["txt",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["txt",DataRowVersion.Original];}
 	}
 	///<summary>
-	///Trasmesso (non pi? usato)
+	///Trasmesso (non pi√π usato)
 	///</summary>
 	public String transmitted{ 
 		get {if (this["transmitted"]==DBNull.Value)return null; return  (String)this["transmitted"];}
@@ -294,30 +297,30 @@ public class assetunloadRow: MetaRow  {
 	///<summary>
 	///ID Tipi di buoni di scarico (tabella assetunloadkind)
 	///</summary>
-	public Int32? idassetunloadkind{ 
-		get {if (this["idassetunloadkind"]==DBNull.Value)return null; return  (Int32?)this["idassetunloadkind"];}
-		set {if (value==null) this["idassetunloadkind"]= DBNull.Value; else this["idassetunloadkind"]= value;}
+	public Int32 idassetunloadkind{ 
+		get {return  (Int32)this["idassetunloadkind"];}
+		set {this["idassetunloadkind"]= value;}
 	}
 	public object idassetunloadkindValue { 
 		get{ return this["idassetunloadkind"];}
-		set {if (value==null|| value==DBNull.Value) this["idassetunloadkind"]= DBNull.Value; else this["idassetunloadkind"]= value;}
+		set {this["idassetunloadkind"]= value;}
 	}
-	public Int32? idassetunloadkindOriginal { 
-		get {if (this["idassetunloadkind",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idassetunloadkind",DataRowVersion.Original];}
+	public Int32 idassetunloadkindOriginal { 
+		get {return  (Int32)this["idassetunloadkind",DataRowVersion.Original];}
 	}
 	///<summary>
 	///id buono di scarico (tabella assetunload)
 	///</summary>
-	public Int32? idassetunload{ 
-		get {if (this["idassetunload"]==DBNull.Value)return null; return  (Int32?)this["idassetunload"];}
-		set {if (value==null) this["idassetunload"]= DBNull.Value; else this["idassetunload"]= value;}
+	public Int32 idassetunload{ 
+		get {return  (Int32)this["idassetunload"];}
+		set {this["idassetunload"]= value;}
 	}
 	public object idassetunloadValue { 
 		get{ return this["idassetunload"];}
-		set {if (value==null|| value==DBNull.Value) this["idassetunload"]= DBNull.Value; else this["idassetunload"]= value;}
+		set {this["idassetunload"]= value;}
 	}
-	public Int32? idassetunloadOriginal { 
-		get {if (this["idassetunload",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idassetunload",DataRowVersion.Original];}
+	public Int32 idassetunloadOriginal { 
+		get {return  (Int32)this["idassetunload",DataRowVersion.Original];}
 	}
 	#endregion
 
@@ -326,78 +329,30 @@ public class assetunloadRow: MetaRow  {
 ///Buono di scarico
 ///</summary>
 public class assetunloadTable : MetaTableBase<assetunloadRow> {
-	public assetunloadTable() : base("assetunload"){}
-	public override void addBaseColumns(params string [] cols){
-		Dictionary<string,bool> definedColums=new Dictionary<string, bool>();
-		foreach(string col in cols) definedColums[col] = true;
-
-		#region add DataColumns
-		if (definedColums.ContainsKey("nassetunload")){ 
-			defineColumn("nassetunload", typeof(System.Int32),false);
-		}
-		if (definedColums.ContainsKey("yassetunload")){ 
-			defineColumn("yassetunload", typeof(System.Int16),false);
-		}
-		if (definedColums.ContainsKey("adate")){ 
-			defineColumn("adate", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("ct")){ 
-			defineColumn("ct", typeof(System.DateTime),false);
-		}
-		if (definedColums.ContainsKey("cu")){ 
-			defineColumn("cu", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("description")){ 
-			defineColumn("description", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("doc")){ 
-			defineColumn("doc", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("docdate")){ 
-			defineColumn("docdate", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("enactment")){ 
-			defineColumn("enactment", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("enactmentdate")){ 
-			defineColumn("enactmentdate", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("idreg")){ 
-			defineColumn("idreg", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("lt")){ 
-			defineColumn("lt", typeof(System.DateTime),false);
-		}
-		if (definedColums.ContainsKey("lu")){ 
-			defineColumn("lu", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("printdate")){ 
-			defineColumn("printdate", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("ratificationdate")){ 
-			defineColumn("ratificationdate", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("rtf")){ 
-			defineColumn("rtf", typeof(System.Byte[]));
-		}
-		if (definedColums.ContainsKey("txt")){ 
-			defineColumn("txt", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("transmitted")){ 
-			defineColumn("transmitted", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("idmot")){ 
-			defineColumn("idmot", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idassetunloadkind")){ 
-			defineColumn("idassetunloadkind", typeof(System.Int32),false);
-		}
-		if (definedColums.ContainsKey("idassetunload")){ 
-			defineColumn("idassetunload", typeof(System.Int32),false);
-		}
-		#endregion
-
+	public assetunloadTable() : base("assetunload"){
+		baseColumns = new Dictionary<string, DataColumn>(){
+			{"nassetunload",createColumn("nassetunload",typeof(int),false,false)},
+			{"yassetunload",createColumn("yassetunload",typeof(short),false,false)},
+			{"adate",createColumn("adate",typeof(DateTime),true,false)},
+			{"ct",createColumn("ct",typeof(DateTime),false,false)},
+			{"cu",createColumn("cu",typeof(string),false,false)},
+			{"description",createColumn("description",typeof(string),true,false)},
+			{"doc",createColumn("doc",typeof(string),true,false)},
+			{"docdate",createColumn("docdate",typeof(DateTime),true,false)},
+			{"enactment",createColumn("enactment",typeof(string),true,false)},
+			{"enactmentdate",createColumn("enactmentdate",typeof(DateTime),true,false)},
+			{"idreg",createColumn("idreg",typeof(int),true,false)},
+			{"lt",createColumn("lt",typeof(DateTime),false,false)},
+			{"lu",createColumn("lu",typeof(string),false,false)},
+			{"printdate",createColumn("printdate",typeof(DateTime),true,false)},
+			{"ratificationdate",createColumn("ratificationdate",typeof(DateTime),true,false)},
+			{"rtf",createColumn("rtf",typeof(Byte[]),true,false)},
+			{"txt",createColumn("txt",typeof(string),true,false)},
+			{"transmitted",createColumn("transmitted",typeof(string),true,false)},
+			{"idmot",createColumn("idmot",typeof(int),true,false)},
+			{"idassetunloadkind",createColumn("idassetunloadkind",typeof(int),false,false)},
+			{"idassetunload",createColumn("idassetunload",typeof(int),false,false)},
+		};
 	}
 }
 }
-

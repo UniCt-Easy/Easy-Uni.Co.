@@ -1,0 +1,86 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryaddress_seg_idaddresskind">Tipologia</label>
+					<select id="registryaddress_seg_idaddresskind" class="custom-select d-block w-100"  data-source-name="addresssegview" data-value-member="idaddress" data-display-member="dropdown_title" data-custom-control="combo" data-tag="registryaddress.idaddresskind?registryaddresssegview.idaddresskind" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#registryaddress_seg_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="registryaddress_seg_start">Data inizio</label>
+					<input id="registryaddress_seg_start" type="text" class="form-control" data-tag="registryaddress.start?registryaddresssegview.start" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#registryaddress_seg_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="registryaddress_seg_stop">Data fine</label>
+					<input id="registryaddress_seg_stop" type="text" class="form-control" data-tag="registryaddress.stop?registryaddresssegview.registryaddress_stop" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryaddress_seg_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="registryaddress_seg_activeSi" type="radio" name="registryaddress_seg_active" class="custom-control-input" data-tag="registryaddress.active:S?registryaddresssegview.registryaddress_active:Si" data-subentity  ><label for="registryaddress_seg_activeSi"> Si</label>
+						<input id="registryaddress_seg_activeNo" type="radio" name="registryaddress_seg_active" class="custom-control-input" data-tag="registryaddress.active:N?registryaddresssegview.registryaddress_active:No" data-subentity  ><label for="registryaddress_seg_activeNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryaddress_seg_address">Indirizzo</label>
+					<input id="registryaddress_seg_address" type="text" class="form-control" data-tag="registryaddress.address?registryaddresssegview.registryaddress_address" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryaddress_seg_flagforeign">Estero</label>
+					<div class="custom-control custom-radio">
+						<input id="registryaddress_seg_flagforeignSi" type="radio" name="registryaddress_seg_flagforeign" class="custom-control-input" data-tag="registryaddress.flagforeign:S?registryaddresssegview.registryaddress_flagforeign:Si" data-subentity  ><label for="registryaddress_seg_flagforeignSi"> Si</label>
+						<input id="registryaddress_seg_flagforeignNo" type="radio" name="registryaddress_seg_flagforeign" class="custom-control-input" data-tag="registryaddress.flagforeign:N?registryaddresssegview.registryaddress_flagforeign:No" data-subentity  ><label for="registryaddress_seg_flagforeignNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryaddress_seg_idcity">Comune</label>
+					<div>
+						<input id="registryaddress_seg_idcity" name="registryaddress_seg_idcity" type="text" data-listtype="seg5"  class="form-control" data-minchar="2" data-tag="geo_city_alias5.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryaddress_seg_location">Località</label>
+					<input id="registryaddress_seg_location" type="text" class="form-control" data-tag="registryaddress.location?registryaddresssegview.registryaddress_location" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryaddress_seg_cap">CAP</label>
+					<input id="registryaddress_seg_cap" type="text" class="form-control" data-tag="registryaddress.cap?registryaddresssegview.registryaddress_cap" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryaddress_seg_idnation">Nazione</label>
+					<div>
+						<input id="registryaddress_seg_idnation" name="registryaddress_seg_idnation" type="text" data-listtype="seg5"  class="form-control" data-minchar="2" data-tag="geo_nation_alias5.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryaddress_seg_annotations">Annotazioni</label>
+					<input id="registryaddress_seg_annotations" type="text" class="form-control" data-tag="registryaddress.annotations?registryaddresssegview.registryaddress_annotations" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

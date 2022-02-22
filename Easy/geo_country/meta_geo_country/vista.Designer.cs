@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -86,7 +85,7 @@ public class geo_countryRow: MetaRow  {
 		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
 	}
 	///<summary>
-	///id nuova provincia in cui questa Ã¨ confluita
+	///id nuova provincia in cui questa ? confluita
 	///</summary>
 	public Int32? newcountry{ 
 		get {if (this["newcountry"]==DBNull.Value)return null; return  (Int32?)this["newcountry"];}
@@ -100,7 +99,7 @@ public class geo_countryRow: MetaRow  {
 		get {if (this["newcountry",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["newcountry",DataRowVersion.Original];}
 	}
 	///<summary>
-	///id provincia da cui questa Ã¨ confluita
+	///id provincia da cui questa ? confluita
 	///</summary>
 	public Int32? oldcountry{ 
 		get {if (this["oldcountry"]==DBNull.Value)return null; return  (Int32?)this["oldcountry"];}
@@ -192,4 +191,3 @@ public class geo_countryTable : MetaTableBase<geo_countryRow> {
 	}
 }
 }
-

@@ -131,7 +131,7 @@
     </None>
     <None Include="vista.xsd">
       <SubType>Designer</SubType>
-      <Generator>HDSGen</Generator>
+      <Generator>HDSGene</Generator>
       <LastGenOutput>vista.Designer.cs</LastGenOutput>
     </None>
     <None Include="vista.xss">

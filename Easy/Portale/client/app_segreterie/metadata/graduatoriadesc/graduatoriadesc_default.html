@@ -1,0 +1,46 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="graduatoriadesc_default_gradmax">Punteggio assegnato fino al valore</label>
+					<input id="graduatoriadesc_default_gradmax" type="text" class="form-control" data-tag="graduatoriadesc.gradmax.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="graduatoriadesc_default_gradmin">Punteggio assegnato a partire dal valore</label>
+					<input id="graduatoriadesc_default_gradmin" type="text" class="form-control" data-tag="graduatoriadesc.gradmin.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="graduatoriadesc_default_gradval">Punteggio</label>
+					<input id="graduatoriadesc_default_gradval" type="text" class="form-control" data-tag="graduatoriadesc.gradval.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="graduatoriadesc_default_idgraduatoriavar">Variabile del calcolo</label>
+					<div>
+						<input id="graduatoriadesc_default_idgraduatoriavar" name="graduatoriadesc_default_idgraduatoriavar" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="graduatoriavardefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="graduatoriadesc_default_molt">Moltiplicatore</label>
+					<input id="graduatoriadesc_default_molt" type="text" class="form-control" data-tag="graduatoriadesc.molt.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="graduatoriadesc_default_prefer">Preferenza a pari merito (crescente o decrescente)</label>
+					<div class="custom-control custom-radio">
+						<input id="graduatoriadesc_default_preferN" type="radio" name="graduatoriadesc_default_prefer" class="custom-control-input" data-tag="graduatoriadesc.prefer:N"  ><label for="graduatoriadesc_default_preferN"> No</label>
+						<input id="graduatoriadesc_default_preferC" type="radio" name="graduatoriadesc_default_prefer" class="custom-control-input" data-tag="graduatoriadesc.prefer:C"  ><label for="graduatoriadesc_default_preferC"> Crescente</label>
+						<input id="graduatoriadesc_default_preferD" type="radio" name="graduatoriadesc_default_prefer" class="custom-control-input" data-tag="graduatoriadesc.prefer:D"  ><label for="graduatoriadesc_default_preferD"> Descrescente</label>
+					</div>
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

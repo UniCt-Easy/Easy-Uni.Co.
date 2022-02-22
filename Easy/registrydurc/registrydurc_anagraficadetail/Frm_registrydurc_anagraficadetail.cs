@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -29,13 +28,16 @@ using System.IO;
 using System.Diagnostics;
 
 namespace registrydurc_anagraficadetail{
-    public partial class Frm_registrydurc_anagraficadetail : Form  {
+    public partial class Frm_registrydurc_anagraficadetail : MetaDataForm  {
         private MetaData Meta;
         CQueryHelper QHC;
         QueryHelper QHS;
 
+        public IOpenFileDialog opendlg;
+
         public Frm_registrydurc_anagraficadetail()   {
             InitializeComponent();
+            opendlg = createOpenFileDialog(_opendlg);
         }
 
         public void MetaData_AfterLink() {
@@ -109,7 +111,7 @@ namespace registrydurc_anagraficadetail{
                 }
                 catch
                 {
-                    MessageBox.Show("La data inserita non era valida");
+                    show("La data inserita non era valida");
                     txtDataIniziovalidita.SelectAll();
                     txtDataIniziovalidita.Focus();
                     return;
@@ -141,7 +143,7 @@ namespace registrydurc_anagraficadetail{
                         DateTime new_start = (DateTime)HelpForm.GetObjectFromString(typeof(DateTime), txtDataIniziovalidita.Text.ToString(), "x.y");
                         if (curr_start != new_start){
                             R["start"] = new_start;
-                            DialogResult RES = MessageBox.Show("Si desidera aggiornare anche la data di Scadenza?", "Informazione", MessageBoxButtons.OKCancel);
+                            DialogResult RES = show("Si desidera aggiornare anche la data di Scadenza?", "Informazione", MessageBoxButtons.OKCancel);
                             if (RES == DialogResult.OK) {
                                 DateTime stop = new DateTime();
                                 if (new_start >= dRiferimento) {
@@ -209,10 +211,17 @@ namespace registrydurc_anagraficadetail{
             if (!Meta.GetFormData(true)) return;
             DialogResult dialogResult = opendlg.ShowDialog(this);
             if (dialogResult == DialogResult.Cancel) return;
+            
+            string estensione = Path.GetExtension(opendlg.FileName);
+
+			if (CfgFn.ExtensionDenied(estensione)) {
+				show("Impossibile caricare questo tipo di file");
+				return;
+			}
+            
             DataRow Curr = HelpForm.GetLastSelected(DS.registrydurc);
             if (Curr == null) return;
             FileStream FS = new FileStream(opendlg.FileName, FileMode.Open, FileAccess.Read);
-            string estensione = Path.GetExtension(FS.Name);
             if (FS == null) return;
             int n = (int)FS.Length;
             if (n == 0) return;
@@ -267,12 +276,24 @@ namespace registrydurc_anagraficadetail{
             string fname = GetFileName(ByteArray);
             string estensione = Path.GetExtension(fname).Trim();;
 
+            bool extensionDenied = CfgFn.ExtensionDenied(estensione);
+
+			if (extensionDenied) {
+				show("Impossibile aprire questo tipo di file");
+				return;
+			}
+			if (!CfgFn.ExtensionAllowed(estensione)) {
+				DialogResult dr = show("Si sta aprendo un file con estensione " + estensione +". Sei sicuro di voler aprire questo file?", "Attenzione!", MessageBoxButtons.YesNo);
+				if (dr == DialogResult.No) 
+					return;
+			}
+
             string sw = Path.Combine(FilePath, prefix + oggi.ToString() + estensione);
             try
             {
                 ScriviFile(sw, ByteArray,offset);
- 
-                System.Diagnostics.Process.Start(sw);
+
+                runProcess(sw, true);
             }
             catch (Exception E)
             {
@@ -313,4 +334,4 @@ namespace registrydurc_anagraficadetail{
 
     }
 
-}
+}

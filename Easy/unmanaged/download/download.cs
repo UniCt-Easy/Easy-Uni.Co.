@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Net;
 using System.IO;
 using System.Text;
@@ -26,6 +25,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
+using metadatalibrary;
 
 namespace download//download//
 {
@@ -82,7 +82,7 @@ namespace download//download//
                     client.Headers.Add("User-Agent", "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)");
                     client.BaseAddress = path;
 					client.Credentials = CredentialCache.DefaultCredentials;
-					//controllo accessibilit√† web site
+					//controllo accessibilit‡ web site
 					try {
 						//System.Diagnostics.Debug.WriteLine("Tentativo di collegamento a ["+client.BaseAddress+ getVersionFileName() + "]\r");
 						client.DownloadData(getVersionFileName());
@@ -116,7 +116,7 @@ namespace download//download//
 					}
 				}
 				else {
-					//controllo accessibilit√† folder
+					//controllo accessibilit‡ folder
 					try {
 						if (!path.EndsWith(@"\")) path+=@"\";
 						DirectoryInfo d = new DirectoryInfo(path);
@@ -188,7 +188,7 @@ namespace download//download//
 		/// Esegue il download del file webfilename e lo memorizza in localfilename
 		/// </summary>
 		/// <param name="webfilename">Path relativo del file da scaricare</param>
-		/// <param name="localfilename">Nome del file con il quale verr√† memorizzato</param>
+		/// <param name="localfilename">Nome del file con il quale verr‡ memorizzato</param>
 		/// <returns>True se va a buon fine</returns>
 		public bool DownloadFile(string webfilename, string filename) {
 			string msg="";
@@ -296,10 +296,15 @@ namespace download//download//
                     addRewriteRule(pieces[0],pieces[1]);
                 }
             }
-            catch {
+            catch (Exception e){
 
             }
         }
+		/// <summary>
+		/// Da normale a criptato
+		/// </summary>
+		/// <param name="fileName"></param>
+		/// <returns></returns>
         public string localToRemoteFileName(string fileName) {
             string result = fileName;
             foreach (string rule in rewriteRules) {
@@ -309,6 +314,7 @@ namespace download//download//
             }
             return result;
         }
+
     }
 	/// <summary>
 	/// Classe utilizzata per una sessione FTP
@@ -444,7 +450,7 @@ namespace download//download//
 		}
 
 		/// <summary>
-		/// Scarica il file dopo aver eliminato propriet√† di sola lettura
+		/// Scarica il file dopo aver eliminato propriet‡ di sola lettura
 		/// </summary>
 		/// <param name="localPath">Nome completo del file di destinazione</param>
 		/// <param name="remoteFile">nome del file da scaricare</param>
@@ -470,7 +476,7 @@ namespace download//download//
                         autoretry = false;
                     }
                     else {
-                        if (MessageBox.Show("Errore leggendo il file " + remoteFile + " da remoto. Riprovo? Errore:" + E.ToString(), "Conferma",
+                        if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore leggendo il file " + remoteFile + " da remoto. Riprovo? Errore:" + E.ToString(), "Conferma",
                                         MessageBoxButtons.YesNo) != DialogResult.Yes) {
                                             retry = false;
                         };
@@ -526,7 +532,7 @@ namespace download//download//
                     //        new WebClient().DownloadString(rewrittenFileName);
                     //    }
                     //    catch {
-                    //        MessageBox.Show("Invio di " + rewrittenFileName + " fallito", "Errore");
+                    //        MetaFactory.factory.getSingleton<IMessageShower>().Show("Invio di " + rewrittenFileName + " fallito", "Errore");
                     //    }
                         
                     //}
@@ -544,7 +550,7 @@ namespace download//download//
                         autoretry = false;
                     }
                     else {
-                        if (MessageBox.Show(null, "Riprovo? Errore:" + E.ToString(), "Conferma", MessageBoxButtons.YesNo) != DialogResult.Yes) retry = false;
+                        if (MetaFactory.factory.getSingleton<IMessageShower>().Show(null, "Riprovo? Errore:" + E.ToString(), "Conferma", MessageBoxButtons.YesNo) != DialogResult.Yes) retry = false;
                     }
                 }
             }
@@ -646,7 +652,7 @@ namespace download//download//
 	    public bool checkDirectoryFtpCompleta(string remotedir) {
             if (remotedir == "" || remotedir == @"/") return true;
 	        List<string> segmenti = remotedir.Split('/').ToList();
-	        if (segmenti.Count == 0) return true; //non pu√≤ creare niente
+	        if (segmenti.Count == 0) return true; //non puÚ creare niente
             if (segmenti[segmenti.Count-1]=="")segmenti.RemoveAt(segmenti.Count-1);
             if (segmenti.Count == 1) return CheckDir(segmenti[0]);
 
@@ -821,4 +827,3 @@ namespace download//download//
 
 	}
 }
-

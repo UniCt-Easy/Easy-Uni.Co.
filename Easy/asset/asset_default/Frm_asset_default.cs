@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -33,7 +32,7 @@ namespace asset_default //beneinventariabile//
     /// <summary>
     /// Summary description for frmbeneinventariabile.
     /// </summary>
-    public class Frm_asset_default : System.Windows.Forms.Form {
+    public class Frm_asset_default : MetaDataForm {
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPrincipale;
         public vistaForm DS;
@@ -2300,7 +2299,7 @@ namespace asset_default //beneinventariabile//
                 if (LL[0]["idman"].ToString() == lastrejected.ToString()) continue;
                 string filter = QHC.CmpEq("start", RL["start"]);
                 if (DS.assetmanager.Select(filter).Length == 0) {
-                    if (MessageBox.Show(this, "Si vuole reimpostare il responsabile in base alla nuova ubicazione?",
+                    if (show(this, "Si vuole reimpostare il responsabile in base alla nuova ubicazione?",
                         "Conferma",
                         MessageBoxButtons.YesNo) == DialogResult.No) {
                         lastrejected = LL[0]["idman"];
@@ -2316,7 +2315,7 @@ namespace asset_default //beneinventariabile//
                 else {
                     DataRow CurrAssMan = DS.assetmanager.Select(filter)[0];
                     if (CurrAssMan["idman"].ToString() != LL[0]["idman"].ToString()) {
-                        if (MessageBox.Show(this, "Si vuole reimpostare il responsabile in base alla nuova ubicazione?",
+                        if (show(this, "Si vuole reimpostare il responsabile in base alla nuova ubicazione?",
                             "Conferma",
                             MessageBoxButtons.YesNo) == DialogResult.No) {
                             lastrejected = LL[0]["idman"];
@@ -2530,6 +2529,7 @@ namespace asset_default //beneinventariabile//
                 DataTable T = Conn.RUN_SELECT("manager", "*", null, QHS.CmpEq("idman", newidman), null, false);
                 if (T == null || T.Rows.Count == 0) return;
                 string mailto = T.Rows[0]["email"].ToString();
+                if (T.Rows[0]["wantswarn"].ToString().ToUpper() != "S") continue;
                 string MsgBody = "";
                 DataTable Tassetview = Meta.Conn.RUN_SELECT("assetview", "*", null,
                     QHS.AppAnd(QHS.CmpEq("idasset", idasset), QHS.CmpEq("idpiece", 1)), null, true);
@@ -2551,7 +2551,7 @@ namespace asset_default //beneinventariabile//
                     SM.Conn = Conn;
                     if (!SM.Send()) {
                         if (SM.ErrorMessage.Trim() != "")
-                            MessageBox.Show(SM.ErrorMessage, "Errore");
+                            show(SM.ErrorMessage, "Errore");
                     }
                 }
             }
@@ -2563,6 +2563,7 @@ namespace asset_default //beneinventariabile//
                 DataTable T = Conn.RUN_SELECT("manager", "*", null, QHS.CmpEq("idman", newidman), null, false);
                 if (T == null || T.Rows.Count == 0) return;
                 string mailto = T.Rows[0]["email"].ToString();
+                if (T.Rows[0]["wantswarn"].ToString().ToUpper() != "S") continue;
                 string MsgBody = "";
                 DataTable Tassetview = Meta.Conn.RUN_SELECT("assetview", "*", null,
                     QHS.AppAnd(QHS.CmpEq("idasset", idasset), QHS.CmpEq("idpiece", 1)), null, true);
@@ -2584,7 +2585,7 @@ namespace asset_default //beneinventariabile//
                     SM.Conn = Conn;
                     if (!SM.Send()) {
                         if (SM.ErrorMessage.Trim() != "")
-                            MessageBox.Show(SM.ErrorMessage, "Errore");
+                            show(SM.ErrorMessage, "Errore");
                     }
                 }
             }
@@ -2597,7 +2598,7 @@ namespace asset_default //beneinventariabile//
                 DataTable Told = Conn.RUN_SELECT("manager", "*", null, QHS.CmpEq("idman", oldidman), null, false);
                 if (Told == null || Told.Rows.Count == 0) return;
                 string mailto = Told.Rows[0]["email"].ToString();
-
+                if (Told.Rows[0]["wantswarn"].ToString().ToUpper() != "S") continue;
                 
                 int newidman = hNew[idasset];
                 DataTable Tnew = Conn.RUN_SELECT("manager", "*", null, QHS.CmpEq("idman", newidman), null, false);
@@ -2623,7 +2624,7 @@ namespace asset_default //beneinventariabile//
                     SM.Conn = Conn;
                     if (!SM.Send()) {
                         if (SM.ErrorMessage.Trim() != "")
-                            MessageBox.Show(SM.ErrorMessage, "Errore");
+                            show(SM.ErrorMessage, "Errore");
                     }
                 }
             }
@@ -2637,7 +2638,7 @@ namespace asset_default //beneinventariabile//
                 DataTable Told = Conn.RUN_SELECT("manager", "*", null, QHS.CmpEq("idman", oldidman), null, false);
                 if (Told == null || Told.Rows.Count == 0) return;
                 string mailto = Told.Rows[0]["email"].ToString();
-
+                if (Told.Rows[0]["wantswarn"].ToString().ToUpper() != "S") continue;
                 int newidman = hNewSub[idasset];
                 DataTable Tnew = Conn.RUN_SELECT("manager", "*", null, QHS.CmpEq("idman", newidman), null, false);
                 if (Tnew == null || Tnew.Rows.Count == 0) return;
@@ -2662,7 +2663,7 @@ namespace asset_default //beneinventariabile//
                     SM.Conn = Conn;
                     if (!SM.Send()) {
                         if (SM.ErrorMessage.Trim() != "")
-                            MessageBox.Show(SM.ErrorMessage, "Errore");
+                            show(SM.ErrorMessage, "Errore");
                     }
                 }
             }
@@ -2925,8 +2926,7 @@ namespace asset_default //beneinventariabile//
                     Meta.additional_search_condition = "";
                     return;
                 }
-                DataTable MF = Conn.RUN_SELECT("inventorytreemultifieldkind", "*", null,
-                    QHS.CmpEq("idinv", R["idinv"]), null, true);
+                DataTable MF = Conn.RUN_SELECT("inventorytreemultifieldkind", "*", null, QHS.CmpEq("idinv", R["idinv"]), null, true);
                 FillMultifieldTab("", DS.multifieldkind, MF.Select(null, "idmultifieldkind"));
 
             }
@@ -2953,10 +2953,22 @@ namespace asset_default //beneinventariabile//
             public TextBox T;
         }
 
-        void AddMultiFieldToForm(TabPage TP, mfield MF, int x, int y, int intab_count) {
+        int AddMultiFieldToForm(TabPage TP, mfield MF, int x, int y, int maxlen) {
+	        int nLine = maxlen / 45;
+	        TextBox T = new TextBox();
+	        T.Width = TextWidth;
+	        T.Height = TextHeight;
+	        if (maxlen != 0) {
+		        T.MaxLength = maxlen;
+	        }
+	        if (nLine > 1) {
+		        T.Multiline = true;
+		        T.Height = TextHeight*nLine;
+		        T.ScrollBars = ScrollBars.Vertical;
+	        }
 
             GroupBox G = new GroupBox();
-            G.Size = new Size(320, 50);
+            G.Size = new Size(320, T.Height +30);
             G.Location = new Point(10 + x, 15 + y);
 
 
@@ -2974,16 +2986,16 @@ namespace asset_default //beneinventariabile//
             }
             TP.Controls.Add(G);
 
-            TextBox T = new TextBox();
+         
             G.Controls.Add(T);
-            T.Width = TextWidth;
-            T.Height = TextHeight;
+        
             //T.Multiline = true;
             //T.ScrollBars = ScrollBars.Vertical;
             T.Location = new Point(5, 18);
             T.Anchor = ((AnchorStyles) ((AnchorStyles.Top | AnchorStyles.Left)));
 
             MF.T = T;
+            return G.Height;
         }
 
 
@@ -2999,18 +3011,22 @@ namespace asset_default //beneinventariabile//
         void FillMultifieldTab(string value, DataTable MFKind, DataRow[] Fields) {
             TabControl FT = new TabControl();
             FT.Dock = DockStyle.Fill;
+			///HL = dizionario che associa ai nomi dei tab  i datarow che descrivono i campi in essi contenuti
+            var HL = new Dictionary<string, List<DataRow>>();
 
-            Dictionary<string, List<DataRow>> HL = new Dictionary<string, List<DataRow>>();
-            ArrayList TabNameList = new ArrayList();
+            var availableCodes = new Dictionary<string, bool>();
+			//Elenco dei nomi dei tab
+            var TabNameList = new ArrayList();
             foreach (DataRow Fk0 in MFKind.Select(null, "ordernumber")) {
                 DataRow F = null;
-                foreach (DataRow FF in Fields) {
+                foreach (var FF in Fields) {
                     if (FF["idmultifieldkind"].ToString() == Fk0["idmultifieldkind"].ToString()) {
                         F = FF;
                         break;
                     }
                 }
-                if (F == null) continue;
+                if (F == null) continue;//considera solo i campi di questo codice inventario
+                availableCodes[Fk0["fieldcode"].ToString().ToLower()] = true;
                 string tabname = Fk0["tabname"].ToString();
                 List<DataRow> AL;
                 if (HL.ContainsKey(tabname)) {
@@ -3028,62 +3044,62 @@ namespace asset_default //beneinventariabile//
             tabAggiuntive.Controls.Clear();
             tabAggiuntive.Controls.Add(FT);
 
-            Hashtable H = new Hashtable();
-            string[] allmf = value.Split(new char[] {'§'});
+            var H = new Hashtable(); //associazione codice campi -> valori campi
+            string[] allmf = value.Split(new char[] {'§'}); //coppie codice valore memorizzate nella riga
             foreach (string coppia in allmf) {
                 if (coppia == "") continue;
                 string[] cc = coppia.Split(new char[] {'|'});
                 string code = cc[0].ToLower();
+                if (!availableCodes.ContainsKey(code)) continue;
                 string val = cc[1];
                 H[code] = val;
             }
             modifica_attiva = false;
             //allfields= array di stringhe del tipo chiave§valore
+			
             allfields = new mfield[Fields.Length];
 
             //if (value == "") allfields = new mfield[0];
             TabNameList.Sort();
             int maincount = 1;
 
-            foreach (string tabname in TabNameList) {
-                TabPage TP = new TabPage(tabname == "null" ? "" : tabname);
-                TP.AutoScroll = true;
+            foreach (string tabname in TabNameList) { //cicla tra i tab
+				var TP = new TabPage(tabname == "null" ? "" : tabname) {
+					AutoScroll = true
+				};
 
-                int x = 0;
+				int x = 0;
                 int y = 0;
 
                 int tabcount = 1;
-                foreach (DataRow Field in HL[tabname]) {
-                    DataRow[] Fks = MFKind.Select(QHC.CmpEq("idmultifieldkind", Field["idmultifieldkind"]));
+                foreach (var Field in HL[tabname]) { //elenco dei datarow per ogni tab
+                    var Fks = MFKind.Select(QHC.CmpEq("idmultifieldkind", Field["idmultifieldkind"]));
                     if (Fks.Length == 0) continue;
-                    DataRow R = Fks[0];
+                    var R = Fks[0];
 
                     string fieldcode = R["fieldcode"].ToString();
                     object XX = H[fieldcode.ToLower()];
                     if (XX == null) XX = "";
-                    mfield MF = new mfield();
-                    MF.fieldname = R["fieldname"].ToString();
-                    MF.allownull = (R["allownull"].ToString().ToUpper() == "S");
-                    MF.systype = R["systype"].ToString();
-                    MF.tag = R["tag"].ToString();
-                    MF.fieldcode = fieldcode;
-                    AddMultiFieldToForm(TP, MF, x, y, tabcount); //inizio
+					var MF = new mfield {
+						fieldname = R["fieldname"].ToString(),
+						allownull = (R["allownull"].ToString().ToUpper() == "S"),
+						systype = R["systype"].ToString(),
+						tag = R["tag"].ToString(),
+						fieldcode = fieldcode
+					};
+					int height = AddMultiFieldToForm(TP, MF, x, y, CfgFn.GetNoNullInt32(R["len"])); //inizio
 
                     MF.T.LostFocus += new EventHandler(T_LostFocus);
 
                     MF.T.Text = XX.ToString();
-                    if (R["len"] != DBNull.Value) MF.T.MaxLength = CfgFn.GetNoNullInt32(R["len"]);
 
-                    if (MF.systype.ToLower() == "string")
-                        MF.T.TextAlign = HorizontalAlignment.Left;
-                    else
-                        MF.T.TextAlign = HorizontalAlignment.Right;
+                    MF.T.TextAlign = MF.systype.ToLower() == "string" ? HorizontalAlignment.Left : HorizontalAlignment.Right;
 
-                    allfields[maincount - 1] = MF;
+					allfields[maincount - 1] = MF;
 
                     tabcount++;
                     maincount++;
-                    y += 52;
+                    y += height+10;
                     if (tabcount == 10) {
                         x += 350;
                         y = 0;
@@ -3308,4 +3324,3 @@ namespace asset_default //beneinventariabile//
     }
 }
 
-

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -44,7 +43,7 @@ namespace no_table_unifydip {
         }
         public CopyContext Add(string translatorCode, translator TR) {
             if (IsDefined(translatorCode) ) {
-                MessageBox.Show("Errore: doppia definizione del translator di codice " + translatorCode, "Errore di progettazione");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore: doppia definizione del translator di codice " + translatorCode, "Errore di progettazione");
             }
             H[translatorCode] = TR;
             return this;
@@ -99,7 +98,7 @@ namespace no_table_unifydip {
             List<string> CC = new List<string>();
             foreach (Copyer C in AR) {
                 if (CC.Contains(C.table)) {
-                    MessageBox.Show("Errore di programmazione: il Copyer di " + C.table + " è stato aggiunto due volte", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore di programmazione: il Copyer di " + C.table + " è stato aggiunto due volte", "Errore");
                     continue;
                 }
                 CC.Add(C.table);
@@ -165,7 +164,7 @@ namespace no_table_unifydip {
                                       false,
                                       500);
 
-                        MessageBox.Show("La copia della tabella " + C.table + " non è stata effettuata", "Errore");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("La copia della tabella " + C.table + " non è stata effettuata", "Errore");
                         return false;
                     }
                     somethingcopied = true;
@@ -178,7 +177,7 @@ namespace no_table_unifydip {
             }
             foreach (Copyer C in AR) {
                 if (!C.applied) {
-                    MessageBox.Show("La copia della tabella " + C.table + " non è stata effettuata per mancanza di dipendenze", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("La copia della tabella " + C.table + " non è stata effettuata per mancanza di dipendenze", "Errore");
                 }
             }
             CD.Comment("Enable Triggers");
@@ -236,4 +235,3 @@ namespace no_table_unifydip {
     }
 
 }
-

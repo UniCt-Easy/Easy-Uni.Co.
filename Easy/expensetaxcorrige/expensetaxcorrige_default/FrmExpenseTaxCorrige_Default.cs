@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -28,7 +27,7 @@ using funzioni_configurazione;
 using AskInfo;
 
 namespace expensetaxcorrige_default {
-    public partial class FrmExpenseTaxCorrige_Default : Form {
+    public partial class FrmExpenseTaxCorrige_Default : MetaDataForm {
         MetaData Meta;
         bool inChiusura = false;
         CQueryHelper QHC;
@@ -47,7 +46,7 @@ namespace expensetaxcorrige_default {
                 idSer = Meta.ExtraParameter;
             }
             else {
-                MessageBox.Show("E' necessario inserire il tipo prestazione prima di aprire questa maschera.");
+               show("E' necessario inserire il tipo prestazione prima di aprire questa maschera.");
             }
 
             rendiReadOnly();
@@ -59,7 +58,12 @@ namespace expensetaxcorrige_default {
             string fExp = QHS.AppAnd(QHS.CmpEq("ayear", Meta.GetSys("esercizio")),
                 QHS.CmpEq("nphase", Meta.GetSys("maxexpensephase")));
             GetData.SetStaticFilter(DS.expenseview, fExp);
-        }
+			DataRow DR = Meta.SourceRow;
+			DataRow DRexp = DR.Table.DataSet.Tables["expense"].Rows[0];
+			if (DRexp["ymov"] != DBNull.Value) {
+				txtAnnoCompetenza.Text = DRexp["ymov"].ToString();
+			}
+		}
 
         /// <summary>
         /// Metodo che rende read only gli oggetti non modificabili del form
@@ -409,4 +413,4 @@ namespace expensetaxcorrige_default {
             abilitaGrpMovimento(false);
         }
     }
-}
+}

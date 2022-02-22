@@ -80,15 +80,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="metadatalibrary">
-      <Name>metadatalibrary</Name>
+    <Reference Include="metadatalibrary, Version=2.3.59.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="metaeasylibrary">
-      <Name>metaeasylibrary</Name>
+    <Reference Include="metaeasylibrary, Version=2.1.198.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -172,23 +170,39 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FrmAskDataInizioFine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAskDataInizioFine.Designer.cs">
+      <DependentUpon>FrmAskDataInizioFine.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frm_epexp_default.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="vistaForm.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>vistaForm.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
+    <EmbeddedResource Include="FrmAskDataInizioFine.resx">
+      <DependentUpon>FrmAskDataInizioFine.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Frm_epexp_default.resx">
       <DependentUpon>Frm_epexp_default.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="vistaForm.xsd">
+      <SubType>Designer</SubType>
       <Generator>HDSGene</Generator>
       <LastGenOutput>vistaForm.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="vistaForm.xsc">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>
@@ -198,9 +212,6 @@
     <None Include="vistaForm.xsx">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

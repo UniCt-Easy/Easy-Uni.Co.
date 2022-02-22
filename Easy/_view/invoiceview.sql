@@ -1,9 +1,26 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA invoiceview
 IF EXISTS(select * from sysobjects where id = object_id(N'[invoiceview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [invoiceview]
 GO
 
---setuser 'amm' 
+-- setuser 'amm' 
 -- clear_table_info'invoiceview'
 -- select * from  invoiceview
 CREATE  VIEW [invoiceview]
@@ -148,7 +165,13 @@ CREATE  VIEW [invoiceview]
 	surname_sostituto,
 	cf_sostituto,
 	p_iva_sostituto,
-	flaghuman_sostituto
+	flaghuman_sostituto,
+	cc_dedicato,visura_camerale,durc,
+	flag_ddt,
+	idnocigmotive,
+	idsdi_acquistoestere,
+	idtreasurer_acq_estere,
+	idfedocumentkind
 	)
 	AS SELECT
 	invoice.idinvkind,
@@ -338,17 +361,25 @@ CREATE  VIEW [invoiceview]
 	sdi_acquisto.idsdi_acquisto,
 	sdi_acquisto.codice_ipa,
 	sdi_acquisto.riferimento_amministrazione,
-	CASE
-		WHEN ((invoicekind.flag&1)=0 ) THEN sdi_acquisto.idsdi_status
-		when ((invoicekind.flag&1)<>0) then sdi_vendita.idsdi_status
-		else null
-	END,
-	CASE
-		WHEN ((invoicekind.flag&1)=0 ) THEN status_acq.description
-		when ((invoicekind.flag&1)<>0) then status_ven.description
-		else null
-	END,
-	isnull(sdi_acquisto.flag_unseen,sdi_vendita.flag_unseen),
+	/*	idsdi_status	*/
+	coalesce(sdi_acquisto.idsdi_status, sdi_vendita.idsdi_status, sdi_acquistoestere.idsdi_status),
+	--CASE
+	--	WHEN ((invoicekind.flag&1)=0 ) THEN sdi_acquisto.idsdi_status
+	--	when ((invoicekind.flag&1)<>0) then sdi_vendita.idsdi_status
+	--	else null
+	--END,
+
+	/*	sdi_status	*/
+	coalesce(status_acq.description, status_ven.description, status_acq_est.description),
+	--CASE
+	--	WHEN ((invoicekind.flag&1)=0 ) THEN status_acq.description
+	--	when ((invoicekind.flag&1)<>0) then status_ven.description
+	--	else null
+	--END,
+
+	/*	flag_unseen	*/
+	coalesce(sdi_acquisto.flag_unseen, sdi_vendita.flag_unseen, sdi_acquistoestere.flag_unseen),
+
 	-- Solo acquisto
 	case when sdi_acquisto.flag_unseen&4<>0 then 'Notifica di scarto esito Committente'else null end, --SE
 	-- case when  sdi_acquisto.flag_unseen&8<>0 then 'Notifica decorrenza termini'else null end, -- DT
@@ -367,7 +398,7 @@ CREATE  VIEW [invoiceview]
 		else null
 	END,--DT
 	sdi_vendita.idsdi_vendita,
-	sdi_vendita.idsdi_deliverystatus,
+	isnull(sdi_vendita.idsdi_deliverystatus, sdi_acquistoestere.idsdi_deliverystatus),
 	invoice.ipa_acq,
 	invoice.rifamm_acq,
 	invoice.ipa_ven_emittente,
@@ -414,7 +445,16 @@ CREATE  VIEW [invoiceview]
 	registry_sostituto.surname,
 	registry_sostituto.cf,
 	registry_sostituto.p_iva,
-	registryclass.flaghuman
+	registryclass.flaghuman,
+	case when invoice.requested_doc & 1 <> 0 then 'S' else 'N' end,
+	case when invoice.requested_doc & 2 <> 0 then 'S' else 'N' end,
+	case when invoice.requested_doc & 4 <> 0 then 'S' else 'N' end,
+	invoice.flag_ddt,
+	invoice.idnocigmotive,
+	invoice.idsdi_acquistoestere,
+	invoice.idtreasurer_acq_estere,
+	invoice.idfedocumentkind
+		
 FROM invoice WITH (NOLOCK)
 JOIN invoicekind WITH (NOLOCK)										ON invoicekind.idinvkind = invoice.idinvkind
 JOIN registry  WITH (NOLOCK)										ON registry.idreg = invoice.idreg
@@ -434,10 +474,16 @@ LEFT OUTER JOIN invoicekind M WITH (NOLOCK)							ON M.idinvkind = invoice.idinv
 LEFT OUTER JOIN uniqueregister										ON uniqueregister.idinvkind = invoice.idinvkind
 																		AND uniqueregister.ninv = invoice.ninv	AND uniqueregister.yinv = invoice.yinv	
 LEFT OUTER JOIN expirationkind										ON invoice.idexpirationkind = expirationkind.idexpirationkind
+
 LEFT OUTER JOIN sdi_acquisto										on sdi_acquisto.idsdi_acquisto = invoice.idsdi_acquisto
 LEFT OUTER JOIN sdi_status status_acq								ON sdi_acquisto.idsdi_status = status_acq.idsdi_status
+
 LEFT OUTER JOIN sdi_vendita											on sdi_vendita.idsdi_vendita = invoice.idsdi_vendita
 LEFT OUTER JOIN sdi_status status_ven								ON sdi_vendita.idsdi_status = status_ven.idsdi_status
+
+LEFT OUTER JOIN sdi_acquistoestere										on sdi_acquistoestere.idsdi_acquistoestere = invoice.idsdi_acquistoestere
+LEFT OUTER JOIN sdi_status status_acq_est								ON sdi_acquistoestere.idsdi_status = status_acq_est.idsdi_status
+
 LEFT OUTER JOIN invoicekind Forwarder								ON Forwarder.idinvkind = invoice.idinvkind_forwarder
 LEFT OUTER JOIN registry registry_sostituto							ON registry_sostituto.idreg = invoice.idreg_sostituto	
 LEFT OUTER JOIN registryclass										ON registryclass.idregistryclass = registry_sostituto.idregistryclass

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -37,7 +36,7 @@ namespace resultparameter_default//Report//
 	/// <summary>
 	/// Summary description for FrmViewReport.
 	/// </summary>
-    public class FrmViewReport : System.Windows.Forms.Form {
+    public class FrmViewReport : MetaDataForm {
         public  CrystalDecisions.Windows.Forms.CrystalReportViewer crViewer;
         private System.ComponentModel.IContainer components;
 
@@ -456,7 +455,7 @@ namespace resultparameter_default//Report//
 
             ReportDoc = Easy_DataAccess.GetReport(Conn,ModuleReport,Params, out errmess);
 			if (ReportDoc==null) {
-				MessageBox.Show(errmess,"Attenzione",
+				show(errmess,"Attenzione",
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 errore = true;
 				return false;			
@@ -467,7 +466,7 @@ namespace resultparameter_default//Report//
             }
             catch {
                 errore = true;
-                MessageBox.Show("La stampante di nome " + printerName + " non appare essere correttamente installata.", "Errore");
+                show("La stampante di nome " + printerName + " non appare essere correttamente installata.", "Errore");
                 return false;
             }
 
@@ -510,7 +509,7 @@ namespace resultparameter_default//Report//
             if (printerName == null) return false;
             if (ReportDoc == null) return false;
             if (oneprint && printed) {
-                MessageBox.Show("Una sola copia della stampa è ammessa.");
+                show("Una sola copia della stampa è ammessa.");
                 return false;
             }
             //se in anteprima mostro il printDialog con tutte le proprietà impostate
@@ -661,7 +660,7 @@ namespace resultparameter_default//Report//
                     break;
 				case "export":
                     if (oneprint) {
-                        MessageBox.Show("L'esportazione è vietata sulle stampe protette");
+                        show("L'esportazione è vietata sulle stampe protette");
                         return;
                     }
 			        try {
@@ -744,12 +743,12 @@ namespace resultparameter_default//Report//
         bool operating = false;
         private void FrmViewReport_FormClosing(object sender, FormClosingEventArgs e) {
             if (operating) {
-                MessageBox.Show("Attendere il completamento dell'operazione in corso", "Errore");
+                show("Attendere il completamento dell'operazione in corso", "Errore");
                 e.Cancel = true;
                 return;
             }
             if (!isInited) {
-                MessageBox.Show("Attendere il completamento dell'apertura della maschera prima di chiuderla", "Errore");
+                show("Attendere il completamento dell'apertura della maschera prima di chiuderla", "Errore");
                 e.Cancel = true;
                 return;
             }
@@ -758,4 +757,3 @@ namespace resultparameter_default//Report//
         
     }
 }
-

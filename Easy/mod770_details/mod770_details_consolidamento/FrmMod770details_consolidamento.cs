@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -28,7 +27,7 @@ using metadatalibrary;
 using System.Globalization;
 
 namespace mod770_details_consolidamento {
-    public partial class FrmMod770details_consolidamento : Form {
+    public partial class FrmMod770details_consolidamento : MetaDataForm {
         //MetaData Meta;
 
         public FrmMod770details_consolidamento() {
@@ -297,7 +296,7 @@ namespace mod770_details_consolidamento {
             do {
                 int letti = sr.Read(buffer, 0, 1900);
                 if (letti != 1900) {
-                    MessageBox.Show(this, "Letti " + letti + " byte anzichè 1900 in " + f.Name);
+                    show(this, "Letti " + letti + " byte anzichè 1900 in " + f.Name);
                     return false;
                 }
                 if (!verificaSeIlFileEControllato(buffer, f))
@@ -306,7 +305,7 @@ namespace mod770_details_consolidamento {
                 }
                 //string s = "G" + cfSoggettoDichiarante;
                 //if (s != "H80213750583     ") {
-                //    MessageBox.Show(this, "Errore nel codice fiscale dichiarante nel file " + f);
+                //    show(this, "Errore nel codice fiscale dichiarante nel file " + f);
                 //    break;
                 //}
                 sw.Write("G" + cfSoggettoDichiarante);
@@ -331,7 +330,7 @@ namespace mod770_details_consolidamento {
             do {
                 int letti = sr.Read(buffer, 0, 1900);
                 if (letti != 1900) {
-                    MessageBox.Show(this, "Letti " + letti + " byte anzichè 1900 in " + f.Name);
+                    show(this, "Letti " + letti + " byte anzichè 1900 in " + f.Name);
                     return false;
                 }
                 if (!verificaSeIlFileEControllato(buffer, f))
@@ -340,7 +339,7 @@ namespace mod770_details_consolidamento {
                 }
                 //string s = new string(buffer, 0, 17);
                 //if (s != "H80213750583     ") {
-                //    MessageBox.Show(this, "Errore nel codice fiscale dichiarante nel file " + f);
+                //    show(this, "Errore nel codice fiscale dichiarante nel file " + f);
                 //    break;
                 //}
                 sw.Write("H" + cfSoggettoDichiarante);
@@ -369,7 +368,7 @@ namespace mod770_details_consolidamento {
                 int letti = sr.Read(buffer, 0, 1900);
                 if (letti != 1900)
                 {
-                    MessageBox.Show(this, "Letti " + letti + " byte anzichè 1900 in " + f.Name);
+                    show(this, "Letti " + letti + " byte anzichè 1900 in " + f.Name);
                     return false;
                 }
                 if (!verificaSeIlFileEControllato(buffer, f))
@@ -399,7 +398,7 @@ namespace mod770_details_consolidamento {
             char[] buffer = new char[1900];
             int letti = sr.Read(buffer, 0, 1900);
             if (letti != 1900) {
-                MessageBox.Show(this, "Letti " + letti + " byte anzichè 1900 in " + f.Name);
+                show(this, "Letti " + letti + " byte anzichè 1900 in " + f.Name);
                 return false;
             }
             if (!verificaSeIlFileEControllato(buffer, f))
@@ -454,7 +453,7 @@ namespace mod770_details_consolidamento {
             string cfsw = new string(buffer, 73, 16);
             if (cfsw != "02327910580     ")
             {
-                MessageBox.Show(this, f.FullName + " non è stato verificato tramite il software dell'Agenzia delle Entrate", "Consolidamento interrotto!");
+                show(this, f.FullName + " non è stato verificato tramite il software dell'Agenzia delle Entrate", "Consolidamento interrotto!");
                 return false;
             }
             return true;
@@ -484,7 +483,7 @@ namespace mod770_details_consolidamento {
                         case 'B': {
                             int letti = sr.Read(buffer, 0, 1900);
                             if (letti != 1900) {
-                                MessageBox.Show(this, "Letti " + letti + " byte anzichè 1900 in " + f.Name);
+                                show(this, "Letti " + letti + " byte anzichè 1900 in " + f.Name);
                             }
                             if (tipoRecord == 'B' && !verificaSeIlFileEControllato(buffer, f))
                             {
@@ -526,13 +525,13 @@ namespace mod770_details_consolidamento {
                         case 'Z': {
                                 int letti = sr.Read(buffer, 0, 1900);
                                 if (letti != 1900) {
-                                    MessageBox.Show(this, "Letti " + letti + " byte anzichè 1900 in " + f.Name);
+                                    show(this, "Letti " + letti + " byte anzichè 1900 in " + f.Name);
                                     return;
                                 }
                                 break;
                             }
                         default: {
-                                MessageBox.Show(this, "Tipo Record '" + ((char)tipoRecord) + "' sconosciuto in " + f.Name);
+                                show(this, "Tipo Record '" + ((char)tipoRecord) + "' sconosciuto in " + f.Name);
                                 sr.Close();
                                 return;
                             }
@@ -572,11 +571,11 @@ namespace mod770_details_consolidamento {
             stream.Close();
             long length = new FileInfo(txtFile770.Text).Length;
             if (length % 1900 > 0) {
-                MessageBox.Show(this, "ERRORE nella lunghezza del consolidato " + txtFile770.Text
+                show(this, "ERRORE nella lunghezza del consolidato " + txtFile770.Text
                     + "\nLunghezza=" + length + "; %1900=" + (length % 1900));
             }
             else {
-                MessageBox.Show(this, "Il consolidato è stato salvato nel file " + txtFile770.Text + "; lunghezza=" + length);
+                show(this, "Il consolidato è stato salvato nel file " + txtFile770.Text + "; lunghezza=" + length);
             }
         }
 
@@ -589,4 +588,3 @@ namespace mod770_details_consolidamento {
     }
 }
 
-

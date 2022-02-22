@@ -1,0 +1,89 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettocosto_segprg_idworkpackage">Workpackage</label>
+					<select id="progettocosto_segprg_idworkpackage" class="custom-select d-block w-100"  data-source-name="workpackagesegview" data-value-member="idworkpackage" data-display-member="dropdown_title" data-custom-control="combo" data-tag="progettocosto.idworkpackage?progettocostosegprgview.idworkpackage" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettocosto_segprg_idprogettotipocosto">Voce di costo</label>
+					<select id="progettocosto_segprg_idprogettotipocosto" class="custom-select d-block w-100"  data-source-name="progettotipocosto" data-value-member="idprogettotipocosto" data-display-member="title" data-custom-control="combo" data-tag="progettocosto.idprogettotipocosto?progettocostosegprgview.progettocosto_idprogettotipocosto" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettocosto_segprg_amount">Importo</label>
+					<input id="progettocosto_segprg_amount" type="text" class="form-control" data-tag="progettocosto.amount.fixed.2?progettocostosegprgview.progettocosto_amount" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#progettocosto_segprg_docdate").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="progettocosto_segprg_docdate">Data del documento collegato</label>
+					<input id="progettocosto_segprg_docdate" type="text" class="form-control" data-tag="progettocosto.docdate?progettocostosegprgview.progettocosto_docdate" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettocosto_segprg_idrendicontattivitaprogetto">Attività svolta</label>
+					<div>
+						<input id="progettocosto_segprg_idrendicontattivitaprogetto" name="progettocosto_segprg_idrendicontattivitaprogetto" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="rendicontattivitaprogettosegview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettocosto_segprg_idrelated">Chiave economico patrimoniale</label>
+					<div>
+						<input id="progettocosto_segprg_idrelated" name="progettocosto_segprg_idrelated" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="entrydetail.description" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettocosto_segprg_idsal">Stato avanzamento lavori</label>
+					<select id="progettocosto_segprg_idsal" class="custom-select d-block w-100"  data-source-name="saldefaultview" data-value-member="idsal" data-display-member="dropdown_title" data-custom-control="combo" data-tag="progettocosto.idsal?progettocostosegprgview.progettocosto_idsal" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettocosto_segprg_idcontrattokind">Tipo di contratto</label>
+					<select id="progettocosto_segprg_idcontrattokind" class="custom-select d-block w-100"  data-source-name="contrattokinddefaultview" data-value-member="idcontrattokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="progettocosto.idcontrattokind?progettocostosegprgview.progettocosto_idcontrattokind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettocosto_segprg_doc">Documento collegato</label>
+					<input id="progettocosto_segprg_doc" type="text" class="form-control" data-tag="progettocosto.doc?progettocostosegprgview.progettocosto_doc" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettocosto_segprg_noperation">Numero operazione</label>
+					<input id="progettocosto_segprg_noperation" type="text" class="form-control" data-tag="progettocosto.noperation?progettocostosegprgview.progettocosto_noperation" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettocosto_segprg_idexp">Spesa</label>
+					<div>
+						<input id="progettocosto_segprg_idexp" name="progettocosto_segprg_idexp" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="expensesegview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettocosto_segprg_idpettycash">Fondo economale</label>
+					<div>
+						<input id="progettocosto_segprg_idpettycash" name="progettocosto_segprg_idpettycash" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="pettycashsegview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettocosto_segprg_yoperation">Esercizio operazione</label>
+					<input id="progettocosto_segprg_yoperation" type="text" class="form-control" data-tag="progettocosto.yoperation?progettocostosegprgview.progettocosto_yoperation" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

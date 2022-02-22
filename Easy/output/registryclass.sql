@@ -1,4 +1,21 @@
 
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+
 -- GENERAZIONE DATI PER registryclass --
 IF not exists(SELECT * FROM [registryclass] WHERE idregistryclass = '21')
 INSERT INTO [registryclass] (idregistryclass,active,ct,cu,description,flagbadgecode,flagbadgecode_forced,flagCF,flagcf_forced,flagcfbutton,flagextmatricula,flagextmatricula_forced,flagfiscalresidence,flagfiscalresidence_forced,flagforeigncf,flagforeigncf_forced,flaghuman,flaginfofromcfbutton,flagmaritalstatus,flagmaritalstatus_forced,flagmaritalsurname,flagmaritalsurname_forced,flagothers,flagothers_forced,flagp_iva,flagp_iva_forced,flagqualification,flagqualification_forced,flagresidence,flagresidence_forced,flagtitle,flagtitle_forced,lt,lu) VALUES ('21','S',{ts '2005-12-23 14:43:09.453'},'Software and more','Società, enti commerciali, ditte individuali e studi associati','N','N','S','N','N','N','N','S','S','S','N','N','N','N','N','N','N','S','N','S','N','N','N','S','S','S','N',{ts '2005-12-23 15:13:21.453'},'Software and more')

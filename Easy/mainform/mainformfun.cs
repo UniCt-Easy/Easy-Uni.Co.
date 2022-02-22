@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using metadatalibrary;
@@ -92,6 +91,7 @@ namespace mainform//mainformfunctions//
                 if (FormType.Name == "frmAskDate") {
                     ConstructorInfo FormBuilder = FormType.GetConstructor(new System.Type[] {typeof(string),typeof(string) });
                     Form ask = (Form)FormBuilder.Invoke(new object[] {Label,Caption});
+                    frmMain.signalCreateForm(ask,null);
                     DialogResult askRes = ask.ShowDialog(F);
                     if (askRes != DialogResult.OK) return null;
                     FieldInfo dataInfo = ask.GetType().GetField("txtData");
@@ -124,12 +124,12 @@ namespace mainform//mainformfunctions//
 
 			DataTable T = MyDataAccess.CreateTableByName(tablename,null);
 			if (T.Columns.Count==0){
-				MessageBox.Show("Tabella non esistente.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Tabella non esistente.");
 				return;
 			}
-			DataAccess.AddExtendedProperty(MyDataAccess,T);
+            MyDataAccess.AddExtendedProperty(T);
 
-			if (MessageBox.Show(F,"Esporto anche il contenuto della tabella?",
+			if (MetaFactory.factory.getSingleton<IMessageShower>().Show(F,"Esporto anche il contenuto della tabella?",
 				"Conferma",
 				MessageBoxButtons.YesNo)==DialogResult.Yes){
 				string editedfilter = getFormAskDate(F,"Filtro SQL da applicare", "Parametri Import");
@@ -222,7 +222,7 @@ namespace mainform//mainformfunctions//
 			
 			dbstructure DS = MyDataAccess.GetEntireStructure(filter);
 
-			DialogResult ColumnSave = MessageBox.Show("Salvo anche la tabella columntypes?",
+			DialogResult ColumnSave = MetaFactory.factory.getSingleton<IMessageShower>().Show("Salvo anche la tabella columntypes?",
 				"Conferma",
 				MessageBoxButtons.YesNo);
 
@@ -285,4 +285,3 @@ namespace mainform//mainformfunctions//
 	
 	}
 }
-

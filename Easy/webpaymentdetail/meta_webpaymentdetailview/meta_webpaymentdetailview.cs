@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
@@ -50,7 +49,7 @@ namespace meta_webpaymentdetailview {
                 DescribeAColumn(T, "ndetail", "n.Dettaglio", nPos++);
                 DescribeAColumn(T, "intcode", "Cod. Art.", nPos++);
                 DescribeAColumn(T, "list", "Descrizione", nPos++);
-                DescribeAColumn(T, "number", "Quantit√†", nPos++);
+                DescribeAColumn(T, "number", "Quantit‡", nPos++);
                 DescribeAColumn(T, "listclass", "Class. Merceologica", nPos++);
                 DescribeAColumn(T, "store", "Magazzino", nPos++);
                 HelpForm.SetFormatForColumn(T.Columns["number"], "n");
@@ -67,7 +66,7 @@ namespace meta_webpaymentdetailview {
                 DescribeAColumn(T, "ndetail", "n.Dettaglio", nPos++);
                 DescribeAColumn(T, "intcode", "Cod. Art.", nPos++);
                 DescribeAColumn(T, "list", "Descrizione", nPos++);
-                DescribeAColumn(T, "number", "Quantit√†", nPos++);
+                DescribeAColumn(T, "number", "Quantit‡", nPos++);
                 //DescribeAColumn(T, "fulfilled", "Evasa", nPos++);
                 DescribeAColumn(T, "listclass", "Class. Merceologica", nPos++);
                 DescribeAColumn(T, "store", "Magazzino", nPos++);
@@ -89,4 +88,3 @@ namespace meta_webpaymentdetailview {
 
     }
 }
-

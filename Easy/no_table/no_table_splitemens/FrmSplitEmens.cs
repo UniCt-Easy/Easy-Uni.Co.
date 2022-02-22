@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections;
@@ -30,11 +29,12 @@ using funzioni_configurazione;
 using System.Globalization;
 
 namespace no_table_splitemens{
-    public partial class FrmSplitEmens : Form    {
+    public partial class FrmSplitEmens : MetaDataForm {
         private MetaData meta;
         QueryHelper QHS;
         CQueryHelper QHC;
         string idSedeINPS = "";
+        public IOpenFileDialog openFileDialog1;
 
         public FrmSplitEmens() {
             InitializeComponent();
@@ -56,6 +56,7 @@ namespace no_table_splitemens{
             dsEmens.Emens.Columns["CodCalamita"].Caption = "";
             dsEmens.Emens.Columns["CodCertificazione"].Caption = "";
 
+            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
         }
 
         public void MetaData_AfterLink(){
@@ -127,7 +128,7 @@ namespace no_table_splitemens{
             string messaggio;
             if (txtFileXml.Text == "")
             {
-                MessageBox.Show(this, "E' necessario indicare il file da elaborare!");
+                show(this, "E' necessario indicare il file da elaborare!");
                 chiediFileDaElaborare();
             }
 
@@ -138,7 +139,7 @@ namespace no_table_splitemens{
                 di = getDirectoryInfo(out messaggio);
                 if (di == null)
                 {
-                    MessageBox.Show(this, "Errore: " + messaggio
+                    show(this, "Errore: " + messaggio
                         + "\n\nE' necessario indicare la cartella nella quale scrivere i file Emens da generare!");
                     return;
                 }
@@ -243,7 +244,7 @@ namespace no_table_splitemens{
                 document.Load(fi.FullName);
             }
             catch (XmlException ex){
-                MessageBox.Show(this, "Impossibile aprire il file Xml specificato.\n" + ex.Message);
+                show(this, "Impossibile aprire il file Xml specificato.\n" + ex.Message);
                 return;
             }
 
@@ -289,12 +290,12 @@ namespace no_table_splitemens{
         private void leggiFile(){
             XmlDocument document =  new XmlDocument();
             try{
-                System.Diagnostics.Process.Start(txtFileXml.Text);
+                runProcess(txtFileXml.Text, true);
                 document.Load(txtFileXml.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "Impossibile aprire il file Xml specificato.\n" + ex.Message);
+                show(this, "Impossibile aprire il file Xml specificato.\n" + ex.Message);
                 return;
             }
             int idAzienda = 0;
@@ -439,4 +440,4 @@ namespace no_table_splitemens{
             Leggi("U");
         }
     }
-}
+}

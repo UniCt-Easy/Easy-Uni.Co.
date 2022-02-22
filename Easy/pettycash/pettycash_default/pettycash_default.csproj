@@ -142,9 +142,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
-      <Project>{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}</Project>
+      <Project>{c0dacf4d-2f3e-44d6-a718-7c9821a1bdcd}</Project>
       <Name>funzioni_configurazione</Name>
-      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -87,7 +86,7 @@ namespace calcolooccasionale {
                 RCasualContractYear = casContractYear.Rows[0];
             }
             else {
-                MessageBox.Show("Il contratto occasionale " + RCasualContract["ycon"] +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Il contratto occasionale " + RCasualContract["ycon"] +
                                 " del " + RCasualContract["ycon"] +
                                 " non è stato ancora trasferito nell'anno corrente.", "Errore");
 
@@ -146,7 +145,7 @@ namespace calcolooccasionale {
                                 RCasualContract["ncon"]}, false, 30000);
                 }
                 if (D1 == null || D1.Tables.Count == 0) {
-                    MessageBox.Show("Errore nella chiamata alla SP che calcola le informazioni sul contratto");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nella chiamata alla SP che calcola le informazioni sul contratto");
                     return false;
                 }
                 R1 = D1.Tables[0].Rows[0];
@@ -162,7 +161,7 @@ namespace calcolooccasionale {
                         new object[] { Conn.GetSys("esercizio"), idregtoconsider }, false, 30000);              
             }
             if (dall==null || dall.Tables.Count==0) {
-                MessageBox.Show("Errore nella chiamata alla SP che calcola le informazioni sul contratto");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nella chiamata alla SP che calcola le informazioni sul contratto");
                 return  false;
             }
           
@@ -636,4 +635,3 @@ namespace calcolooccasionale {
         }
     }
 }
-

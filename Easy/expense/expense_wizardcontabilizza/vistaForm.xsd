@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaFrmWizardElimina.xsd" xmlns:mstns="http://tempuri.org/VistaFrmWizardElimina.xsd" xmlns="http://tempuri.org/VistaFrmWizardElimina.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaFrmWizardElimina.xsd" xmlns:mstns="http://tempuri.org/VistaFrmWizardElimina.xsd" xmlns="http://tempuri.org/VistaFrmWizardElimina.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -403,6 +403,7 @@
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="npayroll" type="xs:int" />
+              <xs:element name="idupb" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -831,158 +832,45 @@
       <xs:selector xpath=".//mstns:incomelast" />
       <xs:field xpath="mstns:idinc" />
     </xs:unique>
-    <xs:keyref name="income_incomelast" refer="income_Constraint1">
-      <xs:selector xpath=".//mstns:incomelast" />
-      <xs:field xpath="mstns:idinc" />
-    </xs:keyref>
-    <xs:keyref name="expense_expenselast" refer="Constraint1">
-      <xs:selector xpath=".//mstns:expenselast" />
-      <xs:field xpath="mstns:idexp" />
-    </xs:keyref>
-    <xs:keyref name="expenseexpensemandate" refer="Constraint1">
-      <xs:selector xpath=".//mstns:expensemandate" />
-      <xs:field xpath="mstns:idexp" />
-    </xs:keyref>
-    <xs:keyref name="mandateexpensemandate" refer="mandate_Constraint1">
-      <xs:selector xpath=".//mstns:expensemandate" />
-      <xs:field xpath="mstns:idmankind" />
-      <xs:field xpath="mstns:yman" />
-      <xs:field xpath="mstns:nman" />
-    </xs:keyref>
-    <xs:keyref name="mandatekindmandate" refer="mandatekind_Constraint1">
-      <xs:selector xpath=".//mstns:mandate" />
-      <xs:field xpath="mstns:idmankind" />
-    </xs:keyref>
-    <xs:keyref name="wageadditionexpensewageaddition" refer="wageaddition_Constraint1">
-      <xs:selector xpath=".//mstns:expensewageaddition" />
-      <xs:field xpath="mstns:ycon" />
-      <xs:field xpath="mstns:ncon" />
-    </xs:keyref>
-    <xs:keyref name="expenseexpensewageaddition" refer="Constraint1">
-      <xs:selector xpath=".//mstns:expensewageaddition" />
-      <xs:field xpath="mstns:idexp" />
-    </xs:keyref>
-    <xs:keyref name="expenseexpenseprofservice" refer="Constraint1">
-      <xs:selector xpath=".//mstns:expenseprofservice" />
-      <xs:field xpath="mstns:idexp" />
-    </xs:keyref>
-    <xs:keyref name="profserviceexpenseprofservice" refer="profservice_Constraint1">
-      <xs:selector xpath=".//mstns:expenseprofservice" />
-      <xs:field xpath="mstns:ycon" />
-      <xs:field xpath="mstns:ncon" />
-    </xs:keyref>
-    <xs:keyref name="expenseexpensecasualcontract" refer="Constraint1">
-      <xs:selector xpath=".//mstns:expensecasualcontract" />
-      <xs:field xpath="mstns:idexp" />
-    </xs:keyref>
-    <xs:keyref name="casualcontractexpensecasualcontract" refer="casualcontract_Constraint1">
-      <xs:selector xpath=".//mstns:expensecasualcontract" />
-      <xs:field xpath="mstns:ycon" />
-      <xs:field xpath="mstns:ncon" />
-    </xs:keyref>
-    <xs:keyref name="expenseexpensepayroll" refer="Constraint1">
-      <xs:selector xpath=".//mstns:expensepayroll" />
-      <xs:field xpath="mstns:idexp" />
-    </xs:keyref>
-    <xs:keyref name="payrollexpensepayroll" refer="payroll_Constraint1">
-      <xs:selector xpath=".//mstns:expensepayroll" />
-      <xs:field xpath="mstns:idpayroll" />
-    </xs:keyref>
-    <xs:keyref name="invoiceincomeinvoice" refer="invoice_Constraint1">
-      <xs:selector xpath=".//mstns:incomeinvoice" />
-      <xs:field xpath="mstns:idinvkind" />
-      <xs:field xpath="mstns:yinv" />
-      <xs:field xpath="mstns:ninv" />
-    </xs:keyref>
-    <xs:keyref name="incomeincomeinvoice" refer="income_Constraint1">
-      <xs:selector xpath=".//mstns:incomeinvoice" />
-      <xs:field xpath="mstns:idinc" />
-    </xs:keyref>
-    <xs:keyref name="invoicekindinvoice" refer="invoicekind_Constraint1">
-      <xs:selector xpath=".//mstns:invoice" />
-      <xs:field xpath="mstns:idinvkind" />
-    </xs:keyref>
-    <xs:keyref name="invoiceexpenseinvoice" refer="invoice_Constraint1">
-      <xs:selector xpath=".//mstns:expenseinvoice" />
-      <xs:field xpath="mstns:idinvkind" />
-      <xs:field xpath="mstns:yinv" />
-      <xs:field xpath="mstns:ninv" />
-    </xs:keyref>
-    <xs:keyref name="expenseexpenseinvoice" refer="Constraint1">
-      <xs:selector xpath=".//mstns:expenseinvoice" />
-      <xs:field xpath="mstns:idexp" />
-    </xs:keyref>
-    <xs:keyref name="incomeincomevar" refer="income_Constraint1">
-      <xs:selector xpath=".//mstns:incomevar" />
-      <xs:field xpath="mstns:idinc" />
-    </xs:keyref>
-    <xs:keyref name="expenseexpensevar" refer="Constraint1">
-      <xs:selector xpath=".//mstns:expensevar" />
-      <xs:field xpath="mstns:idexp" />
-    </xs:keyref>
-    <xs:keyref name="itineration_expenseitineration" refer="itineration_Constraint1">
-      <xs:selector xpath=".//mstns:expenseitineration" />
-      <xs:field xpath="mstns:iditineration" />
-    </xs:keyref>
-    <xs:keyref name="expenseexpenseitineration" refer="Constraint1">
-      <xs:selector xpath=".//mstns:expenseitineration" />
-      <xs:field xpath="mstns:idexp" />
-    </xs:keyref>
-    <xs:keyref name="upbincomeyear" refer="upb_Constraint1">
-      <xs:selector xpath=".//mstns:incomeyear" />
-      <xs:field xpath="mstns:idupb" />
-    </xs:keyref>
-    <xs:keyref name="incomeincomeyear" refer="income_Constraint1">
-      <xs:selector xpath=".//mstns:incomeyear" />
-      <xs:field xpath="mstns:idinc" />
-    </xs:keyref>
-    <xs:keyref name="finincomeyear" refer="fin_Constraint1">
-      <xs:selector xpath=".//mstns:incomeyear" />
-      <xs:field xpath="mstns:idfin" />
-    </xs:keyref>
-    <xs:keyref name="upbexpenseyear" refer="upb_Constraint1">
-      <xs:selector xpath=".//mstns:expenseyear" />
-      <xs:field xpath="mstns:idupb" />
-    </xs:keyref>
-    <xs:keyref name="expenseexpenseyear" refer="Constraint1">
-      <xs:selector xpath=".//mstns:expenseyear" />
-      <xs:field xpath="mstns:idexp" />
-    </xs:keyref>
-    <xs:keyref name="finexpenseyear" refer="fin_Constraint1">
-      <xs:selector xpath=".//mstns:expenseyear" />
-      <xs:field xpath="mstns:idfin" />
-    </xs:keyref>
-    <xs:keyref name="incomephaseincome" refer="incomephase_Constraint1">
-      <xs:selector xpath=".//mstns:income" />
-      <xs:field xpath="mstns:nphase" />
-    </xs:keyref>
-    <xs:keyref name="managerincome" refer="manager_Constraint1">
-      <xs:selector xpath=".//mstns:income" />
-      <xs:field xpath="mstns:idman" />
-    </xs:keyref>
-    <xs:keyref name="registryincome" refer="registry_Constraint1">
-      <xs:selector xpath=".//mstns:income" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:keyref>
-    <xs:keyref name="incomeincome" refer="income_Constraint1">
-      <xs:selector xpath=".//mstns:income" />
-      <xs:field xpath="mstns:parentidinc" />
-    </xs:keyref>
-    <xs:keyref name="expensephaseexpense" refer="expensephase_Constraint1">
-      <xs:selector xpath=".//mstns:expense" />
-      <xs:field xpath="mstns:nphase" />
-    </xs:keyref>
-    <xs:keyref name="managerexpense" refer="manager_Constraint1">
-      <xs:selector xpath=".//mstns:expense" />
-      <xs:field xpath="mstns:idman" />
-    </xs:keyref>
-    <xs:keyref name="registryexpense" refer="registry_Constraint1">
-      <xs:selector xpath=".//mstns:expense" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:keyref>
-    <xs:keyref name="expenseexpense" refer="Constraint1">
-      <xs:selector xpath=".//mstns:expense" />
-      <xs:field xpath="mstns:parentidexp" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="income_incomelast" msdata:parent="income" msdata:child="incomelast" msdata:parentkey="idinc" msdata:childkey="idinc" />
+      <msdata:Relationship name="expense_expenselast" msdata:parent="expense" msdata:child="expenselast" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="expenseexpensemandate" msdata:parent="expense" msdata:child="expensemandate" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="mandateexpensemandate" msdata:parent="mandate" msdata:child="expensemandate" msdata:parentkey="idmankind yman nman" msdata:childkey="idmankind yman nman" />
+      <msdata:Relationship name="mandatekindmandate" msdata:parent="mandatekind" msdata:child="mandate" msdata:parentkey="idmankind" msdata:childkey="idmankind" />
+      <msdata:Relationship name="wageadditionexpensewageaddition" msdata:parent="wageaddition" msdata:child="expensewageaddition" msdata:parentkey="ycon ncon" msdata:childkey="ycon ncon" />
+      <msdata:Relationship name="expenseexpensewageaddition" msdata:parent="expense" msdata:child="expensewageaddition" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="expenseexpenseprofservice" msdata:parent="expense" msdata:child="expenseprofservice" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="profserviceexpenseprofservice" msdata:parent="profservice" msdata:child="expenseprofservice" msdata:parentkey="ycon ncon" msdata:childkey="ycon ncon" />
+      <msdata:Relationship name="expenseexpensecasualcontract" msdata:parent="expense" msdata:child="expensecasualcontract" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="casualcontractexpensecasualcontract" msdata:parent="casualcontract" msdata:child="expensecasualcontract" msdata:parentkey="ycon ncon" msdata:childkey="ycon ncon" />
+      <msdata:Relationship name="expenseexpensepayroll" msdata:parent="expense" msdata:child="expensepayroll" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="payrollexpensepayroll" msdata:parent="payroll" msdata:child="expensepayroll" msdata:parentkey="idpayroll" msdata:childkey="idpayroll" />
+      <msdata:Relationship name="invoiceincomeinvoice" msdata:parent="invoice" msdata:child="incomeinvoice" msdata:parentkey="idinvkind yinv ninv" msdata:childkey="idinvkind yinv ninv" />
+      <msdata:Relationship name="incomeincomeinvoice" msdata:parent="income" msdata:child="incomeinvoice" msdata:parentkey="idinc" msdata:childkey="idinc" />
+      <msdata:Relationship name="invoicekindinvoice" msdata:parent="invoicekind" msdata:child="invoice" msdata:parentkey="idinvkind" msdata:childkey="idinvkind" />
+      <msdata:Relationship name="invoiceexpenseinvoice" msdata:parent="invoice" msdata:child="expenseinvoice" msdata:parentkey="idinvkind yinv ninv" msdata:childkey="idinvkind yinv ninv" />
+      <msdata:Relationship name="expenseexpenseinvoice" msdata:parent="expense" msdata:child="expenseinvoice" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="incomeincomevar" msdata:parent="income" msdata:child="incomevar" msdata:parentkey="idinc" msdata:childkey="idinc" />
+      <msdata:Relationship name="expenseexpensevar" msdata:parent="expense" msdata:child="expensevar" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="itineration_expenseitineration" msdata:parent="itineration" msdata:child="expenseitineration" msdata:parentkey="iditineration" msdata:childkey="iditineration" />
+      <msdata:Relationship name="expenseexpenseitineration" msdata:parent="expense" msdata:child="expenseitineration" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="upbincomeyear" msdata:parent="upb" msdata:child="incomeyear" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="incomeincomeyear" msdata:parent="income" msdata:child="incomeyear" msdata:parentkey="idinc" msdata:childkey="idinc" />
+      <msdata:Relationship name="finincomeyear" msdata:parent="fin" msdata:child="incomeyear" msdata:parentkey="idfin" msdata:childkey="idfin" />
+      <msdata:Relationship name="upbexpenseyear" msdata:parent="upb" msdata:child="expenseyear" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="expenseexpenseyear" msdata:parent="expense" msdata:child="expenseyear" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="finexpenseyear" msdata:parent="fin" msdata:child="expenseyear" msdata:parentkey="idfin" msdata:childkey="idfin" />
+      <msdata:Relationship name="incomephaseincome" msdata:parent="incomephase" msdata:child="income" msdata:parentkey="nphase" msdata:childkey="nphase" />
+      <msdata:Relationship name="managerincome" msdata:parent="manager" msdata:child="income" msdata:parentkey="idman" msdata:childkey="idman" />
+      <msdata:Relationship name="registryincome" msdata:parent="registry" msdata:child="income" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="incomeincome" msdata:parent="income" msdata:child="income" msdata:parentkey="idinc" msdata:childkey="parentidinc" />
+      <msdata:Relationship name="expensephaseexpense" msdata:parent="expensephase" msdata:child="expense" msdata:parentkey="nphase" msdata:childkey="nphase" />
+      <msdata:Relationship name="managerexpense" msdata:parent="manager" msdata:child="expense" msdata:parentkey="idman" msdata:childkey="idman" />
+      <msdata:Relationship name="registryexpense" msdata:parent="registry" msdata:child="expense" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="expenseexpense" msdata:parent="expense" msdata:child="expense" msdata:parentkey="idexp" msdata:childkey="parentidexp" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

@@ -1,25 +1,22 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+
 using System;
-using System.Drawing;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
 using metadatalibrary;
@@ -30,17 +27,20 @@ using funzioni_configurazione;
 using System.Xml;
 using System.Collections;
 using System.Globalization;
-using System.Data.OleDb;
-using PdfSharp.Drawing;
-using PdfSharp.Pdf;
-using PdfSharp.Pdf.IO;
+using iText.Kernel.Pdf;
+using iText.Forms;
+using System.Linq;
+using SituazioneViewer;
+using System.Runtime.Serialization.Formatters.Binary;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using LM=metadatalibrary.LanguageManager;
 
 namespace cu_details_default {
     /// <summary>
     /// Summary description for Frmcu_details_default.
     /// </summary>
-    public class FrmCu_details_default
-        : System.Windows.Forms.Form {
+    public class FrmCu_details_default : MetaDataForm {
         NumberFormatInfo numberFormat = CultureInfo.GetCultureInfo(0x410).NumberFormat;
 
         private System.Windows.Forms.RichTextBox richTextBox1;
@@ -196,7 +196,7 @@ namespace cu_details_default {
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox1.Location = new System.Drawing.Point(10, 172);
             this.richTextBox1.Name = "richTextBox1";
@@ -207,7 +207,7 @@ namespace cu_details_default {
             // 
             // txtPercorso
             // 
-            this.txtPercorso.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtPercorso.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPercorso.Location = new System.Drawing.Point(142, 145);
             this.txtPercorso.Name = "txtPercorso";
@@ -468,8 +468,8 @@ namespace cu_details_default {
             // 
             // groupBox5
             // 
-            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.dataGrid);
             this.groupBox5.Location = new System.Drawing.Point(12, 455);
@@ -480,8 +480,8 @@ namespace cu_details_default {
             // 
             // dataGrid
             // 
-            this.dataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGrid.DataMember = "";
             this.dataGrid.HeaderForeColor = System.Drawing.SystemColors.ControlText;
@@ -546,7 +546,7 @@ namespace cu_details_default {
             // 
             // txtInputFile
             // 
-            this.txtInputFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtInputFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtInputFile.Location = new System.Drawing.Point(231, 251);
             this.txtInputFile.Multiline = true;
@@ -668,7 +668,7 @@ namespace cu_details_default {
             // 
             // pBarAvanzamento
             // 
-            this.pBarAvanzamento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.pBarAvanzamento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pBarAvanzamento.Location = new System.Drawing.Point(18, 758);
             this.pBarAvanzamento.Name = "pBarAvanzamento";
@@ -677,7 +677,7 @@ namespace cu_details_default {
             // 
             // txtInputFileSetCF
             // 
-            this.txtInputFileSetCF.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtInputFileSetCF.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtInputFileSetCF.Location = new System.Drawing.Point(442, 303);
             this.txtInputFileSetCF.Multiline = true;
@@ -754,7 +754,7 @@ namespace cu_details_default {
             Meta = MetaData.GetMetaData(this);
             QHS = Meta.Conn.GetQueryHelper();
             QHC = new CQueryHelper();
-            int esercizio = (int) Meta.GetSys("esercizio");
+            int esercizio = (int)Meta.GetSys("esercizio");
             EsercStr = esercizio.ToString();
             GetData.CacheTable(DS.cu_details, "ayear=" + esercizio, "colorder", false);
             this.conn = Meta.Conn;
@@ -779,12 +779,13 @@ namespace cu_details_default {
                     break;
             }
 
-            this.richTextBox1.Text = "La certificazione unica generata può essere inviata telematicamente tramite il \"Software di compilazione Certificazione Unica  "
-                                     + esercizio
-                                     +
-                                     "\" dell'Agenzia delle Entrate.\nTale software si può scaricare gratuitamente a questo indirizzo:\n"
-                                     + link
-                                     + "";
+            this.richTextBox1.Text = "";
+            //this.richTextBox1.Text = "La certificazione unica generata può essere inviata telematicamente tramite il \"Software di compilazione Certificazione Unica  "
+            //                         + esercizio
+            //                         +
+            //                         "\" dell'Agenzia delle Entrate.\nTale software si può scaricare gratuitamente a questo indirizzo:\n"
+            //                         + link
+            //                         + "";
             ;
             //groupBox5.Visible = false;
             chkConIndirizzo.Checked = false;
@@ -815,10 +816,11 @@ namespace cu_details_default {
                 case "NU": //P-N
                 case "N5": //P-N
                 case "N1"://P-N
+                case "NP"://P-N
                 case "CB": //P-N
                     return "".PadLeft(lunghezza, '0');
             }
-            MessageBox.Show(this, "Impossibile creare la stringa vuota per il formato '" + formato + "'");
+            show(this, "Impossibile creare la stringa vuota per il formato '" + formato + "'");
             return "".PadLeft(lunghezza);
         }
 
@@ -844,12 +846,14 @@ namespace cu_details_default {
                 case "CB": //P-N
                     string t = getInt(r, out valore).ToString();
                     return t.PadLeft(lunghezza, '0');
-            case "N1":
-                return getInt(r, out valore).ToString().PadLeft(1, '0');
-            case "N5":
+                case "N1":
+                    return getInt(r, out valore).ToString().PadLeft(1, '0');
+                case "NP": //P-N
+
+                case "N5":
                     return getInt(r, out valore).ToString().PadLeft(5, '0');
             }
-            MessageBox.Show(this,
+            show(this,
                 "Formato Errato " + rFormato["format"] + " nella Colonna" + r["colonna"] + " del quadro " + r["quadro"]);
             return null;
         }
@@ -866,13 +870,13 @@ namespace cu_details_default {
         /// <returns></returns>
         private string[] stringaASinistra(string campoCodice, string s) {
             s = s.ToUpper().Trim();
-            if (s.Length <= 16) return new string[] {campoCodice + s.PadRight(16)};
-            string[] result = new string[(s.Length + 13)/15];
+            if (s.Length <= 16) return new string[] { campoCodice + s.PadRight(16) };
+            string[] result = new string[(s.Length + 13) / 15];
             result[0] = campoCodice + s.Substring(0, 16);
             for (int i = 1; i < result.Length - 1; i++) {
-                result[i] = campoCodice + "+" + s.Substring(1 + i*15, 15);
+                result[i] = campoCodice + "+" + s.Substring(1 + i * 15, 15);
             }
-            result[result.Length - 1] = campoCodice + "+" + s.Substring(15*result.Length - 14).PadRight(15);
+            result[result.Length - 1] = campoCodice + "+" + s.Substring(15 * result.Length - 14).PadRight(15);
             return result;
         }
 
@@ -907,60 +911,60 @@ namespace cu_details_default {
                 case "VN": //P-N
                     return typeof(decimal);
             }
-            MessageBox.Show("Formato sconosciuto nel quadro " + rFormato["frame"] + " colonna " + rFormato["colnumber"]);
+            show("Formato sconosciuto nel quadro " + rFormato["frame"] + " colonna " + rFormato["colnumber"]);
             return null;
         }
 
         private string getString(DataRow r, out object valore) {
             if (r["intero"] != DBNull.Value) {
-                MessageBox.Show(this, "Intero e non stringa nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                show(this, "Intero e non stringa nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["data"] != DBNull.Value) {
-                MessageBox.Show(this, "Data e non stringa nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                show(this, "Data e non stringa nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["decimale"] != DBNull.Value) {
-                MessageBox.Show(this, "Decimale e non stringa nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                show(this, "Decimale e non stringa nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
-            return (string) (valore = r["stringa"]);
+            return (string)(valore = r["stringa"]);
         }
 
         private int getInt(DataRow r, out object valore) {
             if (r["stringa"] != DBNull.Value) {
-                MessageBox.Show(this, "Stringa e non intero nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                show(this, "Stringa e non intero nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["data"] != DBNull.Value) {
-                MessageBox.Show(this, "Data e non intero nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                show(this, "Data e non intero nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["decimale"] != DBNull.Value) {
-                MessageBox.Show(this, "Decimale e non intero nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                show(this, "Decimale e non intero nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
-            return (int) (valore = r["intero"]);
+            return (int)(valore = r["intero"]);
         }
 
         private decimal getDecimal(DataRow r, out object valore) {
             if (r["stringa"] != DBNull.Value) {
-                MessageBox.Show(this, "Stringa e non decimal nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                show(this, "Stringa e non decimal nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["data"] != DBNull.Value) {
-                MessageBox.Show(this, "Data e non decimal nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                show(this, "Data e non decimal nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["intero"] != DBNull.Value) {
-                MessageBox.Show(this, "Intero e non decimal nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                show(this, "Intero e non decimal nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
-            return (decimal) (valore = r["decimale"]);
+            return (decimal)(valore = r["decimale"]);
         }
 
         private DateTime getDateTime(DataRow r, out object valore) {
             if (r["stringa"] != DBNull.Value) {
-                MessageBox.Show(this, "Stringa e non data nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                show(this, "Stringa e non data nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["intero"] != DBNull.Value) {
-                MessageBox.Show(this, "Intero e non data nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                show(this, "Intero e non data nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["decimale"] != DBNull.Value) {
-                MessageBox.Show(this, "Decimale e non data nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                show(this, "Decimale e non data nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
-            return (DateTime) (valore = r["data"]);
+            return (DateTime)(valore = r["data"]);
         }
 
         private string[] formattaCampoNonPosizionale(DataRow r, out object valore, bool perStampa) {
@@ -971,11 +975,11 @@ namespace cu_details_default {
                 || (r["quadro"].ToString().Substring(0, 2) == "DN"))
                 campoCodice = r["quadro"].ToString() + r["colonna"].ToString();
             if (r["quadro"].ToString() == "SS")
-                return new string[] {campoCodice + getInt(r, out valore).ToString().PadLeft(16)};
+                return new string[] { campoCodice + getInt(r, out valore).ToString().PadLeft(16) };
             if (r["quadro"].ToString() == "DC001" && r["colonna"].ToString() == "072") {
                 valore = r["stringa"].ToString();
                 string patcode = "DC001072" + (valore.ToString()).PadLeft(16);
-                return new string[] {patcode};
+                return new string[] { patcode };
             }
             string filtro = "(frame='" + r["quadro"] + "') and (colnumber='" + r["colonna"] + "')";
             DataRow[] rFormato = DS.cu_details.Select(filtro);
@@ -997,10 +1001,10 @@ namespace cu_details_default {
                 case "NU": //P-N
                 case "PC": //N
                 case "QU": //N
-                    return new string[] {campoCodice + getInt(r, out valore).ToString().PadLeft(16)};
+                    return new string[] { campoCodice + getInt(r, out valore).ToString().PadLeft(16) };
                 case "CB": //P-N
                     if (!perStampa) {
-                        return new string[] {campoCodice + getInt(r, out valore).ToString().PadLeft(1, '0').PadLeft(16)};
+                        return new string[] { campoCodice + getInt(r, out valore).ToString().PadLeft(1, '0').PadLeft(16) };
                     }
                     else {
                         object o = null;
@@ -1009,33 +1013,33 @@ namespace cu_details_default {
 
                         if (o.ToString() == "1")
                             valore = "X";
-                        return new string[] {campoCodice + valore.ToString().PadLeft(1, '0').PadLeft(16)};
+                        return new string[] { campoCodice + valore.ToString().PadLeft(1, '0').PadLeft(16) };
 
                     }
                 case "N1": //N
-                    return new string[] {campoCodice + getInt(r, out valore).ToString().PadLeft(1, '0').PadLeft(16)};
+                    return new string[] { campoCodice + getInt(r, out valore).ToString().PadLeft(1, '0').PadLeft(16) };
                 case "N2": //N
-                    return new string[] {campoCodice + getInt(r, out valore).ToString().PadLeft(2, '0').PadLeft(16)};
+                    return new string[] { campoCodice + getInt(r, out valore).ToString().PadLeft(2, '0').PadLeft(16) };
                 case "N3": //N
-                    return new string[] {campoCodice + getInt(r, out valore).ToString().PadLeft(3, '0').PadLeft(16)};
+                    return new string[] { campoCodice + getInt(r, out valore).ToString().PadLeft(3, '0').PadLeft(16) };
                 case "N5": //N
-                    return new string[] {campoCodice + getInt(r, out valore).ToString().PadLeft(5, '0').PadLeft(16)};
+                    return new string[] { campoCodice + getInt(r, out valore).ToString().PadLeft(5, '0').PadLeft(16) };
                 case "N10": //N
-                    return new string[] {campoCodice + getString(r, out valore).PadLeft(10, '0').PadLeft(16)};
+                    return new string[] { campoCodice + getString(r, out valore).PadLeft(10, '0').PadLeft(16) };
                 case "CB12": //N
-                    return new string[] {campoCodice + getString(r, out valore).PadLeft(12, '0').PadLeft(16)};
+                    return new string[] { campoCodice + getString(r, out valore).PadLeft(12, '0').PadLeft(16) };
                 case "DT": //P-N
                 case "DN": //N
-                    return new string[] {campoCodice + getDateTime(r, out valore).ToString("ddMMyyyy").PadLeft(16)};
+                    return new string[] { campoCodice + getDateTime(r, out valore).ToString("ddMMyyyy").PadLeft(16) };
                 case "D4": //N
-                    return new string[] {campoCodice + getDateTime(r, out valore).ToString("ddMM").PadLeft(16)};
+                    return new string[] { campoCodice + getDateTime(r, out valore).ToString("ddMM").PadLeft(16) };
                 case "D6": //N
-                    return new string[] {campoCodice + getDateTime(r, out valore).ToString("MMyyyy").PadLeft(16)};
+                    return new string[] { campoCodice + getDateTime(r, out valore).ToString("MMyyyy").PadLeft(16) };
                 case "VP": //N
                 case "VN": //P-N
-                    return new string[] {campoCodice + getDecimal(r, out valore).ToString().PadLeft(16)};
+                    return new string[] { campoCodice + getDecimal(r, out valore).ToString().PadLeft(16) };
                 default:
-                    MessageBox.Show("FCNP: Formato sconosciuto nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                    show("FCNP: Formato sconosciuto nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
                     valore = null;
                     return null;
             }
@@ -1048,8 +1052,8 @@ namespace cu_details_default {
             string filtro = "(frame='" + quadro + "')";
             DataRow[] record = DS.cu_details.Select(filtro);
             foreach (DataRow r in record) {
-                string formato = (string) r["format"];
-                int lunghezza = (int) r["fieldlen"];
+                string formato = (string)r["format"];
+                int lunghezza = (int)r["fieldlen"];
 
 
                 string filtro2 = QHC.AppAnd(QHC.CmpEq("quadro", quadro), QHC.CmpEq("progr", progressivoComunicazione),
@@ -1058,7 +1062,7 @@ namespace cu_details_default {
 
                 DataRow[] r770 = t.Select(filtro2);
                 if (r770.Length > 1) {
-                    MessageBox.Show(this,
+                    show(this,
                         "Errore interno: trovate " + r770.Length + " righe con questo filtro\n" + filtro2);
                 }
                 if (r770.Length == 0) {
@@ -1206,12 +1210,12 @@ namespace cu_details_default {
             tw.Close();
 
             if (recordH)
-                MessageBox.Show(this, "Modello Certificazione Unica salvato nel file: " + saveFileDialog1.FileName
+                show(this, "Modello Certificazione Unica salvato nel file: " + saveFileDialog1.FileName
                                       + "\nComunicazioni Lavoro Autonomo:   " + rD.Length + "  (" + nRecordH +
                                       " record di tipo \"H\")" +
                                       "Creazione dichiarazione terminata");
             else
-                MessageBox.Show(this, "Modello Certificazione Unica salvato nel file: " + saveFileDialog1.FileName
+                show(this, "Modello Certificazione Unica salvato nel file: " + saveFileDialog1.FileName
                                       + "\n\nComunicazioni Lavoro Dipendente: " + rD.Length + "  (" + nRecordG +
                                       " record di tipo \"G\")" +
                                       "Creazione dichiarazione terminata");
@@ -1219,7 +1223,7 @@ namespace cu_details_default {
 
         //Questo metodo va chiamato prima di generare il mod770, è presenta anche nel modello CUD
         private bool verificaContrattiNonPagati() {
-            int esercizio = (int) Meta.GetSys("esercizio");
+            int esercizio = (int)Meta.GetSys("esercizio");
             string query = "select distinct parasubcontract.ycon, parasubcontract.ncon, exhibitedcud.idexhibitedcud "
                            + "FROM parasubcontract "
                            + "join payroll on payroll.idcon = parasubcontract.idcon "
@@ -1246,7 +1250,7 @@ namespace cu_details_default {
                 errore += "\n\npoichè in tali contratti ci sono cedolini non pagati,"
                           + "tali cedolini vanno trasferiti nella competenza dell'esercizio attuale."
                           + "\nL'operazione è stata annullata.";
-                MessageBox.Show(this, errore);
+                show(this, errore);
                 return false;
             }
             return true;
@@ -1255,10 +1259,10 @@ namespace cu_details_default {
 
         private bool verificaContrattiRecordG() {
 
-            int esercizio = (int) Meta.GetSys("esercizio");
+            int esercizio = (int)Meta.GetSys("esercizio");
             string errMsg;
             DataSet ds = Meta.Conn.CallSP("exp_certificazioneunica_contratti_g",
-                new object[] {esercizio}, 60*60,
+                new object[] { esercizio }, 60 * 60,
                 out errMsg);
 
             if (ds == null) {
@@ -1278,7 +1282,7 @@ namespace cu_details_default {
 
         //Questo metodo va chiamato prima di generare il mod770, è presenta anche nel modello CUD
         private bool verificaPrestazioniCertificazioniCUD() {
-            int esercizio = (int) Meta.GetSys("esercizio");
+            int esercizio = (int)Meta.GetSys("esercizio");
             string query = "SELECT DISTINCT service.description, parasubcontract.ycon, "
                            + "parasubcontract.ncon "
                            + "FROM parasubcontract "
@@ -1305,14 +1309,14 @@ namespace cu_details_default {
                     errore += "\nn° " + r["ncon"] + " del " + r["ycon"] + "-" + r["description"];
                 }
                 errore += "\nL'operazione è stata annullata.";
-                MessageBox.Show(this, errore);
+                show(this, errore);
                 return false;
             }
             return true;
         }
 
         private bool verificaPrestazioniCertificazioniNonCUD() {
-            int esercizio = (int) Meta.GetSys("esercizio");
+            int esercizio = (int)Meta.GetSys("esercizio");
 
             string query = "SELECT COUNT(parasubcontract.idcon) as numero, registry.title "
                            + "FROM parasubcontract "
@@ -1344,14 +1348,14 @@ namespace cu_details_default {
                     errore += "\nPercipiente" + r["title"];
                 }
                 errore += "\nL'operazione è stata annullata.";
-                MessageBox.Show(this, errore);
+                show(this, errore);
                 return false;
             }
             return true;
         }
 
         private bool verificaPresenzaProvvigioni() {
-            int esercizio = (int) Meta.GetSys("esercizio");
+            int esercizio = (int)Meta.GetSys("esercizio");
 
             string query = "SELECT DISTINCT registry.title AS title, ISNULL(registry.cf, registry.foreigncf) AS cf " +
                            " FROM expense " +
@@ -1380,14 +1384,14 @@ namespace cu_details_default {
                 foreach (DataRow r in t.Rows) {
                     errore += "\nNominativo: " + r["title"] + " - Codice Fiscale " + " - " + r["cf"];
                 }
-                MessageBox.Show(this, errore);
+                show(this, errore);
                 return false;
             }
 
         }
 
         private bool verificaPrestazioniSenzaCausale() {
-            int esercizio = (int) Meta.GetSys("esercizio");
+            int esercizio = (int)Meta.GetSys("esercizio");
 
             string query = "SELECT DISTINCT service.codeser as codeser, service.description as description " +
                            " FROM expense " +
@@ -1423,7 +1427,7 @@ namespace cu_details_default {
                     errore += "\nCodice: " + r["codeser"] + " - descrizione " + " - " + r["description"];
                 }
                 errore += "\nL'operazione è stata annullata.";
-                MessageBox.Show(this, errore);
+                show(this, errore);
                 return false;
             }
             return true;
@@ -1431,7 +1435,7 @@ namespace cu_details_default {
 
         //Questo metodo va chiamato prima di generare il mod770, è presenta anche nel modello CUD
         private bool verificaPrestazioniCertificazioniInNonCUD() {
-            int esercizio = (int) Meta.GetSys("esercizio");
+            int esercizio = (int)Meta.GetSys("esercizio");
             string query = "SELECT DISTINCT service.description, parasubcontract.ycon, "
                            + "parasubcontract.ncon "
                            + "FROM parasubcontract "
@@ -1458,7 +1462,7 @@ namespace cu_details_default {
                     errore += "\nn° " + r["ncon"] + " del " + r["ycon"] + "-" + r["description"];
                 }
                 errore += "\nL'operazione è stata annullata.";
-                MessageBox.Show(this, errore);
+                show(this, errore);
                 return false;
             }
             return true;
@@ -1473,7 +1477,7 @@ namespace cu_details_default {
         }
 
         private void richTextBox1_LinkClicked(object sender, System.Windows.Forms.LinkClickedEventArgs e) {
-            System.Diagnostics.Process.Start(e.LinkText);
+            runProcess(e.LinkText, true);
         }
 
         class Colonna : IComparable {
@@ -1484,15 +1488,15 @@ namespace cu_details_default {
             public Type type;
 
             public Colonna(DataRow rFormato, int riga, Type tipo) {
-                this.quadro = (string) rFormato["frame"];
+                this.quadro = (string)rFormato["frame"];
                 this.riga = riga;
-                this.colorder = (int) rFormato["colorder"];
-                this.colonna = (string) rFormato["colnumber"];
+                this.colorder = (int)rFormato["colorder"];
+                this.colonna = (string)rFormato["colnumber"];
                 this.type = tipo;
             }
 
             public int CompareTo(Object obj) {
-                Colonna c = (Colonna) obj;
+                Colonna c = (Colonna)obj;
 
                 if (quadro.StartsWith("HR") && !c.quadro.StartsWith("HR")) {
                     return -1;
@@ -1514,7 +1518,7 @@ namespace cu_details_default {
         private string getNomeColonnaExcel(List<Colonna> list, object quadro, object riga, object colonna) {
             foreach (Colonna c in list) {
                 if (c.quadro.Equals(quadro) && c.colonna.Equals(colonna) && !c.riga.Equals(riga)) {
-                    return quadro + "-col" + colonna+"-"+c.riga;
+                    return quadro + "-col" + colonna + "-" + c.riga;
                 }
             }
             return quadro + "-col" + colonna;
@@ -1531,16 +1535,16 @@ namespace cu_details_default {
                     "quadro in ('HRG', 'DB001','DB100','DB601','DB602','DB603','DB604','DB605','DB606','DB607','DB608','DB609','DB610','DC001','DN001')";
             Cursor = Cursors.WaitCursor;
 
-            DataTable tMod770 = calcolaCertificazioneUnica(((record == "H") || (record == "DH") || (record == "B")),false);
+            DataTable tMod770 = calcolaCertificazioneUnica(((record == "H") || (record == "DH") || (record == "B")), false);
             // simuliamo la generazione del record H
             if (tMod770 == null) {
-                MessageBox.Show(this, "Errore nella letture dei dati per il record " + record);
+                show(this, "Errore nella letture dei dati per il record " + record);
                 return;
             }
 
             DataRow[] righe770 = tMod770.Select(filtroQuadro, "progr,modulo");
             if (righe770.Length == 0) {
-                MessageBox.Show(this, "Non ci sono dati per il record " + record);
+                show(this, "Non ci sono dati per il record " + record);
                 return;
             }
             Object valore;
@@ -1551,10 +1555,10 @@ namespace cu_details_default {
                     (r["quadro"].ToString() == "FIR")) continue;
                 DataRow[] rr = DS.cu_details.Select(filtro);
                 if (rr.Length != 1) {
-                    MessageBox.Show(this, "Ho trovato " + rr.Length + " righe con questo filtro:\n" + filtro);
+                    show(this, "Ho trovato " + rr.Length + " righe con questo filtro:\n" + filtro);
                 }
                 formattaCampoNonPosizionale(r, out valore, false);
-                Colonna c = new Colonna(rr[0], (int) r["riga"], valore.GetType());
+                Colonna c = new Colonna(rr[0], (int)r["riga"], valore.GetType());
                 int pos = lColonne.BinarySearch(c);
                 if (pos < 0) {
                     lColonne.Insert(-pos - 1, c);
@@ -1586,9 +1590,9 @@ namespace cu_details_default {
             int modulo = -1;
             DataRow riga = null;
             foreach (DataRow r in righe770) {
-                if (progr != (int) r["progr"] || modulo != (int) r["modulo"]) {
-                    progr = (int) r["progr"];
-                    modulo = (int) r["modulo"];
+                if (progr != (int)r["progr"] || modulo != (int)r["modulo"]) {
+                    progr = (int)r["progr"];
+                    modulo = (int)r["modulo"];
                     riga = t.NewRow();
                     riga["progr"] = progr;
                     riga["modulo"] = modulo;
@@ -1597,8 +1601,9 @@ namespace cu_details_default {
                 string campoCodice = getNomeColonnaExcel(lColonne, r["quadro"], r["riga"], r["colonna"]);
 
                 if (riga[campoCodice] != DBNull.Value) {
-                    MessageBox.Show(this, "Il campo " + campoCodice + " è stato assegnato due volte (modulo:" + modulo +
-                                          ", progr." + progr);
+                    show(this, "Il campo " + campoCodice +
+                        " è stato assegnato due volte (modulo:" + modulo +
+                                          ", progr." + progr + "riga[campoCodice] " + riga[campoCodice].ToString());
                 }
 
                 if ((r["quadro"].ToString() != "IND") && (r["quadro"].ToString() != "NN") &&
@@ -1657,7 +1662,7 @@ namespace cu_details_default {
         }
 
         private void buttonPrestazioni_Click(object sender, EventArgs e) {
-            int esercizio = (int) Meta.GetSys("esercizio");
+            int esercizio = (int)Meta.GetSys("esercizio");
             string query = @"select distinct expenselast.idser 
                             from expenselast
                             join expenselink on expenselink.idchild = expenselast.idexp
@@ -1719,7 +1724,7 @@ namespace cu_details_default {
         }
 
         private DataTable getConfigurazionePrestazioni() {
-            int esercizio = (int) Meta.GetSys("esercizio");
+            int esercizio = (int)Meta.GetSys("esercizio");
             string query = "select distinct idser from expensetax "
                            + "join expenselast on expenselast.idexp=expensetax.idexp "
                            + "join expense on expense.idexp = expenselast.idexp "
@@ -1741,7 +1746,7 @@ namespace cu_details_default {
         }
 
         private DataTable getPercipientiParasubordinatiRecG() {
-            int esercizio = (int) Meta.GetSys("esercizio");
+            int esercizio = (int)Meta.GetSys("esercizio");
             string query = "SELECT " +
                            "co.idreg, " +
                            "registry.title, " +
@@ -1775,7 +1780,7 @@ namespace cu_details_default {
         }
 
         private DataTable getAltriPercipientiRecG() {
-            int esercizio = (int) Meta.GetSys("esercizio");
+            int esercizio = (int)Meta.GetSys("esercizio");
             DateTime TrediciGennAnnoRedditi = new DateTime(esercizio - 1, 1, 13);
             DateTime DodiciGennAnnoDichiar = new DateTime(esercizio, 1, 12);
             QueryHelper QHS = Meta.Conn.GetQueryHelper();
@@ -1827,7 +1832,7 @@ namespace cu_details_default {
         }
 
         private DataTable getPercipientiRecH() {
-            int esercizio = (int) Meta.GetSys("esercizio");
+            int esercizio = (int)Meta.GetSys("esercizio");
             string query = "SELECT " +
                            "expense.idreg, " +
                            "registry.title, " +
@@ -1901,7 +1906,7 @@ namespace cu_details_default {
         }
 
         private DataTable controllaNonResidentiRecordG() {
-            int esercizio = (int) Meta.GetSys("esercizio");
+            int esercizio = (int)Meta.GetSys("esercizio");
             DateTime PrimoGennAnnoRedditi = new DateTime(esercizio - 1, 1, 1);
             DateTime TrentunoDicAnnoRedditi = new DateTime(esercizio - 1, 12, 31);
             DateTime PrimoGennAnnoDichiar = new DateTime(esercizio, 1, 1);
@@ -1929,7 +1934,7 @@ namespace cu_details_default {
                             PrimoGennAnnoRedditi);
                     }
 
-                    DateTime fineContratto = (DateTime) r["stopcompetency"];
+                    DateTime fineContratto = (DateTime)r["stopcompetency"];
 
                     if (!verificaDomFiscaleNonResidenti(idreg, fineContratto)) {
                         z.Rows.Add("Parasubordinati", r["idreg"], r["title"],
@@ -1978,7 +1983,7 @@ namespace cu_details_default {
 
         private DataTable controllaNonResidentiRecordH() {
             // Ricontrollare in base ai dati estratti dalla query
-            int esercizio = (int) Meta.GetSys("esercizio");
+            int esercizio = (int)Meta.GetSys("esercizio");
             DateTime PrimoGennAnnoDichiarazione = new DateTime(esercizio, 1, 1);
 
             DataTable t = getPercipientiRecH();
@@ -2025,7 +2030,7 @@ namespace cu_details_default {
                 string idmot = r["idmot"].ToString().ToUpper();
                 string module = r["module"].ToString().ToUpper();
                 string certificatekind = r["certificatekind"].ToString().ToUpper();
-                string ciSonoRitFiscali = (string) r["cisonoritfiscali"];
+                string ciSonoRitFiscali = (string)r["cisonoritfiscali"];
                 string codeser = r["codeser"].ToString();
 
                 //if (rec770kind == "G") {
@@ -2126,7 +2131,7 @@ namespace cu_details_default {
 
                 string module = r["module"].ToString().ToUpper();
                 string certificatekind = r["certificatekind"].ToString().ToUpper();
-                string ciSonoRitFiscali = (string) r["cisonoritfiscali"];
+                string ciSonoRitFiscali = (string)r["cisonoritfiscali"];
                 string codeser = r["codeser"].ToString();
 
                 if ((rec770kind == "G") && (((module != "COCOCO") && (module != "DIPENDENTE")) || (idmot != ""))) {
@@ -2214,7 +2219,7 @@ namespace cu_details_default {
         private void buttonIncoerenze_Click(object sender, EventArgs e) {
             DataTable z = controlloCompleto();
             if (z.Rows.Count == 0) {
-                MessageBox.Show(this, "Non ci sono problemi di configurazione delle prestazioni");
+                show(this, "Non ci sono problemi di configurazione delle prestazioni");
             }
             exportclass.DataTableToExcel(z, true);
         }
@@ -2222,21 +2227,21 @@ namespace cu_details_default {
         private void buttonProblemiH_Click(object sender, EventArgs e) {
             DataTable z = controllaRecordH();
             if (z.Rows.Count == 0) {
-                MessageBox.Show(this,
+                show(this,
                     @"Non ci sono problemi di configurazione delle prestazioni per quanto riguarda il record H");
             }
             exportclass.DataTableToExcel(z, true);
         }
 
         private void generaCertificazioneUnica(bool recordH, TipoGenerazione generazioneSelezionata) {
-            DataTable tMod770 = calcolaCertificazioneUnica(recordH, generazioneSelezionata == TipoGenerazione.stampa ||                                                                  
+            DataTable tMod770 = calcolaCertificazioneUnica(recordH, generazioneSelezionata == TipoGenerazione.stampa ||
                                                                   generazioneSelezionata == TipoGenerazione.mail);
-            if (tMod770 == null)return;
-            
+            if (tMod770 == null) return;
+
             if (generazioneSelezionata == TipoGenerazione.salvataggio) {
                 TextWriter tw = getStreamWriter();
-                if (tw == null) return ;
-                
+                if (tw == null) return;
+
                 salvaCertificazioneUnica(tw, tMod770.DataSet, recordH);
                 return;
             }
@@ -2258,16 +2263,16 @@ namespace cu_details_default {
                 CF = txtCF.Text.Trim();
             }
             Cursor = Cursors.WaitCursor;
-            string esercizio = ((int) Meta.GetSys("esercizio")%100).ToString();
+            string esercizio = ((int)Meta.GetSys("esercizio") % 100).ToString();
             if (esercizio.Length < 2) {
                 esercizio = "0" + esercizio;
             }
             string errMsg;
-            object[] parametriA = new object[] {};
-            DataSet ds_RecordA = Meta.Conn.CallSP("exp_certificazioneunica_a_" + esercizio, parametriA, 60*60,
+            object[] parametriA = new object[] { };
+            DataSet ds_RecordA = Meta.Conn.CallSP("exp_certificazioneunica_a_" + esercizio, parametriA, 60 * 60,
                 out errMsg);
             if (ds_RecordA == null) {
-                MessageBox.Show(this,
+                show(this,
                     "Si è verificato il seguente errore nel calcolo del Record A della  certificazione unica:"
                     + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                 Cursor = null;
@@ -2284,7 +2289,7 @@ namespace cu_details_default {
 
             int nRecordH = 0;
             int nRecordG = 0;
-            object[] parametriH = new object[] {CF};
+            object[] parametriH = new object[] { CF };
             if (recordH) {
                 DataTable tPercipientiRecordH = new DataTable();
                 tPercipientiRecordH.Columns.Add("idreg", typeof(System.Int32));
@@ -2297,7 +2302,7 @@ namespace cu_details_default {
                         60 * 60,
                         out errMsg);
                     if (ds1 == null) {
-                        MessageBox.Show(this,
+                        show(this,
                             "Si è verificato il seguente errore nel calcolo dei percipienti della  certificazione unica record H:"
                             + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                         Cursor = null;
@@ -2308,24 +2313,24 @@ namespace cu_details_default {
                 }
 
                 //Esportazione del set di CF importato
-                if (ListaCF.Count > 0  && (progressiviHRD06.Count == 0)) {
+                if (ListaCF.Count > 0 && (progressiviHRD06.Count == 0)) {
                     pBarAvanzamento.Maximum = ListaCF.Count;
                     pBarAvanzamento.Value = 0;
                     foreach (object s in ListaCF) {
-                        progrComCF+= 1;
+                        progrComCF += 1;
                         pBarAvanzamento.Increment(1);
                         DataSet ds1 = Meta.Conn.CallSP("exp_certificazioneunica_percipienti_h_" + esercizio,
                             new object[] { s }, 60 * 60,
                             out errMsg);
                         if (ds1 == null) {
-                            MessageBox.Show(this,
+                            show(this,
                                 "Si è verificato il seguente errore nel calcolo del percipiente CF: " + s + "  della  certificazione unica record H:"
                                 + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                             Cursor = null;
                             return null;
                         }
                         if (ds1.Tables[0].Rows.Count == 0) {
-                            MessageBox.Show(this,
+                            show(this,
                                 "Si è verificato il seguente errore nel calcolo del percipiente CF: " + s + " della  certificazione unica record H:"
                                 + "\n" + " non sono estratti dati " + "\nRiprovare o chiamare l'ASSISTENZA");
                             Cursor = null;
@@ -2341,24 +2346,24 @@ namespace cu_details_default {
                 }
 
                 // solo comunicazioni correttive o di annullamento, non possono essere mischiate con le altre 
-                if (progressiviHRD06.Count>0){
+                if (progressiviHRD06.Count > 0) {
                     pBarAvanzamento.Maximum = progressiviHRD06.Keys.Count;
                     pBarAvanzamento.Value = 0;
                     foreach (object s in progressiviHRD06.Keys) {
                         progrComCorrettive += 1;
                         pBarAvanzamento.Increment(1);
                         DataSet ds1 = Meta.Conn.CallSP("exp_certificazioneunica_percipienti_h_" + esercizio,
-                            new object[] {s}, 60*60,
+                            new object[] { s }, 60 * 60,
                             out errMsg);
                         if (ds1 == null) {
-                            MessageBox.Show(this,
+                            show(this,
                                 "Si è verificato il seguente errore nel calcolo del percipiente CF: " + s + "  della  certificazione unica sostitutiva record H:"
                                 + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                             Cursor = null;
                             return null;
                         }
                         if (ds1.Tables[0].Rows.Count == 0) {
-                            MessageBox.Show(this,
+                            show(this,
                                 "Si è verificato il seguente errore nel calcolo del percipiente CF: " + s + " della  certificazione unica sostitutiva record H:"
                                 + "\n" + " non sono estratti dati " + "\nRiprovare o chiamare l'ASSISTENZA");
                             Cursor = null;
@@ -2385,24 +2390,24 @@ namespace cu_details_default {
                     //int[] ParamTypeLength, ParameterDirection[] ParamDirection, ref object[] ParamValues,
                     //int timeout, out string ErrMsg){
 
-                    string[] param = new string[] {"@idreg", "@progrCom", "@print", "@newprogrCom"};
+                    string[] param = new string[] { "@idreg", "@progrCom", "@print", "@newprogrCom" };
                     SqlDbType[] types = new SqlDbType[]
                     {SqlDbType.Int, SqlDbType.Int, SqlDbType.VarChar, SqlDbType.Int,};
-                    int[] typelen = new int[] {4, 4, 4, 4};
+                    int[] typelen = new int[] { 4, 4, 4, 4 };
                     ParameterDirection[] dir = new ParameterDirection[] {
                         ParameterDirection.Input, ParameterDirection.Input, ParameterDirection.Input,
                         ParameterDirection.Output
                     };
 
-                    object[] paramvalues = new object[] {r["idreg"], progrCom, print, newProgrCom};
+                    object[] paramvalues = new object[] { r["idreg"], progrCom, print, newProgrCom };
                     //DataSet ds2 = Meta.Conn.CallSP("exp_certificazioneunica_h_" + esercizio, parametri, 60 * 60, out errMsg);
                     DataSet ds2 = Meta.Conn.CallSPParameterDataSet("exp_certificazioneunica_h_" + esercizio, param,
                         types,
-                        typelen, dir, ref paramvalues, 60*60, out errMsg);
+                        typelen, dir, ref paramvalues, 60 * 60, out errMsg);
                     newProgrCom = CfgFn.GetNoNullInt32(paramvalues[3]);
 
                     if (ds2 == null) {
-                        MessageBox.Show(this,
+                        show(this,
                             "Si è verificato il seguente errore nel calcolo del Record D-H della  certificazione unica:"
                             + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                         Cursor = null;
@@ -2413,7 +2418,7 @@ namespace cu_details_default {
                     DataRow[] ccf =
                         tPercipienteRecordH.Select(QHC.AppAnd(QHC.CmpEq("quadro", "HRH"), QHC.CmpEq("colonna", "04")));
                     if (ccf.Length == 0) {
-                        MessageBox.Show("Il creditore di codice " + r["idreg"] + " non ha codice fiscale.", "Errore");
+                        show("Il creditore di codice " + r["idreg"] + " non ha codice fiscale.", "Errore");
                         continue;
                     }
 
@@ -2423,11 +2428,11 @@ namespace cu_details_default {
                         if (progressiviHRD09[currentCF].ToString().ToUpper() == "A") {
                             // la comunicazione va annullata pertanto di quel beneficiario trasmettiamo solo i dati anagrafici 
                             // e non quelli fiscali (ovvero il solo record D)
-                            object[] paramvaluesD = new object[] {r["idreg"], r["progrCom"], "H", null, print};
-                            DataSet dsD = Meta.Conn.CallSP("exp_certificazioneunica_d_" + esercizio, paramvaluesD, 60*60,
+                            object[] paramvaluesD = new object[] { r["idreg"], r["progrCom"], "H", null, print };
+                            DataSet dsD = Meta.Conn.CallSP("exp_certificazioneunica_d_" + esercizio, paramvaluesD, 60 * 60,
                                 out errMsg);
                             if (dsD == null) {
-                                MessageBox.Show(this,
+                                show(this,
                                     "Si è verificato il seguente errore nel calcolo della  certificazione sostitutiva unica Record D-H:"
                                     + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                                 Cursor = null;
@@ -2451,13 +2456,13 @@ namespace cu_details_default {
                 int progrComCorrettive = 0;
                 int progrComCF = 0;
                 //Esportazione normale
-                if ((ListaCF.Count==0)&& (progressiviHRD06.Count == 0)) {
-                    object[] parametriG = new object[] {CF};
+                if ((ListaCF.Count == 0) && (progressiviHRD06.Count == 0)) {
+                    object[] parametriG = new object[] { CF };
                     DataSet ds3 = Meta.Conn.CallSP("exp_certificazioneunica_percipienti_g_" + esercizio, parametriG,
-                        60*60,
+                        60 * 60,
                         out errMsg);
                     if (ds3 == null) {
-                        MessageBox.Show(this,
+                        show(this,
                             "Si è verificato il seguente errore nel calcolo dei percipienti della  certificazione unica Record G:"
                             + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                         Cursor = null;
@@ -2478,7 +2483,7 @@ namespace cu_details_default {
                             new object[] { s }, 60 * 60,
                             out errMsg);
                         if (ds3 == null) {
-                            MessageBox.Show(this,
+                            show(this,
                                 "Si è verificato il seguente errore nel calcolo del percipiente CF: " + s + "  della certificazione unica sostitutiva record G:"
                                 + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                             Cursor = null;
@@ -2486,7 +2491,7 @@ namespace cu_details_default {
                         }
 
                         if (ds3.Tables[0].Rows.Count == 0) {
-                            MessageBox.Show(this,
+                            show(this,
                                 "Si è verificato il seguente errore nel calcolo del percipiente CF: " + s + " della  certificazione unica sostitutiva record G:"
                                 + "\n" + " non sono stati estratti dati " + "\nRiprovare o chiamare l'ASSISTENZA");
                             Cursor = null;
@@ -2507,10 +2512,10 @@ namespace cu_details_default {
                         pBarAvanzamento.Increment(1);
                         progrComCorrettive += 1;
                         DataSet ds3 = Meta.Conn.CallSP("exp_certificazioneunica_percipienti_g_" + esercizio,
-                            new object[] {s}, 60*60,
+                            new object[] { s }, 60 * 60,
                             out errMsg);
                         if (ds3 == null) {
-                            MessageBox.Show(this,
+                            show(this,
                                 "Si è verificato il seguente errore nel calcolo del percipiente CF: " + s + "  della certificazione unica sostitutiva record G:"
                                 + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                             Cursor = null;
@@ -2518,7 +2523,7 @@ namespace cu_details_default {
                         }
 
                         if (ds3.Tables[0].Rows.Count == 0) {
-                            MessageBox.Show(this,
+                            show(this,
                                 "Si è verificato il seguente errore nel calcolo del percipiente CF: " + s + " della  certificazione unica sostitutiva record G:"
                                 + "\n" + " non sono stati estratti dati " + "\nRiprovare o chiamare l'ASSISTENZA");
                             Cursor = null;
@@ -2537,11 +2542,11 @@ namespace cu_details_default {
                 pBarAvanzamento.Value = 0;
                 foreach (DataRow r in tPercipientiRecordG.Select()) {
                     pBarAvanzamento.Increment(1);
-                    object[] paramvalues = new object[] {r["idreg"], r["progrCom"], print};
-                    DataSet ds2 = Meta.Conn.CallSP("exp_certificazioneunica_g_" + esercizio, paramvalues, 60*60,
+                    object[] paramvalues = new object[] { r["idreg"], r["progrCom"], print };
+                    DataSet ds2 = Meta.Conn.CallSP("exp_certificazioneunica_g_" + esercizio, paramvalues, 60 * 60,
                         out errMsg);
                     if (ds2 == null) {
-                        MessageBox.Show(this,
+                        show(this,
                             "Si è verificato il seguente errore nel calcolo della  certificazione unica Record D-G:"
                             + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                         Cursor = null;
@@ -2557,11 +2562,11 @@ namespace cu_details_default {
                         if (progressiviHRD09[currentCF].ToString().ToUpper() == "A") {
                             // la comunicazione va annullata pertanto di quel beneficiario trasmettiamo solo i dati anagrafici 
                             // e non quelli fiscali (ovvero il solo record D)
-                            object[] paramvaluesD = new object[] {r["idreg"], r["progrCom"], "G", null, print};
-                            DataSet dsD = Meta.Conn.CallSP("exp_certificazioneunica_d_" + esercizio, paramvaluesD, 60*60,
+                            object[] paramvaluesD = new object[] { r["idreg"], r["progrCom"], "G", null, print };
+                            DataSet dsD = Meta.Conn.CallSP("exp_certificazioneunica_d_" + esercizio, paramvaluesD, 60 * 60,
                                 out errMsg);
                             if (dsD == null) {
-                                MessageBox.Show(this,
+                                show(this,
                                     "Si è verificato il seguente errore nel calcolo della  certificazione unica sostitutiva Record D-G:"
                                     + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                                 Cursor = null;
@@ -2590,11 +2595,11 @@ namespace cu_details_default {
             }
 
 
-            object[] parametriGH = new object[] {nRecordG, nRecordH, print};
-            DataSet ds_RecordB = Meta.Conn.CallSP("exp_certificazioneunica_b_" + esercizio, parametriGH, 60*60,
+            object[] parametriGH = new object[] { nRecordG, nRecordH, print };
+            DataSet ds_RecordB = Meta.Conn.CallSP("exp_certificazioneunica_b_" + esercizio, parametriGH, 60 * 60,
                 out errMsg);
             if (ds_RecordB == null) {
-                MessageBox.Show(this,
+                show(this,
                     "Si è verificato il seguente errore nel calcolo del Record B della  certificazione unica:"
                     + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                 Cursor = null;
@@ -2664,7 +2669,7 @@ namespace cu_details_default {
 
                 DataRow[] rFormato = DS.cu_details.Select(filtro);
                 if (rFormato.Length != 1) {
-                    MessageBox.Show(this, "Formato sconosciuto: " + filtro);
+                    show(this, "Formato sconosciuto: " + filtro);
                     Cursor = null;
                     return null;
                 }
@@ -2686,7 +2691,7 @@ namespace cu_details_default {
 
             Cursor = null;
 
-           
+
             return tMod770;
         }
 
@@ -2722,7 +2727,7 @@ namespace cu_details_default {
             }
             else {
                 if (progressiviHRD06.Count > 0) {
-                    MessageBox.Show(
+                    show(
                         "Il codice fiscale " + currentCF + " non è stato trovato nello schema importato",
                         "Errore");
                 }
@@ -2749,7 +2754,7 @@ namespace cu_details_default {
         private void btnNonResidG_Click(object sender, EventArgs e) {
             DataTable z = controllaNonResidentiRecordG();
             if (z.Rows.Count == 0) {
-                MessageBox.Show(this, "Non ci sono non residenti con domicilio fiscale non valido (G)");
+                show(this, "Non ci sono non residenti con domicilio fiscale non valido (G)");
             }
             exportclass.DataTableToExcel(z, true);
         }
@@ -2757,7 +2762,7 @@ namespace cu_details_default {
         private void btnNonResidH_Click(object sender, EventArgs e) {
             DataTable z = controllaNonResidentiRecordH();
             if (z.Rows.Count == 0) {
-                MessageBox.Show(this, "Non ci sono non residenti con domicilio fiscale non valido (H)");
+                show(this, "Non ci sono non residenti con domicilio fiscale non valido (H)");
             }
             exportclass.DataTableToExcel(z, true);
         }
@@ -2827,6 +2832,8 @@ namespace cu_details_default {
             public string commento = "";
             public object idreg;
             public object email;
+            public string name;
+            public string surname;
 
             public Collaboratore(string cf, string progr, int modulo) {
                 this.cf = cf;
@@ -2841,7 +2848,7 @@ namespace cu_details_default {
             }
 
             public int CompareTo(Object obj) {
-                Collaboratore c = (Collaboratore) obj;
+                Collaboratore c = (Collaboratore)obj;
                 if (cf.CompareTo(c.cf) != 0) {
                     return cf.CompareTo(c.cf);
                 }
@@ -2859,30 +2866,30 @@ namespace cu_details_default {
             if (tMod770 == null) return;
             if (ht == null) return;
             if (co == null) return;
-
+            Meta.closeDisabled = true;
             string cf = co.cf;
             string progr = co.progr;
-           
+
 
             string filtroProgr = QHC.CmpEq("progr", progr);
 
-            string filtroModulo= QHC.CmpEq("modulo", modulo);
+            string filtroModulo = QHC.CmpEq("modulo", modulo);
             string filterDatiResp = QHC.CmpEq("quadro", "HRB"); //consente di esportare anche l'header B
             string filterAll = QHC.DoPar(QHC.AppOr(QHC.AppAnd(filtroProgr, filtroModulo), filterDatiResp));
 
-            string filtroCognomeODenominazione= QHC.AppAnd(QHC.CmpEq("quadro", "DA002"), QHC.CmpEq("colonna", "002"),filtroProgr);
-            string filtroNome = QHC.AppAnd(QHC.CmpEq("quadro", "DA002"),QHC.CmpEq("colonna", "003"), filtroProgr);
+            string filtroCognomeODenominazione = QHC.AppAnd(QHC.CmpEq("quadro", "DA002"), QHC.CmpEq("colonna", "002"), filtroProgr);
+            string filtroNome = QHC.AppAnd(QHC.CmpEq("quadro", "DA002"), QHC.CmpEq("colonna", "003"), filtroProgr);
 
             DataRow[] arrCognome = tMod770.Select(filtroCognomeODenominazione);
             DataRow[] arrNome = tMod770.Select(filtroNome);
 
-            if (arrCognome.Length>0) cognome = arrCognome[0]["stringa"].ToString();  //cognome o denominazione
+            if (arrCognome.Length > 0) cognome = arrCognome[0]["stringa"].ToString();  //cognome o denominazione
             if (arrNome.Length > 0) nome = arrNome[0]["stringa"].ToString();  //nome se presente
             if (nome == "") nome = null;
-            //MessageBox.Show(filterAll + cf  + progr);
+            //show(filterAll + cf  + progr);
             foreach (DataRow rRecordG in tMod770.Select(filterAll)) {
-                  string campo = rRecordG["quadro"].ToString() + rRecordG["colonna"];
- 
+                string campo = rRecordG["quadro"].ToString() + rRecordG["colonna"];
+
 
                 //if (campo == "DA002002") {
                 //    cognome = rRecordG["stringa"].ToString(); //cognome o denominazione
@@ -2892,29 +2899,34 @@ namespace cu_details_default {
                 //}
                 if (CfgFn.GetNoNullInt32(rRecordG["modulo"]) != modulo) continue;
                 ht["num_modello"] = modulo.ToString().PadLeft(2, '0'); //salva il progressivo per valorizzare Mod.N.
-                //MessageBox.Show(ht["num_modello"] + " " + cognome + " " + nome);
+                //show(ht["num_modello"] + " " + cognome + " " + nome);
                 switch (campo) {
-                    case "DC001036": {
-                        salvaColonnaDC001036(ht, rRecordG["stringa"].ToString());
-                        break;
-                    }
-                    case "DC001035": {
-                        salvaColonnaDC001035(ht, rRecordG["stringa"].ToString());
-                        break;
-                    }
-                    case "DC001048": {
-                        salvaColonnaDC001048(ht, rRecordG["stringa"].ToString());
-                        break;
-                    }
-                    case "DC001047": {
-                        salvaColonnaDC001047(ht, rRecordG["stringa"].ToString());
-                        break;
-                    }
+                    case "DC001038": {
+                            salvaColonnaMultiCasellaMesi(ht, campo, rRecordG["stringa"].ToString());
+                            break;
+                        }
+                    case "DC001037": {
+                            salvaColonnaCasellaBarrataSingola(ht, campo, rRecordG["stringa"].ToString());
+                            break;
+                        }
+                    case "DC001040": {
+                            salvaColonnaMultiCasellaMesi(ht, campo, rRecordG["stringa"].ToString());
+                            break;
+                        }
+                    case "DC001050": {
+                            salvaColonnaMultiCasellaMesi(ht, campo, rRecordG["stringa"].ToString());
+                            break;
+                        }
+                    case "DC001049": {
+                            salvaColonnaCasellaBarrataSingola(ht, campo, rRecordG["stringa"].ToString());
+                            break;
+                        }
 
                     case "DB001006": {
-                        salvaColonnaDB001006(ht, CfgFn.GetNoNullInt32(rRecordG["intero"]));
-                        break;
-                    }
+                            // numero dei giorni per i quali spettano le detrazioni
+                            salvaColonnaNumeroGiorniDetrazioni(ht, "DB001006", CfgFn.GetNoNullInt32(rRecordG["intero"]));
+                            break;
+                        }
                     case "DB602001": {
                             salvaColonnaDB60xxx(ht, "DB602", rRecordG["stringa"].ToString());
                             break;
@@ -2932,55 +2944,55 @@ namespace cu_details_default {
                             break;
                         }
                     case "NN001": {
-                        // Note NN
-                        riempiNote(ht, rRecordG["stringa"].ToString());
-                        break;
-                    }
+                            // Note NN
+                            riempiNote(ht, rRecordG["stringa"].ToString());
+                            break;
+                        }
                     case "NN002": {
-                        // Note NN
-                        riempiNote(ht, rRecordG["stringa"].ToString());
-                        break;
-                    }
+                            // Note NN
+                            riempiNote(ht, rRecordG["stringa"].ToString());
+                            break;
+                        }
                     case "NN003": {
-                        // Note NN
-                        riempiNote(ht, rRecordG["stringa"].ToString());
-                        break;
-                    }
+                            // Note NN
+                            riempiNote(ht, rRecordG["stringa"].ToString());
+                            break;
+                        }
                     case "NN004": {
-                        // Note NN
-                        riempiNote(ht, rRecordG["stringa"].ToString());
-                        break;
-                    }
+                            // Note NN
+                            riempiNote(ht, rRecordG["stringa"].ToString());
+                            break;
+                        }
                     case "NN005": {
-                        // Note NN
-                        riempiNote(ht, rRecordG["stringa"].ToString());
-                        break;
-                    }
+                            // Note NN
+                            riempiNote(ht, rRecordG["stringa"].ToString());
+                            break;
+                        }
                     case "NN006": {
-                        // Note NN
-                        riempiNote(ht, rRecordG["stringa"].ToString());
-                        break;
-                    }
+                            // Note NN
+                            riempiNote(ht, rRecordG["stringa"].ToString());
+                            break;
+                        }
                     case "NN007": {
-                        // Note NN
-                        riempiNote(ht, rRecordG["stringa"].ToString());
-                        break;
-                    }
+                            // Note NN
+                            riempiNote(ht, rRecordG["stringa"].ToString());
+                            break;
+                        }
                     case "NN008": {
-                        // Note NN
-                        riempiNote(ht, rRecordG["stringa"].ToString());
-                        break;
-                    }
+                            // Note NN
+                            riempiNote(ht, rRecordG["stringa"].ToString());
+                            break;
+                        }
                     case "NN009": {
-                        // Note NN
-                        riempiNote(ht, rRecordG["stringa"].ToString());
-                        break;
-                    }
+                            // Note NN
+                            riempiNote(ht, rRecordG["stringa"].ToString());
+                            break;
+                        }
                     case "NN010": {
-                        // Note NN
-                        riempiNote(ht, rRecordG["stringa"].ToString());
-                        break;
-                    }
+                            // Note NN
+                            riempiNote(ht, rRecordG["stringa"].ToString());
+                            break;
+                        }
                     case "NN011": {
                             // Note NN
                             riempiNote(ht, rRecordG["stringa"].ToString());
@@ -2991,12 +3003,13 @@ namespace cu_details_default {
                         break;
                 }
             }
-            if (modulo ==1) {
+            if (modulo == 1) {
                 object esercizio = Meta.GetSys("esercizio");
                 ht["printdate_a"] = esercizio.ToString();
                 ht["printdate_g"] = "28";
                 ht["printdate_m"] = "02";
             }
+            Meta.closeDisabled = false;
         }
 
         List<Collaboratore> getListaCollaboratoriDaMod770(DataTable tMod770, bool recordH) {
@@ -3012,13 +3025,22 @@ namespace cu_details_default {
                 DataRow recCf in tMod770.Select(QHC.AppAnd(QHC.CmpEq("quadro", quadroHR), QHC.CmpEq("colonna", "04"), QHC.CmpEq("modulo", modulo)))) {
                 Collaboratore co = new Collaboratore(recCf["stringa"].ToString(), recCf["progr"].ToString(),
                     CfgFn.GetNoNullInt32(recCf["modulo"]));
+
                 DataRow[] emails = tMod770.Select(QHC.AppAnd(QHC.CmpEq("progr", co.progr), QHC.CmpEq("quadro", "IND"),
                     QHC.CmpEq("colonna", "005")));
                 if (emails.Length > 0) co.email = emails[0]["stringa"];
+
                 DataRow[] idregs = tMod770.Select(QHC.AppAnd(QHC.CmpEq("progr", co.progr), QHC.CmpEq("quadro", "IND"),
                     QHC.CmpEq("colonna", "004")));
                 if (idregs.Length > 0) co.idreg = idregs[0]["intero"];
 
+                DataRow[] names = tMod770.Select(QHC.AppAnd(QHC.CmpEq("progr", co.progr), QHC.CmpEq("quadro", "DA002"),
+                    QHC.CmpEq("colonna", "003")));
+                if (names.Length > 0) co.name = names[0]["stringa"].ToString();
+
+                DataRow[] surnames = tMod770.Select(QHC.AppAnd(QHC.CmpEq("progr", co.progr), QHC.CmpEq("quadro", "DA002"),
+                    QHC.CmpEq("colonna", "002")));
+                 if (surnames.Length > 0) co.surname = surnames[0]["stringa"].ToString();
 
                 //tComunicazioni.Rows.Add(recCf["progr"], recCf["stringa"]);
                 int pos = collaboratori.BinarySearch(co);
@@ -3038,32 +3060,22 @@ namespace cu_details_default {
             return collaboratori;
         }
 
-        PdfString getPdfString(string s) {
-            if (s == null) return new PdfString("");
-            if (s == "") return new PdfString("");
-            //Encoding sourceEncoding = Encoding.Default;
-            //Encoding targetEncoding = Encoding.Unicode;
-            //byte[] sourceBytes = sourceEncoding.GetBytes(s);
-            //byte[] targetBytes = Encoding.Convert(sourceEncoding, targetEncoding, sourceBytes);
-            //string targetString = targetEncoding.GetString(targetBytes);
-            return new PdfString(s,PdfStringEncoding.PDFDocEncoding);
-        }
 
         private bool generaStampa(bool recordH, DataTable tMod770) {
             QHS = Meta.Conn.GetQueryHelper();
             //Rimosso perchè consentiamo la generazione in tutti gli esercizi consentiti, ossia dal 2015 ad oggi
             //if (!Meta.GetSys("esercizio").Equals(2019)) {
-            //    MessageBox.Show(this, "Questa procedura produce solo modelli cud per l'anno 2019", "Errore");
+            //    show(this, "Questa procedura produce solo modelli cud per l'anno 2019", "Errore");
             //    return false;
             //}
-            if ((CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) <2015 )|| (CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"))>2019)) {
-                MessageBox.Show(this, "Procedura non eseguibile nell'esercizio corrente.", "Errore");
+            if (CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) < 2015) {
+                show(this, "Procedura non eseguibile nell'esercizio corrente.", "Errore");
                 return false;
             }
             if (txtPercorso.Text == "") {
                 getFolder();
                 if (txtPercorso.Text == "") {
-                    MessageBox.Show(this,
+                    show(this,
                         "Occorre specificare la cartella in cui creare i modelli Certificazione Unica " + EsercStr + "", "errore");
                     return false;
                 }
@@ -3071,10 +3083,10 @@ namespace cu_details_default {
             Application.DoEvents();
             Cursor.Current = Cursors.WaitCursor;
             string nomeModello = getNomeFileModello(recordH);
-           
+
             string[] fnames = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, nomeModello);
             if (fnames.Length == 0) {
-                MessageBox.Show(
+                show(
                     "File " + nomeModello + " non trovato nella cartella " + AppDomain.CurrentDomain.BaseDirectory,
                     "Errore");
                 return false;
@@ -3085,7 +3097,7 @@ namespace cu_details_default {
 
 
             List<Collaboratore> collaboratori = getListaCollaboratoriDaMod770(tMod770, recordH);
-            
+
             pBarAvanzamento.Minimum = 0;
             pBarAvanzamento.Maximum = collaboratori.Count;
             pBarAvanzamento.Value = 0;
@@ -3093,7 +3105,7 @@ namespace cu_details_default {
                 Application.DoEvents();
                 SortedList ht = new SortedList(campiPresiDallaLicenza);
                 string nome, cognome;
-         
+
                 fillSortedList(tMod770, ht, co, 1, out nome, out cognome);
 
 
@@ -3102,41 +3114,54 @@ namespace cu_details_default {
                     denominazione = denominazione + nome + "-";
                 }
 
-                PdfDocument document = PdfReader.Open(fOrigin, PdfDocumentOpenMode.Modify);
-                       
+                string pathCompleto = Path.Combine(txtPercorso.Text, getNomeCompleto(co.cf, co.progr.PadLeft(3, '0'), co.modulo, denominazione));
 
-                if (!chkConIndirizzo.Checked ) {
-                    int firstPage = 0;
+                PdfReader templateReader = new PdfReader(fOrigin);
+                PdfWriter writer = new PdfWriter(pathCompleto);
+
+                writer.SetCompressionLevel(5);
+                writer.SetSmartMode(true);
+
+                PdfDocument document = new PdfDocument(templateReader, writer);
+
+                if (!chkConIndirizzo.Checked) {
                     // Voglio rimuovere la prima pagina
-                    document.Pages.RemoveAt(firstPage);
-                    
+                    document.RemovePage(document.GetFirstPage());
                 }
                 if (!chkDonazione.Checked) {
-                    int pageCount = document.PageCount;
                     // Voglio rimuovere la penultima e l'ultima pagina
-                    document.Pages.RemoveAt(pageCount-1);
-                    pageCount = document.PageCount;
-                    document.Pages.RemoveAt(pageCount-1);
+                    document.RemovePage(document.GetLastPage());
+                    document.RemovePage(document.GetLastPage());
                 }
 
-             
-                if (document.AcroForm != null) {
-                    var form = document.AcroForm;
+                PdfAcroForm form = PdfAcroForm.GetAcroForm(document, false);
 
-                    if (form.Elements.ContainsKey("/NeedAppearances")) {
-                        form.Elements["/NeedAppearances"] = new PdfBoolean(true);
-                    }
-                    else {
-                        form.Elements.Add("/NeedAppearances", new PdfBoolean(true));
-                    }
- 
+                if (form != null) {
+                    form.SetGenerateAppearance(false);
+
+                    var fields = form.GetFormFields();
+
                     foreach (DictionaryEntry entry in ht) {
-                        var field = document.AcroForm.Fields[entry.Key.ToString()];
-                        if (field != null) { // per non generare eccezione in caso di nomi errati
-                            field.Value = getPdfString(entry.Value.ToString());                           
+                        string fieldID = entry.Key.ToString();
+                        string fieldValue = entry.Value.ToString();
+
+                        List<string> fieldIDvariants = new List<string>();
+                        //variante nomecampo
+                        fieldIDvariants.Add(fieldID);
+                        //variante nomecampo_8x1000
+                        fieldIDvariants.Add(fieldID + "_8x1000");
+                        //varianti nomecampo_pX dove X è il numero pagina
+                        for (int i = 0; i < document.GetNumberOfPages(); i++) {
+                            fieldIDvariants.Add(fieldID + "_p" + i.ToString());
                         }
-                        
+
+                        var matchedFields = fields.Where(field => fieldIDvariants.Contains(field.Key));
+                        matchedFields._forEach(matchedField => { 
+                            matchedField.Value.SetValue(fieldValue);
+                            matchedField.Value.SetReadOnly(true);
+                        });
                     }
+
                     // Suffissi per identificare i campi dei moduli aggiuntivi
                     string[] suffissi = new string[] { "_bis", "_ter", "_quater", "_quin", "_sext", "_sept", "_oct", "_nov" };
 
@@ -3147,25 +3172,22 @@ namespace cu_details_default {
                         SortedList ht_moduloaggiuntivo = new SortedList();
                         fillSortedList(tMod770, ht_moduloaggiuntivo, co, indicemodulo, out nome, out cognome);
                         if (ht_moduloaggiuntivo.Count > 0) {
-                            modulistampati ++;
+                            modulistampati++;
                             foreach (DictionaryEntry entry in ht_moduloaggiuntivo) {
                                 // valorizzazione di un modulo supplementare
-                                var field = document.AcroForm.Fields[entry.Key + suffisso];
-                                if (field != null) { // per non generare eccezione in caso di nomi errati
-                                    field.Value = getPdfString(entry.Value.ToString());
+                                string fieldID = entry.Key.ToString() + suffisso;
 
+                                if (fields.ContainsKey(fieldID)) {
+                                    fields[fieldID].SetValue(entry.Value.ToString());
+                                    fields[fieldID].SetReadOnly(true);
                                 }
-
                             }
                         }
+                    }
 
-                    }
-                    foreach (var fieldName in document.AcroForm.Fields.Names) {
-                        var field = document.AcroForm.Fields[fieldName];
-                        field.ReadOnly = true;
-                    }
-                        int indexFromRemove = (recordH) ? 2 : 4;
-                    int indexToRemove = (recordH) ? 9 : 5;
+                    //indici delle pagine del template
+                    int indexFromRemove = (recordH) ? 3 : 6;
+                    int indexToRemove = (recordH) ? 10 : 7;
 
                     if (chkConIndirizzo.Checked) {
                         indexFromRemove++;
@@ -3175,34 +3197,32 @@ namespace cu_details_default {
 
                     //pagine inutilizzate da cancellare 
                     int nPages = indexToRemove - indexFromRemove + 1;
-                    for (int i =0; i < nPages; i++) {
-                        document.Pages.RemoveAt(indexFromRemove);
+                    for (int i = 0; i < nPages; i++) {
+                        document.RemovePage(indexFromRemove);
                     }
 
-                    string pathCompleto = Path.Combine(txtPercorso.Text, getNomeCompleto(co.cf, co.progr.PadLeft(3, '0'), co.modulo, denominazione));
-
                     try {
-                        document.Save(pathCompleto);
-
+                        writer.Flush();
+                        document.Close();
                     }
                     catch (Exception e) {
                         QueryCreator.ShowError(this, "Errore salvando il file, probabilmente il percorso non esiste o il file è già aperto.", e.ToString());
                     }
-                  
+
                 }
 
                 pBarAvanzamento.Value += 1;
             }
             Cursor.Current = Cursors.Default;
             pBarAvanzamento.Value = 0;
-            MessageBox.Show(this,
+            show(this,
                 "Sono stati generati " + collaboratori.Count + " modelli Certificazione Unica (.pdf) nella cartella:\n"
                 + txtPercorso.Text,
                 "Salvataggio effettuato");
             return true;
         }
 
-        string getNomeCompleto(string cf, string progr, int iModulo, string denominazione ) {
+        string getNomeCompleto(string cf, string progr, int iModulo, string denominazione) {
             string modulo = iModulo.ToString().PadLeft(2, '0');
             string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
             string nomeFile = denominazione + cf;
@@ -3213,17 +3233,16 @@ namespace cu_details_default {
             return nomeFile + "-" + progr + "-" + modulo + ".pdf";
         }
 
-      
 
         private bool inviaMailCollaboratori(bool recordH, DataTable tMod770) {
             QHS = Meta.Conn.GetQueryHelper(); QHS = Meta.Conn.GetQueryHelper();
             //if (!Meta.GetSys("esercizio").Equals(2019)) {
-            //    MessageBox.Show(this, "Questa procedura produce solo modelli cud per l'anno 2019", "Errore");
+            //    show(this, "Questa procedura produce solo modelli cud per l'anno 2019", "Errore");
             //    // return;
             //}
 
-            if ((CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) < 2015) || (CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) > 2019)) {
-                MessageBox.Show(this, "Procedura non eseguibile nell'esercizio corrente.", "Errore");
+            if (CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) < 2015) {
+                show(this, "Procedura non eseguibile nell'esercizio corrente.", "Errore");
             }
 
             Application.DoEvents();
@@ -3232,24 +3251,24 @@ namespace cu_details_default {
 
             string[] fnames = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, nomeModello);
             if (fnames.Length == 0) {
-                MessageBox.Show(
+                show(
                     "File " + nomeModello + " non trovato nella cartella " + AppDomain.CurrentDomain.BaseDirectory,
                     "Errore");
                 return false;
             }
             string fileDaCopiare = fnames[0];
-
             string fOrigin = fileDaCopiare;
 
-
             List<Collaboratore> collaboratori = getListaCollaboratoriDaMod770(tMod770, recordH);
-
             List<Collaboratore> listaProblemi = new List<Collaboratore>();
-            foreach (Collaboratore co in collaboratori) {
-                if (co.email == null || co.email.ToString() == "") {
-                    listaProblemi.Add(co);
-                }
-            }
+            
+            // commento momentaneamente l'assenza dell'email come errore bloccante
+            // dovremo creare una gestione per memorizzare gli invii non effettuati  
+            //foreach (Collaboratore co in collaboratori) {
+            //    if (co.email == null || co.email.ToString() == "") {
+            //        listaProblemi.Add(co);
+            //    }
+            //}
             if (listaProblemi.Count > 0) {
                 string s = "";
                 foreach (Collaboratore co in listaProblemi) {
@@ -3261,6 +3280,7 @@ namespace cu_details_default {
                 f.Show();
                 return false;
             }
+
             frmAskMailData fM = new frmAskMailData(1);
             DialogResult r = fM.ShowDialog(this);
             if (r != DialogResult.OK) return false;
@@ -3285,41 +3305,52 @@ namespace cu_details_default {
                     denominazione = denominazione + nome + "-";
                 }
 
-                PdfDocument document = PdfReader.Open(fOrigin, PdfDocumentOpenMode.Modify);
+                MemoryStream ms = new MemoryStream();
 
+                PdfReader templateReader = new PdfReader(fOrigin);
+                PdfWriter writer = new PdfWriter(ms);
+
+                writer.SetCompressionLevel(5);
+                writer.SetSmartMode(true);
+
+                PdfDocument document = new PdfDocument(templateReader, writer);
 
                 if (!chkConIndirizzo.Checked) {
-                    int firstPage = 0;
                     // Voglio rimuovere la prima pagina
-                    document.Pages.RemoveAt(firstPage);
-
+                    document.RemovePage(document.GetFirstPage());
                 }
                 if (!chkDonazione.Checked) {
-                    int pageCount = document.PageCount;
-                    // Voglio rimuovere la penultima e l''ultima pagina
-                    document.Pages.RemoveAt(pageCount - 1);
-                    pageCount = document.PageCount;
-                    document.Pages.RemoveAt(pageCount - 1);
+                    // Voglio rimuovere la penultima e l'ultima pagina
+                    document.RemovePage(document.GetLastPage());
+                    document.RemovePage(document.GetLastPage());
                 }
 
+                PdfAcroForm form = PdfAcroForm.GetAcroForm(document, false);
 
-                if (document.AcroForm != null) {
-                    var form = document.AcroForm;
+                if (form != null) {
+                    form.SetGenerateAppearance(true);
 
-                    if (form.Elements.ContainsKey("/NeedAppearances")) {
-                        form.Elements["/NeedAppearances"] = new PdfBoolean(true);
-                    }
-                    else {
-                        form.Elements.Add("/NeedAppearances", new PdfBoolean(true));
-                    }
+                    var fields = form.GetFormFields();
 
                     foreach (DictionaryEntry entry in ht) {
-                        var field = document.AcroForm.Fields[entry.Key.ToString()];
-                        if (field != null) { // per non generare eccezione in caso di nomi errati
-                            field.Value = getPdfString(entry.Value.ToString());
-                            //field.ReadOnly = true;
+                        string fieldID = entry.Key.ToString();
+                        string fieldValue = entry.Value.ToString();
+
+                        List<string> fieldIDvariants = new List<string>();
+                        //variante nomecampo
+                        fieldIDvariants.Add(fieldID);
+                        //variante nomecampo_8x1000
+                        fieldIDvariants.Add(fieldID + "_8x1000");
+                        //varianti nomecampo_pX dove X è il numero pagina
+                        for (int i = 0; i < document.GetNumberOfPages(); i++) {
+                            fieldIDvariants.Add(fieldID + "_p" + i.ToString());
                         }
 
+                        var matchedFields = fields.Where(field => fieldIDvariants.Contains(field.Key));
+                        matchedFields._forEach(matchedField => {
+                            matchedField.Value.SetValue(fieldValue);
+                            matchedField.Value.SetReadOnly(true);
+                        });
                     }
                     // Suffissi per identificare i campi dei moduli aggiuntivi
                     string[] suffissi = new string[] { "_bis", "_ter", "_quater", "_quin", "_sext", "_sept", "_oct", "_nov" };
@@ -3334,12 +3365,11 @@ namespace cu_details_default {
                             modulistampati++;
                             foreach (DictionaryEntry entry in ht_moduloaggiuntivo) {
                                 // valorizzazione di un modulo supplementare
-                                var field = document.AcroForm.Fields[entry.Key.ToString() + suffisso];
+                                string fieldID = entry.Key.ToString() + suffisso;
 
-                                if (field != null) { // per non generare eccezione in caso di nomi errati
-
-                                    field.Value = getPdfString(entry.Value.ToString());
-                                    //field.ReadOnly = true;
+                                if (fields.ContainsKey(fieldID)) {
+                                    fields[fieldID].SetValue(entry.Value.ToString());
+                                    fields[fieldID].SetReadOnly(true);
                                 }
 
                             }
@@ -3347,13 +3377,9 @@ namespace cu_details_default {
 
                     }
 
-                    foreach (var fieldName in document.AcroForm.Fields.Names) {
-                        var field = document.AcroForm.Fields[fieldName];
-                        field.ReadOnly = true;  
-                    }
-
-                    int indexFromRemove = (recordH) ? 2 : 4;
-                    int indexToRemove = (recordH) ? 9 : 5;
+                    //indici delle pagine del template
+                    int indexFromRemove = (recordH) ? 3 : 6;
+                    int indexToRemove = (recordH) ? 10 : 7;
 
                     if (chkConIndirizzo.Checked) {
                         indexFromRemove++;
@@ -3364,15 +3390,17 @@ namespace cu_details_default {
                     //pagine inutilizzate da cancellare 
                     int nPages = indexToRemove - indexFromRemove + 1;
                     for (int i = 0; i < nPages; i++) {
-                        document.Pages.RemoveAt(indexFromRemove);
+                        document.RemovePage(indexFromRemove);
                     }
+
                     string nomeFile = getNomeCompleto(co.cf, co.progr.PadLeft(3, '0'), co.modulo, denominazione);
-                    
-                    MemoryStream ms = new MemoryStream();
-                    document.Save(ms);
+
+                    writer.Flush();
                     ms.Flush();
+                    document.Close();
+
                     try {
-                        sm.addAttachment(ms.ToArray(),nomeFile);
+                        sm.addAttachment(ms.ToArray(), nomeFile);
                         if (fM.chkInvioProva.Checked) {
                             sm.To = fM.txtCopiaConoscenza.Text;
                         }
@@ -3382,15 +3410,14 @@ namespace cu_details_default {
                             }
                             sm.To = co.email.ToString();
                         }
-
                         sm.Subject = fM.txtOggetto.Text;
                         sm.MessageBody = fM.txtContenuto.Text;
-
                         sm.UseSMTPLoginAsFromField = true;
+                  
                         //sm.Send();
                         if (!sm.Send()) {
                             if (sm.ErrorMessage.Trim() != "")
-                                MessageBox.Show(sm.ErrorMessage.Trim());
+                                show(sm.ErrorMessage.Trim());
                         }
                         Thread.Sleep(5000);
                     }
@@ -3401,8 +3428,7 @@ namespace cu_details_default {
                 }
 
                 pBarAvanzamento.Value += 1;
-            }
-        
+            }             
 
             if (listaProblemi.Count > 0) {
                 string s = "";
@@ -3413,23 +3439,369 @@ namespace cu_details_default {
                 frmListaProblemi f = new frmListaProblemi(0);
                 f.txtProblemi.Text = s;
                 f.labelMsg.Text = "Invio email fallito per i seguenti collaboratori:";
-                f.Show();
+                //f.Show();
             }
             else {
-                MessageBox.Show(this,
+                show(this,
                "Sono stati generati " + collaboratori.Count + " modelli Certificazione Unica",
                "Invio effettuato");
             }
             Cursor.Current = Cursors.Default;
             pBarAvanzamento.Value = 0;
-           
+
+            DataTable emailNonInviate = new DataTable();            
+            emailNonInviate.Columns.Add("idreg", typeof(System.Int32));
+            emailNonInviate.Columns.Add("cf", typeof(System.String));
+            emailNonInviate.Columns.Add("email", typeof(System.String));
+            emailNonInviate.Columns.Add("commento", typeof(System.String));
+            emailNonInviate.Columns.Add("progr", typeof(System.String));
+            emailNonInviate.Columns.Add("modulo", typeof(System.Int16));
+            emailNonInviate.Columns.Add("nome", typeof(System.String));
+            emailNonInviate.Columns.Add("cognome", typeof(System.String));
+
+            DataTable emailInviate = new DataTable();
+            emailInviate.Columns.Add("idreg", typeof(System.Int32));
+            emailInviate.Columns.Add("cf", typeof(System.String));
+            emailInviate.Columns.Add("email", typeof(System.String));
+            emailInviate.Columns.Add("commento", typeof(System.String));
+            emailInviate.Columns.Add("progr", typeof(System.String));
+            emailInviate.Columns.Add("modulo", typeof(System.Int16));
+            emailInviate.Columns.Add("nome", typeof(System.String));
+            emailInviate.Columns.Add("cognome", typeof(System.String));
+
+            foreach (Collaboratore c in collaboratori) {
+                if (c.email == null || c.email.ToString() == "") {
+                    DataRow dr = emailNonInviate.NewRow();
+                    dr["idreg"] = c.idreg;
+                    dr["cf"] = c.cf;
+                    dr["email"] = c.email;
+                    dr["commento"] = c.commento;
+                    dr["progr"] = c.progr;
+                    dr["modulo"] = c.modulo;
+                    dr["nome"] = c.name;
+                    dr["cognome"] = c.surname;
+                    emailNonInviate.Rows.Add(dr);
+				}
+                else {
+                    DataRow dr = emailInviate.NewRow();
+                    dr["idreg"] = c.idreg;
+                    dr["cf"] = c.cf;
+                    dr["email"] = c.email;
+                    dr["commento"] = c.commento;
+                    dr["progr"] = c.progr;
+                    dr["modulo"] = c.modulo;
+                    dr["nome"] = c.name;
+                    dr["cognome"] = c.surname;
+                    emailInviate.Rows.Add(dr);
+				}
+			}
+
+            string[] intestazione = nomeModello.Split('.');
+            //creazione tabella da passare a SituazioneViewer
+            DataTable dt = new DataTable();
+            dt.Columns.Add("value", typeof(String));
+            dt.Columns.Add("amount", typeof(Decimal));
+            dt.Columns.Add("kind", typeof(Char));
+            /*-----------------------------------------------------*/
+            //intestazione
+            DataRow head = dt.NewRow();            
+            head["value"] = "Verifica delle Email inviate";
+            head["amount"] = DBNull.Value;
+            head["kind"] = "H";
+            dt.Rows.Add(head);
+
+            DataRow head2 = dt.NewRow();            
+            head2["value"] = intestazione[0];
+            head2["amount"] = DBNull.Value;
+            head2["kind"] = "H";
+            dt.Rows.Add(head2);
+            /*-----------------------------------------------------*/
+            //lista delle email inviate e non
+            DataRow brh = dt.NewRow();
+            brh["value"] = "";
+            brh["amount"] = DBNull.Value;
+            brh["kind"] = "N";
+            dt.Rows.Add(brh);
+
+            DataRow notsend = dt.NewRow();
+            notsend["value"] = "EMAIL  NON  INVIATE";
+            notsend["amount"] = DBNull.Value;
+            notsend["kind"] = "N";
+            dt.Rows.Add(notsend);
+
+            foreach (DataRow row in emailNonInviate.Rows) {
+                DataRow body = dt.NewRow();            
+                body["value"] = $"CF: {row["cf"]} " + $"  Nome: {row["nome"]} " + $"  Cognome: {row["cognome"]} " + "  Email: mancante " + $"  Data: {DateTime.Now}";  
+                body["amount"] = DBNull.Value;
+                body["kind"] = "N";
+                dt.Rows.Add(body);
+ 			}
+
+            DataRow brn = dt.NewRow();
+            brn["value"] = "";
+            brn["amount"] = DBNull.Value;
+            brn["kind"] = "N";
+            dt.Rows.Add(brn);
+
+            DataRow send = dt.NewRow();
+            send["value"] = "EMAIL  INVIATE";
+            send["amount"] = DBNull.Value;
+            send["kind"] = "N";
+            dt.Rows.Add(send);
+
+            foreach (DataRow row in emailInviate.Rows) {
+                DataRow body = dt.NewRow();
+                body["value"] = $"CF: {row["cf"]} " + $"  Nome: {row["nome"]} " + $"  Cognome: {row["cognome"]} " + $"  Email: {row["email"]} " + $"  Data: {DateTime.Now}";
+                body["amount"] = DBNull.Value;
+                body["kind"] = "N";
+                dt.Rows.Add(body);
+ 			}
+
+            DataSet inviati = new DataSet();
+            inviati.Tables.Add(dt);
+            inviati.Tables[0].TableName = "Situazione";
+            
+            SendMail responsabile = new SendMail();
+            responsabile.Conn = Meta.Conn;
+            DataTable T = conn.RUN_SELECT("configsmtp", "responsabile_cu", null, null, null, false);
+            if (T != null && T.Rows.Count != 0 && T.Rows[0]["responsabile_cu"] != DBNull.Value) {
+                responsabile.To = T.Rows[0]["responsabile_cu"].ToString();
+                responsabile.UseSMTPLoginAsFromField = true;
+                responsabile.Subject = "Resoconto Email Inviate/Non Inviate";
+                responsabile.MessageBody = "CU " + Meta.GetSys("esercizio");
+			}           
+
+            string fileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".xlsx";   
+            byte[] datatableBytes = dataTableToOfficeXML(inviati.Tables[0],/* false,*/ fileName);
+            if (datatableBytes.Length == 0 || datatableBytes == null) return false;
+        
+            frmSituazioneViewer View = new frmSituazioneViewer(inviati);            
+            View.Show();
+
+            responsabile.addAttachment(datatableBytes, fileName);
+            if (!responsabile.Send()) {
+            if (responsabile.ErrorMessage.Trim() != "")
+                show(responsabile.ErrorMessage.Trim());
+            }
+
             return true;
         }
 
+        private static byte[] dataTableToOfficeXML(System.Data.DataTable DT, /*bool Header,*/ string filename) {
+            
+            ExcelPackage xlPackage = new ExcelPackage();
+            byte[] data = new byte[0];
+            // Controlli formali sulla presenza dei dati in input
+            if (DT == null) return null;
+            if (DT.Columns.Count == 0) return null;
+            
+            if (filename.Length != 0) {
+                var fi = new FileInfo(filename);
+                xlPackage = new ExcelPackage(fi);
+            }
+
+            using (xlPackage) {
+                ExcelWorksheet worksheet = CreateSheet(xlPackage, DT.TableName); // Creazione del foglio dati con impostazione delle sue proprietà
+                int RowCount = DT.Select().Length; // Numero Righe del datatable
+                int ColumnCount = 1;//DT.Columns.Count; -> Numero Colonne del datatable, metto 1 perchè mi serve solo la colonna value
+                int Step = 0;
+
+                // Formattazione dell'Header del foglio Excel
+                //if (Header) {
+                //    SetHeader(worksheet, DT);
+                //    Step = 1;
+                //}
+
+                int mincol = 99999;
+                for (int Colonna = 0; Colonna < ColumnCount; Colonna++) {
+                    DataColumn Col = DT.Columns[Colonna];
+                    int ColonnaExcel = Colonna + 1;
+                    if (Col.ExtendedProperties["ListColPos"] != null)
+                        ColonnaExcel = Convert.ToInt32(Col.ExtendedProperties["ListColPos"]);
+                    if (ColonnaExcel == -1) continue;
+                    if (mincol > ColonnaExcel) mincol = ColonnaExcel;
+                }
+
+                int disp = 0;
+                if (mincol == 0) disp = 1;
+                DataRow[] Rows = DT.Select(null, (string) DT.ExtendedProperties["ExcelSort"]);
+                if (Rows.Length == 0) return null;
+
+                //per ogni colonna del datatable:
+                int Excel_Col_Index = 0;
+
+                Dictionary<int, int> colLookup = new Dictionary<int, int>();
+                Dictionary<int, string> tagLookup = new Dictionary<int, string>();
+                Dictionary<int, int> inverseLookup = new Dictionary<int, int>();
+                Dictionary<int, string> colFormat = new Dictionary<int, string>();
+
+                //Inserisce le eventuali intestazioni e stabilisce la corrispondenza delle colonne
+                for (int Colonna = 0; Colonna < ColumnCount; Colonna++) {
+                    DataColumn Col = DT.Columns[Colonna];
+                    string caption = (string) Col.ExtendedProperties["ExcelTitle"];
+                    if (caption == null) caption = DT.Columns[Colonna].Caption;
+                    if (caption == "") continue;
+
+                    if ((Col.ExtendedProperties["ListColPos"] == null) && (caption.StartsWith("."))) continue;
+
+                    int ColonnaExcel = Excel_Col_Index + 1;
+                    if (Col.ExtendedProperties["ListColPos"] != null)
+                        ColonnaExcel = Convert.ToInt32(Col.ExtendedProperties["ListColPos"]);
+
+                    if (ColonnaExcel == -1) continue;
+
+                    if (caption.StartsWith(".")) caption = caption.Remove(0, 1);
+                    Excel_Col_Index++;
+
+                    string Tag = "x.y";
+                    Tag = HelpForm.CompleteTag(Tag, Col);
+                    colLookup[Colonna] = ColonnaExcel + disp;
+                    tagLookup[Colonna] = Tag;
+
+                    if (Col.ExtendedProperties["ExcelFormat"] != null) {
+                        colFormat[Colonna] = Col.ExtendedProperties["ExcelFormat"].ToString();
+                    }
+                    //else {
+                    //    switch (HelpForm.GetFieldLower(Tag, 2)) {
+                    //        case "n":
+                    //            colFormat[Colonna] = "0.00";
+                    //            break;
+
+                    //        case "c":
+                    //            colFormat[Colonna] = "€#,##0.00_);[Red](€#,##0.00)";
+                    //            break;
+
+                    //        case "d":
+                    //            colFormat[Colonna] = "dd/mm/yyyy";
+                    //            break;
+                    //    }
+                    //}
+
+                    //if (Header) {
+                    //    var cell = worksheet.Cells[1, ColonnaExcel + disp];
+                    //    cell.Value = caption;
+                    //}
+                }
+
+                //for (int i = 0; i < ColumnCount; i++) {
+                //    if (colLookup.ContainsKey(i)) {
+                //        inverseLookup[colLookup[i]] = i;
+                //    }
+                //}
+                //Posizione prima riga dati
+                var startRow = 1; //Header ? 2 : 1;
+                int rigaExcel = startRow; //Riga Excel in cui andrà la prossima riga di dati o totali                    
+                for (int Riga = 0; Riga < RowCount; Riga++) {
+                    DataRow Curr = Rows[Riga];
+                        
+                    //Mette i dati nelle opportune colonne
+                    foreach (int Colonna in colLookup.Keys) {
+                        var cell = worksheet.Cells[rigaExcel, colLookup[Colonna]];
+                        if (Rows[Riga][Colonna] == DBNull.Value) {
+                            cell.Value = "";
+                            continue;
+                        }
+
+                        string Tag = tagLookup[Colonna];
+                        if (DT.Columns[Colonna].DataType == typeof(String)) {
+                            cell.Value = HelpForm.StringValue(Rows[Riga][Colonna], Tag);
+                            continue;
+                        }
+
+                        //if (DT.Columns[Colonna].DataType == typeof(Int32)) {
+                        //    cell.Value = Rows[Riga][Colonna];
+                        //    continue;
+                        //}
+
+                        //if (DT.Columns[Colonna].DataType == typeof(Int16)) {
+                        //    cell.Value = Rows[Riga][Colonna];
+                        //    continue;
+                        //}
+
+                        //switch (HelpForm.GetFieldLower(Tag, 2)) {
+                        //    case "n":
+                        //    case "c":
+                        //        cell.Value = Rows[Riga][Colonna] == DBNull.Value
+                        //            ? 0
+                        //            : Convert.ToDecimal(Rows[Riga][Colonna]);
+                        //        break;
+                        //    case "d":
+                        //        DateTime value;
+                        //        if (DateTime.TryParse(Rows[Riga][Colonna].ToString(), out value)) {
+                        //            cell.Value = value;
+                        //        }
+
+                        //        break;
+
+                        //    default:
+                        //        cell.Value = HelpForm.StringValue(Rows[Riga][Colonna], Tag);
+                        //        break;
+                        //}
+                    }
+                    rigaExcel++;
+                }
+
+                //Per ogni colonna:  imposta il formato e la dimensiona
+                for (int Colonna = 0; Colonna < ColumnCount; Colonna++) {
+                    if (!colLookup.ContainsKey(Colonna)) continue;
+                    int ColonnaExcel = colLookup[Colonna];
+                    ExcelRange ExcCol = worksheet.Cells[1 + Step, ColonnaExcel, rigaExcel, ColonnaExcel];
+                    if (colFormat.ContainsKey(Colonna)) {
+                        ExcCol.Style.Numberformat.Format = colFormat[Colonna];
+                    }
+                    ExcCol.AutoFitColumns();
+                }
+                // Save file id filename is set
+                if (filename.Length != 0) {
+                    byte[] tmpData = xlPackage.GetAsByteArray();
+                    if (File.Exists(filename)) File.Delete(filename); // Se esiste il file lo cancello
+                    //File.WriteAllBytes(filename, data);
+                    data = tmpData;
+                }
+            }
+            return data;
+        }
+
+         /// <summary>
+         /// Create an excel work sheet and set font type, font dimension and sheet name
+         /// </summary>
+         /// <param name="p">Excel Package</param>
+         /// <param name="sheetName">Sheet Name</param>
+         /// <returns></returns>
+        private static ExcelWorksheet CreateSheet(ExcelPackage p, string sheetName) {
+            try {
+                if (sheetName == "") sheetName = LM.translate("dataFolder", false);
+                p.Workbook.Worksheets.Add(sheetName);
+                ExcelWorksheet ws = p.Workbook.Worksheets[1];
+                ws.Name = sheetName; //Setting Sheet's name
+                ws.Cells.Style.Font.Size = 11; //Default font size for whole sheet
+                ws.Cells.Style.Font.Name = "Calibri"; //Default Font name for whole sheet
+
+                return ws;
+
+            }
+            catch (Exception E) {
+                QueryCreator.ShowException(E);
+                return null;
+            }
+        }
+
+        //private static void SetHeader(ExcelWorksheet ws, System.Data.DataTable dt) {
+
+        //    // Formattazione di Header 
+        //    for (int i = 1; i <= dt.Columns.Count; i++) {
+
+        //        var cell = ws.Cells[1, i];
+        //        cell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+        //        cell.Style.Font.Bold = true;
+        //    }
+
+        //}
+
         private XmlText createTextNode(XmlDocument doc, object valore) {
             if (valore is decimal) {
-                decimal dec = (decimal) valore;
-                return doc.CreateTextNode(((decimal) valore).ToString("n", numberFormat));
+                decimal dec = (decimal)valore;
+                return doc.CreateTextNode(((decimal)valore).ToString("n", numberFormat));
             }
             return doc.CreateTextNode(valore.ToString());
         }
@@ -3460,7 +3832,7 @@ namespace cu_details_default {
                         .AppendChild(createTextNode(doc, ht[campo]));
                 }
             }
-            foreach (string campo in new string[] {"DA002001"}) {
+            foreach (string campo in new string[] { "DA002001" }) {
                 if (ht.Contains(campo)) {
                     topmostSubform.AppendChild(doc.CreateElement(campo + "ter"))
                         .AppendChild(createTextNode(doc, ht[campo]));
@@ -3473,11 +3845,11 @@ namespace cu_details_default {
         }
 
         string getNomeFileModello(bool recordH) {
-             // Template completo con indirizzo e scheda donazione, poi rimuoveremo pagine a run time
-                
-            
-            return recordH ? "CU_"+ EsercStr+"_h_completo.pdf" : "CU_" + EsercStr + "_g_completo.pdf";
-            }
+            // Template completo con indirizzo e scheda donazione, poi rimuoveremo pagine a run time
+
+
+            return recordH ? "CU_" + EsercStr + "_h_completo.pdf" : "CU_" + EsercStr + "_g_completo.pdf";
+        }
 
         private void stampaXml(XmlDocument doc, string cf, string progr, string modulo, string denominazione) {
             string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
@@ -3509,43 +3881,20 @@ namespace cu_details_default {
             }
             ht["Annotazioni"] = ht["Annotazioni"] + nota;
         }
-
-        private void salvaColonnaDC001036(SortedList ht, string dc001036) {
+        private void salvaColonnaMultiCasellaMesi(SortedList ht, string nomeCampo, string valore) {
             char c = 'a';
             for (int i = 0; i < 12; i++) {
-                if ((dc001036[i] == '1') && (ht["DC001036" + c] == null)) {
-                    ht["DC001036" + c] = 'X';
+                if ((valore[i] == '1') && (ht[nomeCampo + c] == null)) {
+                    ht[nomeCampo + c] = 'X';
                 }
                 c++;
             }
         }
 
-        private void salvaColonnaDC001035(SortedList ht, string dc001035) {
-            if (dc001035 == "1") {
-                ht["DC001035"] = 'X';
-            }
-        }
-
-
-        private void salvaColonnaDB60001(SortedList ht, int db601001) {
-            if (db601001 == 1) {
-                ht["DB601001"] = 'X';
-            }
-        }
-
-        private void salvaColonnaDC001048(SortedList ht, string dc001048) {
-            char c = 'a';
-            for (int i = 0; i < 12; i++) {
-                if ((dc001048[i] == '1') && (ht["DC001046" + c] == null)) {
-                    ht["DC001048" + c] = 'X';
-                }
-                c++;
-            }
-        }
-
-        private void salvaColonnaDC001047(SortedList ht, string dc001047) {
-            if (dc001047 == "1") {
-                ht["DC001047"] = 'X';
+        private void salvaColonnaCasellaBarrataSingola(SortedList ht, string nomeCampo, object valore) {
+            if (valore == DBNull.Value) return;
+            if (valore.ToString() == "1") {
+                ht[nomeCampo] = 'X';
             }
         }
 
@@ -3553,8 +3902,8 @@ namespace cu_details_default {
             // Metodo che consente di barrare con una X le caselle relative ai familiari a carico elencati: Coniuge, primo figlio, ecc.
             // alla stessa riga restituita dalla sp corrispondono tre caselle barrate nel modello: una per ogni valore (F,A,D)
             // le etichettiamo con XXX001, se il valore è F , XXX002 se il valore è A,  XXX003 se il valore è D
-            if (DB60xxx == "F1")     {
-                ht[colname+"001"] = 'X';   
+            if (DB60xxx == "F1") {
+                ht[colname + "001"] = 'X';
             }
             if (DB60xxx == "F") {
                 ht[colname + "001"] = 'X';
@@ -3568,17 +3917,18 @@ namespace cu_details_default {
         }
 
 
-        private void salvaColonnaDB001006(SortedList ht, int db001006) {
-            object old = ht["DB001006"];
+        private void salvaColonnaNumeroGiorniDetrazioni(SortedList ht, string nomeCampo, int valore) {
+            // Gestione del campo numero dei giorni per i quali spettano le detrazioni
+            object old = ht[nomeCampo];
             if (old == null) {
-                ht["DB001006"] = db001006;
+                ht[nomeCampo] = valore;
             }
             else {
-                int numGiorni = ((int) old) + db001006;
+                int numGiorni = ((int)old) + valore;
                 if (numGiorni > 365) {
                     numGiorni = 365;
                 }
-                ht["DB001006"] = numGiorni;
+                ht[nomeCampo] = numGiorni;
             }
         }
 
@@ -3597,9 +3947,9 @@ namespace cu_details_default {
         //Usato solo in stampa
         private void salvaNormaleCampo(SortedList ht, string campo, DataRow rRecordG) {
             if (rRecordG["data"] != DBNull.Value) {
-                DateTime data = (DateTime) rRecordG["data"];
-                char[] c = new char[] {'g', 'm', 'a'};
-                int[] parte = new int[] {data.Day, data.Month, data.Year};
+                DateTime data = (DateTime)rRecordG["data"];
+                char[] c = new char[] { 'g', 'm', 'a' };
+                int[] parte = new int[] { data.Day, data.Month, data.Year };
                 for (int i = 0; i < 3; i++) {
                     string tag = campo + c[i];
                     object vecchio = ht[tag];
@@ -3609,7 +3959,7 @@ namespace cu_details_default {
                     else {
                         if (!vecchio.Equals(parte[i])) {
                             ht.Remove(tag);
-                            //MessageBox.Show(this, "Campo: " + tag + "\r\n" + vecchio + "\r\n" + getValore(rRecordG), "ERRORE");
+                            //show(this, "Campo: " + tag + "\r\n" + vecchio + "\r\n" + getValore(rRecordG), "ERRORE");
                         }
                     }
                 }
@@ -3621,15 +3971,15 @@ namespace cu_details_default {
             }
             else {
                 if (old is int) {
-                    ht[campo] = ((int) old) + ((int) rRecordG["intero"]);
+                    ht[campo] = ((int)old) + ((int)rRecordG["intero"]);
                 }
                 else if (old is decimal) {
-                    ht[campo] = ((decimal) old) + ((decimal) rRecordG["decimale"]);
+                    ht[campo] = ((decimal)old) + ((decimal)rRecordG["decimale"]);
                 }
                 else {
                     if (!old.Equals(getValore(rRecordG))) {
                         ht.Remove(campo);
-                        //MessageBox.Show(this, "Campo: " + campo + "\r\n" + old + "\r\n" + getValore(rRecordG), "ERRORE");
+                        //show(this, "Campo: " + campo + "\r\n" + old + "\r\n" + getValore(rRecordG), "ERRORE");
                     }
                 }
             }
@@ -3662,7 +4012,7 @@ namespace cu_details_default {
         //        }
         //    }
         //    catch (Exception ex) {
-        //        MessageBox.Show(this, ex.Message);
+        //        show(this, ex.Message);
         //    }
         //    // pulizia nomi colonne da eventuali spazi
         //    foreach (DataColumn C in mData.Columns) {
@@ -3683,7 +4033,7 @@ namespace cu_details_default {
             try {
                 string fileName = MyOpenFile.FileName;
                 var Xcel = new ExcelImport();
-                Xcel.ImportTable(fileName, mData,true,2);
+                Xcel.ImportTable(fileName, mData, true, 2);
                 //ConnectionString = ExcelImport.ExcelConnString(fileName);
                 //"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + fileName +
                 //";Extended Properties=\"Excel 8.0;HDR=YES;IMEX=1\"";
@@ -3691,18 +4041,18 @@ namespace cu_details_default {
                 txtInputFile.Text = fileName;
             }
             catch (Exception ex) {
-                MessageBox.Show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
+                show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
                 return false;
             }
 
             if (!verificaValiditaFileExcel()) {
-                MessageBox.Show(this, "Il file selezionato non è valido", "Errore");
+                show(this, "Il file selezionato non è valido", "Errore");
                 return false;
 
             }
 
             fillTable();
-        
+
             Meta.FreshForm();
             return true;
         }
@@ -3719,8 +4069,8 @@ namespace cu_details_default {
             progressiviHRD06.Clear();
             progressiviHRD07.Clear();
             progressiviHRD09.Clear();
-            if (mData.Select().Length ==0) {
-                MessageBox.Show(this, "Il file selezionato non è stato importato, controllare che siano presenti le intestazioni delle colonne e che contenga dati", "Errore");
+            if (mData.Select().Length == 0) {
+                show(this, "Il file selezionato non è stato importato, controllare che siano presenti le intestazioni delle colonne e che contenga dati", "Errore");
                 return false;
             }
             foreach (DataRow rFile in mData.Select()) {
@@ -3729,15 +4079,15 @@ namespace cu_details_default {
                 progressivo = rFile["progressivo"].ToString().Trim();
                 sostituisci_o_annulla = rFile["sostituisci_o_annulla"].ToString().Trim().ToUpper();
 
-                if  ((CF== "")||(identificativo == "")|| (progressivo == "")|| (sostituisci_o_annulla == "")) {
-                    MessageBox.Show(this, "Il file selezionato contiene dati non validi, controllare che siano presenti le intestazioni delle colonne.", "Errore");
+                if ((CF == "") || (identificativo == "") || (progressivo == "") || (sostituisci_o_annulla == "")) {
+                    show(this, "Il file selezionato contiene dati non validi, controllare che siano presenti le intestazioni delle colonne.", "Errore");
                     return false;
                 }
                 progressiviHRD06[CF] = rFile["identificativo"].ToString().Trim();
                 progressiviHRD07[CF] = rFile["progressivo"].ToString().Trim();
                 progressiviHRD09[CF] = rFile["sostituisci_o_annulla"].ToString().Trim().ToUpper();
             }
-            MessageBox.Show(this, "Il file selezionato è stato importato. Si può procedere con la generazione della dichiarazione.", "Avviso");
+            show(this, "Il file selezionato è stato importato. Si può procedere con la generazione della dichiarazione.", "Avviso");
             return true;
         }
 
@@ -3745,19 +4095,19 @@ namespace cu_details_default {
         private bool fillTableCF(DataTable mDataCF) {
             string CF;
             if (mDataCF.Select().Length == 0) {
-                MessageBox.Show(this, "Il file selezionato non è stato importato, controllare che siano presenti le intestazioni delle colonne e che contenga dati", "Errore");
+                show(this, "Il file selezionato non è stato importato, controllare che siano presenti le intestazioni delle colonne e che contenga dati", "Errore");
                 return false;
             }
             foreach (DataRow rFile in mDataCF.Select()) {
                 CF = rFile["cf"].ToString().Trim();
 
-                if (CF == ""){
-                    MessageBox.Show(this, "Il file selezionato contiene dati non validi, controllare che siano presenti le intestazioni delle colonne.", "Errore");
+                if (CF == "") {
+                    show(this, "Il file selezionato contiene dati non validi, controllare che siano presenti le intestazioni delle colonne.", "Errore");
                     return false;
                 }
                 ListaCF.Add(CF);
             }
-            MessageBox.Show(this, "Il file selezionato è stato importato. Si può procedere con la generazione della dichiarazione.", "Avviso");
+            show(this, "Il file selezionato è stato importato. Si può procedere con la generazione della dichiarazione.", "Avviso");
             return true;
         }
         private object TrimString(object value, bool toglichiocciola) {
@@ -3786,7 +4136,7 @@ namespace cu_details_default {
             elencoColonne.Add("sostituisci_o_annulla");
             foreach (string col in elencoColonne) {
                 if (!mData.Columns.Contains(col)) {
-                    MessageBox.Show(this, "Nel file " + MyOpenFile.FileName + " non esiste la colonna " + col, "Errore");
+                    show(this, "Nel file " + MyOpenFile.FileName + " non esiste la colonna " + col, "Errore");
                     return false;
                 }
             }
@@ -3817,7 +4167,7 @@ namespace cu_details_default {
             //elencoColonne.Add("cf");
             //foreach (string col in elencoColonne) {
             //    if (!mDataCF.Columns.Contains(col)) {
-            //        MessageBox.Show(this, "Nel file " + MyOpenFile.FileName + " non esiste la colonna " + col, "Errore");
+            //        show(this, "Nel file " + MyOpenFile.FileName + " non esiste la colonna " + col, "Errore");
             //        return false;
             //    }
             //}
@@ -3982,21 +4332,22 @@ namespace cu_details_default {
         private void btnGenera_Click(object sender, EventArgs e) {
             bool errore = false;
             errore = !controlliGenerazioneG(radH.Checked);
-            if (errore)
-                if (MessageBox.Show(" Si desidera proseguire l''elaborazione del record G nonostante  gli errori?", "Errore",
-                      MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) return;
+            if (errore) {
+                if (show(" Si desidera proseguire l''elaborazione del record G nonostante  gli errori?", "Errore",
+                      MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) 
+                    return;
+            }
             errore = false;
             errore = !controlliGenerazioneH(radH.Checked);
-            if (errore)
-                if (MessageBox.Show(" Si desidera proseguire l''elaborazione del record H nonostante  gli errori?", "Errore",
-                      MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) return;
+            if (errore) {
+                if (show(" Si desidera proseguire l''elaborazione del record H nonostante  gli errori?", "Errore",
+                      MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) 
+                    return;
+            }
             generaCertificazioneUnica(radH.Checked, getTipoGenerazioneSelezionato());
         }
 
-        string[] tracciato_setcf =
-      new string[]{
-                        "cf;C.F.;Stringa;16"
-          };
+        string[] tracciato_setcf = new string[]{"cf;C.F.;Stringa;16"};
 
         //private DataTable ReadCurrentSheet(string filename) {
         //    LeggiFile Reader = new LeggiFile();
@@ -4033,18 +4384,18 @@ namespace cu_details_default {
             try {
                 string fileName = MyOpenFile.FileName;
                 //ConnectionString = ExcelImport.ExcelConnString(fileName);
-                new ExcelImport().ImportTable(fileName,t,true,2);
+                new ExcelImport().ImportTable(fileName, t, true, 2);
                 //t = ReadCurrentSheet(fileName);
                 txtInputFileSetCF.Text = fileName;
             }
             catch (Exception ex) {
-                MessageBox.Show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
+                show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
                 return false;
             }
             if (t == null) return false;
 
             if (!verificaValiditaFileExcel_soloCF()) {
-                MessageBox.Show(this, "Il file selezionato non è valido", "Errore");
+                show(this, "Il file selezionato non è valido", "Errore");
                 return false;
             }
             fillTableCF(t);
@@ -4054,7 +4405,7 @@ namespace cu_details_default {
 
         private void btnCUperSetdiCF_Click(object sender, EventArgs e) {
             //Riempie il datatable MData leggendo dal foglio Excel
-            
+
             if (!LeggiFileCF()) {
                 return;
             }
@@ -4063,4 +4414,4 @@ namespace cu_details_default {
             mData.Clear();
         }
     }
-}
+}

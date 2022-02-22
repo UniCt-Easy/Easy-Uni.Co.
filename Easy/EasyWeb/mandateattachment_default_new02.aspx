@@ -16,10 +16,21 @@
 
         <div class="row">		 		
 	        <div class="col-md-12">	
-                <cc1:hwButton runat="server" id="btnVisualizza" TabIndex="5" Text="Scarica" Tag="visualizza"/>
-                </div>
+                <cc1:hwButton runat="server" id="btnVisualizza" TabIndex="5" Text="Scarica" class="btn btn-primary" Tag="visualizza" />
+            </div>
         </div>
-    <asp:FileUpload ID="btnFileUpload" runat="server" />
+    <asp:FileUpload  ID="btnFileUpload" data-id="btnFileUpload" runat="server" />
     </div>
 </div>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="JScriptAfterLibs"  runat="server">
+
+	<script type="text/javascript">
+		$('[data-id="btnFileUpload"]').change(function(ev) {
+			__doPostBack('do_command', "aggiornaNome");
+		});
+	</script>
+
+
 </asp:Content>

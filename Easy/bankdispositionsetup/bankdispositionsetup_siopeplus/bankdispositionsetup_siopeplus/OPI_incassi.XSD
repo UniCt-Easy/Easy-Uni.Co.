@@ -70,7 +70,7 @@
   <xs:simpleType name="stTipoCodiceCIG">
     <xs:restriction base="xs:string">
       <xs:length value="10"/>
-      <xs:pattern value="[a-zA-Z0-9]{10}"/>
+      <xs:pattern value="[0-9]{7}[0-9A-F]{3}"/>
     </xs:restriction>
   </xs:simpleType>
   <!--  -->

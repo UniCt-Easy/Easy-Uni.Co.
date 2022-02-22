@@ -1,52 +1,50 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
-using System.Windows.Forms;
-using System.Data;
-using metaeasylibrary;
-using metadatalibrary;
+
 using LiveUpdate;//LiveUpdate
-using System.Threading;
-using System.IO;
+using metadatalibrary;
+using metaeasylibrary;
+using System;
+using System.Configuration;
+using System.Data;
 using System.Diagnostics;
 using System.Globalization;
-using System.Text;
+using System.IO;
 using System.Reflection;
-using System.Configuration;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
 
-namespace mainform//CompEc//
-{
+namespace mainform {
 
-    ///TODO: Svuotare i dati della statusbar sul disconnect
-    ///TODO: Rendere modificabile l'esercizio  / datacontabile 
+	///TODO: Svuotare i dati della statusbar sul disconnect
+	///TODO: Rendere modificabile l'esercizio  / datacontabile 
 
-    /// <summary>
-    /// Summary description for frmMain.
-    /// </summary>
-    /// <summary>
-    /// The main entry point for the application.
-    /// </summary>
-
+	/// <summary>
+	/// Summary description for frmMain.
+	/// </summary>
+	/// <summary>
+	/// The main entry point for the application.
+	/// </summary>
 
 
 
-    public class frmMain : System.Windows.Forms.Form {
+
+	public class frmMain : MetaDataForm {
 
         #region Dichiarazione Variabili
         public Easy_DataAccess MyDataAccess;
@@ -167,7 +165,9 @@ namespace mainform//CompEc//
         public static string[] argCopy;
         private MenuItem mnuIndiceGuida;
         private MenuItem menuTeamViewer2;
+        private MenuItem menuItem24;
         static public frmMain F;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -186,21 +186,27 @@ namespace mainform//CompEc//
 
             argCopy = args;
             F = new frmMain();
+            F.SetVisibleCore(false);
+            signalCreateForm(F, null);
             try {
                 Application.Run(F);
             }
             catch(Exception e) {
-                MetaData.mainLogError(null,null,"Errore non gestito nell'esecuzione dell'applicazione.\r\n" + e.Message, e);
+	            ErrorLogger.Logger.logException( $"Errore non gestito nell'esecuzione dell'applicazione.", e);
             }
             F.Dispose(true);
+        }
+
+        internal static void signalCreateForm(Form f, Form parent) {
+	        MetaFactory.factory.getSingleton<IFormCreationListener>().create(f,parent);
         }
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e) {
             if (F != null && !F.IsDisposed) {
                 try {
-                    DataAccess conn = null;
+                    IDataAccess conn = null;
                     if (F.Dispatcher != null) {
-                        conn = F.Dispatcher.Conn;
+                        conn = F.getInstance<IDataAccess>();
                         string forms = "Application.Run(Disp)\r\n";
                         bool found = false;
                         foreach (Form child in F.OwnedForms) {
@@ -208,37 +214,41 @@ namespace mainform//CompEc//
                             form += "Text:" + child.Text;
                             MetaData mchild = MetaData.GetMetaData(child);
                             if (mchild != null) {
+	                            var controller = mchild.formController;
                                 form += "Metadata:" + mchild.Name;
-                                if (mchild.IsEmpty) form += "(empty)\r\n;";
-                                if (mchild.EditMode) form += "(modifica)\r\n;";
-                                if (mchild.InsertMode) form += "(insert)\r\n;";
-                                if (mchild.inchiusura) form += "[IN CHIUSURA]\r\n;";
-                                form += "currop:" + mchild.curroperation + "\r\n;";
-                                form += "drawstate:" + mchild.DrawState + "\r\n;";
-                                form += "edittype:" + mchild.edit_type + "\r\n;";
+                                if (controller != null) {
+	                                if (controller.IsEmpty) form += "(empty)\r\n;";
+	                                if (controller.EditMode) form += "(modifica)\r\n;";
+	                                if (controller.InsertMode) form += "(insert)\r\n;";
+	                                if (controller.isClosing) form += "[IN CHIUSURA]\r\n;";
+	                                form += "currop:" + controller.curroperation + "\r\n;";
+	                                form += "drawstate:" + controller.DrawState + "\r\n;";
+	                                form += "edittype:" + mchild.edit_type + "\r\n;";
+                                }
+
                                 form += "ErroreIrrecuperabile:" + mchild.ErroreIrrecuperabile + "\r\n;";
-                                form += "Data contabile:" + mchild.GetSys("datacontabile") + "\r\n;";
+                                form += "Data contabile:" + mchild.security.GetSys("datacontabile") + "\r\n;";
                                 form += "---------------------------\r\n";
                                 found = true;
                             }
                             forms += form;
                         }
                         if (!found) forms += "No child forms\r\n";
-                        MetaData.mainLogError(null, conn, forms, e.Exception);
+                        ErrorLogger.Logger.logException(forms,e.Exception,conn?.Security, conn );
                     }
                     else {
-                        MetaData.mainLogError(null, conn, "Application.Run(noDispatcher)\r\n", e.Exception);
+                        ErrorLogger.Logger.logException("Application.Run(noDispatcher)", e.Exception,conn?.Security,conn);
                     }
                 }
                 catch (Exception ee) {                    
-                    MetaData.mainLogError(null, null, "Errore non gestito catturato\r\n", ee);
-                    QueryCreator.ShowException(F, "Errore non gestito interno\r\n" + ee.Message, ee);
+                    ErrorLogger.Logger.logException("Errore non gestito catturato" ,ee);
+                    QueryCreator.ShowException(F, "Errore non gestito interno", ee);
                 }
-                QueryCreator.ShowException(F, "Errore non gestito (*)\r\n" + e.Exception.Message, e.Exception);
+                QueryCreator.ShowException(F, "Errore non gestito (*)", e.Exception);
             }
             else {
-                MetaData.mainLogError(null, null, "Errore non gestito\r\n" + e.Exception.Message, e.Exception);
-                QueryCreator.ShowException(F, "Errore non gestito\r\n" + e.Exception.Message, e.Exception);
+                ErrorLogger.Logger.logException("Errore non gestito" ,e.Exception);
+                QueryCreator.ShowException(F, "Errore non gestito", e.Exception);
             }
             
             Application.Exit();
@@ -260,19 +270,20 @@ namespace mainform//CompEc//
 
 
         bool CambioDataConsentita(DataAccess DA, DateTime newDate) {
-            object idcustomuser = DA.GetSys("idcustomuser");
+            object idcustomuser = DA.Security.GetSys("idcustomuser");
             object ayear = newDate.Year;
             if (idcustomuser == DBNull.Value) return true;
             QueryHelper QHS = DA.GetQueryHelper();
             string filterall = QHS.CmpEq("idcustomuser", idcustomuser);
             if (DA.RUN_SELECT_COUNT("flowchartuser", filterall, false) == 0) return true; //fuori dall'organigramma
 
+            if (DA.GetSys("idflowchart") is string & !(DA.GetSys("ndetail") is int)) return false;
 
             string f1 = QHS.AppAnd(QHS.CmpEq("FU.idcustomuser", idcustomuser),
                                 QHS.NullOrLe("FU.start", newDate), QHS.NullOrGe("FU.stop", newDate));
             f1 = QHS.AppAnd(f1, QHS.CmpEq("F.ayear", ayear));
 
-            DataTable TT = DA.SQLRunner(
+            var TT = DA.SQLRunner(
                 "SELECT F.idflowchart,FU.flagdefault,FU.ndetail from " +
                 "flowchart F join flowchartuser FU ON F.idflowchart=FU.idflowchart " +
                 "WHERE " + f1 + " ORDER BY FU.flagdefault DESC");
@@ -281,7 +292,7 @@ namespace mainform//CompEc//
                 return false;
             }
 
-            DateTime Oggi = DateTime.Now;
+            var Oggi = DateTime.Now;
             f1 = QHS.AppAnd(QHS.CmpEq("FU.idcustomuser", idcustomuser),
                                QHS.NullOrLe("FU.start", Oggi), QHS.NullOrGe("FU.stop", Oggi));
             f1 = QHS.AppAnd(f1, QHS.CmpEq("F.ayear", ayear));
@@ -343,20 +354,22 @@ namespace mainform//CompEc//
         }
 
         bool checkExecutionPath() {
-            if ((!Debugger.IsAttached) && (AppDomain.CurrentDomain.FriendlyName != "MetaDataDomain")) {
-                MessageBox.Show("E' necessario eseguire il programma tramite loader.exe. Non √® possibile aprire direttamente mainform.exe");
+           
+            if ((!Debugger.IsAttached) && (AppDomain.CurrentDomain.FriendlyName != "MetaDataDomain") && (isUnderTest==false)
+                && ( !isBlazor)) {
+                show("E' necessario eseguire il programma tramite loader.exe. Non Ë possibile aprire direttamente mainform.exe");
                 return false;
             }
 
             string currDir = Environment.CurrentDirectory;
             string appDomain = AppDomain.CurrentDomain.BaseDirectory;
             if (!File.Exists(Path.Combine(appDomain, "mainform.exe"))) {
-                MessageBox.Show("Il programma non √® installato bene o √® eseguito da cartelle errate.");
+                show("Il programma non Ë installato bene o Ë eseguito da cartelle errate.");
                 return false;
             }
 
             if (!Directory.Exists("zip")) {
-                MessageBox.Show("Il programma non √® installato bene o √® eseguito da cartelle errate.");
+                show("Il programma non Ë installato bene o Ë eseguito da cartelle errate.");
                 return false;
             }
 
@@ -367,8 +380,8 @@ namespace mainform//CompEc//
                 f.Close();
                 File.Delete(Path.Combine("zip", "testwrite"));
             }
-            catch (Exception e) {
-                MessageBox.Show("Si prega di non eseguire il programma da cartelle compresse o prive di permessi in scrittura.");
+            catch (Exception) {
+                show("Si prega di non eseguire il programma da cartelle compresse o prive di permessi in scrittura.");
             }
 
 
@@ -376,14 +389,14 @@ namespace mainform//CompEc//
             string dir = Path.GetDirectoryName(Application.ExecutablePath);
             if (dir.Contains("\\zip\\"))
             {
-                MessageBox.Show("Si prega di non eseguire il programma da cartelle compresse.");
+                show("Si prega di non eseguire il programma da cartelle compresse.");
                 return false;
 
             }
             string exePath = Application.ExecutablePath;
             string tempPath = Path.GetTempPath();
             if (exePath.StartsWith(tempPath)) {
-                MessageBox.Show("Non √® consentita l'esecuzione dell'applicazione da cartelle temporanee o compresse.","Errore");
+                show("Non Ë consentita l'esecuzione dell'applicazione da cartelle temporanee o compresse.","Errore");
                 return false;
             }
 
@@ -399,6 +412,7 @@ namespace mainform//CompEc//
             //
             InitializeComponent();
             initLicenses();
+            isBlazor = Thread.CurrentThread.Name == "Main Form Blazor Thread";
             CheckForIllegalCrossThreadCalls = false;
 
             CheckForCustomColors();
@@ -407,23 +421,23 @@ namespace mainform//CompEc//
             //this.ForeColor = formcolors.MainForeColor();
 
             foreach (Control control in this.Controls) {
-                // #2
-                MdiClient client = control as MdiClient;
-                if (!(client == null)) {
-                    // #3
-                    client.BackColor = formcolors.MainFormBackColor();
-                    // 4#
-                    break;
-                }
-            }
-            this.BackColor = formcolors.MainBackColor();
-            this.ForeColor = formcolors.MainForeColor();
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+				// #2
+				MdiClient client = control as MdiClient;
+				if (!(client == null)) {
+					// #3
+					client.BackColor = formcolors.MainFormBackColor();
+					// 4#
+					break;
+				}
+			}
+            BackColor = formcolors.MainBackColor();
+            ForeColor = formcolors.MainForeColor();
+            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            AutoScaleMode = AutoScaleMode.Dpi;
 
 
-            this.Refresh();
+            Refresh();
             
             MetaData.LastLoadTimeChanged += MyLogger;
             MyDataAccess = null;
@@ -437,8 +451,8 @@ namespace mainform//CompEc//
             //            setup.PrivateBinPath = AppDomain.CurrentDomain.BaseDirectory;
             //            setup.ApplicationName = "metacampuslibrary";
             //            AppDomain App = AppDomain.CreateDomain("metalibrary");
-            MainToolBarManager TM = MainToolBarManager.GetToolBarManager(MetaDataToolBar);
-            TM.Unlink();
+            var TM = MainToolBarManager.GetToolBarManager(MetaDataToolBar);
+            TM.unlink(null);
 
             string currdir = AppDomain.CurrentDomain.BaseDirectory;
             if (!currdir.EndsWith("\\")) currdir += "\\";
@@ -451,7 +465,7 @@ namespace mainform//CompEc//
 
             if (TS == null) {
                 TS = new MyListener();
-                Debug.Listeners.Add(TS);
+                Trace.Listeners.Add(TS);
             }
 
             UpdateDll();
@@ -473,12 +487,12 @@ namespace mainform//CompEc//
                     MyDataAccess = null;
                     OO.Destroy();
                     if (threadDownloadSW != null && MyDownloadSW != null) {
-                        Download XX = MyDownloadSW;
+                        var XX = MyDownloadSW;
                         MyDownloadSW = null;
                         XX.StopThread();
                     }
                     if (threadDownloadDB != null && MyDownloadDB != null) {
-                        Download YY = MyDownloadDB;
+                        var YY = MyDownloadDB;
                         MyDownloadDB = null;
                         YY.StopThread();
                     }
@@ -502,140 +516,141 @@ namespace mainform//CompEc//
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
-            this.menuItem5 = new System.Windows.Forms.MenuItem();
-            this.ConnectItem = new System.Windows.Forms.MenuItem();
-            this.DisconnectItem = new System.Windows.Forms.MenuItem();
-            this.ChangeRoleItem = new System.Windows.Forms.MenuItem();
-            this.menuItem40 = new System.Windows.Forms.MenuItem();
-            this.mnuIndiceGuida = new System.Windows.Forms.MenuItem();
-            this.menuTeamViewer2 = new System.Windows.Forms.MenuItem();
-            this.menuItem37 = new System.Windows.Forms.MenuItem();
-            this.menuItem6 = new System.Windows.Forms.MenuItem();
-            this.mnuCfgTECNICA = new System.Windows.Forms.MenuItem();
-            this.mnuCfgCONTABILE = new System.Windows.Forms.MenuItem();
-            this.menuItem41 = new System.Windows.Forms.MenuItem();
-            this.mnuLocalConfig = new System.Windows.Forms.MenuItem();
-            this.mnuLiveUpdateOnDemand = new System.Windows.Forms.MenuItem();
-            this.mnuCambiaPassword = new System.Windows.Forms.MenuItem();
-            this.mnuCambiaPasswordDipart = new System.Windows.Forms.MenuItem();
-            this.mnuBackup = new System.Windows.Forms.MenuItem();
-            this.menuTicket = new System.Windows.Forms.MenuItem();
-            this.menuItem42 = new System.Windows.Forms.MenuItem();
-            this.menuItem44 = new System.Windows.Forms.MenuItem();
-            this.menuTeamViewer = new System.Windows.Forms.MenuItem();
-            this.menuItem25 = new System.Windows.Forms.MenuItem();
-            this.mnuAbilitaAdmin = new System.Windows.Forms.MenuItem();
-            this.menuAdmin = new System.Windows.Forms.MenuItem();
-            this.menuItem28 = new System.Windows.Forms.MenuItem();
-            this.mnuAzzeraVerSW = new System.Windows.Forms.MenuItem();
-            this.mnuCheckDll = new System.Windows.Forms.MenuItem();
-            this.mnuConfignotifiche = new System.Windows.Forms.MenuItem();
-            this.mnuBigAdmin = new System.Windows.Forms.MenuItem();
-            this.mnuGenereLiveUpdate = new System.Windows.Forms.MenuItem();
-            this.mnuLiveUpdateSync = new System.Windows.Forms.MenuItem();
-            this.mnuCreaStruttura = new System.Windows.Forms.MenuItem();
-            this.menuItem38 = new System.Windows.Forms.MenuItem();
-            this.mnuGenSQLTabella = new System.Windows.Forms.MenuItem();
-            this.mnuGenRelDir = new System.Windows.Forms.MenuItem();
-            this.mnuGenRelIndir = new System.Windows.Forms.MenuItem();
-            this.mnuComprimi = new System.Windows.Forms.MenuItem();
-            this.menuItem20 = new System.Windows.Forms.MenuItem();
-            this.mnuEstraiFile = new System.Windows.Forms.MenuItem();
-            this.menuItem22 = new System.Windows.Forms.MenuItem();
-            this.menuItem35 = new System.Windows.Forms.MenuItem();
-            this.menuItem23 = new System.Windows.Forms.MenuItem();
-            this.menuItem21 = new System.Windows.Forms.MenuItem();
-            this.menuItem29 = new System.Windows.Forms.MenuItem();
-            this.menuItem30 = new System.Windows.Forms.MenuItem();
-            this.menuItem31 = new System.Windows.Forms.MenuItem();
-            this.menuItemConvert = new System.Windows.Forms.MenuItem();
-            this.menuItemMacroarea = new System.Windows.Forms.MenuItem();
-            this.menuItemMacroareaVitto = new System.Windows.Forms.MenuItem();
-            this.menuItem36 = new System.Windows.Forms.MenuItem();
-            this.menuItem39 = new System.Windows.Forms.MenuItem();
-            this.menuItem11 = new System.Windows.Forms.MenuItem();
-            this.menuItem45 = new System.Windows.Forms.MenuItem();
-            this.menuItem14 = new System.Windows.Forms.MenuItem();
-            this.menuItem12 = new System.Windows.Forms.MenuItem();
-            this.menuItem26 = new System.Windows.Forms.MenuItem();
-            this.menuItem13 = new System.Windows.Forms.MenuItem();
-            this.menuItem10 = new System.Windows.Forms.MenuItem();
-            this.menuItem2 = new System.Windows.Forms.MenuItem();
-            this.menuItem15 = new System.Windows.Forms.MenuItem();
-            this.mnuConsolida = new System.Windows.Forms.MenuItem();
-            this.menuDescrTabelle = new System.Windows.Forms.MenuItem();
-            this.menuItem43 = new System.Windows.Forms.MenuItem();
-            this.menuVarie = new System.Windows.Forms.MenuItem();
-            this.menuItem16 = new System.Windows.Forms.MenuItem();
-            this.menuItem17 = new System.Windows.Forms.MenuItem();
-            this.menuItem18 = new System.Windows.Forms.MenuItem();
-            this.menuItem19 = new System.Windows.Forms.MenuItem();
-            this.mnuUpdatedbversion = new System.Windows.Forms.MenuItem();
-            this.menuItem27 = new System.Windows.Forms.MenuItem();
-            this.mnuInstallazione = new System.Windows.Forms.MenuItem();
-            this.menuItem8 = new System.Windows.Forms.MenuItem();
-            this.menuItem9 = new System.Windows.Forms.MenuItem();
-            this.menuItem4 = new System.Windows.Forms.MenuItem();
-            this.menuItem7 = new System.Windows.Forms.MenuItem();
-            this.menuItem59 = new System.Windows.Forms.MenuItem();
-            this.menuItem60 = new System.Windows.Forms.MenuItem();
-            this.menuItem61 = new System.Windows.Forms.MenuItem();
-            this.menuHelp = new System.Windows.Forms.MenuItem();
-            this.CreaCodiceTabSistema = new System.Windows.Forms.MenuItem();
-            this.menuItem1 = new System.Windows.Forms.MenuItem();
-            this.logbtn = new System.Windows.Forms.MenuItem();
-            this.menuItem3 = new System.Windows.Forms.MenuItem();
-            this.MetaDataToolBar = new System.Windows.Forms.ToolBar();
-            this.impostaricerca = new System.Windows.Forms.ToolBarButton();
-            this.effettuaricerca = new System.Windows.Forms.ToolBarButton();
-            this.inserisci = new System.Windows.Forms.ToolBarButton();
-            this.inseriscicopia = new System.Windows.Forms.ToolBarButton();
-            this.elimina = new System.Windows.Forms.ToolBarButton();
-            this.Salva = new System.Windows.Forms.ToolBarButton();
-            this.btnGotoPrev = new System.Windows.Forms.ToolBarButton();
-            this.btnGotoNext = new System.Windows.Forms.ToolBarButton();
-            this.btnAffianca = new System.Windows.Forms.ToolBarButton();
-            this.btnEditNotes = new System.Windows.Forms.ToolBarButton();
-            this.brnEmptyList = new System.Windows.Forms.ToolBarButton();
-            this.images = new System.Windows.Forms.ImageList(this.components);
-            this.SBAR = new System.Windows.Forms.StatusBar();
-            this.Operator = new System.Windows.Forms.StatusBarPanel();
-            this.currentRole = new System.Windows.Forms.StatusBarPanel();
-            this.DataCont = new System.Windows.Forms.StatusBarPanel();
-            this.Esercizio = new System.Windows.Forms.StatusBarPanel();
-            this.DB = new System.Windows.Forms.StatusBarPanel();
-            this.LiveUpdate = new System.Windows.Forms.StatusBarPanel();
-            this.DBUpdate = new System.Windows.Forms.StatusBarPanel();
-            this.lastLoadTime = new System.Windows.Forms.StatusBarPanel();
-            this.FilePicker = new System.Windows.Forms.OpenFileDialog();
-            this.FileSaver = new System.Windows.Forms.SaveFileDialog();
-            this.Updatetimer1 = new System.Windows.Forms.Timer(this.components);
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.openDir = new System.Windows.Forms.FolderBrowserDialog();
-            ((System.ComponentModel.ISupportInitialize)(this.Operator)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.currentRole)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DataCont)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Esercizio)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.LiveUpdate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DBUpdate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lastLoadTime)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // mainMenu1
-            // 
-            this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
+			this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
+			this.menuItem5 = new System.Windows.Forms.MenuItem();
+			this.ConnectItem = new System.Windows.Forms.MenuItem();
+			this.DisconnectItem = new System.Windows.Forms.MenuItem();
+			this.ChangeRoleItem = new System.Windows.Forms.MenuItem();
+			this.menuItem40 = new System.Windows.Forms.MenuItem();
+			this.mnuIndiceGuida = new System.Windows.Forms.MenuItem();
+			this.menuTeamViewer2 = new System.Windows.Forms.MenuItem();
+			this.menuItem37 = new System.Windows.Forms.MenuItem();
+			this.menuItem6 = new System.Windows.Forms.MenuItem();
+			this.mnuCfgTECNICA = new System.Windows.Forms.MenuItem();
+			this.mnuCfgCONTABILE = new System.Windows.Forms.MenuItem();
+			this.menuItem41 = new System.Windows.Forms.MenuItem();
+			this.mnuLocalConfig = new System.Windows.Forms.MenuItem();
+			this.mnuLiveUpdateOnDemand = new System.Windows.Forms.MenuItem();
+			this.mnuCambiaPassword = new System.Windows.Forms.MenuItem();
+			this.mnuCambiaPasswordDipart = new System.Windows.Forms.MenuItem();
+			this.mnuBackup = new System.Windows.Forms.MenuItem();
+			this.menuTicket = new System.Windows.Forms.MenuItem();
+			this.menuItem42 = new System.Windows.Forms.MenuItem();
+			this.menuItem44 = new System.Windows.Forms.MenuItem();
+			this.menuTeamViewer = new System.Windows.Forms.MenuItem();
+			this.menuItem25 = new System.Windows.Forms.MenuItem();
+			this.mnuAbilitaAdmin = new System.Windows.Forms.MenuItem();
+			this.menuAdmin = new System.Windows.Forms.MenuItem();
+			this.menuItem28 = new System.Windows.Forms.MenuItem();
+			this.mnuAzzeraVerSW = new System.Windows.Forms.MenuItem();
+			this.mnuCheckDll = new System.Windows.Forms.MenuItem();
+			this.mnuConfignotifiche = new System.Windows.Forms.MenuItem();
+			this.mnuBigAdmin = new System.Windows.Forms.MenuItem();
+			this.mnuGenereLiveUpdate = new System.Windows.Forms.MenuItem();
+			this.mnuLiveUpdateSync = new System.Windows.Forms.MenuItem();
+			this.mnuCreaStruttura = new System.Windows.Forms.MenuItem();
+			this.menuItem38 = new System.Windows.Forms.MenuItem();
+			this.mnuGenSQLTabella = new System.Windows.Forms.MenuItem();
+			this.mnuGenRelDir = new System.Windows.Forms.MenuItem();
+			this.mnuGenRelIndir = new System.Windows.Forms.MenuItem();
+			this.menuItem24 = new System.Windows.Forms.MenuItem();
+			this.mnuComprimi = new System.Windows.Forms.MenuItem();
+			this.menuItem20 = new System.Windows.Forms.MenuItem();
+			this.mnuEstraiFile = new System.Windows.Forms.MenuItem();
+			this.menuItem22 = new System.Windows.Forms.MenuItem();
+			this.menuItem35 = new System.Windows.Forms.MenuItem();
+			this.menuItem23 = new System.Windows.Forms.MenuItem();
+			this.menuItem21 = new System.Windows.Forms.MenuItem();
+			this.menuItem29 = new System.Windows.Forms.MenuItem();
+			this.menuItem30 = new System.Windows.Forms.MenuItem();
+			this.menuItem31 = new System.Windows.Forms.MenuItem();
+			this.menuItemConvert = new System.Windows.Forms.MenuItem();
+			this.menuItemMacroarea = new System.Windows.Forms.MenuItem();
+			this.menuItemMacroareaVitto = new System.Windows.Forms.MenuItem();
+			this.menuItem36 = new System.Windows.Forms.MenuItem();
+			this.menuItem11 = new System.Windows.Forms.MenuItem();
+			this.menuItem45 = new System.Windows.Forms.MenuItem();
+			this.menuItem14 = new System.Windows.Forms.MenuItem();
+			this.menuItem12 = new System.Windows.Forms.MenuItem();
+			this.menuItem26 = new System.Windows.Forms.MenuItem();
+			this.menuItem13 = new System.Windows.Forms.MenuItem();
+			this.menuItem10 = new System.Windows.Forms.MenuItem();
+			this.menuItem2 = new System.Windows.Forms.MenuItem();
+			this.menuItem15 = new System.Windows.Forms.MenuItem();
+			this.mnuConsolida = new System.Windows.Forms.MenuItem();
+			this.menuDescrTabelle = new System.Windows.Forms.MenuItem();
+			this.menuItem43 = new System.Windows.Forms.MenuItem();
+			this.menuVarie = new System.Windows.Forms.MenuItem();
+			this.menuItem16 = new System.Windows.Forms.MenuItem();
+			this.menuItem17 = new System.Windows.Forms.MenuItem();
+			this.menuItem18 = new System.Windows.Forms.MenuItem();
+			this.menuItem19 = new System.Windows.Forms.MenuItem();
+			this.mnuUpdatedbversion = new System.Windows.Forms.MenuItem();
+			this.menuItem27 = new System.Windows.Forms.MenuItem();
+			this.mnuInstallazione = new System.Windows.Forms.MenuItem();
+			this.menuItem39 = new System.Windows.Forms.MenuItem();
+			this.menuItem8 = new System.Windows.Forms.MenuItem();
+			this.menuItem9 = new System.Windows.Forms.MenuItem();
+			this.menuItem4 = new System.Windows.Forms.MenuItem();
+			this.menuItem7 = new System.Windows.Forms.MenuItem();
+			this.menuItem59 = new System.Windows.Forms.MenuItem();
+			this.menuItem60 = new System.Windows.Forms.MenuItem();
+			this.menuItem61 = new System.Windows.Forms.MenuItem();
+			this.menuHelp = new System.Windows.Forms.MenuItem();
+			this.CreaCodiceTabSistema = new System.Windows.Forms.MenuItem();
+			this.menuItem1 = new System.Windows.Forms.MenuItem();
+			this.logbtn = new System.Windows.Forms.MenuItem();
+			this.menuItem3 = new System.Windows.Forms.MenuItem();
+			this.MetaDataToolBar = new System.Windows.Forms.ToolBar();
+			this.impostaricerca = new System.Windows.Forms.ToolBarButton();
+			this.effettuaricerca = new System.Windows.Forms.ToolBarButton();
+			this.inserisci = new System.Windows.Forms.ToolBarButton();
+			this.inseriscicopia = new System.Windows.Forms.ToolBarButton();
+			this.elimina = new System.Windows.Forms.ToolBarButton();
+			this.Salva = new System.Windows.Forms.ToolBarButton();
+			this.btnGotoPrev = new System.Windows.Forms.ToolBarButton();
+			this.btnGotoNext = new System.Windows.Forms.ToolBarButton();
+			this.btnAffianca = new System.Windows.Forms.ToolBarButton();
+			this.btnEditNotes = new System.Windows.Forms.ToolBarButton();
+			this.brnEmptyList = new System.Windows.Forms.ToolBarButton();
+			this.images = new System.Windows.Forms.ImageList(this.components);
+			this.SBAR = new System.Windows.Forms.StatusBar();
+			this.Operator = new System.Windows.Forms.StatusBarPanel();
+			this.currentRole = new System.Windows.Forms.StatusBarPanel();
+			this.DataCont = new System.Windows.Forms.StatusBarPanel();
+			this.Esercizio = new System.Windows.Forms.StatusBarPanel();
+			this.DB = new System.Windows.Forms.StatusBarPanel();
+			this.LiveUpdate = new System.Windows.Forms.StatusBarPanel();
+			this.DBUpdate = new System.Windows.Forms.StatusBarPanel();
+			this.lastLoadTime = new System.Windows.Forms.StatusBarPanel();
+			this.FilePicker = new System.Windows.Forms.OpenFileDialog();
+			this.FileSaver = new System.Windows.Forms.SaveFileDialog();
+			this.Updatetimer1 = new System.Windows.Forms.Timer(this.components);
+			this.timer1 = new System.Windows.Forms.Timer(this.components);
+			this.openDir = new System.Windows.Forms.FolderBrowserDialog();
+			((System.ComponentModel.ISupportInitialize)(this.Operator)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.currentRole)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataCont)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.Esercizio)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DB)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.LiveUpdate)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DBUpdate)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lastLoadTime)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// mainMenu1
+			// 
+			this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItem5,
             this.menuItem8,
             this.menuHelp});
-            // 
-            // menuItem5
-            // 
-            this.menuItem5.Index = 0;
-            this.menuItem5.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			// 
+			// menuItem5
+			// 
+			this.menuItem5.Index = 0;
+			this.menuItem5.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.ConnectItem,
             this.DisconnectItem,
             this.ChangeRoleItem,
@@ -654,149 +669,149 @@ namespace mainform//CompEc//
             this.menuItem25,
             this.mnuAbilitaAdmin,
             this.menuAdmin});
-            this.menuItem5.ShowShortcut = false;
-            this.menuItem5.Text = "File";
-            // 
-            // ConnectItem
-            // 
-            this.ConnectItem.Index = 0;
-            this.ConnectItem.Text = "Connect";
-            this.ConnectItem.Click += new System.EventHandler(this.menuItem2_Click);
-            // 
-            // DisconnectItem
-            // 
-            this.DisconnectItem.Enabled = false;
-            this.DisconnectItem.Index = 1;
-            this.DisconnectItem.Text = "Disconnect";
-            this.DisconnectItem.Click += new System.EventHandler(this.menuItem12_Click);
-            // 
-            // ChangeRoleItem
-            // 
-            this.ChangeRoleItem.Enabled = false;
-            this.ChangeRoleItem.Index = 2;
-            this.ChangeRoleItem.Text = "Cambia ruolo";
-            this.ChangeRoleItem.Click += new System.EventHandler(this.menuItem16_Click_1);
-            // 
-            // menuItem40
-            // 
-            this.menuItem40.Index = 3;
-            this.menuItem40.Text = "-";
-            // 
-            // mnuIndiceGuida
-            // 
-            this.mnuIndiceGuida.Index = 4;
-            this.mnuIndiceGuida.Text = "Guida al programma";
-            this.mnuIndiceGuida.Click += new System.EventHandler(this.mnuIndiceGuida_Click);
-            // 
-            // menuTeamViewer2
-            // 
-            this.menuTeamViewer2.Index = 5;
-            this.menuTeamViewer2.Text = "TeamViewer";
-            this.menuTeamViewer2.Click += new System.EventHandler(this.menuTeamViewer2_Click);
-            // 
-            // menuItem37
-            // 
-            this.menuItem37.Index = 6;
-            this.menuItem37.Text = "-";
-            // 
-            // menuItem6
-            // 
-            this.menuItem6.Index = 7;
-            this.menuItem6.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			this.menuItem5.ShowShortcut = false;
+			this.menuItem5.Text = "File";
+			// 
+			// ConnectItem
+			// 
+			this.ConnectItem.Index = 0;
+			this.ConnectItem.Text = "Connect";
+			this.ConnectItem.Click += new System.EventHandler(this.menuItem2_Click);
+			// 
+			// DisconnectItem
+			// 
+			this.DisconnectItem.Enabled = false;
+			this.DisconnectItem.Index = 1;
+			this.DisconnectItem.Text = "Disconnect";
+			this.DisconnectItem.Click += new System.EventHandler(this.menuItem12_Click);
+			// 
+			// ChangeRoleItem
+			// 
+			this.ChangeRoleItem.Enabled = false;
+			this.ChangeRoleItem.Index = 2;
+			this.ChangeRoleItem.Text = "Cambia ruolo";
+			this.ChangeRoleItem.Click += new System.EventHandler(this.menuItem16_Click_1);
+			// 
+			// menuItem40
+			// 
+			this.menuItem40.Index = 3;
+			this.menuItem40.Text = "-";
+			// 
+			// mnuIndiceGuida
+			// 
+			this.mnuIndiceGuida.Index = 4;
+			this.mnuIndiceGuida.Text = "Guida al programma";
+			this.mnuIndiceGuida.Click += new System.EventHandler(this.mnuIndiceGuida_Click);
+			// 
+			// menuTeamViewer2
+			// 
+			this.menuTeamViewer2.Index = 5;
+			this.menuTeamViewer2.Text = "TeamViewer";
+			this.menuTeamViewer2.Click += new System.EventHandler(this.menuTeamViewer2_Click);
+			// 
+			// menuItem37
+			// 
+			this.menuItem37.Index = 6;
+			this.menuItem37.Text = "-";
+			// 
+			// menuItem6
+			// 
+			this.menuItem6.Index = 7;
+			this.menuItem6.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.mnuCfgTECNICA,
             this.mnuCfgCONTABILE});
-            this.menuItem6.Text = "Configurazione";
-            // 
-            // mnuCfgTECNICA
-            // 
-            this.mnuCfgTECNICA.Index = 0;
-            this.mnuCfgTECNICA.Text = "Configurazione TECNICA";
-            this.mnuCfgTECNICA.Click += new System.EventHandler(this.mnuCfgTECNICA_Click);
-            // 
-            // mnuCfgCONTABILE
-            // 
-            this.mnuCfgCONTABILE.Index = 1;
-            this.mnuCfgCONTABILE.Text = "Configurazione CONTABILE";
-            this.mnuCfgCONTABILE.Click += new System.EventHandler(this.mnuCfgCONTABILE_Click);
-            // 
-            // menuItem41
-            // 
-            this.menuItem41.Index = 8;
-            this.menuItem41.Text = "Personalizza colori";
-            this.menuItem41.Click += new System.EventHandler(this.menuItem41_Click);
-            // 
-            // mnuLocalConfig
-            // 
-            this.mnuLocalConfig.Index = 9;
-            this.mnuLocalConfig.Text = "Configurazione locale";
-            this.mnuLocalConfig.Click += new System.EventHandler(this.menuItem25_Click);
-            // 
-            // mnuLiveUpdateOnDemand
-            // 
-            this.mnuLiveUpdateOnDemand.Index = 10;
-            this.mnuLiveUpdateOnDemand.Text = "Aggiornamenti a richiesta";
-            this.mnuLiveUpdateOnDemand.Click += new System.EventHandler(this.mnuLiveUpdateOnDemand_Click);
-            // 
-            // mnuCambiaPassword
-            // 
-            this.mnuCambiaPassword.Index = 11;
-            this.mnuCambiaPassword.Text = "Cambia Password dell\'utente";
-            this.mnuCambiaPassword.Click += new System.EventHandler(this.mnuCambiaPassword_Click);
-            // 
-            // mnuCambiaPasswordDipart
-            // 
-            this.mnuCambiaPasswordDipart.Index = 12;
-            this.mnuCambiaPasswordDipart.Text = "Cambia Password del dipartimento";
-            this.mnuCambiaPasswordDipart.Click += new System.EventHandler(this.mnuCambiaPasswordDipart_Click);
-            // 
-            // mnuBackup
-            // 
-            this.mnuBackup.Index = 13;
-            this.mnuBackup.Text = "Backup / Restore Database";
-            this.mnuBackup.Click += new System.EventHandler(this.mnuBackup_Click);
-            // 
-            // menuTicket
-            // 
-            this.menuTicket.Index = 14;
-            this.menuTicket.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			this.menuItem6.Text = "Configurazione";
+			// 
+			// mnuCfgTECNICA
+			// 
+			this.mnuCfgTECNICA.Index = 0;
+			this.mnuCfgTECNICA.Text = "Configurazione TECNICA";
+			this.mnuCfgTECNICA.Click += new System.EventHandler(this.mnuCfgTECNICA_Click);
+			// 
+			// mnuCfgCONTABILE
+			// 
+			this.mnuCfgCONTABILE.Index = 1;
+			this.mnuCfgCONTABILE.Text = "Configurazione CONTABILE";
+			this.mnuCfgCONTABILE.Click += new System.EventHandler(this.mnuCfgCONTABILE_Click);
+			// 
+			// menuItem41
+			// 
+			this.menuItem41.Index = 8;
+			this.menuItem41.Text = "Personalizza colori";
+			this.menuItem41.Click += new System.EventHandler(this.menuItem41_Click);
+			// 
+			// mnuLocalConfig
+			// 
+			this.mnuLocalConfig.Index = 9;
+			this.mnuLocalConfig.Text = "Configurazione locale";
+			this.mnuLocalConfig.Click += new System.EventHandler(this.menuItem25_Click);
+			// 
+			// mnuLiveUpdateOnDemand
+			// 
+			this.mnuLiveUpdateOnDemand.Index = 10;
+			this.mnuLiveUpdateOnDemand.Text = "Aggiornamenti a richiesta";
+			this.mnuLiveUpdateOnDemand.Click += new System.EventHandler(this.mnuLiveUpdateOnDemand_Click);
+			// 
+			// mnuCambiaPassword
+			// 
+			this.mnuCambiaPassword.Index = 11;
+			this.mnuCambiaPassword.Text = "Cambia Password dell\'utente";
+			this.mnuCambiaPassword.Click += new System.EventHandler(this.mnuCambiaPassword_Click);
+			// 
+			// mnuCambiaPasswordDipart
+			// 
+			this.mnuCambiaPasswordDipart.Index = 12;
+			this.mnuCambiaPasswordDipart.Text = "Cambia Password del dipartimento";
+			this.mnuCambiaPasswordDipart.Click += new System.EventHandler(this.mnuCambiaPasswordDipart_Click);
+			// 
+			// mnuBackup
+			// 
+			this.mnuBackup.Index = 13;
+			this.mnuBackup.Text = "Backup / Restore Database";
+			this.mnuBackup.Click += new System.EventHandler(this.mnuBackup_Click);
+			// 
+			// menuTicket
+			// 
+			this.menuTicket.Index = 14;
+			this.menuTicket.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItem42,
             this.menuItem44,
             this.menuTeamViewer});
-            this.menuTicket.Text = "Ticket";
-            // 
-            // menuItem42
-            // 
-            this.menuItem42.Index = 0;
-            this.menuItem42.Text = "Registrazione all\'Helpdesk";
-            this.menuItem42.Click += new System.EventHandler(this.menuItem42_Click);
-            // 
-            // menuItem44
-            // 
-            this.menuItem44.Index = 1;
-            this.menuItem44.Text = "Storico ticket";
-            this.menuItem44.Click += new System.EventHandler(this.menuItem44_Click);
-            // 
-            // menuTeamViewer
-            // 
-            this.menuTeamViewer.Index = 2;
-            this.menuTeamViewer.Text = "TeamViewer";
-            this.menuTeamViewer.Click += new System.EventHandler(this.menuTeamViewer_Click);
-            // 
-            // menuItem25
-            // 
-            this.menuItem25.Index = 15;
-            this.menuItem25.Text = "-";
-            // 
-            // mnuAbilitaAdmin
-            // 
-            this.mnuAbilitaAdmin.Index = 16;
-            this.mnuAbilitaAdmin.Text = "Abilita Admin";
-            this.mnuAbilitaAdmin.Click += new System.EventHandler(this.mnuAbilitaAdmin_Click);
-            // 
-            // menuAdmin
-            // 
-            this.menuAdmin.Index = 17;
-            this.menuAdmin.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			this.menuTicket.Text = "Ticket";
+			// 
+			// menuItem42
+			// 
+			this.menuItem42.Index = 0;
+			this.menuItem42.Text = "Registrazione all\'Helpdesk";
+			this.menuItem42.Click += new System.EventHandler(this.menuItem42_Click);
+			// 
+			// menuItem44
+			// 
+			this.menuItem44.Index = 1;
+			this.menuItem44.Text = "Storico ticket";
+			this.menuItem44.Click += new System.EventHandler(this.menuItem44_Click);
+			// 
+			// menuTeamViewer
+			// 
+			this.menuTeamViewer.Index = 2;
+			this.menuTeamViewer.Text = "TeamViewer";
+			this.menuTeamViewer.Click += new System.EventHandler(this.menuTeamViewer_Click);
+			// 
+			// menuItem25
+			// 
+			this.menuItem25.Index = 15;
+			this.menuItem25.Text = "-";
+			// 
+			// mnuAbilitaAdmin
+			// 
+			this.mnuAbilitaAdmin.Index = 16;
+			this.mnuAbilitaAdmin.Text = "Abilita Admin";
+			this.mnuAbilitaAdmin.Click += new System.EventHandler(this.mnuAbilitaAdmin_Click);
+			// 
+			// menuAdmin
+			// 
+			this.menuAdmin.Index = 17;
+			this.menuAdmin.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItem28,
             this.mnuAzzeraVerSW,
             this.mnuCheckDll,
@@ -804,37 +819,38 @@ namespace mainform//CompEc//
             this.mnuBigAdmin,
             this.menuDescrTabelle,
             this.menuItem43,
-            this.menuVarie});
-            this.menuAdmin.Text = "Admin";
-            // 
-            // menuItem28
-            // 
-            this.menuItem28.Index = 0;
-            this.menuItem28.Text = "Azzera versione report (scarica di nuovo tutti i report)";
-            this.menuItem28.Click += new System.EventHandler(this.menuItem28_Click);
-            // 
-            // mnuAzzeraVerSW
-            // 
-            this.mnuAzzeraVerSW.Index = 1;
-            this.mnuAzzeraVerSW.Text = "Azzera versione software (scarica di nuovo tutte le DLL)";
-            this.mnuAzzeraVerSW.Click += new System.EventHandler(this.mnuAzzeraVerSW_Click);
-            // 
-            // mnuCheckDll
-            // 
-            this.mnuCheckDll.Index = 2;
-            this.mnuCheckDll.Text = "Verifica coerenza DLL (per problemi di proxy etc.)";
-            this.mnuCheckDll.Click += new System.EventHandler(this.mnuCheckDll_Click);
-            // 
-            // mnuConfignotifiche
-            // 
-            this.mnuConfignotifiche.Index = 3;
-            this.mnuConfignotifiche.Text = "Configura Notifiche";
-            this.mnuConfignotifiche.Click += new System.EventHandler(this.mnuConfignotifiche_Click);
-            // 
-            // mnuBigAdmin
-            // 
-            this.mnuBigAdmin.Index = 4;
-            this.mnuBigAdmin.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuVarie,
+            this.menuItem39});
+			this.menuAdmin.Text = "Admin";
+			// 
+			// menuItem28
+			// 
+			this.menuItem28.Index = 0;
+			this.menuItem28.Text = "Azzera versione report (scarica di nuovo tutti i report)";
+			this.menuItem28.Click += new System.EventHandler(this.menuItem28_Click);
+			// 
+			// mnuAzzeraVerSW
+			// 
+			this.mnuAzzeraVerSW.Index = 1;
+			this.mnuAzzeraVerSW.Text = "Azzera versione software (scarica di nuovo tutte le DLL)";
+			this.mnuAzzeraVerSW.Click += new System.EventHandler(this.mnuAzzeraVerSW_Click);
+			// 
+			// mnuCheckDll
+			// 
+			this.mnuCheckDll.Index = 2;
+			this.mnuCheckDll.Text = "Verifica coerenza DLL (per problemi di proxy etc.)";
+			this.mnuCheckDll.Click += new System.EventHandler(this.mnuCheckDll_Click);
+			// 
+			// mnuConfignotifiche
+			// 
+			this.mnuConfignotifiche.Index = 3;
+			this.mnuConfignotifiche.Text = "Configura Notifiche";
+			this.mnuConfignotifiche.Click += new System.EventHandler(this.mnuConfignotifiche_Click);
+			// 
+			// mnuBigAdmin
+			// 
+			this.mnuBigAdmin.Index = 4;
+			this.mnuBigAdmin.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.mnuGenereLiveUpdate,
             this.mnuLiveUpdateSync,
             this.mnuCreaStruttura,
@@ -842,6 +858,7 @@ namespace mainform//CompEc//
             this.mnuGenSQLTabella,
             this.mnuGenRelDir,
             this.mnuGenRelIndir,
+            this.menuItem24,
             this.mnuComprimi,
             this.menuItem20,
             this.mnuEstraiFile,
@@ -856,151 +873,150 @@ namespace mainform//CompEc//
             this.menuItemMacroarea,
             this.menuItemMacroareaVitto,
             this.menuItem36,
-            this.menuItem39,
             this.menuItem11,
             this.menuItem45});
-            this.mnuBigAdmin.Text = "Non Usare (riservate al settore SVILUPPO)";
-            // 
-            // mnuGenereLiveUpdate
-            // 
-            this.mnuGenereLiveUpdate.Index = 0;
-            this.mnuGenereLiveUpdate.Text = "LiveUpdate - Generazione";
-            this.mnuGenereLiveUpdate.Click += new System.EventHandler(this.mnuGenereLiveUpdate_Click);
-            // 
-            // mnuLiveUpdateSync
-            // 
-            this.mnuLiveUpdateSync.Index = 1;
-            this.mnuLiveUpdateSync.Text = "LiveUpdate - Sincronizza server";
-            this.mnuLiveUpdateSync.Click += new System.EventHandler(this.mnuLiveUpdateSync_Click);
-            // 
-            // mnuCreaStruttura
-            // 
-            this.mnuCreaStruttura.Index = 2;
-            this.mnuCreaStruttura.Text = "LiveUpdate - Crea struttura";
-            this.mnuCreaStruttura.Click += new System.EventHandler(this.mnuCreaStruttura_Click);
-            // 
-            // menuItem38
-            // 
-            this.menuItem38.Index = 3;
-            this.menuItem38.Text = "-";
-            // 
-            // mnuGenSQLTabella
-            // 
-            this.mnuGenSQLTabella.Index = 4;
-            this.mnuGenSQLTabella.Text = "Generazione script SQL per tabella";
-            this.mnuGenSQLTabella.Click += new System.EventHandler(this.mnuGenSQLTabella_Click);
-            // 
-            // mnuGenRelDir
-            // 
-            this.mnuGenRelDir.Index = 5;
-            this.mnuGenRelDir.Text = "Generazione relazioni dirette";
-            this.mnuGenRelDir.Click += new System.EventHandler(this.mnuGenRelDir_Click);
-            // 
-            // mnuGenRelIndir
-            // 
-            this.mnuGenRelIndir.Index = 6;
-            this.mnuGenRelIndir.Text = "Generazione relazioni indirette";
-            this.mnuGenRelIndir.Click += new System.EventHandler(this.mnuGenRelIndir_Click);
-            // 
-            // mnuComprimi
-            // 
-            this.mnuComprimi.Index = 7;
-            this.mnuComprimi.Text = "Comprimi tutti i file";
-            this.mnuComprimi.Click += new System.EventHandler(this.mnuComprimi_Click);
-            // 
-            // menuItem20
-            // 
-            this.menuItem20.Index = 8;
-            this.menuItem20.Text = "Merge Files";
-            this.menuItem20.Click += new System.EventHandler(this.menuItem20_Click_1);
-            // 
-            // mnuEstraiFile
-            // 
-            this.mnuEstraiFile.Index = 9;
-            this.mnuEstraiFile.Text = "Estrai file";
-            this.mnuEstraiFile.Click += new System.EventHandler(this.mnuEstraiFile_Click);
-            // 
-            // menuItem22
-            // 
-            this.menuItem22.Index = 10;
-            this.menuItem22.Text = "Output Viewer";
-            this.menuItem22.Click += new System.EventHandler(this.menuItem22_Click);
-            // 
-            // menuItem35
-            // 
-            this.menuItem35.Index = 11;
-            this.menuItem35.Text = "Diagnostica";
-            this.menuItem35.Click += new System.EventHandler(this.menuItem35_Click);
-            // 
-            // menuItem23
-            // 
-            this.menuItem23.Index = 12;
-            this.menuItem23.Text = "fix FileInfo";
-            this.menuItem23.Click += new System.EventHandler(this.menuItem23_Click);
-            // 
-            // menuItem21
-            // 
-            this.menuItem21.Index = 13;
-            this.menuItem21.Text = "Check Rule Messages";
-            this.menuItem21.Click += new System.EventHandler(this.menuItem21_Click_1);
-            // 
-            // menuItem29
-            // 
-            this.menuItem29.Index = 14;
-            this.menuItem29.Text = "-";
-            // 
-            // menuItem30
-            // 
-            this.menuItem30.Index = 15;
-            this.menuItem30.Text = "Applica sicurezza su tutti i dipartimenti";
-            this.menuItem30.Click += new System.EventHandler(this.menuItem30_Click);
-            // 
-            // menuItem31
-            // 
-            this.menuItem31.Index = 16;
-            this.menuItem31.Text = "Trasferisci organigramma";
-            this.menuItem31.Click += new System.EventHandler(this.menuItem31_Click_1);
-            // 
-            // menuItemConvert
-            // 
-            this.menuItemConvert.Index = 17;
-            this.menuItemConvert.Text = "Conversione Forms Windows=>Web";
-            this.menuItemConvert.Click += new System.EventHandler(this.menuItemConvert_Click);
-            // 
-            // menuItemMacroarea
-            // 
-            this.menuItemMacroarea.Index = 18;
-            this.menuItemMacroarea.Text = "Macroarea Rimborsi forfettari";
-            this.menuItemMacroarea.Click += new System.EventHandler(this.menuItemMacroarea_Click);
-            // 
-            // menuItemMacroareaVitto
-            // 
-            this.menuItemMacroareaVitto.Index = 19;
-            this.menuItemMacroareaVitto.Text = "Macroarea Vitto";
-            this.menuItemMacroareaVitto.Click += new System.EventHandler(this.menuItemMacroareaVitto_Click);
-            // 
-            // menuItem36
-            // 
-            this.menuItem36.Index = 20;
-            this.menuItem36.Text = "Unifica dipartimenti";
-            this.menuItem36.Click += new System.EventHandler(this.menuItem36_Click);
-            // 
-            // menuItem39
-            // 
-            this.menuItem39.Index = 21;
-            this.menuItem39.Text = "Importa utenti database";
-            this.menuItem39.Click += new System.EventHandler(this.menuItem39_Click);
-            // 
-            // menuItem11
-            // 
-            this.menuItem11.Index = 22;
-            this.menuItem11.Text = "Lancia script su tutti i dipartimenti";
-            this.menuItem11.Click += new System.EventHandler(this.LanciaScriptTuttiDip);
-            // 
-            // menuItem45
-            // 
-            this.menuItem45.Index = 23;
-            this.menuItem45.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			this.mnuBigAdmin.Text = "Non Usare (riservate al settore SVILUPPO)";
+			// 
+			// mnuGenereLiveUpdate
+			// 
+			this.mnuGenereLiveUpdate.Index = 0;
+			this.mnuGenereLiveUpdate.Text = "LiveUpdate - Generazione";
+			this.mnuGenereLiveUpdate.Click += new System.EventHandler(this.mnuGenereLiveUpdate_Click);
+			// 
+			// mnuLiveUpdateSync
+			// 
+			this.mnuLiveUpdateSync.Index = 1;
+			this.mnuLiveUpdateSync.Text = "LiveUpdate - Sincronizza server";
+			this.mnuLiveUpdateSync.Click += new System.EventHandler(this.mnuLiveUpdateSync_Click);
+			// 
+			// mnuCreaStruttura
+			// 
+			this.mnuCreaStruttura.Index = 2;
+			this.mnuCreaStruttura.Text = "LiveUpdate - Crea struttura";
+			this.mnuCreaStruttura.Click += new System.EventHandler(this.mnuCreaStruttura_Click);
+			// 
+			// menuItem38
+			// 
+			this.menuItem38.Index = 3;
+			this.menuItem38.Text = "-";
+			// 
+			// mnuGenSQLTabella
+			// 
+			this.mnuGenSQLTabella.Index = 4;
+			this.mnuGenSQLTabella.Text = "Generazione script SQL per tabella";
+			this.mnuGenSQLTabella.Click += new System.EventHandler(this.mnuGenSQLTabella_Click);
+			// 
+			// mnuGenRelDir
+			// 
+			this.mnuGenRelDir.Index = 5;
+			this.mnuGenRelDir.Text = "Generazione relazioni dirette";
+			this.mnuGenRelDir.Click += new System.EventHandler(this.mnuGenRelDir_Click);
+			// 
+			// mnuGenRelIndir
+			// 
+			this.mnuGenRelIndir.Index = 6;
+			this.mnuGenRelIndir.Text = "Generazione relazioni indirette";
+			this.mnuGenRelIndir.Click += new System.EventHandler(this.mnuGenRelIndir_Click);
+			// 
+			// menuItem24
+			// 
+			this.menuItem24.Index = 7;
+			this.menuItem24.Text = "Tool Aggiorna Comuni";
+			this.menuItem24.Click += new System.EventHandler(this.menuItem24_Click);
+			// 
+			// mnuComprimi
+			// 
+			this.mnuComprimi.Index = 8;
+			this.mnuComprimi.Text = "Comprimi tutti i file";
+			this.mnuComprimi.Click += new System.EventHandler(this.mnuComprimi_Click);
+			// 
+			// menuItem20
+			// 
+			this.menuItem20.Index = 9;
+			this.menuItem20.Text = "Merge Files";
+			this.menuItem20.Click += new System.EventHandler(this.menuItem20_Click_1);
+			// 
+			// mnuEstraiFile
+			// 
+			this.mnuEstraiFile.Index = 10;
+			this.mnuEstraiFile.Text = "Estrai file";
+			this.mnuEstraiFile.Click += new System.EventHandler(this.mnuEstraiFile_Click);
+			// 
+			// menuItem22
+			// 
+			this.menuItem22.Index = 11;
+			this.menuItem22.Text = "Output Viewer";
+			this.menuItem22.Click += new System.EventHandler(this.menuItem22_Click);
+			// 
+			// menuItem35
+			// 
+			this.menuItem35.Index = 12;
+			this.menuItem35.Text = "Diagnostica";
+			this.menuItem35.Click += new System.EventHandler(this.menuItem35_Click);
+			// 
+			// menuItem23
+			// 
+			this.menuItem23.Index = 13;
+			this.menuItem23.Text = "fix FileInfo";
+			this.menuItem23.Click += new System.EventHandler(this.menuItem23_Click);
+			// 
+			// menuItem21
+			// 
+			this.menuItem21.Index = 14;
+			this.menuItem21.Text = "Check Rule Messages";
+			this.menuItem21.Click += new System.EventHandler(this.menuItem21_Click_1);
+			// 
+			// menuItem29
+			// 
+			this.menuItem29.Index = 15;
+			this.menuItem29.Text = "-";
+			// 
+			// menuItem30
+			// 
+			this.menuItem30.Index = 16;
+			this.menuItem30.Text = "Applica sicurezza su tutti i dipartimenti";
+			this.menuItem30.Click += new System.EventHandler(this.menuItem30_Click);
+			// 
+			// menuItem31
+			// 
+			this.menuItem31.Index = 17;
+			this.menuItem31.Text = "Trasferisci organigramma";
+			this.menuItem31.Click += new System.EventHandler(this.menuItem31_Click_1);
+			// 
+			// menuItemConvert
+			// 
+			this.menuItemConvert.Index = 18;
+			this.menuItemConvert.Text = "Conversione Forms Windows=>Web";
+			this.menuItemConvert.Click += new System.EventHandler(this.menuItemConvert_Click);
+			// 
+			// menuItemMacroarea
+			// 
+			this.menuItemMacroarea.Index = 19;
+			this.menuItemMacroarea.Text = "Macroarea Rimborsi forfettari";
+			this.menuItemMacroarea.Click += new System.EventHandler(this.menuItemMacroarea_Click);
+			// 
+			// menuItemMacroareaVitto
+			// 
+			this.menuItemMacroareaVitto.Index = 20;
+			this.menuItemMacroareaVitto.Text = "Macroarea Vitto";
+			this.menuItemMacroareaVitto.Click += new System.EventHandler(this.menuItemMacroareaVitto_Click);
+			// 
+			// menuItem36
+			// 
+			this.menuItem36.Index = 21;
+			this.menuItem36.Text = "Unifica dipartimenti";
+			this.menuItem36.Click += new System.EventHandler(this.menuItem36_Click);
+			// 
+			// menuItem11
+			// 
+			this.menuItem11.Index = 22;
+			this.menuItem11.Text = "Lancia script su tutti i dipartimenti";
+			this.menuItem11.Click += new System.EventHandler(this.LanciaScriptTuttiDip);
+			// 
+			// menuItem45
+			// 
+			this.menuItem45.Index = 23;
+			this.menuItem45.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItem14,
             this.menuItem12,
             this.menuItem26,
@@ -1009,204 +1025,210 @@ namespace mainform//CompEc//
             this.menuItem2,
             this.menuItem15,
             this.mnuConsolida});
-            this.menuItem45.Text = "varie";
-            // 
-            // menuItem14
-            // 
-            this.menuItem14.Index = 0;
-            this.menuItem14.Text = "GetSys()";
-            this.menuItem14.Click += new System.EventHandler(this.menuItem14_Click);
-            // 
-            // menuItem12
-            // 
-            this.menuItem12.Index = 1;
-            this.menuItem12.Text = "Riassegna utente al db";
-            this.menuItem12.Click += new System.EventHandler(this.menuItem12_Click_2);
-            // 
-            // menuItem26
-            // 
-            this.menuItem26.Index = 2;
-            this.menuItem26.Text = "Migra DB Campus ";
-            this.menuItem26.Click += new System.EventHandler(this.menuItem26_Click);
-            // 
-            // menuItem13
-            // 
-            this.menuItem13.Index = 3;
-            this.menuItem13.Text = "TryException()";
-            this.menuItem13.Click += new System.EventHandler(this.menuItem13_Click_1);
-            // 
-            // menuItem10
-            // 
-            this.menuItem10.Index = 4;
-            this.menuItem10.Text = "Disabilita il Prepare (RENDE LE SELECT LEGGIBILI)";
-            this.menuItem10.Click += new System.EventHandler(this.menuItem10_Click);
-            // 
-            // menuItem2
-            // 
-            this.menuItem2.Index = 5;
-            this.menuItem2.Text = "Abilita il Prepare delle  SELECT SQL (li rende illeggibili ma efficienti)";
-            this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click_2);
-            // 
-            // menuItem15
-            // 
-            this.menuItem15.Index = 6;
-            this.menuItem15.Text = "Imposta oggetti del patrimonio come trasmessi";
-            this.menuItem15.Click += new System.EventHandler(this.menuItem15_Click_1);
-            // 
-            // mnuConsolida
-            // 
-            this.mnuConsolida.Index = 7;
-            this.mnuConsolida.Text = "Consolidamento DataBase";
-            this.mnuConsolida.Click += new System.EventHandler(this.mnuConsolida_Click);
-            // 
-            // menuDescrTabelle
-            // 
-            this.menuDescrTabelle.Index = 5;
-            this.menuDescrTabelle.Text = "Descrizione tabelle";
-            this.menuDescrTabelle.Click += new System.EventHandler(this.menuDescrTabelle_Click);
-            // 
-            // menuItem43
-            // 
-            this.menuItem43.Index = 6;
-            this.menuItem43.Text = "Descrizione colonne";
-            this.menuItem43.Click += new System.EventHandler(this.menuItem43_Click);
-            // 
-            // menuVarie
-            // 
-            this.menuVarie.Index = 7;
-            this.menuVarie.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			this.menuItem45.Text = "varie";
+			// 
+			// menuItem14
+			// 
+			this.menuItem14.Index = 0;
+			this.menuItem14.Text = "GetSys()";
+			this.menuItem14.Click += new System.EventHandler(this.menuItem14_Click);
+			// 
+			// menuItem12
+			// 
+			this.menuItem12.Index = 1;
+			this.menuItem12.Text = "Riassegna utente al db";
+			this.menuItem12.Click += new System.EventHandler(this.menuItem12_Click_2);
+			// 
+			// menuItem26
+			// 
+			this.menuItem26.Index = 2;
+			this.menuItem26.Text = "Migra DB Campus ";
+			this.menuItem26.Click += new System.EventHandler(this.menuItem26_Click);
+			// 
+			// menuItem13
+			// 
+			this.menuItem13.Index = 3;
+			this.menuItem13.Text = "TryException()";
+			this.menuItem13.Click += new System.EventHandler(this.menuItem13_Click_1);
+			// 
+			// menuItem10
+			// 
+			this.menuItem10.Index = 4;
+			this.menuItem10.Text = "Disabilita il Prepare (RENDE LE SELECT LEGGIBILI)";
+			this.menuItem10.Click += new System.EventHandler(this.menuItem10_Click);
+			// 
+			// menuItem2
+			// 
+			this.menuItem2.Index = 5;
+			this.menuItem2.Text = "Abilita il Prepare delle  SELECT SQL (li rende illeggibili ma efficienti)";
+			this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click_2);
+			// 
+			// menuItem15
+			// 
+			this.menuItem15.Index = 6;
+			this.menuItem15.Text = "Imposta oggetti del patrimonio come trasmessi";
+			this.menuItem15.Click += new System.EventHandler(this.menuItem15_Click_1);
+			// 
+			// mnuConsolida
+			// 
+			this.mnuConsolida.Index = 7;
+			this.mnuConsolida.Text = "Consolidamento DataBase";
+			this.mnuConsolida.Click += new System.EventHandler(this.mnuConsolida_Click);
+			// 
+			// menuDescrTabelle
+			// 
+			this.menuDescrTabelle.Index = 5;
+			this.menuDescrTabelle.Text = "Descrizione tabelle";
+			this.menuDescrTabelle.Click += new System.EventHandler(this.menuDescrTabelle_Click);
+			// 
+			// menuItem43
+			// 
+			this.menuItem43.Index = 6;
+			this.menuItem43.Text = "Descrizione colonne";
+			this.menuItem43.Click += new System.EventHandler(this.menuItem43_Click);
+			// 
+			// menuVarie
+			// 
+			this.menuVarie.Index = 7;
+			this.menuVarie.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItem16,
             this.mnuUpdatedbversion,
             this.menuItem27,
             this.mnuInstallazione});
-            this.menuVarie.Text = "varie";
-            // 
-            // menuItem16
-            // 
-            this.menuItem16.Index = 0;
-            this.menuItem16.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			this.menuVarie.Text = "varie";
+			// 
+			// menuItem16
+			// 
+			this.menuItem16.Index = 0;
+			this.menuItem16.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItem17,
             this.menuItem18,
             this.menuItem19});
-            this.menuItem16.Text = "Gestione della Sicurezza";
-            // 
-            // menuItem17
-            // 
-            this.menuItem17.Index = 0;
-            this.menuItem17.Text = "Funzioni di Restrizione";
-            this.menuItem17.Click += new System.EventHandler(this.menuItem17_Click);
-            // 
-            // menuItem18
-            // 
-            this.menuItem18.Index = 1;
-            this.menuItem18.Text = "Variabili di Sicurezza";
-            this.menuItem18.Click += new System.EventHandler(this.menuItem18_Click);
-            // 
-            // menuItem19
-            // 
-            this.menuItem19.Index = 2;
-            this.menuItem19.Text = "Condizioni di Sicurezza";
-            this.menuItem19.Click += new System.EventHandler(this.menuItem19_Click_1);
-            // 
-            // mnuUpdatedbversion
-            // 
-            this.mnuUpdatedbversion.Index = 1;
-            this.mnuUpdatedbversion.Text = "Versione Database";
-            this.mnuUpdatedbversion.Click += new System.EventHandler(this.mnuUpdatedbversion_Click);
-            // 
-            // menuItem27
-            // 
-            this.menuItem27.Index = 2;
-            this.menuItem27.Text = "Configurazione avvisi";
-            this.menuItem27.Click += new System.EventHandler(this.menuItem27_Click_1);
-            // 
-            // mnuInstallazione
-            // 
-            this.mnuInstallazione.Index = 3;
-            this.mnuInstallazione.Text = "Installazione del software";
-            this.mnuInstallazione.Click += new System.EventHandler(this.mnuInstallazione_Click);
-            // 
-            // menuItem8
-            // 
-            this.menuItem8.Index = 1;
-            this.menuItem8.MdiList = true;
-            this.menuItem8.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			this.menuItem16.Text = "Gestione della Sicurezza";
+			// 
+			// menuItem17
+			// 
+			this.menuItem17.Index = 0;
+			this.menuItem17.Text = "Funzioni di Restrizione";
+			this.menuItem17.Click += new System.EventHandler(this.menuItem17_Click);
+			// 
+			// menuItem18
+			// 
+			this.menuItem18.Index = 1;
+			this.menuItem18.Text = "Variabili di Sicurezza";
+			this.menuItem18.Click += new System.EventHandler(this.menuItem18_Click);
+			// 
+			// menuItem19
+			// 
+			this.menuItem19.Index = 2;
+			this.menuItem19.Text = "Condizioni di Sicurezza";
+			this.menuItem19.Click += new System.EventHandler(this.menuItem19_Click_1);
+			// 
+			// mnuUpdatedbversion
+			// 
+			this.mnuUpdatedbversion.Index = 1;
+			this.mnuUpdatedbversion.Text = "Versione Database";
+			this.mnuUpdatedbversion.Click += new System.EventHandler(this.mnuUpdatedbversion_Click);
+			// 
+			// menuItem27
+			// 
+			this.menuItem27.Index = 2;
+			this.menuItem27.Text = "Configurazione avvisi";
+			this.menuItem27.Click += new System.EventHandler(this.menuItem27_Click_1);
+			// 
+			// mnuInstallazione
+			// 
+			this.mnuInstallazione.Index = 3;
+			this.mnuInstallazione.Text = "Installazione del software";
+			this.mnuInstallazione.Click += new System.EventHandler(this.mnuInstallazione_Click);
+			// 
+			// menuItem39
+			// 
+			this.menuItem39.Index = 8;
+			this.menuItem39.Text = "Importa utenti database";
+			this.menuItem39.Click += new System.EventHandler(this.menuItem39_Click);
+			// 
+			// menuItem8
+			// 
+			this.menuItem8.Index = 1;
+			this.menuItem8.MdiList = true;
+			this.menuItem8.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItem9,
             this.menuItem4,
             this.menuItem7});
-            this.menuItem8.Text = "Finestre";
-            // 
-            // menuItem9
-            // 
-            this.menuItem9.Index = 0;
-            this.menuItem9.Text = "Chiudi tutte";
-            this.menuItem9.Click += new System.EventHandler(this.menuItem9_Click);
-            // 
-            // menuItem4
-            // 
-            this.menuItem4.Index = 1;
-            this.menuItem4.Text = "Chiudi";
-            this.menuItem4.Click += new System.EventHandler(this.menuItem4_Click_1);
-            // 
-            // menuItem7
-            // 
-            this.menuItem7.Index = 2;
-            this.menuItem7.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			this.menuItem8.Text = "Finestre";
+			// 
+			// menuItem9
+			// 
+			this.menuItem9.Index = 0;
+			this.menuItem9.Text = "Chiudi tutte";
+			this.menuItem9.Click += new System.EventHandler(this.menuItem9_Click);
+			// 
+			// menuItem4
+			// 
+			this.menuItem4.Index = 1;
+			this.menuItem4.Text = "Chiudi";
+			this.menuItem4.Click += new System.EventHandler(this.menuItem4_Click_1);
+			// 
+			// menuItem7
+			// 
+			this.menuItem7.Index = 2;
+			this.menuItem7.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItem59,
             this.menuItem60,
             this.menuItem61});
-            this.menuItem7.Text = "Disponi";
-            // 
-            // menuItem59
-            // 
-            this.menuItem59.Index = 0;
-            this.menuItem59.Text = "Allinea Orizzontale";
-            this.menuItem59.Click += new System.EventHandler(this.menuItem59_Click);
-            // 
-            // menuItem60
-            // 
-            this.menuItem60.Index = 1;
-            this.menuItem60.Text = "Allinea Verticale";
-            this.menuItem60.Click += new System.EventHandler(this.menuItem60_Click);
-            // 
-            // menuItem61
-            // 
-            this.menuItem61.Index = 2;
-            this.menuItem61.Text = "Cascata";
-            this.menuItem61.Click += new System.EventHandler(this.menuItem61_Click);
-            // 
-            // menuHelp
-            // 
-            this.menuHelp.Index = 2;
-            this.menuHelp.MergeOrder = 1000;
-            this.menuHelp.Text = "?";
-            this.menuHelp.Click += new System.EventHandler(this.menuHelp_Click);
-            // 
-            // CreaCodiceTabSistema
-            // 
-            this.CreaCodiceTabSistema.Index = -1;
-            this.CreaCodiceTabSistema.Text = "";
-            // 
-            // menuItem1
-            // 
-            this.menuItem1.Index = -1;
-            this.menuItem1.Text = "";
-            // 
-            // logbtn
-            // 
-            this.logbtn.Index = -1;
-            this.logbtn.Text = "";
-            this.logbtn.Click += new System.EventHandler(this.menuItem2_Click);
-            // 
-            // menuItem3
-            // 
-            this.menuItem3.Index = -1;
-            this.menuItem3.Text = "";
-            // 
-            // MetaDataToolBar
-            // 
-            this.MetaDataToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat;
-            this.MetaDataToolBar.Buttons.AddRange(new System.Windows.Forms.ToolBarButton[] {
+			this.menuItem7.Text = "Disponi";
+			// 
+			// menuItem59
+			// 
+			this.menuItem59.Index = 0;
+			this.menuItem59.Text = "Allinea Orizzontale";
+			this.menuItem59.Click += new System.EventHandler(this.menuItem59_Click);
+			// 
+			// menuItem60
+			// 
+			this.menuItem60.Index = 1;
+			this.menuItem60.Text = "Allinea Verticale";
+			this.menuItem60.Click += new System.EventHandler(this.menuItem60_Click);
+			// 
+			// menuItem61
+			// 
+			this.menuItem61.Index = 2;
+			this.menuItem61.Text = "Cascata";
+			this.menuItem61.Click += new System.EventHandler(this.menuItem61_Click);
+			// 
+			// menuHelp
+			// 
+			this.menuHelp.Index = 2;
+			this.menuHelp.MergeOrder = 1000;
+			this.menuHelp.Text = "?";
+			this.menuHelp.Click += new System.EventHandler(this.menuHelp_Click);
+			// 
+			// CreaCodiceTabSistema
+			// 
+			this.CreaCodiceTabSistema.Index = -1;
+			this.CreaCodiceTabSistema.Text = "";
+			// 
+			// menuItem1
+			// 
+			this.menuItem1.Index = -1;
+			this.menuItem1.Text = "";
+			// 
+			// logbtn
+			// 
+			this.logbtn.Index = -1;
+			this.logbtn.Text = "";
+			this.logbtn.Click += new System.EventHandler(this.menuItem2_Click);
+			// 
+			// menuItem3
+			// 
+			this.menuItem3.Index = -1;
+			this.menuItem3.Text = "";
+			// 
+			// MetaDataToolBar
+			// 
+			this.MetaDataToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat;
+			this.MetaDataToolBar.Buttons.AddRange(new System.Windows.Forms.ToolBarButton[] {
             this.impostaricerca,
             this.effettuaricerca,
             this.inserisci,
@@ -1218,134 +1240,134 @@ namespace mainform//CompEc//
             this.btnAffianca,
             this.btnEditNotes,
             this.brnEmptyList});
-            this.MetaDataToolBar.ButtonSize = new System.Drawing.Size(32, 32);
-            this.MetaDataToolBar.DropDownArrows = true;
-            this.MetaDataToolBar.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MetaDataToolBar.ImageList = this.images;
-            this.MetaDataToolBar.Location = new System.Drawing.Point(0, 0);
-            this.MetaDataToolBar.Name = "MetaDataToolBar";
-            this.MetaDataToolBar.ShowToolTips = true;
-            this.MetaDataToolBar.Size = new System.Drawing.Size(992, 59);
-            this.MetaDataToolBar.TabIndex = 1;
-            this.MetaDataToolBar.Tag = "";
-            this.MetaDataToolBar.Visible = false;
-            this.MetaDataToolBar.ButtonClick += new System.Windows.Forms.ToolBarButtonClickEventHandler(this.MetaDataToolBar_ButtonClick);
-            // 
-            // impostaricerca
-            // 
-            this.impostaricerca.ImageKey = "view.png";
-            this.impostaricerca.Name = "impostaricerca";
-            this.impostaricerca.Tag = "mainsetsearch";
-            this.impostaricerca.Text = "Imposta ricerca";
-            this.impostaricerca.ToolTipText = "Imposta una nuova ricerca";
-            // 
-            // effettuaricerca
-            // 
-            this.effettuaricerca.ImageKey = "find.png";
-            this.effettuaricerca.Name = "effettuaricerca";
-            this.effettuaricerca.Tag = "maindosearch";
-            this.effettuaricerca.Text = "Effettua ricerca";
-            this.effettuaricerca.ToolTipText = "Cerca in base ai dati immessi";
-            // 
-            // inserisci
-            // 
-            this.inserisci.ImageKey = "add2.png";
-            this.inserisci.Name = "inserisci";
-            this.inserisci.Tag = "maininsert";
-            this.inserisci.Text = "Inserisci";
-            this.inserisci.ToolTipText = "Inserisci un nuovo elemento";
-            // 
-            // inseriscicopia
-            // 
-            this.inseriscicopia.ImageKey = "windows.png";
-            this.inseriscicopia.Name = "inseriscicopia";
-            this.inseriscicopia.Tag = "maininsertcopy";
-            this.inseriscicopia.Text = "Inserisci copia";
-            this.inseriscicopia.ToolTipText = "Inserisci un nuovo elemento copiando i dati da quello attuale";
-            // 
-            // elimina
-            // 
-            this.elimina.ImageKey = "delete2.png";
-            this.elimina.Name = "elimina";
-            this.elimina.Tag = "maindelete";
-            this.elimina.Text = "Elimina";
-            this.elimina.ToolTipText = "Elimina l\'elemento selezionato";
-            // 
-            // Salva
-            // 
-            this.Salva.ImageKey = "floppy_disk.png";
-            this.Salva.Name = "Salva";
-            this.Salva.Tag = "mainsave";
-            this.Salva.Text = "Salva";
-            this.Salva.ToolTipText = "Salva le modifiche effettuate";
-            // 
-            // btnGotoPrev
-            // 
-            this.btnGotoPrev.ImageKey = "arrow2_left.png";
-            this.btnGotoPrev.Name = "btnGotoPrev";
-            this.btnGotoPrev.Tag = "gotoprev";
-            this.btnGotoPrev.Text = "Precedente";
-            this.btnGotoPrev.ToolTipText = "Vai al precedente";
-            // 
-            // btnGotoNext
-            // 
-            this.btnGotoNext.ImageKey = "arrow2_right.png";
-            this.btnGotoNext.Name = "btnGotoNext";
-            this.btnGotoNext.Tag = "gotonext";
-            this.btnGotoNext.Text = "Successivo";
-            this.btnGotoNext.ToolTipText = "Vai al successivo";
-            // 
-            // btnAffianca
-            // 
-            this.btnAffianca.ImageKey = "window_split_ver.png";
-            this.btnAffianca.Name = "btnAffianca";
-            this.btnAffianca.Tag = "horizwin";
-            this.btnAffianca.Text = "Affianca";
-            this.btnAffianca.ToolTipText = "Affianca in verticale";
-            // 
-            // btnEditNotes
-            // 
-            this.btnEditNotes.ImageKey = "edit.png";
-            this.btnEditNotes.Name = "btnEditNotes";
-            this.btnEditNotes.Tag = "editnotes";
-            this.btnEditNotes.Text = "Appunti";
-            this.btnEditNotes.ToolTipText = "Modifica gli appunti associati all\'oggetto selezionato";
-            // 
-            // brnEmptyList
-            // 
-            this.brnEmptyList.ImageKey = "document_notebook.png";
-            this.brnEmptyList.Name = "brnEmptyList";
-            this.brnEmptyList.Tag = "emptylist";
-            this.brnEmptyList.Text = "Crea elenco";
-            this.brnEmptyList.ToolTipText = "Crea nuovo elenco";
-            // 
-            // images
-            // 
-            this.images.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("images.ImageStream")));
-            this.images.TransparentColor = System.Drawing.Color.Transparent;
-            this.images.Images.SetKeyName(0, "add2.png");
-            this.images.Images.SetKeyName(1, "arrow2_left.png");
-            this.images.Images.SetKeyName(2, "arrow2_right.png");
-            this.images.Images.SetKeyName(3, "delete2.png");
-            this.images.Images.SetKeyName(4, "document_notebook.png");
-            this.images.Images.SetKeyName(5, "edit.png");
-            this.images.Images.SetKeyName(6, "error.png");
-            this.images.Images.SetKeyName(7, "find.png");
-            this.images.Images.SetKeyName(8, "floppy_disk.png");
-            this.images.Images.SetKeyName(9, "garbage.png");
-            this.images.Images.SetKeyName(10, "ok.png");
-            this.images.Images.SetKeyName(11, "refresh.png");
-            this.images.Images.SetKeyName(12, "sign_warning.png");
-            this.images.Images.SetKeyName(13, "view.png");
-            this.images.Images.SetKeyName(14, "window_split_hor.png");
-            this.images.Images.SetKeyName(15, "window_split_ver.png");
-            this.images.Images.SetKeyName(16, "windows.png");
-            // 
-            // SBAR
-            // 
-            this.SBAR.Location = new System.Drawing.Point(0, 651);
-            this.SBAR.Name = "SBAR";
-            this.SBAR.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
+			this.MetaDataToolBar.ButtonSize = new System.Drawing.Size(32, 32);
+			this.MetaDataToolBar.DropDownArrows = true;
+			this.MetaDataToolBar.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.MetaDataToolBar.ImageList = this.images;
+			this.MetaDataToolBar.Location = new System.Drawing.Point(0, 0);
+			this.MetaDataToolBar.Name = "MetaDataToolBar";
+			this.MetaDataToolBar.ShowToolTips = true;
+			this.MetaDataToolBar.Size = new System.Drawing.Size(992, 59);
+			this.MetaDataToolBar.TabIndex = 1;
+			this.MetaDataToolBar.Tag = "";
+			this.MetaDataToolBar.Visible = false;
+			this.MetaDataToolBar.ButtonClick += new System.Windows.Forms.ToolBarButtonClickEventHandler(this.MetaDataToolBar_ButtonClick);
+			// 
+			// impostaricerca
+			// 
+			this.impostaricerca.ImageKey = "view.png";
+			this.impostaricerca.Name = "impostaricerca";
+			this.impostaricerca.Tag = "mainsetsearch";
+			this.impostaricerca.Text = "Imposta ricerca";
+			this.impostaricerca.ToolTipText = "Imposta una nuova ricerca";
+			// 
+			// effettuaricerca
+			// 
+			this.effettuaricerca.ImageKey = "find.png";
+			this.effettuaricerca.Name = "effettuaricerca";
+			this.effettuaricerca.Tag = "maindosearch";
+			this.effettuaricerca.Text = "Effettua ricerca";
+			this.effettuaricerca.ToolTipText = "Cerca in base ai dati immessi";
+			// 
+			// inserisci
+			// 
+			this.inserisci.ImageKey = "add2.png";
+			this.inserisci.Name = "inserisci";
+			this.inserisci.Tag = "maininsert";
+			this.inserisci.Text = "Inserisci";
+			this.inserisci.ToolTipText = "Inserisci un nuovo elemento";
+			// 
+			// inseriscicopia
+			// 
+			this.inseriscicopia.ImageKey = "windows.png";
+			this.inseriscicopia.Name = "inseriscicopia";
+			this.inseriscicopia.Tag = "maininsertcopy";
+			this.inseriscicopia.Text = "Inserisci copia";
+			this.inseriscicopia.ToolTipText = "Inserisci un nuovo elemento copiando i dati da quello attuale";
+			// 
+			// elimina
+			// 
+			this.elimina.ImageKey = "delete2.png";
+			this.elimina.Name = "elimina";
+			this.elimina.Tag = "maindelete";
+			this.elimina.Text = "Elimina";
+			this.elimina.ToolTipText = "Elimina l\'elemento selezionato";
+			// 
+			// Salva
+			// 
+			this.Salva.ImageKey = "floppy_disk.png";
+			this.Salva.Name = "Salva";
+			this.Salva.Tag = "mainsave";
+			this.Salva.Text = "Salva";
+			this.Salva.ToolTipText = "Salva le modifiche effettuate";
+			// 
+			// btnGotoPrev
+			// 
+			this.btnGotoPrev.ImageKey = "arrow2_left.png";
+			this.btnGotoPrev.Name = "btnGotoPrev";
+			this.btnGotoPrev.Tag = "gotoprev";
+			this.btnGotoPrev.Text = "Precedente";
+			this.btnGotoPrev.ToolTipText = "Vai al precedente";
+			// 
+			// btnGotoNext
+			// 
+			this.btnGotoNext.ImageKey = "arrow2_right.png";
+			this.btnGotoNext.Name = "btnGotoNext";
+			this.btnGotoNext.Tag = "gotonext";
+			this.btnGotoNext.Text = "Successivo";
+			this.btnGotoNext.ToolTipText = "Vai al successivo";
+			// 
+			// btnAffianca
+			// 
+			this.btnAffianca.ImageKey = "window_split_ver.png";
+			this.btnAffianca.Name = "btnAffianca";
+			this.btnAffianca.Tag = "horizwin";
+			this.btnAffianca.Text = "Affianca";
+			this.btnAffianca.ToolTipText = "Affianca in verticale";
+			// 
+			// btnEditNotes
+			// 
+			this.btnEditNotes.ImageKey = "edit.png";
+			this.btnEditNotes.Name = "btnEditNotes";
+			this.btnEditNotes.Tag = "editnotes";
+			this.btnEditNotes.Text = "Appunti";
+			this.btnEditNotes.ToolTipText = "Modifica gli appunti associati all\'oggetto selezionato";
+			// 
+			// brnEmptyList
+			// 
+			this.brnEmptyList.ImageKey = "document_notebook.png";
+			this.brnEmptyList.Name = "brnEmptyList";
+			this.brnEmptyList.Tag = "emptylist";
+			this.brnEmptyList.Text = "Crea elenco";
+			this.brnEmptyList.ToolTipText = "Crea nuovo elenco";
+			// 
+			// images
+			// 
+			this.images.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("images.ImageStream")));
+			this.images.TransparentColor = System.Drawing.Color.Transparent;
+			this.images.Images.SetKeyName(0, "add2.png");
+			this.images.Images.SetKeyName(1, "arrow2_left.png");
+			this.images.Images.SetKeyName(2, "arrow2_right.png");
+			this.images.Images.SetKeyName(3, "delete2.png");
+			this.images.Images.SetKeyName(4, "document_notebook.png");
+			this.images.Images.SetKeyName(5, "edit.png");
+			this.images.Images.SetKeyName(6, "error.png");
+			this.images.Images.SetKeyName(7, "find.png");
+			this.images.Images.SetKeyName(8, "floppy_disk.png");
+			this.images.Images.SetKeyName(9, "garbage.png");
+			this.images.Images.SetKeyName(10, "ok.png");
+			this.images.Images.SetKeyName(11, "refresh.png");
+			this.images.Images.SetKeyName(12, "sign_warning.png");
+			this.images.Images.SetKeyName(13, "view.png");
+			this.images.Images.SetKeyName(14, "window_split_hor.png");
+			this.images.Images.SetKeyName(15, "window_split_ver.png");
+			this.images.Images.SetKeyName(16, "windows.png");
+			// 
+			// SBAR
+			// 
+			this.SBAR.Location = new System.Drawing.Point(0, 651);
+			this.SBAR.Name = "SBAR";
+			this.SBAR.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
             this.Operator,
             this.currentRole,
             this.DataCont,
@@ -1354,120 +1376,120 @@ namespace mainform//CompEc//
             this.LiveUpdate,
             this.DBUpdate,
             this.lastLoadTime});
-            this.SBAR.ShowPanels = true;
-            this.SBAR.Size = new System.Drawing.Size(992, 22);
-            this.SBAR.TabIndex = 2;
-            this.SBAR.PanelClick += new System.Windows.Forms.StatusBarPanelClickEventHandler(this.SBAR_PanelClick);
-            // 
-            // Operator
-            // 
-            this.Operator.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            this.Operator.Name = "Operator";
-            this.Operator.ToolTipText = "Operatore";
-            this.Operator.Width = 10;
-            // 
-            // currentRole
-            // 
-            this.currentRole.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            this.currentRole.Name = "currentRole";
-            this.currentRole.Width = 10;
-            // 
-            // DataCont
-            // 
-            this.DataCont.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            this.DataCont.Name = "DataCont";
-            this.DataCont.ToolTipText = "Data Contabile";
-            this.DataCont.Width = 10;
-            // 
-            // Esercizio
-            // 
-            this.Esercizio.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            this.Esercizio.Name = "Esercizio";
-            this.Esercizio.ToolTipText = "Esercizio";
-            this.Esercizio.Width = 10;
-            // 
-            // DB
-            // 
-            this.DB.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            this.DB.Name = "DB";
-            this.DB.ToolTipText = "DataBase";
-            this.DB.Width = 10;
-            // 
-            // LiveUpdate
-            // 
-            this.LiveUpdate.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            this.LiveUpdate.Name = "LiveUpdate";
-            this.LiveUpdate.Width = 10;
-            // 
-            // DBUpdate
-            // 
-            this.DBUpdate.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            this.DBUpdate.Name = "DBUpdate";
-            this.DBUpdate.Width = 10;
-            // 
-            // lastLoadTime
-            // 
-            this.lastLoadTime.Alignment = System.Windows.Forms.HorizontalAlignment.Right;
-            this.lastLoadTime.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            this.lastLoadTime.Name = "lastLoadTime";
-            this.lastLoadTime.Width = 10;
-            // 
-            // FilePicker
-            // 
-            this.FilePicker.RestoreDirectory = true;
-            this.FilePicker.Title = "Selezione file";
-            // 
-            // FileSaver
-            // 
-            this.FileSaver.FileName = "doc1";
-            this.FileSaver.RestoreDirectory = true;
-            this.FileSaver.Title = "Salva su File";
-            // 
-            // Updatetimer1
-            // 
-            this.Updatetimer1.Enabled = true;
-            this.Updatetimer1.Interval = 3600000;
-            this.Updatetimer1.Tick += new System.EventHandler(this.Updatetimer1_Tick);
-            // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 5000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // openDir
-            // 
-            this.openDir.ShowNewFolderButton = false;
-            // 
-            // frmMain
-            // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(992, 673);
-            this.Controls.Add(this.MetaDataToolBar);
-            this.Controls.Add(this.SBAR);
-            this.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.IsMdiContainer = true;
-            this.Menu = this.mainMenu1;
-            this.Name = "frmMain";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Tag = "";
-            this.Text = "Easy - Gestione Integrata Ateneo";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Activated += new System.EventHandler(this.frmMain_Activated);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMain_FormClosed);
-            ((System.ComponentModel.ISupportInitialize)(this.Operator)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.currentRole)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DataCont)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Esercizio)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.LiveUpdate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DBUpdate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lastLoadTime)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+			this.SBAR.ShowPanels = true;
+			this.SBAR.Size = new System.Drawing.Size(992, 22);
+			this.SBAR.TabIndex = 2;
+			this.SBAR.PanelClick += new System.Windows.Forms.StatusBarPanelClickEventHandler(this.SBAR_PanelClick);
+			// 
+			// Operator
+			// 
+			this.Operator.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+			this.Operator.Name = "Operator";
+			this.Operator.ToolTipText = "Operatore";
+			this.Operator.Width = 10;
+			// 
+			// currentRole
+			// 
+			this.currentRole.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+			this.currentRole.Name = "currentRole";
+			this.currentRole.Width = 10;
+			// 
+			// DataCont
+			// 
+			this.DataCont.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+			this.DataCont.Name = "DataCont";
+			this.DataCont.ToolTipText = "Data Contabile";
+			this.DataCont.Width = 10;
+			// 
+			// Esercizio
+			// 
+			this.Esercizio.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+			this.Esercizio.Name = "Esercizio";
+			this.Esercizio.ToolTipText = "Esercizio";
+			this.Esercizio.Width = 10;
+			// 
+			// DB
+			// 
+			this.DB.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+			this.DB.Name = "DB";
+			this.DB.ToolTipText = "DataBase";
+			this.DB.Width = 10;
+			// 
+			// LiveUpdate
+			// 
+			this.LiveUpdate.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+			this.LiveUpdate.Name = "LiveUpdate";
+			this.LiveUpdate.Width = 10;
+			// 
+			// DBUpdate
+			// 
+			this.DBUpdate.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+			this.DBUpdate.Name = "DBUpdate";
+			this.DBUpdate.Width = 10;
+			// 
+			// lastLoadTime
+			// 
+			this.lastLoadTime.Alignment = System.Windows.Forms.HorizontalAlignment.Right;
+			this.lastLoadTime.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+			this.lastLoadTime.Name = "lastLoadTime";
+			this.lastLoadTime.Width = 10;
+			// 
+			// FilePicker
+			// 
+			this.FilePicker.RestoreDirectory = true;
+			this.FilePicker.Title = "Selezione file";
+			// 
+			// FileSaver
+			// 
+			this.FileSaver.FileName = "doc1";
+			this.FileSaver.RestoreDirectory = true;
+			this.FileSaver.Title = "Salva su File";
+			// 
+			// Updatetimer1
+			// 
+			this.Updatetimer1.Enabled = true;
+			this.Updatetimer1.Interval = 3600000;
+			this.Updatetimer1.Tick += new System.EventHandler(this.Updatetimer1_Tick);
+			// 
+			// timer1
+			// 
+			this.timer1.Enabled = true;
+			this.timer1.Interval = 5000;
+			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+			// 
+			// openDir
+			// 
+			this.openDir.ShowNewFolderButton = false;
+			// 
+			// frmMain
+			// 
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+			this.BackColor = System.Drawing.SystemColors.Control;
+			this.ClientSize = new System.Drawing.Size(992, 673);
+			this.Controls.Add(this.MetaDataToolBar);
+			this.Controls.Add(this.SBAR);
+			this.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.IsMdiContainer = true;
+			this.Menu = this.mainMenu1;
+			this.Name = "frmMain";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Tag = "";
+			this.Text = "Easy - Gestione Contabile Integrata";
+			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+			this.Activated += new System.EventHandler(this.frmMain_Activated);
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMain_FormClosed);
+			((System.ComponentModel.ISupportInitialize)(this.Operator)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.currentRole)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataCont)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.Esercizio)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DB)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.LiveUpdate)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DBUpdate)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lastLoadTime)).EndInit();
+			this.ResumeLayout(false);
+			this.PerformLayout();
 
         }
 
@@ -1499,8 +1521,8 @@ namespace mainform//CompEc//
                 mnuBigAdmin.Enabled = !LittleAdmin & ShowAdminMenu;
                 //ReadMenu.Enabled = true;
                 menuAdmin.Enabled = ShowAdminMenu;
-                if (MyDataAccess.GetSys("IsSystemAdmin")!=null)
-                    mnuCambiaPasswordDipart.Enabled = (bool)MyDataAccess.GetSys("IsSystemAdmin");
+                if (MyDataAccess.Security.GetSys("IsSystemAdmin")!=null)
+                    mnuCambiaPasswordDipart.Enabled = (bool)MyDataAccess.Security.GetSys("IsSystemAdmin");
                 else
                     mnuCambiaPasswordDipart.Enabled = false;
                 //mnuCfgCONTABILE.Enabled = false;
@@ -1530,7 +1552,7 @@ namespace mainform//CompEc//
         /// Disabilita una voce di menu. Validi valori per menutext sono  Entrate/Spese/Bilancio/Missioni
         /// </summary>
         /// <param name="code"></param>
-        void DisableMenu(string menutext) {
+        void disableMenu(string menutext) {
             int cmenu = metaprofiler.StartTimer("DisableMenu()");
             foreach (MenuItem MI in mainMenu1.MenuItems) {
                 if (MI.Text == menutext) {
@@ -1540,7 +1562,7 @@ namespace mainform//CompEc//
             }
             metaprofiler.StopTimer(cmenu);
         }
-        void EnableMenu(string menutext) {
+        void enableMenu(string menutext) {
             int cmenu = metaprofiler.StartTimer("EnableMenu()");
             foreach (MenuItem MI in mainMenu1.MenuItems) {
                 if (MI.Text == menutext) {
@@ -1554,29 +1576,29 @@ namespace mainform//CompEc//
         bool MessageDisplayed = false;
         /// <summary>
         /// Disabilita alcune parti del menu se non ci sono le configurazioni corrispondenti. 
-        /// Se l'esercizio √® chiuso imposta la connessione a 'read-only'
+        /// Se l'esercizio Ë chiuso imposta la connessione a 'read-only'
         /// </summary>
         /// <param name="filteresercizio"></param>
-        private void ControllaConfigurazioni(string filteresercizio) {
+        private void controllaConfigurazioni(string filteresercizio) {
             //bool BilancioEnabled=true;
-            DataTable tConfig = MyDataAccess.CreateTableByName("config", "*");
+            var tConfig = MyDataAccess.CreateTableByName("config", "*");
             MyDataAccess.RUN_SELECT_INTO_TABLE(tConfig, null, filteresercizio, null, true);
             if (tConfig.Rows.Count == 0 ) {
                 if (MessageDisplayed==false)
-                    MessageBox.Show("NON ESISTE ALCUNA CONFIGURAZIONE PER L'ESERCIZIO CORRENTE!", "Attenzione",
+                    show("NON ESISTE ALCUNA CONFIGURAZIONE PER L'ESERCIZIO CORRENTE!", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                DisableMenu("Compensi");
-                DisableMenu("Entrate");
-                DisableMenu("Spese");
-                DisableMenu("Cespiti");
-                DisableMenu("Bilancio");
-                DisableMenu("Tesoriere");
+                disableMenu("Compensi");
+                disableMenu("Entrate");
+                disableMenu("Spese");
+                disableMenu("Cespiti");
+                disableMenu("Bilancio");
+                disableMenu("Tesoriere");
 
                 MessageDisplayed = true;
                 return;
             }
 
-            DataRow rConfig = tConfig.Rows[0];
+            var rConfig = tConfig.Rows[0];
 
             bool SpeseEntrateEnabled = true;
             bool abilitaBilancio = false;
@@ -1586,15 +1608,15 @@ namespace mainform//CompEc//
                 abilitaBilancio = true;
             }
             if (!abilitaBilancio) {
-                MessageBox.Show("La configurazione del BILANCIO non √® stata definita per l'esercizio corrente. " +
-                    "Non sar√† possibile accedere ai menu Bilancio/Entrate/Spese", "Attenzione",
+                show("La configurazione del BILANCIO non Ë stata definita per l'esercizio corrente. " +
+                    "Non sar‡ possibile accedere ai menu Bilancio/Entrate/Spese", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                DisableMenu("Bilancio");
+                disableMenu("Bilancio");
                 //BilancioEnabled=false;
                 SpeseEntrateEnabled = false;
             }
             else
-                EnableMenu("Bilancio");
+                enableMenu("Bilancio");
 
             bool abilitaMiss = false;
             string [] fieldMissione = new string [] {"idfinexpense", "idclawback", "foreignhours"};
@@ -1604,12 +1626,12 @@ namespace mainform//CompEc//
             }
 
             if (!abilitaMiss) {
-                //MessageBox.Show("La configurazione delle MISSIONI non √® stata definita per l'esercizio corrente!", "Attenzione",
+                //MetaFactory.factory.getSingleton<IMessageShower>().Show("La configurazione delle MISSIONI non Ë stata definita per l'esercizio corrente!", "Attenzione",
                 //    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                DisableMenu("Compensi");                
+                disableMenu("Compensi");                
             }
             else {
-                EnableMenu("Compensi");
+                enableMenu("Compensi");
             }
 
             bool abilitaEntrata = false;
@@ -1621,8 +1643,8 @@ namespace mainform//CompEc//
             }
 
             if ((SpeseEntrateEnabled == true) && (!abilitaEntrata)) {
-                MessageBox.Show("La configurazione delle ENTRATE non √® stata definita per l'esercizio corrente. " +
-                    "Non sar√† possibile accedere ai menu Entrate/Spese", "Attenzione",
+                show("La configurazione delle ENTRATE non Ë stata definita per l'esercizio corrente. " +
+                    "Non sar‡ possibile accedere ai menu Entrate/Spese", "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 SpeseEntrateEnabled = false;
             }
@@ -1636,19 +1658,19 @@ namespace mainform//CompEc//
             }
 
             if ((SpeseEntrateEnabled == true) && (!abilitaSpesa)) {
-                MessageBox.Show("La configurazione delle SPESE non √® stata definita per l'esercizio corrente. " +
-                        "Non sar√† possibile accedere ai menu Entrate/Spese", "Attenzione",
+                show("La configurazione delle SPESE non Ë stata definita per l'esercizio corrente. " +
+                        "Non sar‡ possibile accedere ai menu Entrate/Spese", "Attenzione",
                                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 SpeseEntrateEnabled = false;
             }
 
             if (SpeseEntrateEnabled) {
-                EnableMenu("Entrate");
-                EnableMenu("Spese");
+                enableMenu("Entrate");
+                enableMenu("Spese");
             }
             else {
-                DisableMenu("Entrate");
-                DisableMenu("Spese");
+                disableMenu("Entrate");
+                disableMenu("Spese");
             }
 
             bool abilitaPatrimonio = false;
@@ -1659,17 +1681,17 @@ namespace mainform//CompEc//
             }
 
             if (!abilitaPatrimonio) {
-                //MessageBox.Show("La configurazione del PATRIMONIO non √® stata definita per l'esercizio corrente!", "Attenzione",
+                //MetaFactory.factory.getSingleton<IMessageShower>().Show("La configurazione del PATRIMONIO non Ë stata definita per l'esercizio corrente!", "Attenzione",
                 //	MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                DisableMenu("Cespiti");
+                disableMenu("Cespiti");
             }
             else
-                EnableMenu("Cespiti");
+                enableMenu("Cespiti");
 
         }
 
 
-        bool VerifyQuickAdmin() {
+        bool verifyQuickAdmin() {
             //IsSystemAdmin manage_prestazioni FlagMenuAdmin
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory+"quickadmin.sys")) return false;
             string S = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "quickadmin.sys");
@@ -1683,27 +1705,33 @@ namespace mainform//CompEc//
             if (!Disconnect()) return;
             DialogResult res;
             frmEasyConnect frm = null;
-            crono Measure = new crono(null);
+            var Measure = new crono(null);
             try {
                 frm = new frmEasyConnect();
                 frm.Tag = argCopy;
                 argCopy = null;
+                signalCreateForm(frm,null);
                 res = frm.ShowDialog();
             }
-            catch {
+            catch (Exception e) {
                 return;
             }
-            if (res != DialogResult.OK) return;
+
+            if (res != DialogResult.OK) {
+				frm.Dispose();
+	            return;
+            }
             long len = Measure.GetDuration();
 
             connecting = true;
             MyDataAccess = frm.MyDataAccess;
 
-            if (MyDataAccess == null || MyDataAccess.OpenError) {
+            if (MyDataAccess == null || MyDataAccess.openError) {
                 connecting = false;
+                frm.Dispose();
                 return;
             }
-            Dispatcher = new Meta_EasyDispatcher(MyDataAccess);
+            Dispatcher = new Meta_EasyDispatcher(MyDataAccess as IDataAccess);
             this.attachInstance(Dispatcher, typeof(IMetaDataDispatcher));
             this.attachInstance(MyDataAccess, typeof(IDataAccess));
             this.attachInstance(MyDataAccess.Security, typeof(ISecurity));
@@ -1711,8 +1739,8 @@ namespace mainform//CompEc//
 
             QueryHelper QHS = MyDataAccess.GetQueryHelper();
 
-            Operator.Text = $"{MyDataAccess.external_user} su {Dispatcher.GetSys("userdb")}";
-            DB.Text = $"{Dispatcher.GetSys("database")} su {Dispatcher.GetSys("server")}";
+            Operator.Text = $"{MyDataAccess.externalUser} su {Dispatcher.security.GetSys("userdb")}";
+            DB.Text = $"{Dispatcher.security.GetSys("database")} su {Dispatcher.GetSys("server")}";
             QueryCreator.MarkEvent($"Connesso come {Operator.Text} sul db {DB.Text}");
             string filterGRP = QHS.AppAnd(QHS.IsNull("stop"), QHS.CmpEq("idparam", "DenominazioneDipartimento"));
             DataTable generalReportParameterTable =
@@ -1720,34 +1748,37 @@ namespace mainform//CompEc//
             if (generalReportParameterTable != null && generalReportParameterTable.Rows.Count > 0) {
                 this.Text += " ( " + generalReportParameterTable.Rows[0]["paramvalue"] + " )";
             }
+
+            var security = MyDataAccess.Security;
+
             bool manageprest = false;
-            if (MyDataAccess.GetUsr("usergrouplist") != null) {
-                manageprest = MyDataAccess.GetUsr("usergrouplist").ToString().ToLower().IndexOf("manage_prestazioni") >= 0;
+            if (MyDataAccess.GetSys("usergrouplist") != null) {
+                manageprest = security.GetSys("usergrouplist").ToString().ToLower().IndexOf("manage_prestazioni") >= 0;
             }
-            if (manageprest == false && MyDataAccess.GetUsr("manage_prestazioni") != null) {
-                manageprest = MyDataAccess.GetUsr("manage_prestazioni").ToString().ToUpper() == "S";
+            if (manageprest == false && MyDataAccess.Security.GetUsr("manage_prestazioni") != null) {
+                manageprest = security.GetUsr("manage_prestazioni").ToString().ToUpper() == "S";
             }
             if (MyDataAccess.Is_Member("manage_prestazioni")) {
                 manageprest = true;
             }
-            if (manageprest) Dispatcher.SetSys("manage_prestazioni", "S");
+            if (manageprest) security.SetSys("manage_prestazioni", "S");
 
             bool consolidamento = false;
-            if (MyDataAccess.GetUsr("usergrouplist") != null) {
-                consolidamento = MyDataAccess.GetUsr("usergrouplist").ToString().ToLower().IndexOf("consolidamento") >= 0;
+            if (security.GetSys("usergrouplist") != null) {
+                consolidamento = security.GetSys("usergrouplist").ToString().ToLower().IndexOf("consolidamento") >= 0;
             }
 
-            if (consolidamento == false && MyDataAccess.GetUsr("consolidamento") != null) {
-                consolidamento = MyDataAccess.GetUsr("consolidamento").ToString().ToUpper() == "S";
+            if (consolidamento == false && security.GetSys("consolidamento") != null) {
+                consolidamento = security.GetSys("consolidamento").ToString().ToUpper() == "S";
             }
             if (MyDataAccess.Is_Member("consolidamento")) {
                 consolidamento = true;
             }
             if (consolidamento)
-                Dispatcher.SetUsr("consolidamento", "S");
+	            security.SetUsr("consolidamento", "S");
 
             bool IsAdmin = MyDataAccess.Is_Member("sysadmin");
-            bool QuickAdmin = VerifyQuickAdmin();
+            bool QuickAdmin = verifyQuickAdmin();
             if (QuickAdmin) LittleAdmin = false;
             //LittleAdmin = !QuickAdmin;
             if (!IsAdmin) IsAdmin = QuickAdmin;
@@ -1757,7 +1788,7 @@ namespace mainform//CompEc//
 
 
             string esercizio = Dispatcher.GetSys("esercizio").ToString();
-            //controllo validit√† esercizio
+            //controllo validit‡ esercizio
             string filteresercizio = "(ayear=" + QueryCreator.quotedstrvalue(esercizio, true) + ")";
             DataTable EsercizioTable =
                 MyDataAccess.RUN_SELECT("accountingyear", "*", null, filteresercizio, null, true);
@@ -1765,7 +1796,7 @@ namespace mainform//CompEc//
             if (EsercizioTable == null || EsercizioTable.Rows.Count == 0) {
                 if (MyDataAccess.RUN_SELECT_COUNT("SYSOBJECTS", "XTYPE='U'", false) == 0) {
                     Disconnect();
-                    MessageBox.Show("Installare il programma", "Errore");
+                    show("Installare il programma", "Errore");
                     return;
                 }
 
@@ -1787,7 +1818,7 @@ namespace mainform//CompEc//
                     }
 
                     if (!CambioDataConsentita(MyDataAccess, DateToSet)) {
-                        MessageBox.Show("Accesso non consentito in tale data in base alla gestione della sicurezza");
+                        show("Accesso non consentito in tale data in base alla gestione della sicurezza");
                         Disconnect();
                         return;
                     }
@@ -1796,10 +1827,16 @@ namespace mainform//CompEc//
                     MyDataAccess.SetSys("datacontabile", DateToSet);
 
                     MyDataAccess.RecalcUserEnvironment();
+                    if (MyDataAccess.openError) {
+	                    show("Errore in fase di calcolo dell'ambiente");
+	                    Disconnect();
+	                    return;
+                    }
+                    
                     MyDataAccess.ReadAllGroupOperations();
-                    MessageBox.Show("L'esercizio " + esercizio + " non √® stato definito per questo Ente", "Attenzione",
+                    show("L'esercizio " + esercizio + " non Ë stato definito per questo Ente", "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    MessageBox.Show("Avvertimento: la data contabile √® stata automaticamente impostata al \n" +
+                    show("Avvertimento: la data contabile Ë stata automaticamente impostata al \n" +
                                     ((DateTime)Dispatcher.GetSys("datacontabile")).ToShortDateString());
 
                     foreach (string k in new[] { "server", "database", "FlagMenuAdmin", "IsSystemAdmin", "esercizio", "user", "ndetail",
@@ -1815,29 +1852,34 @@ namespace mainform//CompEc//
                     //return;
                 }
             }
-            esercizio = Dispatcher.GetSys("esercizio").ToString();
+            esercizio = security.GetEsercizio().ToString();
             filteresercizio = "(ayear=" + QueryCreator.quotedstrvalue(esercizio, true) + ")";
-            Esercizio.Text = Dispatcher.GetSys("esercizio").ToString();
+            Esercizio.Text = esercizio;
             DataCont.Text = ((DateTime)Dispatcher.GetSys("datacontabile")).ToShortDateString();
             currentRole.Text = getRole(MyDataAccess);
 
-            if (!CambioDataConsentita(MyDataAccess, (DateTime)Dispatcher.GetSys("datacontabile"))) {
-                MessageBox.Show("Accesso non consentito in tale data in base alla gestione della sicurezza");
+            if (!CambioDataConsentita(MyDataAccess, (DateTime)security.GetSys("datacontabile"))) {
+                show("Accesso non consentito in tale data in base alla gestione della sicurezza");
                 Disconnect();
                 return;
             }
+            if (MyDataAccess.GetSys("idflowchart")is string & !( MyDataAccess.GetSys("ndetail")is int)) {
+                show("Sicurezza non ben configurata nell'anno");
+	            Disconnect();
+                return;
+			}
 
-
+            var sec = MyDataAccess.SelectCondition("menu",true);
+            var usrMenu = MyDataAccess.GetUsr("menu")?.ToString();
+            if (!string.IsNullOrEmpty(sec) && string.IsNullOrEmpty(usrMenu)) {
+	            show("Sicurezza non ben configurata nell'anno");
+	            Disconnect();
+	            return;
+            }
             ConnectItem.Enabled = false;
-
-
-
             AddLiveUpdateConfig(MyDataAccess);
 
             bool ShowAdminMenu = (bool)Dispatcher.GetSys("IsSystemAdmin");
-
-
-
 
             ApplyCustomSecurity();
             reenableMenu();
@@ -1846,18 +1888,17 @@ namespace mainform//CompEc//
             // Se siamo in DEBUG ci consideriamo amministratori e quindi la barra degli strumenti deve uscire completa
             // e non limitata come per gli utenti normali
             if ((Debugger.IsAttached) && (AppDomain.CurrentDomain.FriendlyName != "MetaDataDomain")) {
-                Dispatcher.SetSys("FlagMenuAdmin", "S");
-                Dispatcher.SetSys("manage_prestazioni", "S");
-                Dispatcher.SetUsr("consolidamento", "S");
-                Dispatcher.SetSys("IsSystemAdmin", true);
+	            security.SetSys("FlagMenuAdmin", "S");
+	            security.SetSys("manage_prestazioni", "S");
+	            security.SetUsr("consolidamento", "S");
+	            security.SetSys("IsSystemAdmin", true);
             }
 
             if (QuickAdmin) {
-                Dispatcher.SetSys("FlagMenuAdmin", "S");
-                Dispatcher.SetSys("manage_prestazioni", "S");
-                Dispatcher.SetUsr("consolidamento", "S");
-
-                Dispatcher.SetSys("IsSystemAdmin", true);
+	            security.SetSys("FlagMenuAdmin", "S");
+	            security.SetSys("manage_prestazioni", "S");
+	            security.SetUsr("consolidamento", "S");
+	            security.SetSys("IsSystemAdmin", true);
 
             }
 
@@ -1869,7 +1910,7 @@ namespace mainform//CompEc//
             MessageDisplayed = false;
 
             try {
-                ControllaConfigurazioni(filteresercizio);
+                controllaConfigurazioni(filteresercizio);
             }
             catch {
             }
@@ -1886,32 +1927,34 @@ namespace mainform//CompEc//
             //Elimina vecchi log
             //DeleteOldLog();
 
-            //in debug mode √® sempre abilitato
-            menuAdmin.Enabled = Debugger.IsAttached || VerifyQuickAdmin();
-            Dispatcher.SetSys("FlagMenuAdmin", menuAdmin.Enabled ? "S" : "N");
+            //in debug mode Ë sempre abilitato
+            menuAdmin.Enabled = Debugger.IsAttached || verifyQuickAdmin();
+            security.SetSys("FlagMenuAdmin", menuAdmin.Enabled ? "S" : "N");
 
 
             // Avvia il live update del DB
             if (threadDownloadDB == null || !threadDownloadDB.IsAlive) {
-                threadDownloadDB = new Thread(new ThreadStart(UpdateDB));
-                threadDownloadDB.Name = "UpdateDB";
-                threadDownloadDB.Priority = ThreadPriority.BelowNormal;
-                threadDownloadDB.Start();
+	            if (!isBlazor) {
+		            threadDownloadDB = new Thread(new ThreadStart(UpdateDB));
+		            threadDownloadDB.Name = "UpdateDB";
+		            threadDownloadDB.Priority = ThreadPriority.BelowNormal;
+		            threadDownloadDB.Start();
+	            }
             }
             if (TS == null) {
                 TS = new MyListener();
-                Debug.Listeners.Add(TS);
+                Trace.Listeners.Add(TS);
             }
 
             object dbver = MyDataAccess.DO_READ_VALUE("updatedbversion", null, "max(versionname)");
             if (dbver != null) {
-                if (dbver.ToString().CompareTo("2.4.100") < 0) {
+                if (dbver.ToString().CompareTo("2.5.570") < 0) {
                     string msg = "Il software installato richiede un db aggiornato. E' indispensabile " +
                    "ATTENDERE l'aggiornamento del DATABASE e poi chiudere e riaprire" +
                    " il programma. Fino a quel momento NON SARA' POSSIBILE SALVARE ALCUN DATO.";
-                    MyDataAccess.ReadOnly = true;
+                    MyDataAccess.readOnly = true;
                     MustClose = true; //Disabilita il cambio di esercizio o cambio data
-                    MessageBox.Show(F, msg, "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    show(F, msg, "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     DisconnectItem.Enabled = true;
                     ChangeRoleItem.Enabled = false;
                     connecting = false;
@@ -1942,7 +1985,7 @@ namespace mainform//CompEc//
                 var m1 = Dispatcher.Get("changepassword");
                 if (m1.EditTypes.Count == 0) {
                     pwdset = "S";
-                    MessageBox.Show(this, "Attendere l'aggiornamento del programma e poi cambiare la password.");
+                    show(this, "Attendere l'aggiornamento del programma e poi cambiare la password.");
                 }
                 else {
                     m1.Edit(this, "default", true);
@@ -1956,19 +1999,26 @@ namespace mainform//CompEc//
         }
         private void menuItem2_Click(object sender, System.EventArgs e) {
             if (!checkExecutionPath()) return;
-            connect();
+            try {
+                connect();
+            }
+            catch (Exception ee) {
+                QueryCreator.showException(ee,null);
+            }
         }
+
+        public bool isUnderTest = false;
 
         private bool ciSonoAvvisi(DataAccess Conn) {
             QueryHelper QHS = Conn.GetQueryHelper();
-            string filtroLogin = QHS.CmpEq("login", Conn.GetSys("user"));
+            string filtroLogin = QHS.AppOr(QHS.CmpEq("login", "everyone"), QHS.CmpEq("login", Conn.GetSys("user")));
             DataTable tUserAlert = Conn.RUN_SELECT("dbuseralert", null, null, filtroLogin, null, true);
             string filtroAlert = QHS.AppAnd(
                 QHS.FieldIn("idalert", tUserAlert.Select()),
                 QHS.CmpNe("query", ""));
             DataTable tAlert = Conn.RUN_SELECT("alert", null, null, filtroAlert, null, true);
             foreach (DataRow r in tAlert.Rows) {                
-                string query = Conn.Compile(r["query"].ToString(), true);
+                string query = Conn.Security.Compile(r["query"].ToString(), true);
                 if (query == "(1=2)") continue;
                 DataTable t = Conn.SQLRunner(query);
                 if ((t != null) && (t.Rows.Count > 0)) {
@@ -2022,7 +2072,7 @@ namespace mainform//CompEc//
 
         /// <summary>
         /// Abilita/Disabilita le operazioni di backup/config/ondemand in base alle regole di sicurezza 
-        ///	 (possibilit√† di selezionare da adminoperation una riga con il corrisp.valore)
+        ///	 (possibilit‡ di selezionare da adminoperation una riga con il corrisp.valore)
         /// </summary>
         void ApplyCustomSecurity() {
             if (MyDataAccess == null) return;
@@ -2044,11 +2094,11 @@ namespace mainform//CompEc//
             DataRow Test = Ops.NewRow();
             Test["opname"] = "backup";
             Ops.Rows.Add(Test);
-            if (!MyDataAccess.CanSelect(Ops, 0)) mnuBackup.Enabled = false;
+            if (!MyDataAccess.Security.CanSelect(Ops, 0)) mnuBackup.Enabled = false;
             Test["opname"] = "localconfig";
-            if (!MyDataAccess.CanSelect(Ops, 0)) mnuLocalConfig.Enabled = false;
+            if (!MyDataAccess.Security.CanSelect(Ops, 0)) mnuLocalConfig.Enabled = false;
             Test["opname"] = "ondemand";
-            if (!MyDataAccess.CanSelect(Ops, 0)) mnuLiveUpdateOnDemand.Enabled = false;
+            if (!MyDataAccess.Security.CanSelect(Ops, 0)) mnuLiveUpdateOnDemand.Enabled = false;
             Test["opname"] = "menuupdate";
             //if (!MyDataAccess.CanSelect(Ops, 0)) ReadMenu.Enabled = false;
 
@@ -2072,23 +2122,23 @@ namespace mainform//CompEc//
                 string msg = "";
                 bool show = false;
                 if (info.CurrencyDecimalDigits < 2) {
-                    msg = "Il numero dei decimali non √® impostato almeno a 2\r";
+                    msg = "Il numero dei decimali non Ë impostato almeno a 2\r";
                     show = true;
                 }
                 if (info.CurrencyDecimalSeparator == info.CurrencyGroupSeparator) {
-                    msg += "Il separatore dei decimali √® uguale al separatore delle migliaia\r";
+                    msg += "Il separatore dei decimali Ë uguale al separatore delle migliaia\r";
                     show = true;
                 }
                 if (info.NumberDecimalSeparator == info.NumberGroupSeparator) {
-                    msg += "Il separatore dei decimali √® uguale al separatore delle migliaia\r";
+                    msg += "Il separatore dei decimali Ë uguale al separatore delle migliaia\r";
                     show = true;
                 }
 
                 if (show) {
-                    msg += "\rQuesto pu√≤ causare mal funzionamenti del programma. Modificare tali propriet√† dal menu\r" +
+                    msg += "\rQuesto puÚ causare mal funzionamenti del programma. Modificare tali propriet‡ dal menu\r" +
                         "Avvio (Start)\\Impostazioni\\Pannello di Controllo\\Opzioni Internazionali e della lingua\r" +
                         "Dopo chiudere e riaprire il programma.";
-                    MessageBox.Show(msg, "Attenzione",
+                    (new MetaDataForm()).show(msg, "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
@@ -2127,17 +2177,17 @@ namespace mainform//CompEc//
         }
 
         /// <summary>
-        /// Questo metodo √® eseguito in un THREAD SECONDARIO!!!!! Non usare la conn.principale!!
+        /// Questo metodo Ë eseguito in un THREAD SECONDARIO!!!!! Non usare la conn.principale!!
         /// </summary>
         private void UpdateDB() {
             if (MyDataAccess == null) return;
             string[] rempath = GetLiveUpdateAddress();
-            //Forzo la creazione perch√© posso aver aggiornato
+            //Forzo la creazione perchÈ posso aver aggiornato
             //la configurazione locale
             MyDownloadDB = new Download(Dispatcher, rempath, C_FILEINDEXNAME,
                 AppDomain.CurrentDomain.BaseDirectory);
 
-            //Si pu√≤ verififcare quando durante l'attesa per la connessione
+            //Si puÚ verififcare quando durante l'attesa per la connessione
             //al server web ci si disconnette dal Database
             if (MyDataAccess == null) return;
             DataAccess DownloadDBConnection = MyDataAccess.Duplicate();
@@ -2154,18 +2204,18 @@ namespace mainform//CompEc//
 
             bool SWSupported = MyDownloadDB.IsSoftwareSupported();
             if (!SWSupported) {
-                //se sono qua vuol dire che √® necessario un aggiornamento sw
+                //se sono qua vuol dire che Ë necessario un aggiornamento sw
                 //il db ne richiede una nuova versione in seguito ad aggiornamento
                 string msg = "La versione del database corrente richiede una versione successiva del software. E' indispensabile " +
                     "ATTENDERE l'aggiornamento SOFTWARE e poi chiudere e riaprire" +
                     " il programma. Fino a quel momento NON SARA' POSSIBILE SALVARE ALCUN DATO.";                
-                MyDataAccess.ReadOnly = true;
+                MyDataAccess.readOnly = true;
                 MustClose = true; //Disabilita il cambio di esercizio o cambio data
-                MessageBox.Show(F, msg, "Attenzione",MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                show(msg, "Attenzione",MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
-            //se non √® connesso non faccio nessun controllo di versione e/o aggiornamento
+            //se non Ë connesso non faccio nessun controllo di versione e/o aggiornamento
             if (//MyDownloadSW == null || 
                 //!MyDownloadSW.Connected || 
                 MyDownloadDB!=null &&
@@ -2178,7 +2228,7 @@ namespace mainform//CompEc//
 
             //ControlloAggiornamentoMenu(DownloadDBConnection);
 
-            //terminato l'aggiornamento controllo la compatibilit√† della versione
+            //terminato l'aggiornamento controllo la compatibilit‡ della versione
             if (MyDownloadDB == null) {
                 QueryCreator.MarkEvent("ERRORE : MyDownloadDB == null alla riga 2175 del form main");
                 return;
@@ -2188,13 +2238,13 @@ namespace mainform//CompEc//
 
             /*
             if (MyDownloadDB.IsDBUpdated && !SWSupported) {
-                //se sono qua vuol dire che √® stato effettuato un aggiornamento
+                //se sono qua vuol dire che Ë stato effettuato un aggiornamento
                 //al DB che richiede una nuova versione del sw
                 string msg = "E' sconsigliabile l'utilizzo del programma " +
                     "con una versione software non aggiornata. NON SARA' POSSIBILE SALVARE ALCUN DATO fino al momento dell'aggiornamento.";
                 MyDataAccess.ReadOnly=true;			
                 MustClose=true; //Disabilita il cambio di esercizio o cambio data
-                MessageBox.Show(msg, "Attenzione",
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(msg, "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
@@ -2265,7 +2315,7 @@ namespace mainform//CompEc//
             if (IsDisposed) return true;
             if ((OwnedForms.Length > 0) ||
                 (MdiChildren.Length > 0)) {
-                MessageBox.Show("Per collegarsi ad un nuovo DB √® necessario chiudere prima tutte le finestre.");
+                show("Per collegarsi ad un nuovo DB Ë necessario chiudere prima tutte le finestre.");
                 return false;
             }
             QueryCreator.MarkEvent("Disconnesso");
@@ -2275,7 +2325,7 @@ namespace mainform//CompEc//
             DB.Text = "";
             Esercizio.Text = "";
             currentRole.Text = "";
-            Text = "Easy - Gestione Integrata Ateneo";
+            Text = "Easy - Gestione Contabile Integrata";
             ConnectItem.Enabled = true;
             DisconnectItem.Enabled = false;
             ChangeRoleItem.Enabled = false;
@@ -2296,7 +2346,7 @@ namespace mainform//CompEc//
 
         private void menuItem12_Click(object sender, System.EventArgs e) {
             if (operating) {
-                MessageBox.Show("Attendere il completamento dell'operazione in corso prima di scollegarsi", "Avviso");
+                show("Attendere il completamento dell'operazione in corso prima di scollegarsi", "Avviso");
                 return;
             }
             Disconnect();
@@ -2332,8 +2382,9 @@ namespace mainform//CompEc//
 
         private string C_FILEINDEXNAME = (IsNet45OrNewer() ? "fileindex4.xml": "fileindex.xml");
         private const string C_REPORTINDEXNAME = "reportindex.xml";
-
+        private bool isBlazor = false;
         void UpdateDll() {
+	        if (isBlazor ) return;
             threadDownloadSW = new Thread(new ThreadStart(UpdateDllThread));
             threadDownloadSW.Name = "UpdateDll";
             threadDownloadSW.Priority = ThreadPriority.BelowNormal;
@@ -2394,8 +2445,9 @@ namespace mainform//CompEc//
 
         private void menuItem25_Click(object sender, System.EventArgs e) {
             Form F = getFormConfigLiveUpdate();
+            signalCreateForm(F,null);
             F.ShowDialog();
-            AddLiveUpdateConfig(MyDataAccess);
+            if (F.DialogResult == DialogResult.OK) AddLiveUpdateConfig(MyDataAccess);
         }
 
         
@@ -2424,6 +2476,7 @@ namespace mainform//CompEc//
                     if (!FormAttesaVisualizzato) {
                         FormAttesaVisualizzato = true;
                         FormAttesa = new frmWait();
+                        signalCreateForm(FormAttesa, null);
                         FormAttesa.Show();
                     }
                     try {
@@ -2490,7 +2543,7 @@ namespace mainform//CompEc//
                 XZip.AddFiles(zipdir + filename + ".zip", currdir, filename, true, true);
             }
             Cursor.Current = Cursors.Default;
-            MessageBox.Show("File compressi in " + zipdir, "Compressione file",
+            show("File compressi in " + zipdir, "Compressione file",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -2500,20 +2553,20 @@ namespace mainform//CompEc//
 
             if (e.StatusBarPanel == LiveUpdate) {
                 string msg = e.StatusBarPanel.Text + "\r" + e.StatusBarPanel.ToolTipText;
-                MessageBox.Show(msg, "Informazioni", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                show(msg, "Informazioni", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             if (MyDataAccess == null) return;
 
             if (e.StatusBarPanel == DBUpdate) {
                 string msg = e.StatusBarPanel.Text + "\r" + e.StatusBarPanel.ToolTipText;
-                MessageBox.Show(msg, "Informazioni", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                show(msg, "Informazioni", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
 
             if (this.MdiChildren.Length > 0) {
-                MessageBox.Show(this, "Per eseguire l'operazione richiesta √® necessario prima\n" +
+                show(this, "Per eseguire l'operazione richiesta Ë necessario prima\n" +
                     "chiudere tutte le finestre aperte.");
                 return;
             }
@@ -2521,16 +2574,22 @@ namespace mainform//CompEc//
 
             if (e.StatusBarPanel == DataCont) {
                 if (MustClose) {
-                    MessageBox.Show("Funzione disabilitata. Aggiornare il software, chiudere e riaprire il programma.");
+                    show("Funzione disabilitata. Aggiornare il software, chiudere e riaprire il programma.");
                     return;
                 }
                 frmCambiaDataContabile CambiaDataCont = new frmCambiaDataContabile(Dispatcher);
+                signalCreateForm(CambiaDataCont,this);
                 if (CambiaDataCont.ShowDialog(this) != DialogResult.OK) return;
 
                
 
                 MessageDisplayed = false;
                 MyDataAccess.RecalcUserEnvironment();
+                if (MyDataAccess.openError) {
+	                show("Errore in fase di calcolo dell'ambiente");
+	                Disconnect();
+	                return;
+                }
                 MyDataAccess.ReadAllGroupOperations();
                 ApplyCustomSecurity();
 
@@ -2539,7 +2598,7 @@ namespace mainform//CompEc//
                 currentRole.Text = getRole(MyDataAccess);
                 string newEsercizio = Dispatcher.GetSys("esercizio").ToString();
                 if (oldEsercizio.ToString() != newEsercizio)
-                    ControllaConfigurazioni("(ayear=" + QueryCreator.quotedstrvalue(newEsercizio, true) + ")");
+                    controllaConfigurazioni("(ayear=" + QueryCreator.quotedstrvalue(newEsercizio, true) + ")");
                
                 if (MainMenuMaker != null) MainMenuMaker.ClearMenu(mainMenu1);
                 reenableMenu();
@@ -2548,13 +2607,19 @@ namespace mainform//CompEc//
 
             if (e.StatusBarPanel == Esercizio) {
                 if (MustClose) {
-                    MessageBox.Show("Funzione disabilitata. Aggiornare il software, chiudere e riaprire il programma.");
+                    show("Funzione disabilitata. Aggiornare il software, chiudere e riaprire il programma.");
                     return;
                 }
                 frmCambiaEsercizio CambiaEsercizio = new frmCambiaEsercizio(Dispatcher);
+                signalCreateForm(CambiaEsercizio,this);
                 if (CambiaEsercizio.ShowDialog(this) != DialogResult.OK) return;
                 MessageDisplayed = false;
                 MyDataAccess.RecalcUserEnvironment();
+                if (MyDataAccess.openError) {
+	                show("Errore in fase di calcolo dell'ambiente");
+	                Disconnect();
+	                return;
+                }
                 MyDataAccess.ReadAllGroupOperations();
                 ApplyCustomSecurity();
 
@@ -2563,7 +2628,7 @@ namespace mainform//CompEc//
                 DataCont.Text = ((DateTime)Dispatcher.GetSys("datacontabile")).ToShortDateString();
                 Esercizio.Text = Dispatcher.GetSys("esercizio").ToString();
                 currentRole.Text = getRole(MyDataAccess);
-                ControllaConfigurazioni("(ayear=" + QueryCreator.quotedstrvalue(new_esercizio, true) + ")");
+                controllaConfigurazioni("(ayear=" + QueryCreator.quotedstrvalue(new_esercizio, true) + ")");
 
                 MainMenuMaker?.ClearMenu(mainMenu1);
                 reenableMenu();
@@ -2607,6 +2672,7 @@ namespace mainform//CompEc//
                 if (FormType.Name == "frmScriptByTable") {
                     ConstructorInfo FormBuilder = FormType.GetConstructor(new System.Type[] {typeof(DataAccess) });
                     Form F = (Form)FormBuilder.Invoke(new object[] { MyDataAccess });
+                    signalCreateForm(F, null);
                     F.ShowDialog();
                     return;
                 }
@@ -2619,7 +2685,7 @@ namespace mainform//CompEc//
 
 
         private DialogResult ShowMsg(string msg) {
-            return MessageBox.Show(msg, "Processo di installazione",
+            return show(msg, "Processo di installazione",
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
         }
 
@@ -2630,15 +2696,15 @@ namespace mainform//CompEc//
                 string msg = "Attendere l'aggiornamento Software e DB," +
                     "poi premere OK per continuare l'installazione";
                 if (ShowMsg(msg) != DialogResult.OK) {
-                    MessageBox.Show("Installazione annullata.", "Attenzione",
+                    show("Installazione annullata.", "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
                 if (LiveUpdate.Text != "Aggiornamento software OK" ||
                     DBUpdate.Text != "Aggiornamento DB OK") {
                     msg = "Aggiornamento software e/o DB non terminato, ripetere il " +
-                        "processo di installazione pi√π tardi";
-                    MessageBox.Show(msg, "Attenzione",
+                        "processo di installazione pi˘ tardi";
+                    show(msg, "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -2646,7 +2712,7 @@ namespace mainform//CompEc//
                 //Esecuzione Analizza struttura
                 msg = "Premere OK per eseguire Analizza Struttura";
                 if (ShowMsg(msg) != DialogResult.OK) {
-                    MessageBox.Show("Installazione annullata.", "Attenzione",
+                    show("Installazione annullata.", "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
@@ -2660,7 +2726,7 @@ namespace mainform//CompEc//
                 //Aggiornamento menu
                 msg = "Premere OK per aggiornare il menu";
                 if (ShowMsg(msg) != DialogResult.OK) {
-                    MessageBox.Show("Installazione annullata.", "Attenzione",
+                    show("Installazione annullata.", "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
@@ -2670,14 +2736,14 @@ namespace mainform//CompEc//
                 //Inserimento Ente
                 msg = "Premere OK per inserire l'Ente";
                 if (ShowMsg(msg) != DialogResult.OK) {
-                    MessageBox.Show("Installazione annullata.", "Attenzione",
+                    show("Installazione annullata.", "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
                 if (!Dispatcher.Edit(this, "license", "default", true, null)) {
-                    msg = "Attenzione, non √® stato inserito l'Ente, l'installazione " +
-                        "verr√† terminata.";
-                    MessageBox.Show(msg, "Attenzione",
+                    msg = "Attenzione, non Ë stato inserito l'Ente, l'installazione " +
+                        "verr‡ terminata.";
+                    show(msg, "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
@@ -2687,20 +2753,21 @@ namespace mainform//CompEc//
                 msg = "Premere OK per impostare la cartella dei report";
                 if (ShowMsg(msg) != DialogResult.OK) return;
                 Form f = getFormConfigLiveUpdate();
+                signalCreateForm(f, null);
                 if (f.ShowDialog() != DialogResult.OK) {
-                    msg = "Attenzione, non √® stata impostata la cartella dei report, " +
-                        "l'installazione verr√† terminata.";
-                    MessageBox.Show(msg, "Attenzione",
+                    msg = "Attenzione, non Ë stata impostata la cartella dei report, " +
+                        "l'installazione verr‡ terminata.";
+                    show(msg, "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
 
                 msg = "Installazione terminata con successo";
-                MessageBox.Show(msg, "Informazioni",
+                show(msg, "Informazioni",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception E) {
-                MessageBox.Show("Errore durante l'installazione - PASSO: " + passo +
+                show("Errore durante l'installazione - PASSO: " + passo +
                     "\r\rDetail: " + E.Message, "Errore",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -2709,12 +2776,13 @@ namespace mainform//CompEc//
         private void mnuGenereLiveUpdate_Click(object sender, System.EventArgs e) {
             string file = Application.StartupPath + @"\GeneraLiveUpdate.exe";
             if (!File.Exists(file)) return;
-            System.Diagnostics.Process.Start(file);
+            runProcess(file, true);
         }
 
         bool LittleAdmin = true;
         private void mnuAbilitaAdmin_Click(object sender, System.EventArgs e) {
             FrmAdmin f = new FrmAdmin();
+            signalCreateForm(f, null);
             if (f.ShowDialog() != DialogResult.OK) return;
             LittleAdmin = f.LittleAdmin;
             menuAdmin.Enabled = true;
@@ -2723,7 +2791,7 @@ namespace mainform//CompEc//
             mnuBigAdmin.Enabled = !f.LittleAdmin;
             if (TS == null) {
                 TS = new MyListener();
-                Debug.Listeners.Add(TS);
+                Trace.Listeners.Add(TS);
             }
             if (Dispatcher == null) return;
             if (LittleAdmin) return;
@@ -2765,6 +2833,7 @@ namespace mainform//CompEc//
                 if (formType.Name == "frmDB") {
                     var formBuilder = formType.GetConstructor(new[] { typeof(EntityDispatcher) });
                     var F = (Form)formBuilder.Invoke(new object[] { Dispatcher });
+                    signalCreateForm(F, null);
                     F.ShowDialog();
                     return;
                 }
@@ -2787,7 +2856,7 @@ namespace mainform//CompEc//
         private void menuItem22_Click(object sender, System.EventArgs e) {
             if (TS == null) {
                 TS = new MyListener();                
-                Debug.Listeners.Add(TS);
+                Trace.Listeners.Add(TS);
                 
             }
             TS.ShowErrors();
@@ -2798,6 +2867,7 @@ namespace mainform//CompEc//
                 Description = "Seleziona la cartella in cui si trovano i file (*.zip) da estrarre",
                 ShowNewFolderButton = false
             };
+            
             if (folderDlg.ShowDialog() != DialogResult.OK) return;
             string currdir = folderDlg.SelectedPath;
             string extractdir = currdir + @"\extract\";
@@ -2810,7 +2880,7 @@ namespace mainform//CompEc//
                 XZip.ExtractFiles(f.FullName, extractdir, filename, true, false);
             }
             Cursor.Current = Cursors.Default;
-            MessageBox.Show("File estratti in " + extractdir, "Estrazione file",
+            show("File estratti in " + extractdir, "Estrazione file",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
@@ -2833,13 +2903,21 @@ namespace mainform//CompEc//
         private void mnuLiveUpdateSync_Click(object sender, System.EventArgs e) {
             string file = Application.StartupPath + @"\LiveUpdateSync.exe";
             if (!File.Exists(file)) return;
-            System.Diagnostics.Process.Start(file);
+            runProcess(file, true);
         }
 
-        private void mnuCambiaPassword_Click(object sender, System.EventArgs e) {
-            if (Dispatcher == null) return;
-            MetaData M1 = Dispatcher.Get("changepassword");
-            M1.Edit(this, "default", true);
+        private void mnuCambiaPassword_Click(object sender, System.EventArgs e)
+        {
+            //if (Dispatcher == null) return;
+            //MetaData M1 = Dispatcher.Get("changepassword");
+            //M1.Edit(this, "default", true);
+
+            Frm_changepassword_default changePwd = new Frm_changepassword_default(MyDataAccess);
+            signalCreateForm(changePwd, this);
+            if (changePwd != null)
+            {
+                changePwd.ShowDialog(this);
+            }
         }
 
         private void menuHelp_Click(object sender, System.EventArgs e) {
@@ -2857,6 +2935,7 @@ namespace mainform//CompEc//
             Updatetimer1.Stop();
             timer1.Stop();
             Form F = MetaData.GetFormByDllName("Install");
+            signalCreateForm(F,this);
             if (F != null) {
                 F.ShowDialog(this);
             }
@@ -2887,18 +2966,20 @@ namespace mainform//CompEc//
 
         private void menuItem12_Click_2(object sender, System.EventArgs e) {
             FrmLinkUser F = new FrmLinkUser(MyDataAccess);
+            signalCreateForm(F,this);
             F.ShowDialog(this);
             return;
         }
 
         private void menuItem14_Click(object sender, System.EventArgs e) {
             FrmAdmin F = new FrmAdmin();
+            signalCreateForm(F,this);
             F.ShowDialog(this);
             if (F.txtPwd.Text == "") return;
             if (MyDataAccess == null) return;
             string S = MyDataAccess.GetSys(F.txtPwd.Text) as string;
             if (S == null) return;
-            MessageBox.Show(S);
+            show(S);
         }
 
         private void menuItem13_Click_1(object sender, EventArgs e) {
@@ -2915,7 +2996,7 @@ namespace mainform//CompEc//
         private void menuItem16_Click_1(object sender, EventArgs e) {
             if ((this.OwnedForms.Length > 0) ||
                 (MdiChildren.Length > 0)) {
-                MessageBox.Show("Per poter cambiare ruolo √® necessario chiudere prima tutte le finestre.");
+                show("Per poter cambiare ruolo Ë necessario chiudere prima tutte le finestre.");
                 return ;
             }
 
@@ -2929,6 +3010,10 @@ namespace mainform//CompEc//
                     reenableMenu();
                     SetMenu(ShowAdminMenu, LittleAdmin);
                     currentRole.Text = getRole(MyDataAccess);
+
+                    if (ciSonoAvvisi(MyDataAccess)) {
+                        Dispatcher.Edit(this, "no_table", "alert", true, null);
+                    }
                 }
                 finally {
                     operating = false;
@@ -3020,7 +3105,7 @@ namespace mainform//CompEc//
             SWR.Close();
             SWR.Dispose();
             Cursor.Current = Cursors.Default;
-            MessageBox.Show(N.ToString() + " file compressi in " + zipdir + "\\allfiles", "Unione file",
+            show(N.ToString() + " file compressi in " + zipdir + "\\allfiles", "Unione file",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         private string getCampoSuccessivo(string message, ref int inizio) {
@@ -3102,11 +3187,11 @@ namespace mainform//CompEc//
             string versionfile = currdir + (IsNet45OrNewer() ? "versionesw4.txt" : "versionesw.txt");
             try {
                 if (!File.Exists(indexfile)) {
-                    MessageBox.Show("Non esiste " + indexfile);
+                    show("Non esiste " + indexfile);
                     return;
                 }
                 if (!File.Exists(versionfile)) {
-                    MessageBox.Show("Non esiste " + versionfile);
+                    show("Non esiste " + versionfile);
                     return;
                 }
             }
@@ -3116,7 +3201,7 @@ namespace mainform//CompEc//
             StreamReader read1 = f.OpenText();
             string localVersion = read1.ReadLine();
             read1.Close();
-            MessageBox.Show("La versione locale ricavata dal file " + versionfile + " √® " + localVersion);
+            show("La versione locale ricavata dal file " + versionfile + " Ë " + localVersion);
 
 
             DataSet locindex = new DataSet();
@@ -3165,7 +3250,7 @@ namespace mainform//CompEc//
                 QueryCreator.ShowError(this, "Differenze trovate", res);
             }
             else {
-                MessageBox.Show("Non sono state trovate incoerenze nel file " + indexfile +
+                show("Non sono state trovate incoerenze nel file " + indexfile +
                     " rispetto alle versioni delle dll");
 
             }
@@ -3223,6 +3308,8 @@ namespace mainform//CompEc//
         private void LanciaScriptTuttiDip(object sender, EventArgs e) {
             frmScriptLauncher Frm = new frmScriptLauncher(MyDataAccess);
             Frm.Show(this);
+            signalCreateForm(Frm, this);
+
         }
 
         private void menuItem36_Click(object sender, EventArgs e) {
@@ -3236,7 +3323,7 @@ namespace mainform//CompEc//
         private void mnuIndiceGuida_Click(object sender, EventArgs e) {
             string currdir = AppDomain.CurrentDomain.BaseDirectory;
             if (!currdir.EndsWith("\\")) currdir += "\\";
-            Process.Start(currdir+"indice_mht.mht");
+            runProcess(currdir+"indice_mht.mht", true);
             
         }
 
@@ -3250,6 +3337,7 @@ namespace mainform//CompEc//
 
             frmPalette p = new frmPalette(1);
             p.Show();
+            signalCreateForm(p, null);
 
         }
 
@@ -3284,16 +3372,18 @@ namespace mainform//CompEc//
         private void menuTeamViewer_Click(object sender, EventArgs e) {
             string path = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
 
-            Process.Start(Path.Combine(path , "TeamViewerQS_it-idcbh5dn2z.exe"),"");
+            runProcess(Path.Combine(path , "TeamViewerQS_it-idcbh5dn2z.exe"), true);
         }
 
         private void mnuCreaStruttura_Click(object sender, EventArgs e) {
             LiveUpdate.frmPath frmXML = new LiveUpdate.frmPath();
+            signalCreateForm(frmXML,null);
             frmXML.ShowDialog();
         }
 
         private void menuItem23_Click(object sender, EventArgs e) {
             FrmSetAssInfo f = new FrmSetAssInfo();
+            signalCreateForm(f,this);
             f.ShowDialog(this);
         }
 
@@ -3321,27 +3411,27 @@ namespace mainform//CompEc//
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e) {
             if ((MyDownloadSW != null) && (MyDownloadSW.is_alive)) {
-                MessageBox.Show("Attendere il completamento dell'aggiornamento del software prima di chiudere il programma", "Avviso");
+                show("Attendere il completamento dell'aggiornamento del software prima di chiudere il programma", "Avviso");
                 e.Cancel = true;
                 return;
             }
             if ((MyDownloadDB != null) && (MyDownloadDB.is_alive)) {
-                MessageBox.Show("Attendere il completamento dell'aggiornamento del db prima di chiudere il programma", "Avviso");
+                show("Attendere il completamento dell'aggiornamento del db prima di chiudere il programma", "Avviso");
                 e.Cancel = true;
                 return;
             }
             if (!isInited) {
-                MessageBox.Show("Attendere il completamento dell'apertura del programma prima di chiuderlo", "Errore");
+                show("Attendere il completamento dell'apertura del programma prima di chiuderlo", "Errore");
                 e.Cancel = true;
                 return;
             }
             if (connecting) {
-                MessageBox.Show("Attendere il completamento della connessione", "Errore");
+                show("Attendere il completamento della connessione", "Errore");
                 e.Cancel = true;
                 return;
             }
             if (operating) {
-                MessageBox.Show("Attendere il completamento dell'operazione in corso", "Errore");
+                show("Attendere il completamento dell'operazione in corso", "Errore");
                 e.Cancel = true;
                 return;
             }
@@ -3351,6 +3441,12 @@ namespace mainform//CompEc//
 
         private void menuTeamViewer2_Click(object sender, EventArgs e) {
             menuTeamViewer_Click(sender, e);
+        }
+
+        private void menuItem24_Click(object sender, EventArgs e) {
+	        if (Dispatcher == null) return;
+	        MetaData M1 = Dispatcher.Get("no_table");
+	        M1.Edit(this, "scriptcomuni", false);
         }
     }
 
@@ -3421,6 +3517,7 @@ namespace mainform//CompEc//
             }
             updateViewError();
             Err.Show();
+            
         }
 
     }
@@ -3469,4 +3566,3 @@ namespace mainform//CompEc//
     }
 
 }
-

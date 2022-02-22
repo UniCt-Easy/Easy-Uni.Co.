@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_progettoudr_seg" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_progettoudr_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="registry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="progettoudrmembrokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idprogettoudrmembrokind" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="progettoudrmembro" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="_x0021_orerendicontate" type="xs:int" minOccurs="0" />
+              <xs:element name="costoorario" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idprogettoudr" type="xs:int" />
+              <xs:element name="idprogettoudrmembro" type="xs:int" />
+              <xs:element name="idprogettoudrmembrokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="impegno" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="orepreventivate" type="xs:int" minOccurs="0" />
+              <xs:element name="ricavoorario" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_idprogettoudrmembrokind_progettoudrmembrokind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_registry_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="progettoudr" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="_x0021_budgetore" type="xs:decimal" minOccurs="0" />
+              <xs:element name="assegniricerca" type="xs:int" minOccurs="0" />
+              <xs:element name="borsedottorati" type="xs:int" minOccurs="0" />
+              <xs:element name="budget" type="xs:decimal" minOccurs="0" />
+              <xs:element name="contrattirtd" type="xs:int" minOccurs="0" />
+              <xs:element name="contributo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idprogettoudr" type="xs:int" />
+              <xs:element name="impegnototale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="impegnototaleore" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="progettoudrmembrokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:progettoudrmembrokind" />
+      <xs:field xpath="mstns:idprogettoudrmembrokind" />
+    </xs:unique>
+    <xs:unique name="progettoudrmembro_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:progettoudrmembro" />
+      <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idprogettoudr" />
+      <xs:field xpath="mstns:idprogettoudrmembro" />
+    </xs:unique>
+    <xs:unique name="progettoudr_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:progettoudr" />
+      <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idprogettoudr" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_progettoudrmembro_progettoudr_idprogetto-idprogettoudr" msdata:parent="progettoudr" msdata:child="progettoudrmembro" msdata:parentkey="idprogetto idprogettoudr" msdata:childkey="idprogetto idprogettoudr" />
+      <msdata:Relationship name="FK_progettoudrmembro_registry_idreg" msdata:parent="registry" msdata:child="progettoudrmembro" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_progettoudrmembro_progettoudrmembrokind_idprogettoudrmembrokind" msdata:parent="progettoudrmembrokind" msdata:child="progettoudrmembro" msdata:parentkey="idprogettoudrmembrokind" msdata:childkey="idprogettoudrmembrokind" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

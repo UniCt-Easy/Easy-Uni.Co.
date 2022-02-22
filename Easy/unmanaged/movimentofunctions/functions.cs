@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,8 +26,10 @@ using gestioneclassificazioni;
 using manage_automatismi;
 using System.Collections.Generic;
 using System.Collections;
+using System.Text;
+using q = metadatalibrary.MetaExpression;
 
-namespace movimentofunctions{
+namespace movimentofunctions {
 	
 
 
@@ -46,7 +47,7 @@ namespace movimentofunctions{
 		DataAccess Conn;
 		MetaDataDispatcher Disp;
 		bool viewMainMov;
-		AutomatismiGenerati dsAuto = new AutomatismiGenerati();
+		public AutomatismiGenerati dsAuto = new AutomatismiGenerati();
         CQueryHelper QHC;
         QueryHelper QHS;
 
@@ -511,7 +512,7 @@ namespace movimentofunctions{
                     }
                     DataRow[] MainRows = T.Select(filter);
                     if (MainRows.Length == 0) {
-                        MessageBox.Show("Errore, riga non trovata in GeneraRigheVarMovimento");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore, riga non trovata in GeneraRigheVarMovimento");
                         return false;
                     }
                     DataRow MainRow = MainRows[0];
@@ -677,7 +678,7 @@ namespace movimentofunctions{
 							object codicecreddeb = R["idreg"];
                             DataRow ModPagam = GetModPagamDefault(codicecreddeb);
 							if (ModPagam==null) {
-								MessageBox.Show(
+								MetaFactory.factory.getSingleton<IMessageShower>().Show(
 									"E' necessario che sia definita almeno una modalità di pagamento per il percipiente "+
 									"\""+R["registry"].ToString()+"\"\n\n"+
 									"Dati non salvati", "Errore", MessageBoxButtons.OK);
@@ -862,6 +863,7 @@ expenseflagseparatemanager 16
             DataRow[] AutoMainSpesa = Auto.Tables["expense"].Select(filterMainSpesa);
             /*
              * 2	Liquidazione ritenute
+			 * 6	Recupero (Split Payment ecc.)
              * 7	Chiusura fondo economale
              * 12	Liquidazione IVA
              * 13	Acconto IVA
@@ -871,7 +873,7 @@ expenseflagseparatemanager 16
              * 18	Liquidazione IVA intrastat consolidata interna
              * 19	Liquidazione IVA intrastat consolidata esterna
              */
-            string listaAutokind = QHC.List(2, 7, 12, 13, 15, 16, 17, 18, 19);
+            string listaAutokind = QHC.List(2, 6, 7, 12, 13, 15, 16, 17, 18, 19);
             string filterAutoMov = QHC.AppAnd(QHC.CmpEq("nphase", faseentratamax), QHC.FieldInList("autokind", listaAutokind));
             int Nspecial = Auto.Tables["income"].Select(filterAutoMov).Length;
 
@@ -893,11 +895,11 @@ expenseflagseparatemanager 16
 			
 			DataRow[] cassiere = Cassiere.Select(QHC.CmpEq("flagdefault","S"));
             if (cassiere == null || cassiere.Length == 0) cassiere = Cassiere.Select();
-			if ((cassiere==null)||(cassiere.Length!=1)){
-                MessageBox.Show(
-                    "Non è stato possibile generare le reversali poiché non c'è un istituto cassiere predefinito.");
-                return;
-			}
+			//if ((cassiere == null) || (cassiere.Length != 1)) {
+			//	MetaFactory.factory.getSingleton<IMessageShower>().Show(
+			//		"Non è stato possibile generare le reversali poiché non c'è un istituto cassiere predefinito.");
+			//	return;
+			//}
 			if (cassiere.Length==1) MetaData.SetDefault(Auto.Tables["proceeds"], 
 										"idtreasurer", 
 										cassiere[0]["idtreasurer"]);
@@ -1043,7 +1045,7 @@ expenseflagseparatemanager 16
             DataRow[] cassiere = Cassiere.Select(QHC.CmpEq("flagdefault", "S"));
             if (cassiere == null || cassiere.Length == 0) cassiere = Cassiere.Select();
 			if (cassiere.Length!=1){
-				MessageBox.Show(
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(
 					"Non è stato possibile generare i mandati poiché non c'è un tesoriere predefinito.");
 				return;
 			}
@@ -1462,6 +1464,12 @@ expenseflagseparatemanager 16
                 // Se in rAuto ci sono più righe che in RowSource (caso in cui viene aggiunta qualche classificazione
                 // automatica) allora viene eseguito questo ciclo che aggiunge le righe nella tabella di origine
                 for(int j = RowSource.Length;j < rAuto.Length;j++) {
+                    //Se in Source c'è già una riga con la stessa chiave, non deve copiarla di nuovo da rAuto, non deve fare l'Add. E quindi non deve eseguire il ciclo.
+                    string filterbykey = QueryCreator.WHERE_KEY_CLAUSE(rAuto[j], DataRowVersion.Current, false);
+                    DataRow[] rowSourcebyKey = tSource.Select(filterbykey);
+                    // Se trova righe che hanno già quella chiave, non deve fare l'Add.
+                    if (rowSourcebyKey.Length >0) continue;
+
                     DataRow rSource = tSource.NewRow();
                     foreach(DataColumn C in tAuto.Columns) {
                         if(!tSource.Columns.Contains(C.ColumnName)) continue;
@@ -1892,7 +1900,7 @@ expenseflagseparatemanager 16
                             "    and (SK.stop is null or SK.stop>="+Conn.GetSys("esercizio").ToString()+") "+
                             "	and (isnull(SK.active,'S')='S') ";
                 // nphaseincome andrà poi filtrato a valle, così come idchild
-                tClassMovI = Conn.SQLRunner(sql,true);
+                tClassMovI = Conn.SQLRunner(sql,true,0);
             }
             if (IoE == "E" && tClassMovE == null) {
                 string list = getIdList(tMov, "parentidexp", 900000000);
@@ -1915,7 +1923,7 @@ expenseflagseparatemanager 16
                             "    and (SK.stop is null or SK.stop>=" + Conn.GetSys("esercizio").ToString() + ") " +
                             "	and (isnull(SK.active,'S')='S') ";
                 // nphaseexpense andrà poi filtrato a valle
-                tClassMovE = Conn.SQLRunner(sql, true);
+                tClassMovE = Conn.SQLRunner(sql, true,0);
             }
 
         }
@@ -1935,7 +1943,9 @@ expenseflagseparatemanager 16
             int faseentratamax = CfgFn.GetNoNullInt32(Conn.GetSys("maxincomephase"));
             foreach (DataRow CurrMov in Auto.Tables[movtable].Select(fAutomatismi)) {
                 string filterid = QHC.CmpEq(idmovimento, CurrMov[idmovimento]);
-                DataRow CurrImputazioneMov = Auto.Tables[movtable + "year"].Select(filterid)[0];
+                var rows = Auto.Tables[movtable + "year"].Select(filterid);
+                if (rows.Length == 0) continue;
+                DataRow CurrImputazioneMov = rows[0];
                 if (CurrImputazioneMov.RowState != DataRowState.Added) continue;
                 int currfase = CfgFn.GetNoNullInt32(CurrMov["nphase"]);
                 if ((IoE == "E") && (currfase != fasespesamax)) continue;
@@ -2032,7 +2042,7 @@ expenseflagseparatemanager 16
         /// <param name="movtable"></param>
         /// <param name="allmov">se true applica le class. anche ai mov.principali (quelli che hanno autokind null)</param>
         void GeneraClassificazioniAutomatichePerAutomatismi(DataSet Auto, string movtable, bool allmov) {
-
+	        QueryCreator.MarkEvent($"GeneraClassificazioniAutomatichePerAutomatismi(Auto,{movtable},{allmov})");
 			if (Auto.Tables[movtable]==null) return;
 			if (AllTipoClassMov==null) AllTipoClassMov = Conn.RUN_SELECT("sortingkind",
 											"idsorkind, nphaseincome, nphaseexpense",null,null,null,true);
@@ -2048,6 +2058,7 @@ expenseflagseparatemanager 16
             Dictionary<int,DataRow> movyearById = new Dictionary<int, DataRow>();
             Dictionary<int,List<DataRow>> classById = new Dictionary<int, List<DataRow>>();
             foreach (DataRow ry in Auto.Tables[movtable + "year"].Rows) {
+                if (ry.RowState == DataRowState.Deleted) continue;
                 movyearById[(int) ry[idmovimento]] = ry;
                 classById[(int) ry[idmovimento]] = new List<DataRow>();
             }
@@ -2059,6 +2070,8 @@ expenseflagseparatemanager 16
             }
 
             foreach (DataRow classRow in ImpClass.Rows) {
+                if (classRow.RowState == DataRowState.Deleted) continue;
+
                 //evita eccezioni in alcuni casi (task 13270)
                 if (!classById.ContainsKey((int) classRow[idmovimento])) continue;
 
@@ -2100,7 +2113,7 @@ expenseflagseparatemanager 16
 									);
 				}
 				catch (Exception E) {
-					MessageBox.Show(E.Message);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(E.Message);
 					return;
 				}
 				if ((OutDS==null) ||(OutDS.Tables.Count==0)) return; //no autoclass
@@ -2140,9 +2153,6 @@ expenseflagseparatemanager 16
 				//RowChange.SetSelector(ImpClass, "idsorkind");
 				RowChange.SetSelector(ImpClass, idmovimento);
 				RowChange.SetSelector(ImpClass, "idsor");
-
-
-                
 		
 
 				//for every row in OutDS.Tables[0]:
@@ -2177,6 +2187,7 @@ expenseflagseparatemanager 16
 					}
 				}
 			}
+	
 		}
         
         /// <summary>
@@ -2370,7 +2381,14 @@ expenseflagseparatemanager 16
                 n["idsorkind"] = R["idsorkind"];
                 n["idsor"] = R["idsortingchild"];
                 n["idsubclass"] = 1;
-                n["amount"] = CfgFn.GetNoNullDouble(classifamount) * CfgFn.GetNoNullDouble(R["numerator"]) / CfgFn.GetNoNullDouble(R["denominator"]);
+                if (R["numerator"] == DBNull.Value && R["denominator"] == DBNull.Value) {
+	                n["amount"] = CfgFn.GetNoNullDouble(classifamount);
+                }
+                else {
+	                n["amount"] = CfgFn.GetNoNullDouble(classifamount) * CfgFn.GetNoNullDouble(R["numerator"]) /
+	                              CfgFn.GetNoNullDouble(R["denominator"]);
+                }
+
                 n["description"] = "classificato automaticamente";
                 n["txt"] = DBNull.Value;
                 n["rtf"] = DBNull.Value;
@@ -2525,7 +2543,7 @@ expenseflagseparatemanager 16
 								);
 			}
 			catch (Exception E) {
-				MessageBox.Show(E.Message);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(E.Message);
 				return;
 			}
 			if ((OutDS==null)||(OutDS.Tables.Count==0)) return; //no autoclass
@@ -2559,22 +2577,186 @@ expenseflagseparatemanager 16
 				GestioneClassificazioni.CalcFlag(Conn, MyDR, AutoClass["idsorkind"]);
 			}
 		}
+		private Dictionary<int, bool> siopeClassUsed = new Dictionary<int, bool>();
 
-        /// <summary>
-        /// Classifica in base a "Configurazione classificazione automatica spese" e "classificazioni dipendenti"
-        ///  i movimenti che non siano già classificati secondo quei tipi class.
-        /// </summary>
-        /// <param name="Auto"></param>
-        /// <param name="allmov"></param>
-		public void GeneraClassificazioniAutomatiche(DataSet Auto,bool allmov) {
-			GeneraClassificazioniAutomatichePerAutomatismi(Auto, "income",allmov);
-			GeneraClassificazioniAutomatichePerAutomatismi(Auto, "expense",allmov);
-            SmistaClassificazioni(Auto, "income");
-            SmistaClassificazioni(Auto, "expense"); 
+		public void markIdsorAsSiope(object idsor) {
+			if (idsor == null) return;
+			if (idsor == DBNull.Value) return;
+			siopeClassUsed[CfgFn.GetNoNullInt32(idsor)] = true;
+		}
+
+		private bool prefilledIncome = false;
+		private bool prefilledExpense = false;
+
+		public void prefillSiopeSorting(bool entrate) {
+			if (prefilledIncome && entrate) return;
+			if (prefilledExpense && (entrate == false)) return;
+			if (entrate) {
+				prefilledIncome = true;
+			} else {
+				prefilledExpense = true;
+			}
+
+			object codesorkind = entrate
+				? Conn.Security.GetSys("codesorkind_siopeentrate")
+				: Conn.Security.GetSys("codesorkind_siopespese");
+			object idsorkind = Conn.readValue("sortingkind", q.eq("codesorkind", codesorkind), "idsorkind");
+			if (idsorkind == null || idsorkind == DBNull.Value) return;
+			var tSorting =  Conn.readFromTable("sorting", q.eq("idsorkind", idsorkind));
+			foreach (DataRow r in tSorting.Rows) {
+				siopeClassUsed[CfgFn.GetNoNullInt32(r["idsor"])] = true;
+			}
+		}
+
+
+		static DataTable callSp(DataAccess Conn, List<string> idUpbList) {
+			StringBuilder sb = new StringBuilder();
+			sb.AppendLine("DECLARE @lista AS string_list;");
+			int currblockLen = 0;
+			foreach (string id in idUpbList) {
+				if (currblockLen == 0) {
+					sb.Append($"insert into @lista values ('{id}')");
+				} else {
+					sb.Append($",('{id}')");
+				}
+
+				currblockLen++;
+				if (currblockLen == 20) {
+					sb.AppendLine(";");
+					currblockLen = 0;
+				}
+			}
+			if (currblockLen > 0) sb.AppendLine(";");
+			sb.AppendLine($"exec  get_upb_info @lista");
+			return Conn.SQLRunner(sb.ToString());
+		}
+
+		
+
+		private Dictionary<string, DataRow> UpbUsed = new Dictionary<string, DataRow>();
+
+		/// <summary>
+		/// Rifinisce le righe della tabella ImpClass per adeguare gli importi in base all'upb
+		/// </summary>
+		/// <param name="DS_toclassify"></param>
+		/// <remarks>siopeClassUsed deve essere pre-riempita con le class.siope usate</remarks>
+		public void completaClassificazioniSiope(DataTable impClass, DataSet DS_toclassify) {
+			//Prendiamo le righe che stanno in ImpClass il cui "idsor" è incluso in siopeClassUsed, dictionary degli idsor Siope 
+			string tableName = impClass.TableName;
+			if (tableName == "incomesorted") return; // Disabilitiamo la gestione DATI ARCONET per la SIOPE Entrate
+
+			string idMovField = (tableName == "incomesorted") ? "idinc" : "idexp";
+
+			string ImpMovYear = (tableName == "incomesorted") ? "incomeyear" : "expenseyear";
+			if (!DS_toclassify.Tables.Contains(ImpMovYear)) return; //Il ds non contiene l'imputazione del movimento, non è possibile integrare
+
+            // siopeClassUsed non è mai null
+            // UpbUsed non è mai null
+
+			var IdMov_IdUpb = new Dictionary<int, string>();
+
+			if (impClass.Rows.Count == 0) return;
+			foreach (DataRow impRow in impClass.Rows) {
+				//Nel dictionary mettiamo solo gli idmov associati a classificazioni siope 
+				if (impRow.RowState == DataRowState.Deleted) continue;
+				if (impRow.RowState != DataRowState.Added) continue;
+				int idsor = CfgFn.GetNoNullInt32(impRow["idsor"]);
+				int idmov = CfgFn.GetNoNullInt32(impRow[idMovField]);
+				if ((siopeClassUsed.ContainsKey(idsor)) && (!IdMov_IdUpb.ContainsKey(idmov))) IdMov_IdUpb.Add(idmov, "");
+
+			}
+
+			var listaUpbMancanti = new List<string>();
+
+			foreach (DataRow row in DS_toclassify.Tables[ImpMovYear].Rows) {
+				//cerca le righe mancanti nel dictionary rispetto a quelle usate col siope
+				string idupb = row["idupb"].ToString();
+				int idmov = CfgFn.GetNoNullInt32(row[idMovField]);
+				if (IdMov_IdUpb.ContainsKey(idmov)) IdMov_IdUpb[idmov] = idupb;
+				if (!UpbUsed.ContainsKey(idupb)) {
+					UpbUsed[idupb] = null;
+					listaUpbMancanti.Add(idupb);
+				}
+			}
+
+			if (listaUpbMancanti.Count > 0) {
+				DataTable T = callSp(Conn, listaUpbMancanti);
+				if (T != null && T.Columns.Contains("codeupb")) {
+					foreach (DataRow row in T.Rows) {
+						string idupb = row["idupb"].ToString();
+						UpbUsed[idupb] = row;
+					}
+				}
+			}
+
+			//Prendiamo le righe di expense/incomesorted e usando l'idupb che abbiamo memorizzato in dic1 e la riga del dic2 e con quello facciamo l'integrazione dei dati
+			foreach (DataRow impClassRow in impClass.Rows) {
+				if (impClassRow.RowState == DataRowState.Deleted) continue;
+				int idsor = CfgFn.GetNoNullInt32(impClassRow["idsor"]);
+				int idmov = CfgFn.GetNoNullInt32(impClassRow[idMovField]);
+				if ((siopeClassUsed.ContainsKey(idsor)) &&
+				    ((tableName == "expensesorted") || (tableName == "incomesorted") ||
+				     (tableName == "pettycashsorted"))) {
+
+					if (IdMov_IdUpb.ContainsKey(idmov)) {
+						string idupb = IdMov_IdUpb[idmov];
+						if (UpbUsed.ContainsKey(idupb)) {
+							DataRow rUpb = UpbUsed[idupb];
+							if (rUpb == null) continue;
+							if (rUpb["uesiopecode"] != DBNull.Value) {
+								impClassRow["values1"] = rUpb["uesiopecode"];
+							}
+
+							if (rUpb["cofogmpcode"] != DBNull.Value) {
+								impClassRow["values2"] = rUpb["cofogmpcode"];
+							}
+						}
+					}
+				}
+			}
+
+			//caso ExpenseSorted/IncomeSorted
+			//Per ognuna di queste righe aggiungiamo il relativo idexp/idinc ad un dictionary int-string (che sarebbe l'idupb) con valore stringa vuota come "value" (dic1)
+
+			//per ogni riga di expenseyear/incomeyear vediamo : se l'idexp/inc è incluso nel dictionary di sopra (dic1), valorizziamo il "value" da stringa vuota a quello giusto
+
+			//Ci costruiamo un dictionary<string,bool> di upb "utilizzati" partendo da un dict. vuoto e poi aggiungendo tutti quelli usati come value in dic1
+
+			//A questo punto abbiamo tutti gli idupb distinti usati e questi li diamo in pasto ad una sp che ci dia i valori desiderati - > otteniamo una tabella con chiave idupb
+			//ci costruiamo con questa tabella un dictionari string-datarow  dove string è l'idupb e datarow è la riga della tabella  (dic2)
+
+			//Prendiamo le righe di expense/incomesorted e usando l'idupb che abbiamo memorizzato in dic1 e la riga del dic2 e con quello facciamo l'integrazione dei dati
 
 		}
 
+		/// <summary>
+		/// Classifica in base a "Configurazione classificazione automatica spese" e "classificazioni dipendenti"
+		///  i movimenti che non siano già classificati secondo quei tipi class.
+		/// </summary>
+		/// <param name="Auto"></param>
+		/// <param name="allmov"></param>
+		public void GeneraClassificazioniAutomatiche(DataSet Auto,bool allmov) {
+			QueryCreator.MarkEvent("GeneraClassificazioniAutomatiche");
+			GeneraClassificazioniAutomatichePerAutomatismi(Auto, "income",allmov);
+			GeneraClassificazioniAutomatichePerAutomatismi(Auto, "expense",allmov);
+			 // Disabilitiamo la gestione DATI ARCONET per la SIOPE Entrate
+
+			//if (Auto.Tables.Contains("incomesorted")) {
+			//	prefillSiopeSorting(true);
+			//	completaClassificazioniSiope(Auto.Tables["incomesorted"], Auto);
+			//}
+			//siopeClassUsed.Clear();
+			if (Auto.Tables.Contains("expensesorted")) {
+				prefillSiopeSorting(false);
+				completaClassificazioniSiope(Auto.Tables["expensesorted"], Auto);
+			}
+			SmistaClassificazioni(Auto, "income");
+            SmistaClassificazioni(Auto, "expense");
+			
+		}
+
         void SmistaClassificazioni (DataSet Auto,string movkind) {
+			QueryCreator.MarkEvent($"SmistaClassificazioni(Auto,{movkind})");
             if (Auto.Tables[movkind] == null) return;
             if (Auto.Tables[movkind + "sorted"] == null) return;
             DataTable T = Auto.Tables[movkind];
@@ -2592,7 +2774,7 @@ expenseflagseparatemanager 16
 
                 string filter= QHC.CmpEq("idsorkind", idsorkind);
                 if (AllTipoClassMov.Select(filter).Length == 0) {
-                    //MessageBox.Show($"Tipo classificazione {idsorkind} non trovato o non utilizzabile", "Errore");
+                    //MetaFactory.factory.getSingleton<IMessageShower>().Show($"Tipo classificazione {idsorkind} non trovato o non utilizzabile", "Errore");
                     continue;                    
                 }
                 DataRow TipoR = AllTipoClassMov.Select(filter)[0];
@@ -3224,7 +3406,7 @@ expenseflagseparatemanager 16
 									);
 				}
 				catch (Exception E) {
-					MessageBox.Show(E.Message);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(E.Message);
 					continue;
 				}
 				if ((OutDS==null)||(OutDS.Tables.Count==0)) continue; //no autoclass
@@ -3322,9 +3504,11 @@ expenseflagseparatemanager 16
 			}
 		}
         public void integraCopiaDatiDaDatasetPrincipaleASecondario() {
+	        QueryCreator.MarkEvent("integraCopiaDatiDaDatasetPrincipaleASecondario");
             foreach(DataTable t in sourceDataSet.Tables) {
                 if (dsAuto.Tables[t.TableName] != null ) continue; //& !t.HasChanges()
                 if (!t.HasChanges()) continue;
+				//QueryCreator.MarkEvent($"dsAuto.Merge({t.TableName},false,add)");
                 dsAuto.Merge(t, false, MissingSchemaAction.Add);
             }
         }
@@ -3334,8 +3518,10 @@ expenseflagseparatemanager 16
 		/// </summary>
 		/// <param name="dest"></param>
 		private void copiaDatiDaDatasetPrincipaleASecondario(DataSet dsSource) {
+			QueryCreator.MarkEvent("copiaDatiDaDatasetPrincipaleASecondario");
 			foreach(DataTable t in dsSource.Tables) {
 				if (dsAuto.Tables[t.TableName] == null ) continue; //& !t.HasChanges()
+				//QueryCreator.MarkEvent($"dsAuto.Merge({t.TableName},false,add)");
 				dsAuto.Merge(t, false, MissingSchemaAction.Add);
 			}
 		}
@@ -3356,7 +3542,7 @@ expenseflagseparatemanager 16
         private bool aggiungiTabelle(DataSet dsSource) {
 			foreach(DataTable t in dsSource.Tables) {
                 // Controllo se la tabella è stata modificata
-                if (!hasChanges(t)) {
+                if (!hasChanges(t) && t.TableName!="estimate" && t.TableName!="mandate") {
                     continue;
                 }
                     // Controllo sull'esistenza della tabella nel dataset di destinazione
@@ -3422,6 +3608,7 @@ expenseflagseparatemanager 16
         /// <param name="ClassifyAll">se false non opera sulle class. dei movimenti principali</param>
 		/// <returns></returns>
 		public bool GeneraAutomatismiAfterPost(bool visualizzaForm, bool ClassifyAll){
+			QueryCreator.MarkEvent($"GeneraAutomatismiAfterPost({visualizzaForm},{ClassifyAll})");
 			if (!dsAuto.automatismitable.Columns.Contains("livsupid")) {
 				dsAuto.automatismitable.Columns.Add("livsupid", typeof(int));
 			}
@@ -3489,7 +3676,15 @@ expenseflagseparatemanager 16
 				DialogResult dr = ma.ShowDialog();
 				if (dr != DialogResult.OK) return false;
 			}
-
+			if (dsAuto.Tables.Contains("incomesorted")) {
+				prefillSiopeSorting(true);
+				completaClassificazioniSiope(dsAuto.Tables["incomesorted"], dsAuto);
+			}
+			//siopeClassUsed.Clear();
+			if (dsAuto.Tables.Contains("expensesorted")) {
+				prefillSiopeSorting(false);
+				completaClassificazioniSiope(dsAuto.Tables["expensesorted"], dsAuto);
+			}
 			return aggiungiTabelle(sourceDataSet);
 		}
 
@@ -3711,10 +3906,15 @@ expenseflagseparatemanager 16
 			MetaData MetaVar= Disp.Get(Movimento.TableName+"var");
 			MetaVar.SetDefaults(NewT);
 			NewDS.Tables.Add(NewT);
+
+            DataTable Tsorted = Conn.CreateTableByName(Movimento.TableName + "sorted", null);
+            MetaData MetaS = Disp.Get(Movimento.TableName + "sorted");
+            MetaS.SetDefaults(Tsorted);
+            NewDS.Tables.Add(Tsorted);
+
             DateTime Adate = (DateTime)Conn.GetSys("datacontabile");
             if (CurrMov["adate"] != DBNull.Value) Adate = (DateTime)CurrMov["adate"];
            
-
 
 			foreach(DataRow Var in AutoVar.Rows){
                 MetaData.SetDefault(NewT, idmovimento, Var[idmovimento]);
@@ -3727,11 +3927,39 @@ expenseflagseparatemanager 16
                            NewT.Columns.Contains("idunderwriting"))
                         newVar["idunderwriting"] = Var["idunderwriting"];
 			}
+            string DistVal = "";
+            Hashtable Hidmov = new Hashtable();
+            foreach (DataRow Var in AutoVar.Rows) {
+                if (DistVal != "") DistVal += ",";
+                DistVal = DistVal + Var[idmovimento];
 
-			PostData post = new Easy_PostData();
+                Hidmov[Var[idmovimento]] = Var["amount"];
+            }
+
+            string filterMov = QHC.FieldInList(idmovimento, DistVal);
+            string filter_exists = "";
+            if (Movimento.TableName == "expense") {
+                filter_exists = " EXISTS(select * from expenseyear where expenseyear.idexp = expensesorted.idexp " +
+                "  and expenseyear.amount = expensesorted.amount and expenseyear.ayear = " + Conn.GetSys("esercizio") + ")";
+            }
+            if (Movimento.TableName == "income") {
+                filter_exists = " EXISTS(select * from incomeyear where incomeyear.idinc = incomesorted.idinc " +
+                "  and incomeyear.amount = incomesorted.amount and incomeyear.ayear = " + Conn.GetSys("esercizio") + ")";
+            }
+             
+
+            Conn.RUN_SELECT_INTO_TABLE(Tsorted, null, QHC.AppAnd(filterMov, filter_exists), null, false);
+            //Adegua l'importo delle classificazioni delle fasi precedenti, ma solo se il Tipo classificazione è mono classificato
+            foreach (DataRow Sort in Tsorted.Rows) {
+                object idexp_idinc = Sort[idmovimento];
+                decimal VarAmount = CfgFn.GetNoNullDecimal(Hidmov[idexp_idinc]);
+                Sort["amount"] = CfgFn.GetNoNullDecimal(Sort["amount"]) + VarAmount;
+            }
+
+            PostData post = new Easy_PostData();
 			post.InitClass(NewDS, Conn);
 			bool res = post.DO_POST();
 			return res;
 		}
 	}
-}
+}

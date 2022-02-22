@@ -1,23 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-ï»¿using System;
+using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -45,10 +43,14 @@ public partial class itinerationattachment_default_new02 : MetaPage {
         DS = (vistaForm_itinerationattachment)D;
     }
     protected void Page_Load(object sender, EventArgs e) {
-
+        if (btnFileUpload.HasFile){
+            labAttachFileName.Text = Path.GetFileName(btnFileUpload.FileName);
+        }
     }
-    public override void AfterLink(bool firsttime, bool formToLink) {
-        if (btnFileUpload.HasFile) {
+
+    
+public override void AfterLink(bool firsttime, bool formToLink) {
+        if (btnFileUpload.HasFile){
             DataRow Curr = DS.itinerationattachment.Rows[0];
             Curr["filename"] = Path.GetFileName(btnFileUpload.FileName);
             Curr["attachment"] = btnFileUpload.FileBytes;
@@ -56,18 +58,25 @@ public partial class itinerationattachment_default_new02 : MetaPage {
         }
     }
     public override void AfterFill() {
-        if (PState.EditMode) {
+        if (PState.EditMode){
             btnFileUpload.Visible = false;
-            btnVisualizza.Visible = true;
         }
-        if (PState.InsertMode) {
+
+        if (PState.InsertMode){
             btnFileUpload.Visible = true;
+        }
+        DataRow Curr = DS.itinerationattachment.Rows[0];
+        if (Curr["attachment"] == DBNull.Value) {
             btnVisualizza.Visible = false;
+        }
+        else {
+            btnVisualizza.Visible = true;
         }
     }
     protected void btnVisualizza_Click(object sender, EventArgs e) {
         string fkey = QHS.CmpKey(DS.itinerationattachment.Rows[0]);
-        Session["AttachmentCommand"] = "select attachment from itinerationattachment where " + fkey;
+        Session["AttachmentCommand"] = null;
+        Session["AttachmentFile"]= DS.itinerationattachment.Rows[0]["attachment"];
         Session["AttachmentFileName"] = DS.itinerationattachment.Rows[0]["filename"].ToString();
 
         string F = "window.open('AttachmentView.aspx');";
@@ -81,6 +90,6 @@ public partial class itinerationattachment_default_new02 : MetaPage {
             btnVisualizza_Click(null, null);
             return;
         }
+
     }
 }
-

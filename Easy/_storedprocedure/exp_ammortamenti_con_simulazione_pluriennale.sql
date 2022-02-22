@@ -1,21 +1,43 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+/****** Object:  StoredProcedure [exp_ammortamenti_con_simulazione_pluriennale]    Script Date: 09/09/2021 09:15:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ --setuser 'amministrazione'
+ --setuser 'amm'
+-- exec exp_ammortamenti_con_simulazione_pluriennale 2019,'24-11-2019', null, null
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_ammortamenti_con_simulazione_pluriennale]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_ammortamenti_con_simulazione_pluriennale]
 GO
- 
-SET QUOTED_IDENTIFIER ON 
-GO
-SET ANSI_NULLS ON 
-GO
- --setuser 'amm'
--- exec exp_ammortamenti_con_simulazione_pluriennale 2016,'24-11-2016', null, null
- 
 
 CREATE    PROCEDURE [exp_ammortamenti_con_simulazione_pluriennale]
 (
-	@ayear_rif    int,		  --- Anno di riferimento per la configurazione del piano di ammortamento
-	@data_rif     datetime,   --- data di riferimento per l'inizio della simulazione
-	@codeinv	 varchar(50),
-	@idupb        varchar(38)
+	@ayear_rif  int,    	--- Anno di riferimento per la configurazione del piano di ammortamento
+	@data_rif   datetime,   --- data di riferimento per l'inizio della simulazione
+	@codeinv	varchar(50),
+	@idupb      varchar(38),
+	@idsor01	int,
+	@idsor02	int,
+	@idsor03	int,
+	@idsor04	int,
+	@idsor05	int
 )
 AS BEGIN
 
@@ -105,9 +127,14 @@ DECLARE rowcursor INSENSITIVE CURSOR FOR
 SELECT A.idasset,A.idpiece, ISNULL( A.historical,A.cost), A.currentvalue , A.idinv, A.idupb
 FROM   assetview A
 WHERE (@codeinv is null or A.codeinv like @codeinv+'%') 
-AND   (@idupb IS NULL  OR A.idupb like @idupb+'%' )
+AND   (@idupb IS NULL  OR A.idupb like '%' )
 AND   (A.is_loaded='S') AND (A.is_unloaded='N')
 AND A.currentvalue<>0
+AND (@idsor01 IS NULL OR A.idsor01 = @idsor01)
+AND (@idsor02 IS NULL OR A.idsor02 = @idsor02)
+AND (@idsor03 IS NULL OR A.idsor03 = @idsor03)
+AND (@idsor04 IS NULL OR A.idsor04 = @idsor04)
+AND (@idsor05 IS NULL OR A.idsor05 = @idsor05)
 ORDER BY A.idasset, A.idpiece
 FOR READ ONLY
 
@@ -209,6 +236,7 @@ A.codeinv AS 'Cod. class. inv.',
 A.inventorytree AS 'Class. inv',
 A.codeupb AS 'Cod. UPB',
 A.upb AS 'UPB',
+epupbkind.title as 'Tipo UPB',
 ACM.codemotive AS 'Cod Causale EP carico',
 ACM.title AS 'Causale',
 ACC.codeacc AS 'Codice Conto',
@@ -247,12 +275,7 @@ LEFT OUTER JOIN inventorytree  I4			ON IL4.idparent = I4.idinv
 LEFT OUTER JOIN accmotive	   ACM			ON ACM.idaccmotive =COALESCE(I4.idaccmotiveload,I3.idaccmotiveload,I2.idaccmotiveload,I1.idaccmotiveload)
 LEFT OUTER JOIN accmotivedetail  ACMD		ON ACMD.idaccmotive =  ACM.idaccmotive and ACMD.ayear = @ayear_rif
 LEFT OUTER JOIN account  ACC		ON ACMD.idacc = ACC.idacc
+LEFT OUTER JOIN upb U		ON A.idupb = U.idupb
+LEFT OUTER JOIN epupbkind		ON epupbkind.idepupbkind = U.idepupbkind
 END
- 
-GO
-SET QUOTED_IDENTIFIER OFF 
-GO
-SET ANSI_NULLS ON 
-GO
-
  

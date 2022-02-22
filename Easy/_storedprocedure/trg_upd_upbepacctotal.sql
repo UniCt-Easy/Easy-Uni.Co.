@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
@@ -34,17 +51,17 @@ BEGIN
 	IF (@countyear = 0)
 	BEGIN
 		INSERT INTO upbepacctotal (idacc, idupb, nphase, total,total2,total3,total4,total5)
-			VALUES (@idacc, @idupb, @nphase, @amount,@amount2,@amount3,@amount4,@amount5)
+			VALUES (@idacc, @idupb, @nphase, isnull(@amount, 0), isnull(@amount2, 0), isnull(@amount3, 0), isnull(@amount4, 0), isnull(@amount5, 0) )
 				
 	END
 	ELSE
 	BEGIN
 		UPDATE upbepacctotal SET
-			total = ISNULL(total, 0) + @amount,
-			total2 = ISNULL(total2, 0) + @amount2,
-			total3 = ISNULL(total3, 0) + @amount3,
-			total4 = ISNULL(total4, 0) + @amount4,
-			total5 = ISNULL(total5, 0) + @amount5
+			total = ISNULL(total, 0) + isnull(@amount, 0),
+			total2 = ISNULL(total2, 0) + isnull(@amount2, 0),
+			total3 = ISNULL(total3, 0) + isnull(@amount3, 0),
+			total4 = ISNULL(total4, 0) + isnull(@amount4, 0),
+			total5 = ISNULL(total5, 0) + isnull(@amount5, 0)
 
 			WHERE idacc = @idacc
 				AND idupb = @idupb

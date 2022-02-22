@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -29,7 +28,7 @@ namespace admpay_appropriation_detail {
 	/// <summary>
 	/// Summary description for FrmAdmPay_Appropriation_Detail.
 	/// </summary>
-	public class FrmAdmPay_Appropriation_Detail : System.Windows.Forms.Form {
+	public class FrmAdmPay_Appropriation_Detail : MetaDataForm {
         bool InChiusura = false;
 		MetaData Meta;
 		string lastUpbFin = "";
@@ -655,7 +654,7 @@ namespace admpay_appropriation_detail {
 			decimal importoImpegnativa = CfgFn.GetNoNullDecimal(
 				HelpForm.GetObjectFromString(typeof(decimal),txtImporto.Text, txtImporto.Tag.ToString()));
 			if ((Meta.EditMode) && (importoImpegnativa != importo)) {
-				DialogResult dr = MessageBox.Show(this,"Attenzione! Procedo a cambiare l'importo dell'impegnativa?","Attenzione!", 
+				DialogResult dr = show(this,"Attenzione! Procedo a cambiare l'importo dell'impegnativa?","Attenzione!", 
 					MessageBoxButtons.YesNoCancel,MessageBoxIcon.Information);
 				if (dr != DialogResult.Yes) return;
 			}
@@ -792,7 +791,7 @@ namespace admpay_appropriation_detail {
 				DataRow R= DS.admpay_appropriation.Rows[0];
 				if ((R["idfin"]!=DBNull.Value) ||
 					(R["idupb"]!=DBNull.Value)) {
-					if (MessageBox.Show("Per abilitare la selezione del movimento di spesa è necessario annullare le altre "+
+					if (show("Per abilitare la selezione del movimento di spesa è necessario annullare le altre "+
 						"attribuzioni su questo pagamento stipendi. Proseguo?","Conferma",
 						MessageBoxButtons.OKCancel)!=DialogResult.OK) {
 						chkSpesa.Checked=false;
@@ -818,7 +817,7 @@ namespace admpay_appropriation_detail {
 			DataRow RR= DS.admpay_appropriation.Rows[0];
 
 			if ( RR["idexp"]!=DBNull.Value){
-				if (MessageBox.Show("Per abilitare la selezione delle attribuzioni normali su questa operazione è necessario annullare il collegamento al movimento di spesa "+
+				if (show("Per abilitare la selezione delle attribuzioni normali su questa operazione è necessario annullare il collegamento al movimento di spesa "+
 					". Proseguo?","Conferma",
 					MessageBoxButtons.OKCancel)!=DialogResult.OK) {
 					chkSpesa.Checked=true;
@@ -956,4 +955,4 @@ namespace admpay_appropriation_detail {
 
         
 	}
-}
+}

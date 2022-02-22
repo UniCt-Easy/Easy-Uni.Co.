@@ -80,6 +80,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="gestioneclassificazioni">
+      <HintPath>..\..\unmanaged\gestioneclassificazioni\bin\Debug\gestioneclassificazioni.dll</HintPath>
+    </Reference>
     <Reference Include="MagicLibrary">
       <Name>MagicLibrary</Name>
       <HintPath>..\..\dll\MagicLibrary.DLL</HintPath>
@@ -117,6 +120,10 @@
       <Project>{DA6B77B7-5F8A-4DD1-B15A-262E8062AF8B}</Project>
       <Name>AskInfo</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\unmanaged\ep_functions\ep_functions.csproj">
+      <Project>{13E495EF-B62D-494E-AEC7-E06E7826DCE6}</Project>
+      <Name>ep_functions</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
       <Name>funzioni_configurazione</Name>

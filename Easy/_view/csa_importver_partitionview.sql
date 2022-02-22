@@ -1,9 +1,27 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA csa_importriep_partitionview
 IF EXISTS(select * from sysobjects where id = object_id(N'[csa_importver_partitionview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [csa_importver_partitionview]
 GO
 --SETUSER'AMMINISTRAZIONE'
 --select * from [csa_importver_partitionview]
+---clear_table_info'csa_importver_partitionview'
 CREATE       VIEW [csa_importver_partitionview]
 (
 	kind,
@@ -34,6 +52,7 @@ CREATE       VIEW [csa_importver_partitionview]
 	agency, --description
 	csa_agency_flag, 
 	annualpayment,
+	nobill,
 	idreg_agency,
 	registry_agency,
 	idcsa_agencypaymethod,
@@ -99,7 +118,9 @@ CREATE       VIEW [csa_importver_partitionview]
 	idacc_cost, codeacc_cost, account_cost,flagaccountusage_cost,
 	idfin,codefin, fin,
 	idsorkind, codesorkind,sortingkind,
-	idsor_siope, sortcode_siope,sorting_siope
+	idsor_siope, sortcode_siope,sorting_siope,
+	descflagaccountusage,
+	idacc
 )
 AS SELECT 
 	CASE WHEN (IV.idcsa_contract = null  AND  IV.idcsa_contractkind=null AND
@@ -134,6 +155,7 @@ AS SELECT
 	A.description, --agency
 	A.flag, 
 	CASE	WHEN (ISNULL(A.flag,0) & 1 <> 0) THEN 'S' ELSE 'N' END,
+	CASE	WHEN (ISNULL(A.flag,0) & 2 <> 0) THEN 'S' ELSE 'N' END,
 	IV.idreg_agency,
 	registry_agency.title,
 	IV.idcsa_agencypaymethod,
@@ -199,7 +221,26 @@ AS SELECT
 	account_cost.idacc, account_cost.codeacc, account_cost.title,account_cost.flagaccountusage,
 	F.idfin,F.codefin, F.title,
 	S.idsorkind, SK.codesorkind,SK.description,
-	S.idsor, S.sortcode,S.description 
+	S.idsor, S.sortcode,S.description,
+			CASE 		when (( account_cost.flagaccountusage & 1) <> 0)  then 'Ratei attivi'
+		 		when (( account_cost.flagaccountusage & 2) <> 0)  then 'Ratei Passivi'
+		 		when (( account_cost.flagaccountusage & 4) <> 0)  then 'Risconti Attivi'
+		 		when (( account_cost.flagaccountusage & 8) <> 0)  then 'Risconti Passivi'
+		 		when (( account_cost.flagaccountusage & 16) <> 0)  then 'Debito'
+		 		when (( account_cost.flagaccountusage & 32) <> 0)  then 'Credito'
+		 		when (( account_cost.flagaccountusage & 64) <> 0)  then 'Costi'
+		 		when (( account_cost.flagaccountusage & 128) <> 0)  then 'Ricavi'
+		 		when (( account_cost.flagaccountusage & 256) <> 0)  then 'Immobilizzazioni'
+		 		when (( account_cost.flagaccountusage & 512) <> 0)  then 'Avanzo libero'
+		 		when (( account_cost.flagaccountusage & 1024) <> 0)  then 'Avanzo vincolato'
+		 		when (( account_cost.flagaccountusage & 2048) <> 0)  then 'Riserva'
+		 		when (( account_cost.flagaccountusage & 4096) <> 0)  then 'Accantonamento'
+		 		when (( account_cost.flagaccountusage & 8192) <> 0)  then 'Disponibilità liquide'
+		 		when (( account_cost.flagaccountusage & 32768) <> 0) then 'Fondi ammortamento'
+		 		when (( account_cost.flagaccountusage & 131072) <> 0)  then 'Ammortamento'
+		else null
+		end ,
+		VE.idacc
 FROM csa_importver_partition VE
 JOIN csa_importver IV 	ON VE.idcsa_import = IV.idcsa_import AND VE.idver = IV.idver
 JOIN csa_import I						ON I.idcsa_import = IV.idcsa_import

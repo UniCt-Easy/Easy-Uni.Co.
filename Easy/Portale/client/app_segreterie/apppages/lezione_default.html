@@ -1,0 +1,95 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+					<input hidden id="lezione_default_title" type="text" class="form-control" data-tag="lezione.!title" />
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_default_idcorsostudio">Corso di studi</label>
+					<div>
+						<input id="lezione_default_idcorsostudio" name="lezione_default_idcorsostudio" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="corsostudiodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_default_iddidprog">Didattica programmata</label>
+					<div>
+						<input id="lezione_default_iddidprog" name="lezione_default_iddidprog" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_default_iddidprogcurr">Curriculum</label>
+					<div>
+						<input id="lezione_default_iddidprogcurr" name="lezione_default_iddidprogcurr" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogcurr.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_default_iddidprogori">Orientamento</label>
+					<div>
+						<input id="lezione_default_iddidprogori" name="lezione_default_iddidprogori" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogoridefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_default_iddidproganno">Anno di corso</label>
+					<div>
+						<input id="lezione_default_iddidproganno" name="lezione_default_iddidproganno" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogannodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_default_iddidprogporzanno">Porzione d'anno</label>
+					<div>
+						<input id="lezione_default_iddidprogporzanno" name="lezione_default_iddidprogporzanno" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogporzannodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_default_idattivform">attività formativa</label>
+					<div>
+						<input id="lezione_default_idattivform" name="lezione_default_idattivform" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="attivformdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_default_idcanale">Canale</label>
+					<div>
+						<input id="lezione_default_idcanale" name="lezione_default_idcanale" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="canale.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="lezione_default_idaffidamento">Affidamento</label>
+					<div>
+						<input id="lezione_default_idaffidamento" name="lezione_default_idaffidamento" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="affidamentosegview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#lezione_default_start").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="lezione_default_start">Data e ora inizio</label>
+					<input id="lezione_default_start" type="text" class="form-control" data-tag="lezione.start.g"  data-mandatory />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#lezione_default_stop").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="lezione_default_stop">Data e ora fine</label>
+					<input id="lezione_default_stop" type="text" class="form-control" data-tag="lezione.stop.g"  data-mandatory />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

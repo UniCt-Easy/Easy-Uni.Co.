@@ -1,0 +1,45 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabbandods_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabbandods_seg_0"><i class="fa fa-scroll mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabbandods_seg_1" class="nav-link" data-toggle="pill" data-target="#tabbandods_seg_1"><i class="fa fa-hand-holding mr-1"></i>Servizi</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabbandods_seg_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandods_seg_aa">Anno accademico</label>
+					<select id="bandods_seg_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="bandods.aa?bandodssegview.aa" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandods_seg_title">Titolo</label>
+					<input id="bandods_seg_title" type="text" class="form-control" data-tag="bandods.title?bandodssegview.title" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="bandods_seg_description">Testo del bando</label>
+					<textarea class="textarea form-control" id="bandods_seg_description" type="text"  rows="4" data-tag="bandods.description?bandodssegview.bandods_description" data-subentity></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="bandods_seg_fondo">Fondo</label>
+					<input id="bandods_seg_fondo" type="text" class="form-control" data-tag="bandods.fondo?bandodssegview.bandods_fondo" data-subentity  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabbandods_seg_1" role="tabpanel">
+				<div class="gridx" id="grid_bandodsservizio_seg" data-tag="bandodsservizio.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="alloggio,S,Si;alloggio,N,No;fuoricorso,S,Si;fuoricorso,N,No;maggiorenne,S,Si;maggiorenne,N,No;mensa,S,Si;mensa,N,No;parttime,S,Si;parttime,N,No;primaimmatlivello,S,Si;primaimmatlivello,N,No;" ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

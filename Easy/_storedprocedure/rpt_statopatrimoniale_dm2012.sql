@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_statopatrimoniale_dm2012]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_statopatrimoniale_dm2012]
 GO
@@ -5,7 +22,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
- 
+--setuser'amministrazione'
 --exec rpt_statopatrimoniale_dm2012 2017, {ts '2017-01-01 00:00:00'}, {ts '2017-12-31 00:00:00'},'%','N',null,null,null,'S'
 CREATE  PROCEDURE rpt_statopatrimoniale_dm2012
 (
@@ -77,7 +94,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -109,7 +126,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -140,7 +157,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -171,7 +188,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -202,7 +219,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -237,7 +254,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -268,7 +285,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -299,7 +316,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -330,7 +347,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -361,8 +378,8 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
-	 ON upb.idupb  = entrydetail.idupb 
+	LEFT OUTER JOIN upb
+	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
 	-- left outer join sortinglink SLK1 on SLK1.idchild = entrydetail.idsor1 
@@ -393,8 +410,8 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
-	 ON upb.idupb  = entrydetail.idupb 
+	LEFT OUTER JOIN upb
+	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
 	-- left outer join sortinglink SLK1 on SLK1.idchild = entrydetail.idsor1 
@@ -424,8 +441,8 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
-	 ON upb.idupb  = entrydetail.idupb 
+	LEFT OUTER JOIN upb
+	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
 	-- left outer join sortinglink SLK1 on SLK1.idchild = entrydetail.idsor1 
@@ -458,7 +475,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -493,8 +510,8 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
-	 ON upb.idupb  = entrydetail.idupb 
+	LEFT OUTER JOIN upb
+	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
 	-- left outer join sortinglink SLK1 on SLK1.idchild = entrydetail.idsor1 
@@ -525,8 +542,8 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
-	 ON upb.idupb  = entrydetail.idupb 
+	LEFT OUTER JOIN upb
+	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
 	-- left outer join sortinglink SLK1 on SLK1.idchild = entrydetail.idsor1 
@@ -557,8 +574,8 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
-	 ON upb.idupb  = entrydetail.idupb 
+	LEFT OUTER  JOIN upb
+	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
 	-- left outer join sortinglink SLK1 on SLK1.idchild = entrydetail.idsor1 
@@ -588,7 +605,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -620,8 +637,8 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
-	 ON upb.idupb  = entrydetail.idupb 
+	LEFT OUTER JOIN upb
+	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
 	-- left outer join sortinglink SLK1 on SLK1.idchild = entrydetail.idsor1 
@@ -651,8 +668,8 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
-	 ON upb.idupb  = entrydetail.idupb 
+	LEFT OUTER JOIN upb
+	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
 	-- left outer join sortinglink SLK1 on SLK1.idchild = entrydetail.idsor1 
@@ -682,8 +699,8 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
-	 ON upb.idupb  = entrydetail.idupb 
+	LEFT OUTER JOIN upb
+	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
 	-- left outer join sortinglink SLK1 on SLK1.idchild = entrydetail.idsor1 
@@ -713,7 +730,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -745,7 +762,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER  JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -776,7 +793,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -807,8 +824,8 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
-	 ON upb.idupb  = entrydetail.idupb 
+	LEFT OUTER  JOIN upb
+	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
 	-- left outer join sortinglink SLK1 on SLK1.idchild = entrydetail.idsor1 
@@ -838,8 +855,8 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
-	 ON upb.idupb  = entrydetail.idupb 
+	LEFT OUTER JOIN upb
+	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
 	-- left outer join sortinglink SLK1 on SLK1.idchild = entrydetail.idsor1 
@@ -869,8 +886,8 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
-	 ON upb.idupb  = entrydetail.idupb 
+	LEFT OUTER JOIN upb
+	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
 	-- left outer join sortinglink SLK1 on SLK1.idchild = entrydetail.idsor1 
@@ -900,8 +917,8 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
-	 ON upb.idupb  = entrydetail.idupb 
+	LEFT OUTER  JOIN upb
+	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
 	-- left outer join sortinglink SLK1 on SLK1.idchild = entrydetail.idsor1 
@@ -931,8 +948,8 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
-	 ON upb.idupb  = entrydetail.idupb 
+	LEFT OUTER  JOIN upb
+	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
 	-- left outer join sortinglink SLK1 on SLK1.idchild = entrydetail.idsor1 
@@ -962,7 +979,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -993,7 +1010,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER  JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1024,7 +1041,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER  JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1055,7 +1072,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER  JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1092,7 +1109,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER  JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1124,7 +1141,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER  JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1155,7 +1172,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER  JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1194,7 +1211,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER  JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1225,7 +1242,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER  JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1260,7 +1277,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER  JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1305,7 +1322,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
 	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1338,7 +1355,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
 	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1369,7 +1386,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
 	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1402,7 +1419,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER  JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1439,7 +1456,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER  JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1470,8 +1487,8 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
-	 ON upb.idupb  = entrydetail.idupb 
+	LEFT OUTER  JOIN upb
+	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
 	-- left outer join sortinglink SLK1 on SLK1.idchild = entrydetail.idsor1 
@@ -1503,7 +1520,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
 	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1542,7 +1559,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
 	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1573,7 +1590,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
 	ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1604,7 +1621,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER  JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1635,7 +1652,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER  JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1666,7 +1683,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER  JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1697,7 +1714,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER  JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1728,7 +1745,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER  JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1760,7 +1777,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	 JOIN upb
+	LEFT OUTER  JOIN upb
 	 ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1791,7 +1808,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1822,7 +1839,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1853,7 +1870,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1884,7 +1901,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1915,7 +1932,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1946,7 +1963,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -1977,7 +1994,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2009,7 +2026,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2040,7 +2057,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2071,7 +2088,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2102,7 +2119,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2133,7 +2150,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2164,7 +2181,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2195,7 +2212,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2226,7 +2243,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2257,7 +2274,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2288,7 +2305,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2319,7 +2336,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2356,7 +2373,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2387,7 +2404,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2418,7 +2435,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2457,7 +2474,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2466,7 +2483,7 @@ ISNULL(
 	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
 	AND entry.identrykind not in (6,11,12) -- DEVO ESCLUDERE LE SCRITTURE DI EPILOGO
 	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
-	AND ((patrimony.codepatrimony = 'F) f1)' and @ayearPrec > 2017) OR (patrimony.codepatrimony = 'E) e1)' AND @ayearPrec = 2017))
+	AND ((patrimony.codepatrimony = 'f 1)' and @ayearPrec > 2017) OR (patrimony.codepatrimony = 'E) e1)' AND @ayearPrec = 2017))
 	and patrimony.patpart ='P'
 	AND (entrydetail.idsor1 IN (SELECT idchild FROM #sortinglink1) OR entrydetail.idsor1 = @idsor1 OR @idsor1 IS NULL ) AND (@idsor2 IS NULL OR entrydetail.idsor2 = @idsor2)AND (@idsor3 IS NULL OR entrydetail.idsor3 = @idsor3) 
 	AND patrimony.ayear = @ayearPrec 
@@ -2496,7 +2513,36 @@ SET @PY_TOTPASSIVO = @PY_TOTPASSIVO +  @PY_P_AIX
 */
 
 -- Stato Patrimoniale Anno Corrente
+--setuser'amministrazione' 
 
+--SELECT @apertura,amount,entry.*,entrydetail.*
+--	FROM entrydetail
+--	JOIN entry
+--	ON entry.yentry = entrydetail.yentry
+--	AND entry.nentry = entrydetail.nentry
+--	JOIN account
+--	ON account.idacc = entrydetail.idacc
+--	LEFT OUTER JOIN upb
+--    ON upb.idupb  = entrydetail.idupb 
+--	JOIN patrimony
+--	ON patrimony.idpatrimony = account.idpatrimony
+--	-- left outer join sortinglink SLK1 on SLK1.idchild = entrydetail.idsor1 
+--	WHERE entry.adate BETWEEN @start AND @stop
+--	AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
+--	AND entry.identrykind not in (6,11,12) -- DEVO ESCLUDERE LE SCRITTURE DI EPILOGO
+--	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
+--	AND patrimony.codepatrimony = 'A) I 1)'
+--	and patrimony.patpart ='A'
+--	AND (entrydetail.idsor1 IN (SELECT idchild FROM #sortinglink1) OR entrydetail.idsor1 = @idsor1 OR @idsor1 IS NULL ) AND (@idsor2 IS NULL OR entrydetail.idsor2 = @idsor2)AND (@idsor3 IS NULL OR entrydetail.idsor3 = @idsor3) 
+--	AND patrimony.ayear = @ayear
+--	--AND (@idsor01 IS NULL OR  upb.idsor01 = @idsor01) 
+--	AND (@idsor02 IS NULL OR  upb.idsor02 = @idsor02) 
+--	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
+--	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
+--	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
+--	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' ))
+
+	
 DECLARE @A_AI_aI1 decimal(19,2)
 SET @A_AI_aI1 = 
 ISNULL(
@@ -2507,7 +2553,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2525,7 +2571,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_AI_aI2 decimal(19,2)
@@ -2538,7 +2584,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2556,7 +2602,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_AI_aI3 decimal(19,2)
@@ -2569,7 +2615,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2587,7 +2633,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_AI_aI4 decimal(19,2)
@@ -2600,7 +2646,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2618,7 +2664,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_AI_aI5 decimal(19,2)
@@ -2631,7 +2677,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2649,7 +2695,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_AI decimal(19,2)
@@ -2666,7 +2712,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2684,7 +2730,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 	
 
@@ -2698,7 +2744,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2716,7 +2762,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_AII_aII3 decimal(19,2)
@@ -2729,7 +2775,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2747,7 +2793,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_AII_aII4 decimal(19,2)
@@ -2760,7 +2806,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2778,7 +2824,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_AII_aII5 decimal(19,2)
@@ -2791,7 +2837,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2809,7 +2855,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 
@@ -2823,7 +2869,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2841,7 +2887,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_AII_aII7 decimal(19,2)
@@ -2854,7 +2900,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2872,7 +2918,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_AII decimal(19,2)
@@ -2888,7 +2934,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2906,7 +2952,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 
@@ -2923,7 +2969,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2941,7 +2987,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 
@@ -2955,7 +3001,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -2973,7 +3019,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_BII_bII1e decimal(19,2)
@@ -2986,7 +3032,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3004,7 +3050,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_BII_bII2 decimal(19,2)
@@ -3017,7 +3063,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3035,7 +3081,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 DECLARE @A_BII_bII2e decimal(19,2)
 SET @A_BII_bII2e = 
@@ -3047,7 +3093,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3065,7 +3111,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_BII_bII3 decimal(19,2)
@@ -3078,7 +3124,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3096,7 +3142,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 DECLARE @A_BII_bII3e decimal(19,2)
 SET @A_BII_bII3e = 
@@ -3108,7 +3154,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3126,7 +3172,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_BII_bII4 decimal(19,2)
@@ -3139,7 +3185,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3157,7 +3203,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_BII_bII4e decimal(19,2)
@@ -3170,7 +3216,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3188,7 +3234,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_BII_bII5 decimal(19,2)
@@ -3201,7 +3247,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3219,7 +3265,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_BII_bII5e decimal(19,2)
@@ -3232,7 +3278,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3250,7 +3296,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_BII_bII6 decimal(19,2)
@@ -3263,7 +3309,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3281,7 +3327,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_BII_bII6e decimal(19,2)
@@ -3294,7 +3340,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3312,7 +3358,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_BII_bII7 decimal(19,2)
@@ -3325,7 +3371,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3343,7 +3389,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_BII_bII7e decimal(19,2)
@@ -3356,7 +3402,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3374,7 +3420,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 DECLARE @A_BII_bII8 decimal(19,2)
 SET @A_BII_bII8 = 
@@ -3386,7 +3432,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3404,7 +3450,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_BII_bII8e decimal(19,2)
@@ -3417,7 +3463,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3435,7 +3481,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_BII_bII9 decimal(19,2)
@@ -3448,7 +3494,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3466,7 +3512,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_BII_bII9e decimal(19,2)
@@ -3479,7 +3525,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3497,7 +3543,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_BII decimal(19,2)
@@ -3516,7 +3562,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3534,7 +3580,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 
@@ -3548,7 +3594,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3566,7 +3612,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_BIV_bIV2 decimal(19,2)
@@ -3579,7 +3625,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3597,7 +3643,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_BIV decimal(19,2)
@@ -3618,7 +3664,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3636,7 +3682,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_C_c2 decimal(19,2)
@@ -3649,7 +3695,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3667,7 +3713,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_C decimal(19,2)
@@ -3683,7 +3729,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3701,7 +3747,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @A_D decimal(19,2)
@@ -3726,7 +3772,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3744,7 +3790,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 
@@ -3759,7 +3805,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3777,7 +3823,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_AII_aII2 decimal(19,2)
@@ -3790,7 +3836,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3808,7 +3854,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 
@@ -3823,7 +3869,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3841,7 +3887,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 
@@ -3860,7 +3906,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3878,7 +3924,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_AIII_aIII2 decimal(19,2)
@@ -3891,7 +3937,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3909,7 +3955,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 
@@ -3924,7 +3970,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3942,7 +3988,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 
@@ -3963,7 +4009,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -3981,7 +4027,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_C decimal(19,2)
@@ -3994,7 +4040,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4012,7 +4058,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d1 decimal(19,2)
@@ -4025,7 +4071,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4043,7 +4089,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d1o decimal(19,2)
@@ -4056,7 +4102,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4074,7 +4120,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d2 decimal(19,2)
@@ -4087,7 +4133,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4105,7 +4151,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d2o decimal(19,2)
@@ -4118,7 +4164,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4136,7 +4182,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d3 decimal(19,2)
@@ -4149,7 +4195,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4167,7 +4213,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d3o decimal(19,2)
@@ -4180,7 +4226,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4198,7 +4244,7 @@ ISNULL(
 	AND (@idsor05 IS NULL OR  entry.idsor05 = @idsor05) 
 	AND (entrydetail.idsor1 IN (SELECT idchild FROM #sortinglink1) OR entrydetail.idsor1 = @idsor1 OR @idsor1 IS NULL ) AND (@idsor2 IS NULL OR entrydetail.idsor2 = @idsor2)AND (@idsor3 IS NULL OR entrydetail.idsor3 = @idsor3) 
 	AND patrimony.ayear = @ayear
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d4 decimal(19,2)
@@ -4211,7 +4257,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4229,7 +4275,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d4o decimal(19,2)
@@ -4242,7 +4288,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4260,7 +4306,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d5 decimal(19,2)
@@ -4273,7 +4319,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4291,7 +4337,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d5o decimal(19,2)
@@ -4304,7 +4350,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4322,7 +4368,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d6 decimal(19,2)
@@ -4335,7 +4381,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4353,7 +4399,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d6o decimal(19,2)
@@ -4366,7 +4412,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4384,7 +4430,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d7 decimal(19,2)
@@ -4397,7 +4443,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4415,7 +4461,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d7o decimal(19,2)
@@ -4428,7 +4474,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4446,7 +4492,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d8 decimal(19,2)
@@ -4459,7 +4505,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4477,7 +4523,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d8o decimal(19,2)
@@ -4490,7 +4536,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4508,7 +4554,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d9 decimal(19,2)
@@ -4521,7 +4567,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4539,7 +4585,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 DECLARE @P_D_d9o decimal(19,2)
 SET @P_D_d9o = 
@@ -4551,7 +4597,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4569,7 +4615,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d10 decimal(19,2)
@@ -4582,7 +4628,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4600,7 +4646,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d10o decimal(19,2)
@@ -4613,7 +4659,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4631,7 +4677,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d11 decimal(19,2)
@@ -4644,7 +4690,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4662,7 +4708,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d11o decimal(19,2)
@@ -4675,7 +4721,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4693,7 +4739,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d12 decimal(19,2)
@@ -4706,7 +4752,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4724,7 +4770,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D_d12o decimal(19,2)
@@ -4737,7 +4783,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4755,7 +4801,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_D decimal(19,2)
@@ -4775,7 +4821,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4793,7 +4839,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_E_e2 decimal(19,2)
@@ -4806,7 +4852,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4824,7 +4870,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_E_e3 decimal(19,2)
@@ -4837,7 +4883,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4855,7 +4901,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7))
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' )))
 ,0)
 
 DECLARE @P_E decimal(19,2)
@@ -4875,7 +4921,7 @@ ISNULL(
 	AND entry.nentry = entrydetail.nentry
 	JOIN account
 	ON account.idacc = entrydetail.idacc
-	JOIN upb
+	LEFT OUTER JOIN upb
     ON upb.idupb  = entrydetail.idupb 
 	JOIN patrimony
 	ON patrimony.idpatrimony = account.idpatrimony
@@ -4893,7 +4939,7 @@ ISNULL(
 	AND (@idsor03 IS NULL OR  upb.idsor03 = @idsor03) 
 	AND (@idsor04 IS NULL OR  upb.idsor04 = @idsor04) 
 	AND (@idsor05 IS NULL OR  upb.idsor05 = @idsor05) 
-	AND (@apertura ='N' or entry.identrykind=7)
+	AND ((@apertura ='S' AND entry.identrykind=7) OR (@apertura ='N' ))
 	)
 ,0)
 

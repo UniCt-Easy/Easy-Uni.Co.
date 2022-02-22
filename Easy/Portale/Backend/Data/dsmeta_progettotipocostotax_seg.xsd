@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_progettotipocostotax_seg" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_progettotipocostotax_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="accmotive" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idaccmotive" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tax" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="appliancebasis" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="fiscaltaxcode" type="xs:string" minOccurs="0" />
+              <xs:element name="fiscaltaxcodecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="flagunabatable" type="xs:string" minOccurs="0" />
+              <xs:element name="geoappliance" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_cost" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_debit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_pay" type="xs:string" minOccurs="0" />
+              <xs:element name="insuranceagencycode" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="maintaxcode" type="xs:int" minOccurs="0" />
+              <xs:element name="taxablecode" type="xs:string" minOccurs="0" />
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="taxkind" type="xs:int" />
+              <xs:element name="taxref" type="xs:string" />
+              <xs:element name="_x0021_idaccmotive_cost_accmotive_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idaccmotive_debit_accmotive_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idaccmotive_pay_accmotive_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="progettotipocostotax" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idprogettotipocosto" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="taxcode" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accmotive" />
+      <xs:field xpath="mstns:idaccmotive" />
+    </xs:unique>
+    <xs:unique name="tax_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tax" />
+      <xs:field xpath="mstns:taxcode" />
+    </xs:unique>
+    <xs:unique name="progettotipocostotax_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:progettotipocostotax" />
+      <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idprogettotipocosto" />
+      <xs:field xpath="mstns:taxcode" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_progettotipocostotax_tax_taxcode" msdata:parent="tax" msdata:child="progettotipocostotax" msdata:parentkey="taxcode" msdata:childkey="taxcode" />
+      <msdata:Relationship name="FK_tax_accmotive_idaccmotive_pay" msdata:parent="accmotive" msdata:child="tax" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotive_pay" />
+      <msdata:Relationship name="FK_tax_accmotive_idaccmotive_debit" msdata:parent="accmotive" msdata:child="tax" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotive_debit" />
+      <msdata:Relationship name="FK_tax_accmotive_idaccmotive_cost" msdata:parent="accmotive" msdata:child="tax" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotive_cost" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -29,7 +28,7 @@ namespace parasubcontractfamily_contrattodetail {//familiaredettaglio//
 	/// <summary>
 	/// Summary description for frmfamiliaredettaglio.
 	/// </summary>
-	public class Frm_parasubcontractfamily_contrattodetail : System.Windows.Forms.Form {
+	public class Frm_parasubcontractfamily_contrattodetail : MetaDataForm {
 		public vistaForm DS;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
@@ -855,7 +854,7 @@ namespace parasubcontractfamily_contrattodetail {//familiaredettaglio//
 			if (IsValid) 
 				txtCF.Text=CF;
 			else
-				MessageBox.Show("Sono stati riscontrati i seguenti errori "+
+				show("Sono stati riscontrati i seguenti errori "+
 					"durante il calcolo del codice fiscale:\r\r"+errori,"Calcolo Codice Fiscale",
 					MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 		}
@@ -869,7 +868,7 @@ namespace parasubcontractfamily_contrattodetail {//familiaredettaglio//
 			CalcolaCodiceFiscale.CheckCF(txtCF.Text,out errori);
 			if (errori != "") {
 				errori = "Nel codice fiscale inserito compaiono i seguenti errori:\n\r " + errori;
-				MessageBox.Show(this,errori,"",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+				show(this,errori,"",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 				return;
 			}
 
@@ -889,7 +888,7 @@ namespace parasubcontractfamily_contrattodetail {//familiaredettaglio//
 					idgeo = idcomune;
 				} 
 				else {
-					MessageBox.Show(this, "Impossibile ricavare il comune dal codice '"+codicefiscale.Substring(11,4)+"'", "Elaborazione del codice fiscale",
+					show(this, "Impossibile ricavare il comune dal codice '"+codicefiscale.Substring(11,4)+"'", "Elaborazione del codice fiscale",
 						MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 				}
 			} 
@@ -900,11 +899,11 @@ namespace parasubcontractfamily_contrattodetail {//familiaredettaglio//
 					idgeo = idnazione;
 				} 
 				else {
-					MessageBox.Show(this, "Impossibile ricavare lo stato estero dal codice '"+codicefiscale.Substring(11,4)+"'", "Elaborazione del codice fiscale",
+					show(this, "Impossibile ricavare lo stato estero dal codice '"+codicefiscale.Substring(11,4)+"'", "Elaborazione del codice fiscale",
 						MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 				}
 			}
 			Meta.FreshForm(true);
 		}
 	}
-}
+}

@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,7 +26,7 @@ using System.Runtime.Serialization;
 namespace listclass_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -86,6 +85,9 @@ public class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable listclassyearview 		=> Tables["listclassyearview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable finmotive_iva 		=> Tables["finmotive_iva"];
 
 	#endregion
 
@@ -156,6 +158,7 @@ private void initClass() {
 	tlistclass.Columns.Add( new DataColumn("flagvisiblekind", typeof(byte)));
 	tlistclass.Columns.Add( new DataColumn("idfinmotive", typeof(string)));
 	tlistclass.Columns.Add( new DataColumn("idaccmotivecredit", typeof(string)));
+	tlistclass.Columns.Add( new DataColumn("idfinmotive_iva", typeof(string)));
 	Tables.Add(tlistclass);
 	tlistclass.PrimaryKey =  new DataColumn[]{tlistclass.Columns["idlistclass"]};
 
@@ -493,6 +496,29 @@ private void initClass() {
 	tlistclassyearview.PrimaryKey =  new DataColumn[]{tlistclassyearview.Columns["idlistclass"], tlistclassyearview.Columns["ayear"]};
 
 
+	//////////////////// FINMOTIVE_IVA /////////////////////////////////
+	var tfinmotive_iva= new DataTable("finmotive_iva");
+	C= new DataColumn("idfinmotive", typeof(string));
+	C.AllowDBNull=false;
+	tfinmotive_iva.Columns.Add(C);
+	C= new DataColumn("active", typeof(string));
+	C.AllowDBNull=false;
+	tfinmotive_iva.Columns.Add(C);
+	C= new DataColumn("codemotive", typeof(string));
+	C.AllowDBNull=false;
+	tfinmotive_iva.Columns.Add(C);
+	tfinmotive_iva.Columns.Add( new DataColumn("paridfinmotive", typeof(string)));
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	tfinmotive_iva.Columns.Add(C);
+	tfinmotive_iva.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tfinmotive_iva.Columns.Add( new DataColumn("lu", typeof(string)));
+	tfinmotive_iva.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tfinmotive_iva.Columns.Add( new DataColumn("cu", typeof(string)));
+	Tables.Add(tfinmotive_iva);
+	tfinmotive_iva.PrimaryKey =  new DataColumn[]{tfinmotive_iva.Columns["idfinmotive"]};
+
+
 	#endregion
 
 
@@ -537,9 +563,12 @@ private void initClass() {
 	cChild = new []{listclass.Columns["idaccmotivecredit"]};
 	Relations.Add(new DataRelation("accmotiveapplied_credit_listclass",cPar,cChild,false));
 
+	cPar = new []{finmotive_iva.Columns["idfinmotive"]};
+	cChild = new []{listclass.Columns["idfinmotive_iva"]};
+	Relations.Add(new DataRelation("finmotive_iva_listclass",cPar,cChild,false));
+
 	#endregion
 
 }
 }
 }
-

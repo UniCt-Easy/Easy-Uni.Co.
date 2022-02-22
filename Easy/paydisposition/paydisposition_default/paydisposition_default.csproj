@@ -74,6 +74,126 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="meta_paydisposition">
+      <HintPath>..\meta_paydisposition\bin\Debug\meta_paydisposition.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_paydisposition</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_paydispositiondetail">
+      <HintPath>..\..\paydispositiondetail\meta_paydispositiondetail\bin\Debug\meta_paydispositiondetail.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_paydispositiondetail</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_payment">
+      <HintPath>..\..\payment\meta_payment\bin\Debug\meta_payment.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_payment</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_expenseyear">
+      <HintPath>..\..\expenseyear\meta_expenseyear\bin\Debug\meta_expenseyear.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_expenseyear</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_fin">
+      <HintPath>..\..\fin\meta_fin\bin\Debug\meta_fin.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_fin</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_upb">
+      <HintPath>..\..\upb\meta_upb\bin\Debug\meta_upb.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_upb</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_registry">
+      <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_registry</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_expensesorted">
+      <HintPath>..\..\expensesorted\meta_expensesorted\bin\Debug\meta_expensesorted.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_expensesorted</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_sortingkind">
+      <HintPath>..\..\sortingkind\meta_sortingkind\bin\Debug\meta_sortingkind.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_sortingkind</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_incomeyear">
+      <HintPath>..\..\incomeyear\meta_incomeyear\bin\Debug\meta_incomeyear.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_incomeyear</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_incomesorted">
+      <HintPath>..\..\incomesorted\meta_incomesorted\bin\Debug\meta_incomesorted.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_incomesorted</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_expense">
+      <HintPath>..\..\expense\meta_expense\bin\Debug\meta_expense.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_expense</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_income">
+      <HintPath>..\..\income\meta_income\bin\Debug\meta_income.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_income</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_config">
+      <HintPath>..\..\config\meta_config\bin\Debug\meta_config.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_config</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_expenselast">
+      <HintPath>..\..\expenselast\meta_expenselast\bin\Debug\meta_expenselast.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_expenselast</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_incomelast">
+      <HintPath>..\..\incomelast\meta_incomelast\bin\Debug\meta_incomelast.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_incomelast</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_sorting">
+      <HintPath>..\..\sorting\meta_sorting\bin\Debug\meta_sorting.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_sorting</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_incomevar">
+      <HintPath>..\..\incomevar\meta_incomevar\bin\Debug\meta_incomevar.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_incomevar</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_manager">
+      <HintPath>..\..\manager\meta_manager\bin\Debug\meta_manager.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_manager</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_treasurer">
+      <HintPath>..\..\treasurer\meta_treasurer\bin\Debug\meta_treasurer.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_treasurer</Name>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />

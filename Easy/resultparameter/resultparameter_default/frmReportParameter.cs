@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -34,13 +33,16 @@ using System.Text;
 using System.Drawing.Printing;
 using System.Linq;
 using security_function;
+using funzioni_configurazione;
+using System.Net;
+using System.Collections.Specialized;
 
 namespace resultparameter_default{//Report//
 	/// <summary>
 	/// Summary description for frmReportParameter.
 	/// </summary>
-	public class frmReportParameter : System.Windows.Forms.Form {
-	
+	public class frmReportParameter : MetaDataForm {
+
 		private System.Windows.Forms.Button btnStampa;
 		private System.Windows.Forms.Button btnAnnulla;
 		private System.ComponentModel.Container components = null;
@@ -56,20 +58,20 @@ namespace resultparameter_default{//Report//
 		private System.Windows.Forms.Button btnPreview;
 		private System.Windows.Forms.Button btnParamUfficiali;
 		MetaData Meta;
-		bool RefillCustomReportParam=false;
-		enum appfmts {_dateshort=13, _datetimeshort, _datelong, _datetimelong, 
-					_time, _timestamp, _datetimeansi, _dateansi, _datedbf, _general=22, 
-					_number,  _currency, _serial=25, _longserial, _percentage, 
-					_highpercentage, _year=29, _twodigit, _threedigit, _generalus, 
-					_twodecimal, _twodecimalsep, _threedecimal, _threedecimalsep, _integer=37, 
-					_none=38, _euro, _sixdecimalsep};
+		bool RefillCustomReportParam = false;
+		enum appfmts { _dateshort = 13, _datetimeshort, _datelong, _datetimelong,
+			_time, _timestamp, _datetimeansi, _dateansi, _datedbf, _general = 22,
+			_number, _currency, _serial = 25, _longserial, _percentage,
+			_highpercentage, _year = 29, _twodigit, _threedigit, _generalus,
+			_twodecimal, _twodecimalsep, _threedecimal, _threedecimalsep, _integer = 37,
+			_none = 38, _euro, _sixdecimalsep };
 
 		ArrayList ComboToPreset;
-		
+
 		//per la gestione dell'autochoose non da libreria
 		Hashtable hashChoose = new Hashtable();
 		//contatore per Alias
-		int AliasCount=0;
+		int AliasCount = 0;
 
 		int VPosition = 15;
 		int HPosition = 10;
@@ -79,55 +81,56 @@ namespace resultparameter_default{//Report//
 		int ControlWidth = 300;
 		private Button btnDiagnostic;
 		int RigaSuccessiva = 44;
-		private DataRow ModuleReport=null;
+		private DataRow ModuleReport = null;
 		private DataRow[] Parameters;
-		Http http=null;
-		string ReportDir="";
+		Http http = null;
+		string ReportDir = "";
 		string[] siti = null;
 		private Button btnPatch;
 		private Button btnAcrobat;
-		private static string m_CheckReportLog="";
-        private CheckBox chkClose;
-        bool OnePrintObbligatorio = false;
-        QueryHelper QHS;
-        CQueryHelper QHC;
+		private static string m_CheckReportLog = "";
+		private CheckBox chkClose;
+		bool OnePrintObbligatorio = false;
+		QueryHelper QHS;
+		private Button btnGuidaMht;
+		CQueryHelper QHC;
 
 		public frmReportParameter() {
 			InitializeComponent();
 			InsertMode = false;
 			ComboToPreset = new ArrayList();
-            isInited = true;
+			isInited = true;
 		}
-        DataAccess Conn;
+		DataAccess Conn;
 
-		private string  FillReportVista(string ModuleNameReportName,DataAccess DA) {
+		private string FillReportVista(string ModuleNameReportName, DataAccess DA) {
 			ClearDataSet.RemoveConstraints(reportVista1);
 			GetData MyGetData = new GetData();
-            this.Conn = DA;
-			MyGetData.InitClass(reportVista1,DA,"report");
+			this.Conn = DA;
+			MyGetData.InitClass(reportVista1, DA, "report");
 			DataRow DR = reportVista1.report.NewRow();
-			
-			Module = HelpForm.GetField(ModuleNameReportName,0);
-			ReportName = HelpForm.GetField(ModuleNameReportName,1);
 
-//			if (Module.ToLower().Trim().EndsWith("-ufficiali"))
-//				btnParamUfficiali.Visible=true;
-//			else 
-//				btnParamUfficiali.Visible=false;
-			
+			Module = HelpForm.GetField(ModuleNameReportName, 0);
+			ReportName = HelpForm.GetField(ModuleNameReportName, 1);
+
+			//			if (Module.ToLower().Trim().EndsWith("-ufficiali"))
+			//				btnParamUfficiali.Visible=true;
+			//			else 
+			//				btnParamUfficiali.Visible=false;
+
 			DR["reportname"] = ReportName;
-            string clearError = DA.LastError;
-            MyGetData.SEARCH_BY_KEY(DR);
-            if (reportVista1.report.Rows.Count == 0) {
-                string err = DA.LastError;
-                if (err != null) {
-                    return "Errore nell'accesso al db:" + err;
-                }
-                return "Occorre eseguire un File\\Menu\\Aggiorna Menu.";
-            }
-			MyGetData.DO_GET(false,null);
-			MyGetData.DO_GET_TABLE(reportVista1.customselection,null,null,false,null);
-            OnePrintObbligatorio = !security_function.Sec_Function.funzioneConsentita(DA, "multiprint");
+			string clearError = DA.LastError;
+			MyGetData.SEARCH_BY_KEY(DR);
+			if (reportVista1.report.Rows.Count == 0) {
+				string err = DA.LastError;
+				if (err != null) {
+					return "Errore nell'accesso al db:" + err;
+				}
+				return "Occorre eseguire un File\\Menu\\Aggiorna Menu.";
+			}
+			MyGetData.DO_GET(false, null);
+			MyGetData.DO_GET_TABLE(reportVista1.customselection, null, null, false, null);
+			OnePrintObbligatorio = !security_function.Sec_Function.funzioneConsentita(DA, "multiprint");
 			return null;
 		}
 
@@ -135,100 +138,100 @@ namespace resultparameter_default{//Report//
 		/// Create primary table in DS and assign to "myPrimaryTable"
 		/// </summary>
 		/// <param name="ReportParameters"></param>
-		void CreatePrimaryTable(DataRow[] ReportParameters){
+		void CreatePrimaryTable(DataRow[] ReportParameters) {
 			myPrymaryTable = new DataTable("resultparameter");
-			
+
 			//Create a dummy primary key
-			DataColumn DCPK = new DataColumn(DummyPrimaryKey,typeof(string));
+			DataColumn DCPK = new DataColumn(DummyPrimaryKey, typeof(string));
 			DCPK.DefaultValue = ReportName;
 			myPrymaryTable.Columns.Add(DCPK);
-			myPrymaryTable.PrimaryKey = new DataColumn[]{DCPK};
-			
+			myPrymaryTable.PrimaryKey = new DataColumn[] { DCPK };
+
 			//Add parameters as primary table fields
-			foreach (DataRow Param in ReportParameters){
+			foreach (DataRow Param in ReportParameters) {
 				System.Type ColType = GetTypeFromSysType(Param["systype"].ToString());
 				string ColName = Param["paramname"].ToString();
-				DataColumn Col = new DataColumn(ColName,ColType);
+				DataColumn Col = new DataColumn(ColName, ColType);
 
-				object Def= DefaultForParameter(Param);
-				if (Def!=DBNull.Value) Col.DefaultValue= Def;
-				
+				object Def = DefaultForParameter(Param);
+				if (Def != DBNull.Value) Col.DefaultValue = Def;
+
 				//il campo è gestito se è flag combo = 'S' o se 
 				//il campo selectioncode (manage/chhose) non è null
-				bool Gestito=((Param["iscombobox"].ToString().ToUpper()=="S") ||
-					(Param["selectioncode"].ToString()!=""));
+				bool Gestito = ((Param["iscombobox"].ToString().ToUpper() == "S") ||
+					(Param["selectioncode"].ToString() != ""));
 
-				bool ConvertNullToPerc=(Gestito && 
+				bool ConvertNullToPerc = (Gestito &&
 					(Param["noselectionforall"].ToString().ToUpper() == "S"));
 
-				Col.ExtendedProperties["ConvertNullToPerc"]= ConvertNullToPerc;
+				Col.ExtendedProperties["ConvertNullToPerc"] = ConvertNullToPerc;
 				///TODO: Verificare Gestione AllowDBNull
-				Col.AllowDBNull = (Param["hintkind"].ToString()=="NOHINT") || ConvertNullToPerc;
+				Col.AllowDBNull = (Param["hintkind"].ToString() == "NOHINT") || ConvertNullToPerc;
 
 				myPrymaryTable.Columns.Add(Col);
-                if (OnePrintObbligatorio && Col.ColumnName == "oneprint") {
-                    Col.DefaultValue = "S";
-                }
-                
+				if (OnePrintObbligatorio && Col.ColumnName == "oneprint") {
+					Col.DefaultValue = "S";
+				}
+
 			}
-            ControllaObbligatorietaResp();
-            ControllaObbligatorietaUpb();
+			ControllaObbligatorietaResp();
+			ControllaObbligatorietaUpb();
 			DS.Tables.Add(myPrymaryTable);
 		}
 
-        object CalcDefaultForManager() {
-            //if (Session["CodiceResponsabile"] != null) return Session["CodiceResponsabile"];
-            string filter = Conn.SelectCondition("manager", true);
-            filter = QHS.AppAnd(filter, QHS.CmpEq("active", "S"));
-            DataTable Man = Conn.RUN_SELECT("manager", "idman", null, filter, null, false);
-            if (Man.Rows.Count == 1) return Man.Rows[0]["idman"];
-            return DBNull.Value;
-        }
+		object CalcDefaultForManager() {
+			//if (Session["CodiceResponsabile"] != null) return Session["CodiceResponsabile"];
+			string filter = Conn.SelectCondition("manager", true);
+			filter = QHS.AppAnd(filter, QHS.CmpEq("active", "S"));
+			DataTable Man = Conn.RUN_SELECT("manager", "idman", null, filter, null, false);
+			if (Man.Rows.Count == 1) return Man.Rows[0]["idman"];
+			return DBNull.Value;
+		}
 
-        void ControllaObbligatorietaResp() {
-            object idflowchart = Conn.GetSys("idflowchart");
-            if (idflowchart == null || idflowchart == DBNull.Value) return; //Nessuna restrizione
-            if (!GestioneClass.UsesAttribues(Conn)) return;
-            if (myPrymaryTable.Columns.Contains("idsor01")) return; //ci sono gli attributi, non serve limitare il resp
-            bool manager_obbligatorio = true; 
-            object all_man = Conn.GetUsr("all_man");
-            if (all_man != null && all_man.ToString().ToUpper() == "S") manager_obbligatorio=false;
-            
-
-            if (myPrymaryTable.Columns.Contains("idman")) {
-                DataColumn C1 = myPrymaryTable.Columns["idman"];
-                C1.AllowDBNull = !manager_obbligatorio;
-                C1.Caption = "Responsabile";
-                HelpForm.SetDenyZero(C1, manager_obbligatorio);
-                C1.DefaultValue = CalcDefaultForManager();
-            }
-
-            if (myPrymaryTable.Columns.Contains("idmanager")) {
-                DataColumn C2 = myPrymaryTable.Columns["idmanager"];
-                C2.AllowDBNull = !manager_obbligatorio;
-                C2.Caption = "Responsabile";
-                HelpForm.SetDenyZero(C2, manager_obbligatorio);
-                C2.DefaultValue = CalcDefaultForManager();
-            }
-
-        }
+		void ControllaObbligatorietaResp() {
+			object idflowchart = Conn.GetSys("idflowchart");
+			if (idflowchart == null || idflowchart == DBNull.Value) return; //Nessuna restrizione
+			if (!GestioneClass.UsesAttribues(Conn)) return;
+			if (myPrymaryTable.Columns.Contains("idsor01")) return; //ci sono gli attributi, non serve limitare il resp
+			bool manager_obbligatorio = true;
+			object all_man = Conn.GetUsr("all_man");
+			if (all_man != null && all_man.ToString().ToUpper() == "S") manager_obbligatorio = false;
 
 
+			if (myPrymaryTable.Columns.Contains("idman")) {
+				DataColumn C1 = myPrymaryTable.Columns["idman"];
+				C1.AllowDBNull = !manager_obbligatorio;
+				C1.Caption = "Responsabile";
+				HelpForm.SetDenyZero(C1, manager_obbligatorio);
+				C1.DefaultValue = CalcDefaultForManager();
+			}
 
-        void ControllaObbligatorietaUpb() {
-            object idflowchart = Conn.GetSys("idflowchart");
-            if (idflowchart == null || idflowchart == DBNull.Value) return; //Nessuna restrizione
-            if (!GestioneClass.UsesAttribues(Conn)) return;
-            if (myPrymaryTable.Columns.Contains("idsor01")) return; //ci sono gli attributi, non serve limitare il resp
-            if (myPrymaryTable.Columns.Contains("idman")) return; //c'è il responsabile, basta limitare quello
-            object all_upb = Conn.GetUsr("all_upb");
-            if (all_upb != null && all_upb.ToString().ToUpper() == "S") return;
-            if (myPrymaryTable.Columns.Contains("idupb")) {
-                DataColumn C1 = myPrymaryTable.Columns["idupb"];
-                C1.AllowDBNull = false;
-                C1.Caption = "UPB";
-            }
-        }
+			if (myPrymaryTable.Columns.Contains("idmanager")) {
+				DataColumn C2 = myPrymaryTable.Columns["idmanager"];
+				C2.AllowDBNull = !manager_obbligatorio;
+				C2.Caption = "Responsabile";
+				HelpForm.SetDenyZero(C2, manager_obbligatorio);
+				C2.DefaultValue = CalcDefaultForManager();
+			}
+
+		}
+
+
+
+		void ControllaObbligatorietaUpb() {
+			object idflowchart = Conn.GetSys("idflowchart");
+			if (idflowchart == null || idflowchart == DBNull.Value) return; //Nessuna restrizione
+			if (!GestioneClass.UsesAttribues(Conn)) return;
+			if (myPrymaryTable.Columns.Contains("idsor01")) return; //ci sono gli attributi, non serve limitare il resp
+			if (myPrymaryTable.Columns.Contains("idman")) return; //c'è il responsabile, basta limitare quello
+			object all_upb = Conn.GetUsr("all_upb");
+			if (all_upb != null && all_upb.ToString().ToUpper() == "S") return;
+			if (myPrymaryTable.Columns.Contains("idupb")) {
+				DataColumn C1 = myPrymaryTable.Columns["idupb"];
+				C1.AllowDBNull = false;
+				C1.Caption = "UPB";
+			}
+		}
 
 
 		/// <summary>
@@ -239,7 +242,7 @@ namespace resultparameter_default{//Report//
 		private Label InserisciLabel(DataRow Param) {
 			Label LB = new Label();
 			this.Controls.Add(LB);
-			LB.Location = (new Point(HPosition,VPosition));
+			LB.Location = (new Point(HPosition, VPosition));
 			LB.Width = ControlWidth;
 			LB.Height = LabelHeight;
 			//Leggo la descrizione dal DataRow
@@ -256,14 +259,14 @@ namespace resultparameter_default{//Report//
 		private TextBox InserisciTextBox(DataRow Param) {
 			TextBox TBP = new TextBox();
 			this.Controls.Add(TBP);
-			TBP.Location = new Point(HPosition,VPosition+LabelHeight);
+			TBP.Location = new Point(HPosition, VPosition + LabelHeight);
 			TBP.Width = ControlWidth;
 			TBP.Height = TextHeight;
-			TBP.TextAlign= HorizontalAlignment.Right;
-			TBP.Tag = myPrymaryTable.TableName + "."+ Param["paramname"].ToString();
+			TBP.TextAlign = HorizontalAlignment.Right;
+			TBP.Tag = myPrymaryTable.TableName + "." + Param["paramname"].ToString();
 			string fmt = Param["tag"].ToString();
 			//if (fmt=="")fmt="g";
-			if (fmt!=null) TBP.Tag += "."+fmt;
+			if (fmt != null) TBP.Tag += "." + fmt;
 			return TBP;
 		}
 
@@ -275,19 +278,19 @@ namespace resultparameter_default{//Report//
 			//Text box dell'Help
 			TextBox TBHelp = new TextBox();
 			this.Controls.Add(TBHelp);
-				
+
 			TBHelp.Location = (new Point(HPosition + ControlWidth + 10, VPosition));
 			TBHelp.ReadOnly = true;
 			TBHelp.Width = ControlWidth;
 			TBHelp.Multiline = true;
-			TBHelp.TabStop=false;
+			TBHelp.TabStop = false;
 			TBHelp.ScrollBars = ScrollBars.Vertical;
 			TBHelp.Height = HelpHeight;
 			TBHelp.Text = help;
 		}
 		private GroupBox InserisciGroupBox(DataRow Param) {
-			string descr=Param["description"].ToString().Trim();
-			return InserisciGroupBox(Param,descr);
+			string descr = Param["description"].ToString().Trim();
+			return InserisciGroupBox(Param, descr);
 		}
 
 		/// <summary>
@@ -297,15 +300,15 @@ namespace resultparameter_default{//Report//
 		/// <returns>Il GroupBox creato</returns>
 		private GroupBox InserisciGroupBox(DataRow Param, string descr) {
 			GroupBox grp = new GroupBox();
-			grp.Name="gb"+Param["paramname"].ToString();
-			descr=myDA.Compile(descr,true);
-			grp.Text=descr;
-			if (descr=="") grp.Enabled=false;
+			grp.Name = "gb" + Param["paramname"].ToString();
+			descr = myDA.Compile(descr, true);
+			grp.Text = descr;
+			if (descr == null || descr == "" || descr == "null") grp.Enabled = false;
 			this.Controls.Add(grp);
 			//la riduzione di VPosition serve per l'allineamento con l'help
-			grp.Location=new Point(HPosition, VPosition-4);
-			grp.Height=HelpHeight+5;
-			grp.Width=ControlWidth;
+			grp.Location = new Point(HPosition, VPosition - 4);
+			grp.Height = HelpHeight + 5;
+			grp.Width = ControlWidth;
 			return grp;
 		}
 
@@ -315,27 +318,27 @@ namespace resultparameter_default{//Report//
 		/// <param name="Param">riga di reportparameter</param>
 		/// <param name="IsAlias">True se la tabella padre esiste già nel DataSet</param>
 		private void InserisciCombo(DataRow Param, bool IsAlias) {
-			
-			string tablename=Param["datasource"].ToString();
-			string paramname=Param["paramname"].ToString();
+
+			string tablename = Param["datasource"].ToString();
+			string paramname = Param["paramname"].ToString();
 			if (IsAlias) {
-				tablename+=AliasCount;
+				tablename += AliasCount;
 			}
 			ComboBox CB = new ComboBox();
 			this.Controls.Add(CB);
-			CB.Location = new Point(HPosition,VPosition+LabelHeight);
+			CB.Location = new Point(HPosition, VPosition + LabelHeight);
 			CB.Width = ControlWidth;
 			CB.DropDownStyle = ComboBoxStyle.DropDownList;
-			CB.Tag = myPrymaryTable.TableName+"."+paramname;
+			CB.Tag = myPrymaryTable.TableName + "." + paramname;
 			CB.DataSource = DS.Tables[tablename];
 			CB.ValueMember = Param["valuemember"].ToString();
 			CB.DisplayMember = Param["displaymember"].ToString();
-			if ((paramname.IndexOf("level")>=0) &&(Param["hintkind"].ToString().ToUpper()=="NOHINT")){
+			if ((paramname.IndexOf("level") >= 0) && (Param["hintkind"].ToString().ToUpper() == "NOHINT")) {
 				ComboToPreset.Add(CB);
 			}
-            if ((paramname.IndexOf("idtreasurer") >= 0) && (Param["hintkind"].ToString().ToUpper() == "NOHINT")) {
-                ComboToPreset.Add(CB);
-            }
+			if ((paramname.IndexOf("idtreasurer") >= 0) && (Param["hintkind"].ToString().ToUpper() == "NOHINT")) {
+				ComboToPreset.Add(CB);
+			}
 		}
 
 		/// <summary>
@@ -344,16 +347,16 @@ namespace resultparameter_default{//Report//
 		/// <param name="custom">tag</param>
 		/// <returns>True se custom</returns>
 		private bool IsCustomField(string custom) {
-			if (custom=="") return false;
+			if (custom == "") return false;
 			//per i tipi costant, radio, check, etc... non eseguo nessun controllo
 			if (!custom.ToLower().StartsWith("custom")) return true;
 			//vedo se c'è una riga in customselection con codice
-			string selectioncode=custom.Substring(custom.IndexOf(".")+1);
+			string selectioncode = custom.Substring(custom.IndexOf(".") + 1);
 			DataRow row = reportVista1.customselection.FindByselectioncode(selectioncode);
-			return (row!=null);
+			return (row != null);
 		}
 
-	    private IMetaDataDispatcher disp;
+		private IMetaDataDispatcher disp;
 		/// <summary>
 		/// Metodo per la creazione del Form per l'inserimento dei parametri da
 		/// passare alle storedprocedure dei Report di stampa.
@@ -362,70 +365,70 @@ namespace resultparameter_default{//Report//
 		/// <param name="ModuleNameReportName">campo modulename di reportparameter</param>
 		/// <param name="DA">DataAccess</param>
 		/// <returns>True se succesfull</returns>
-		public bool BuildForm(string ModuleNameReportName,MetaData M) {
-			Meta=M;
-			MetaDataDispatcher E= M.Dispatcher;
-		    disp = E;
+		public bool BuildForm(string ModuleNameReportName, MetaData M) {
+			Meta = M;
+			MetaDataDispatcher E = M.Dispatcher;
+			disp = E;
 			DataAccess DA = E.Conn;
 			myDA = DA as Easy_DataAccess;
-            QHC = new CQueryHelper();
-            QHS = myDA.GetQueryHelper();
+			QHC = new CQueryHelper();
+			QHS = myDA.GetQueryHelper();
 			//Riempie il dataset  ReportVista delle tabelle che mi servono a costruire il Form
-			string result = FillReportVista(ModuleNameReportName,DA);
-            //			if(reportVista1.Tables["reportparameter"].Rows.Count == 0) {form dei parametri
-            //				return false;
-            //			}
+			string result = FillReportVista(ModuleNameReportName, DA);
+			//			if(reportVista1.Tables["reportparameter"].Rows.Count == 0) {form dei parametri
+			//				return false;
+			//			}
 
-            if (result!=null) {             //reportVista1.Tables["report"].Rows.Count==0
-                M.ExtraParameter=result;
+			if (result != null) {             //reportVista1.Tables["report"].Rows.Count==0
+				M.ExtraParameter = result;
 				return false;
 			}
 
 			ModuleReport = reportVista1.Tables["report"].Rows[0];
-			ReportTitle=  ModuleReport["description"].ToString();
+			ReportTitle = ModuleReport["description"].ToString();
 
-			Parameters = reportVista1.reportparameter.Select(null,"number asc");
-			
+			Parameters = reportVista1.reportparameter.Select(null, "number asc");
+
 			CreatePrimaryTable(Parameters);
 
 			////////////////////////////////////////////////////////////////////////////
 			//Inizia la Procedura per l'inserimento dei controlli nel Form.
-		
-			VPosition +=RigaSuccessiva;  //Incrementa il puntatore per la riga successiva
+
+			VPosition += RigaSuccessiva;  //Incrementa il puntatore per la riga successiva
 
 			//Per ogni parametro ovvero per ogni riga presente nella tabella reportparameter
-			foreach(DataRow Param in Parameters) {
-				bool skipSizeIncrement=false;
+			foreach (DataRow Param in Parameters) {
+				bool skipSizeIncrement = false;
 
-				string selectioncode=Param["selectioncode"].ToString();
-				string paramname=Param["paramname"].ToString();
+				string selectioncode = Param["selectioncode"].ToString();
+				string paramname = Param["paramname"].ToString();
 				//verifica se sono in presenza di tabella alias 
 				//(i campi devono contenere la stringa "|alias")
-				bool IsAlias=(Param["paramname"].ToString().IndexOf("|alias")!=-1);
-				if (!IsAlias){
-					string table= Param["datasource"].ToString();
-					if ((table!="")&&DS.Tables.Contains(table))IsAlias=true;
-                    if (reportVista1.reportparameter.Select(QHC.CmpEq("datasource",table)).Length>1)IsAlias=true;
+				bool IsAlias = (Param["paramname"].ToString().IndexOf("|alias") != -1);
+				if (!IsAlias) {
+					string table = Param["datasource"].ToString();
+					if ((table != "") && DS.Tables.Contains(table)) IsAlias = true;
+					if (reportVista1.reportparameter.Select(QHC.CmpEq("datasource", table)).Length > 1) IsAlias = true;
 				}
 				if (IsAlias) ++AliasCount;
 
-				bool customField=IsCustomField(selectioncode);
+				bool customField = IsCustomField(selectioncode);
 
 				if (customField) {
 					//E' un campo nascosto?
-					if (selectioncode.ToLower()=="costant.hidden") skipSizeIncrement=true;
+					if (selectioncode.ToLower() == "costant.hidden") skipSizeIncrement = true;
 
-                    skipSizeIncrement = !AddCustomControl(selectioncode, 
+					skipSizeIncrement = !AddCustomControl(selectioncode,
 						myPrymaryTable.TableName, paramname,
 						HPosition, VPosition, Param, IsAlias);
 				}
 				else {
-					if(Param["iscombobox"].ToString().ToUpper()=="S") {
+					if (Param["iscombobox"].ToString().ToUpper() == "S") {
 						InserisciLabel(Param);
-						if(!AddTableToDS(Param, IsAlias)){
-							Meta.ExtraParameter=" Errore nella costruzione del parametri (campo "+
-								Param["paramname"].ToString()+" su tabella "+			
-									Param["datasource"].ToString()+")";
+						if (!AddTableToDS(Param, IsAlias)) {
+							Meta.ExtraParameter = " Errore nella costruzione del parametri (campo " +
+								Param["paramname"].ToString() + " su tabella " +
+									Param["datasource"].ToString() + ")";
 							return false;
 						}
 						InserisciCombo(Param, IsAlias);
@@ -438,22 +441,22 @@ namespace resultparameter_default{//Report//
 
 				if (!skipSizeIncrement) {
 					if (customField) {
-						if (Param["help2"].ToString()!="")
-							InserisciHelp(GetPrintable(myDA.Compile(Param["help2"].ToString(),true)));
+						if (Param["help2"].ToString() != "")
+							InserisciHelp(GetPrintable(myDA.Compile(Param["help2"].ToString(), true)));
 						else
-							InserisciHelp(GetPrintable(myDA.Compile(Param["help"].ToString(),true)));
+							InserisciHelp(GetPrintable(myDA.Compile(Param["help"].ToString(), true)));
 					}
 					else
-						InserisciHelp(GetPrintable(myDA.Compile(Param["help"].ToString(),true)));
+						InserisciHelp(GetPrintable(myDA.Compile(Param["help"].ToString(), true)));
 					//Incrementa il puntatore per la riga successiva
-					VPosition +=RigaSuccessiva;
+					VPosition += RigaSuccessiva;
 				}
 
 			}//Fine foreach
 
 			//Ridefinisce la lunghezza del form
-			int myheigth= VPosition + 120 + btnDiagnostic.Height;
-			if (myheigth<312) myheigth=312;
+			int myheigth = VPosition + 120 + btnDiagnostic.Height + btnGuidaMht.Height;
+			if (myheigth < 312) myheigth = 312;
 			this.Height = myheigth;
 
 			return true;
@@ -473,172 +476,173 @@ namespace resultparameter_default{//Report//
 		/// <param name="IsAlias">True se la tabella padre esiste già nel DataSet</param>
 		private bool AddCustomControl(string tag, string tablename, string paramname,
 			int HPosition, int VPosition, DataRow param, bool IsAlias) {
-			if (tag=="") return false;
-			int dotpos=tag.IndexOf(".");
-			string tipo=tag.Substring(0, dotpos);
-			string[] token=tag.Substring(dotpos+1).Split('|');
-            
+			if (tag == "") return false;
+			int dotpos = tag.IndexOf(".");
+			string tipo = tag.Substring(0, dotpos);
+			string[] token = tag.Substring(dotpos + 1).Split('|');
+
 
 			switch (tipo.ToLower()) {
 				case "check":
 					CheckBox ctrl = new CheckBox();
-					ctrl.Tag=tablename+"."+paramname+":"+token[0]+":"+token[1];
-					ctrl.Text=token[2];
-					ctrl.Width=ControlWidth - 20;
+					ctrl.Tag = tablename + "." + paramname + ":" + token[0] + ":" + token[1];
+					ctrl.Text = token[2];
+					ctrl.Width = ControlWidth - 20;
 					this.Controls.Add(ctrl);
-					ctrl.Location=new Point(HPosition,VPosition+8);
-                    if (OnePrintObbligatorio && paramname == "oneprint") {
-                        ctrl.Enabled = false;
-                    }
+					ctrl.Location = new Point(HPosition, VPosition + 8);
+					if (OnePrintObbligatorio && paramname == "oneprint") {
+						ctrl.Enabled = false;
+					}
 					break;
 
 				case "radio":
 					GroupBox grp = InserisciGroupBox(param);
 
 					int i;
-					int Altezza=15;
-					for(i=0;i<token.Length/2;i++) {
+					int Altezza = 15;
+					for (i = 0; i < token.Length / 2; i++) {
 						RadioButton rb = new RadioButton();
-						rb.Tag=tablename+"."+paramname+":"+token[2*i];
-						rb.Text=token[2*i+1];
-						rb.Width=ControlWidth-20;
-						rb.Height=LabelHeight;
+						rb.Tag = tablename + "." + paramname + ":" + token[2 * i];
+						rb.Text = token[2 * i + 1];
+						rb.Width = ControlWidth - 20;
+						rb.Height = LabelHeight;
 						grp.Controls.Add(rb);
-						rb.Location=new Point(12, Altezza);
-						Altezza+=rb.Height;
+						rb.Location = new Point(12, Altezza);
+						Altezza += rb.Height;
 					}
-					grp.Height=Altezza+10;
-					this.VPosition+=(grp.Height-HelpHeight-4);
+					grp.Height = Altezza + 10;
+					this.VPosition += (grp.Height - HelpHeight - 4);
 
 					break;
 
 				case "custom":
-					string selectioncode=token[0];
-					ReportVista.customselectionDataTable T=reportVista1.customselection;
-					DataRow selRow=T.FindByselectioncode(selectioncode);
-					
-					if (selRow==null) return false;
-					string parenttable=selRow["tablename"].ToString();
-					string editlisttype=selRow["editlisttype"].ToString();
-					string selectiontype=selRow["selectiontype"].ToString();
-					string fieldname=selRow["fieldname"].ToString();
-					string filter= myDA.Compile(selRow["filter"].ToString(),true);
-					string filterapp=filter;
+					string selectioncode = token[0];
+					ReportVista.customselectionDataTable T = reportVista1.customselection;
+					DataRow selRow = T.FindByselectioncode(selectioncode);
+
+					if (selRow == null) return false;
+					string parenttable = selRow["tablename"].ToString();
+					string editlisttype = selRow["editlisttype"].ToString();
+					string selectiontype = selRow["selectiontype"].ToString();
+					string fieldname = selRow["fieldname"].ToString();
+					string filter = myDA.Compile(selRow["filter"].ToString(), true);
+					if (filter == "(idsorkind='null')") return false; //filter = "(idsorkind is null)";
+					string filterapp = filter;
 					AddCustomTableToDS(selRow, paramname, IsAlias);
-               		if (IsAlias) parenttable+=AliasCount;
+					if (IsAlias) parenttable += AliasCount;
 
 
-                    GestioneClass GestAttributi = GestioneClass.GetGestioneClassForField(selectioncode, myDA, parenttable);
+					GestioneClass GestAttributi = GestioneClass.GetGestioneClassForField(selectioncode, myDA, parenttable);
 
-                    if (GestAttributi != null) {
-                        selectiontype = "C";
-                        myPrymaryTable.Columns[paramname].DefaultValue = GestAttributi.DefaultValue();
-                        bool denynull  = !GestAttributi.AllowNull();
-                        myPrymaryTable.Columns[paramname].AllowDBNull = !denynull;
-                        HelpForm.SetDenyZero(myPrymaryTable.Columns[paramname], denynull);
-                        HelpForm.SetDenyNull(myPrymaryTable.Columns[paramname], denynull);
+					if (GestAttributi != null) {
+						selectiontype = "C";
+						myPrymaryTable.Columns[paramname].DefaultValue = GestAttributi.DefaultValue();
+						bool denynull = !GestAttributi.AllowNull();
+						myPrymaryTable.Columns[paramname].AllowDBNull = !denynull;
+						HelpForm.SetDenyZero(myPrymaryTable.Columns[paramname], denynull);
+						HelpForm.SetDenyNull(myPrymaryTable.Columns[paramname], denynull);
 
-                        if (GestAttributi.AllowSelection() == false) {
-                            return false;
-                        }
+						if (GestAttributi.AllowSelection() == false) {
+							return false;
+						}
 
 
-                    }
+					}
 
-					if (filter!="")filterapp="."+filterapp;
+					if (filter != "") filterapp = "." + filterapp;
 
 
 					// C(hoose) o M(anage)?
-					bool IsAutoManage = (selectiontype.ToUpper()=="M");
-					bool IsAutoChoose = (selectiontype.ToUpper()=="C");
-					bool IsComboManage = (selectiontype.ToUpper()=="U");
+					bool IsAutoManage = (selectiontype.ToUpper() == "M");
+					bool IsAutoChoose = (selectiontype.ToUpper() == "C");
+					bool IsComboManage = (selectiontype.ToUpper() == "U");
 
 					//Inserisco un groupbox
-					GroupBox gb = InserisciGroupBox(param,selRow["selectionname"].ToString());
+					GroupBox gb = InserisciGroupBox(param, selRow["selectionname"].ToString());
 
 					//aggiungo un button
 					Button btn = new Button();
-					btn.Name="btn"+paramname;
-					btn.Text="Seleziona";
-					btn.Location=new Point(12,14);
-					btn.Width=62;
-					btn.Height=TextHeight-9;
+					btn.Name = "btn" + paramname;
+					btn.Text = "Seleziona";
+					btn.Location = new Point(12, 14);
+					btn.Width = 62;
+					btn.Height = TextHeight - 9;
 					gb.Controls.Add(btn);
-					TextBox TBP=null;
-					if (IsAutoChoose||IsAutoManage){
+					TextBox TBP = null;
+					if (IsAutoChoose || IsAutoManage) {
 						//e un textbox
 						TBP = new TextBox();
-						TBP.Name="txt"+paramname;
-						TBP.Location = new Point(btn.Location.X+btn.Width+1,14);
+						TBP.Name = "txt" + paramname;
+						TBP.Location = new Point(btn.Location.X + btn.Width + 1, 14);
 						TBP.Width = ControlWidth - btn.Width - 20;
 						TBP.Height = TextHeight;
-						TBP.Tag=parenttable+"."+fieldname+"?x";
+						TBP.Tag = parenttable + "." + fieldname + "?x";
 						gb.Controls.Add(TBP);
 					}
-					if (IsComboManage){
-						
-						btn.Tag="manage."+parenttable+"."+editlisttype+filterapp;
+					if (IsComboManage) {
+
+						btn.Tag = "manage." + parenttable + "." + editlisttype + filterapp;
 
 						ComboBox CBP = new ComboBox();
 
-						string tablename2=param["datasource"].ToString();
-						string paramname2=param["paramname"].ToString();
+						string tablename2 = param["datasource"].ToString();
+						string paramname2 = param["paramname"].ToString();
 						if (IsAlias) {
-							tablename2+=AliasCount;
+							tablename2 += AliasCount;
 						}
 						ComboBox CB = new ComboBox();
-						CB.Location = new Point(btn.Location.X+btn.Width+1,14);
+						CB.Location = new Point(btn.Location.X + btn.Width + 1, 14);
 						CB.Width = ControlWidth - btn.Width - 20;
 						CB.DropDownStyle = ComboBoxStyle.DropDownList;
-						CB.Tag = myPrymaryTable.TableName+"."+paramname2;
+						CB.Tag = myPrymaryTable.TableName + "." + paramname2;
 						CB.DataSource = DS.Tables[tablename2];
 						CB.ValueMember = param["valuemember"].ToString();
 						CB.DisplayMember = param["displaymember"].ToString();
-						if ((paramname.IndexOf("level")>=0) &&(param["hintkind"].ToString().ToUpper()=="NOHINT")){
+						if ((paramname.IndexOf("level") >= 0) && (param["hintkind"].ToString().ToUpper() == "NOHINT")) {
 							ComboToPreset.Add(CB);
 						}
-                        if ((paramname.IndexOf("idtreasurer") >= 0) && (param["hintkind"].ToString().ToUpper() == "NOHINT")) {
-                                ComboToPreset.Add(CB);
-                        }
-                        gb.Controls.Add(CB);
-					
+						if ((paramname.IndexOf("idtreasurer") >= 0) && (param["hintkind"].ToString().ToUpper() == "NOHINT")) {
+							ComboToPreset.Add(CB);
+						}
+						gb.Controls.Add(CB);
+
 						//TBP.Name="txt"+paramname;
 						//TBP.Height = TextHeight;
 						//TBP.Tag=parenttable+"."+fieldname+"?x";
 					}
-                    if (GestAttributi != null) {
-                        TBP.TextAlign = HorizontalAlignment.Left;
-                        btn.Tag = GestAttributi.BtnTag();
-                        gb.Tag = "AutoChoose." + TBP.Name + "." + editlisttype + "."+GestAttributi.GetFilterAutoChoose();
+					if (GestAttributi != null) {
+						TBP.TextAlign = HorizontalAlignment.Left;
+						btn.Tag = GestAttributi.BtnTag();
+						gb.Tag = "AutoChoose." + TBP.Name + "." + editlisttype + "." + GestAttributi.GetFilterAutoChoose();
 
-                    }
-                    else {
+					}
+					else {
 
-                        if (IsAutoManage) {
-                            TBP.TextAlign = HorizontalAlignment.Right;
-                            btn.Tag = "manage." + parenttable + "." + editlisttype + filterapp;
-                            gb.Tag = "AutoManage." + TBP.Name + "." + editlisttype + filterapp;
-                        }
-                        if (IsAutoChoose) {
-                            TBP.TextAlign = HorizontalAlignment.Left;
-                            btn.Tag = "choose." + parenttable + "." + editlisttype + filterapp;
-                            gb.Tag = "AutoChoose." + TBP.Name + "." + editlisttype + filterapp;
-                        }
-                    }
+						if (IsAutoManage) {
+							TBP.TextAlign = HorizontalAlignment.Right;
+							btn.Tag = "manage." + parenttable + "." + editlisttype + filterapp;
+							gb.Tag = "AutoManage." + TBP.Name + "." + editlisttype + filterapp;
+						}
+						if (IsAutoChoose) {
+							TBP.TextAlign = HorizontalAlignment.Left;
+							btn.Tag = "choose." + parenttable + "." + editlisttype + filterapp;
+							gb.Tag = "AutoChoose." + TBP.Name + "." + editlisttype + filterapp;
+						}
+					}
 					break;
 
 				case "costant":
 					//controlli il cui valore è costante (es. il filtro bilancio deve essere 'E')
-					bool visible=!(token[0].ToLower()=="hidden");
+					bool visible = !(token[0].ToLower() == "hidden");
 					Label lb = InserisciLabel(param);
-					lb.Visible=visible;
+					lb.Visible = visible;
 					TextBox tb = InserisciTextBox(param);
-					tb.Visible=visible;
-					tb.ReadOnly=true;
-                    if (!visible) return false;
+					tb.Visible = visible;
+					tb.ReadOnly = true;
+					if (!visible) return false;
 					break;
 			}
-            return true;
+			return true;
 		}
 
 		/// <summary>
@@ -648,51 +652,54 @@ namespace resultparameter_default{//Report//
 		/// <param name="paramname">valore della colonna paramname</param>
 		/// <param name="IsAlias">True se sono in presenza di tabella alias</param>
 		private void AddCustomTableToDS(DataRow customRow, string paramname, bool IsAlias) {
-			
-			string parenttable=customRow["tablename"].ToString();
-			string RealTable=parenttable;
+
+			string parenttable = customRow["tablename"].ToString();
+			string RealTable = parenttable;
 
 			//Aggiunge il nuovo DataTable se non c'è già
-			if(DS.Tables[parenttable] == null || IsAlias) {
-				DataTable T = myDA.CreateTableByName(parenttable,null);
-			    if (T.PrimaryKey.Length == 0) {
-			        var m = disp.Get(parenttable);
-			        if (m.primaryKey() != null && m.primaryKey().Length>0) {
-			            T.PrimaryKey = (from string f in m.primaryKey() select T.Columns[f]).ToArray();
-			        }
-			    }
+			if (DS.Tables[parenttable] == null || IsAlias) {
+				DataTable T = myDA.CreateTableByName(parenttable, null);
+				if (T.PrimaryKey.Length == 0) {
+					var m = disp.Get(parenttable);
+					if (m.primaryKey() != null && m.primaryKey().Length > 0) {
+						T.PrimaryKey = (from string f in m.primaryKey() select T.Columns[f]).ToArray();
+					}
+				}
 				if (IsAlias) {
-					string AliasTable=parenttable+AliasCount;
-					T.TableName=AliasTable;
-					parenttable=AliasTable;
+					string AliasTable = parenttable + AliasCount;
+					T.TableName = AliasTable;
+					parenttable = AliasTable;
 					DataAccess.SetTableForReading(T, RealTable);
 				}
 				DS.Tables.Add(T);
-				string relatedcolname=customRow["relationfield"].ToString();
+				string relatedcolname = customRow["relationfield"].ToString();
 				DataColumn ParentCol = T.Columns[relatedcolname];
 				DataColumn ChildCol = myPrymaryTable.Columns[paramname];
-				string relname = parenttable+myPrymaryTable.TableName;
+				string relname = parenttable + myPrymaryTable.TableName;
 				DS.Relations.Add(relname, ParentCol, ChildCol, false);
 			}
 			DataTable ParentTable = DS.Tables[parenttable];
 			string Filter = customRow["filter"].ToString().Trim();
 
-            //Aggiunge filtro su esercizio se chiave primaria contiene
-            // un campo di nome esercizio
-            if (QueryCreator.IsPrimaryKey(ParentTable, "ayear")) {
-                Filter = QHS.AppAnd(Filter, QHS.CmpEq("ayear", Meta.GetSys("esercizio")));
-            }
+			//Aggiunge filtro su esercizio se chiave primaria contiene
+			// un campo di nome esercizio
+			if (QueryCreator.IsPrimaryKey(ParentTable, "ayear")) {
+				Filter = QHS.AppAnd(Filter, QHS.CmpEq("ayear", Meta.GetSys("esercizio")));
+			}
 
-            if (Filter!=""){
-				Filter= myDA.Compile(Filter,true);
+			if (Filter != "") {
+				Filter = myDA.Compile(Filter, true);
+				if (Filter == "(idsorkind='null')") {
+					Filter = "(idsorkind is null)";
+				}
 				GetData.SetStaticFilter(ParentTable, Filter);
 			}
 
 			string Extra = customRow["extraparameter"].ToString();
-			if (Extra!=""){
-				Extra= myDA.Compile(Extra,true);
-			    Extra = Extra.Replace("='null'", " is null ");
-				ParentTable.ExtendedProperties[MetaData.ExtraParams]=Extra;
+			if (Extra != "") {
+				Extra = myDA.Compile(Extra, true);
+				Extra = Extra.Replace("='null'", " is null ");
+				ParentTable.ExtendedProperties[MetaData.ExtraParams] = Extra;
 			}
 
 		}
@@ -705,35 +712,35 @@ namespace resultparameter_default{//Report//
 		//Il Campo con nome "displaymember" dovrà essere campo chiave
 		//della tabella che sto aggiungendo al dataset.
 		private bool AddTableToDS(DataRow Param, bool IsAlias) {
-					
-			string paramname= Param["paramname"].ToString();			
+
+			string paramname = Param["paramname"].ToString();
 			string datasourceName = Param["datasource"].ToString();
-			string RealTable=datasourceName;
+			string RealTable = datasourceName;
 			string CodeFieldName = Param["valuemember"].ToString();
 
 			//Aggiunge il nuovo DataTable se non c'è già oppure se è un alias
-			if(DS.Tables[datasourceName] == null || IsAlias) {
-				DataTable T = myDA.CreateTableByName(datasourceName,null);
-			    if (T.PrimaryKey.Length == 0) {
-			        var m = Meta.Dispatcher.Get(datasourceName);
-			        var k = m.primaryKey();
-			        if (k != null && k.Length > 0) {
-			            T.PrimaryKey = (from string fName in k select T.Columns[fName]).ToArray();
-			        }
-			    }
+			if (DS.Tables[datasourceName] == null || IsAlias) {
+				DataTable T = myDA.CreateTableByName(datasourceName, null);
+				if (T.PrimaryKey.Length == 0) {
+					var m = Meta.Dispatcher.Get(datasourceName);
+					var k = m.primaryKey();
+					if (k != null && k.Length > 0) {
+						T.PrimaryKey = (from string fName in k select T.Columns[fName]).ToArray();
+					}
+				}
 				if (IsAlias) {
-					string AliasTable=datasourceName+AliasCount;
-					T.TableName=AliasTable;
-					datasourceName=AliasTable;
+					string AliasTable = datasourceName + AliasCount;
+					T.TableName = AliasTable;
+					datasourceName = AliasTable;
 					DataAccess.SetTableForReading(T, RealTable);
 				}
 				DS.Tables.Add(T);
-				if (T.Columns[CodeFieldName]==null) return false;
-				if (myPrymaryTable.Columns[paramname]==null) return false;
+				if (T.Columns[CodeFieldName] == null) return false;
+				if (myPrymaryTable.Columns[paramname] == null) return false;
 				//Add datasource->PrimaryTable Relation
 				DataColumn ParentCol = T.Columns[CodeFieldName];
 				DataColumn ChildCol = myPrymaryTable.Columns[paramname];
-				string relname = datasourceName+myPrymaryTable.TableName;
+				string relname = datasourceName + myPrymaryTable.TableName;
 				DS.Relations.Add(relname, ParentCol, ChildCol, false);
 			}
 
@@ -741,61 +748,61 @@ namespace resultparameter_default{//Report//
 			//nella tabella reportparameter, imposto un filtro statico sulla tabella del dataset
 			DataTable datasource = DS.Tables[datasourceName];
 			string Filter = Param["filter"].ToString().Trim();
-			if (Filter!=""){
-				Filter= myDA.Compile(Filter, true);
+			if (Filter != "") {
+				Filter = myDA.Compile(Filter, true);
 				GetData.SetStaticFilter(datasource, Filter);
 			}
-			if (datasourceName.ToLower().IndexOf("level")>=0) {
-				if (datasource.Columns["nlevel"]!=null){
+			if (datasourceName.ToLower().IndexOf("level") >= 0) {
+				if (datasource.Columns["nlevel"] != null) {
 					GetData.SetSorting(datasource, "nlevel");
-					if (Filter!=""){
-						GetData.CacheTable(datasource,Filter,"nlevel",true);
+					if (Filter != "") {
+						GetData.CacheTable(datasource, Filter, "nlevel", true);
 					}
 					else {
-						GetData.CacheTable(datasource,null,"nlevel",true);
+						GetData.CacheTable(datasource, null, "nlevel", true);
 					}
 				}
 			}
-            if (datasourceName.ToLower().IndexOf("treasurer") >= 0) {
-                if (datasource.Columns["flagdefault"] != null) {
-                    GetData.SetSorting(datasource, "flagdefault DESC");
-                    if (Filter != "") {
-                        GetData.CacheTable(datasource, Filter, "flagdefault DESC", true);
-                    }
-                    else {
-                        GetData.CacheTable(datasource, null, "flagdefault DESC", true);
-                    }
-                }
-            }
+			if (datasourceName.ToLower().IndexOf("treasurer") >= 0) {
+				if (datasource.Columns["flagdefault"] != null) {
+					GetData.SetSorting(datasource, "flagdefault DESC");
+					if (Filter != "") {
+						GetData.CacheTable(datasource, Filter, "flagdefault DESC", true);
+					}
+					else {
+						GetData.CacheTable(datasource, null, "flagdefault DESC", true);
+					}
+				}
+			}
 
 
 			//Aggiunge filtro su esercizio se chiave primaria contiene
 			// un campo di nome esercizio
-			if ((Filter=="")&&(QueryCreator.IsPrimaryKey(datasource,"ayear"))){
+			if ((Filter == "") && (QueryCreator.IsPrimaryKey(datasource, "ayear"))) {
 				GetData.SetStaticFilter(datasource, $"(ayear=\'{Meta.GetSys("esercizio")}\')");
 			}
 			return true;
 		}
 
-		object DefaultForParameter(DataRow Param){
+		object DefaultForParameter(DataRow Param) {
 			string TipoDef = Param["hintkind"].ToString().ToUpper();
-			DateTime DC = (DateTime) Meta.GetSys("datacontabile");
-			switch(TipoDef){
-				case "STRING":	//Other
+			DateTime DC = (DateTime)Meta.GetSys("datacontabile");
+			switch (TipoDef) {
+				case "STRING":  //Other
 					return Param["hint"].ToString();
 				case "1/CURRM":   //Primo giorno del mese
 					return new DateTime(DC.Year, DC.Month, 1);
 				case "LASTDAY/CURRM":  //Ultimo giorno del mese
-					return new DateTime(DC.Year, DC.Month, 
+					return new DateTime(DC.Year, DC.Month,
 								DateTime.DaysInMonth(DC.Year, DC.Month));
 				case "ACCOUNTYEAR": //esercizio corrente
 					return Meta.GetSys("esercizio");
 				case "NOHINT": //nessun valore predef.
 					return DBNull.Value;
 				case "1/1": //Primo giorno dell'anno
-					return new DateTime(DC.Year,1,1);
+					return new DateTime(DC.Year, 1, 1);
 				case "31/12": //Ultimo giorno dell'anno
-					return new DateTime(DC.Year,12,31);
+					return new DateTime(DC.Year, 12, 31);
 				case "ACCOUNTDATE": //Data Contabile
 					return DC;
 				default:
@@ -808,16 +815,16 @@ namespace resultparameter_default{//Report//
 
 
 		System.Type GetTypeFromSysType(string systype) {
-			systype=systype.ToUpper();
+			systype = systype.ToUpper();
 
-			switch(systype) {
-                case "BYTE": return typeof(byte);
-                case "INT16": return typeof(short);
-                case "INT32": return typeof(int); 
-				case "DATETIME": return typeof(DateTime); 
-				case "STRING": return typeof(string); 
-				case "DECIMAL":return typeof(decimal);
-				case "DOUBLE":return typeof(double);
+			switch (systype) {
+				case "BYTE": return typeof(byte);
+				case "INT16": return typeof(short);
+				case "INT32": return typeof(int);
+				case "DATETIME": return typeof(DateTime);
+				case "STRING": return typeof(string);
+				case "DECIMAL": return typeof(decimal);
+				case "DOUBLE": return typeof(double);
 				default:
 					return typeof(string);
 			}
@@ -826,16 +833,16 @@ namespace resultparameter_default{//Report//
 
 
 		public void MetaData_AfterClear() {
-			Text= ReportTitle;
-			if(InsertMode)return;
+			Text = ReportTitle;
+			if (InsertMode) return;
 			InsertMode = true;
 			MetaData.MainAdd(this);
 		}
 
-		string GetPrintable(string msg){
-			string S= msg.Replace("\r","\n");
-			S=S.Replace("\n\n","\n");
-			S=S.Replace("\n","\r\n");
+		string GetPrintable(string msg) {
+			string S = msg.Replace("\r", "\n");
+			S = S.Replace("\n\n", "\n");
+			S = S.Replace("\n", "\r\n");
 			return S;
 		}
 
@@ -844,57 +851,67 @@ namespace resultparameter_default{//Report//
 		}
 
 		private void CheckPatch() {
-//			DataTable T=reportVista1.report;
-//			if (T==null || T.Rows.Count==0) return;
-//			if (T.Rows[0]["papersize"].ToString().ToUpper()!="A3") return;
-//			string reportname=T.Rows[0]["reportname"].ToString();
-//			DateTime C_CRPE=new DateTime(2003,10,22);
-//			DateTime C_CRQE=new DateTime(2003,8,28);
-//			string commondir=Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles);
-//			commondir+=@"\Crystal Decisions\2.0\bin\";
-//			string crpe=commondir+"crpe32.dll";
-//			string crqe=commondir+"crqe.dll";
-//			FileInfo Fpe=new FileInfo(crpe);
-//			FileInfo Fqe=new FileInfo(crqe);
-//			DateTime dt_crpe=Fpe.LastWriteTime;
-//			DateTime dt_crqe=Fqe.LastWriteTime;
-//			if ((dt_crpe.CompareTo(C_CRPE)<0) || (dt_crqe.CompareTo(C_CRQE)<0)) {
-//				btnPatch.Visible=true;
-//				string msg="ATTENZIONE! E' necessario aggiornare il programma per quanto riguarda "+
-//					"le stampe. Per una corretta stampa del documento è richiesto scaricare "+
-//					"l'aggiornamento di Crystal Report cliccando sul bottone 'Scarica patch' in "+
-//					"basso a destra o contattare il Centro Assistenza e richiederne l'installazione.";
-//				MessageBox.Show(msg,"Attenzione",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
-//			}
+			//			DataTable T=reportVista1.report;
+			//			if (T==null || T.Rows.Count==0) return;
+			//			if (T.Rows[0]["papersize"].ToString().ToUpper()!="A3") return;
+			//			string reportname=T.Rows[0]["reportname"].ToString();
+			//			DateTime C_CRPE=new DateTime(2003,10,22);
+			//			DateTime C_CRQE=new DateTime(2003,8,28);
+			//			string commondir=Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles);
+			//			commondir+=@"\Crystal Decisions\2.0\bin\";
+			//			string crpe=commondir+"crpe32.dll";
+			//			string crqe=commondir+"crqe.dll";
+			//			FileInfo Fpe=new FileInfo(crpe);
+			//			FileInfo Fqe=new FileInfo(crqe);
+			//			DateTime dt_crpe=Fpe.LastWriteTime;
+			//			DateTime dt_crqe=Fqe.LastWriteTime;
+			//			if ((dt_crpe.CompareTo(C_CRPE)<0) || (dt_crqe.CompareTo(C_CRQE)<0)) {
+			//				btnPatch.Visible=true;
+			//				string msg="ATTENZIONE! E' necessario aggiornare il programma per quanto riguarda "+
+			//					"le stampe. Per una corretta stampa del documento è richiesto scaricare "+
+			//					"l'aggiornamento di Crystal Report cliccando sul bottone 'Scarica patch' in "+
+			//					"basso a destra o contattare il Centro Assistenza e richiederne l'installazione.";
+			//				MessageBox.Show(msg,"Attenzione",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+			//			}
 		}
 
-		public void MetaData_AfterFill(){
-			
-			if (ComboToPreset!=null){
-				for (int i=0; i < ComboToPreset.Count; i++){
-					ComboBox CB = (ComboBox) ComboToPreset[i];
-					if (CB.Items.Count>1) CB.SelectedIndex=1;
+		public void MetaData_AfterFill() {
+
+			if (ComboToPreset != null) {
+				for (int i = 0; i < ComboToPreset.Count; i++) {
+					ComboBox CB = (ComboBox)ComboToPreset[i];
+					if (CB.Items.Count > 1) CB.SelectedIndex = 1;
 				}
-				ComboToPreset=null;
+				ComboToPreset = null;
 			}
-			
-			Text= ReportTitle;
+
+			Text = ReportTitle;
 			DS.AcceptChanges();
 
-			
+
 
 		}
 
 
-		
+
 		public void MetaData_AfterLink() {
 			Meta = MetaData.GetMetaData(this);
-			Meta.CanInsert=false;
-			Meta.CanInsertCopy=false;
-			Meta.CanSave=false;
-			Meta.SearchEnabled=false;
-			Meta.CanCancel=false;
-		    Meta.mainRefreshEnabled = false;
+			Meta.CanInsert = false;
+			Meta.CanInsertCopy = false;
+			Meta.CanSave = false;
+			Meta.SearchEnabled = false;
+			Meta.CanCancel = false;
+			Meta.mainRefreshEnabled = false;
+
+			MostraNascontiBtnGuida();
+		}
+
+		public void MostraNascontiBtnGuida() { 
+			string currdir = AppDomain.CurrentDomain.BaseDirectory;
+			string filename = ReportName + ".mht";
+			string fullPath = currdir + filename;
+			if (!File.Exists(filename)) btnGuidaMht.Visible = false; 
+			else btnGuidaMht.Visible=true;
 		}
 
 		protected override void Dispose( bool disposing ) {
@@ -912,139 +929,150 @@ namespace resultparameter_default{//Report//
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-            this.reportVista1 = new resultparameter_default.ReportVista();
-            this.DS = new resultparameter_default.vistaForm();
-            this.btnStampa = new System.Windows.Forms.Button();
-            this.btnAnnulla = new System.Windows.Forms.Button();
-            this.btnPreview = new System.Windows.Forms.Button();
-            this.btnParamUfficiali = new System.Windows.Forms.Button();
-            this.btnDiagnostic = new System.Windows.Forms.Button();
-            this.btnPatch = new System.Windows.Forms.Button();
-            this.btnAcrobat = new System.Windows.Forms.Button();
-            this.chkClose = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.reportVista1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // reportVista1
-            // 
-            this.reportVista1.DataSetName = "ReportVista";
-            this.reportVista1.Locale = new System.Globalization.CultureInfo("en-US");
-            this.reportVista1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            this.DS.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // btnStampa
-            // 
-            this.btnStampa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStampa.Location = new System.Drawing.Point(642, 8);
-            this.btnStampa.Name = "btnStampa";
-            this.btnStampa.Size = new System.Drawing.Size(104, 24);
-            this.btnStampa.TabIndex = 0;
-            this.btnStampa.Text = "Stampa";
-            this.btnStampa.Click += new System.EventHandler(this.btnStampa_Click);
-            // 
-            // btnAnnulla
-            // 
-            this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnAnnulla.Location = new System.Drawing.Point(642, 192);
-            this.btnAnnulla.Name = "btnAnnulla";
-            this.btnAnnulla.Size = new System.Drawing.Size(104, 24);
-            this.btnAnnulla.TabIndex = 3;
-            this.btnAnnulla.Text = "Annulla";
-            this.btnAnnulla.Click += new System.EventHandler(this.btnAnnulla_Click);
-            // 
-            // btnPreview
-            // 
-            this.btnPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPreview.Location = new System.Drawing.Point(642, 40);
-            this.btnPreview.Name = "btnPreview";
-            this.btnPreview.Size = new System.Drawing.Size(104, 24);
-            this.btnPreview.TabIndex = 4;
-            this.btnPreview.Text = "Anteprima";
-            this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
-            // 
-            // btnParamUfficiali
-            // 
-            this.btnParamUfficiali.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnParamUfficiali.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnParamUfficiali.Location = new System.Drawing.Point(642, 160);
-            this.btnParamUfficiali.Name = "btnParamUfficiali";
-            this.btnParamUfficiali.Size = new System.Drawing.Size(104, 24);
-            this.btnParamUfficiali.TabIndex = 5;
-            this.btnParamUfficiali.Text = "Altri Parametri";
-            this.btnParamUfficiali.Click += new System.EventHandler(this.btnParamUfficiali_Click);
-            // 
-            // btnDiagnostic
-            // 
-            this.btnDiagnostic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDiagnostic.Location = new System.Drawing.Point(642, 264);
-            this.btnDiagnostic.Name = "btnDiagnostic";
-            this.btnDiagnostic.Size = new System.Drawing.Size(104, 40);
-            this.btnDiagnostic.TabIndex = 6;
-            this.btnDiagnostic.Text = "Correzione problemi";
-            this.btnDiagnostic.Click += new System.EventHandler(this.btnDiagnostic_Click);
-            // 
-            // btnPatch
-            // 
-            this.btnPatch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPatch.Location = new System.Drawing.Point(530, 264);
-            this.btnPatch.Name = "btnPatch";
-            this.btnPatch.Size = new System.Drawing.Size(104, 40);
-            this.btnPatch.TabIndex = 7;
-            this.btnPatch.Text = "Scarica Patch";
-            this.btnPatch.Visible = false;
-            this.btnPatch.Click += new System.EventHandler(this.btnPatch_Click);
-            // 
-            // btnAcrobat
-            // 
-            this.btnAcrobat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAcrobat.Location = new System.Drawing.Point(642, 72);
-            this.btnAcrobat.Name = "btnAcrobat";
-            this.btnAcrobat.Size = new System.Drawing.Size(104, 23);
-            this.btnAcrobat.TabIndex = 8;
-            this.btnAcrobat.Text = "Apri con Acrobat";
-            this.btnAcrobat.Click += new System.EventHandler(this.btnAcrobat_Click);
-            // 
-            // chkClose
-            // 
-            this.chkClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkClose.Checked = true;
-            this.chkClose.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkClose.Location = new System.Drawing.Point(640, 101);
-            this.chkClose.Name = "chkClose";
-            this.chkClose.Size = new System.Drawing.Size(106, 53);
-            this.chkClose.TabIndex = 9;
-            this.chkClose.Text = "Chiudi finestra dopo l\'operazione";
-            this.chkClose.UseVisualStyleBackColor = true;
-            // 
-            // frmReportParameter
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(756, 308);
-            this.Controls.Add(this.chkClose);
-            this.Controls.Add(this.btnAcrobat);
-            this.Controls.Add(this.btnPatch);
-            this.Controls.Add(this.btnDiagnostic);
-            this.Controls.Add(this.btnParamUfficiali);
-            this.Controls.Add(this.btnPreview);
-            this.Controls.Add(this.btnAnnulla);
-            this.Controls.Add(this.btnStampa);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.Name = "frmReportParameter";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "frmReportParameter";
-            this.Closing += new System.ComponentModel.CancelEventHandler(this.frmReportParameter_Closing);
-            this.Validating += new System.ComponentModel.CancelEventHandler(this.frmReportParameter_Validating);
-            ((System.ComponentModel.ISupportInitialize)(this.reportVista1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.ResumeLayout(false);
+			this.reportVista1 = new resultparameter_default.ReportVista();
+			this.DS = new resultparameter_default.vistaForm();
+			this.btnStampa = new System.Windows.Forms.Button();
+			this.btnAnnulla = new System.Windows.Forms.Button();
+			this.btnPreview = new System.Windows.Forms.Button();
+			this.btnParamUfficiali = new System.Windows.Forms.Button();
+			this.btnDiagnostic = new System.Windows.Forms.Button();
+			this.btnPatch = new System.Windows.Forms.Button();
+			this.btnAcrobat = new System.Windows.Forms.Button();
+			this.chkClose = new System.Windows.Forms.CheckBox();
+			this.btnGuidaMht = new System.Windows.Forms.Button();
+			((System.ComponentModel.ISupportInitialize)(this.reportVista1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// reportVista1
+			// 
+			this.reportVista1.DataSetName = "ReportVista";
+			this.reportVista1.Locale = new System.Globalization.CultureInfo("en-US");
+			this.reportVista1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// btnStampa
+			// 
+			this.btnStampa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnStampa.Location = new System.Drawing.Point(642, 8);
+			this.btnStampa.Name = "btnStampa";
+			this.btnStampa.Size = new System.Drawing.Size(104, 24);
+			this.btnStampa.TabIndex = 0;
+			this.btnStampa.Text = "Stampa";
+			this.btnStampa.Click += new System.EventHandler(this.btnStampa_Click);
+			// 
+			// btnAnnulla
+			// 
+			this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.btnAnnulla.Location = new System.Drawing.Point(642, 190);
+			this.btnAnnulla.Name = "btnAnnulla";
+			this.btnAnnulla.Size = new System.Drawing.Size(104, 24);
+			this.btnAnnulla.TabIndex = 3;
+			this.btnAnnulla.Text = "Annulla";
+			this.btnAnnulla.Click += new System.EventHandler(this.btnAnnulla_Click);
+			// 
+			// btnPreview
+			// 
+			this.btnPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnPreview.Location = new System.Drawing.Point(642, 40);
+			this.btnPreview.Name = "btnPreview";
+			this.btnPreview.Size = new System.Drawing.Size(104, 24);
+			this.btnPreview.TabIndex = 4;
+			this.btnPreview.Text = "Anteprima";
+			this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
+			// 
+			// btnParamUfficiali
+			// 
+			this.btnParamUfficiali.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnParamUfficiali.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.btnParamUfficiali.Location = new System.Drawing.Point(642, 158);
+			this.btnParamUfficiali.Name = "btnParamUfficiali";
+			this.btnParamUfficiali.Size = new System.Drawing.Size(104, 24);
+			this.btnParamUfficiali.TabIndex = 5;
+			this.btnParamUfficiali.Text = "Altri Parametri";
+			this.btnParamUfficiali.Click += new System.EventHandler(this.btnParamUfficiali_Click);
+			// 
+			// btnDiagnostic
+			// 
+			this.btnDiagnostic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnDiagnostic.Location = new System.Drawing.Point(642, 253);
+			this.btnDiagnostic.Name = "btnDiagnostic";
+			this.btnDiagnostic.Size = new System.Drawing.Size(104, 40);
+			this.btnDiagnostic.TabIndex = 6;
+			this.btnDiagnostic.Text = "Correzione problemi";
+			this.btnDiagnostic.Click += new System.EventHandler(this.btnDiagnostic_Click);
+			// 
+			// btnPatch
+			// 
+			this.btnPatch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnPatch.Location = new System.Drawing.Point(530, 253);
+			this.btnPatch.Name = "btnPatch";
+			this.btnPatch.Size = new System.Drawing.Size(104, 40);
+			this.btnPatch.TabIndex = 7;
+			this.btnPatch.Text = "Scarica Patch";
+			this.btnPatch.Visible = false;
+			this.btnPatch.Click += new System.EventHandler(this.btnPatch_Click);
+			// 
+			// btnAcrobat
+			// 
+			this.btnAcrobat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnAcrobat.Location = new System.Drawing.Point(642, 72);
+			this.btnAcrobat.Name = "btnAcrobat";
+			this.btnAcrobat.Size = new System.Drawing.Size(104, 23);
+			this.btnAcrobat.TabIndex = 8;
+			this.btnAcrobat.Text = "Apri con Acrobat";
+			this.btnAcrobat.Click += new System.EventHandler(this.btnAcrobat_Click);
+			// 
+			// chkClose
+			// 
+			this.chkClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.chkClose.Checked = true;
+			this.chkClose.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.chkClose.Location = new System.Drawing.Point(640, 101);
+			this.chkClose.Name = "chkClose";
+			this.chkClose.Size = new System.Drawing.Size(106, 53);
+			this.chkClose.TabIndex = 9;
+			this.chkClose.Text = "Chiudi finestra dopo l\'operazione";
+			this.chkClose.UseVisualStyleBackColor = true;
+			// 
+			// btnGuidaMht
+			// 
+			this.btnGuidaMht.Location = new System.Drawing.Point(642, 223);
+			this.btnGuidaMht.Name = "btnGuidaMht";
+			this.btnGuidaMht.Size = new System.Drawing.Size(104, 25);
+			this.btnGuidaMht.TabIndex = 10;
+			this.btnGuidaMht.Text = "Help";
+			this.btnGuidaMht.UseVisualStyleBackColor = true;
+			this.btnGuidaMht.Click += new System.EventHandler(this.button1_Click);
+			// 
+			// frmReportParameter
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(756, 297);
+			this.Controls.Add(this.btnGuidaMht);
+			this.Controls.Add(this.chkClose);
+			this.Controls.Add(this.btnAcrobat);
+			this.Controls.Add(this.btnPatch);
+			this.Controls.Add(this.btnDiagnostic);
+			this.Controls.Add(this.btnParamUfficiali);
+			this.Controls.Add(this.btnPreview);
+			this.Controls.Add(this.btnAnnulla);
+			this.Controls.Add(this.btnStampa);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			this.MaximizeBox = false;
+			this.Name = "frmReportParameter";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			this.Text = "frmReportParameter";
+			this.Closing += new System.ComponentModel.CancelEventHandler(this.frmReportParameter_Closing);
+			this.Validating += new System.ComponentModel.CancelEventHandler(this.frmReportParameter_Validating);
+			((System.ComponentModel.ISupportInitialize)(this.reportVista1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.ResumeLayout(false);
 
 		}
 		#endregion
@@ -1058,7 +1086,7 @@ namespace resultparameter_default{//Report//
 	    private bool isInited = false;
 		private void frmReportParameter_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
 		    if (!isInited) {
-                MessageBox.Show("Attendere il completamento dell'apertura della maschera prima di chiuderla", "Errore");
+                show("Attendere il completamento dell'apertura della maschera prima di chiuderla", "Errore");
                 e.Cancel = true;
 		        return;
 		    }
@@ -1094,7 +1122,7 @@ namespace resultparameter_default{//Report//
             if (!Meta.GetFormData(false)) return;
             object test = Conn.DO_SYS_CMD("select getdate()", true);
             if (test == null) {
-                MessageBox.Show("La connessione al database è andata persa, occore ricollegarsi", "Errore");
+                show("La connessione al database è andata persa, occore ricollegarsi", "Errore");
                 return;
             }
             DataSet DSCopy = DS.Copy();
@@ -1112,7 +1140,7 @@ namespace resultparameter_default{//Report//
             }
 
             if (oneprint && StampaUfficiale && Preview) {
-                MessageBox.Show("Non sarà possibile stampare l'anteprima poiché " +
+                show("Non sarà possibile stampare l'anteprima poiché " +
                     "è richiesta una stampa ufficiale", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 denyprint = true;
@@ -1142,13 +1170,13 @@ namespace resultparameter_default{//Report//
             foreach (DataColumn c in Params.Table.Columns) {
                 elencoparametri += c.ColumnName + "=" + Params[c.ColumnName].ToString() + ";";
             }
-            FrmReportingServices fRptServ = new FrmReportingServices((Easy_DataAccess)myDA, Params, ModuleReport, Meta, Preview);
-            if (Preview) {
-                fRptServ.Show(this);
-            }
-            fRptServ.FrmReportingServices_Load(sender, e);
-            //return;
 
+            //FrmReportingServices fRptServ = new FrmReportingServices((Easy_DataAccess)myDA, Params, ModuleReport, Meta, Preview);
+            //if (Preview) {
+            //    fRptServ.Show(this);
+            //}
+            //fRptServ.FrmReportingServices_Load(sender, e);
+            BuildWebReportView(Params);
             if (chkClose.Checked) {
                 Close();
             }
@@ -1160,13 +1188,66 @@ namespace resultparameter_default{//Report//
             }
             Cursor.Current = Cursors.Default;
         }
+
+        bool Called = false;
+        private void BuildWebReportView(DataRow Params) {
+            if (Called) return;
+            Called = true;
+
+            // carico l'url del server di Reporting Services -----------------------------------------
+            DataTable config_reportingservices = Conn.RUN_SELECT("config_reportingservices", "*", null, null, null, false);
+
+            string myQuerystring = "";
+
+            foreach (DataColumn c in Params.Table.Columns) {
+                if (c.ColumnName == "reportname") {
+                    continue;
+                }
+                if (myQuerystring != "") myQuerystring += "&";
+                myQuerystring += c.ColumnName + "=" + Params[c.ColumnName].ToString();
+            }
+
+
+            string CodeDepartment = Meta.security.GetSys("database").ToString();
+
+            var b = DataAccess.CryptString(myQuerystring);
+            var logparamCript = QueryCreator.ByteArrayToString(b);
+            //------------------------------------------------
+            string url = config_reportingservices.Rows[0]["urlwebreportviewer"].ToString();
+            if (!url.EndsWith("/")) url += "/";
+
+            var wb = new WebClient();
+            var data = new NameValueCollection {
+                ["id"] = Guid.NewGuid().ToString(),
+                ["codeDepartment"] = CodeDepartment,
+                ["reportName"] = Params["reportname"].ToString(),
+                ["parameters"] = logparamCript
+            };
+
+            //url = "https://localhost:44317/";
+
+            var response = wb.UploadValues(url + "GetReportInfo.aspx", "POST", data);
+            string responseInString = Encoding.UTF8.GetString(response);
+            if (responseInString.ToUpperInvariant().StartsWith("OK")) {
+                var sInfo = url + "ShowReport.aspx?id=" + data["id"];
+                runProcess(sInfo, true);
+            }
+            else {
+                show($"Errore nell'accesso al server dei report {url} ", "Errore");
+            }
+
+            this.Close();
+            this.Dispose();
+        }
+
+
         private void Stampa(bool Preview, formatostampa FMT) {
 		    if (Meta.IsEmpty) return;
             if (DS.Tables["resultparameter"].Rows.Count==0)return;
 			if(!Meta.GetFormData(false))return;
 		    object test = Conn.DO_SYS_CMD("select getdate()",true);
 		    if (test==null) {
-		        MessageBox.Show("La connessione al database è andata persa, occore ricollegarsi", "Errore");
+		        show("La connessione al database è andata persa, occore ricollegarsi", "Errore");
 		        return;
 		    }
 			DataSet DSCopy = DS.Copy();
@@ -1185,14 +1266,14 @@ namespace resultparameter_default{//Report//
 
 
             if (oneprint && stampaUfficiale && FMT == formatostampa.pdf) {
-                MessageBox.Show("Non è possibile creare il file pdf se è richiesta una stampa ufficiale protetta", "Attenzione",
+                show("Non è possibile creare il file pdf se è richiesta una stampa ufficiale protetta", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
 
             if (oneprint && stampaUfficiale && Preview) {
-                MessageBox.Show($"Non sarà possibile stampare l'anteprima poiché è richiesta una stampa ufficiale", "Attenzione",
+                show($"Non sarà possibile stampare l'anteprima poiché è richiesta una stampa ufficiale", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 denyprint = true;
             }
@@ -1245,7 +1326,7 @@ namespace resultparameter_default{//Report//
 				var r = Easy_DataAccess.GetReport(myDA,ModuleReport,Params, out errmess);
 				if (r==null){
 					Cursor.Current = Cursors.Default;
-					MessageBox.Show(MyParent,errmess);
+					show(MyParent,errmess);
                     btnStampa.Enabled = true;
                     btnPreview.Enabled = true;
                     btnAcrobat.Enabled = true;
@@ -1259,7 +1340,7 @@ namespace resultparameter_default{//Report//
 					selectedprinter= FrmViewReport.GetA3PrinterName();
 				    if (selectedprinter == null) {
                         Cursor.Current = Cursors.Default;
-                        MessageBox.Show("Non è stata trovata alcuna stampante installata che supporti il formato A3", "Errore");
+                        show("Non è stata trovata alcuna stampante installata che supporti il formato A3", "Errore");
                         return;
 				    }
 				    try {
@@ -1267,7 +1348,7 @@ namespace resultparameter_default{//Report//
 				    }
 				    catch {
                         Cursor.Current = Cursors.Default;
-                        MessageBox.Show("La stampante di nome "+selectedprinter+" non appare essere correttamente installata.", "Errore");
+                        show("La stampante di nome "+selectedprinter+" non appare essere correttamente installata.", "Errore");
                         return;
                     }
 				    ReportDispatcherClass.SetDefaultOrientation(ref r, ModuleReport);
@@ -1282,20 +1363,20 @@ namespace resultparameter_default{//Report//
 
 				try {
                     r.Export();
-                    System.Diagnostics.Process.Start(tempfilename);
+                    runProcess(tempfilename, true);
                 }
 				catch (Exception e){
                     Cursor.Current = Cursors.Default;
                     if (e.ToString().Contains("0x8000030E")) {
-				        MessageBox.Show(this,
+				        show(this,
 				            "E' necessario disinstallare l'aggiornamento di windows KB3102429 per poter effettuare la stampa.\nSeguono istruzioni su come procedere.",
 				            "Avviso");                        
-                        System.Diagnostics.Process.Start("disinstalla_kb3102429.pdf");
+                        runProcess("disinstalla_kb3102429.pdf", true);
                         return;
                     }
 
 				    if (e.ToString().Contains("Impossibile aprire la connessione.")) {
-				        MessageBox.Show(this, "Errore nel collegamento al db", "Errore");
+				        show(this, "Errore nel collegamento al db", "Errore");
 				        return;
 				    }
 				    Meta.LogError("Errore nell'apertura della stampa pdf.\n\rParametri:\n\r" + elencoparametri, e);
@@ -1317,13 +1398,13 @@ namespace resultparameter_default{//Report//
                         fRep.toolBar.Buttons.RemoveAt(5);
                     }
                     if (Meta.destroyed) return;
-                    if (Meta.inchiusura) return;
+                    if (Meta.formController.isClosing) return;
 
                     //Imposto tutte le proprietà del report
                     if (fRep.ShowReport()) {
 					    if (fRep.errore) return;
 					    if (Meta.destroyed) return;
-					    if (Meta.inchiusura) return;
+					    if (Meta.formController.isClosing) return;
 					    if (MyParent == null || MyParent.IsDisposed) return;
 						//se sono in Anteprima visualizzo il form
 						if (Preview) {
@@ -1365,7 +1446,7 @@ namespace resultparameter_default{//Report//
                     else {
                         string msg = "Premere OK se il documento è stato stampato correttamente e\r" +
                             "se si vuole aggiornare la data di stampa del documento.";
-                        DialogResult res = MessageBox.Show(msg, "Stampa",
+                        DialogResult res = show(msg, "Stampa",
                             MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                         if (res == DialogResult.OK) EseguiSpDoUpdate(sp_doupdate, Params);
                     }
@@ -1595,7 +1676,7 @@ namespace resultparameter_default{//Report//
 				if (s!=null) return true;
 				//Download OK, verifico se il file è aggiornato o meno.
 				if (IsReportToUpdate(ReportDir,filename)) {
-					MessageBox.Show("Il report "+filename+" non è aggiornato. Impossibile proseguire\r"+
+					show("Il report "+filename+" non è aggiornato. Impossibile proseguire\r"+
 						"con il controllo poiché l'utente non ha i diritti per aggiornare la cartella dei report.",
 						"Attenzione",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 					return false;
@@ -1613,7 +1694,7 @@ namespace resultparameter_default{//Report//
 					return true;
 				}
 				//altrimenti chiedo all'utente se aggiornare o meno
-				DialogResult res=MessageBox.Show("Aggiorno il report?","Info",
+				DialogResult res=show("Aggiorno il report?","Info",
 					MessageBoxButtons.YesNo,MessageBoxIcon.Question);
 				if (res==DialogResult.Yes) {
 					string s=DownloadReport(ReportDir,filename,siti);
@@ -1636,6 +1717,10 @@ namespace resultparameter_default{//Report//
 			Hashtable ReportParams= new Hashtable();			
 			foreach (DataColumn C in myPrymaryTable.Columns){
 				if (C.ColumnName == DummyPrimaryKey) continue;
+				if (!C.ExtendedProperties.Contains("ConvertNullToPerc")) {
+					ReportParams[C.ColumnName]= Params[C];
+					continue;
+				}
 				bool Convert = (bool) C.ExtendedProperties["ConvertNullToPerc"];
 				if (Convert && (Params[C].ToString()=="")) 
 					ReportParams[C.ColumnName] ="%";
@@ -1656,6 +1741,10 @@ namespace resultparameter_default{//Report//
 				return false;
 			}
 
+			if (rpt == null) {
+				ShowMsg("Report non trovato " + fullname, "Errore");
+				return false;
+			}
             //bool update=(MessageBox.Show("Aggiorno le stored procedure del report?","Info",
             //    MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes);
 		    bool update = false;
@@ -1780,13 +1869,13 @@ namespace resultparameter_default{//Report//
 				return;
 			}
 			string desc=ModuleReport["description"].ToString();
-			MessageBox.Show("Non è stato rilevato nessun problema relativo la stampa "
+			show("Non è stato rilevato nessun problema relativo la stampa "
 				+desc+"\r\rInformazioni:\r\r"+GetCheckReportLog(), "Info",
 				MessageBoxButtons.OK,MessageBoxIcon.Information);
 		}
 
 		private void ShowInfo() {
-			MessageBox.Show("Informazioni relative la stampa\r\r"+GetCheckReportLog(), "Info",
+			show("Informazioni relative la stampa\r\r"+GetCheckReportLog(), "Info",
 				MessageBoxButtons.OK,MessageBoxIcon.Information);
 		}
 		
@@ -1817,10 +1906,10 @@ namespace resultparameter_default{//Report//
 				"Dopo l'installazione riaprire il programma e riprovare a stampare.\r\r"+
 				"Premere OK per scaricare l'aggiornamento.\r\r"+
 				"Per qualsiasi problema non esitate a contattare il Centro Assistenza.";
-			DialogResult dr=MessageBox.Show(msg,"Informazioni download Crystal Report Patch",
+			DialogResult dr=show(msg,"Informazioni download Crystal Report Patch",
 				MessageBoxButtons.OKCancel,MessageBoxIcon.Information);
 			if (dr==DialogResult.OK)
-                System.Diagnostics.Process.Start("http://liceasy.ath.cx/CrystalPatch01.zip");
+                runProcess("http://liceasy.ath.cx/CrystalPatch01.zip", true);
 		}
 		#endregion
 
@@ -1838,9 +1927,17 @@ namespace resultparameter_default{//Report//
         private void BtnReportingServices_Click(object sender, EventArgs e) {
             
         }
-    }// Fine classe frmreportParameter
 
-    public class GestioneClass {
+		private void button1_Click(object sender, EventArgs e) {
+			string currdir = AppDomain.CurrentDomain.BaseDirectory;
+			string filename = ReportName + ".mht";
+			string fullPath = currdir + filename;
+			if (!File.Exists(filename)) return;
+			Help.ShowHelp(this, filename);
+		}
+	}// Fine classe frmreportParameter
+
+	public class GestioneClass {
         public static bool UsesAttribues(DataAccess Conn) {
             foreach (string s in new string[] { "idsortingkind01", "idsortingkind02", "idsortingkind03",
                             "idsortingkind04", "idsortingkind05" }) {
@@ -1912,13 +2009,14 @@ namespace resultparameter_default{//Report//
             string field_getsys_sortkind = "idsortingkind" + NtoS;
             object idsorkind = Conn.GetSys(field_getsys_sortkind);
 
-            if (idsorkind == null || idsorkind == DBNull.Value) {
+            if (idsorkind == null || idsorkind.ToString().ToLower()=="null" || idsorkind == DBNull.Value) {
                 allowSelection = false;
                 allowNull = true;
                 defaultValue = DBNull.Value;
                 return;
             }
 
+            idsorkind = CfgFn.GetNoNullInt32(idsorkind);
             filterkind = QHS.CmpEq("idsorkind", idsorkind);
 
             
@@ -2005,4 +2103,3 @@ namespace resultparameter_default{//Report//
     }
 
 }//Fine Namespace
-

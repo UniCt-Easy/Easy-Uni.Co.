@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,7 +26,7 @@ using System.Runtime.Serialization;
 namespace expense_wizardmandatedetail {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaFrm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaFrm: DataSet {
+public partial class vistaFrm: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -477,6 +476,11 @@ private void initClass() {
 	tmandate.Columns.Add( new DataColumn("idsor03", typeof(int)));
 	tmandate.Columns.Add( new DataColumn("idsor04", typeof(int)));
 	tmandate.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	tmandate.Columns.Add( new DataColumn("flagbit", typeof(int)));
+	tmandate.Columns.Add( new DataColumn("idaccmotivedebit_datacrg", typeof(DateTime)));
+	tmandate.Columns.Add( new DataColumn("idmankind_origin", typeof(string)));
+	tmandate.Columns.Add( new DataColumn("nman_origin", typeof(int)));
+	tmandate.Columns.Add( new DataColumn("yman_origin", typeof(short)));
 	Tables.Add(tmandate);
 	tmandate.PrimaryKey =  new DataColumn[]{tmandate.Columns["idmankind"], tmandate.Columns["yman"], tmandate.Columns["nman"]};
 
@@ -554,11 +558,15 @@ private void initClass() {
 	tmandatedetail.Columns.Add( new DataColumn("idpccdebitmotive", typeof(string)));
 	tmandatedetail.Columns.Add( new DataColumn("idpccdebitstatus", typeof(string)));
 	tmandatedetail.Columns.Add( new DataColumn("expensekind", typeof(string)));
-	tmandatedetail.Columns.Add( new DataColumn("idepexp", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("idepexp", typeof(int)));
 	tmandatedetail.Columns.Add( new DataColumn("idlocation", typeof(int)));
 	tmandatedetail.Columns.Add( new DataColumn("idupb_iva", typeof(string)));
 	tmandatedetail.Columns.Add( new DataColumn("!codeupb_iva", typeof(string)));
 	tmandatedetail.Columns.Add( new DataColumn("idsor_siope", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("rownum_main", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("idepexp_pre", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("idepacc", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("idaccmotiveannulment", typeof(string)));
 	Tables.Add(tmandatedetail);
 	tmandatedetail.PrimaryKey =  new DataColumn[]{tmandatedetail.Columns["idmankind"], tmandatedetail.Columns["yman"], tmandatedetail.Columns["nman"], tmandatedetail.Columns["rownum"]};
 
@@ -1034,4 +1042,3 @@ private void initClass() {
 }
 }
 }
-

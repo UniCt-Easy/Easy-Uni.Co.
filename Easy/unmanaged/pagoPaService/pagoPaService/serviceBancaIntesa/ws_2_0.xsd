@@ -1,0 +1,4145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema
+	targetNamespace="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/"
+	elementFormDefault="qualified"
+	xmlns="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/"
+	xmlns:mstns="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="1.0.1">
+
+
+	<!-- ++pdpGeneraIUVResult++ -->
+	<xsd:element name="pdpGeneraIUVResult" type="ct0000000002_pdpGeneraIUVResult" />
+	<xsd:complexType name="ct0000000002_pdpGeneraIUVResult">
+		<xsd:sequence>
+			<xsd:element name="esitoOperazione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="OK" />
+						<xsd:enumeration value="KO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceErrore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="70" />
+						<xsd:enumeration value="WS_DOMINIO_UB_MANCANTE" />
+						<xsd:enumeration value="WS_PARAMETRI_MANCANTI" />
+						<xsd:enumeration value="WS_ERRORE_INTERNO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiRestituiti" type="ct0000000002_datiRestituiti" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000002_datiRestituiti">
+		<xsd:sequence>
+			<xsd:element name="identificativoUnivocoVersamento"	minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	<!-- ++pdpCaricaPagamentoInAttesa++ -->
+	<xsd:element name="pdpCaricaPagamentoInAttesa" type="ct0000000003_pdpCaricaPagamentoInAttesa" />
+	<xsd:complexType name="ct0000000003_pdpCaricaPagamentoInAttesa">
+		<xsd:sequence>
+			<xsd:element name="modalita" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="3" />
+						<xsd:enumeration value="INS" />
+						<xsd:enumeration value="MOD" />
+						<xsd:enumeration value="INV" />
+						<xsd:enumeration value="ASP" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiPagamentoInAttesa" type="ct0000000003_datiPagamentoInAttesa"	minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000003_datiPagamentoInAttesa">
+		<xsd:sequence>
+			<xsd:element name="dataScadenzaPagamento" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:date">
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoUnivocoVersamento"	minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="id_tenant" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="notificaCallback" type="ct0000000003_notificaCallback" minOccurs="0" maxOccurs="1" />
+				
+			<xsd:element name="soggettoPagatore" type="ct0000000003_soggettoPagatore" minOccurs="1" maxOccurs="1" />
+
+			<xsd:element name="importoTotaleDaVersare" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:totalDigits value="12" />
+						<xsd:minInclusive value="0.01" />
+						<xsd:maxInclusive value="999999999.99" />
+						<xsd:fractionDigits value="2" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="causaleVersamentoEsplicitaPSP" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="140" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiSingoloVersamento" type="ct0000000003_datiSingoloVersamento"	minOccurs="1" maxOccurs="5" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000003_notificaCallback">
+		<xsd:sequence>
+			<xsd:element name="callbackURL" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="2000" />
+						<xsd:pattern value="https?://.+" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="callbackUsername" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="callbackPassword" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000003_soggettoPagatore">
+		<xsd:sequence>
+			<xsd:element name="tipoIdentificativoUnivocoPagatore" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1" />
+						<xsd:enumeration value="F" />
+						<xsd:enumeration value="G" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceIdentificativoUnivocoPagatore"	minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="anagraficaPagatore" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="indirizzoPagatore" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="civicoPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="capPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="localitaPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="provinciaPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9_ -]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="nazionePagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:pattern value="[A-Z]{2,2}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="emailPagatore" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="256" />
+						<xsd:pattern
+							value="[A-Za-z0-9_]+([\-\+\.'][A-Za-z0-9_]+)*@[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*\.[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000003_datiSingoloVersamento">
+		<xsd:sequence>
+			<xsd:element name="identificativoServizio" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="64" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="importoSingoloVersamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:totalDigits value="12" />
+						<xsd:minInclusive value="0" />
+						<xsd:maxInclusive value="999999999.99" />
+						<xsd:fractionDigits value="2" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="credenzialiPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="descrizioneTestualeCausaleVersamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="140" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiMarcaBolloDigitale" type="ct0000000003_datiMarcaBolloDigitale" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000003_datiMarcaBolloDigitale">
+		<xsd:sequence>
+			<xsd:element name="hashDocumento" minOccurs="1"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="provinciaResidenzaPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:pattern value="[A-Z]{2,2}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ++pdpCaricaPagamentoInAttesaResult++ -->
+	<xsd:element name="pdpCaricaPagamentoInAttesaResult"
+		type="ct0000000004_pdpCaricaPagamentoInAttesaResult" />
+
+	<xsd:complexType name="ct0000000004_pdpCaricaPagamentoInAttesaResult">
+		<xsd:sequence>
+			<xsd:element name="esitoOperazione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="OK" />
+						<xsd:enumeration value="KO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceErrore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="70" />
+						<xsd:enumeration value="WS_DOMINIO_UB_MANCANTE" />
+						<xsd:enumeration value="WS_PARAMETRI_MANCANTI" />
+						<xsd:enumeration value="WS_ERRORE_INTERNO" />
+						<xsd:enumeration value="WS_IDENTIFICATIVO_ASSENTE" />
+						<xsd:enumeration value="WS_IUV_NON_TROVATO" />
+						<xsd:enumeration value="WS_MODALITA_SCONOSCIUTA" />
+						<xsd:enumeration value="WS_IUV_GIA_PRESENTE" />
+						<xsd:enumeration value="WS_PAGAMENTO_IN_CORSO" />
+						<xsd:enumeration value="WS_SERVIZIO_NON_AUTORIZZATO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiRestituiti" type="ct0000000004_datiRestituiti" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000004_datiRestituiti">
+		<xsd:sequence>
+			<xsd:element name="identificativoUnivocoVersamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="idTenant" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- ++pdpCancellaPagamentoInAttesa++ -->
+	<xsd:element name="pdpCancellaPagamentoInAttesa"
+		type="ct0000000005_pdpCancellaPagamentoInAttesa" />
+		
+	<xsd:complexType name="ct0000000005_pdpCancellaPagamentoInAttesa">
+		<xsd:sequence>
+			<xsd:element name="identificativoUnivocoVersamento"	minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ++pdpCancellaPagamentoInAttesaResult++ -->
+	<xsd:element name="pdpCancellaPagamentoInAttesaResult"
+		type="ct0000000006_pdpCancellaPagamentoInAttesaResult" />
+		
+	<xsd:complexType name="ct0000000006_pdpCancellaPagamentoInAttesaResult">
+		<xsd:sequence>
+			<xsd:element name="esitoOperazione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="OK" />
+						<xsd:enumeration value="KO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceErrore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="70" />
+						<xsd:enumeration value="WS_DOMINIO_UB_MANCANTE" />
+						<xsd:enumeration value="WS_PARAMETRI_MANCANTI" />
+						<xsd:enumeration value="WS_PAGAMENTO_IN_CORSO" />
+						<xsd:enumeration value="WS_ERRORE_INTERNO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- ++pdpGeneraRPT++ -->
+	<xsd:element name="pdpGeneraRPT" type="ct0000000007_pdpGeneraRPT" />
+	<xsd:complexType name="ct0000000007_pdpGeneraRPT">
+		<xsd:sequence>
+			<xsd:element name="identificativoStazioneRichiedente" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="tipoVersamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="2" />
+						<xsd:maxLength value="4" />
+						<xsd:enumeration value="BBT" />
+						<xsd:enumeration value="BP" />
+						<xsd:enumeration value="AD" />
+						<xsd:enumeration value="CP" />
+						<xsd:enumeration value="PO" />
+						<xsd:enumeration value="OBEP" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="parametriPSP" type="ct0000000007_parametriPSP" minOccurs="1" maxOccurs="1" />
+				
+			<xsd:element name="datiPagamentoInAttesa" type="ct0000000007_datiPagamentoInAttesa"	minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000007_parametriPSP">
+		<xsd:sequence>
+			<xsd:element name="identificativoPSP" minOccurs="1"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoIntermediarioPSP" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoCanale" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000007_datiPagamentoInAttesa">
+		<xsd:sequence>
+			<xsd:element name="dataScadenzaPagamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:date">
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoUnivocoVersamento"	minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceContestoPagamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="ibanAddebito" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="bicAddebito" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="10" />
+						<xsd:pattern value="[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="notificaCallback" type="ct0000000007_notificaCallback" minOccurs="0" maxOccurs="1" />
+				
+			<xsd:element name="soggettoPagatore" type="ct0000000007_soggettoPagatore" minOccurs="1" maxOccurs="1" />
+				
+			<xsd:element name="importoTotaleDaVersare" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:totalDigits value="12" />
+						<xsd:minInclusive value="0.01" />
+						<xsd:maxInclusive value="999999999.99" />
+						<xsd:fractionDigits value="2" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="autenticazioneSoggetto" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="4" />
+						<xsd:enumeration value="CNS" />
+						<xsd:enumeration value="USR" />
+						<xsd:enumeration value="OTH" />
+						<xsd:enumeration value="N/A" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="soggettoVersante" type="ct0000000007_soggettoVersante" minOccurs="0" maxOccurs="1" />
+				
+			<xsd:element name="datiSingoloVersamento" type="ct0000000007_datiSingoloVersamento"	minOccurs="0" maxOccurs="5" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000007_notificaCallback">
+		<xsd:sequence>
+			<xsd:element name="callbackURL" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="2000" />
+						<xsd:pattern value="https?://.+" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="callbackUsername" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="callbackPassword" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000007_soggettoPagatore">
+		<xsd:sequence>
+			<xsd:element name="tipoIdentificativoUnivocoPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1" />
+						<xsd:enumeration value="F" />
+						<xsd:enumeration value="G" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceIdentificativoUnivocoPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="anagraficaPagatore" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="indirizzoPagatore" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="civicoPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="capPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="localitaPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="provinciaPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9_ -]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="nazionePagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:pattern value="[A-Z]{2,2}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="emailPagatore" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="256" />
+						<xsd:pattern
+							value="[A-Za-z0-9_]+([\-\+\.'][A-Za-z0-9_]+)*@[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*\.[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000007_soggettoVersante">
+		<xsd:sequence>
+			<xsd:element name="tipoIdentificativoUnivocoVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1" />
+						<xsd:enumeration value="F" />
+						<xsd:enumeration value="G" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceIdentificativoUnivocoVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="anagraficaVersante" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="indirizzoVersante" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="civicoVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="capVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="localitaVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="provinciaVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9_ -]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="nazioneVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:pattern value="[A-Z]{2,2}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="emailVersante" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="256" />
+						<xsd:pattern
+							value="[A-Za-z0-9_]+([\-\+\.'][A-Za-z0-9_]+)*@[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*\.[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000007_datiSingoloVersamento">
+		<xsd:sequence>
+			<xsd:element name="identificativoServizio" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:integer">
+						<xsd:totalDigits value="10" />
+						<xsd:minInclusive value="1" />
+						<xsd:maxInclusive value="99999999" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="importoSingoloVersamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:totalDigits value="12" />
+						<xsd:minInclusive value="0" />
+						<xsd:maxInclusive value="999999999.99" />
+						<xsd:fractionDigits value="2" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="commissioneCaricoPA" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:totalDigits value="12" />
+						<xsd:minInclusive value="0.01" />
+						<xsd:maxInclusive value="999999999.99" />
+						<xsd:fractionDigits value="2" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="credenzialiPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="descrizioneTestualeCausaleVersamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="causaleVersamentoEsplicitaPSP" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="140" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiMarcaBolloDigitale" type="ct0000000007_datiMarcaBolloDigitale" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000007_datiMarcaBolloDigitale">
+		<xsd:sequence>
+			<xsd:element name="hashDocumento" minOccurs="1"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="provinciaResidenzaPagatore" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:pattern value="[A-Z]{2,2}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+
+	<!-- ++pdpGeneraRPTResult++ -->
+	<xsd:element name="pdpGeneraRPTResult" type="ct0000000008_pdpGeneraRPTResult" />
+
+	<xsd:complexType name="ct0000000008_pdpGeneraRPTResult">
+		<xsd:sequence>
+			<xsd:element name="esitoOperazione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="OK" />
+						<xsd:enumeration value="KO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceErrore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="70" />
+						<xsd:enumeration value="WS_DOMINIO_UB_MANCANTE" />
+						<xsd:enumeration value="WS_PARAMETRI_MANCANTI" />
+						<xsd:enumeration value="WS_ERRORE_INTERNO" />
+						<xsd:enumeration value="PDP_PIAIUV_ERRORE_COMPETENZA_DATI" />
+						<xsd:enumeration value="PDP_PIA_ERRORE_FORMATO_DATI" />
+						<xsd:enumeration value="PDP_PIA_GIA_INSERITO" />
+						<xsd:enumeration value="PDP_PIASV_ERRORE_FORMATO_DATI" />
+						<xsd:enumeration value="PDP_PIAIUV_DA_MODIFICARE_NON_INDICATO" />
+						<xsd:enumeration value="PDP_PIAIUV_DA_INSERIRE_GIA_ESISTE" />
+						<xsd:enumeration value="PDP_PIAIUV_DA_MODIFICARE_NON_TROVATO" />
+						<xsd:enumeration value="PDP_PIAIUV_NON_MODIFICABILE" />
+						<xsd:enumeration value="PDP_PIASV_SERVIZIO_NON_VALIDO" />
+						<xsd:enumeration value="PDP_PIASV_ERRORE_QUADRATURA_IMPORTI" />
+						<xsd:enumeration value="PDP_RPT_ERRORE_IBAN_ADDEBITO" />
+						<xsd:enumeration value="PDP_RPT_TIPO_VERS_OBEP_NON_APPLICABILE" />
+						<xsd:enumeration value="PDP_PSP_CANALE_NON_VALIDO" />
+						<xsd:enumeration value="PDP_RPT_NON_SODDISFA_SANP" />
+						<xsd:enumeration value="PDP_ERRORE_NAMESPACE_NON_CORRETTO" />
+						<xsd:enumeration value="PDP_GEN_ERRORE_SINTASSI" />
+						<xsd:enumeration value="PDP_GEN_ACCESSO_NON_AUTORIZZATO" />
+						<xsd:enumeration value="PDP_GEN_BU_NON_TROVATA" />
+						<xsd:enumeration value="PDP_GEN_DECODIFICA_PARAM" />
+						<xsd:enumeration value="PDP_GEN_RICHIESTA_NON_SUPPORTATA" />
+						<xsd:enumeration value="PDP_ERRORE_INTERNO_XSD" />
+						<xsd:enumeration value="PDP_LINEA_ERRORE_SINTASSI" />
+						<xsd:enumeration value="PDP_ERRORE_RITORNO_XSD" />
+						<xsd:enumeration value="PDP_ERRORE_INTERNO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiRestituiti" type="ct0000000008_datiRestituiti" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000008_datiRestituiti">
+		<xsd:sequence>
+			<xsd:element name="identificativoUnivocoVersamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="pspSupportaRedirect" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:integer">
+						<xsd:totalDigits value="1" />
+						<xsd:minInclusive value="0" />
+						<xsd:maxInclusive value="1" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="redirectURL" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="2000" />
+						<xsd:pattern value="https?://.+" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	<!-- ++pdpInviaRPT++ -->
+	<xsd:element name="pdpInviaRPT" type="ct0000000009_pdpInviaRPT">
+	</xsd:element>
+
+	<xsd:complexType name="ct0000000009_pdpInviaRPT">
+		<xsd:sequence>
+			<xsd:element name="identificativoUnivocoVersamento"	minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoStazioneRichiedente" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="tipoVersamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="2" />
+						<xsd:maxLength value="4" />
+						<xsd:enumeration value="BBT" />
+						<xsd:enumeration value="BP" />
+						<xsd:enumeration value="AD" />
+						<xsd:enumeration value="CP" />
+						<xsd:enumeration value="PO" />
+						<xsd:enumeration value="OBEP" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="parametriPSP" type="ct0000000009_parametriPSP" minOccurs="1" maxOccurs="1" />
+
+			<xsd:element name="datiPagamentoInAttesa" type="ct0000000009_datiPagamentoInAttesa" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000009_parametriPSP">
+		<xsd:sequence>
+			<xsd:element name="identificativoPSP" minOccurs="1"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoIntermediarioPSP" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoCanale" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000009_datiPagamentoInAttesa">
+		<xsd:sequence>
+			<xsd:element name="autenticazioneSoggetto" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="4" />
+						<xsd:enumeration value="CNS" />
+						<xsd:enumeration value="USR" />
+						<xsd:enumeration value="OTH" />
+						<xsd:enumeration value="N/A" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceContestoPagamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="ibanAddebito" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="bicAddebito" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="10" />
+						<xsd:pattern value="[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="notificaCallback" type="ct0000000009_notificaCallback" minOccurs="0" maxOccurs="1" />
+				
+			<xsd:element name="soggettoVersante" type="ct0000000009_soggettoVersante" minOccurs="0" maxOccurs="1" />
+				
+			<xsd:element name="datiSingoloVersamento" type="ct0000000009_datiSingoloVersamento"	minOccurs="0" maxOccurs="5" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000009_notificaCallback">
+		<xsd:sequence>
+			<xsd:element name="callbackURL" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="2000" />
+						<xsd:pattern value="https?://.+" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="callbackUsername" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="callbackPassword" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000009_soggettoVersante">
+		<xsd:sequence>
+			<xsd:element name="tipoIdentificativoUnivocoVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1" />
+						<xsd:enumeration value="F" />
+						<xsd:enumeration value="G" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceIdentificativoUnivocoVersante"	minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="anagraficaVersante" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="indirizzoVersante" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="civicoVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="capVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="localitaVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="provinciaVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9_ -]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="nazioneVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:pattern value="[A-Z]{2,2}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="emailVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="256" />
+						<xsd:pattern
+							value="[A-Za-z0-9_]+([\-\+\.'][A-Za-z0-9_]+)*@[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*\.[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000009_datiSingoloVersamento">
+		<xsd:sequence>
+			<xsd:element name="commissioneCaricoPA" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:totalDigits value="12" />
+						<xsd:minInclusive value="0.01" />
+						<xsd:maxInclusive value="999999999.99" />
+						<xsd:fractionDigits value="2" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+
+	<!-- ++pdpInviaRPTResult++ -->
+	<xsd:element name="pdpInviaRPTResult" type="ct0000000010_pdpInviaRPTResult">
+	</xsd:element>
+
+	<xsd:complexType name="ct0000000010_pdpInviaRPTResult">
+		<xsd:sequence>
+			<xsd:element name="esitoOperazione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="OK" />
+						<xsd:enumeration value="KO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceErrore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="70" />
+						<xsd:enumeration value="WS_DOMINIO_UB_MANCANTE" />
+						<xsd:enumeration value="WS_PARAMETRI_MANCANTI" />
+						<xsd:enumeration value="WS_ERRORE_INTERNO" />
+						<xsd:enumeration value="PDP_PIAIUV_ERRORE_COMPETENZA_DATI" />
+						<xsd:enumeration value="PDP_RPT_PIA_ANNULLATO" />
+						<xsd:enumeration value="PDP_RPT_PIA_GIA_USATO" />
+						<xsd:enumeration value="PDP_RPT_PIA_GIA_PAGATO" />
+						<xsd:enumeration value="PDP_RPT_PIA_SCADUTO" />
+						<xsd:enumeration value="PDP_RPT_IUV_NON_TROVATO" />
+						<xsd:enumeration value="PDP_RPT_IUV_NON_ASSOCIATO_A_PIA" />
+						<xsd:enumeration value="PDP_RPT_PSP_O_CCP_NON_ACCETTATI" />
+						<xsd:enumeration value="PDP_RPT_IUV_GIA_USATO" />
+						<xsd:enumeration value="PDP_RPT_ERRORE_IBAN_ADDEBITO" />
+						<xsd:enumeration value="PDP_RPT_TIPO_VERS_OBEP_NON_APPLICABILE" />
+						<xsd:enumeration value="PDP_PSP_CANALE_NON_VALIDO" />
+						<xsd:enumeration value="PDP_RPT_PAGAMENTO" />
+						<xsd:enumeration value="PDP_RPT_NON_SODDISFA_SANP" />
+						<xsd:enumeration value="PDP_ERRORE_NAMESPACE_NON_CORRETTO" />
+						<xsd:enumeration value="PDP_GEN_ERRORE_SINTASSI" />
+						<xsd:enumeration value="PDP_GEN_ACCESSO_NON_AUTORIZZATO" />
+						<xsd:enumeration value="PDP_GEN_BU_NON_TROVATA" />
+						<xsd:enumeration value="PDP_GEN_DECODIFICA_PARAM" />
+						<xsd:enumeration value="PDP_GEN_RICHIESTA_NON_SUPPORTATA" />
+						<xsd:enumeration value="PDP_ERRORE_INTERNO_XSD" />
+						<xsd:enumeration value="PDP_LINEA_ERRORE_SINTASSI" />
+						<xsd:enumeration value="PDP_ERRORE_RITORNO_XSD" />
+						<xsd:enumeration value="PDP_ERRORE_INTERNO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="datiRestituiti" type="ct0000000010_datiRestituiti" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000010_datiRestituiti">
+		<xsd:sequence>
+			<xsd:element name="pspSupportaRedirect" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:integer">
+						<xsd:totalDigits value="1" />
+						<xsd:minInclusive value="0" />
+						<xsd:maxInclusive value="1" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="redirectURL" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="2000" />
+						<xsd:pattern value="https?://.+" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- ++pdpChiediStatoRPT++ -->
+	<xsd:element name="pdpChiediStatoRPT" type="ct0000000011_pdpChiediStatoRPT" />
+	<xsd:complexType name="ct0000000011_pdpChiediStatoRPT">
+		<xsd:sequence>
+			<xsd:element name="identificativoUnivocoVersamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceContestoPagamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ++pdpChiediStatoRPTResult++ -->
+	<xsd:element name="pdpChiediStatoRPTResult" type="ct0000000012_pdpChiediStatoRPTResult" />
+	<xsd:complexType name="ct0000000012_pdpChiediStatoRPTResult">
+		<xsd:sequence>
+			<xsd:element name="esitoOperazione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="OK" />
+						<xsd:enumeration value="KO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceErrore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="70" />
+						<xsd:enumeration value="WS_DOMINIO_UB_MANCANTE" />
+						<xsd:enumeration value="WS_PARAMETRI_MANCANTI" />
+						<xsd:enumeration value="WS_ERRORE_INTERNO" />
+						<xsd:enumeration value="WS_IUV_NON_TROVATO" />
+						<xsd:enumeration value="PPT_RPT_SCONOSCIUTA" />
+						<xsd:enumeration value="PPT_SINTASSI_EXTRAXSD" />
+						<xsd:enumeration value="PPT_SEMANTICA" />
+						<xsd:enumeration value="PPT_AUTENTICAZIONE" />
+						<xsd:enumeration value="PPT_AUTORIZZAZIONE" />
+						<xsd:enumeration value="PPT_DOMINIO_SCONOSCIUTO" />
+						<xsd:enumeration value="PPT_DOMINIO_DISABILITATO" />
+						<xsd:enumeration value="PPT_INTERMEDIARIO_PA_SCONOSCIUTO" />
+						<xsd:enumeration value="PPT_INTERMEDIARIO_PA_DISABILITATO" />
+						<xsd:enumeration value="PPT_STAZIONE_INT_PA_SCONOSCIUTA" />
+						<xsd:enumeration value="PPT_STAZIONE_INT_PA_DISABILITATA" />
+						<xsd:enumeration value="PPT_SUPERAMENTOSOGLIA" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiRestituiti" type="ct0000000012_datiRestituiti" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000012_datiRestituiti">
+		<xsd:sequence>
+			<xsd:element name="stato" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="70" />
+						<xsd:enumeration value="RPT_RICEVUTA_NODO" />
+						<xsd:enumeration value="RPT_RIFIUTATA_NODO" />
+						<xsd:enumeration value="RPT_ACCETTATA_NODO" />
+						<xsd:enumeration value="RPT_RIFIUTATA_PSP" />
+						<xsd:enumeration value="RPT_ERRORE_INVIO_A_PSP" />
+						<xsd:enumeration value="RPT_INVIATA_A_PSP" />
+						<xsd:enumeration value="RPT_ACCETTATA_PSP" />
+						<xsd:enumeration value="RPT_DECORSI_TERMINI" />
+						<xsd:enumeration value="RT_RICEVUTA_NODO" />
+						<xsd:enumeration value="RT_RIFIUTATA_NODO" />
+						<xsd:enumeration value="RT_ACCETTATA_NODO" />
+						<xsd:enumeration value="RT_ACCETTATA_PA" />
+						<xsd:enumeration value="RT_RIFIUTATA_PA" />
+						<xsd:enumeration value="RT_ESITO_SCONOSCIUTO_PA" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="storicoLista" type="ct0000000012_tipoStoricoRPT"	minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000012_tipoStoricoRPT">
+		<xsd:sequence>
+			<xsd:element name="elementoListaStorico" type="ct0000000012_tipoElementoListaStorico" minOccurs="1" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000012_tipoElementoListaStorico">
+		<xsd:sequence>
+			<xsd:element name="data" type="xsd:dateTime" />
+			<xsd:element name="stato" type="xsd:string" />
+			<xsd:element name="descrizione" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- ++pdpRecuperaRPT++ -->
+	<xsd:element name="pdpRecuperaRPT" type="ct0000000013_pdpRecuperaRPT" />
+	<xsd:complexType name="ct0000000013_pdpRecuperaRPT">
+		<xsd:sequence>
+			<xsd:element name="identificativoUnivocoVersamento"	minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceContestoPagamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ++pdpRecuperaRPTResult++ -->
+	<xsd:element name="pdpRecuperaRPTResult" type="ct0000000014_pdpRecuperaRPTResult" />
+	<xsd:complexType name="ct0000000014_pdpRecuperaRPTResult">
+		<xsd:sequence>
+			<xsd:element name="esitoOperazione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="OK" />
+						<xsd:enumeration value="KO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceErrore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="70" />
+						<xsd:enumeration value="WS_DOMINIO_UB_MANCANTE" />
+						<xsd:enumeration value="WS_PARAMETRI_MANCANTI" />
+						<xsd:enumeration value="WS_ERRORE_INTERNO" />
+						<xsd:enumeration value="PDP_PIAIUV_ERRORE_COMPETENZA_DATI" />
+						<xsd:enumeration value="PDP_RPT_NON_TROVATA" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiRestituiti" type="ct0000000014_datiRestituiti" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000014_datiRestituiti">
+		<xsd:sequence>
+			<xsd:element name="identificativoStazioneRichiedente" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoMessaggioRichiesta" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="dataOraMessaggioRichiesta" minOccurs="1"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:dateTime">
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="parametriPSP" type="ct0000000014_parametriPSP" minOccurs="1" maxOccurs="1" />
+
+			<xsd:element name="autenticazioneSoggetto" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="4" />
+						<xsd:enumeration value="CNS" />
+						<xsd:enumeration value="USR" />
+						<xsd:enumeration value="OTH" />
+						<xsd:enumeration value="N/A" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="soggettoVersante" type="ct0000000014_soggettoVersante" minOccurs="0" maxOccurs="1" />
+				
+			<xsd:element name="soggettoPagatore" type="ct0000000014_soggettoPagatore" minOccurs="1" maxOccurs="1" />
+				
+			<xsd:element name="enteBeneficiario" type="ct0000000014_enteBeneficiario" minOccurs="1" maxOccurs="1" />
+				
+			<xsd:element name="datiVersamento" type="ct0000000014_datiVersamento" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000014_parametriPSP">
+		<xsd:sequence>
+			<xsd:element name="identificativoPSP" minOccurs="1"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoIntermediarioPSP" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoCanale" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000014_soggettoVersante">
+		<xsd:sequence>
+			<xsd:element name="tipoIdentificativoUnivocoVersante" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1" />
+						<xsd:enumeration value="F" />
+						<xsd:enumeration value="G" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceIdentificativoUnivocoVersante"	minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="anagraficaVersante" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="indirizzoVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="civicoVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="capVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="localitaVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="provinciaVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9_ -]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="nazioneVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:pattern value="[A-Z]{2,2}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="emailVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="256" />
+						<xsd:pattern
+							value="[A-Za-z0-9_]+([\-\+\.'][A-Za-z0-9_]+)*@[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*\.[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000014_soggettoPagatore">
+		<xsd:sequence>
+			<xsd:element name="tipoIdentificativoUnivocoPagatore" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1" />
+						<xsd:enumeration value="F" />
+						<xsd:enumeration value="G" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceIdentificativoUnivocoPagatore" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="anagraficaPagatore" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="indirizzoPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="civicoPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="capPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="localitaPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="provinciaPagatore" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9_ -]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="nazionePagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:pattern value="[A-Z]{2,2}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="emailPagatore" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="256" />
+						<xsd:pattern
+							value="[A-Za-z0-9_]+([\-\+\.'][A-Za-z0-9_]+)*@[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*\.[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000014_enteBeneficiario">
+		<xsd:sequence>
+			<xsd:element name="tipoIdentificativoUnivocoBeneficiario" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1" />
+						<xsd:enumeration value="G" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceIdentificativoUnivocoBeneficiario"	minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="denominazioneBeneficiario" minOccurs="1"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceUnitOperBeneficiario" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="denomUnitOperBeneficiario" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="indirizzoBeneficiario" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="civicoBeneficiario" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="capBeneficiario" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="localitaBeneficiario" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="provinciaBeneficiario" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9_ -]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="nazioneBeneficiario" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:pattern value="[A-Z]{2,2}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000014_datiVersamento">
+		<xsd:sequence>
+			<xsd:element name="dataEsecuzionePagamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:dateTime">
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="importoTotaleDaVersare" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:totalDigits value="12" />
+						<xsd:minInclusive value="0.01" />
+						<xsd:maxInclusive value="999999999.99" />
+						<xsd:fractionDigits value="2" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="tipoVersamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="2" />
+						<xsd:maxLength value="4" />
+						<xsd:enumeration value="BBT" />
+						<xsd:enumeration value="BP" />
+						<xsd:enumeration value="AD" />
+						<xsd:enumeration value="CP" />
+						<xsd:enumeration value="PO" />
+						<xsd:enumeration value="OBEP" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoUnivocoVersamento"	minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceContestoPagamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="ibanAddebito" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="bicAddebito" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="10" />
+						<xsd:pattern value="[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="firmaRicevuta" minOccurs="1"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1" />
+						<xsd:enumeration value="0" />
+						<xsd:enumeration value="1" />
+						<xsd:enumeration value="3" />
+						<xsd:pattern value="[0|1|3]" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiSingoloVersamento" type="ct0000000014_datiSingoloVersamento"	minOccurs="0" maxOccurs="5" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000014_datiSingoloVersamento">
+		<xsd:sequence>
+			<xsd:element name="identificativoServizio" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:integer">
+						<xsd:totalDigits value="10" />
+						<xsd:minInclusive value="1" />
+						<xsd:maxInclusive value="99999999" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="importoSingoloVersamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:totalDigits value="12" />
+						<xsd:minInclusive value="0" />
+						<xsd:maxInclusive value="999999999.99" />
+						<xsd:fractionDigits value="2" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="commissioneCaricoPA" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:totalDigits value="12" />
+						<xsd:minInclusive value="0.01" />
+						<xsd:maxInclusive value="999999999.99" />
+						<xsd:fractionDigits value="2" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="ibanAccredito" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="bicAccredito" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="10" />
+						<xsd:pattern value="[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="ibanAppoggio" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="bicAppoggio" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:pattern value="[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="credenzialiPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="causaleVersamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="140" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="descrizioneTestualeCausaleVersamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="causaleVersamentoEsplicitaPSP" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="140" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiSpecificiRiscossione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="140" />
+						<xsd:pattern value="[0129]{1}/\S{3,138}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiMarcaBolloDigitale" type="ct0000000014_datiMarcaBolloDigitale" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000014_datiMarcaBolloDigitale">
+		<xsd:sequence>
+			<xsd:element name="tipoBollo" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="hashDocumento" minOccurs="1"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="provinciaResidenzaPagatore" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:pattern value="[A-Z]{2,2}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	<!-- ++pdpRecuperaRT++ -->
+	<xsd:element name="pdpRecuperaRT" type="ct0000000015_pdpRecuperaRT" />
+	<xsd:complexType name="ct0000000015_pdpRecuperaRT">
+		<xsd:sequence>
+			<xsd:element name="identificativoUnivocoVersamento"	minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceContestoPagamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ++pdpRecuperaRTResult++ -->
+	<xsd:element name="pdpRecuperaRTResult" type="ct0000000016_pdpRecuperaRTResult" />
+	<xsd:complexType name="ct0000000016_pdpRecuperaRTResult">
+		<xsd:sequence>
+			<xsd:element name="esitoOperazione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="OK" />
+						<xsd:enumeration value="KO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceErrore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="70" />
+						<xsd:enumeration value="WS_DOMINIO_UB_MANCANTE" />
+						<xsd:enumeration value="WS_PARAMETRI_MANCANTI" />
+						<xsd:enumeration value="WS_ERRORE_INTERNO" />
+						<xsd:enumeration value="PDP_RPT_RT_NON_TROVATA" />
+						<xsd:enumeration value="PDP_ERRORE_NAMESPACE_NON_CORRETTO" />
+						<xsd:enumeration value="PDP_GEN_ERRORE_SINTASSI" />
+						<xsd:enumeration value="PDP_GEN_ACCESSO_NON_AUTORIZZATO" />
+						<xsd:enumeration value="PDP_GEN_BU_NON_TROVATA" />
+						<xsd:enumeration value="PDP_GEN_DECODIFICA_PARAM" />
+						<xsd:enumeration value="PDP_GEN_RICHIESTA_NON_SUPPORTATA" />
+						<xsd:enumeration value="PDP_ERRORE_INTERNO_XSD" />
+						<xsd:enumeration value="PDP_LINEA_ERRORE_SINTASSI" />
+						<xsd:enumeration value="PDP_ERRORE_RITORNO_XSD" />
+						<xsd:enumeration value="PDP_ERRORE_INTERNO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiRestituiti" type="ct0000000016_datiRestituiti" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000016_datiRestituiti">
+		<xsd:sequence>
+			<xsd:element name="xmlRT" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="pdfRT" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="parametriPSP" type="ct0000000016_parametriPSP" minOccurs="1" maxOccurs="1" />
+			
+			<xsd:element name="datiPagamento" type="ct0000000016_datiPagamento"	minOccurs="1" maxOccurs="1" />
+
+			<xsd:element name="identificativoMessaggioRicevuta"	minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="codiceEsitoPagamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:pattern value="[0-9]{1,1}" />
+						<xsd:enumeration value="0" /><!-- Pagamento eseguito -->
+						<xsd:enumeration value="1" /><!-- Pagamento non eseguito -->
+						<xsd:enumeration value="2" /><!-- Pagamento parzialmente eseguito -->
+						<xsd:enumeration value="3" /><!-- Decorrenza termini -->
+						<xsd:enumeration value="4" /><!-- Decorrenza termini parziale -->
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="importoTotalePagato" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:minInclusive value="0.00" />
+						<xsd:maxInclusive value="99999999.99" />
+						<xsd:fractionDigits value="2" />
+						<xsd:totalDigits value="12" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="identificativoUnivocoVersamento"	minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="codiceContestoPagamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="dataCreazioneRicevuta" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:dateTime" />
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000016_parametriPSP">
+		<xsd:sequence>
+			<xsd:element name="identificativoPSP" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoIntermediarioPSP" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoCanale" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000016_datiPagamento">
+		<xsd:sequence>
+			<xsd:element name="tipoVersamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="2" />
+						<xsd:maxLength value="4" />
+						<xsd:enumeration value="BBT" />
+						<xsd:enumeration value="BP" />
+						<xsd:enumeration value="AD" />
+						<xsd:enumeration value="CP" />
+						<xsd:enumeration value="PO" />
+						<xsd:enumeration value="OBEP" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="parametriAggiuntivi" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="300" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="causaleVersamentoEsplicitaPSP" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="140" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="datiSingoloPagamento" type="ct0000000016_datiSingoloPagamento" minOccurs="0" maxOccurs="5" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000016_datiSingoloPagamento">
+		<xsd:sequence>
+			<xsd:element name="parametriAggiuntiviSingoloVersamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="300" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	<xsd:complexType name="ct0000000016_allegatoRicevuta">
+		<xsd:sequence>
+			<xsd:element name="tipoAllegatoRicevuta" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="ES" />
+						<xsd:enumeration value="BD" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="testoAllegato" minOccurs="1"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000016_istitutoAttestante">
+		<xsd:sequence>
+			<xsd:element name="tipoIdentificativoUnivocoAttestante"	minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1" />
+						<xsd:enumeration value="G" />
+						<xsd:enumeration value="A" />
+						<xsd:enumeration value="B" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceIdentificativoUnivocoAttestante" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="denominazioneAttestante" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceUnitOperAttestante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="denomUnitOperAttestante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="indirizzoAttestante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="civicoAttestante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="capAttestante" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="localitaAttestante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="provinciaAttestante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9_ -]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="nazioneAttestante" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:pattern value="[A-Z]{2,2}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000016_enteBeneficiario">
+		<xsd:sequence>
+			<xsd:element name="tipoIdentificativoUnivocoBeneficiario" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1" />
+						<xsd:enumeration value="G" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceIdentificativoUnivocoBeneficiario"	minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="denominazioneBeneficiario" minOccurs="1"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceUnitOperBeneficiario" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="denomUnitOperBeneficiario" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="indirizzoBeneficiario" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="civicoBeneficiario" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="capBeneficiario" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="localitaBeneficiario" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="provinciaBeneficiario" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9_ -]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="nazioneBeneficiario" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:pattern value="[A-Z]{2,2}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000016_soggettoVersante">
+		<xsd:sequence>
+			<xsd:element name="tipoIdentificativoUnivocoVersante" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1" />
+						<xsd:enumeration value="F" />
+						<xsd:enumeration value="G" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceIdentificativoUnivocoVersante"	minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="anagraficaVersante" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="indirizzoVersante" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="civicoVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="capVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="localitaVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="provinciaVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9_ -]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="nazioneVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:pattern value="[A-Z]{2,2}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="emailVersante" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="256" />
+						<xsd:pattern
+							value="[A-Za-z0-9_]+([\-\+\.'][A-Za-z0-9_]+)*@[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*\.[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000016_soggettoPagatore">
+		<xsd:sequence>
+			<xsd:element name="tipoIdentificativoUnivocoPagatore" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1" />
+						<xsd:enumeration value="F" />
+						<xsd:enumeration value="G" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceIdentificativoUnivocoPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="anagraficaPagatore" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="indirizzoPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="civicoPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="capPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="localitaPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="provinciaPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9_ -]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="nazionePagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:pattern value="[A-Z]{2,2}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="emailPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="256" />
+						<xsd:pattern
+							value="[A-Za-z0-9_]+([\-\+\.'][A-Za-z0-9_]+)*@[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*\.[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- ++pdpRichiediStornoRT++ -->
+	<xsd:element name="pdpRichiediStornoRT" type="ct0000000017_pdpRichiediStornoRT" />
+	<xsd:complexType name="ct0000000017_pdpRichiediStornoRT">
+		<xsd:sequence>
+			<xsd:element name="identificativoUnivocoVersamento"	minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- ++pdpRichiediStornoRTResult++ -->
+	<xsd:element name="pdpRichiediStornoRTResult" type="ct0000000018_pdpRichiediStornoRTResult" />
+	<xsd:complexType name="ct0000000018_pdpRichiediStornoRTResult">
+		<xsd:sequence>
+			<xsd:element name="esitoOperazione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="OK" />
+						<xsd:enumeration value="KO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceErrore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="70" />
+						<xsd:enumeration value="PDP_IUV_NON_TROVATO" />
+						<xsd:enumeration value="PDP_RPT_NON_TROVATA" />
+						<xsd:enumeration value="PDP_RT_NON_DISPONIBILE" />
+						<xsd:enumeration value="PDP_INTEGRAZIONE_NODO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- ++pdpChiediSceltaWISP++ -->
+	<xsd:element name="pdpChiediSceltaWISP" type="ct0000000019_pdpChiediSceltaWISP" />
+	<xsd:complexType name="ct0000000019_pdpChiediSceltaWISP">
+		<xsd:sequence>
+			<xsd:element name="keyPA" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="40" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="keyWISP" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="40" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- ++pdpChiediSceltaWISPResult++ -->
+	<xsd:element name="pdpChiediSceltaWISPResult" type="ct0000000020_pdpChiediSceltaWISPResult" />
+	<xsd:complexType name="ct0000000020_pdpChiediSceltaWISPResult">
+		<xsd:sequence>
+			<xsd:element name="esitoOperazione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="OK" />
+						<xsd:enumeration value="KO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceErrore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="70" />
+						<xsd:enumeration value="PDP_INTEGRAZIONE_NODO" />
+						<xsd:enumeration value="PDP_ERRORE_NAMESPACE_NON_CORRETTO" />
+						<xsd:enumeration value="PDP_GEN_ERRORE_SINTASSI" />
+						<xsd:enumeration value="PDP_GEN_ACCESSO_NON_AUTORIZZATO" />
+						<xsd:enumeration value="PDP_GEN_BU_NON_TROVATA" />
+						<xsd:enumeration value="PDP_GEN_DECODIFICA_PARAM" />
+						<xsd:enumeration value="PDP_GEN_RICHIESTA_NON_SUPPORTATA" />
+						<xsd:enumeration value="PDP_ERRORE_INTERNO_XSD" />
+						<xsd:enumeration value="PDP_LINEA_ERRORE_SINTASSI" />
+						<xsd:enumeration value="PDP_ERRORE_RITORNO_XSD" />
+						<xsd:enumeration value="PDP_ERRORE_INTERNO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiRestituiti" type="ct0000000020_datiRestituiti" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000020_datiRestituiti">
+		<xsd:sequence>
+			<xsd:element name="effettuazioneScelta" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="SI" />
+						<xsd:enumeration value="NO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoPSP" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoIntermediarioPSP" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoCanale" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="tipoVersamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="2" />
+						<xsd:maxLength value="4" />
+						<xsd:enumeration value="BBT" />
+						<xsd:enumeration value="BP" />
+						<xsd:enumeration value="AD" />
+						<xsd:enumeration value="CP" />
+						<xsd:enumeration value="PO" />
+						<xsd:enumeration value="OBEP" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- ++pdpVerificaMarcaDaBolloDigitale++ -->
+	<xsd:element name="pdpVerificaMarcaDaBolloDigitale" type="ct0000000021_pdpVerificaMarcaDaBolloDigitale" />
+	<xsd:complexType name="ct0000000021_pdpVerificaMarcaDaBolloDigitale">
+		<xsd:sequence>
+			<xsd:element name="documentoAbbinato" minOccurs="1"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="marcaDaBolloDigitale" minOccurs="1"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ++pdpVerificaMarcaDaBolloDigitaleResult++ -->
+	<xsd:element name="pdpVerificaMarcaDaBolloDigitaleResult" type="ct0000000022_pdpVerificaMarcaDaBolloDigitaleResult" />
+	<xsd:complexType name="ct0000000022_pdpVerificaMarcaDaBolloDigitaleResult">
+		<xsd:sequence>
+			<xsd:element name="esitoOperazione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="OK" />
+						<xsd:enumeration value="KO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceErrore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="70" />
+						<xsd:enumeration value="PDP_FIRMA_NON_VALIDA" />
+						<xsd:enumeration value="PDP_IMPRONTA_DOCUMENTO_ASSENTE" />
+						<xsd:enumeration value="PDP_IMPRONTA_DOCUMENTO_ERRATA" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- ++dpVerificaPagamentoInAttesa++ -->
+	<xsd:element name="dpVerificaPagamentoInAttesa" type="ct0000000023_dpVerificaPagamentoInAttesa" />
+	<xsd:complexType name="ct0000000023_dpVerificaPagamentoInAttesa">
+		<xsd:sequence>
+			<xsd:element name="identificativoUnivocoVersamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="contestoDiRichiesta" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="VR" />
+						<xsd:enumeration value="AR" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ++dpVerificaPagamentoInAttesaResult++ -->
+	<xsd:element name="dpVerificaPagamentoInAttesaResult" type="ct0000000024_dpVerificaPagamentoInAttesaResult" />
+	<xsd:complexType name="ct0000000024_dpVerificaPagamentoInAttesaResult">
+		<xsd:sequence>
+			<xsd:element name="esitoOperazione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="OK" />
+						<xsd:enumeration value="KO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceErrore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="70" />
+						<xsd:enumeration value="WS_PARAMETRI_MANCANTI" />
+						<xsd:enumeration value="WS_ERRORE_INTERNO" />
+						<xsd:enumeration value="WS_IUV_NON_TROVATO" />
+						<xsd:enumeration value="WS_PAGAMENTO_ANNULLATO" />
+						<xsd:enumeration value="WS_PAGAMENTO_IN_CORSO" />
+						<xsd:enumeration value="WS_PAGAMENTO_DUPLICATO" />
+						<xsd:enumeration value="WS_PAGAMENTO_SCADUTO" />
+						<xsd:enumeration value="WS_CONTESTO_RICHIESTA_SCONOSCIUTO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiRestituiti" type="ct0000000024_datiRestituiti" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000024_datiRestituiti">
+		<xsd:sequence>
+			<xsd:element name="identificativoBU" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoUnivocoVersamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="datiPagamentoInAttesa" type="ct0000000024_datiPagamentoInAttesa" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000024_datiPagamentoInAttesa">
+		<xsd:sequence>
+			<xsd:element name="dataScadenzaPagamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:date">
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="parametriAggiuntivi" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="300" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="notificaCallback" type="ct0000000024_notificaCallback" minOccurs="0" maxOccurs="1" />
+			
+			<xsd:element name="soggettoPagatore" type="ct0000000024_soggettoPagatore" minOccurs="1" maxOccurs="1" />
+
+			<xsd:element name="causaleVersamentoEsplicitaPSP" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="140" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiSingoloVersamento" type="ct0000000024_datiSingoloVersamento" minOccurs="0" maxOccurs="5" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000024_notificaCallback">
+		<xsd:sequence>
+			<xsd:element name="callbackURL" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="2000" />
+						<xsd:pattern value="https?://.+" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="callbackUsername" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="callbackPassword" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ct0000000024_soggettoPagatore">
+		<xsd:sequence>
+			<xsd:element name="tipoIdentificativoUnivocoPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1" />
+						<xsd:enumeration value="F" />
+						<xsd:enumeration value="G" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceIdentificativoUnivocoPagatore"	minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="anagraficaPagatore" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="indirizzoPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="civicoPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="capPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="localitaPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="provinciaPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9_ -]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="nazionePagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:pattern value="[A-Z]{2,2}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="emailPagatore" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="256" />
+						<xsd:pattern
+							value="[A-Za-z0-9_]+([\-\+\.'][A-Za-z0-9_]+)*@[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*\.[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000024_datiSingoloVersamento">
+		<xsd:sequence>
+			<xsd:element name="identificativoServizio" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:integer">
+						<xsd:totalDigits value="10" />
+						<xsd:minInclusive value="1" />
+						<xsd:maxInclusive value="99999999" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="importoSingoloVersamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:totalDigits value="12" />
+						<xsd:minInclusive value="0" />
+						<xsd:maxInclusive value="999999999.99" />
+						<xsd:fractionDigits value="2" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="commissioneCaricoPA" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:totalDigits value="12" />
+						<xsd:minInclusive value="0.01" />
+						<xsd:maxInclusive value="999999999.99" />
+						<xsd:fractionDigits value="2" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="credenzialiPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="descrizioneTestualeCausaleVersamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="140" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:element name="parametriAggiuntiviSingoloVersamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="300" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- ++dpInviaEsitoPagamento++ -->
+	<xsd:element name="dpInviaEsitoPagamento" type="ct0000000025_dpInviaEsitoPagamento" />
+	<xsd:complexType name="ct0000000025_dpInviaEsitoPagamento">
+		<xsd:sequence>
+			<xsd:element name="identificativoUnivocoVersamento"	minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceContestoPagamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="esitoPagamento" minOccurs="1"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:enumeration value="INOLTRATO" />
+						<xsd:enumeration value="AUTORIZZATO" />
+						<xsd:enumeration value="ESEGUITO" />
+						<xsd:enumeration value="ESEGUITO_PARZIALMENTE" />
+						<xsd:enumeration value="NON_ESEGUITO" />
+						<xsd:enumeration value="NON_ESEGUITO_DECORRENZA" />
+						<xsd:enumeration value="CANCELLATO" />
+						<xsd:enumeration value="CANCELLATO_SCADENZA" />
+						<xsd:enumeration value="STORNATO" />
+						<xsd:enumeration value="REVOCATO" />
+						<xsd:enumeration value="ACCETTATO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- ++dpInviaEsitoPagamentoResult++ -->
+	<xsd:element name="dpInviaEsitoPagamentoResult" type="ct0000000026_dpInviaEsitoPagamentoResult" />
+	<xsd:complexType name="ct0000000026_dpInviaEsitoPagamentoResult">
+		<xsd:sequence>
+			<xsd:element name="esitoOperazione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="OK" />
+						<xsd:enumeration value="KO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceErrore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="70" />
+						<xsd:enumeration value="WS_DOMINIO_UB_MANCANTE" />
+						<xsd:enumeration value="WS_PARAMETRI_MANCANTI" />
+						<xsd:enumeration value="WS_ERRORE_INTERNO" />
+						<xsd:enumeration value="WS_PAGAMENTO_SCONOSCIUTO" />
+						<xsd:enumeration value="WS_PAGAMENTO_STATO_NON_VALIDO" />
+						<xsd:enumeration value="WS_RT_NON_DISPONIBILE" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiRestituiti" type="ct0000000026_datiRestituiti" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000026_datiRestituiti">
+		<xsd:sequence>
+			<xsd:element name="identificativoUnivocoVersamento"	minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- ++pdpChiediFlussoRendicontazione++ -->
+	<xsd:element name="pdpChiediFlussoRendicontazione" type="ct0000000001_pdpChiediFlussoRendicontazioneType" />
+	<xsd:complexType name="ct0000000001_pdpChiediFlussoRendicontazioneType">
+		<xsd:sequence>
+			<xsd:element name="identificativoFlusso" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="256" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="idServizio" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="64" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ++pdpChiediFlussoRendicontazioneResult++ -->
+	<xsd:element name="pdpChiediFlussoRendicontazioneResult" type="ct0000000002_pdpChiediFlussoRendicontazioneResultType" />
+	<xsd:complexType name="ct0000000002_pdpChiediFlussoRendicontazioneResultType">
+		<xsd:sequence>
+			<xsd:element name="esitoOperazione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="OK" />
+						<xsd:enumeration value="KO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceErrore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="70" />
+						<xsd:enumeration value="WS_PARAMETRI_MANCANTI" />
+						<xsd:enumeration value="WS_ERRORE_INTERNO" />
+						<xsd:enumeration value="WS_FLUSSO_REND_NON_DISPONIBILE" />
+						<xsd:enumeration value="WS_SERVIZIO_NON_AUTORIZZATO" />
+						<xsd:enumeration value="PDP_ID_FLUSSO_NON_TROVATO" />
+						<xsd:enumeration value="PDP_GEN_DECODIFICA_PARAM" />
+						<xsd:enumeration value="PDP_ERRORE_INTERNO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="flussoXml" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+
+	<!-- ++pdpChiediElencoFlussiRendicontazione++ -->
+	<xsd:element name="pdpChiediElencoFlussiRendicontazione" type="ct0000000003_pdpChiediElencoFlussiRendicontazioneType" />
+	<xsd:complexType name="ct0000000003_pdpChiediElencoFlussiRendicontazioneType">
+		<xsd:sequence>
+			<xsd:element name="dataOraFlusso" minOccurs="1"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:dateTime">
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ++pdpChiediElencoFlussiRendicontazioneResult++ -->
+	<xsd:element name="pdpChiediElencoFlussiRendicontazioneResult" type="ct0000000004_pdpChiediElencoFlussiRendicontazioneResultType" />
+	<xsd:complexType name="ct0000000004_pdpChiediElencoFlussiRendicontazioneResultType">
+		<xsd:sequence>
+			<xsd:element name="esitoOperazione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="OK" />
+						<xsd:enumeration value="KO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceErrore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="70" />
+						<xsd:enumeration value="WS_PARAMETRI_MANCANTI" />
+						<xsd:enumeration value="WS_ERRORE_INTERNO" />
+						<xsd:enumeration value="WS_FLUSSO_REND_NON_DISPONIBILE" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="totRestituiti" minOccurs="1"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:integer">
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="flusso" type="ct0000000005_flussoType" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000005_flussoType">
+		<xsd:sequence>
+			<xsd:element name="identificativoFlusso" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="256" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="dataOraFlusso" minOccurs="1"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:dateTime">
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- ++pdpEsitiRT++ -->
+	<xsd:element name="pdpEsitiRT" type="ct0000000006_pdpEsitiRTType" />
+	<xsd:complexType name="ct0000000006_pdpEsitiRTType">
+		<xsd:sequence>
+			<xsd:element name="idServizio" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="64" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="idOperazione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="256" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="dataInizio" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:date">
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="dataFine" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:date">
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoUnivocoVersamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceFiscale" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ++pdpEsitiRTResult++ -->
+	<xsd:element name="pdpEsitiRTResult" type="ct0000000007_pdpEsitiRTResultType" />
+	<xsd:complexType name="ct0000000007_pdpEsitiRTResultType">
+		<xsd:sequence>
+			<xsd:element name="esitoOperazione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="OK" />
+						<xsd:enumeration value="KO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceErrore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="70" />
+						<xsd:enumeration value="WS_PARAMETRI_MANCANTI" />
+						<xsd:enumeration value="WS_ERRORE_INTERNO" />
+						<xsd:enumeration value="WS_ESITI_RT_NESSUN_RISULTATO" />
+						<xsd:enumeration value="WS_ESITI_RT_TROPPI_RISULTAT" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoDominio" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoUB" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="denominazoneUB" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="255" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="ricevutaTelematica" type="ct0000000008_ricevutaTelematicaType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000008_ricevutaTelematicaType">
+		<xsd:sequence>
+			<xsd:element name="identificativoUnivocoVersamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="idTenant" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="dataEsecuzionePagamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:dateTime">
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="dataInvioRt" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:date">
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="firmaRicevuta" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="1" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceContestoPagamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceEsitoPagamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:integer">
+						<xsd:totalDigits value="1" />
+						<xsd:minInclusive value="0" />
+						<xsd:maxInclusive value="10" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="tipoIdentificativoUnivocoAttestante" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="1" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceIdentificativoUnivocoAttestante" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="denominazioneAttestante" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="tipoIdentificativoUnivocoPagatore" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1" />
+						<xsd:enumeration value="F" />
+						<xsd:enumeration value="G" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceIdentificativoUnivocoPagatore" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="anagraficaPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="capPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="civicoPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="16" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="emailPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="256" />
+						<xsd:pattern
+							value="[A-Za-z0-9_]+([\-\+\.'][A-Za-z0-9_]+)*@[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*\.[A-Za-z0-9_]+([\-\.][A-Za-z0-9_]+)*" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="indirizzoPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="70" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="localitaPagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="nazionePagatore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:pattern value="[A-Z]{2,2}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="provinciaPagatore" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9_ -]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiSingoloPagamento" type="ct0000000009_datiSingoloPagamentoType" minOccurs="0" maxOccurs="5"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000009_datiSingoloPagamentoType">
+		<xsd:sequence>
+			<xsd:element name="idServizio" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="64" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="importoSingoloVersamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:totalDigits value="12" />
+						<xsd:minInclusive value="0" />
+						<xsd:maxInclusive value="999999999.99" />
+						<xsd:fractionDigits value="2" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="causaleVersamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="140" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="tipoDatiSpecificiRiscossione" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="256" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiSpecificiRiscossione" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="140" />
+						<xsd:pattern value="[0129]{1}/\S{3,138}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identUnivocoRiscossione" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="ordinePagamento" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:integer">
+						<xsd:totalDigits value="1" />
+						<xsd:minInclusive value="0" />
+						<xsd:maxInclusive value="10" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="idFlusso" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="256" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoUnivocoRegolamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="256" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="dataRegolamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="256" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="capitoloDiBilancio" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="255" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="provvisorioEntrata" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="255" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="ibanAccredito" minOccurs="0"	maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- ++pdpAttivaRpt++ -->
+	<xsd:element name="pdpAttivaRpt" type="ct0000000027_pdpAttivaRpt" />
+	<xsd:complexType name="ct0000000027_pdpAttivaRpt">
+		<xsd:sequence>
+			<xsd:element name="datiPagamentoInAttesa" type="ct0000000027_datiPagamentoInAttesa"	minOccurs="1" maxOccurs="1" />
+
+			<xsd:element name="callbackURL" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="2000" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000027_datiPagamentoInAttesa">
+		<xsd:sequence>
+			<xsd:element name="identificativoUnivocoVersamento"	minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ++pdpAttivaRptResult++ -->
+	<xsd:element name="pdpAttivaRptResult" type="ct0000000027_pdpAttivaRptResultType" />
+	<xsd:complexType name="ct0000000027_pdpAttivaRptResultType">
+		<xsd:sequence>
+			<xsd:element name="esitoOperazione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="OK" />
+						<xsd:enumeration value="KO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceErrore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="70" />
+						<xsd:enumeration value="WS_DOMINIO_UB_MANCANTE" />
+						<xsd:enumeration value="WS_PARAMETRI_MANCANTI" />
+						<xsd:enumeration value="WS_ERRORE_INTERNO" />
+						<xsd:enumeration value="WS_IUV_NON_TROVATO" />
+						<xsd:enumeration value="WS_PAGAMENTO_IN_CORSO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiRestituiti" type="ct0000000027_datiRestituiti" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000027_datiRestituiti">
+		<xsd:sequence>
+			<xsd:element name="identificativoUnivocoVersamento"	minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+						<xsd:pattern value="[a-zA-Z0-9]{1,35}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="redirectURL" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="2000" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceContestoPagamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+
+	<!-- ++pdpRichiediAvviso++ -->
+	<xsd:element name="pdpRichiediAvviso" type="ct0000000028_pdpRichiediAvviso"></xsd:element>
+	<xsd:complexType name="ct0000000028_pdpRichiediAvviso">
+		<xsd:sequence>
+			<xsd:element name="identificativoUnivocoVersamento"	minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ++pdpRichiediAvvisoResult++ -->
+	<xsd:element name="pdpRichiediAvvisoResult" type="ct0000000028_pdpRichiediAvvisoResult" />
+	<xsd:complexType name="ct0000000028_pdpRichiediAvvisoResult">
+		<xsd:sequence>
+			<xsd:element name="esitoOperazione" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2" />
+						<xsd:enumeration value="OK" />
+						<xsd:enumeration value="KO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceErrore" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3" />
+						<xsd:maxLength value="70" />
+						<xsd:enumeration value="WS_DOMINIO_UB_MANCANTE" />
+						<xsd:enumeration value="WS_PARAMETRI_MANCANTI" />
+						<xsd:enumeration value="WS_ERRORE_INTERNO" />
+						<xsd:enumeration value="WS_IUV_NON_TROVATO" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="identificativoUnivocoVersamento"	minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="codiceContestoPagamento" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="35" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="datiRestituiti" type="ct0000000028_datiRestituiti" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ct0000000028_datiRestituiti">
+		<xsd:sequence>
+			<xsd:element name="pdfFile" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="999999" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

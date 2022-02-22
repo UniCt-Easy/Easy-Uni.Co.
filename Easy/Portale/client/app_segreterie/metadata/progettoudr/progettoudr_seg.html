@@ -1,0 +1,77 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabprogettoudr_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabprogettoudr_seg_0"><i class="fa fa-users-cog mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogettoudr_seg_1" class="nav-link" data-toggle="pill" data-target="#tabprogettoudr_seg_1"><i class="fa fa-user-cog mr-1"></i>Membri</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabprogettoudr_seg_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettoudr_seg_title">Denominazione</label>
+					<input id="progettoudr_seg_title" type="text" class="form-control" data-tag="progettoudr.title"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="progettoudr_seg_description">Descrizione</label>
+					<textarea class="textarea form-control" id="progettoudr_seg_description" type="text"  rows="4" data-tag="progettoudr.description"></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettoudr_seg_assegniricerca">Numero assegni di ricerca previsti</label>
+					<input id="progettoudr_seg_assegniricerca" type="text" class="form-control" data-tag="progettoudr.assegniricerca"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettoudr_seg_borsedottorati">Numero borse di dottorato previste</label>
+					<input id="progettoudr_seg_borsedottorati" type="text" class="form-control" data-tag="progettoudr.borsedottorati"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettoudr_seg_contrattirtd">Numero contratti RTD previsti</label>
+					<input id="progettoudr_seg_contrattirtd" type="text" class="form-control" data-tag="progettoudr.contrattirtd"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettoudr_seg_contributo">Contributo richiesto </label>
+					<input id="progettoudr_seg_contributo" type="text" class="form-control" data-tag="progettoudr.contributo.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettoudr_seg_impegnototale">Impegno temporale complessivo preventivato in mesi/uomo</label>
+					<input id="progettoudr_seg_impegnototale" type="text" class="form-control" data-tag="progettoudr.impegnototale.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogettoudr_seg_budget" >Valore previsto in base al costo lordo annuo della tipologia di contratto diviso il numero di mesi di impegno previsti per il progetto dei membri. La tipologia di contratto viene presa in considerazione se il contratto relativo ha una qualunque sovrapposizione temporale con il progetto.</div>
+					<label class="col-form-label col-md-12" for="progettoudr_seg_budget">Costo complessivo preventivato in mesi/uomo</label>
+					<input id="progettoudr_seg_budget" type="text" class="form-control" data-tag="progettoudr.budget.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettoudr_seg_impegnototaleore">Impegno temporale complessivo preventivato in ore/uomo</label>
+					<input id="progettoudr_seg_impegnototaleore" type="text" class="form-control" data-tag="progettoudr.impegnototaleore"  />
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogettoudr_seg_budgetore" >Valore previsto in base al costo orario dei membri per le ore previste per il progetto. Il costo orario viene specificato nella scheda del membro altrimenti è il costo calcolato dividendo il costo lordo annuo della tipologia di contratto diviso il numero di ore annuali specificato nella tipologia di progetto. La tipologia di contratto viene presa in considerazione se il contratto relativo ha una qualunque sovrapposizione temporale con il progetto.</div>
+					<label class="col-form-label col-md-12" for="progettoudr_seg_budgetore">Costo complessivo preventivato in ore/uomo</label>
+					<input id="progettoudr_seg_budgetore" type="text" class="form-control" data-tag="progettoudr.!budgetore.fixed.2"  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabprogettoudr_seg_1" role="tabpanel">
+				<div class="gridx" id="grid_progettoudrmembro_seg" data-tag="progettoudrmembro.seg.seg" data-custom-control="gridx" data-mdlaggregatecolumns="impegno;orepreventivate;!orerendicontate"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

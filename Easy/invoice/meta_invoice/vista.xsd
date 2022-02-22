@@ -89,6 +89,9 @@
               <xs:element name="idreg_sostituto" type="xs:int" minOccurs="0" />
               <xs:element name="pec_ven_cliente" type="xs:string" minOccurs="0" />
               <xs:element name="email_ven_cliente" type="xs:string" minOccurs="0" />
+              <xs:element name="idtreasurer_acq_estere" type="xs:int" minOccurs="0" />
+              <xs:element name="idsdi_acquistoestere" type="xs:int" minOccurs="0" />
+              <xs:element name="idfedocumentkind" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -1,9 +1,25 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-
-
+ 
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[trigger_u_bankimportbill]') and OBJECTPROPERTY(id, N'IsTrigger') = 1)
 drop trigger [trigger_u_bankimportbill]
@@ -42,7 +58,17 @@ BEGIN
 			from bill
 			join deleted I
 			on  bill.ybill=i.ybill and bill.nbill=i.nbill and bill.billkind=i.billkind
-
+		 
+	
+   update bill set 
+			 idtreasurer = INS.idtreasurer,
+			 lt=getdate(),lu='trg_upd_cassiere'
+			from bill
+			join deleted I
+			on  bill.ybill=I.ybill and bill.nbill=I.nbill and bill.billkind=I.billkind
+			join inserted INS
+			on  bill.ybill=INS.ybill and bill.nbill=INS.nbill and bill.billkind=INS.billkind
+			WHERE	isnull(I.idtreasurer,0) <>isnull(INS.idtreasurer,0)
 
 	insert into bill(billkind,ybill,nbill,
 		registry,total,reduction,adate,active,motive,ct,cu,lt,lu,

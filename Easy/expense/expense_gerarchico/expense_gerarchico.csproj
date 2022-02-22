@@ -80,6 +80,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\unmanaged\AskInfo\AskInfo.csproj">
+      <Project>{da6b77b7-5f8a-4dd1-b15a-262e8062af8b}</Project>
+      <Name>AskInfo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\meta_expense\meta_expense.csproj">
       <Project>{0027e37f-afa2-4973-aae5-98f9bc1a242e}</Project>
       <Name>meta_expense</Name>
@@ -98,6 +102,9 @@
       <Name>metaeasylibrary</Name>
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_expenselast">
+      <HintPath>..\..\expenselast\meta_expenselast\bin\Debug\meta_expenselast.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -212,12 +219,6 @@
       <HintPath>..\..\bill\meta_bill\bin\Debug\meta_bill.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="meta_expenselast">
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_expenselast</Name>
-      <HintPath>..\..\expenselast\meta_expenselast\bin\Debug\meta_expenselast.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="meta_payment">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_payment</Name>
@@ -302,6 +303,18 @@
       <Name>meta_geo_city</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="meta_registrypaymethod">
+      <HintPath>..\..\registrypaymethod\meta_registrypaymethod\bin\Debug\meta_registrypaymethod.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_registrypaymethod</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_expenselastmandatedetail">
+      <HintPath>..\..\expenselastmandatedetail\meta_expenselastmandatedetail\bin\Debug\meta_expenselastmandatedetail.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_expenselastmandatedetail</Name>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs">
@@ -340,6 +353,9 @@
     <None Include="vistaForm.xsx">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

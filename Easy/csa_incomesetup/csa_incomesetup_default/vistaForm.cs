@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,12 +26,9 @@ using System.Runtime.Serialization;
 namespace csa_incomesetup_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Configurazione Voci CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_incomesetup 		=> Tables["csa_incomesetup"];
 
@@ -45,9 +41,6 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable finincome 		=> Tables["finincome"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
@@ -963,9 +956,12 @@ private void initClass() {
 	tcsa_incomesetupview.Columns.Add( new DataColumn("idacc_debit", typeof(string)));
 	tcsa_incomesetupview.Columns.Add( new DataColumn("codeacc_debit", typeof(string)));
 	tcsa_incomesetupview.Columns.Add( new DataColumn("account_debit", typeof(string)));
-	tcsa_incomesetupview.Columns.Add( new DataColumn("idacc_ente", typeof(string)));
-	tcsa_incomesetupview.Columns.Add( new DataColumn("codeacc_ente", typeof(string)));
-	tcsa_incomesetupview.Columns.Add( new DataColumn("account_ente", typeof(string)));
+	tcsa_incomesetupview.Columns.Add( new DataColumn("idacc_cost", typeof(string)));
+	tcsa_incomesetupview.Columns.Add( new DataColumn("codeacc_cost", typeof(string)));
+	tcsa_incomesetupview.Columns.Add( new DataColumn("account_cost", typeof(string)));
+	tcsa_incomesetupview.Columns.Add( new DataColumn("idacc_expense", typeof(string)));
+	tcsa_incomesetupview.Columns.Add( new DataColumn("codeacc_expense", typeof(string)));
+	tcsa_incomesetupview.Columns.Add( new DataColumn("account_expense", typeof(string)));
 	tcsa_incomesetupview.Columns.Add( new DataColumn("idacc_internalcredit", typeof(string)));
 	tcsa_incomesetupview.Columns.Add( new DataColumn("codeacc_internalcredit", typeof(string)));
 	tcsa_incomesetupview.Columns.Add( new DataColumn("account_internalcredit", typeof(string)));
@@ -1089,4 +1085,3 @@ private void initClass() {
 }
 }
 }
-

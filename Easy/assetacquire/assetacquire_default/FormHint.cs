@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -22,13 +21,14 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using funzioni_configurazione;
+using metadatalibrary;
 
 namespace assetacquire_default
 {
 	/// <summary>
 	/// Summary description for FormHint.
 	/// </summary>
-	public class FormHint : System.Windows.Forms.Form
+	public class FormHint : MetaDataForm
 	{
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
@@ -230,7 +230,7 @@ namespace assetacquire_default
 			// 
 			// label1
 			// 
-			this.label1.Location = new System.Drawing.Point(8, 8);
+			this.label1.Location = new System.Drawing.Point(8, 10);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(288, 16);
 			this.label1.TabIndex = 0;
@@ -266,8 +266,8 @@ namespace assetacquire_default
 			this.Q1.Location = new System.Drawing.Point(16, 88);
 			this.Q1.Name = "Q1";
 			this.Q1.ReadOnly = true;
+			this.Q1.Size = new System.Drawing.Size(100, 20);
 			this.Q1.TabIndex = 4;
-			this.Q1.Text = "";
 			this.Q1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// Iva1
@@ -275,8 +275,8 @@ namespace assetacquire_default
 			this.Iva1.Location = new System.Drawing.Point(120, 88);
 			this.Iva1.Name = "Iva1";
 			this.Iva1.ReadOnly = true;
+			this.Iva1.Size = new System.Drawing.Size(100, 20);
 			this.Iva1.TabIndex = 5;
-			this.Iva1.Text = "";
 			this.Iva1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// IvaDet1
@@ -284,8 +284,8 @@ namespace assetacquire_default
 			this.IvaDet1.Location = new System.Drawing.Point(224, 88);
 			this.IvaDet1.Name = "IvaDet1";
 			this.IvaDet1.ReadOnly = true;
+			this.IvaDet1.Size = new System.Drawing.Size(100, 20);
 			this.IvaDet1.TabIndex = 6;
-			this.IvaDet1.Text = "";
 			this.IvaDet1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// IvaDet2
@@ -293,8 +293,8 @@ namespace assetacquire_default
 			this.IvaDet2.Location = new System.Drawing.Point(224, 120);
 			this.IvaDet2.Name = "IvaDet2";
 			this.IvaDet2.ReadOnly = true;
+			this.IvaDet2.Size = new System.Drawing.Size(100, 20);
 			this.IvaDet2.TabIndex = 9;
-			this.IvaDet2.Text = "";
 			this.IvaDet2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.IvaDet2.Visible = false;
 			// 
@@ -303,8 +303,8 @@ namespace assetacquire_default
 			this.Iva2.Location = new System.Drawing.Point(120, 120);
 			this.Iva2.Name = "Iva2";
 			this.Iva2.ReadOnly = true;
+			this.Iva2.Size = new System.Drawing.Size(100, 20);
 			this.Iva2.TabIndex = 8;
-			this.Iva2.Text = "";
 			this.Iva2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.Iva2.Visible = false;
 			// 
@@ -313,8 +313,8 @@ namespace assetacquire_default
 			this.Q2.Location = new System.Drawing.Point(16, 120);
 			this.Q2.Name = "Q2";
 			this.Q2.ReadOnly = true;
+			this.Q2.Size = new System.Drawing.Size(100, 20);
 			this.Q2.TabIndex = 7;
-			this.Q2.Text = "";
 			this.Q2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.Q2.Visible = false;
 			// 
@@ -323,8 +323,8 @@ namespace assetacquire_default
 			this.IvaDet3.Location = new System.Drawing.Point(224, 152);
 			this.IvaDet3.Name = "IvaDet3";
 			this.IvaDet3.ReadOnly = true;
+			this.IvaDet3.Size = new System.Drawing.Size(100, 20);
 			this.IvaDet3.TabIndex = 12;
-			this.IvaDet3.Text = "";
 			this.IvaDet3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.IvaDet3.Visible = false;
 			// 
@@ -333,8 +333,8 @@ namespace assetacquire_default
 			this.Iva3.Location = new System.Drawing.Point(120, 152);
 			this.Iva3.Name = "Iva3";
 			this.Iva3.ReadOnly = true;
+			this.Iva3.Size = new System.Drawing.Size(100, 20);
 			this.Iva3.TabIndex = 11;
-			this.Iva3.Text = "";
 			this.Iva3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.Iva3.Visible = false;
 			// 
@@ -343,8 +343,8 @@ namespace assetacquire_default
 			this.Q3.Location = new System.Drawing.Point(16, 152);
 			this.Q3.Name = "Q3";
 			this.Q3.ReadOnly = true;
+			this.Q3.Size = new System.Drawing.Size(100, 20);
 			this.Q3.TabIndex = 10;
-			this.Q3.Text = "";
 			this.Q3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.Q3.Visible = false;
 			// 
@@ -353,6 +353,7 @@ namespace assetacquire_default
 			this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
 			this.button1.Location = new System.Drawing.Point(120, 192);
 			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(75, 23);
 			this.button1.TabIndex = 13;
 			this.button1.Text = "Chiudi";
 			this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -363,7 +364,8 @@ namespace assetacquire_default
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(328, 40);
 			this.label5.TabIndex = 14;
-			this.label5.Text = "Può essere importante per fare quadrare le imposte unitarie con quelle totali";
+			this.label5.Text = "a causa dell\'arrotondamento alla seconda cifra dell\'iva non perfettamente divisib" +
+    "ile tra i cespiti";
 			// 
 			// FormHint
 			// 
@@ -390,6 +392,7 @@ namespace assetacquire_default
 			this.Text = "Suggerimenti";
 			this.TopMost = true;
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 		#endregion
@@ -399,4 +402,3 @@ namespace assetacquire_default
 		}
 	}
 }
-

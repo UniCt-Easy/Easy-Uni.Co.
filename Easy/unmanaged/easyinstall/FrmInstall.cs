@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit√† degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -508,7 +507,7 @@ namespace EasyInstall {//Install//
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(432, 32);
             this.label16.TabIndex = 11;
-            this.label16.Text = "Se si verifica un timeout Ë possibile ritentare l\'esecuzione eliminando l\'ultima " +
+            this.label16.Text = "Se si verifica un timeout √® possibile ritentare l\'esecuzione eliminando l\'ultima " +
     "versione e riavviando l\'aggiornamento.";
             // 
             // btnDelLastVersion
@@ -659,7 +658,7 @@ namespace EasyInstall {//Install//
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(576, 23);
             this.label11.TabIndex = 12;
-            this.label11.Text = "Sar‡ quindi possibile passare alla configurazione CONTABILE del database.";
+            this.label11.Text = "Sar√† quindi possibile passare alla configurazione CONTABILE del database.";
             // 
             // label10
             // 
@@ -680,7 +679,7 @@ namespace EasyInstall {//Install//
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(576, 16);
             this.label9.TabIndex = 10;
-            this.label9.Text = "Sar‡ effettuato l\'aggiornamento dei dati, dell\'applicazione e dei report";
+            this.label9.Text = "Sar√† effettuato l\'aggiornamento dei dati, dell\'applicazione e dei report";
             // 
             // label8
             // 
@@ -690,7 +689,7 @@ namespace EasyInstall {//Install//
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(576, 16);
             this.label8.TabIndex = 9;
-            this.label8.Text = "Sar‡ creato, se richiesto, un nuovo database";
+            this.label8.Text = "Sar√† creato, se richiesto, un nuovo database";
             // 
             // label6
             // 
@@ -700,7 +699,7 @@ namespace EasyInstall {//Install//
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(576, 16);
             this.label6.TabIndex = 8;
-            this.label6.Text = "Sar‡ impostata la cartella dei report";
+            this.label6.Text = "Sar√† impostata la cartella dei report";
             // 
             // label4
             // 
@@ -710,7 +709,7 @@ namespace EasyInstall {//Install//
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(576, 16);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Sar‡ configurata la connessione al database";
+            this.label4.Text = "Sar√† configurata la connessione al database";
             // 
             // label7
             // 
@@ -731,7 +730,7 @@ namespace EasyInstall {//Install//
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(576, 16);
             this.label5.TabIndex = 4;
-            this.label5.Text = "Sar‡ impostato il sito dove risiedono gli aggiornamenti";
+            this.label5.Text = "Sar√† impostato il sito dove risiedono gli aggiornamenti";
             // 
             // label3
             // 
@@ -753,7 +752,7 @@ namespace EasyInstall {//Install//
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(576, 23);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Questa procedura vi guider‡ alla corretta istallazione e configurazione del softw" +
+            this.label2.Text = "Questa procedura vi guider√† alla corretta istallazione e configurazione del softw" +
     "are Easy";
             // 
             // label1
@@ -913,7 +912,7 @@ namespace EasyInstall {//Install//
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(592, 32);
             this.label26.TabIndex = 13;
-            this.label26.Text = "Il database sar‡ creato nella cartella predefinita per l\'istanza di SQL Server se" +
+            this.label26.Text = "Il database sar√† creato nella cartella predefinita per l\'istanza di SQL Server se" +
     "lezionata. Analogamente, le collation saranno quelle di default del Server";
             this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1243,7 +1242,7 @@ namespace EasyInstall {//Install//
             this.rbtNonProprioDipartimento.Name = "rbtNonProprioDipartimento";
             this.rbtNonProprioDipartimento.Size = new System.Drawing.Size(170, 113);
             this.rbtNonProprioDipartimento.TabIndex = 36;
-            this.rbtNonProprioDipartimento.Text = "Si desidera eseguire il setup su un dipartimento gi‡ esistente ma non di propria " +
+            this.rbtNonProprioDipartimento.Text = "Si desidera eseguire il setup su un dipartimento gi√† esistente ma non di propria " +
     "pertinenza";
             this.rbtNonProprioDipartimento.CheckedChanged += new System.EventHandler(this.rdbtDipartimento_CheckedChanged);
             // 
@@ -1265,7 +1264,7 @@ namespace EasyInstall {//Install//
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(560, 23);
             this.label33.TabIndex = 24;
-            this.label33.Text = "Se lo si desidera, Ë possibile prelevare alcuni dati da un database esistente, se" +
+            this.label33.Text = "Se lo si desidera, √® possibile prelevare alcuni dati da un database esistente, se" +
     "lezionando le relative caselle:";
             // 
             // groupBox1
@@ -1427,7 +1426,7 @@ namespace EasyInstall {//Install//
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(376, 16);
             this.label37.TabIndex = 19;
-            this.label37.Text = "Lasciando vuota la casella non sar‡ effettuata la configurazione del client";
+            this.label37.Text = "Lasciando vuota la casella non sar√† effettuata la configurazione del client";
             // 
             // listDepartmentUser
             // 
@@ -1610,7 +1609,7 @@ namespace EasyInstall {//Install//
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(600, 16);
             this.label36.TabIndex = 6;
-            this.label36.Text = "All\'apertura del programma, normalmente si apre una finestra in cui l\'utente puÚ " +
+            this.label36.Text = "All\'apertura del programma, normalmente si apre una finestra in cui l\'utente pu√≤ " +
     "scegliere l\'ente a cui collegarsi.";
             // 
             // txtNomeEnte
@@ -1626,7 +1625,7 @@ namespace EasyInstall {//Install//
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(592, 16);
             this.label34.TabIndex = 0;
-            this.label34.Text = "Inserire il nome  da assegnare alla connessione, che apparir‡ nella lista degli E" +
+            this.label34.Text = "Inserire il nome  da assegnare alla connessione, che apparir√† nella lista degli E" +
     "nti (su questo CLIENT)";
             // 
             // tabPage5
@@ -1666,7 +1665,7 @@ namespace EasyInstall {//Install//
             this.txtServerRaggiungibile.Name = "txtServerRaggiungibile";
             this.txtServerRaggiungibile.Size = new System.Drawing.Size(568, 23);
             this.txtServerRaggiungibile.TabIndex = 9;
-            this.txtServerRaggiungibile.Text = "Il server risulta essere raggiungibile, pertanto non Ë necessario modificare l\'im" +
+            this.txtServerRaggiungibile.Text = "Il server risulta essere raggiungibile, pertanto non √® necessario modificare l\'im" +
     "postazione corrente.";
             // 
             // btnTestServer
@@ -1708,7 +1707,7 @@ namespace EasyInstall {//Install//
             this.label48.Name = "label48";
             this.label48.Size = new System.Drawing.Size(560, 23);
             this.label48.TabIndex = 4;
-            this.label48.Text = "- Nuove funzioni per coprire sempre pi˘ esigenze degli utenti";
+            this.label48.Text = "- Nuove funzioni per coprire sempre pi√π esigenze degli utenti";
             // 
             // label47
             // 
@@ -1768,7 +1767,7 @@ namespace EasyInstall {//Install//
             this.labReportNotOk.Name = "labReportNotOk";
             this.labReportNotOk.Size = new System.Drawing.Size(592, 23);
             this.labReportNotOk.TabIndex = 6;
-            this.labReportNotOk.Text = "La cartella selezionata non esiste o non Ë accessibile. Selezionare una cartella " +
+            this.labReportNotOk.Text = "La cartella selezionata non esiste o non √® accessibile. Selezionare una cartella " +
     "valida.";
             // 
             // labReportOk
@@ -1777,7 +1776,7 @@ namespace EasyInstall {//Install//
             this.labReportOk.Name = "labReportOk";
             this.labReportOk.Size = new System.Drawing.Size(584, 23);
             this.labReportOk.TabIndex = 5;
-            this.labReportOk.Text = "La cartella selezionata risulta accessibile. Non Ë necessario cambiare le imposta" +
+            this.labReportOk.Text = "La cartella selezionata risulta accessibile. Non √® necessario cambiare le imposta" +
     "zioni correnti.";
             // 
             // btnChangeReportDir
@@ -1803,7 +1802,7 @@ namespace EasyInstall {//Install//
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(592, 23);
             this.label53.TabIndex = 2;
-            this.label53.Text = "La cartella attualmente impostata per i report Ë:";
+            this.label53.Text = "La cartella attualmente impostata per i report √®:";
             // 
             // label52
             // 
@@ -1811,7 +1810,7 @@ namespace EasyInstall {//Install//
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(592, 32);
             this.label52.TabIndex = 1;
-            this.label52.Text = "Normalmente i report risiedono in una cartella locale, ma Ë anche possibile usare" +
+            this.label52.Text = "Normalmente i report risiedono in una cartella locale, ma √® anche possibile usare" +
     " dei report condivisi su un altro computer della rete.";
             // 
             // label51
@@ -1845,7 +1844,7 @@ namespace EasyInstall {//Install//
             this.labInfoLicenzaNotFound.Name = "labInfoLicenzaNotFound";
             this.labInfoLicenzaNotFound.Size = new System.Drawing.Size(584, 23);
             this.labInfoLicenzaNotFound.TabIndex = 6;
-            this.labInfoLicenzaNotFound.Text = "Le informazioni relative alla licenza NON sono state trovate, Ë pertanto necessar" +
+            this.labInfoLicenzaNotFound.Text = "Le informazioni relative alla licenza NON sono state trovate, √® pertanto necessar" +
     "io inserirle.";
             // 
             // labInfoLicenzaFound
@@ -1880,7 +1879,7 @@ namespace EasyInstall {//Install//
             this.label63.Size = new System.Drawing.Size(584, 40);
             this.label63.TabIndex = 2;
             this.label63.Text = "Le informazioni saranno inviate ad un server della Software && More e il settore " +
-    "AMMINISTRATIVO provveder‡, secondo le procedure organizzative previste, ad abili" +
+    "AMMINISTRATIVO provveder√†, secondo le procedure organizzative previste, ad abili" +
     "tare il database da remoto.";
             // 
             // label62
@@ -1889,7 +1888,7 @@ namespace EasyInstall {//Install//
             this.label62.Name = "label62";
             this.label62.Size = new System.Drawing.Size(584, 32);
             this.label62.TabIndex = 1;
-            this.label62.Text = "A tal fine Ë necessario inserire le informazioni sul cliente, INDISPENSABILI per " +
+            this.label62.Text = "A tal fine √® necessario inserire le informazioni sul cliente, INDISPENSABILI per " +
     "poter ricevere il codice di attivazione del database e quindi poter usare l\'appl" +
     "icazione.";
             // 
@@ -1899,7 +1898,7 @@ namespace EasyInstall {//Install//
             this.label60.Name = "label60";
             this.label60.Size = new System.Drawing.Size(536, 23);
             this.label60.TabIndex = 0;
-            this.label60.Text = "Per poter utilizzare il software Ë necessario registrare il prodotto.";
+            this.label60.Text = "Per poter utilizzare il software √® necessario registrare il prodotto.";
             // 
             // tabPage9
             // 
@@ -1943,7 +1942,7 @@ namespace EasyInstall {//Install//
             this.label70.Size = new System.Drawing.Size(592, 40);
             this.label70.TabIndex = 5;
             this.label70.Text = "Potete scrivere all\'indirizzo sviluppo@swandmore.it per segnalare eventuali imper" +
-    "fezioni del  prodotto, oppure per richiedere lo sviluppo di nuove funzionalit‡.";
+    "fezioni del  prodotto, oppure per richiedere lo sviluppo di nuove funzionalit√†.";
             // 
             // label69
             // 
@@ -1959,7 +1958,7 @@ namespace EasyInstall {//Install//
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(592, 40);
             this.label68.TabIndex = 3;
-            this.label68.Text = "Se invece si vuole richiamare nuovamente questa procedura guidata, sar‡ possibile" +
+            this.label68.Text = "Se invece si vuole richiamare nuovamente questa procedura guidata, sar√† possibile" +
     " farlo dal menu File/Configurazione/Configurazione TECNICA";
             // 
             // label67
@@ -1968,7 +1967,7 @@ namespace EasyInstall {//Install//
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(592, 40);
             this.label67.TabIndex = 2;
-            this.label67.Text = "Se Ë la prima volta che si usa Easy sar‡ necessario effettuare la configurazione " +
+            this.label67.Text = "Se √® la prima volta che si usa Easy sar√† necessario effettuare la configurazione " +
     "CONTABILE del database, richiamabile dal menu File/Configurazione/Configurazione" +
     " CONTABILE";
             // 
@@ -1986,7 +1985,7 @@ namespace EasyInstall {//Install//
             this.label65.Name = "label65";
             this.label65.Size = new System.Drawing.Size(592, 23);
             this.label65.TabIndex = 0;
-            this.label65.Text = "Easy Ë stato configurato.";
+            this.label65.Text = "Easy √® stato configurato.";
             // 
             // btnCancel
             // 
@@ -2191,7 +2190,7 @@ namespace EasyInstall {//Install//
 			DataTable T1= MainConn.SQLRunner("select * from master.dbo.syslogins where loginname="
 				+ QueryCreator.quotedstrvalue(idDbDepartment, true), -1, out errore);
 			if (errore != null) {
-				QueryCreator.ShowError(this, "Non Ë stato possibile ottenere l'elenco delle login dal server", errore);
+				QueryCreator.ShowError(this, "Non √® stato possibile ottenere l'elenco delle login dal server", errore);
 				return false;
 			}
 
@@ -2201,7 +2200,7 @@ namespace EasyInstall {//Install//
 				MainConn.DO_SYS_CMD("EXEC sp_addlogin "+QueryCreator.quotedstrvalue(idDbDepartment,false)+
 					","+QueryCreator.quotedstrvalue(passwordDB,false), out err);
 				if (err!=null){
-					MessageBox.Show(this, "Errore: "+err);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore: "+err);
 					return false;
 				}		
 			}
@@ -2213,7 +2212,7 @@ namespace EasyInstall {//Install//
 				" where l.loginname="+ QueryCreator.quotedstrvalue(idDbDepartment, true), -1, out errore);
 				
 			if (errore != null) {
-				QueryCreator.ShowError(this, "Non Ë stato possibile connettersi al dipartimento", errore);
+				QueryCreator.ShowError(this, "Non √® stato possibile connettersi al dipartimento", errore);
 				return false;
 			}
 
@@ -2224,13 +2223,13 @@ namespace EasyInstall {//Install//
 					QueryCreator.quotedstrvalue(idDbDepartment,false)+","+
 					QueryCreator.quotedstrvalue(idDbDepartment,false), -1, out errore);
 				if (errore != null) {
-					QueryCreator.ShowError(this, "Non Ë stato creare aggiungere l'utente dipartimento al db", errore);
+					QueryCreator.ShowError(this, "Non √® stato creare aggiungere l'utente dipartimento al db", errore);
 					return false;
 				}
 				MainConn.SQLRunner("exec sp_addrolemember  N'db_owner',"+
 					QueryCreator.quotedstrvalue(idDbDepartment,false),-1, out errore);
 				if (errore != null) {
-					QueryCreator.ShowError(this, "Non Ë stato possibile rendere l'utente dipartimento DBO", errore);
+					QueryCreator.ShowError(this, "Non √® stato possibile rendere l'utente dipartimento DBO", errore);
 					return false;
 				}
 			}
@@ -2240,7 +2239,7 @@ namespace EasyInstall {//Install//
 				txtUserPwd.Text, idDbDepartment, passwordDB, out errore);
 
 			if (errore != null) {
-				QueryCreator.ShowError(this, "Non Ë stato collegare l'utente-operatore all utente-dipartimento", errore);
+				QueryCreator.ShowError(this, "Non √® stato collegare l'utente-operatore all utente-dipartimento", errore);
 				return false;
 			}
 			MainConn.DO_SYS_CMD("UPDATE dbdepartment set description="+
@@ -2258,9 +2257,9 @@ namespace EasyInstall {//Install//
 				2000, DateTime.Now);
 
 			myConn.Open();
-			if (myConn.OpenError){
+			if (myConn.openError){
 				QueryCreator.ShowError(this, 
-					"Non Ë stato possibile connettersi al dipartimento "+idDbDepartment, myConn.LastError);
+					"Non √® stato possibile connettersi al dipartimento "+idDbDepartment, myConn.LastError);
 				return false;
 			}
 
@@ -2271,7 +2270,7 @@ namespace EasyInstall {//Install//
 			StringBuilder SB = Download.LeggiTestoScript("creatabsistnondbo.sql");
 			bool ok = Download.RUN_SCRIPT_NONSTOP(DepConn,SB,"Creazione tabelle di sistema non dbo");
 			if (!ok) {
-				MessageBox.Show(this, "Errore durante la creazione delle tabelle di sistema non dbo");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore durante la creazione delle tabelle di sistema non dbo");
 				//					return null;
 			}
 
@@ -2279,7 +2278,7 @@ namespace EasyInstall {//Install//
 				SB = Download.LeggiTestoScript("creatabnondbo.sql");
 				ok = Download.RUN_SCRIPT_NONSTOP(DepConn,SB,"Creazione tabelle non dbo");
 				if (!ok) {
-					MessageBox.Show(this, "Errore durante la creazione delle tabelle non dbo");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore durante la creazione delle tabelle non dbo");
 					//					return null;
 				}
 			}
@@ -2288,7 +2287,7 @@ namespace EasyInstall {//Install//
 				SB = Download.LeggiTestoScript("creaviewnondbo.sql");
 				ok = Download.RUN_SCRIPT_NONSTOP(DepConn,SB,"Creazione viste non dbo");
 				if (!ok) {
-					MessageBox.Show(this, "Errore durante la creazione delle viste non dbo");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore durante la creazione delle viste non dbo");
 					//					return null;
 				}
 			}
@@ -2297,7 +2296,7 @@ namespace EasyInstall {//Install//
 				SB = Download.LeggiTestoScript("creaspnondbo.sql");
 				ok = Download.RUN_SCRIPT_NONSTOP(DepConn,SB,"Creazione stored procedure non dbo");
 				if (!ok) {
-					MessageBox.Show(this, "Errore durante la creazione delle stored procedure non dbo");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore durante la creazione delle stored procedure non dbo");
 					//					return null;
 				}
 			}
@@ -2341,7 +2340,7 @@ namespace EasyInstall {//Install//
 				if (!MainConn.Open()){
 					MainConn.Destroy();
 					MainConn=null;
-					MessageBox.Show(this,"Non Ë stato possibile collegarsi al database "+txtDBName.Text);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non √® stato possibile collegarsi al database "+txtDBName.Text);
 					return false;
 				}
 				if (DBNuovo) {
@@ -2371,7 +2370,7 @@ namespace EasyInstall {//Install//
 				    if (t1 == null) {
                         MainConn.Destroy();
                         MainConn = null;
-                        MessageBox.Show(this, "L'utente selezionato non ha le autorizzazioni sufficienti per effettuare l'operazione.","Errore");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "L'utente selezionato non ha le autorizzazioni sufficienti per effettuare l'operazione.","Errore");
                         return false;
                     }
 					DataSet D1=new DataSet("temp1");
@@ -2441,7 +2440,7 @@ namespace EasyInstall {//Install//
 						return false;
 					}
 					TempConn.Open();
-					if (TempConn.OpenError){
+					if (TempConn.openError){
 						TempConn.Destroy();
 						return false;
 					}
@@ -2550,7 +2549,7 @@ namespace EasyInstall {//Install//
 			DBNuovo=false;
 			MainConn=null;
 			if (txtDBName.Text.Trim()==""){
-				MessageBox.Show(this, "Inserire il nome del database da creare (o esistente vuoto)");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire il nome del database da creare (o esistente vuoto)");
 				txtDBName.Focus();
 				return;
 			}
@@ -2558,7 +2557,7 @@ namespace EasyInstall {//Install//
 			DataAccess MASTERConn=null;
 			try {
 				if (txtServerName.Text.Trim()==""){
-					MessageBox.Show(this, "Inserire il nome del server");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire il nome del server");
 					txtServerName.Focus();
 					return;
 				}
@@ -2568,7 +2567,7 @@ namespace EasyInstall {//Install//
 				//				}
 				//				else {
 				if (txtUserName.Text.Trim()==""){
-					MessageBox.Show(this, "Inserire il nome dell'utente con cui collegarsi al server");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire il nome dell'utente con cui collegarsi al server");
 					txtUserName.Focus();
 					return;
 				}
@@ -2584,17 +2583,17 @@ namespace EasyInstall {//Install//
 				return;
 			}
 			MASTERConn.Open();
-			if (MASTERConn.OpenError){
+			if (MASTERConn.openError){
 				MASTERConn.Destroy();
 				EnableDisableNavigation(true);
-				MessageBox.Show(this,"Non Ë stato possibile collegarsi al server "+txtServerName.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non √® stato possibile collegarsi al server "+txtServerName.Text);
 				return;
 			}
 			string err;
 			DataTable T= MASTERConn.SQLRunner("select name from master.dbo.sysdatabases order by name",
 				false,-1);
 			if (T==null) {
-				MessageBox.Show(this, "Errore accedendo all'elenco dei db sul server");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore accedendo all'elenco dei db sul server");
 				MASTERConn.Destroy();
 				EnableDisableNavigation(true);
 				return;
@@ -2603,12 +2602,12 @@ namespace EasyInstall {//Install//
 			if (T.Select("name="+QueryCreator.quotedstrvalue(txtDBName.Text.Trim(),false)).Length==0){
 				object O = MASTERConn.DO_SYS_CMD("CREATE DATABASE "+txtDBName.Text.Trim(),out err);
 				if (err!=null) 	{
-					MessageBox.Show(this,err,"Errore nella creazione del database. ");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this,err,"Errore nella creazione del database. ");
 					MainConn.Destroy();
 					EnableDisableNavigation(true);
 					return;
 				}
-				MessageBox.Show(this, "Il database "+txtDBName.Text+" Ë stato creato sul server "+
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il database "+txtDBName.Text+" √® stato creato sul server "+
 					txtServerName.Text+ ".");
 			}
 			MASTERConn.Destroy();
@@ -2618,25 +2617,25 @@ namespace EasyInstall {//Install//
 				txtUserName.Text.Trim(), txtUserPwd.Text.Trim(), 2000,DateTime.Now);	
 			MainConn.Open();
 
-			if (MainConn.OpenError){
+			if (MainConn.openError){
 				MainConn.Destroy();
-				MessageBox.Show(this,"Non Ë stato possibile collegarsi al database "+txtDBName.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non √® stato possibile collegarsi al database "+txtDBName.Text);
 				EnableDisableNavigation(true);
 				return;
 			}
 
-			//Se esistono gi‡ delle tabelle nel nuovo db, non prosegue!
+			//Se esistono gi√† delle tabelle nel nuovo db, non prosegue!
 			T= MainConn.SQLRunner("SELECT * FROM DBO.SYSOBJECTS WHERE XTYPE='U'",-1, out err);
 			if (err!=null){
-				MessageBox.Show(this,err);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,err);
 				MainConn.Destroy();
 				EnableDisableNavigation(true);
 				return;
 			}
 
 			if (T.Rows.Count>0){
-				MessageBox.Show(this, "Esistono gi‡ delle tabelle nel database "+txtDBName.Text.Trim()+
-					". La creazione non sar‡ effettuata.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Esistono gi√† delle tabelle nel database "+txtDBName.Text.Trim()+
+					". La creazione non sar√† effettuata.");
 				MainConn.Destroy();
 				EnableDisableNavigation(true);
 				return;
@@ -2652,7 +2651,7 @@ namespace EasyInstall {//Install//
 				SB = Download.LeggiTestoScript("creatabdbo.sql");
 				ok = Download.RUN_SCRIPT_NONSTOP(MainConn,SB,"Creazione tabelle dbo");
 				if (!ok) {
-					MessageBox.Show(this, "Errore durante la creazione delle tabelle dbo");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore durante la creazione delle tabelle dbo");
 					//					return null;
 				}
 			}
@@ -2661,7 +2660,7 @@ namespace EasyInstall {//Install//
 				SB = Download.LeggiTestoScript("creaviewdbo.sql");
 				ok = Download.RUN_SCRIPT_NONSTOP(MainConn,SB,"Creazione viste dbo");
 				if (!ok) {
-					MessageBox.Show(this, "Errore durante la creazione delle viste dbo");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore durante la creazione delle viste dbo");
 					//					return null;
 				}
 			}
@@ -2670,7 +2669,7 @@ namespace EasyInstall {//Install//
 				SB = Download.LeggiTestoScript("creaspdbo.sql");
 				ok = Download.RUN_SCRIPT_NONSTOP(MainConn,SB,"Creazione stored procedure dbo");
 				if (!ok) {
-					MessageBox.Show(this, "Errore durante la creazione delle stored procedure dbo");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore durante la creazione delle stored procedure dbo");
 					//					return null;
 				}
 			}
@@ -2681,23 +2680,23 @@ namespace EasyInstall {//Install//
 				SB = Download.LeggiTestoScript("AllSystemNoGeo.sql");
 				ok =Download.RUN_SCRIPT_NONSTOP(MainConn,SB,"Configurazione tabelle sistema");
 				if (!ok)
-					MessageBox.Show("Errore nella copia dei dati di sistema (AllSystemNoGeo).");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nella copia dei dati di sistema (AllSystemNoGeo).");
 			}
 			if (ok){
 				SB = Download.LeggiTestoScript("AllGeo.sql");
 				ok=Download.RUN_SCRIPT_NONSTOP(MainConn,SB,"Configurazione tabelle geo");
 				if (!ok)
-					MessageBox.Show("Errore nella copia dei dati GEO.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nella copia dei dati GEO.");
 			}
 
 			if (ok){
-				MessageBox.Show(this,"La creazione del database ha avuto successo.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"La creazione del database ha avuto successo.");
 				DBNuovo=true;
 				btnCreaDataBase.Enabled=false;
 			}
 			else
 			{
-				MessageBox.Show(this,"Sono avvenuti degli errori. Il database NON E'stato creato.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Sono avvenuti degli errori. Il database NON E'stato creato.");
 				DBNuovo=false;
 			}
 
@@ -2721,9 +2720,9 @@ namespace EasyInstall {//Install//
 			DataAccess TempConn= new AllLocal_DataAccess("NewDB",txtServerName.Text.Trim(),txtDBName.Text.Trim(),
 				txtUserName.Text.Trim(), txtUserPwd.Text.Trim(), 2000,DateTime.Now);
 			TempConn.Open();
-			if (TempConn.OpenError){
+			if (TempConn.openError){
 				TempConn.Destroy();
-				MessageBox.Show(this,"Non Ë stato possibile collegarsi al database "+txtDBName.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non √® stato possibile collegarsi al database "+txtDBName.Text);
 				return;
 			}
 
@@ -2756,7 +2755,7 @@ namespace EasyInstall {//Install//
 					continue;
 				}
 
-				//SPObj Ë la riga in sysobject, che contiene il nome nel campo name
+				//SPObj √® la riga in sysobject, che contiene il nome nel campo name
 				DataRow []SPBodys= SysComments.Select("id="+id.ToString(),"colid");
 				if (SPBodys[0]["encrypted"].ToString().ToUpper()=="TRUE") {
 					NSP--;
@@ -2774,7 +2773,7 @@ namespace EasyInstall {//Install//
 				Tok = SPB.NextToken(out skipped);
 				All.Append(skipped);
 				if (Tok.val.ToLower()!="create"){
-					MessageBox.Show(this, "Impossibile compilare la sp "+spname);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Impossibile compilare la sp "+spname);
 					continue;
 				}
 				All.Append("ALTER "); //All.Append(Tok.val);
@@ -2782,7 +2781,7 @@ namespace EasyInstall {//Install//
 				All.Append(skipped);
 				bool isView = Tok.val.ToLower()=="view";
 				if ((Tok.val.ToLower()!="view")&&(Tok.val.ToLower()!="procedure")&&(Tok.val.ToLower()!="trigger")){
-					MessageBox.Show(this, "Impossibile compilare la sp "+spname);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Impossibile compilare la sp "+spname);
 					continue;
 				}
 				All.Append(Tok.val);
@@ -2812,14 +2811,14 @@ namespace EasyInstall {//Install//
 			}
 
 			if (NDONE==NSP){
-				MessageBox.Show(this, "Aggiornamento effettuato correttamente");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Aggiornamento effettuato correttamente");
 			}
 			else {
-				MessageBox.Show(this, NDONE+" di "+NSP+" s.p. elaborate");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, NDONE+" di "+NSP+" s.p. elaborate");
 				foreach (DataRow EL in SysObjects.Rows){
 					int id = (int) EL["id"];
 					if (id<0) continue;
-					MessageBox.Show(this, "La sp "+EL["name"]+" non Ë stata elaborata.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La sp "+EL["name"]+" non √® stata elaborata.");
 
 				}
 			}
@@ -2832,9 +2831,9 @@ namespace EasyInstall {//Install//
 						   new AllLocal_DataAccess("NewDB",txtServerName.Text.Trim(),txtDBName.Text.Trim(),
 						   txtUserName.Text.Trim(), txtUserPwd.Text.Trim(), 2000,DateTime.Now);
 			TempConn.Open();
-			if (TempConn.OpenError){
+			if (TempConn.openError){
 				TempConn.Destroy();
-				MessageBox.Show(this,"Non Ë stato possibile collegarsi al database "+txtDBName.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non √® stato possibile collegarsi al database "+txtDBName.Text);
 				return;
 			}
 
@@ -2873,7 +2872,7 @@ namespace EasyInstall {//Install//
 					StringBuilder All= new StringBuilder(100000);
 
 					int id= (int) SPObj["id"];
-					if (id<0) continue; //Gi‡ messa!
+					if (id<0) continue; //Gi√† messa!
 					//Vede se la sp dipende da qualche altra 
 					//depid= l'oggetto che crea la dipendenza id=l'oggetto DIPENDENTE
 					if (SysDepends.Select("id="+id.ToString()+" and depid<>"+id.ToString()).Length>0){
@@ -2891,7 +2890,7 @@ namespace EasyInstall {//Install//
 						continue;
 					}
 
-					//SPObj Ë la riga in sysobject, che contiene il nome nel campo name
+					//SPObj √® la riga in sysobject, che contiene il nome nel campo name
 					DataRow []SPBodys= SysComments.Select("id="+id.ToString(),"colid");
 					if (SPBodys[0]["encrypted"].ToString().ToUpper()=="TRUE") {
 						NSP--;
@@ -2909,7 +2908,7 @@ namespace EasyInstall {//Install//
 					Tok = SPB.NextToken(out skipped);
 					All.Append(skipped);
 					if (Tok.val.ToLower()!="create"){
-						MessageBox.Show("Impossibile compilare la sp "+spname);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show("Impossibile compilare la sp "+spname);
 						continue;
 					}
 					
@@ -2919,7 +2918,7 @@ namespace EasyInstall {//Install//
 					bool isView = Tok.val.ToLower()=="view";
                     if ((Tok.val.ToLower() != "view") && (Tok.val.ToLower() != "function") &&
                         (Tok.val.ToLower()!="procedure")&&(Tok.val.ToLower()!="trigger")){
-						MessageBox.Show("Impossibile compilare la sp "+spname);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show("Impossibile compilare la sp "+spname);
 						continue;
 					}
 					All.Append(Tok.val);
@@ -2934,7 +2933,7 @@ namespace EasyInstall {//Install//
 					All.Append(spbody.Substring(mark));				
 					DataTable t = TempConn.SQLRunner(All.ToString());
 					if (t == null) {
-						MessageBox.Show(this, TempConn.LastError);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(this, TempConn.LastError);
 					}
 //					if (foundname=="[DBO].[invoiceavailable]") {
 //						Console.WriteLine(All);
@@ -2950,14 +2949,14 @@ namespace EasyInstall {//Install//
 				}
 			}
 			if (NDONE==NSP){
-				MessageBox.Show("Aggiornamento effettuato correttamente");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Aggiornamento effettuato correttamente");
 			}
 			else {
-				MessageBox.Show(NDONE.ToString()+" di "+NSP.ToString()+" s.p. elaborate");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(NDONE.ToString()+" di "+NSP.ToString()+" s.p. elaborate");
 				foreach (DataRow EL in SysObjects.Rows){
 					int id = (int) EL["id"];
 					if (id<0) continue;
-					MessageBox.Show("La sp "+EL["name"].ToString()+" non Ë stata elaborata.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("La sp "+EL["name"].ToString()+" non √® stata elaborata.");
 
 				}
 			}
@@ -2977,9 +2976,9 @@ namespace EasyInstall {//Install//
 				txtUserName.Text.Trim(), txtUserPwd.Text.Trim(), 2000,DateTime.Now);
 			TempConn.Open();
 			//			}
-			if (TempConn.OpenError){
+			if (TempConn.openError){
 				TempConn.Destroy();
-				MessageBox.Show(this,"Non Ë stato possibile collegarsi al database "+txtDBName.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non √® stato possibile collegarsi al database "+txtDBName.Text);
 				return;
 			}
 			
@@ -3076,7 +3075,7 @@ namespace EasyInstall {//Install//
 			}
 			if (!SourceConn.Open()){
 				DisposeSourceConn();
-				MessageBox.Show(this,"Non Ë stato possibile collegarsi al database "+txtSourceDataBase.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non √® stato possibile collegarsi al database "+txtSourceDataBase.Text);
 				return false;
 			}
             if (!Migrazione.VerificaTabelleDBO(this, SourceConn, DepConn)) return false;
@@ -3145,7 +3144,7 @@ namespace EasyInstall {//Install//
 				if (SourceConn.RUN_SELECT_COUNT(oldTable,null,false)==0)continue;
 
 				if (DepConn.RUN_SELECT_COUNT(newTable,null,false)>0){
-					//					if (MessageBox.Show(FM,"Non ho potuto effettuare la copia "+oldTable+" -> "+newTable+" perchÈ "+newTable+" non era vuota.\n\nProseguo con la copia delle altre tabelle?","Conferma",
+					//					if (MetaFactory.factory.getSingleton<IMessageShower>().Show(FM,"Non ho potuto effettuare la copia "+oldTable+" -> "+newTable+" perch√© "+newTable+" non era vuota.\n\nProseguo con la copia delle altre tabelle?","Conferma",
 					//						MessageBoxButtons.OKCancel)!=DialogResult.OK) {
 					//						Conn.SQLRunner("exec sp_MSforeachtable 'ALTER TABLE ? ENABLE TRIGGER ALL'",false,-1);
 					//						return false;
@@ -3163,7 +3162,7 @@ namespace EasyInstall {//Install//
 					StreamWriter fsw = new StreamWriter("temp.sql", false, Encoding.Default);
 					fsw.Write(scriptErrato);
 					fsw.Close();
-					DialogResult dr = MessageBox.Show(this, "Lo script lanciato si trova nel file 'temp.sql'"
+					DialogResult dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Lo script lanciato si trova nel file 'temp.sql'"
 						+"\r\nProseguo con la copia delle altre tabelle?", "Errore durante la copia: "+oldTable+" -> "+newTable, MessageBoxButtons.OKCancel);
 					if (dr != DialogResult.OK) {
 						FM.Close();
@@ -3182,7 +3181,7 @@ namespace EasyInstall {//Install//
             StringBuilder SB = Download.LeggiTestoScript("datiufficiali.sql");
             bool ok = Download.RUN_SCRIPT(DepConn, SB, "Impostazione ritenute e prestazioni ufficiali");
             if (!ok)
-                MessageBox.Show("Errore in datiufficiali.sql");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore in datiufficiali.sql");
 
             
 
@@ -3192,7 +3191,7 @@ namespace EasyInstall {//Install//
             SB = Download.LeggiTestoScript("firstupdate_db.sql");
             ok = Download.RUN_SCRIPT(DepConn, SB, "Impostazione di alcuni campi ");
             if (!ok)
-                MessageBox.Show("Errore in firstupdate_db.sql");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore in firstupdate_db.sql");
 
 
 			FM.Close();
@@ -3326,7 +3325,7 @@ namespace EasyInstall {//Install//
 
 		private bool eliminaEventualmentePrimiDueLivelliDiBilancio() {
 			if (SourceConn.RUN_SELECT_COUNT("upblookup", null, true) > 0) {
-				DialogResult dr = MessageBox.Show(this, "Si vogliono eliminare il primo e secondo livello delle voci di bilancio?", "ATTENZIONE", MessageBoxButtons.YesNoCancel);
+				DialogResult dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si vogliono eliminare il primo e secondo livello delle voci di bilancio?", "ATTENZIONE", MessageBoxButtons.YesNoCancel);
 				if (dr == DialogResult.Yes) {
 					return Upb.troncaNLivelliDiBilancio(this, DepConn, 2);
 				}
@@ -3340,7 +3339,7 @@ namespace EasyInstall {//Install//
 
 			SB = Download.LeggiTestoScript("AllRules.sql");
 			if (!Download.RUN_SCRIPT(DepConn,SB,"Configurazione logica di business"))return false;
-			//MessageBox.Show("Configurazione delle regole trasferita correttamente.");
+			//MetaFactory.factory.getSingleton<IMessageShower>().Show("Configurazione delle regole trasferita correttamente.");
 
 			SB = Download.LeggiTestoScript("Report.sql");
 			Download.RUN_SCRIPT(DepConn,SB,"Configurazione dei reports");
@@ -3352,7 +3351,7 @@ namespace EasyInstall {//Install//
 
 		bool CopiaDati() {
 			
-    		if (MessageBox.Show(this,"Si desidera creare una copia integrale del db di origine?","Conferma",
+    		if (MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Si desidera creare una copia integrale del db di origine?","Conferma",
 					MessageBoxButtons.OKCancel)!=DialogResult.OK) return false;
 			return CopiaTutto();
 	
@@ -3362,7 +3361,7 @@ namespace EasyInstall {//Install//
 		private void creaUnoScriptDati(string scriptPath, DataAccess Conn) {
 			string scriptName = Path.GetFileNameWithoutExtension(scriptPath);
 //			bool allSystem = scriptName == "AllSystemNoGeo";
-		//PoichË registryclass, residence e service sono camabiati rispetto a quanto contenuto 
+		//Poich√® registryclass, residence e service sono camabiati rispetto a quanto contenuto 
 		//in ammromaeuro, mi sono creato lo script AllSystemChanged.sql che viene copiato
 		//in AllSystemNoGeo e poi vengono accodate le altre tabelle di ammromaeuro
 //
@@ -3399,7 +3398,7 @@ namespace EasyInstall {//Install//
 					DataGenerationType.onlyData, true);
 			}
 			catch (Exception e){
-				MessageBox.Show(this, "Errore creando lo script "+scriptPath+"\n"+e);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore creando lo script "+scriptPath+"\n"+e);
 				return;
 			}
 		}
@@ -3428,7 +3427,7 @@ namespace EasyInstall {//Install//
 					TT.TableName = r["newtable"].ToString();
 					string scriptErrato;
 					if (!CopyTable(TT, DepConn, out scriptErrato)) {
-						MessageBox.Show(this, "Errore durante la copia "+r["oldtable"]+" -> "+r["newtable"]+"\n"+scriptErrato);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore durante la copia "+r["oldtable"]+" -> "+r["newtable"]+"\n"+scriptErrato);
 						return false;
 					}
 //				}
@@ -3442,7 +3441,7 @@ namespace EasyInstall {//Install//
 
 			if (!Conn.Open()){
 				Conn.Destroy();
-				MessageBox.Show(this,"Non Ë stato possibile collegarsi al database "+txtSourceDataBase.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non √® stato possibile collegarsi al database "+txtSourceDataBase.Text);
 				return;
 			}
 			Cursor = Cursors.WaitCursor;
@@ -3526,7 +3525,7 @@ namespace EasyInstall {//Install//
 			Conn.Destroy();
 			Cursor = null;
 
-			MessageBox.Show(this, "Script della cfg di sistema creato correttamente");
+			MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script della cfg di sistema creato correttamente");
 
 			//SB = Download.LeggiTestoScript("AllSystemCfg.sql");
 
@@ -3734,19 +3733,19 @@ namespace EasyInstall {//Install//
 			bool IsSQLAdmin=MainConn.isSystemAdmin();
 
 			if (!IsSQLAdmin){
-				MessageBox.Show(this, "Per poter aggiungere utenti Ë necessario essere amministratori del db.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per poter aggiungere utenti √® necessario essere amministratori del db.");
 				return;
 			}
 			
 			bool DoClientConfig=true;
 			if (txtNomeEnte.Text.Trim()==""){
 				DoClientConfig=false;
-//				MessageBox.Show(this, "Inserire il nome ente");
+//				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire il nome ente");
 //				txtNomeEnte.Focus();
 //				return;
 			}
 			if (cmbUserList.Text.Trim()==""){
-				MessageBox.Show(this, "Selezionare un utente da abilitare");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Selezionare un utente da abilitare");
 				cmbUserList.Focus();
 				return;
 			}
@@ -3764,7 +3763,7 @@ namespace EasyInstall {//Install//
 						listClientUser.Items.Add(USER);
 				}
 				else {
-					MessageBox.Show(this, "L'utente Ë gi‡ configurato sul client");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "L'utente √® gi√† configurato sul client");
 				}
 			}
 		
@@ -3780,7 +3779,7 @@ namespace EasyInstall {//Install//
 				
 			}
 			else {
-				MessageBox.Show(this, "L'utente Ë gi‡ configurato sul server");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "L'utente √® gi√† configurato sul server");
 			}
 
 			if (listDepartmentUser.Items.IndexOf(USER)<0){
@@ -3789,14 +3788,14 @@ namespace EasyInstall {//Install//
 				ImpostaTabConnessioni();
 			}
 			else {
-				MessageBox.Show(this, "L'utente Ë gi‡ configurato sul dipartimento");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "L'utente √® gi√† configurato sul dipartimento");
 			}
 		}
 
 		private void btnCreateLogin_Click(object sender, System.EventArgs e) {
 			bool IsSQLAdmin=MainConn.isSystemAdmin();
 			if (!IsSQLAdmin){
-				MessageBox.Show(this, "Per poter aggiungere login Ë necessario essere amministratori del db.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per poter aggiungere login √® necessario essere amministratori del db.");
 				return ;
 			}
 
@@ -3809,7 +3808,7 @@ namespace EasyInstall {//Install//
 		private void mnuDelClient_Click(object sender, System.EventArgs e) {
 			bool IsSQLAdmin=MainConn.isSystemAdmin();
 			if (!IsSQLAdmin){
-				MessageBox.Show(this, "Per poter rimuovere utenti Ë necessario essere amministratori del db.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per poter rimuovere utenti √® necessario essere amministratori del db.");
 				return ;
 			}
 			if (listClientUser.SelectedIndex<0) return;
@@ -3825,7 +3824,7 @@ namespace EasyInstall {//Install//
 
 			bool IsSQLAdmin=MainConn.isSystemAdmin();
 			if (!IsSQLAdmin){
-				MessageBox.Show(this, "Per poter rimuovere utenti Ë necessario essere amministratori del db.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per poter rimuovere utenti √® necessario essere amministratori del db.");
 				return ;
 			}
 			string todel= listServerUser.Items[listServerUser.SelectedIndex].ToString();
@@ -3836,7 +3835,7 @@ namespace EasyInstall {//Install//
 			
 			object res=MainConn.DO_SYS_CMD(delcmd,out err);
 			if (err!=null) {
-				MessageBox.Show(this, "Errore :"+err);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore :"+err);
 				return;
 			}
 
@@ -3849,13 +3848,13 @@ namespace EasyInstall {//Install//
 				"and (l.loginname = "+	QueryCreator.quotedstrvalue(todel,false)+ ")";
 			object DBName=MainConn.DO_SYS_CMD(cmd,out err);
 			if (DBName==DBNull.Value){
-				MessageBox.Show("L'utente non era pi˘ collegato al DB");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("L'utente non era pi√π collegato al DB");
 				RemoveFromList(todel,iddbdepartment);
 				ImpostaTabConnessioni();
 				return;
 			}
 			if (err!=null) {
-				MessageBox.Show(this, "Errore :"+err);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore :"+err);
 				ImpostaTabConnessioni();
 				return;
 			}
@@ -3863,7 +3862,7 @@ namespace EasyInstall {//Install//
 			cmd = "exec sp_revokedbaccess "+QueryCreator.quotedstrvalue(DBName,false);
 			DBName=MainConn.DO_SYS_CMD(cmd,out err);
 			if (err!=null) {
-				MessageBox.Show(this, "Errore :"+err);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore :"+err);
 				ImpostaTabConnessioni();
 				return;
 			}			
@@ -4179,7 +4178,7 @@ namespace EasyInstall {//Install//
 		private void UpdateLiveStatus_Tick(object sender, System.EventArgs e) {		
 			if (UpdatingStatus) return;
 			UpdatingStatus=true;
-			//terminato di default Ë true
+			//terminato di default √® true
 			//Basta che ci sia un Livexxx in avvio a true che terminato diventa false.
 			bool terminato=true;
 			if (LiveSwInAvvio||LiveDBInAvvio||LiveRptInAvvio)terminato=false;
@@ -4242,7 +4241,7 @@ namespace EasyInstall {//Install//
 		}
 
 		/// <summary>
-		/// Questo metodo Ë eseguito in un THREAD SECONDARIO!!!!! Non usare la conn.principale!!
+		/// Questo metodo √® eseguito in un THREAD SECONDARIO!!!!! Non usare la conn.principale!!
 		/// </summary>
 		private void UpdateDBThread() {
 			if ((MyDownloadDB!=null) && (MyDownloadDB.is_alive)) return;
@@ -4250,20 +4249,20 @@ namespace EasyInstall {//Install//
 			if (DepConn==null) return;
 			string[] rempath = GetLiveUpdateAddress();
 			Disp= new EntityDispatcher(DepConn);
-			//Forzo la creazione perchÈ posso aver aggiornato
+			//Forzo la creazione perch√© posso aver aggiornato
 			//la configurazione locale
 			MyDownloadDB = new Download(Disp,   rempath, C_FILEINDEXNAME, 
 				AppDomain.CurrentDomain.BaseDirectory);
 			
-			//Si puÚ verififcare quando durante l'attesa per la connessione
+			//Si pu√≤ verififcare quando durante l'attesa per la connessione
 			//al server web ci si disconnette dal Database
 			DataAccess DownloadDBConnection = DepConn.Duplicate();
 			MyDownloadDB.Connessione = DownloadDBConnection;
 			MyDownloadDB.IsAdmin = DownloadDBConnection.isSystemAdmin();
 			MyDownloadDB.GetNewDBVersion();
 
-			//La connessione Ë distrutta dal metodo chiamato dal timer, che tra l'altro azzera la var. MyDownloadDB
-			//se non Ë connesso non faccio nessun controllo di versione e/o aggiornamento
+			//La connessione √® distrutta dal metodo chiamato dal timer, che tra l'altro azzera la var. MyDownloadDB
+			//se non √® connesso non faccio nessun controllo di versione e/o aggiornamento
 //			if (//MyDownloadSW == null || 
 //				//!MyDownloadSW.Connected || 
 //				!MyDownloadDB.Connected) {
@@ -4307,7 +4306,7 @@ namespace EasyInstall {//Install//
 				labInfoLicenzaNotFound.Visible=true;
 			}
 			if (NL==0){
-				//Crea una riga vuota in licenzauso se licenzauso Ë vuota
+				//Crea una riga vuota in licenzauso se licenzauso √® vuota
 				NL= DepConn.RUN_SELECT_COUNT("license",null,false);
 				if (NL==0){
 					DepConn.DO_SYS_CMD("insert into license(dummykey)VALUES (1)",false);
@@ -4412,7 +4411,7 @@ namespace EasyInstall {//Install//
 				DS.WriteXml(filename, XmlWriteMode.WriteSchema);
 			}
 			catch(Exception E) {
-				MessageBox.Show("Couldn't write to file " + filename + " - " +
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Couldn't write to file " + filename + " - " +
 					E.Message,"ExportTableToXML");
 				return false;
 			}
@@ -4430,9 +4429,9 @@ namespace EasyInstall {//Install//
 			DataAccess TempConn= new AllLocal_DataAccess("NewDB",txtServerName.Text.Trim(),txtDBName.Text.Trim(),
 				txtUserName.Text.Trim(), txtUserPwd.Text.Trim(), 2000,DateTime.Now);
 			TempConn.Open();
-			if (TempConn.OpenError){
+			if (TempConn.openError){
 				TempConn.Destroy();
-				MessageBox.Show(this,"Non Ë stato possibile collegarsi al database "+txtDBName.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non √® stato possibile collegarsi al database "+txtDBName.Text);
 				return;
 			}
 
@@ -4441,10 +4440,10 @@ namespace EasyInstall {//Install//
 			tTableName = DataAccess.RUN_SELECT(TempConn, "tablename", null, null, null, null, null, true);
 			tColName = DataAccess.RUN_SELECT(TempConn, "colname", null, null, null, null, null, true);
 			if (tTableName.Rows.Count == 0) {
-				MessageBox.Show(this, "La tabella tablename Ë vuota");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La tabella tablename √® vuota");
 			}
 			if (tColName.Rows.Count == 0) {
-				MessageBox.Show(this, "La tabella colname Ë vuota");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La tabella colname √® vuota");
 			}
 			DS.Tables.Add(tTableName);
 			DS.Tables.Add(tColName);
@@ -4465,7 +4464,7 @@ namespace EasyInstall {//Install//
 				Stream stream = File.Create("tables.dat");
 				stream.Write(buffer, 0, buffer.Length);
 				stream.Close();
-				MessageBox.Show(this, "Tabelle 'tablename' e 'colname' esportate nel file 'tables.dat'");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Tabelle 'tablename' e 'colname' esportate nel file 'tables.dat'");
 			}
 			catch(Exception E) {
 				QueryCreator.ShowException(this, "Errore durante l'esportazione delle tabelle 'tablename' e 'colname' nel file 'tables.dat'", E);
@@ -4473,7 +4472,7 @@ namespace EasyInstall {//Install//
 
 			tTableName.Columns.Add("copiato", typeof(string));
 			TempConn.Destroy();
-			MessageBox.Show("File tables.dat creato (da tablename e colname).");
+			MetaFactory.factory.getSingleton<IMessageShower>().Show("File tables.dat creato (da tablename e colname).");
 		}
 
 
@@ -4525,7 +4524,7 @@ namespace EasyInstall {//Install//
 				return errore;
 			}
 			EA.linkUserToDepartment(username, out errore);
-			if (errore!=null) MessageBox.Show(errore);
+			if (errore!=null) MetaFactory.factory.getSingleton<IMessageShower>().Show(errore);
 			return errore;
 		}
 
@@ -4544,7 +4543,7 @@ namespace EasyInstall {//Install//
 
 			bool IsSQLAdmin=MainConn.isSystemAdmin();
 			if (!IsSQLAdmin){
-				MessageBox.Show(this, "Per poter rimuovere utenti Ë necessario essere amministratori del db.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per poter rimuovere utenti √® necessario essere amministratori del db.");
 				return ;
 			}
 			string todel= listDepartmentUser.Items[listDepartmentUser.SelectedIndex].ToString();
@@ -4555,7 +4554,7 @@ namespace EasyInstall {//Install//
 			
 			object res=MainConn.DO_SYS_CMD(delcmd,out err);
 			if (err!=null) {
-				MessageBox.Show(this, "Errore :"+err);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore :"+err);
 				ImpostaTabConnessioni();
 				return;
 			}
@@ -4572,7 +4571,7 @@ namespace EasyInstall {//Install//
 									txtUserName.Text,txtUserPwd.Text,
 									DateTime.Now.Year,DateTime.Now);
 			Main.Open();
-			if (Main.OpenError){
+			if (Main.openError){
 				err= Main.LastError;
 				QueryCreator.ShowError(this,"Impossibile connettersi al db",err);
 				Main.Destroy();
@@ -4580,7 +4579,7 @@ namespace EasyInstall {//Install//
 			}			
 
 			if (ResetPassword(Main,txtUserName.Text,txtUserPwd.Text)){
-				MessageBox.Show(this,"Reset effettuato");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Reset effettuato");
 			}
 			Main.Destroy();
 		
@@ -4598,7 +4597,7 @@ namespace EasyInstall {//Install//
 				return false;
 			}
 			if (DBACCESS.Rows.Count==0){
-				MessageBox.Show("Non ci sono utenti, probabilmente l'utente"+iddbdepartment+" non Ë un DIPARTIMENTO");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non ci sono utenti, probabilmente l'utente"+iddbdepartment+" non √® un DIPARTIMENTO");
 				return false;
 			}
 			foreach(DataRow R in DBACCESS.Select()){
@@ -4618,7 +4617,7 @@ namespace EasyInstall {//Install//
 				txtUserName.Text,txtUserPwd.Text,
 				DateTime.Now.Year,DateTime.Now);
 			Main.Open();
-			if (Main.OpenError){
+			if (Main.openError){
 				err= Main.LastError;
 				QueryCreator.ShowError(this,"Impossibile connettersi al db",err);
 				Main.Destroy();
@@ -4632,7 +4631,7 @@ namespace EasyInstall {//Install//
 				return;
 			}
 			int NDip=DBACCESS.Rows.Count;
-			MessageBox.Show("Dipartimenti trovati:"+NDip);
+			MetaFactory.factory.getSingleton<IMessageShower>().Show("Dipartimenti trovati:"+NDip);
 			foreach(DataRow R in DBACCESS.Select()){
 				string idDbDepartment= R["iddbdepartment"].ToString();
 
@@ -4642,7 +4641,7 @@ namespace EasyInstall {//Install//
 				DataTable T1= Main.SQLRunner("select name from master.dbo.syslogins where loginname="
 					+ QueryCreator.quotedstrvalue(idDbDepartment, true), -1, out err);
 				if (err != null) {
-					QueryCreator.ShowError(this, "Non Ë stato possibile ottenere l'elenco delle login dal server", err);
+					QueryCreator.ShowError(this, "Non √® stato possibile ottenere l'elenco delle login dal server", err);
 					return;
 				}
 
@@ -4652,13 +4651,13 @@ namespace EasyInstall {//Install//
 					Main.DO_SYS_CMD("EXEC sp_addlogin "+QueryCreator.quotedstrvalue(idDbDepartment,false)+
 						","+QueryCreator.quotedstrvalue(Easy_DataAccess.INITIAL_PASSWORD,false), out err);
 					if (err!=null){
-						MessageBox.Show(this, "Errore creando l'utente "+idDbDepartment+": " +err);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore creando l'utente "+idDbDepartment+": " +err);
 						continue;
 					}		
 					else {
-						MessageBox.Show(this, "Login "+idDbDepartment+" creata con password: " +
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Login "+idDbDepartment+" creata con password: " +
 							Easy_DataAccess.INITIAL_PASSWORD);
-						MessageBox.Show(this,"Sar‡ necessario azzerare le password degli utenti di "+idDbDepartment);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Sar√† necessario azzerare le password degli utenti di "+idDbDepartment);
 					}
 				}
 				object id_DIP= Main.DO_SYS_CMD("SELECT sid from sysusers where name="+
@@ -4668,7 +4667,7 @@ namespace EasyInstall {//Install//
 					QueryCreator.quotedstrvalue(idDbDepartment,true));
 				if (id_SER==null) id_SER=new byte[]{13};
 				if (QueryCreator.ByteArrayToString((byte [])id_DIP)==QueryCreator.ByteArrayToString((byte [])id_SER)){
-					MessageBox.Show("La login "+idDbDepartment+" Ë gi‡ sincronizzata.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("La login "+idDbDepartment+" √® gi√† sincronizzata.");
 					continue;
 				}
 
@@ -4678,10 +4677,10 @@ namespace EasyInstall {//Install//
 							QueryCreator.quotedstrvalue(idDbDepartment,true)+","+
 							QueryCreator.quotedstrvalue(idDbDepartment,true),out err);
 				if ((err!=null)&&(err!="")){
-					MessageBox.Show(this,"Problemi correggendo la login del dipartimento "+idDbDepartment);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Problemi correggendo la login del dipartimento "+idDbDepartment);
 				}
 				else {
-					MessageBox.Show(this,"La login del dipartimento "+idDbDepartment+ " Ë stata sincronizzata.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"La login del dipartimento "+idDbDepartment+ " √® stata sincronizzata.");
 				}
 
 			}
@@ -4697,7 +4696,7 @@ namespace EasyInstall {//Install//
 				txtUserName.Text,txtUserPwd.Text,
 				DateTime.Now.Year,DateTime.Now);
 			Main.Open();
-			if (Main.OpenError){
+			if (Main.openError){
 				err= Main.LastError;
 				QueryCreator.ShowError(this,"Impossibile connettersi al db",err);
 				Main.Destroy();
@@ -4716,16 +4715,16 @@ namespace EasyInstall {//Install//
 				return ;
 			}
 			if (DBACCESS.Rows.Count==0){
-				MessageBox.Show("Non ci sono utenti, probabilmente l'utente"+iddep+" non Ë un DIPARTIMENTO");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non ci sono utenti, probabilmente l'utente"+iddep+" non √® un DIPARTIMENTO");
 				return ;
 			}
 
 			int NDip=DBACCESS.Rows.Count;
-			MessageBox.Show("Utenti trovati:"+NDip);
+			MetaFactory.factory.getSingleton<IMessageShower>().Show("Utenti trovati:"+NDip);
 			foreach(DataRow R in DBACCESS.Select()){
 				string iduser= R["login"].ToString();
 				if (iduser.ToUpper()=="SA"){
-					MessageBox.Show("Utente SA saltato.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Utente SA saltato.");
 					continue;
 				}
 
@@ -4735,7 +4734,7 @@ namespace EasyInstall {//Install//
 				DataTable T1= Main.SQLRunner("select name from master.dbo.syslogins where loginname="
 					+ QueryCreator.quotedstrvalue(iduser, true), -1, out err);
 				if (err != null) {
-					QueryCreator.ShowError(this, "Non Ë stato possibile ottenere l'elenco delle login dal server", err);
+					QueryCreator.ShowError(this, "Non √® stato possibile ottenere l'elenco delle login dal server", err);
 					return;
 				}
 
@@ -4745,11 +4744,11 @@ namespace EasyInstall {//Install//
 					Main.DO_SYS_CMD("EXEC sp_addlogin "+QueryCreator.quotedstrvalue(iduser,false)+
 						","+QueryCreator.quotedstrvalue(Easy_DataAccess.INITIAL_PASSWORD,false), out err);
 					if (err!=null){
-						MessageBox.Show(this, "Errore creando l'utente "+iduser+": " +err);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore creando l'utente "+iduser+": " +err);
 						continue;
 					}		
 					else {
-						MessageBox.Show(this, "Login "+iduser+" creata con password: " +
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Login "+iduser+" creata con password: " +
 							Easy_DataAccess.INITIAL_PASSWORD);
 					}
 				}
@@ -4760,7 +4759,7 @@ namespace EasyInstall {//Install//
 					QueryCreator.quotedstrvalue(iduser,true));
 				if (id_SER==null) id_SER=new byte[]{13};
 				if (QueryCreator.ByteArrayToString((byte [])id_DIP)==QueryCreator.ByteArrayToString((byte [])id_SER)){
-					MessageBox.Show("La login "+iduser+" Ë gi‡ sincronizzata.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("La login "+iduser+" √® gi√† sincronizzata.");
 					continue;
 				}
 
@@ -4770,10 +4769,10 @@ namespace EasyInstall {//Install//
 					QueryCreator.quotedstrvalue(iduser,true)+","+
 					QueryCreator.quotedstrvalue(iduser,true),out err);
 				if ((err!=null)&&(err!="")){
-					MessageBox.Show(this,"Problemi correggendo la login dell'utente "+iduser);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Problemi correggendo la login dell'utente "+iduser);
 				}
 				else {
-					MessageBox.Show(this,"La login dell'utente "+iduser+ " Ë stata sincronizzata.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"La login dell'utente "+iduser+ " √® stata sincronizzata.");
 				}
 
 			}
@@ -4785,7 +4784,7 @@ namespace EasyInstall {//Install//
 				txtUserName.Text.Trim(), txtUserPwd.Text.Trim(), 2000,DateTime.Now);
 			if (!Conn.Open()){
 				Conn.Destroy();
-				MessageBox.Show(this,"Non Ë stato possibile collegarsi al database "+txtSourceDataBase.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non √® stato possibile collegarsi al database "+txtSourceDataBase.Text);
 				return;
 			}
 			string filter= "(idsorkind="+QueryCreator.quotedstrvalue(tipoclass,true)+")";
@@ -4813,7 +4812,7 @@ namespace EasyInstall {//Install//
 			Conn.Destroy();
 			Cursor = null;
 
-			MessageBox.Show(this, "Script memorizzato nel file "+fname);
+			MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script memorizzato nel file "+fname);
 
 		}
 
@@ -4827,7 +4826,7 @@ namespace EasyInstall {//Install//
 
 			if (!Conn.Open()){
 				Conn.Destroy();
-				MessageBox.Show(this,"Non Ë stato possibile collegarsi al database "+txtSourceDataBase.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non √® stato possibile collegarsi al database "+txtSourceDataBase.Text);
 				return;
 			}
 			Cursor = Cursors.WaitCursor;
@@ -4984,7 +4983,7 @@ namespace EasyInstall {//Install//
 			Conn.Destroy();
 			Cursor = null;
 
-			MessageBox.Show(this, "Script memorizzato nel file 'datiufficiali.sql'");
+			MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script memorizzato nel file 'datiufficiali.sql'");
 		}
 
 		/// <summary>
@@ -5010,7 +5009,7 @@ namespace EasyInstall {//Install//
 
         //    if (!Conn.Open()){ 
         //        Conn.Destroy(); 
-        //        MessageBox.Show(this,"Non Ë stato possibile collegarsi al database "+txtSourceDataBase.Text); 
+        //        MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non √® stato possibile collegarsi al database "+txtSourceDataBase.Text); 
         //        return; 
         //    } 
         //    Cursor = Cursors.WaitCursor; 
@@ -5038,7 +5037,7 @@ namespace EasyInstall {//Install//
         //    Conn.Destroy(); 
         //    Cursor = null; 
 
-        //    MessageBox.Show(this, "Script memorizzato nel file 'uniforma_registryclass.sql'"); 
+        //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script memorizzato nel file 'uniforma_registryclass.sql'"); 
         //} 
 
         //private void CreaScript_uniformaResidence() { 
@@ -5047,7 +5046,7 @@ namespace EasyInstall {//Install//
 
         //    if (!Conn.Open()){ 
         //        Conn.Destroy(); 
-        //        MessageBox.Show(this,"Non Ë stato possibile collegarsi al database "+txtSourceDataBase.Text); 
+        //        MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non √® stato possibile collegarsi al database "+txtSourceDataBase.Text); 
         //        return; 
         //    } 
         //    Cursor = Cursors.WaitCursor; 
@@ -5073,7 +5072,7 @@ namespace EasyInstall {//Install//
         //    Conn.Destroy(); 
         //    Cursor = null; 
 
-        //    MessageBox.Show(this, "Script memorizzato nel file 'uniforma_residence.sql'"); 
+        //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script memorizzato nel file 'uniforma_residence.sql'"); 
         //}
 
         private void btnDBCopia_Click(object sender, EventArgs e) {
@@ -5086,9 +5085,9 @@ namespace EasyInstall {//Install//
                 txtUserName.Text.Trim(), txtUserPwd.Text.Trim(), 2000, DateTime.Now);
             TempConn.Open();
             //			}
-            if (TempConn.OpenError) {
+            if (TempConn.openError) {
                 TempConn.Destroy();
-                MessageBox.Show(this, "Non Ë stato possibile collegarsi al database " + txtDBName.Text);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non √® stato possibile collegarsi al database " + txtDBName.Text);
                 return;
             }
 
@@ -5107,7 +5106,7 @@ namespace EasyInstall {//Install//
         private void btnMultilogin_Click(object sender, EventArgs e) {
             bool IsSQLAdmin = MainConn.isSystemAdmin();
             if (!IsSQLAdmin) {
-                MessageBox.Show(this, "Per poter aggiungere login Ë necessario essere amministratori del db.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per poter aggiungere login √® necessario essere amministratori del db.");
                 return;
             }
 
@@ -5121,7 +5120,7 @@ namespace EasyInstall {//Install//
                 user = user.Replace("\r","");
                 user = user.Replace("\n","");
                 if (user == "") continue;
-                if (!CreateSQLAccount(user, "PASSWORD")) continue;
+                if (!CreateSQLAccount(user, "**********")) continue;
                 ConnectUserToDip(user);
 
                 ImpostaTabConnessioni();
@@ -5150,7 +5149,7 @@ namespace EasyInstall {//Install//
 
             }
             else {
-                MessageBox.Show(this, "L'utente Ë gi‡ configurato sul server");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "L'utente √® gi√† configurato sul server");
             }
 
             if (listDepartmentUser.Items.IndexOf(USER) < 0) {
@@ -5158,7 +5157,7 @@ namespace EasyInstall {//Install//
                 
             }
             else {
-                MessageBox.Show(this, "L'utente Ë gi‡ configurato sul dipartimento");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "L'utente √® gi√† configurato sul dipartimento");
             }
 
 
@@ -5178,8 +5177,8 @@ namespace EasyInstall {//Install//
             if (T1 != null) {
                 foreach (DataRow R1 in T1.Rows) {
                     if (R1["loginname"].ToString().ToUpper() == username.ToUpper()) {
-                        MessageBox.Show("La login " + R1["loginname"].ToString() +
-                            " Ë gi‡ presente nel server.");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("La login " + R1["loginname"].ToString() +
+                            " √® gi√† presente nel server.");
                         return true;
                     }
                 }
@@ -5188,7 +5187,7 @@ namespace EasyInstall {//Install//
             MainConn.DO_SYS_CMD("EXEC sp_addlogin " + QueryCreator.quotedstrvalue(username, false) +
                                             "," + QueryCreator.quotedstrvalue(pwd, false), out err);
             if (err != null) {
-                MessageBox.Show("Errore: " + err);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore: " + err);
                 return false;
             }
 
@@ -5202,4 +5201,3 @@ namespace EasyInstall {//Install//
         }
 	}
 }
-

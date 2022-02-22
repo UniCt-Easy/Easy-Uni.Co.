@@ -1,9 +1,26 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA payrolllinked
 IF EXISTS(select * from sysobjects where id = object_id(N'[payrolllinked]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [payrolllinked]
 GO
-
-
+--setuser 'amm'
+-- select * from [payrolllinked]
 CREATE    VIEW [payrolllinked]
 (
 	ayear,
@@ -13,6 +30,8 @@ CREATE    VIEW [payrolllinked]
 	currentrounding,
 	feegross,
 	netfee,
+	idupb,
+	codeupb,
 	ct,
 	cu,
 	disbursementdate,
@@ -35,7 +54,6 @@ CREATE    VIEW [payrolllinked]
 	service,
 	codeser,
 	residencecity,
-	idupb,
 	idsor1,
 	idsor2,
 	idsor3,
@@ -51,6 +69,8 @@ SELECT
 	payroll.currentrounding,
 	payroll.feegross,
 	payroll.netfee,
+	payroll.idupb,
+	upb.codeupb,
 	payroll.ct,
 	payroll.cu,
 	payroll.disbursementdate,
@@ -73,7 +93,6 @@ SELECT
 	service.description,
 	service.codeser,
 	geo_city.title,
-	parasubcontract.idupb,
 	parasubcontract.idsor1,
 	parasubcontract.idsor2,
 	parasubcontract.idsor3,
@@ -92,6 +111,8 @@ JOIN expensepayroll  with (nolock)
 	ON payroll.idpayroll = expensepayroll.idpayroll
 JOIN expenseyear  with (nolock)
 	ON expenseyear.idexp  = expensepayroll.idexp 
+LEFT OUTER JOIN upb 
+	ON upb.idupb = payroll.idupb
 WHERE EXISTS(
 	(SELECT * FROM expensepayroll
 	WHERE expensepayroll.idpayroll = payroll.idpayroll))

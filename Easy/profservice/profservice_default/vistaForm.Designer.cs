@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,66 +26,36 @@ using System.Runtime.Serialization;
 namespace profservice_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Tipo Prestazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable service 		=> Tables["service"];
 
-	///<summary>
-	///Ritenuta su parcella professionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable profservicetax 		=> Tables["profservicetax"];
 
-	///<summary>
-	///Tipi di ritenuta
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable tax 		=> Tables["tax"];
 
-	///<summary>
-	///Parcella Professionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable profservice 		=> Tables["profservice"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
-	///<summary>
-	///Tipo Spesa Professionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable profrefund 		=> Tables["profrefund"];
 
-	///<summary>
-	///Spese Documentate
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable profservicerefund 		=> Tables["profservicerefund"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting 		=> Tables["sorting"];
 
-	///<summary>
-	///Classificazione contratto professionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable profservicesorting 		=> Tables["profservicesorting"];
 
-	///<summary>
-	///Tipo di documento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicekind 		=> Tables["invoicekind"];
 
@@ -99,24 +68,15 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting3 		=> Tables["sorting3"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accmotiveapplied 		=> Tables["accmotiveapplied"];
 
-	///<summary>
-	///Elenco aliquote
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable ivakind 		=> Tables["ivakind"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable config 		=> Tables["config"];
 
@@ -141,36 +101,21 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting05 		=> Tables["sorting05"];
 
-	///<summary>
-	///Posizione Dalia
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable dalia_position 		=> Tables["dalia_position"];
 
-	///<summary>
-	///Partecipante a gara
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable profserviceavcp 		=> Tables["profserviceavcp"];
 
-	///<summary>
-	///Partecipante a gara, associazione a lotti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable profserviceavcpdetail 		=> Tables["profserviceavcpdetail"];
 
-	///<summary>
-	///Lotto parcella
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable profservicecig 		=> Tables["profservicecig"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingview1 		=> Tables["sortingview1"];
 
-	///<summary>
-	///Dettaglio documento IVA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicedetail 		=> Tables["invoicedetail"];
 
@@ -179,6 +124,18 @@ public class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable dalia_recruitmentmotive 		=> Tables["dalia_recruitmentmotive"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable dalia_funzionale 		=> Tables["dalia_funzionale"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable dalia_dipartimento 		=> Tables["dalia_dipartimento"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable profserviceattachment 		=> Tables["profserviceattachment"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable serviceattachmentkind 		=> Tables["serviceattachmentkind"];
 
 	#endregion
 
@@ -403,6 +360,9 @@ private void initClass() {
 	tprofservice.Columns.Add( new DataColumn("idsor_siope", typeof(int)));
 	tprofservice.Columns.Add( new DataColumn("requested_doc", typeof(int)));
 	tprofservice.Columns.Add( new DataColumn("iddaliarecruitmentmotive", typeof(int)));
+	tprofservice.Columns.Add( new DataColumn("iddalia_dipartimento", typeof(int)));
+	tprofservice.Columns.Add( new DataColumn("iddalia_funzionale", typeof(int)));
+	tprofservice.Columns.Add( new DataColumn("flagexcludefromcertificate", typeof(string)));
 	Tables.Add(tprofservice);
 	tprofservice.PrimaryKey =  new DataColumn[]{tprofservice.Columns["ycon"], tprofservice.Columns["ncon"]};
 
@@ -565,6 +525,11 @@ private void initClass() {
 	tsorting.Columns.Add( new DataColumn("defaultv2", typeof(decimal)));
 	tsorting.Columns.Add( new DataColumn("defaultv3", typeof(decimal)));
 	tsorting.Columns.Add( new DataColumn("defaultv4", typeof(decimal)));
+	tsorting.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tsorting.Columns.Add( new DataColumn("defaultv5", typeof(decimal)));
 	Tables.Add(tsorting);
 	tsorting.PrimaryKey =  new DataColumn[]{tsorting.Columns["idsor"]};
@@ -648,6 +613,11 @@ private void initClass() {
 	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
 	tsorting1.Columns.Add(C);
+	tsorting1.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting1.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting1.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting1.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting1.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
 	tsorting1.Columns.Add(C);
@@ -728,6 +698,11 @@ private void initClass() {
 	tsorting2.Columns.Add( new DataColumn("defaultv2", typeof(decimal)));
 	tsorting2.Columns.Add( new DataColumn("defaultv3", typeof(decimal)));
 	tsorting2.Columns.Add( new DataColumn("defaultv4", typeof(decimal)));
+	tsorting2.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting2.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting2.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting2.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting2.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tsorting2.Columns.Add( new DataColumn("defaultv5", typeof(decimal)));
 	Tables.Add(tsorting2);
 	tsorting2.PrimaryKey =  new DataColumn[]{tsorting2.Columns["idsor"]};
@@ -782,6 +757,11 @@ private void initClass() {
 	tsorting3.Columns.Add( new DataColumn("defaultv2", typeof(decimal)));
 	tsorting3.Columns.Add( new DataColumn("defaultv3", typeof(decimal)));
 	tsorting3.Columns.Add( new DataColumn("defaultv4", typeof(decimal)));
+	tsorting3.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting3.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting3.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting3.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting3.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tsorting3.Columns.Add( new DataColumn("defaultv5", typeof(decimal)));
 	Tables.Add(tsorting3);
 	tsorting3.PrimaryKey =  new DataColumn[]{tsorting3.Columns["idsor"]};
@@ -1108,6 +1088,11 @@ private void initClass() {
 	tsorting01.Columns.Add(C);
 	tsorting01.Columns.Add( new DataColumn("start", typeof(short)));
 	tsorting01.Columns.Add( new DataColumn("stop", typeof(short)));
+	tsorting01.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting01.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting01.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting01.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting01.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	Tables.Add(tsorting01);
 	tsorting01.PrimaryKey =  new DataColumn[]{tsorting01.Columns["idsor"]};
 
@@ -1163,6 +1148,11 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tsorting02.Columns.Add(C);
 	tsorting02.Columns.Add( new DataColumn("start", typeof(short)));
+	tsorting02.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting02.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting02.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting02.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting02.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tsorting02.Columns.Add( new DataColumn("stop", typeof(short)));
 	Tables.Add(tsorting02);
 	tsorting02.PrimaryKey =  new DataColumn[]{tsorting02.Columns["idsor"]};
@@ -1219,6 +1209,11 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tsorting03.Columns.Add(C);
 	tsorting03.Columns.Add( new DataColumn("start", typeof(short)));
+	tsorting03.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting03.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting03.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting03.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting03.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tsorting03.Columns.Add( new DataColumn("stop", typeof(short)));
 	Tables.Add(tsorting03);
 	tsorting03.PrimaryKey =  new DataColumn[]{tsorting03.Columns["idsor"]};
@@ -1275,6 +1270,11 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tsorting04.Columns.Add(C);
 	tsorting04.Columns.Add( new DataColumn("start", typeof(short)));
+	tsorting04.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting04.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting04.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting04.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting04.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tsorting04.Columns.Add( new DataColumn("stop", typeof(short)));
 	Tables.Add(tsorting04);
 	tsorting04.PrimaryKey =  new DataColumn[]{tsorting04.Columns["idsor"]};
@@ -1331,6 +1331,11 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tsorting05.Columns.Add(C);
 	tsorting05.Columns.Add( new DataColumn("start", typeof(short)));
+	tsorting05.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting05.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting05.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting05.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting05.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tsorting05.Columns.Add( new DataColumn("stop", typeof(short)));
 	Tables.Add(tsorting05);
 	tsorting05.PrimaryKey =  new DataColumn[]{tsorting05.Columns["idsor"]};
@@ -1494,6 +1499,11 @@ private void initClass() {
 	tsortingview1.Columns.Add( new DataColumn("defaults4", typeof(string)));
 	tsortingview1.Columns.Add( new DataColumn("defaults5", typeof(string)));
 	tsortingview1.Columns.Add( new DataColumn("flagnodate", typeof(string)));
+	tsortingview1.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsortingview1.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsortingview1.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsortingview1.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsortingview1.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tsortingview1.Columns.Add( new DataColumn("movkind", typeof(string)));
 	Tables.Add(tsortingview1);
 	tsortingview1.PrimaryKey =  new DataColumn[]{tsortingview1.Columns["idsor"]};
@@ -1652,6 +1662,11 @@ private void initClass() {
 	tsorting_siope.Columns.Add(C);
 	tsorting_siope.Columns.Add( new DataColumn("start", typeof(short)));
 	tsorting_siope.Columns.Add( new DataColumn("stop", typeof(short)));
+	tsorting_siope.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting_siope.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting_siope.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting_siope.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting_siope.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tsorting_siope.Columns.Add( new DataColumn("email", typeof(string)));
 	Tables.Add(tsorting_siope);
 	tsorting_siope.PrimaryKey =  new DataColumn[]{tsorting_siope.Columns["idsor"]};
@@ -1682,6 +1697,101 @@ private void initClass() {
 	tdalia_recruitmentmotive.Columns.Add(C);
 	Tables.Add(tdalia_recruitmentmotive);
 	tdalia_recruitmentmotive.PrimaryKey =  new DataColumn[]{tdalia_recruitmentmotive.Columns["iddaliarecruitmentmotive"]};
+
+
+	//////////////////// DALIA_FUNZIONALE /////////////////////////////////
+	var tdalia_funzionale= new DataTable("dalia_funzionale");
+	C= new DataColumn("iddalia_funzionale", typeof(int));
+	C.AllowDBNull=false;
+	tdalia_funzionale.Columns.Add(C);
+	C= new DataColumn("codefunz", typeof(string));
+	C.AllowDBNull=false;
+	tdalia_funzionale.Columns.Add(C);
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	tdalia_funzionale.Columns.Add(C);
+	tdalia_funzionale.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tdalia_funzionale.Columns.Add( new DataColumn("cu", typeof(string)));
+	tdalia_funzionale.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tdalia_funzionale.Columns.Add( new DataColumn("lu", typeof(string)));
+	Tables.Add(tdalia_funzionale);
+	tdalia_funzionale.PrimaryKey =  new DataColumn[]{tdalia_funzionale.Columns["iddalia_funzionale"]};
+
+
+	//////////////////// DALIA_DIPARTIMENTO /////////////////////////////////
+	var tdalia_dipartimento= new DataTable("dalia_dipartimento");
+	C= new DataColumn("iddalia_dipartimento", typeof(int));
+	C.AllowDBNull=false;
+	tdalia_dipartimento.Columns.Add(C);
+	C= new DataColumn("codedip", typeof(string));
+	C.AllowDBNull=false;
+	tdalia_dipartimento.Columns.Add(C);
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	tdalia_dipartimento.Columns.Add(C);
+	tdalia_dipartimento.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tdalia_dipartimento.Columns.Add( new DataColumn("cu", typeof(string)));
+	tdalia_dipartimento.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tdalia_dipartimento.Columns.Add( new DataColumn("lu", typeof(string)));
+	Tables.Add(tdalia_dipartimento);
+	tdalia_dipartimento.PrimaryKey =  new DataColumn[]{tdalia_dipartimento.Columns["iddalia_dipartimento"]};
+
+
+	//////////////////// PROFSERVICEATTACHMENT /////////////////////////////////
+	var tprofserviceattachment= new DataTable("profserviceattachment");
+	C= new DataColumn("ycon", typeof(int));
+	C.AllowDBNull=false;
+	tprofserviceattachment.Columns.Add(C);
+	C= new DataColumn("ncon", typeof(int));
+	C.AllowDBNull=false;
+	tprofserviceattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tprofserviceattachment.Columns.Add(C);
+	tprofserviceattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tprofserviceattachment.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tprofserviceattachment.Columns.Add(C);
+	tprofserviceattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tprofserviceattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tprofserviceattachment.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tprofserviceattachment.Columns.Add(C);
+	tprofserviceattachment.Columns.Add( new DataColumn("!serviceattachmentkind", typeof(string)));
+	Tables.Add(tprofserviceattachment);
+	tprofserviceattachment.PrimaryKey =  new DataColumn[]{tprofserviceattachment.Columns["ycon"], tprofserviceattachment.Columns["ncon"], tprofserviceattachment.Columns["idattachment"]};
+
+
+	//////////////////// SERVICEATTACHMENTKIND /////////////////////////////////
+	var tserviceattachmentkind= new DataTable("serviceattachmentkind");
+	C= new DataColumn("idattachmentkind", typeof(int));
+	C.AllowDBNull=false;
+	tserviceattachmentkind.Columns.Add(C);
+	tserviceattachmentkind.Columns.Add( new DataColumn("title", typeof(string)));
+	tserviceattachmentkind.Columns.Add( new DataColumn("active", typeof(string)));
+	tserviceattachmentkind.Columns.Add( new DataColumn("idser", typeof(int)));
+	tserviceattachmentkind.Columns.Add( new DataColumn("flag", typeof(int)));
+	tserviceattachmentkind.Columns.Add( new DataColumn("flagforced", typeof(string)));
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tserviceattachmentkind.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tserviceattachmentkind.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tserviceattachmentkind.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tserviceattachmentkind.Columns.Add(C);
+	Tables.Add(tserviceattachmentkind);
+	tserviceattachmentkind.PrimaryKey =  new DataColumn[]{tserviceattachmentkind.Columns["idattachmentkind"]};
 
 
 	#endregion
@@ -1812,9 +1922,24 @@ private void initClass() {
 	cChild = new []{profservice.Columns["iddaliarecruitmentmotive"]};
 	Relations.Add(new DataRelation("dalia_recruitmentmotive_profservice",cPar,cChild,false));
 
+	cPar = new []{dalia_funzionale.Columns["iddalia_funzionale"]};
+	cChild = new []{profservice.Columns["iddalia_funzionale"]};
+	Relations.Add(new DataRelation("dalia_funzionale_profservice",cPar,cChild,false));
+
+	cPar = new []{dalia_dipartimento.Columns["iddalia_dipartimento"]};
+	cChild = new []{profservice.Columns["iddalia_dipartimento"]};
+	Relations.Add(new DataRelation("dalia_dipartimento_profservice",cPar,cChild,false));
+
+	cPar = new []{profservice.Columns["ycon"], profservice.Columns["ncon"]};
+	cChild = new []{profserviceattachment.Columns["ycon"], profserviceattachment.Columns["ncon"]};
+	Relations.Add(new DataRelation("profservice_profserviceattachment",cPar,cChild,false));
+
+	cPar = new []{serviceattachmentkind.Columns["idattachmentkind"]};
+	cChild = new []{profserviceattachment.Columns["idattachmentkind"]};
+	Relations.Add(new DataRelation("serviceattachmentkind_profserviceattachment",cPar,cChild,false));
+
 	#endregion
 
 }
 }
 }
-

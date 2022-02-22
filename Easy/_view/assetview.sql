@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA assetview
 IF EXISTS(select * from sysobjects where id = object_id(N'[assetview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [assetview]
@@ -119,7 +136,11 @@ CREATE     VIEW [assetview]
 	historical,
 	ispiece,
 	inventorykindvisible,
-	rfid
+	rfid,
+	idinvkind,
+    yinv,
+    ninv,
+    invrownum
 )
 AS SELECT
 	asset.idasset,
@@ -428,8 +449,11 @@ AS SELECT
 	assetacquire.historicalvalue,
 	CASE	WHEN asset.idpiece>1 THEN 'S' else 'N' end,
 	CASE	WHEN ((inventorykind.flag&2)=0)  THEN 'S' else 'N' end,
-	assetmain.rfid
-
+	assetmain.rfid,
+	assetacquire.idinvkind,
+    assetacquire.yinv,
+    assetacquire.ninv,
+    assetacquire.invrownum
 FROM asset (NOLOCK) 
 JOIN asset (NOLOCK) AS assetmain					ON (asset.idasset=assetmain.idasset) --
 JOIN assetacquire		(NOLOCK) 				ON assetacquire.nassetacquire = asset.nassetacquire

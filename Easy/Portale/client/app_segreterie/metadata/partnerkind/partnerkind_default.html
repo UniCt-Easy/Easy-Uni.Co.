@@ -1,0 +1,35 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="partnerkind_default_title">Tipologia</label>
+					<input id="partnerkind_default_title" type="text" class="form-control" data-tag="partnerkind.title?partnerkinddefaultview.title" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="partnerkind_default_description">Descrizione</label>
+					<textarea class="textarea form-control" id="partnerkind_default_description" type="text"  rows="4" data-tag="partnerkind.description?partnerkinddefaultview.partnerkind_description" data-subentity></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="partnerkind_default_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="partnerkind_default_activeSi" type="radio" name="partnerkind_default_active" class="custom-control-input" data-tag="partnerkind.active:S?partnerkinddefaultview.partnerkind_active:Si" data-subentity  ><label for="partnerkind_default_activeSi"> Si</label>
+						<input id="partnerkind_default_activeNo" type="radio" name="partnerkind_default_active" class="custom-control-input" data-tag="partnerkind.active:N?partnerkinddefaultview.partnerkind_active:No" data-subentity  ><label for="partnerkind_default_activeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="partnerkind_default_sortcode">Ordinamento</label>
+					<input id="partnerkind_default_sortcode" type="text" class="form-control" data-tag="partnerkind.sortcode?partnerkinddefaultview.partnerkind_sortcode" data-subentity  />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

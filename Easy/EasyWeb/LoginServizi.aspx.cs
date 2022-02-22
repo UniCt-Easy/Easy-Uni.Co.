@@ -1,19 +1,17 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
@@ -115,15 +113,19 @@ namespace EasyWebReport {
             //Master.SetTitle("WebEasy - Accesso Servizi Dipartimento  ");
             lblMessaggio.Text = "";
             labExtMessage.Text = "";
-            MetaMasterBootstrap master = Page.Master as MetaMasterBootstrap;
-            master?.setUniversita(Session["system_config_nome_universita"] as string);
+
+            string errorNomeUniversita = "";
+            DataTable t = GetDataSystemDb.GetConfigConn("config", "nome_universita", "", this.Page, out errorNomeUniversita);
+            if (t != null && t.Rows.Count > 0) {
+                Session["nome_universita"] = t.Rows[0]["nome_universita"].ToString();
+            }
 
             if (!Page.IsPostBack) {
                 Session["utente"] = "";
-                Session["Responsabile"] = "";
-                Session["Fornitore"] = "";
-                Session["CodiceResponsabile"] = null;
-                Session["CodiceFornitore"] = null;
+                //Session["Responsabile"] = "";
+                //Session["Fornitore"] = "";
+                //Session["CodiceResponsabile"] = null;
+                //Session["CodiceFornitore"] = null;
                 Session["TipoUtente"] = null;
             }
 
@@ -161,8 +163,6 @@ namespace EasyWebReport {
                 return;
             }
 
-            master?.setUniversita(Session["system_config_nome_universita"] as string);
-
             lblMessaggio.Text = "Il servizio Web è attivo";
             GetVars.ClearUserConn(this);
             string depcode_given = "";
@@ -175,14 +175,6 @@ namespace EasyWebReport {
                 }
                 else {
                     depcode_given = txtCodiceDipartimento.Text;
-                }
-            }
-
-
-            if (!Page.IsPostBack) {
-                ldapauth ldpauth = new ldapauth(sysConn);
-                if (!ldpauth.getconfig()) {
-                    rbTipuUtente.Items.RemoveAt(3);
                 }
             }
 
@@ -236,45 +228,10 @@ namespace EasyWebReport {
                 //Cerco prima nella tabella contatto e poi nella tabella responsabile.
                 string NomeUtente = txtNomeUtente.Text;
                 string Password = txtPassword.Text; // Request.Form["txtPassword"].ToString();
-
-                if (rbTipuUtente.SelectedValue == "1" || rbTipuUtente.SelectedValue == "2") {
-                    //Responsabile o Fornitore
-                    ConnectToDepartment(depcode_given, null, null, D);
-                }
-
-                if (rbTipuUtente.SelectedValue == "3") { //Utente dell'applicazione
+                //if (rbTipuUtente.SelectedValue == "3") { //Utente dell'applicazione
                     ConnectToDepartment(depcode_given, NomeUtente, txtPassword.Text, D);
 
-                }
-
-                bool ldapauthok = false;
-
-                if (rbTipuUtente.SelectedValue == "4") { // Utente LDAP
-                    ldapauth lauth = new ldapauth(sysConn);
-                    if (!lauth.getconfig()) {
-                        // Nessuna configurazione LDAP
-                        lblMessaggio.Text = lauth.ErrorMsg;
-                        sysConn.Close();
-                        return;
-                    }
-                    else {
-                        if (!lauth.Authenticate(NomeUtente, txtPassword.Text)) {
-                            // autenticazione fallita
-                            lblMessaggio.Text = lauth.ErrorMsg;
-                            sysConn.Close();
-                            return;
-                        }
-                        else {
-                            // autenticazione LDAP riuscita
-                            NomeUtente = lauth.user_decoded;
-                            ConnectToDepartment(depcode_given, null, null, D);
-                            ldapauthok = true;
-                        }
-                    }
-
-                }
-
-
+                //}
 
                 //Connessione al Server.Database privato del software.
                 Easy_DataAccess UsrConn = GetVars.GetUserConn(this);
@@ -301,7 +258,7 @@ namespace EasyWebReport {
 
                 sysConn.Close();
 
-                if (rbTipuUtente.SelectedValue == "3") {
+                //if (rbTipuUtente.SelectedValue == "3") {
                     if (!CambioDataConsentita(UsrConn, D)) {
                         UsrConn.Close();
                         labExtMessage.Text =
@@ -311,7 +268,7 @@ namespace EasyWebReport {
                         lblMessaggio.Text = "Accesso negato";
                         return;
                     }
-                }
+                //}
 
                 if (UsrConn.Open() == false) {
                     //Il Server del Dipartimento non è in rete. 
@@ -342,71 +299,18 @@ namespace EasyWebReport {
                 APS.SaveApplicationState(this);
                 labExtMessage.Text = "Connessione al server effettuata.";
 
-                if (rbTipuUtente.SelectedValue == "1") {
-                    int countresp = UsrConn.RUN_SELECT_COUNT("manager",
-                        QHS.CmpEq("userweb", NomeUtente), false);
-                    if (countresp > 1) {
-                        lblMessaggioPass.Text =
-                            "Chiedere al Segreterio Amministrativo l'assegnazione di una nuova login";
-                        WebLog.Log(this, "Attenzione !!! Login assegnata a piu responsabili");
-                        return;
-                    }
+               // }
 
-                    DataTable Responsabile = UsrConn.RUN_SELECT("manager", "*", null,
-                        QHS.AppAnd(QHS.CmpEq("userweb", NomeUtente), QHS.CmpEq("passwordweb", Password)), null, false);
-                    if (Responsabile.Rows.Count == 0) {
-                        //Dati non corretti
-                        labExtMessage.Text = "Nome utente o password non sono corretti.";
-                        WebLog.Log(this, "Nome Resp:" + NomeUtente + " e password:" + Password + " non corretti");
-                        return;
-                    }
-
-                    Session["LoginResponsabile"] = NomeUtente;
-                    Session["PasswordResponsabile"] = Password;
-                    Session["Responsabile"] = Responsabile.Rows[0]["title"].ToString();
-                    Session["CodiceResponsabile"] = Responsabile.Rows[0]["idman"];
-                    Session["TipoUtente"] = "responsabile";
-                    WebLog.Log(this, "Riconosciuto responsabile: " + Session["Responsabile"].ToString());
-
-                }
-
-                if (rbTipuUtente.SelectedValue == "2") {
-                    int countforn = UsrConn.RUN_SELECT_COUNT("registryreferenceview",
-                        QHS.CmpEq("userweb", NomeUtente), false);
-                    if (countforn > 1) {
-                        lblMessaggioPass.Text =
-                            "Chiedere al Segreterio Amministrativo l'assegnazione di una nuova login";
-                        WebLog.Log(this, "Attenzione !!! Login assegnata a piu fornitori");
-                        return;
-                    }
-
-                    DataTable Contatto = UsrConn.RUN_SELECT("registryreferenceview", "*", null,
-                        QHS.AppAnd(QHS.CmpEq("userweb", NomeUtente), QHS.CmpEq("passwordweb", Password)), null, false);
-                    if (Contatto.Rows.Count == 0) {
-                        //Dati non corretti
-                        labExtMessage.Text = "Nome utente o password non sono corretti.";
-                        WebLog.Log(this, "Nome Fornitore:" + NomeUtente + " e password:" + Password + " non corretti");
-                        return;
-                    }
-
-                    Session["LoginFornitore"] = NomeUtente;
-                    Session["Fornitore"] = Contatto.Rows[0]["registry"];
-                    Session["CodiceFornitore"] = Contatto.Rows[0]["idreg"];
-                    Session["PasswordFornitore"] = Password;
-                    Session["TipoUtente"] = "fornitore";
-                    WebLog.Log(this, "Riconosciuto fornitore: " + Session["Fornitore"].ToString());
-                }
-
-                if (rbTipuUtente.SelectedValue == "3") {
+                //if (rbTipuUtente.SelectedValue == "3") {
                     Session["TipoUtente"] = "utente";
                     Session["Utente"] = NomeUtente;
                     Session["PasswordUtente"] = Password;
 
-                }
+                //}
 
-                if (ldapauthok || (rbTipuUtente.SelectedValue == "1") ||
-                    (rbTipuUtente.SelectedValue == "2") || (rbTipuUtente.SelectedValue == "3")) {
-                    int userkind = Convert.ToInt32(rbTipuUtente.SelectedValue);
+                //if (ldapauthok || (rbTipuUtente.SelectedValue == "1") ||
+                //    (rbTipuUtente.SelectedValue == "2") || (rbTipuUtente.SelectedValue == "3")) {
+                int userkind = 3;// Convert.ToInt32(rbTipuUtente.SelectedValue);
                     string filter = QHS.AppAnd(QHS.CmpEq("username", NomeUtente),
                         QHS.CmpEq("codicedipartimento", depcode_given),
                         QHS.CmpEq("userkind", userkind)
@@ -435,7 +339,7 @@ namespace EasyWebReport {
                         EasySecurity sec = UsrConn.Security as EasySecurity;
                         UsrConn.externalUser = NomeUtente;
                         sec.SetSys("user", user);
-                        sec.SetUsr("usergrouplist", null);
+                        sec.SetSys("usergrouplist", null);//SetUsr
                         sec.CalculateGroupList();
                         sec.RecalcUserEnvironment();
                         sec.ReadAllGroupOperations();
@@ -449,34 +353,9 @@ namespace EasyWebReport {
                             lblMessaggio.Text = "Accesso negato";
                             return;
                         }
-
-
                     }
-                    else {
-                        if (ldapauthok) {
-                            lblMessaggio.Text = "Utente non valido.";
-                            return;
-                        }
+                //}
 
-                        if (rbTipuUtente.SelectedValue == "1") {
-                            filter = QHS.CmpEq("userweb", NomeUtente);
-                            DataTable manager = UsrConn.RUN_SELECT("manager", "*", null, filter, null, false);
-                            if (manager != null && manager.Rows.Count != 0) {
-                                Session["Responsabile"] = manager.Rows[0]["title"].ToString();
-                                Session["CodiceResponsabile"] = manager.Rows[0]["idman"];
-                            }
-                        }
-                    }
-                }
-
-
-
-                if (rbTipuUtente.SelectedValue == "4") {
-                    Session["TipoUtente"] = "Utente LDAP";
-                    Session["Utente"] = forename + " " + lastname;
-                    Session["PasswordUtente"] = Password;
-
-                }
 
                 Session["SavedFlowChart"] = null;
                 object idflowchart = UsrConn.GetSys("idflowchart");
@@ -530,4 +409,3 @@ namespace EasyWebReport {
 
     }
 }
-

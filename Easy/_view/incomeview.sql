@@ -1,10 +1,28 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 -- CREAZIONE VISTA incomeview
 IF EXISTS(select * from sysobjects where id = object_id(N'[incomeview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [incomeview]
 GO
- 
---setuser 'amministrazione'
-
+--setuser 'amministrazione' 
+--setuser 'amm'
+--select * from incomeview
+--clear_table_info 'incomeview'
 CREATE  VIEW [incomeview]
 (
 	idinc,
@@ -19,6 +37,7 @@ CREATE  VIEW [incomeview]
 	idfin,
 	codefin,
 	finance,
+	finflag,
 	idupb,
 	codeupb,
 	upb,
@@ -29,6 +48,8 @@ CREATE  VIEW [incomeview]
 	idsor05,	
 	idreg,
 	registry,
+	cf,
+	p_iva,
 	idman,
 	manager,
 	kpro,
@@ -68,7 +89,11 @@ CREATE  VIEW [incomeview]
 	ct,
 	lu,
 	lt,
-	external_reference
+	external_reference,
+	idexp_linked,
+	yexp_linked,
+	nexp_linked,
+	incomeflag
 )
 AS SELECT
 	income.idinc,
@@ -83,6 +108,7 @@ AS SELECT
 	incomeyear.idfin,
 	fin.codefin,
 	fin.title,
+	fin.flag,
 	upb.idupb,
 	upb.codeupb,
 	upb.title,
@@ -93,6 +119,8 @@ AS SELECT
 	upb.idsor05,
 	income.idreg,
 	registry.title,
+	registry.cf,
+	registry.p_iva,
 	income.idman,
 	manager.title,
 	proceeds.kpro,
@@ -145,7 +173,9 @@ AS SELECT
 	income.ct,
 	income.lu,
 	income.lt,
-	income.external_reference
+	income.external_reference,
+	expense_linked.idexp,expense_linked.ymov,expense_linked.nmov,
+	income.flag
 	FROM income (NOLOCK)
 	JOIN incomephase (NOLOCK)			ON incomephase.nphase = income.nphase
 	JOIN incomeyear (NOLOCK)			ON incomeyear.idinc = income.idinc 
@@ -168,6 +198,7 @@ AS SELECT
 	LEFT OUTER JOIN account		(NOLOCK)				ON account.idacc =  incomelast.idacccredit
 	LEFT OUTER JOIN underwriting	(NOLOCK)			ON income.idunderwriting = underwriting.idunderwriting		
 	LEFT OUTER JOIN expense	(NOLOCK)					ON expense.idexp = income.idpayment
+	LEFT OUTER JOIN expense	expense_linked (NOLOCK)					ON expense_linked.idinc_linked = income.idinc
 
 
 

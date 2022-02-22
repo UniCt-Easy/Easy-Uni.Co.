@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_perfrequestobbindividuale_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_perfrequestobbindividuale_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="perfsogliakind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idperfsogliakind" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfrequestobbindividualesoglia" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idperfrequestobbindividuale" type="xs:int" />
+              <xs:element name="idperfrequestobbindividualesoglia" type="xs:int" />
+              <xs:element name="idperfsogliakind" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="percentuale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="valorenumerico" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="getregistrydocentiamministratividefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="year" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfrequestobbindividuale" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfrequestobbindividuale" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="inserito" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="peso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="year" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfsogliakind" />
+      <xs:field xpath="mstns:idperfsogliakind" />
+    </xs:unique>
+    <xs:unique name="perfrequestobbindividualesoglia_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfrequestobbindividualesoglia" />
+      <xs:field xpath="mstns:idperfrequestobbindividuale" />
+      <xs:field xpath="mstns:idperfrequestobbindividualesoglia" />
+    </xs:unique>
+    <xs:unique name="getregistrydocentiamministratividefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getregistrydocentiamministratividefaultview" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="year_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:year" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="perfrequestobbindividuale_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfrequestobbindividuale" />
+      <xs:field xpath="mstns:idperfrequestobbindividuale" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_perfrequestobbindividualesoglia_perfrequestobbindividuale_idperfrequestobbindividuale" msdata:parent="perfrequestobbindividuale" msdata:child="perfrequestobbindividualesoglia" msdata:parentkey="idperfrequestobbindividuale" msdata:childkey="idperfrequestobbindividuale" />
+      <msdata:Relationship name="FK_perfrequestobbindividualesoglia_perfsogliakind_idperfsogliakind" msdata:parent="perfsogliakind" msdata:child="perfrequestobbindividualesoglia" msdata:parentkey="idperfsogliakind" msdata:childkey="idperfsogliakind" />
+      <msdata:Relationship name="FK_perfrequestobbindividuale_getregistrydocentiamministratividefaultview_idreg" msdata:parent="getregistrydocentiamministratividefaultview" msdata:child="perfrequestobbindividuale" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_perfrequestobbindividuale_year_year" msdata:parent="year" msdata:child="perfrequestobbindividuale" msdata:parentkey="year" msdata:childkey="year" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

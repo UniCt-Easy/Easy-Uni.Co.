@@ -1,23 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-ï»¿using System;
+using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -277,8 +275,11 @@ public partial class viterbo_finvardetail_default :MetaPage {
             gbox.GroupingText = "";
         }
         else {
-            string filter = QHS.CmpEq("idsorkind", sortingkind);
-            GetData.SetStaticFilter(DS.Tables["sorting" + nums], filter);
+	        string filter = QHS.AppAnd(QHS.CmpEq("idsorkind", sortingkind),
+		        QHS.NullOrLt("start", Conn.Security.GetEsercizio()),
+		        QHS.NullOrGe("stop", Conn.Security.GetEsercizio()));
+	        GetData.SetStaticFilter(DS.Tables["sorting" + nums], filter);
+	        DS.Tables["sorting" + nums].ExtendedProperties[MetaData.ExtraParams] = filter;
             string title = Conn.DO_READ_VALUE("sortingkind", filter, "description").ToString();
             gbox.GroupingText = title;
             string idflowchart = Conn.GetSys("idflowchart").ToString();
@@ -496,7 +497,7 @@ public partial class viterbo_finvardetail_default :MetaPage {
         if (rdbEntrata.Checked)
             filteridfin = QHS.AppAnd(filteresercizio, QHS.CmpEq("finpart", 'E'));
 
-        //Il filtro sull'UPB c'Ã¨ sempre
+        //Il filtro sull'UPB c'è sempre
         object idupb = DBNull.Value;
         if (DS.viterbo_finvardetail.Rows.Count > 0) {
             DataRow r = DS.viterbo_finvardetail.Rows[0];
@@ -576,4 +577,4 @@ public partial class viterbo_finvardetail_default :MetaPage {
 
 
 
-}
+}

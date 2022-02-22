@@ -1,0 +1,2 @@
+﻿La gestione del token prevede che nell'header l'autorization scheme sia Bearer
+inoltre è preso il contenuto dell'header MS_HttpContext per verificarne la validità

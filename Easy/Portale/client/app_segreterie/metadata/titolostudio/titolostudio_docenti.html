@@ -1,0 +1,78 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+		
+	</ul>
+	<form>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="titolostudio_docenti_aa">Anno accademco</label>
+					<select id="titolostudio_docenti_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="titolostudio.aa?titolostudiodocentiview.aa" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="titolostudio_docenti_idreg_istituti">Istituto</label>
+					<div>
+						<input id="titolostudio_docenti_idreg_istituti" name="titolostudio_docenti_idreg_istituti" type="text" data-listtype="istituti"  class="form-control" data-minchar="2" data-tag="registryistitutiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="titolostudio_docenti_idtitolostudio">Identificativo</label>
+					<input id="titolostudio_docenti_idtitolostudio" type="text" class="form-control" data-tag="titolostudio.idtitolostudio?titolostudiodocentiview.idtitolostudio" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="titolostudio_docenti_conseguito">Conseguito</label>
+					<div class="custom-control custom-radio">
+						<input id="titolostudio_docenti_conseguitoSi" type="radio" name="titolostudio_docenti_conseguito" class="custom-control-input" data-tag="titolostudio.conseguito:S?titolostudiodocentiview.titolostudio_conseguito:Si" data-subentity  data-mandatory ><label for="titolostudio_docenti_conseguitoSi"> Si</label>
+						<input id="titolostudio_docenti_conseguitoNo" type="radio" name="titolostudio_docenti_conseguito" class="custom-control-input" data-tag="titolostudio.conseguito:N?titolostudiodocentiview.titolostudio_conseguito:No" data-subentity  data-mandatory ><label for="titolostudio_docenti_conseguitoNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#titolostudio_docenti_data").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="titolostudio_docenti_data">Data del conseguimento</label>
+					<input id="titolostudio_docenti_data" type="text" class="form-control" data-tag="titolostudio.data?titolostudiodocentiview.titolostudio_data" data-subentity  data-mandatory />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="titolostudio_docenti_giudizio">Giudizio</label>
+					<input id="titolostudio_docenti_giudizio" type="text" class="form-control" data-tag="titolostudio.giudizio?titolostudiodocentiview.titolostudio_giudizio" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="titolostudio_docenti_idattach">Allegato</label>
+					<div id="titolostudio_docenti_idattach" data-tag="titolostudio.idattach?titolostudiodocentiview.idattach" data-subentity  data-custom-control="upload" ></div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="titolostudio_docenti_idistattitolistudio">Titolo ISTAT</label>
+					<div>
+						<input id="titolostudio_docenti_idistattitolistudio" name="titolostudio_docenti_idistattitolistudio" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="istattitolistudio.titolo" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="titolostudio_docenti_voto">Voto</label>
+					<input id="titolostudio_docenti_voto" type="text" class="form-control" data-tag="titolostudio.voto?titolostudiodocentiview.titolostudio_voto" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="titolostudio_docenti_votosu">Su</label>
+					<input id="titolostudio_docenti_votosu" type="text" class="form-control" data-tag="titolostudio.votosu?titolostudiodocentiview.titolostudio_votosu" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="titolostudio_docenti_votolode">Lode</label>
+					<input id="titolostudio_docenti_votolode" type="checkbox" class="custom-control-input big-checkbox" data-tag="titolostudio.votolode:S:N?titolostudiodocentiview.titolostudio_votolode:Si:No" data-subentity />
+				</div>
+			</div>
+</form>
+
+</div>
+<!--footer-->

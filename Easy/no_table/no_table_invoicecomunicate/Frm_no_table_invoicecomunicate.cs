@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -35,7 +34,7 @@ using System.IO;
 using System.Security;
 
 namespace no_table_invoicecomunicate {
-    public partial class Frm_no_table_invoicecomunicate :Form {
+    public partial class Frm_no_table_invoicecomunicate : MetaDataForm {
         MetaData Meta;
         DataAccess Conn;
         QueryHelper QHS;
@@ -80,19 +79,19 @@ namespace no_table_invoicecomunicate {
                 esercizio = (int)HelpForm.GetObjectFromString(typeof(int),
                     txtEsercizio.Text.ToString(), "x.y.year");
                 if ((esercizio < 0)) {
-                    MessageBox.Show("L'esercizio non puÃ² essere negativo");
+                    show("L'esercizio non può essere negativo");
                     txtEsercizio.Focus();
                     return false;
                 }
             }
             catch {
-                MessageBox.Show("E' necessario inserire un esercizio");
+                show("E' necessario inserire un esercizio");
                 txtEsercizio.Focus();
                 return false;
             }
 
             if (cmbSemestre.SelectedValue == null) {
-                MessageBox.Show("E' necessario selezionare un Semestre");
+                show("E' necessario selezionare un Semestre");
                 return false;
             }
             txtEsercizio.Focus();
@@ -138,12 +137,12 @@ namespace no_table_invoicecomunicate {
         }
         private string aggiustaStringa(string stringa, bool toglichiocciola) {
 
-            string s = stringa.Replace('â€™', ' ').Replace('Â´', ' ').Replace('Ã‡', 'c').Replace('Ã§', 'c').Replace('â‚¬', 'e').Replace('|', ' ').Replace('\\', ' ').Replace('Â£', ' ').Replace('Â§', ' ').Replace('[', ' ').Replace('#', ' ').Replace('!', ' ').Replace('Ã™', 'u').Replace(
-                'Ã–', 'o').Replace('Ãœ', 'u').Replace('Ã‘', 'n').Replace('Ã', 'd').Replace('ÃŠ', 'e').Replace('Ã‹', 'e').Replace('ÃŽ', 'i').Replace('Ã', 'i').Replace('Ã”', 'o').Replace('Ã•', 'o').Replace('Ã›', 'u').Replace('Ã', 'y').Replace(
-                ']', ' ').Replace('`', ' ').Replace('{', ' ').Replace('}', ' ').Replace('~', ' ').Replace('Ã¼', 'u').Replace('Ã¢', 'a').Replace('Ã¤', 'a').Replace('Ã¥', 'a').Replace('Ãª', 'e').Replace('Ã«', 'e').Replace('Ã¯', 'i').Replace(
-                'Ã®', 'i').Replace('Ã„', 'a').Replace('Ã…', 'a').Replace('Ã´', 'o').Replace('Ã¶', 'o').Replace('Ã»', 'u').Replace('Ã¿', 'y').Replace('Ã±', 'n').Replace('Ã‚', 'a').Replace('Â¥', 'y').Replace('Ã£', 'a').Replace('Ãƒ', 'a').Replace(
-                'Ãµ', 'o').Replace('Ã½', 'y').Replace('Ã©', 'e').Replace('Ã ', 'a').Replace('Ã¨', 'e').Replace('Ã¬', 'i').Replace('Ã²', 'o').Replace('Ã¹', 'u').Replace('Ã¡', 'a').Replace('Ã­', 'i').Replace('Ã³', 'o').Replace('Ã‰', 'e').Replace(
-                'Ã', 'a').Replace('Ã€', 'a').Replace('Ãˆ', 'e').Replace('Ã', 'i').Replace('ÃŒ', 'i').Replace('Ã“', 'o').Replace('Ã’', 'o').Replace('Ãš', 'u').Replace('\t', ' ').Replace('\n', ' ').Replace('\r', ' ').Replace('Â°', ' ');
+            string s = stringa.Replace('’', ' ').Replace('´', ' ').Replace('Ç', 'c').Replace('ç', 'c').Replace('€', 'e').Replace('|', ' ').Replace('\\', ' ').Replace('£', ' ').Replace('§', ' ').Replace('[', ' ').Replace('#', ' ').Replace('!', ' ').Replace('Ù', 'u').Replace(
+                'Ö', 'o').Replace('Ü', 'u').Replace('Ñ', 'n').Replace('Ð', 'd').Replace('Ê', 'e').Replace('Ë', 'e').Replace('Î', 'i').Replace('Ï', 'i').Replace('Ô', 'o').Replace('Õ', 'o').Replace('Û', 'u').Replace('Ý', 'y').Replace(
+                ']', ' ').Replace('`', ' ').Replace('{', ' ').Replace('}', ' ').Replace('~', ' ').Replace('ü', 'u').Replace('â', 'a').Replace('ä', 'a').Replace('å', 'a').Replace('ê', 'e').Replace('ë', 'e').Replace('ï', 'i').Replace(
+                'î', 'i').Replace('Ä', 'a').Replace('Å', 'a').Replace('ô', 'o').Replace('ö', 'o').Replace('û', 'u').Replace('ÿ', 'y').Replace('ñ', 'n').Replace('Â', 'a').Replace('¥', 'y').Replace('ã', 'a').Replace('Ã', 'a').Replace(
+                'õ', 'o').Replace('ý', 'y').Replace('é', 'e').Replace('à', 'a').Replace('è', 'e').Replace('ì', 'i').Replace('ò', 'o').Replace('ù', 'u').Replace('á', 'a').Replace('í', 'i').Replace('ó', 'o').Replace('É', 'e').Replace(
+                'Á', 'a').Replace('À', 'a').Replace('È', 'e').Replace('Í', 'i').Replace('Ì', 'i').Replace('Ó', 'o').Replace('Ò', 'o').Replace('Ú', 'u').Replace('\t', ' ').Replace('\n', ' ').Replace('\r', ' ').Replace('°', ' ');
             if (toglichiocciola)
                 s = s.Replace('@', ' ');
             return s;
@@ -260,7 +259,7 @@ namespace no_table_invoicecomunicate {
             txtPercorso.Text = "";
             faiScegliereCartella();
             if (txtPercorso.Text == "") {
-                MessageBox.Show(this, "Occorre specificare la cartella in cui creare il file", "errore");
+                show(this, "Occorre specificare la cartella in cui creare il file", "errore");
                 return;
             }
             Application.DoEvents();
@@ -422,10 +421,10 @@ namespace no_table_invoicecomunicate {
 
 
             Meta.SaveFormData();
-            MessageBox.Show("File creati:\n\r " + NomiFile, "Avviso");
+            show("File creati:\n\r " + NomiFile, "Avviso");
             
 
-            MessageBox.Show("Salvataggio eseguito.");
+            show("Salvataggio eseguito.");
          
 
         }
@@ -439,14 +438,14 @@ namespace no_table_invoicecomunicate {
                                 XML_XSD_Validator.GetError());
                 return false;
             }else {
-                MessageBox.Show($"File {fileName} validato con successo");
+                show($"File {fileName} validato con successo");
                 return true;
             }
             return res;
         }
         private void Excel_Click(object sender, EventArgs e, DataTable T) {
             if (T.Rows.Count == 0) {
-                MessageBox.Show("Nessun elemento trovato");
+                show("Nessun elemento trovato");
                 return;
             }
             exportclass.DataTableToExcel(T, true);
@@ -488,7 +487,7 @@ namespace no_table_invoicecomunicate {
                if (rFattura["IdFiscaleIvaPaeseAnagrafica"].ToString() == "IT") {
                     string errorePIVA = CalcolaPartitaIva.controllaPartitaIva(rFattura["IdFiscaleIvaCodiceAnagrafica"].ToString());
                     if (errorePIVA != null) {
-                        rFattura["error"] = rFattura["error"].ToString()  + "La Partita IVA inserita non Ã¨ valida.";
+                        rFattura["error"] = rFattura["error"].ToString()  + "La Partita IVA inserita non è valida.";
                         CountError++;
                     }
                 }
@@ -506,7 +505,7 @@ namespace no_table_invoicecomunicate {
             }
 
             if (CountError > 0) {
-                MessageBox.Show(
+                show(
                     "Sono stati riscontrati errori nei dati che causeranno lo scarto del file.\nGli errori sono riportati nell'ultima colonna.",
                     "Avviso",MessageBoxButtons.OK);
                 //foreach (DataRow rFattura in tFatture.Select(QHC.CmpEq("error",""))) {
@@ -525,4 +524,3 @@ namespace no_table_invoicecomunicate {
         }
     }
 }
-

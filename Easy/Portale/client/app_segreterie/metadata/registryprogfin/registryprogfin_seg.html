@@ -1,0 +1,39 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabregistryprogfin_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabregistryprogfin_seg_0"><i class="fa fa-hand-holding-usd mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistryprogfin_seg_1" class="nav-link" data-toggle="pill" data-target="#tabregistryprogfin_seg_1"><i class="fa fa-file-invoice-dollar mr-1"></i>Bandi</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabregistryprogfin_seg_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryprogfin_seg_code">Codice identificativo</label>
+					<input id="registryprogfin_seg_code" type="text" class="form-control" data-tag="registryprogfin.code?registryprogfinsegview.registryprogfin_code" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryprogfin_seg_title">Titolo</label>
+					<input id="registryprogfin_seg_title" type="text" class="form-control" data-tag="registryprogfin.title?registryprogfinsegview.title" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="registryprogfin_seg_description">Descrizione</label>
+					<textarea class="textarea form-control" id="registryprogfin_seg_description" type="text"  rows="4" data-tag="registryprogfin.description?registryprogfinsegview.registryprogfin_description" data-subentity></textarea>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabregistryprogfin_seg_1" role="tabpanel">
+				<div class="gridx" id="grid_registryprogfinbando_seg" data-tag="registryprogfinbando.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

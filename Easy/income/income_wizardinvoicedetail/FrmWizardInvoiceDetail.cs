@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -33,15 +32,12 @@ namespace income_wizardinvoicedetail {
     /// <summary>
     /// Summary description for FrmWizardInvoiceDetail.
     /// </summary>
-    public class FrmWizardInvoiceDetail : System.Windows.Forms.Form {
+    public class FrmWizardInvoiceDetail : MetaDataForm {
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Button btnBack;
-        private Crownwood.Magic.Controls.TabPage tabPage1;
         private Crownwood.Magic.Controls.TabPage tabPage2;
         private Crownwood.Magic.Controls.TabPage tabPage3;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labDescrOrdine;
         private System.Windows.Forms.TextBox txtFornitore;
         private System.Windows.Forms.Label label6;
@@ -77,12 +73,8 @@ namespace income_wizardinvoicedetail {
         private System.Windows.Forms.TextBox txtDescrDoc;
         decimal TotaleDaContabilizzare = 0;
         private System.Windows.Forms.TextBox txtMessage;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label labTotIncassato;
+		private System.Windows.Forms.Label label13;
+		private System.Windows.Forms.Label labTotIncassato;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
@@ -176,13 +168,6 @@ namespace income_wizardinvoicedetail {
             this.txtNumDoc = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtEsercDoc = new System.Windows.Forms.TextBox();
-            this.tabPage1 = new Crownwood.Magic.Controls.TabPage();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.tabPage3 = new Crownwood.Magic.Controls.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.gboxBolletta = new System.Windows.Forms.GroupBox();
@@ -211,7 +196,6 @@ namespace income_wizardinvoicedetail {
             ((System.ComponentModel.ISupportInitialize) (this.DS)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.gridDetails)).BeginInit();
-            this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gboxBolletta.SuspendLayout();
@@ -230,7 +214,6 @@ namespace income_wizardinvoicedetail {
             this.tabController.Size = new System.Drawing.Size(690, 497);
             this.tabController.TabIndex = 0;
             this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
-                this.tabPage1,
                 this.tabPage2,
                 this.tabPage3
             });
@@ -267,7 +250,7 @@ namespace income_wizardinvoicedetail {
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Size = new System.Drawing.Size(690, 472);
             this.tabPage2.TabIndex = 4;
-            this.tabPage2.Title = "Pagina 2 di 3";
+            this.tabPage2.Title = "Pagina 1 di 2";
             // 
             // txtTotaleIncassatoGenerale
             // 
@@ -604,72 +587,6 @@ namespace income_wizardinvoicedetail {
             this.txtEsercDoc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtEsercDoc.Leave += new System.EventHandler(this.txtEsercDoc_Leave);
             // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.label20);
-            this.tabPage1.Controls.Add(this.label19);
-            this.tabPage1.Controls.Add(this.label17);
-            this.tabPage1.Controls.Add(this.label16);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Location = new System.Drawing.Point(0, 0);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Selected = false;
-            this.tabPage1.Size = new System.Drawing.Size(690, 472);
-            this.tabPage1.TabIndex = 3;
-            this.tabPage1.Title = "Pagina 1 di 3";
-            // 
-            // label20
-            // 
-            this.label20.Location = new System.Drawing.Point(8, 112);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(648, 23);
-            this.label20.TabIndex = 10;
-            this.label20.Text = "3) Aver creato la fattura richiamando i dettagli dei contratti  relativi";
-            // 
-            // label19
-            // 
-            this.label19.Location = new System.Drawing.Point(8, 88);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(656, 16);
-            this.label19.TabIndex = 9;
-            this.label19.Text = "2) Aver contabilizzato i dettagli del contratto attivo mediante l\'apposita proced" +
-                                "ura guidata ";
-            // 
-            // label17
-            // 
-            this.label17.Location = new System.Drawing.Point(8, 64);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(656, 16);
-            this.label17.TabIndex = 8;
-            this.label17.Text = "1) Aver creato il contratto attivo (o i contratti) a cui la fattura si riferisce";
-            // 
-            // label16
-            // 
-            this.label16.Location = new System.Drawing.Point(8, 40);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(656, 23);
-            this.label16.TabIndex = 7;
-            this.label16.Text = "E\' necessario, prima di usare questa procedura:";
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(8, 144);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(656, 16);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Sarà effettuata la contabilizzazione della fattura a partire dalle contabilizzazi" +
-                               "oni dei contratti esistenti. (creati nel punto 2)";
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(8, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(656, 16);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Questa procedura serve a contabilizzare in finanziario una fattura di vendita (tu" +
-                               "tta o in parte).";
-            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.groupBox1);
@@ -687,7 +604,7 @@ namespace income_wizardinvoicedetail {
             this.tabPage3.Selected = false;
             this.tabPage3.Size = new System.Drawing.Size(690, 472);
             this.tabPage3.TabIndex = 5;
-            this.tabPage3.Title = "Pagina 3 di 3";
+            this.tabPage3.Title = "Pagina 2 di 2";
             // 
             // groupBox1
             // 
@@ -891,7 +808,7 @@ namespace income_wizardinvoicedetail {
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 19;
             this.btnCancel.Tag = "maincancel";
-            this.btnCancel.Text = "Cancel";
+            this.btnCancel.Text = "Annulla";
             // 
             // btnNext
             // 
@@ -947,7 +864,6 @@ namespace income_wizardinvoicedetail {
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) (this.gridDetails)).EndInit();
-            this.tabPage1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -983,7 +899,7 @@ namespace income_wizardinvoicedetail {
             GetData.SetStaticFilter(DS.billview, billfilter);
 
             if (fasecontratto == faseentratamax) {
-                MessageBox.Show(
+                show(
                     "La fase di contabilizzazione del contratto attivo coincide con l'ultima fase di entrata." +
                     "Non sarà possibile utilizzare questa procedura ",
                     "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -1020,7 +936,7 @@ namespace income_wizardinvoicedetail {
             if (newTab == tabController.TabPages.Count - 1)
                 btnNext.Text = "Esegui.";
             else
-                btnNext.Text = "Next >";
+                btnNext.Text = "Avanti >";
             Text = CustomTitle + " (Pagina " + (newTab + 1) + " di " + tabController.TabPages.Count + ")";
         }
 
@@ -1030,9 +946,9 @@ namespace income_wizardinvoicedetail {
             if ((newTab < 0) || (newTab > tabController.TabPages.Count)) return;
             if (!CustomChangeTab(oldTab, newTab)) return;
             if (newTab == tabController.TabPages.Count) {
-                if (MessageBox.Show(this, "Si desidera eseguire ancora la procedura",
+                if (show(this, "Si desidera eseguire ancora la procedura",
                     "Conferma", MessageBoxButtons.YesNo) == DialogResult.Yes) {
-                    newTab = 1;
+                    newTab = 0;
                     ResetWizard();
                 }
 
@@ -1058,14 +974,10 @@ namespace income_wizardinvoicedetail {
             if (!SalvataggioEnabled) {
                 return false;
             }
-            if (oldTab == 0) {
-                return true; // 0->1: nothing to do
-            }
-            if ((oldTab == 1) && (newTab == 0)) return true; //1->0:nothing to do!
-            if ((oldTab == 1) && (newTab == 2)) {
+            if ((oldTab == 0) && (newTab == 1)) {
                 DataRow[] Selected = GetGridSelectedRows(gridDetails);
                 if ((Selected == null) || (GetGridSelectedRows(gridDetails).Length == 0)) {
-                    MessageBox.Show("Non è stato selezionato alcun dettaglio.");
+                    show("Non è stato selezionato alcun dettaglio.");
                     return false;
                 }
                 txtPerc.Text = "100";
@@ -1075,7 +987,7 @@ namespace income_wizardinvoicedetail {
 
                 return true;
             }
-            if ((oldTab == 2) && (newTab == 1)) {
+            if ((oldTab == 1) && (newTab == 0)) {
                 VisualizzaUPB();
                 AggiornaGridDettagliDocum();
                 rdbSplittaTutti.Checked = false;
@@ -1084,17 +996,17 @@ namespace income_wizardinvoicedetail {
                 return true;
             }
             ;
-            if ((oldTab == 2) && (newTab == 3)) {
+            if ((oldTab == 1) && (newTab == 2)) {
                 if (CondizioneErroreBloccante) return false;
                 return doSave();
 
                 //				if ((radioNewCont.Checked==false)&&(radioNewLinkedMov.Checked==false)
                 //					&&(radioAddCont.Checked==false)) {
-                //					MessageBox.Show("Non sarà possibile contabilizzare i dettagli selezionati.");
+                //					show("Non sarà possibile contabilizzare i dettagli selezionati.");
                 //					return false;
                 //				}
                 //				if (!SelezioneMovimentiEffettuata){
-                //					MessageBox.Show("Non è stato selezionato il movimento.");
+                //					show("Non è stato selezionato il movimento.");
                 //					return false;
                 //				}
                 //
@@ -1633,7 +1545,7 @@ namespace income_wizardinvoicedetail {
                     DataAccess.RUN_SELECT_INTO_TABLE(Conn, IncassiView, null, filteridinc, null, true);
                 }
                 if (IncassiView.Select(filteridinc).Length == 0) {
-                    MessageBox.Show("Del dettaglio contratto attivo " +
+                    show("Del dettaglio contratto attivo " +
                                     ManDet["idestimkind"].ToString() + "/" + ManDet["yestim"].ToString() + "/" +
                                     ManDet["nestim"].ToString() + "/" + ManDet["rownum"].ToString() +
                                     " non è stata effettuata la contabilizzazione, quindi il dettaglio fattura " +
@@ -1769,7 +1681,7 @@ namespace income_wizardinvoicedetail {
                     txtPerc.Text, "x.y.c"));
 
             if (importoDaIncassare > ImportoMax) {
-                MessageBox.Show("L'importo da incassare è superiore al totale dei dettagli selezionati");
+                show("L'importo da incassare è superiore al totale dei dettagli selezionati");
                 return;
             }
             foreach (DataRow InvDet in Selected) {
@@ -1789,7 +1701,7 @@ namespace income_wizardinvoicedetail {
             // Ora i dettagli sono splittati in base alla scelta dell'utente
 
             if (IncassiView == null) {
-                MessageBox.Show("Nessun incasso trovato", "Errore");
+                show("Nessun incasso trovato", "Errore");
                 return;
             }
             // Calcolo delle liquidazioni
@@ -1811,7 +1723,7 @@ namespace income_wizardinvoicedetail {
                 filterDetails = "(rownum in " + listRownum + ")";
             }
             else {
-                MessageBox.Show(this, "Nessun dettaglio selezionato", "Avviso");
+                show(this, "Nessun dettaglio selezionato", "Avviso");
                 return;
             }
             DataRow[] Details = DS.invoicedetail.Select(filterDetails);
@@ -1863,7 +1775,7 @@ namespace income_wizardinvoicedetail {
 
             //txtResidui.Text= ImportoResiduoSelezionato.ToString("c");
             /*if (ImportoResiduoSelezionato<importoDaIncassare){
-				MessageBox.Show("L'importo da pagare è superiore al disponibile sugli impegni associati ai dettagli ordine");
+				show("L'importo da pagare è superiore al disponibile sugli impegni associati ai dettagli ordine");
 				return;
 			}*/
 
@@ -1883,7 +1795,7 @@ namespace income_wizardinvoicedetail {
                 totassegnato += toPay;
             }
             if (totassegnato == 0) {
-                MessageBox.Show("Non è stato possibile generare nessun incasso.");
+                show("Non è stato possibile generare nessun incasso.");
                 return;
             }
 
@@ -2027,7 +1939,7 @@ namespace income_wizardinvoicedetail {
                         }
                         DataRow[] IvaKind = DS.ivakind.Select(QHC.CmpEq("idivakind", Row["idivakind"]));
                         if (IvaKind.Length == 0) {
-                            MessageBox.Show(this, "Non esiste la riga nell'anagrafica dei tipi IVA", "Errore");
+                            show(this, "Non esiste la riga nell'anagrafica dei tipi IVA", "Errore");
                             return;
                         }
                         decimal imponibile = CfgFn.GetNoNullDecimal(Row["taxable"]);
@@ -2099,7 +2011,7 @@ namespace income_wizardinvoicedetail {
                             DataRow R = DS.invoicedetail.Select(filterrow, null)[0];
                             DataRow[] IvaKind1 = DS.ivakind.Select(QHC.CmpEq("idivakind", R["idivakind"]));
                             if (IvaKind1.Length == 0) {
-                                MessageBox.Show(this, "Non esiste la riga nell'anagrafica dei tipi IVA", "Errore");
+                                show(this, "Non esiste la riga nell'anagrafica dei tipi IVA", "Errore");
                                 return;
                             }
                             decimal imponibile = CfgFn.GetNoNullDecimal(R["taxable"]);
@@ -2168,7 +2080,7 @@ namespace income_wizardinvoicedetail {
                     NumberStyles.Number,
                     NumberFormatInfo.CurrentInfo);
                 if ((percent < 0) || (percent > percentmax)) {
-                    MessageBox.Show(errmsg, "Avviso");
+                    show(errmsg, "Avviso");
                     T.Focus();
                     OK = false;
                 }
@@ -2177,7 +2089,7 @@ namespace income_wizardinvoicedetail {
                 }
             }
             catch {
-                MessageBox.Show("E' necessario digitare un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK,
+                show("E' necessario digitare un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK,
                     System.Windows.Forms.MessageBoxIcon.Exclamation);
                 return false;
             }
@@ -2223,6 +2135,61 @@ namespace income_wizardinvoicedetail {
             Form F = ShowAutomatismi.Show(Meta, null, entrata, null, null);
             F.ShowDialog(this);
         }
+
+        void ImpostaModalitaRiscossione(DataRow R, bool mustUpdateValues, DataRow Rexpenselast) {
+            //if (currphase < faseentratamax) {
+            //    grpModRiscossione.Visible = false;
+            //    SubEntity_chkCassa.Enabled = false;
+            //    SubEntity_chkPrelievodaCCP.Enabled = false;
+            //    SubEntity_chkAccreditoTPS.Enabled = false;
+            //    return;
+            //}
+            //else {
+            //    if (R == null) {
+            //        grpModRiscossione.Visible = true;
+            //        SubEntity_chkCassa.Enabled = true;
+            //        SubEntity_chkPrelievodaCCP.Enabled = true;
+            //        SubEntity_chkAccreditoTPS.Enabled = true;
+            //        return;
+            //    }
+            //}
+
+            if ((R != null)/* && (currphase == faseentratamax)*/) {
+                //grpModRiscossione.Visible = true;
+                //SubEntity_chkCassa.Enabled = true;
+                //SubEntity_chkPrelievodaCCP.Enabled = true;
+                //SubEntity_chkAccreditoTPS.Enabled = true;
+
+                object ccp = R["ccp"];
+                object flagbankitaliaproceeds = R["flagbankitaliaproceeds"];
+
+                if ((mustUpdateValues) && (ccp.ToString() == "") &&
+                    ((flagbankitaliaproceeds == DBNull.Value) ||
+                     (flagbankitaliaproceeds.ToString() != "S"))) {
+                    //SubEntity_chkCassa.Checked = true;
+                    Rexpenselast["flag"] = (byte)((CfgFn.GetNoNullByte(Rexpenselast["flag"])) | 2); //Imposta il bit
+                }
+
+                if (ccp.ToString() != "") {
+                    //SubEntity_chkPrelievodaCCP.Enabled = true;
+                    if (mustUpdateValues) {
+                        //SubEntity_chkPrelievodaCCP.Checked = true;
+                        Rexpenselast["flag"] = (byte)((CfgFn.GetNoNullByte(Rexpenselast["flag"])) | 4); //Imposta il bit
+                    }
+                }
+                else {
+                    //SubEntity_chkPrelievodaCCP.Enabled = false;
+                }
+
+                if ((flagbankitaliaproceeds != DBNull.Value) &&
+                    (flagbankitaliaproceeds.ToString() == "S"))
+                    if (mustUpdateValues) {
+                        //SubEntity_chkAccreditoTPS.Checked = true;
+                        Rexpenselast["flag"] = (byte)((CfgFn.GetNoNullByte(Rexpenselast["flag"])) | 8); //Imposta il bit
+                    }
+            }
+        }
+
 
         bool doSave() {
             DS.incomeinvoice.Clear();
@@ -2272,16 +2239,13 @@ namespace income_wizardinvoicedetail {
 
                 object idfinSelected = Liquid["idfin"];
                 object idupb = Liquid["idupb"];
-                object idmanagerSelected = Liquid["idman"];
-
-                if (idmanagerSelected == DBNull.Value) {
-                    string filterupb = QHC.CmpEq("idupb", idupb);
-                    if (DS.upb.Select(filterupb).Length == 0) {
-                        DataAccess.RUN_SELECT_INTO_TABLE(Conn, DS.upb, null, filterupb, null, true);
-                    }
-                    DataRow UPB = DS.upb.Select(filterupb)[0];
-                    idmanagerSelected = UPB["idman"];
+                string filterupb = QHC.CmpEq("idupb", idupb);
+                if (DS.upb.Select(filterupb).Length == 0) {
+                    DataAccess.RUN_SELECT_INTO_TABLE(Conn, DS.upb, null, filterupb, null, true);
                 }
+                DataRow UPB = DS.upb.Select(filterupb)[0];
+                object idmanagerSelected = UPB["idman"];
+                
                 //DataRow ParentR= FindParentRow(Mov, R, idfield_name);
                 DataRow ParentR = null;
                 decimal amount = assegnato;
@@ -2328,6 +2292,7 @@ namespace income_wizardinvoicedetail {
                             flag = flag | 1;
                             NewLastMov["flag"] = flag;
                         }
+                        ImpostaModalitaRiscossione(DS.registry.Rows[0], true, NewLastMov);
                         EP_functions EP = new EP_functions(Meta.Dispatcher);
 
                         object idaccmotive = DBNull.Value;
@@ -2387,16 +2352,22 @@ namespace income_wizardinvoicedetail {
             DataSet DSP = DS.Copy();
             GestioneAutomatismi ga = new GestioneAutomatismi(this, Meta.Conn, Meta.Dispatcher,
                 DSP, faseMax, faseMax, "income", true);
-            string newcomputesorting = Meta.Conn.DO_READ_VALUE("siopekind", QHC.CmpEq("codesorkind_siopeentrate", Meta.GetSys("codesorkind_siopeentrate")), "newcomputesorting").ToString();
+            string newcomputesorting = Meta.Conn.DO_READ_VALUE("siopekind",
+                                        QHS.AppAnd(QHS.CmpEq("codesorkind_siopeentrate", Meta.GetSys("codesorkind_siopeentrate")),QHS.CmpEq("ayear", CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")))
+                                            ),
+                                        "newcomputesorting")?.ToString();
+
             if (newcomputesorting == "S") {
                 ManageClassificazioni = new GestioneClassificazioni(Meta, null, null, null, null, null, null, null, null);
                 ManageClassificazioni.ClassificaTramiteClassDocumento(ga.DSP, DS);
-            }
+				ManageClassificazioni.completaClassificazioniSiope(DS.incomesorted,ga.DSP);
+				//Meta.FreshForm();
+			}
             ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
             //ga.GeneraClassificazioniIndirette(ga.DSP, true);  lo già GeneraClassificazioniAutomatiche
             bool res = ga.GeneraAutomatismiAfterPost(true);
             if (!res) {
-                MessageBox.Show(this,
+                show(this,
                     "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
                 return false;
             }
@@ -2472,7 +2443,7 @@ namespace income_wizardinvoicedetail {
                 foreach (DataRow Row in Selected) {
                     DataRow[] IvaKind = DS.ivakind.Select(QHC.CmpEq("idivakind", Row["idivakind"]));
                     if (IvaKind.Length == 0) {
-                        MessageBox.Show(this,
+                        show(this,
                             "Attenzione nell'anagrafica dei tipi IVA è assente il tipo IVA selezionato nel dettaglio",
                             "Errore");
                         return 0;
@@ -2515,7 +2486,7 @@ namespace income_wizardinvoicedetail {
             else {
                 DataRow[] IvaKindSplit = DS.ivakind.Select(QHC.CmpEq("idivakind", rowToSplit["idivakind"]));
                 if (IvaKindSplit.Length == 0) {
-                    MessageBox.Show(this,
+                    show(this,
                         "Attenzione nell'anagrafica dei tipi IVA è assente il tipo IVA selezionato nel dettaglio",
                         "Errore");
                     return 0;
@@ -2815,4 +2786,3 @@ namespace income_wizardinvoicedetail {
 }
 
 
-

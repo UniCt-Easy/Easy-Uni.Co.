@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -27,7 +26,7 @@ using metadatalibrary;
 using funzioni_configurazione;
 
 namespace no_table_esitomandati {
-    public partial class FrmNotableEsitomandati : Form {
+    public partial class FrmNotableEsitomandati : MetaDataForm {
 
         private string MESSAGGIO = "Tenere premuto il tasto CTRL o MAIUSC e contemporaneamente cliccare con il mouse per selezionare più ";
         private MetaData meta;
@@ -159,7 +158,7 @@ namespace no_table_esitomandati {
                     }
                 }
                 catch (FormatException) {
-                    MessageBox.Show(this, "Errore nella selezione desiderata: " + valore + "\nImmettere i numeri dei movimenti e/o gli intervalli dei movimenti separati da virgole.");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella selezione desiderata: " + valore + "\nImmettere i numeri dei movimenti e/o gli intervalli dei movimenti separati da virgole.");
                     return;
                 }
             }
@@ -250,7 +249,7 @@ namespace no_table_esitomandati {
 
         private void esita() {
             if (txtDataOperaz.Text == "") {
-                MessageBox.Show(this, "Inserire la data di operazione");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire la data di operazione");
                 txtDataOperaz.Focus();
                 return;
             }
@@ -267,7 +266,7 @@ namespace no_table_esitomandati {
                         DateTime a = (DateTime)transactionDate;
                     }
                     catch {
-                        MessageBox.Show(this, "Data operazione non valida");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Data operazione non valida");
                         return;
                     }
                 }
@@ -278,7 +277,7 @@ namespace no_table_esitomandati {
                     DateTime a = (DateTime)valueDate;
                 }
                 catch {
-                    MessageBox.Show(this, "Data valuta non valida");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Data valuta non valida");
                     return;
                 }
             }
@@ -290,7 +289,7 @@ namespace no_table_esitomandati {
                 }
             }
             if (messaggio == "") {
-                MessageBox.Show(this, "Nessun mandato selezionato");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Nessun mandato selezionato");
                 return;
             }
             messaggio = messaggio.Substring(1);
@@ -340,10 +339,10 @@ namespace no_table_esitomandati {
                     + "\nrif. banca: '" + bankReference
                     + "'\ndata operazione: '" + HelpForm.StringValue(transactionDate, "x.y")
                     + "'\ndata valuta: '" + HelpForm.StringValue(valueDate, "x.y") + "'";
-                MessageBox.Show(this, messaggio, "DB AGGIORNATO CORRETTAMENTE");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messaggio, "DB AGGIORNATO CORRETTAMENTE");
             }
             else {
-                MessageBox.Show(this, "Errore durante l'aggiornamento del D.B.!", "ERRORE");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore durante l'aggiornamento del D.B.!", "ERRORE");
             }
             aggiornaDataGrid("MOVIMENTI non esitati");
             decimal importoTot = ricalcolaImportoTotale();
@@ -397,4 +396,4 @@ namespace no_table_esitomandati {
             return importoTot;
         }
     }
-}
+}

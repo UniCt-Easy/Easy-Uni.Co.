@@ -1,0 +1,216 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabconvalida_segmi_0" class="nav-link active show" data-toggle="pill" data-target="#tabconvalida_segmi_0"><i class="fa fa-check-circle mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabconvalida_segmi_2" class="nav-link" data-toggle="pill" data-target="#tabconvalida_segmi_2"><i class="fa fa-check-circle mr-1"></i>Convalidato</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabconvalida_segmi_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmi_cf">Crediti formativi</label>
+					<input id="convalida_segmi_cf" type="text" class="form-control" data-tag="convalida.cf.fixed.2"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmi_cfintegrazione">Crediti formativi di integrazione</label>
+					<input id="convalida_segmi_cfintegrazione" type="text" class="form-control" data-tag="convalida.cfintegrazione.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#convalida_segmi_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="convalida_segmi_data">Data</label>
+					<input id="convalida_segmi_data" type="text" class="form-control" data-tag="convalida.data.g"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmi_idconvalidakind">Tipologia</label>
+					<select id="convalida_segmi_idconvalidakind" class="custom-select d-block w-100"  data-source-name="convalidakind" data-value-member="idconvalidakind" data-display-member="title" data-custom-control="combo" data-tag="convalida.idconvalidakind"   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmi_iddichiar">Dichiarazione da convalidare</label>
+					<div>
+						<input id="convalida_segmi_iddichiar" name="convalida_segmi_iddichiar" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="dichiar.iddichiarkind" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmi_iddidprog">Didattica programmata</label>
+					<div>
+						<input id="convalida_segmi_iddidprog" name="convalida_segmi_iddidprog" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmi_idiscrizione">Iscrizione</label>
+					<div>
+						<input id="convalida_segmi_idiscrizione" name="convalida_segmi_idiscrizione" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="iscrizionedefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmi_idiscrizione_from">Iscrizione da cui convalidare i sostenimenti</label>
+					<div>
+						<input id="convalida_segmi_idiscrizione_from" name="convalida_segmi_idiscrizione_from" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="iscrizionedefaultview_alias1.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmi_idiscrizionebmi">Iscrizione al bando di mobilità internazionale</label>
+					<div>
+						<input id="convalida_segmi_idiscrizionebmi" name="convalida_segmi_idiscrizionebmi" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="iscrizionebmisegview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmi_idistanza">Istanza</label>
+					<div>
+						<input id="convalida_segmi_idistanza" name="convalida_segmi_idistanza" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="istanza.idistanzakind" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmi_idlearningagrstud">learning agreement for studies</label>
+					<div>
+						<input id="convalida_segmi_idlearningagrstud" name="convalida_segmi_idlearningagrstud" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="learningagrstud.idreg" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmi_idlearningagrtrainer">Learning agreement for traineersheep</label>
+					<div>
+						<input id="convalida_segmi_idlearningagrtrainer" name="convalida_segmi_idlearningagrtrainer" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="learningagrtrainer.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmi_idpratica">pratica di convalida</label>
+					<div>
+						<input id="convalida_segmi_idpratica" name="convalida_segmi_idpratica" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="pratica.idreg" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmi_voto">Voto</label>
+					<input id="convalida_segmi_voto" type="text" class="form-control" data-tag="convalida.voto.fixed.2"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmi_votolode">Lode</label>
+					<div class="custom-control custom-radio">
+						<input id="convalida_segmi_votolodeSi" type="radio" name="convalida_segmi_votolode" class="custom-control-input" data-tag="convalida.votolode:S"  ><label for="convalida_segmi_votolodeSi"> Si</label>
+						<input id="convalida_segmi_votolodeNo" type="radio" name="convalida_segmi_votolode" class="custom-control-input" data-tag="convalida.votolode:N"  ><label for="convalida_segmi_votolodeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalida_segmi_votosu">Su</label>
+					<input id="convalida_segmi_votosu" type="text" class="form-control" data-tag="convalida.votosu"  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabconvalida_segmi_2" role="tabpanel">
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="convalidato_segmi_changesother">Changes other</label>
+					<textarea class="textarea form-control" id="convalidato_segmi_changesother" type="text"  rows="4" data-tag="convalidato.changesother" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalidato_segmi_idattivform">Attivit? formativa</label>
+					<div>
+						<input id="convalidato_segmi_idattivform" name="convalidato_segmi_idattivform" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="attivformdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalidato_segmi_idchanges">Changes</label>
+					<div>
+						<input id="convalidato_segmi_idchanges" name="convalidato_segmi_idchanges" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="changes.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalidato_segmi_idchangeskind">Changes kind</label>
+					<select id="convalidato_segmi_idchangeskind" class="custom-select d-block w-100"  data-source-name="changeskinddefaultview" data-value-member="idchangeskind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="convalidato.idchangeskind" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalidato_segmi_iddichiar">Dichiarazione convalidata</label>
+					<div>
+						<input id="convalidato_segmi_iddichiar" name="convalidato_segmi_iddichiar" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="dichiar_alias1.iddichiarkind" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalidato_segmi_iddidprog">Didattica programmata</label>
+					<div>
+						<input id="convalidato_segmi_iddidprog" name="convalidato_segmi_iddidprog" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogdefaultview_alias1.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalidato_segmi_idiscrizione">Iscrizione della convalida</label>
+					<div>
+						<input id="convalidato_segmi_idiscrizione" name="convalidato_segmi_idiscrizione" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="iscrizionedefaultview_alias2.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalidato_segmi_idiscrizione_from">Iscrizione del sostenimento</label>
+					<div>
+						<input id="convalidato_segmi_idiscrizione_from" name="convalidato_segmi_idiscrizione_from" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="iscrizionedefaultview_alias3.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalidato_segmi_idiscrizionebmi">Iscrizione al bando di mobilit? internazionale</label>
+					<div>
+						<input id="convalidato_segmi_idiscrizionebmi" name="convalidato_segmi_idiscrizionebmi" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="iscrizionebmi.idiscrizione" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalidato_segmi_idistanza">Istanza</label>
+					<div>
+						<input id="convalidato_segmi_idistanza" name="convalidato_segmi_idistanza" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="istanza_alias1.idistanzakind" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalidato_segmi_idlearningagrstud">Learning agreements for studies</label>
+					<div>
+						<input id="convalidato_segmi_idlearningagrstud" name="convalidato_segmi_idlearningagrstud" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="learningagrstud_alias1.idreg" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalidato_segmi_idlearningagrtrainer">Learning agreements for traineersheep</label>
+					<div>
+						<input id="convalidato_segmi_idlearningagrtrainer" name="convalidato_segmi_idlearningagrtrainer" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="learningagrtrainer_alias1.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="convalidato_segmi_idpratica">Pratica</label>
+					<div>
+						<input id="convalidato_segmi_idpratica" name="convalidato_segmi_idpratica" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="pratica_alias1.idreg" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

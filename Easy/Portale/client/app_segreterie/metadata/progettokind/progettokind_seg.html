@@ -1,0 +1,88 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabprogettokind_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabprogettokind_seg_0"><i class="fa fa-search-dollar mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogettokind_seg_1" class="nav-link" data-toggle="pill" data-target="#tabprogettokind_seg_1"><i class="fa fa-project-diagram mr-1"></i>Workpackage</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogettokind_seg_2" class="nav-link" data-toggle="pill" data-target="#tabprogettokind_seg_2"><i class="fa fa-hand-holding-usd mr-1"></i>Voci di costo o ricavo</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogettokind_seg_3" class="nav-link" data-toggle="pill" data-target="#tabprogettokind_seg_3"><i class="fa fa-file-alt mr-1"></i>Testi del modello</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabprogettokind_seg_4" class="nav-link" data-toggle="pill" data-target="#tabprogettokind_seg_4"><i class="fa fa-paperclip mr-1"></i>Allegati necessari</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabprogettokind_seg_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettokind_seg_idprogettoactivitykind">Tipologia</label>
+					<select id="progettokind_seg_idprogettoactivitykind" class="custom-select d-block w-100"  data-source-name="progettoactivitykinddefaultview" data-value-member="idprogettoactivitykind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="progettokind.idprogettoactivitykind?progettokindsegview.progettokind_idprogettoactivitykind" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettokind_seg_title">Titolo</label>
+					<input id="progettokind_seg_title" type="text" class="form-control" data-tag="progettokind.title?progettokindsegview.title" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="progettokind_seg_description">Descrizione</label>
+					<textarea class="textarea form-control" id="progettokind_seg_description" type="text"  rows="4" data-tag="progettokind.description?progettokindsegview.progettokind_description" data-subentity></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettokind_seg_oredivisionecostostipendio">Numero ore lavorate in un anno dal personale</label>
+					<input id="progettokind_seg_oredivisionecostostipendio" type="text" class="form-control" data-tag="progettokind.oredivisionecostostipendio?progettokindsegview.progettokind_oredivisionecostostipendio" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettokind_seg_idcorsostudio">Abilita il corso di studio</label>
+					<div class="custom-control custom-radio">
+						<input id="progettokind_seg_idcorsostudioSi" type="radio" name="progettokind_seg_idcorsostudio" class="custom-control-input" data-tag="progettokind.idcorsostudio:S?progettokindsegview.progettokind_idcorsostudio:Si" data-subentity  ><label for="progettokind_seg_idcorsostudioSi"> Si</label>
+						<input id="progettokind_seg_idcorsostudioNo" type="radio" name="progettokind_seg_idcorsostudio" class="custom-control-input" data-tag="progettokind.idcorsostudio:N?progettokindsegview.progettokind_idcorsostudio:No" data-subentity  ><label for="progettokind_seg_idcorsostudioNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogettokind_seg_stipendioannoprec" >Indica se viene utilizzato lo stipendio dell’anno precedente o le mensilità dell’anno corrente per calcolare il costo orario del personale.</div>
+					<label class="col-form-label col-md-12" for="progettokind_seg_stipendioannoprec">Usa stipendi anno precedente</label>
+					<div class="custom-control custom-radio">
+						<input id="progettokind_seg_stipendioannoprecSi" type="radio" name="progettokind_seg_stipendioannoprec" class="custom-control-input" data-tag="progettokind.stipendioannoprec:S?progettokindsegview.progettokind_stipendioannoprec:Si" data-subentity  ><label for="progettokind_seg_stipendioannoprecSi"> Si</label>
+						<input id="progettokind_seg_stipendioannoprecNo" type="radio" name="progettokind_seg_stipendioannoprec" class="custom-control-input" data-tag="progettokind.stipendioannoprec:N?progettokindsegview.progettokind_stipendioannoprec:No" data-subentity  ><label for="progettokind_seg_stipendioannoprecNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelprogettokind_seg_stipendiocomericavo" >Indica se il costo orario calcolato in base agli stipendi o alle tabelle stipendiali va considerato nei ricavi o meno.</div>
+					<label class="col-form-label col-md-12" for="progettokind_seg_stipendiocomericavo">Usa stipendi come ricavi</label>
+					<div class="custom-control custom-radio">
+						<input id="progettokind_seg_stipendiocomericavoSi" type="radio" name="progettokind_seg_stipendiocomericavo" class="custom-control-input" data-tag="progettokind.stipendiocomericavo:S?progettokindsegview.progettokind_stipendiocomericavo:Si" data-subentity  ><label for="progettokind_seg_stipendiocomericavoSi"> Si</label>
+						<input id="progettokind_seg_stipendiocomericavoNo" type="radio" name="progettokind_seg_stipendiocomericavo" class="custom-control-input" data-tag="progettokind.stipendiocomericavo:N?progettokindsegview.progettokind_stipendiocomericavo:No" data-subentity  ><label for="progettokind_seg_stipendiocomericavoNo"> No</label>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabprogettokind_seg_1" role="tabpanel">
+				<div class="gridx" id="grid_workpackagekind_seg" data-tag="workpackagekind.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabprogettokind_seg_2" role="tabpanel">
+				<div class="gridx" id="grid_progettotipocostokind_seg" data-tag="progettotipocostokind.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabprogettokind_seg_3" role="tabpanel">
+				<div class="gridx" id="grid_progettotestokind_seg" data-tag="progettotestokind.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabprogettokind_seg_4" role="tabpanel">
+				<div class="gridx" id="grid_progettoattachkind_seg" data-tag="progettoattachkind.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

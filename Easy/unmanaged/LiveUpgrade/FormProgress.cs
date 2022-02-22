@@ -1,22 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using Microsoft.Deployment.WindowsInstaller;
+
+using Microsoft.Deployment.WindowsInstaller;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -47,7 +46,7 @@ namespace LiveUpgrade {
         /// </summary>
         /// <param name="name">Nome del file da scaricare.</param>
         /// <param name="url">Indirizzo web.</param>
-        /// <returns>Il percorso dove il file Ã¨ stato scaricato.</returns>
+        /// <returns>Il percorso dove il file è stato scaricato.</returns>
         public void Download(string name, string url, string path) {
             progressUpgrade.Style = ProgressBarStyle.Continuous;
             progressUpgrade.Value = progressUpgrade.Minimum;
@@ -84,7 +83,7 @@ namespace LiveUpgrade {
                     }
                     catch (Exception ex) {
                         string caption = "Errore";
-                        string message = @"Si Ã¨ verificato un errore critico e l'aggiornamento Ã¨ stato interrotto. Contattare il supporto tecnico.";
+                        string message = @"Si è verificato un errore critico e l'aggiornamento è stato interrotto. Contattare il supporto tecnico.";
                         MessageBox.Show(this, message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         Log.Critical(ex);
@@ -130,7 +129,7 @@ namespace LiveUpgrade {
             }
             catch (Exception ex) {
                 string caption = "Errore";
-                string message = @"Si Ã¨ verificato un errore critico e l'aggiornamento Ã¨ stato interrotto. Contattare il supporto tecnico.";
+                string message = @"Si è verificato un errore critico e l'aggiornamento è stato interrotto. Contattare il supporto tecnico.";
                 MessageBox.Show(this, message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 Log.Critical(ex);
@@ -164,7 +163,7 @@ namespace LiveUpgrade {
             }
             catch (Exception ex) {
                 string caption = "Errore";
-                string message = @"Si Ã¨ verificato un errore critico e l'aggiornamento Ã¨ stato interrotto. Contattare il supporto tecnico.";
+                string message = @"Si è verificato un errore critico e l'aggiornamento è stato interrotto. Contattare il supporto tecnico.";
                 MessageBox.Show(this, message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 Log.Critical(ex);
@@ -212,7 +211,7 @@ namespace LiveUpgrade {
             }
             catch (Exception ex) {
                 string caption = "Errore";
-                string message = @"Si Ã¨ verificato un errore critico e l'aggiornamento Ã¨ stato interrotto. Contattare il supporto tecnico.";
+                string message = @"Si è verificato un errore critico e l'aggiornamento è stato interrotto. Contattare il supporto tecnico.";
                 MessageBox.Show(this, message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 Log.Critical(ex);
@@ -233,7 +232,7 @@ namespace LiveUpgrade {
             }
             catch (Exception ex) {
                 string caption = "Errore";
-                string message = @"Si Ã¨ verificato un errore critico e l'aggiornamento Ã¨ stato interrotto. Contattare il supporto tecnico.";
+                string message = @"Si è verificato un errore critico e l'aggiornamento è stato interrotto. Contattare il supporto tecnico.";
                 MessageBox.Show(this, message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 Log.Critical(ex);
@@ -244,4 +243,3 @@ namespace LiveUpgrade {
     }
 
 }
-

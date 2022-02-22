@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Windows.Forms;
@@ -40,7 +39,7 @@ namespace EasyInstall
 			DataTable t = sourceConn.SQLRunner(command, 0 , out errMsg);
 			if (errMsg != null) {
 				QueryCreator.ShowError(null,errMsg,command);
-				MessageBox.Show(form, errMsg);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, errMsg);
 			}
 			return t;
 		}
@@ -96,7 +95,7 @@ namespace EasyInstall
 							StreamWriter fsw = new StreamWriter("temp.sql", false, Encoding.Default);
 							fsw.Write(s.ToString());
 							fsw.Close();
-							MessageBox.Show(form, "Errore durante la copia "+title+"\r\nLo script lanciato si trova nel file 'temp.sql'");
+							MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore durante la copia "+title+"\r\nLo script lanciato si trova nel file 'temp.sql'");
 
 							return false;
 						}
@@ -112,7 +111,7 @@ namespace EasyInstall
 						StreamWriter fsw = new StreamWriter("temp.sql", false, Encoding.Default);
 						fsw.Write(s.ToString());
 						fsw.Close();
-						MessageBox.Show(form, "Errore durante la copia "+title+"\r\nLo script lanciato si trova nel file 'temp.sql'");
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore durante la copia "+title+"\r\nLo script lanciato si trova nel file 'temp.sql'");
 
 						return false;
 					}
@@ -134,7 +133,7 @@ namespace EasyInstall
 		public static bool lanciaScript(Form form, DataAccess destConn, DataSet ds, string nomeCopia) {
 			if (ds.Tables.Count==1){
 				if (!CopyTable(form, ds.Tables[0],destConn,nomeCopia)){
-					MessageBox.Show(form, "Errore durante la copia: "+nomeCopia+"\r\n");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore durante la copia: "+nomeCopia+"\r\n");
 					return false;
 				}
 				return true;
@@ -147,7 +146,7 @@ namespace EasyInstall
 				StreamWriter fsw = new StreamWriter("temp.sql", false, Encoding.Default);
 				fsw.Write(sw.ToString());
 				fsw.Close();
-				MessageBox.Show(form, "Errore durante la copia: "+nomeCopia+"\r\nLo script lanciato si trova nel file 'temp.sql'");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore durante la copia: "+nomeCopia+"\r\nLo script lanciato si trova nel file 'temp.sql'");
 				return false;
 			}
 			return true;
@@ -155,7 +154,7 @@ namespace EasyInstall
 
 		public static bool lanciaScript(Form form, DataAccess destConn, DataTable t, string nomeCopia) {
 			if (!CopyTable(form,t,destConn,nomeCopia)){
-				MessageBox.Show(form, "Errore durante la copia: "+nomeCopia+"\r\n");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore durante la copia: "+nomeCopia+"\r\n");
 				return false;
 			}
 			return true;
@@ -167,7 +166,7 @@ namespace EasyInstall
 				StreamWriter fsw = File.CreateText("temp.sql");
 				fsw.Write(sw.ToString());
 				fsw.Close();
-				MessageBox.Show(form, "Errore durante la copia: "+nomeCopia+"\r\nLo script lanciato si trova nel file 'temp.sql'");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore durante la copia: "+nomeCopia+"\r\nLo script lanciato si trova nel file 'temp.sql'");
 			}
 			*/
 		}
@@ -223,7 +222,7 @@ namespace EasyInstall
 
 				return eseguiQuery(sourceConn, query, form);
 			} else {
-				MessageBox.Show(form, "La tabella "+oldTable+" non esiste più");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "La tabella "+oldTable+" non esiste più");
 				return null;
 			}
 		}
@@ -259,7 +258,7 @@ namespace EasyInstall
 
 				return eseguiQuery(sourceConn, query, form);
 			} else {
-				MessageBox.Show(form, "La tabella "+oldTable+" non esiste più");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "La tabella "+oldTable+" non esiste più");
 				return null;
 			}
 		}
@@ -284,7 +283,7 @@ namespace EasyInstall
 			foreach (string tabname in ListaTabs) {
 				//Crea lo script per la tabella T
 				DataTable T = conn.CreateTableByName(tabname, "*", true);
-				DataAccess.AddExtendedProperty(conn,T);
+                conn.AddExtendedProperty(T);
 				try {
 					string[,] cols;
 					sw.Write(GeneraSQL.GetSQLTable(isDbo, conn, T, out cols, true));
@@ -298,7 +297,7 @@ namespace EasyInstall
 
 			sw.Close();
 
-			if (NDONE==NTAB)MessageBox.Show("Script "+filename+" creato correttamente");
+			if (NDONE==NTAB)MetaFactory.factory.getSingleton<IMessageShower>().Show("Script "+filename+" creato correttamente");
 		}
 
 
@@ -341,7 +340,7 @@ namespace EasyInstall
 				//Crea lo script per la tabella T
                 DataTable T = Conn.CreateTableByName(TabRow["objectname"].ToString(), "*", true); //ex newtable
 				if (T.Columns.Count==0) {
-					MessageBox.Show(form, "Non esiste la tabella "+
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Non esiste la tabella "+
 						T.TableName+"\npertanto non sarà generato lo script per tale tabella.", "ERRORE!");
 					continue;
 				} 
@@ -349,11 +348,11 @@ namespace EasyInstall
 				T.Columns.CopyTo(colonne, 0);
 				foreach (DataColumn c in colonne) {
 					if (c.ColumnName.ToUpper().StartsWith("DELETE")) {
-						//MessageBox.Show("trovata colonna "+T.TableName+"."+c.ColumnName);
+						//MetaFactory.factory.getSingleton<IMessageShower>().Show("trovata colonna "+T.TableName+"."+c.ColumnName);
 						T.Columns.Remove(c);
 					}
 				}
-				DataAccess.AddExtendedProperty(Conn,T);
+                Conn.AddExtendedProperty(T);
 				string[,] cols;
 				string script="";
 				try {
@@ -381,7 +380,7 @@ namespace EasyInstall
 			//			StreamWriter write = ff.CreateText();
 			//			write.Write(All.ToString());
 			//			write.Close();
-			if (NDONE==NTAB)MessageBox.Show("Script "+filename+" creato correttamente");
+			if (NDONE==NTAB)MetaFactory.factory.getSingleton<IMessageShower>().Show("Script "+filename+" creato correttamente");
 
 
 		}
@@ -455,14 +454,14 @@ namespace EasyInstall
 					Tok = SPB.NextToken(out skipped);
 					All.Append(skipped);
 					if (Tok.val.ToLower()!="create") {
-						MessageBox.Show("Impossibile compilare la vista "+viewname);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show("Impossibile compilare la vista "+viewname);
 						continue;
 					}
 					All.Append(Tok.val);
 					Tok= SPB.NextToken(out skipped);
 					All.Append(skipped);
 					if (Tok.val.ToLower()!="view") {
-						MessageBox.Show("Impossibile compilare la vista "+viewname);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show("Impossibile compilare la vista "+viewname);
 						continue;
 					}
 					All.Append(Tok.val);
@@ -527,14 +526,14 @@ namespace EasyInstall
 			write.Close();
 
 			if (NDONE==NSP){
-				MessageBox.Show("Script "+filenameNonDbo+" e "+filenameDbo+" creati correttamente");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Script "+filenameNonDbo+" e "+filenameDbo+" creati correttamente");
 			}
 			else {
-				MessageBox.Show(NDONE.ToString()+" di "+NSP.ToString()+" viste elaborate");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(NDONE.ToString()+" di "+NSP.ToString()+" viste elaborate");
 				foreach (DataRow EL in SysObjects.Rows){
 					int id = (int) EL["id"];
 					if (id<0) continue;
-					MessageBox.Show("La vista "+EL["name"].ToString()+" non è stata elaborata.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("La vista "+EL["name"].ToString()+" non è stata elaborata.");
 
 				}
 			}
@@ -625,7 +624,7 @@ namespace EasyInstall
 					StringBuilder All = new StringBuilder();
 					All.Append(skipped);
 					if (Tok.val.ToLower()!="create"){
-						MessageBox.Show("Impossibile compilare la sp "+spname);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show("Impossibile compilare la sp "+spname);
 						continue;
 					}
 					All.Append(Tok.val);
@@ -634,7 +633,7 @@ namespace EasyInstall
 					string tipo = Tok.val;
 					if ((Tok.val.ToLower()!="procedure")&&(Tok.val.ToLower()!="trigger")&&
 							(Tok.val.ToLower()!="function")){
-						MessageBox.Show("Impossibile compilare la sp "+spname);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show("Impossibile compilare la sp "+spname);
 						continue;
 					}
 					bool dbo=false;
@@ -655,7 +654,7 @@ namespace EasyInstall
 						Tok = SPB.NextToken(out skipped);
 						All.Append(skipped);
 						if (Tok.val != "ON") {
-							MessageBox.Show("Impossibile compilare il trigger "+spname);
+							MetaFactory.factory.getSingleton<IMessageShower>().Show("Impossibile compilare il trigger "+spname);
 							continue;
 						}
 						All.Append(Tok.val);
@@ -698,14 +697,14 @@ namespace EasyInstall
 				}
 			}
 			if (NDONE==NSP){
-				MessageBox.Show("Script "+filenamedbo+" e "+filenamenondbo+" creati correttamente");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Script "+filenamedbo+" e "+filenamenondbo+" creati correttamente");
 			}
 			else {
-				MessageBox.Show(NDONE.ToString()+" di "+NSP.ToString()+" s.p. elaborate");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(NDONE.ToString()+" di "+NSP.ToString()+" s.p. elaborate");
 				foreach (DataRow EL in SysObjects.Rows){
 					int id = (int) EL["id"];
 					if (id<0) continue;
-					MessageBox.Show("La sp "+EL["name"].ToString()+" non è stata elaborata.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("La sp "+EL["name"].ToString()+" non è stata elaborata.");
 
 				}
 			}
@@ -757,7 +756,7 @@ namespace EasyInstall
 			string errMsg;
 			DataTable tDepend = Conn.SQLRunner(filtro, 0, out errMsg);
 			if (errMsg != null) {
-				MessageBox.Show(form, errMsg);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, errMsg);
 			}
 			bool isDbo = true;
 			foreach (DataRow rDepend in tDepend.Rows) {
@@ -777,7 +776,7 @@ namespace EasyInstall
 						}
 						break;
 					default:
-						MessageBox.Show(form, xtype+" è un xtype non conosciuto");
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(form, xtype+" è un xtype non conosciuto");
 						break;
 				}
 			}
@@ -826,7 +825,7 @@ namespace EasyInstall
             if (S.Rows.Count == 0) return true;
             DataTable T = destConn.RUN_SELECT(tname, "*", null, null, null, false);
             if (S.Rows.Count > T.Rows.Count) {
-                MessageBox.Show(form, "La tabella " + tname + " del db di origine non è vuota e non è " +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "La tabella " + tname + " del db di origine non è vuota e non è " +
                     "inclusa in quella del db di destinazione.", "Errore fatale");
                 return false;
             }
@@ -842,7 +841,7 @@ namespace EasyInstall
                 }
 
                 if (T.Select(filterkey).Length == 0) {
-                    MessageBox.Show(form,"La riga con chiave "+filterkey+" della tabella "+tname+
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(form,"La riga con chiave "+filterkey+" della tabella "+tname+
                         " del db di origine non è presente nel db di destinazione.", "Errore fatale");
                     return false;
                 }
@@ -854,12 +853,12 @@ namespace EasyInstall
                     if (C.ColumnName == "cu") continue;
                     if (C.ColumnName == idfield) continue; //SALTA l'ID
                     if (!T.Columns.Contains(C.ColumnName)) {
-                        MessageBox.Show(form, "La colonna "+C.ColumnName+" della tabella "+tname+
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "La colonna "+C.ColumnName+" della tabella "+tname+
                             " non è presente nel db di destinazione.", "Errore fatale");
                         return false;
                     }
                     if (SR[C.ColumnName].ToString().ToUpper().Trim() != TR[C.ColumnName].ToString().ToUpper().Trim()) {
-                        MessageBox.Show(form, "La riga con chiave " + filterkey + " della tabella " + tname +
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "La riga con chiave " + filterkey + " della tabella " + tname +
                             " del db di origine è diversa da quella del db di destinazione.", "Errore fatale");
                         return false;
                     }
@@ -905,7 +904,7 @@ namespace EasyInstall
                 int total = sourceConn.RUN_SELECT_COUNT(tname[i], null, true);
                 int dist = CfgFn.GetNoNullInt32(sourceConn.DO_READ_VALUE(tname[i], null, "COUNT(DISTINCT " + fieldname[i] + "))"));
                 if (dist < total) {
-                    MessageBox.Show(form, "Il campo " + fieldname[i] + " della tabella " + tname[i] +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Il campo " + fieldname[i] + " della tabella " + tname[i] +
                         " contiene valori non tutti diversi.", "Errore fatale");
                     return false;
 
@@ -932,7 +931,7 @@ namespace EasyInstall
                     ok = true;
                 }
                 if (!ok) {
-                    MessageBox.Show(form, "La tabella "+tname+" del db di origine contiene dei valori incoerenti "+
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "La tabella "+tname+" del db di origine contiene dei valori incoerenti "+
                         "con quella del db du destinazione", "Errore fatale");
                     return false;
 
@@ -941,4 +940,4 @@ namespace EasyInstall
             return true;
         }
 	}
-}
+}

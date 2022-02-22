@@ -1,0 +1,73 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabiscrizione_seganagstu_0" class="nav-link active show" data-toggle="pill" data-target="#tabiscrizione_seganagstu_0"><i class="fa fa-file-signature mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabiscrizione_seganagstu_1" class="nav-link" data-toggle="pill" data-target="#tabiscrizione_seganagstu_1"><i class="fa fa-list-ul mr-1"></i>Piani di studio</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabiscrizione_seganagstu_2" class="nav-link" data-toggle="pill" data-target="#tabiscrizione_seganagstu_2"><i class="fa fa-circle mr-1"></i>Attività didattiche</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabiscrizione_seganagstu_3" class="nav-link" data-toggle="pill" data-target="#tabiscrizione_seganagstu_3"><i class="fa fa-check-circle mr-1"></i>Attività amministrative</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabiscrizione_seganagstu_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="iscrizione_seganagstu_aa">Anno accademico</label>
+					<select id="iscrizione_seganagstu_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="iscrizione.aa?iscrizioneseganagstuview.aa" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#iscrizione_seganagstu_data").datetimepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="iscrizione_seganagstu_data">Data</label>
+					<input id="iscrizione_seganagstu_data" type="text" class="form-control" data-tag="iscrizione.data.g?iscrizioneseganagstuview.iscrizione_data.g" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="iscrizione_seganagstu_iddidprog">Didattica programmata</label>
+					<div>
+						<input id="iscrizione_seganagstu_iddidprog" name="iscrizione_seganagstu_iddidprog" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="iscrizione_seganagstu_matricola">Matricola</label>
+					<input id="iscrizione_seganagstu_matricola" type="text" class="form-control" data-tag="iscrizione.matricola?iscrizioneseganagstuview.iscrizione_matricola" data-subentity  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabiscrizione_seganagstu_1" role="tabpanel">
+				<div class="gridx" id="grid_pianostudio_seganagstu" data-tag="pianostudio.seganagstu.seganagstu" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabiscrizione_seganagstu_2" role="tabpanel">
+				<div class="gridx" id="grid_sostenimento_seganagstu" data-tag="sostenimento.seganagstu.seganagstu" data-custom-control="gridx" data-mdlbuttonedit data-mdlconditionallookup="livello,A,A ;livello,B,B ;livello,C,C ;livello,D,D ;votolode,S,Si;votolode,N,No;" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabiscrizione_seganagstu_3" role="tabpanel">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabeliscrizione_seganagstu_XXdecadenza" >Decadenza</div>
+				<div class="gridx" id="grid_decadenza_seganagstu" data-tag="decadenza.seganagstu.seganagstu" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabeliscrizione_seganagstu_XXiscrizioneanno" >Anni di iscrizione</div>
+				<div class="gridx" id="grid_iscrizioneanno_seganagstu" data-tag="iscrizioneanno.seganagstu.seganagstu" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				</div>
+			</div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

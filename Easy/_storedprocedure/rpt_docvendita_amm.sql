@@ -1,3 +1,20 @@
+
+/*
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_docvendita_amm]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_docvendita_amm]
 GO
@@ -20,7 +37,8 @@ CREATE           PROCEDURE [rpt_docvendita_amm]
 	@autoinvoice char(1)
 )
 AS BEGIN
---	exec rpt_docvendita_amm 2011, 'I', 17, 9, 9, 'N','S'
+--	exec rpt_docvendita_amm 2019, 'I', 4, 13, 13, 'N','N'
+	
 IF @ayear = 0
 BEGIN
 	SET @ayear='1900'
@@ -147,15 +165,20 @@ SELECT
 	i.detaildescription,
 	i.npackage,
 	i.discount,
-	sum(i.taxable),
-	sum(i.tax), 	
+	case when (ivakind.flag & 512 = 0 ) then sum(i.taxable) 
+		when (ivakind.flag & 512 <> 0 ) then sum(i.taxable) + isnull(sum(i.tax),0) 
+	end	,
+	case when (ivakind.flag & 512 = 0 ) then sum(i.tax) 
+		when (ivakind.flag & 512 <> 0 ) then 0
+	end,
 	i.annotations,
 	i.idupb
 FROM    invoicedetail i	
+join ivakind on ivakind.idivakind = i.idivakind
 left outer join estimatedetail e		on e.idestimkind = i.idestimkind	and e.yestim = i.yestim	and e.nestim = i.nestim	and e.rownum = i.estimrownum		
 WHERE   i.yinv = @ayear				AND i.idinvkind= @idinvkind	AND i.ninv in (SELECT num FROM #printingdoc  WHERE idinvkind_real is null)
 	and (isnull(i.flagbit,0) & 4) = 0
-GROUP BY i.idinvkind,i.yinv,i.ninv,i.idivakind,
+GROUP BY i.idinvkind,i.yinv,i.ninv,i.idivakind,ivakind.flag,
 	e.idestimkind,e.yestim,e.nestim,e.idgroup,
 	isnull(e.idgroup,i.idgroup),
 	i.detaildescription,
@@ -170,12 +193,17 @@ SELECT
 	i.detaildescription,
 	i.npackage,
 	i.discount,
-	sum(i.taxable),
-	sum(i.tax), 	
+	case when (ivakind.flag & 512 = 0 ) then sum(i.taxable) 
+		when (ivakind.flag & 512 <> 0 ) then sum(i.taxable) + isnull(sum(i.tax),0) 
+	end	,
+	case when (ivakind.flag & 512 = 0 ) then sum(i.tax) 
+		when (ivakind.flag & 512 <> 0 ) then 0
+	end,
 	i.annotations,
 	i.idupb
 FROM invoice r
 JOIN invoicedetail i 	ON r.idinvkind_real = i.idinvkind 	AND r.yinv_real = i.yinv	AND r.ninv_real = i.ninv
+join ivakind on ivakind.idivakind = i.idivakind
 left outer join estimatedetail e	on e.idestimkind = i.idestimkind	and e.yestim = i.yestim	and e.nestim = i.nestim	and e.rownum = i.estimrownum
 WHERE   r.yinv = @ayear 
 	AND r.idinvkind= @idinvkind
@@ -184,7 +212,7 @@ WHERE   r.yinv = @ayear
 GROUP BY r.idinvkind_real, r.yinv_real,	r.ninv_real,i.idivakind,
 	e.idestimkind,e.yestim,e.nestim,e.idgroup,
 	isnull(e.idgroup,i.idgroup),
-	i.detaildescription,
+	i.detaildescription,ivakind.flag,
 	i.npackage,i.discount,i.annotations,i.idupb
 
 
@@ -575,7 +603,9 @@ SELECT
 	#sellingdoc.npackage AS number,
 	#sellingdoc.discount,
 	#sellingdoc.taxable,
-	IK.rate AS ivarate,
+	case when (IK.flag & 512 = 0 ) then IK.rate
+		when (IK.flag & 512 <> 0 ) then 0
+	end	as ivarate, 
 	#sellingdoc.tax,
 	#sellingdoc.taxabletotal,
 	#sellingdoc.total,

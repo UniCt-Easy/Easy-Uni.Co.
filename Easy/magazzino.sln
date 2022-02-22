@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mainform", "mainform\mainform.csproj", "{E04C2CEF-078B-4B25-904C-6374C88E0EE7}"
 EndProject
@@ -41,12 +41,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_store", "store\meta_store\meta_store.csproj", "{EC939A1F-2BDF-41AA-8FF4-3598231535AE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "store_default", "store\store_default\store_default.csproj", "{6AF716C4-388F-464E-A176-A4009F6D9A1E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD} = {C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ddt_in_default", "ddt_in\ddt_in_default\ddt_in_default.csproj", "{A55F03B1-C28E-4811-827B-B1AF6100CCF6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "invoice_default", "invoice\invoice_default\invoice_default.csproj", "{CBC9DF8C-A08C-4E91-AF3F-1E19599B20E8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "invoicedetail_default", "invoicedetail\invoicedetail_default\invoicedetail_default.csproj", "{FC02ADC7-932A-43D3-BA81-3C406DD74532}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "storeload_motive_lista", "storeload_motive\storeload_motive_lista\storeload_motive_lista.csproj", "{D3D8AABC-404F-4F53-B1E7-AE27768C4E35}"
 EndProject
@@ -67,8 +68,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_storeunloadview", "storeunload\meta_storeunloadview\meta_storeunloadview.csproj", "{B0F2441E-CF50-497C-A7EF-E1935CD783D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "storeunload_default", "storeunload\storeunload_default\storeunload_default.csproj", "{74BC6465-74BE-4FE1-A4E3-C7298D497FB5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "invoicedetail_single", "invoicedetail\invoicedetail_single\invoicedetail_single.csproj", "{93021D29-9E9A-4EE9-A365-1449785DF2A6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_ddt_inview", "ddt_in\meta_ddt_inview\meta_ddt_inview.csproj", "{1CE66255-7AF0-498B-8EAA-31252E9193E5}"
 EndProject
@@ -177,6 +176,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		invoice\meta_invoice\meta_invoice.cs = invoice\meta_invoice\meta_invoice.cs
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_tassonomia_pagopa", "tassonomia_pagopa\meta_tassonomia_pagopa\meta_tassonomia_pagopa.csproj", "{CA87F1F3-D760-421B-B1C9-29C25F4236A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -271,10 +272,6 @@ Global
 		{CBC9DF8C-A08C-4E91-AF3F-1E19599B20E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBC9DF8C-A08C-4E91-AF3F-1E19599B20E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBC9DF8C-A08C-4E91-AF3F-1E19599B20E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FC02ADC7-932A-43D3-BA81-3C406DD74532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC02ADC7-932A-43D3-BA81-3C406DD74532}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC02ADC7-932A-43D3-BA81-3C406DD74532}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC02ADC7-932A-43D3-BA81-3C406DD74532}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D3D8AABC-404F-4F53-B1E7-AE27768C4E35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D3D8AABC-404F-4F53-B1E7-AE27768C4E35}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3D8AABC-404F-4F53-B1E7-AE27768C4E35}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -315,10 +312,6 @@ Global
 		{74BC6465-74BE-4FE1-A4E3-C7298D497FB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74BC6465-74BE-4FE1-A4E3-C7298D497FB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74BC6465-74BE-4FE1-A4E3-C7298D497FB5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{93021D29-9E9A-4EE9-A365-1449785DF2A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93021D29-9E9A-4EE9-A365-1449785DF2A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93021D29-9E9A-4EE9-A365-1449785DF2A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93021D29-9E9A-4EE9-A365-1449785DF2A6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1CE66255-7AF0-498B-8EAA-31252E9193E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1CE66255-7AF0-498B-8EAA-31252E9193E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CE66255-7AF0-498B-8EAA-31252E9193E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -523,8 +516,15 @@ Global
 		{7AC2A9C3-7716-4565-82C7-CB1604E82902}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AC2A9C3-7716-4565-82C7-CB1604E82902}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AC2A9C3-7716-4565-82C7-CB1604E82902}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA87F1F3-D760-421B-B1C9-29C25F4236A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA87F1F3-D760-421B-B1C9-29C25F4236A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA87F1F3-D760-421B-B1C9-29C25F4236A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA87F1F3-D760-421B-B1C9-29C25F4236A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {57124B38-121F-4C90-9359-880E383CE9C5}
 	EndGlobalSection
 EndGlobal

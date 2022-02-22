@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -109,6 +108,15 @@ namespace meta_payedtaxview//meta_ritenuteapplicateview//
                     DescribeAColumn(T, "location", "Località", nPos++);
                     DescribeAColumn(T, "ytaxpay", "Eserc. liquidazione", nPos++);
                     DescribeAColumn(T, "ntaxpay", "Num. liquidazione", nPos++);
+					DescribeAColumn(T, "start", "Data inizio liq.", nPos++);
+					DescribeAColumn(T, "stop", "Data fine liq.", nPos++);
+					DescribeAColumn(T, "abatements", "Detrazioni", nPos++);
+					DescribeAColumn(T, "nbracket", "n. scaglione", nPos++);
+					DescribeAColumn(T, "taxablegross", "Imponibile lordo", nPos++);
+					DescribeAColumn(T, "taxablenet", "Imponibile netto", nPos++);
+					DescribeAColumn(T, "codeser", ".Codice prestazione", nPos++);
+
+
 					break;
 				case "trasmissione":
 					foreach (DataColumn C in T.Columns) 
@@ -137,4 +145,3 @@ namespace meta_payedtaxview//meta_ritenuteapplicateview//
 		}
 	}
 }
-

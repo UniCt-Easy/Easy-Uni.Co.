@@ -1,0 +1,97 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabcontratto_amm_0" class="nav-link active show" data-toggle="pill" data-target="#tabcontratto_amm_0"><i class="fa fa-file-signature mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabcontratto_amm_1" class="nav-link" data-toggle="pill" data-target="#tabcontratto_amm_1"><i class="fa fa-file-invoice-dollar mr-1"></i>Cedolino</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabcontratto_amm_2" class="nav-link" data-toggle="pill" data-target="#tabcontratto_amm_2"><i class="fa fa-file-invoice-dollar mr-1"></i>Stipendio annuo</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabcontratto_amm_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contratto_amm_idcontrattokind">Tipologia di contratto</label>
+					<select id="contratto_amm_idcontrattokind" class="custom-select d-block w-100"  data-source-name="contrattokinddefaultview" data-value-member="idcontrattokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="contratto.idcontrattokind?contrattoammview.idcontrattokind" data-subentity  data-mandatory  > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contratto_amm_idinquadramento">Inquadramento</label>
+					<select id="contratto_amm_idinquadramento" class="custom-select d-block w-100"  data-source-name="inquadramentodefaultview" data-value-member="idinquadramento" data-display-member="dropdown_title" data-custom-control="combo" data-tag="contratto.idinquadramento?contrattoammview.contratto_idinquadramento" data-subentity   data-master="contrattokinddefaultview"> </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contratto_amm_scatto">Scatto</label>
+					<input id="contratto_amm_scatto" type="text" class="form-control" data-tag="contratto.scatto?contrattoammview.contratto_scatto" data-subentity  />
+				</div>
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#contratto_amm_start").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="contratto_amm_start">Inizio</label>
+					<input id="contratto_amm_start" type="text" class="form-control" data-tag="contratto.start?contrattoammview.contratto_start" data-subentity  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#contratto_amm_stop").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="contratto_amm_stop">Fine</label>
+					<input id="contratto_amm_stop" type="text" class="form-control" data-tag="contratto.stop?contrattoammview.contratto_stop" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contratto_amm_parttime">Part-time %</label>
+					<input id="contratto_amm_parttime" type="text" class="form-control" data-tag="contratto.parttime.fixed.2?contrattoammview.contratto_parttime" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contratto_amm_tempindet">Tempo indeterminato</label>
+					<div class="custom-control custom-radio">
+						<input id="contratto_amm_tempindetSi" type="radio" name="contratto_amm_tempindet" class="custom-control-input" data-tag="contratto.tempindet:S?contrattoammview.contratto_tempindet:Si" data-subentity  data-mandatory ><label for="contratto_amm_tempindetSi"> Si</label>
+						<input id="contratto_amm_tempindetNo" type="radio" name="contratto_amm_tempindet" class="custom-control-input" data-tag="contratto.tempindet:N?contrattoammview.contratto_tempindet:No" data-subentity  data-mandatory ><label for="contratto_amm_tempindetNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contratto_amm_estremibando">Estremi del bando di contratto</label>
+					<input id="contratto_amm_estremibando" type="text" class="form-control" data-tag="contratto.estremibando?contrattoammview.contratto_estremibando" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+<script>
+  $( function () {
+    $("#contratto_amm_datarivalutazione").datepicker();
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="contratto_amm_datarivalutazione">Data di prossima rivalutazione</label>
+					<input id="contratto_amm_datarivalutazione" type="text" class="form-control" data-tag="contratto.datarivalutazione?contrattoammview.contratto_datarivalutazione" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="contratto_amm_percentualesufondiateneo">Percentuale su fondi interni</label>
+					<input id="contratto_amm_percentualesufondiateneo" type="text" class="form-control" data-tag="contratto.percentualesufondiateneo.fixed.2?contrattoammview.contratto_percentualesufondiateneo" data-subentity  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabcontratto_amm_1" role="tabpanel">
+				<div class="gridx" id="grid_cedolino_default" data-tag="cedolino.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+	<div class="tab-pane fade" id="tabcontratto_amm_2" role="tabpanel">
+				<div class="gridx" id="grid_stipendioannuo_default" data-tag="stipendioannuo.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

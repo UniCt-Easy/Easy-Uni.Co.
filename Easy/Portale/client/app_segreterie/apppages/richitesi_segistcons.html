@@ -1,0 +1,101 @@
+﻿<!--header-->
+<div id="externalTab" class="container" data-custom-container="bootstrapTab">
+	<ul class="nav nav-tabs">
+			<li class="nav-item">
+		<a href="#tabrichitesi_segistcons_0" class="nav-link active show" data-toggle="pill" data-target="#tabrichitesi_segistcons_0"><i class="fa fa-book-open mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabrichitesi_segistcons_2" class="nav-link" data-toggle="pill" data-target="#tabrichitesi_segistcons_2"><i class="fa fa-key mr-1"></i>Keywords</a>
+	</li>
+
+	</ul>
+	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabrichitesi_segistcons_0" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tesi_segistcons_aa">Anno accademico</label>
+					<select id="tesi_segistcons_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="tesi.aa" data-subentity   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="richitesi_segistcons_accettata">Accettata</label>
+					<div class="custom-control custom-radio">
+						<input id="richitesi_segistcons_accettataSi" type="radio" name="richitesi_segistcons_accettata" class="custom-control-input" data-tag="richitesi.accettata:S"  ><label for="richitesi_segistcons_accettataSi"> Si</label>
+						<input id="richitesi_segistcons_accettataNo" type="radio" name="richitesi_segistcons_accettata" class="custom-control-input" data-tag="richitesi.accettata:N"  ><label for="richitesi_segistcons_accettataNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="richitesi_segistcons_idreg">Studente</label>
+					<div>
+						<input id="richitesi_segistcons_idreg" name="richitesi_segistcons_idreg" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="registrydefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="tesi_segistcons_title">Titolo</label>
+					<textarea class="textarea form-control" id="tesi_segistcons_title" type="text"  rows="4" data-tag="tesi.title" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="tesi_segistcons_abstract">Abstract</label>
+					<textarea class="textarea form-control" id="tesi_segistcons_abstract" type="text"  rows="4" data-tag="tesi.abstract" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="tesi_segistcons_abstract_en">Abstract in inglese</label>
+					<textarea class="textarea form-control" id="tesi_segistcons_abstract_en" type="text"  rows="4" data-tag="tesi.abstract_en" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tesi_segistcons_filestatus">Stato del file allegato</label>
+					<div class="custom-control custom-radio">
+						<input id="tesi_segistcons_filestatusS" type="radio" name="tesi_segistcons_filestatus" class="custom-control-input" data-tag="tesi.filestatus:S:Si" data-subentity  ><label for="tesi_segistcons_filestatusS"> Si</label>
+						<input id="tesi_segistcons_filestatusN" type="radio" name="tesi_segistcons_filestatus" class="custom-control-input" data-tag="tesi.filestatus:N:No" data-subentity  ><label for="tesi_segistcons_filestatusN"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tesi_segistcons_idattach">file allegato</label>
+					<div id="tesi_segistcons_idattach" data-tag="tesi.idattach" data-subentity  data-custom-control="upload" ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tesi_segistcons_idinsegn">Insegnamento di riferimento</label>
+					<div>
+						<input id="tesi_segistcons_idinsegn" name="tesi_segistcons_idinsegn" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="insegndefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="tesi_segistcons_idtesikind">Tipologia</label>
+					<select id="tesi_segistcons_idtesikind" class="custom-select d-block w-100"  data-source-name="tesikinddefaultview" data-value-member="idtesikind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="tesi.idtesikind" data-subentity   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="richitesi_segistcons_idreg_docenti">Relatore Principale</label>
+					<div>
+						<input id="richitesi_segistcons_idreg_docenti" name="richitesi_segistcons_idreg_docenti" type="text" data-listtype="docenti"  class="form-control" data-minchar="2" data-tag="registrydocentiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="tesi_segistcons_title_en">Titolo in inglese</label>
+					<textarea class="textarea form-control" id="tesi_segistcons_title_en" type="text"  rows="4" data-tag="tesi.title_en" data-subentity  />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabrichitesi_segistcons_2" role="tabpanel">
+				<div class="gridx" id="grid_tesikeyword_segistcons" data-tag="tesikeyword.segistcons.segistcons" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="lang,S,Si;lang,N,No;" ></div>
+	</div>
+</div>
+</form>
+
+</div>
+<!--footer-->

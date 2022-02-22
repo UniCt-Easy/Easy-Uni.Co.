@@ -1,20 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -295,6 +294,9 @@ public class locationRow: MetaRow  {
 	public Int32? idsor05Original { 
 		get {if (this["idsor05",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsor05",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Latitudine
+	///</summary>
 	public Double? latitude{ 
 		get {if (this["latitude"]==DBNull.Value)return null; return  (Double?)this["latitude"];}
 		set {if (value==null) this["latitude"]= DBNull.Value; else this["latitude"]= value;}
@@ -306,6 +308,9 @@ public class locationRow: MetaRow  {
 	public Double? latitudeOriginal { 
 		get {if (this["latitude",DataRowVersion.Original]==DBNull.Value)return null; return  (Double?)this["latitude",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Longitudine
+	///</summary>
 	public Double? longitude{ 
 		get {if (this["longitude"]==DBNull.Value)return null; return  (Double?)this["longitude"];}
 		set {if (value==null) this["longitude"]= DBNull.Value; else this["longitude"]= value;}
@@ -317,6 +322,9 @@ public class locationRow: MetaRow  {
 	public Double? longitudeOriginal { 
 		get {if (this["longitude",DataRowVersion.Original]==DBNull.Value)return null; return  (Double?)this["longitude",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Indirizzo
+	///</summary>
 	public String address{ 
 		get {if (this["address"]==DBNull.Value)return null; return  (String)this["address"];}
 		set {if (value==null) this["address"]= DBNull.Value; else this["address"]= value;}
@@ -328,6 +336,9 @@ public class locationRow: MetaRow  {
 	public String addressOriginal { 
 		get {if (this["address",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["address",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Note
+	///</summary>
 	public String annotations{ 
 		get {if (this["annotations"]==DBNull.Value)return null; return  (String)this["annotations"];}
 		set {if (value==null) this["annotations"]= DBNull.Value; else this["annotations"]= value;}
@@ -339,6 +350,9 @@ public class locationRow: MetaRow  {
 	public String annotationsOriginal { 
 		get {if (this["annotations",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["annotations",DataRowVersion.Original];}
 	}
+	///<summary>
+	///CAP
+	///</summary>
 	public String cap{ 
 		get {if (this["cap"]==DBNull.Value)return null; return  (String)this["cap"];}
 		set {if (value==null) this["cap"]= DBNull.Value; else this["cap"]= value;}
@@ -350,6 +364,9 @@ public class locationRow: MetaRow  {
 	public String capOriginal { 
 		get {if (this["cap",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cap",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Comune
+	///</summary>
 	public Int32? idcity{ 
 		get {if (this["idcity"]==DBNull.Value)return null; return  (Int32?)this["idcity"];}
 		set {if (value==null) this["idcity"]= DBNull.Value; else this["idcity"]= value;}
@@ -361,6 +378,9 @@ public class locationRow: MetaRow  {
 	public Int32? idcityOriginal { 
 		get {if (this["idcity",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idcity",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Nazione
+	///</summary>
 	public Int32? idnation{ 
 		get {if (this["idnation"]==DBNull.Value)return null; return  (Int32?)this["idnation"];}
 		set {if (value==null) this["idnation"]= DBNull.Value; else this["idnation"]= value;}
@@ -372,6 +392,9 @@ public class locationRow: MetaRow  {
 	public Int32? idnationOriginal { 
 		get {if (this["idnation",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idnation",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Localit√†
+	///</summary>
 	public String location{ 
 		get {if (this["location"]==DBNull.Value)return null; return  (String)this["location"];}
 		set {if (value==null) this["location"]= DBNull.Value; else this["location"]= value;}
@@ -382,6 +405,20 @@ public class locationRow: MetaRow  {
 	}
 	public String locationOriginal { 
 		get {if (this["location",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["location",DataRowVersion.Original];}
+	}
+	///<summary>
+	///Tabella che estende il record
+	///</summary>
+	public String extension{ 
+		get {if (this["extension"]==DBNull.Value)return null; return  (String)this["extension"];}
+		set {if (value==null) this["extension"]= DBNull.Value; else this["extension"]= value;}
+	}
+	public object extensionValue { 
+		get{ return this["extension"];}
+		set {if (value==null|| value==DBNull.Value) this["extension"]= DBNull.Value; else this["extension"]= value;}
+	}
+	public String extensionOriginal { 
+		get {if (this["extension",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["extension",DataRowVersion.Original];}
 	}
 	#endregion
 
@@ -419,8 +456,8 @@ public class locationTable : MetaTableBase<locationRow> {
 			{"idcity",createColumn("idcity",typeof(int),true,false)},
 			{"idnation",createColumn("idnation",typeof(int),true,false)},
 			{"location",createColumn("location",typeof(string),true,false)},
+			{"extension",createColumn("extension",typeof(string),true,false)},
 		};
 	}
 }
 }
-
