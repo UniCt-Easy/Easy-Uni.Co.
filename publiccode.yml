@@ -5,7 +5,7 @@
 publiccodeYmlVersion: '0.2'
 name: UNI.co. Easy
 url: 'https://github.com/UniCt-Easy/Easy-Uni.Co.'
-releaseDate: '2019-09-12'
+releaseDate: '2022-02-22'
 developmentStatus: stable
 softwareType: standalone/other
 platforms:
@@ -20,7 +20,7 @@ categories:
   - financial-reporting
   - project-management
   - time-management
-softwareVersion: 32.03.200
+softwareVersion: 32.03.901
 usedBy:
   - Università degli Studi di Catania
   - Università degli Studi del Piemonte Orientale
@@ -41,7 +41,7 @@ maintenance:
       phone: '+390802460212'
   contractors:
     - name: Tempo srl
-      until: '2021-10-01'
+      until: '2023-11-24'
       website: https://www.temposrl.com
 legal:
   license: GPL-3.0-or-later
