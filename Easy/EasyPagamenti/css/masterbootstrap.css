@@ -1,0 +1,259 @@
+﻿fieldset .stdfieldset {
+    padding-top:10px;
+    border:1px solid #666;
+    border-radius:8px;
+    box-shadow:0 0 10px #666;
+}
+
+fieldset .stdfieldset legend {
+   float:left;
+    margin-top:-20px;
+}
+
+ fieldset .stdfieldset legend + * {
+        clear: both;
+    }
+
+
+
+input::-ms-clear {
+  display: none;
+}
+
+
+
+/* by Luigi Senzamici*/
+/*override di bootstrap*/
+
+
+.row{
+    margin-right:0;
+    margin-left:0;
+}
+.btn{
+    padding: 3px 6px
+}
+.container{
+    padding: 0;
+}
+
+.visibleBox{
+    display:block;
+    position:fixed;
+    top:50px;
+    left: calc(100%/2 - 300px/2);
+    max-width:350px;
+    max-height: 200px;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    border:1px solid gray;
+    border-radius: 10px;
+    padding: 20px;
+    background-color:white;
+
+}
+.visibleBox input{
+    width: 32px;
+    margin-right: 0 12px;
+    text-align:center;
+}
+.visibleBox label{
+    font-weight: 700;
+    font-size: 16px;
+}
+.visibleBox span[id$="messaggio"]{
+    font-size:19px;
+    font-weight:700;
+}
+.hiddenBox{
+    display:none;
+}
+.visibleBox + .modal{
+    display:block;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index: 999;
+    background-color:rgba(0,0,0,0.5);
+
+}
+.hidePanel + .modal{
+    display:none;
+}
+
+.ticket_default{
+    margin-top: 10px;
+    box-shadow: black 1px 1px 5px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right:auto;
+} 
+.btn-info{
+    box-shadow: gray 1px 1px 3px;
+}
+.btn-info:hover{
+    box-shadow: white 1px 1px 3px;
+}
+input, select{
+    box-shadow:gray 1px 1px 3px;
+    height: 25px;
+    border-radius: 3px;
+    border-width: 0 1px 0 0;
+}
+input[type="radio"]{
+    box-shadow:unset;
+}
+
+input[readonly]{
+    background-color:lightgray;
+    box-shadow:none
+}
+.ticket_default .segnalazione_problema,
+.ticket_default .soluzione_problema,
+.ticket_default .note_interne,
+.clienti, .checklist, 
+.attivitaEffettuate, 
+.rilascio, .documentazione
+{
+    margin: 4px 0px;
+    border-radius: 3px;
+    border: 0.5px solid gray;
+    background-color: rgba(245, 254, 254, 1);
+}
+
+.height-180{
+    height: 180px;
+}
+input[type="text"], button{
+    margin: 2px 0;
+}
+.padding-10 {
+    padding: 10px;
+}
+.height-200{
+    height: 200px;
+}
+.active{
+    background-color: azure;
+}
+.active > a{
+    background-color:azure!important;
+}
+.ticket_default .clienti{
+    border: 1px solid gray;
+    background-color:floralwhite;
+    border-radius: 3px;
+    box-shadow: gray 0 0 5px;
+}
+.ticket_default .clienti > div:first-child{
+    font-size: 16px;
+    margin-top:-5px
+}
+
+.rowButton{
+    padding-bottom: 10px;
+}
+
+.pannelli{
+    margin-top: 10px;
+}
+
+.cboList, .labelElenco{
+    margin:5px;
+    padding-left: 5px;
+}
+.labelElenco{
+    font-weight:700;
+}
+.cboList{
+    border: 2px solid #5bc0de;
+ }
+
+.errormessage 
+{
+	color: #CC0000;
+	font-weight: bold; 
+	font-family: Arial;
+}
+
+button.showcasebutton
+{
+    display:block;
+    margin: 5px;
+	background-color: White;
+	color: #002B7E;
+	font-size: 16px;
+	font-family: Arial;
+	font-weight: bold;
+	font-style: normal;
+	font-variant: normal;
+	text-transform: none;
+	text-decoration: none;
+	text-align: center;
+	text-indent: 0px;
+	white-space:normal;
+	word-spacing: 0px;
+	line-height: 15px;
+	vertical-align: baseline;
+	letter-spacing: normal;
+	word-spacing: 0px;
+	border: 0px;
+}
+
+button.showcasebutton:hover
+{
+	background-color: White;
+	color: red;
+}
+
+input.itembutton{
+    margin-left:3px;
+}
+.tabArticolo{
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 15px;
+    margin:5px;
+    box-shadow: gray 1px 1px 10px;
+}
+
+
+@media (max-width: 400px){
+    div[id$="MainMenu_ToolBar_Div"]{
+        margin-left: 0!important;
+    }
+    div[id$="MainMenu_PanToolBar"] button {
+        width:40px;
+        font-size:0;
+    }
+    div[id$="MainMenu_PanToolBar"] button span {
+        font-size:16px;
+    }
+    #mainTabControl{
+        border: 1px solid gray;
+        border-radius: 6px;
+        box-shadow: gray 1px 1px 3px;
+    }
+    .nav-tabs.nav-justified>li{
+        width: 150px;
+        float:left;
+    }
+    label{
+        display:block;
+    }
+    input, span[onclick]{
+        display:block;
+        margin-bottom:4px
+    }
+    div[class^="col-xs"]{
+            margin-top: 5px;
+            margin-bottom:5px;
+    }
+
+}
+
+
+
